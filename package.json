@@ -1,0 +1,27 @@
+{
+  "name": "rx-util",
+  "version": "1.0.0",
+  "description": "rxliuli 个人使用的 js 工具库",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/rxliuli/rx-util.git"
+  },
+  "keywords": [
+    "rxliuli",
+    "util",
+    "js"
+  ],
+  "author": "rxliuli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rxliuli/rx-util/issues"
+  },
+  "homepage": "https://github.com/rxliuli/rx-util#readme",
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}

@@ -1,4 +1,3 @@
-const of = require('./of')
 const rxdate = require('../date')
 
 test('测试解析时间', () => {
@@ -7,7 +6,7 @@ test('测试解析时间', () => {
   const res = rxdate.format(date, fmt)
   console.log(res)
 
-  var dateRes = of(res, fmt)
+  var dateRes = rxdate.of(res, fmt)
 
-  expect(dateRes.toISOString()).toBe(date.toISOString())
+  expect(rxdate.equals(dateRes, date)).toBe(true)
 })

@@ -1,4 +1,6 @@
 module.exports = {
   format: require('./format'),
-  of: './of'
+  of: require('./of'),
+  equals: require('./equals'),
+  between: require('./between')
 }

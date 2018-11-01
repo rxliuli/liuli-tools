@@ -1,7 +1,5 @@
-var rxarr = (function(rxarr) {
-  rxarr.toObject = require('./toObject')
-
-  return rxarr
-})({})
-
-module.exports = rxarr
+module.exports = {
+  toObject: require('./toObject'),
+  extreme: require('./extreme.js'),
+  unique: require('./unique')
+}

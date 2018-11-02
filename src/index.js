@@ -1,7 +1,3 @@
-var rx = (function(rx) {
-  rx.rxstr = require('./str')
+import rx from './module'
 
-  return rx
-})({})
-
-module.exports = rx
+export default rx

@@ -4,7 +4,7 @@
   "description": "rxliuli 个人使用的 js 工具库",
   "main": "./src/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "",
     "webpack-dev": "webpack -w",
     "webpack-build": "webpack -p"
   },
@@ -13,6 +13,7 @@
     "url": "git+ssh://git@github.com/rxliuli/rx-util.git"
   },
   "keywords": [
+    "rx-util",
     "rxliuli",
     "util",
     "js"

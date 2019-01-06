@@ -1,4 +1,22 @@
 /**
+ * Url 对象
+ */
+var RxUrl = {
+  createNew(rxUrl) {
+    var res = {
+      href: '', // 原链接
+      website: '', // URL 站点
+      protocal: '', // 协议
+      domain: '', // 域名
+      accessPath: '', // 绝对路径
+      params: {} // 参数列表
+    }
+    Object.assign(res, rxUrl)
+    return res
+  }
+}
+
+/**
  * 解析 url 字符串
  * @param {String} url url 字符串
  * @returns {RxUrl} json 对象

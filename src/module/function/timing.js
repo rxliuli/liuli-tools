@@ -1,0 +1,16 @@
+/**
+ * 测试函数的执行时间
+ * 注：如果函数返回 Promise，则该函数也会返回 Promise，否则直接返回执行时间
+ * @param {Function} 需要测试的函数
+ * @returns {Number|Promise} 执行的毫秒数
+ */
+function timing(fn) {
+  var begin = performance.now()
+  var result = fn()
+  if (!(result instanceof Promise)) {
+    return performance.now() - begin
+  }
+  return result.then(() => performance.now() - begin)
+}
+
+export default timing

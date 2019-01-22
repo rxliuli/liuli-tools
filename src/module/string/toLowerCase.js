@@ -3,7 +3,7 @@
  * @param {String} str 字符串
  * @returns {String} 转换后得到的全小写字符串
  */
-function toLowerCase(str) {
+function toLowerCase (str) {
   if (!str || typeof str !== 'string') {
     return str
   }

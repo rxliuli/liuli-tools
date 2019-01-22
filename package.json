@@ -4,7 +4,8 @@
   "description": "rxliuli 个人使用的 js 工具库",
   "main": "./src/index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "rollup -c",
+    "lint": "eslint --fix ./src/"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,15 @@
   },
   "homepage": "https://github.com/rxliuli/rx-util#readme",
   "devDependencies": {
-    "webpack": "^4.28.2",
-    "webpack-cli": "^3.1.2"
+    "@babel/core": "^7.2.2",
+    "eslint": "^5.12.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "rollup": "^1.1.2",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-node-resolve": "^4.0.0"
   }
 }

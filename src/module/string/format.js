@@ -5,7 +5,7 @@
  * @param {Object} args 格式化参数值，替换字符串中的 {} 的值
  * @returns {String} 替换完成的字符串
  */
-const format = function(str, args) {
+const format = function (str, args) {
   const rxstr = require('../str')
   if (!args) {
     return str

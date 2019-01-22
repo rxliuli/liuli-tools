@@ -5,7 +5,7 @@
  * @param {FormData} formData 需要转换的 FormData 对象
  * @returns {Array} 转换后的数组
  */
-function toArray(formData) {
+function toArray (formData) {
   return Array.asIterator(formData.keys())
 }
 

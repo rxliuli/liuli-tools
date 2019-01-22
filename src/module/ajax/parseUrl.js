@@ -2,7 +2,7 @@
  * Url 对象
  */
 var RxUrl = {
-  createNew(rxUrl) {
+  createNew (rxUrl) {
     var res = {
       href: '', // 原链接
       website: '', // URL 站点
@@ -21,7 +21,7 @@ var RxUrl = {
  * @param {String} url url 字符串
  * @returns {RxUrl} json 对象
  */
-function parseUrl(url) {
+function parseUrl (url) {
   if (!url) {
     throw new Error('url 不能为空')
   }

@@ -3,7 +3,7 @@
  * @param {String} str 字符串
  * @returns {String} 转换后得到的全大写字符串
  */
-function toUpperCase(str) {
+function toUpperCase (str) {
   if (!str || typeof str !== 'string') {
     return str
   }

@@ -5,7 +5,7 @@ import toLowerCase from '../string/toLowerCase'
  * @param {Element} el 需要进行判断的元素
  * @returns {Boolean} 是否为可编辑元素
  */
-function isEditable(el) {
+function isEditable (el) {
   var inputEls = ['input', 'date', 'datetime', 'select', 'textarea']
   return (
     el && (el.isContentEditable || inputEls.includes(toLowerCase(el.tagName)))

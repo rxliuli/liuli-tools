@@ -4,7 +4,7 @@
  * @param {Object} obj 键值对对象
  * @returns {FormData} 添加完成后的 FormData 对象
  */
-function appends(obj) {
+function appends (obj) {
   for (const key in obj) {
     this.append(key, obj[key])
   }

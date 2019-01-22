@@ -4,7 +4,7 @@
  * @param {Function} 需要测试的函数
  * @returns {Number|Promise} 执行的毫秒数
  */
-function timing(fn) {
+function timing (fn) {
   var begin = performance.now()
   var result = fn()
   if (!(result instanceof Promise)) {

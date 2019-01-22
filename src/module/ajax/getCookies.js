@@ -2,7 +2,7 @@
  * 获取 cookie 键值映射对象
  * @returns {Object} cookie 键值映射对象
  */
-function getCookies() {
+function getCookies () {
   return document.cookie
     .split(';')
     .map(str => str.split('='))

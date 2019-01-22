@@ -3,7 +3,7 @@
  * @param {Object} params 参数对象
  * @returns {String} 拼接后的字符串
  */
-function spliceParams(params) {
+function spliceParams (params) {
   if (!params) {
     throw new Error(`参数对象不能为空：${params}`)
   }

@@ -8,7 +8,7 @@ import toObject from '../array/toObject'
  * 目前仅支持使用 y(年),M(月),d(日),h(时),m(分),s(秒),S(毫秒)
  * @returns {Date} 解析得到的 Date 对象
  */
-function strToDate(dateStr, fmt) {
+function strToDate (dateStr, fmt) {
   const now = new Date()
   /**
    * 日期格式化对象
@@ -19,7 +19,7 @@ function strToDate(dateStr, fmt) {
    * @constructor
    */
   class DateFormat {
-    constructor(name, format, value, index) {
+    constructor (name, format, value, index) {
       this.name = name
       this.format = format
       this.value = value
@@ -72,7 +72,7 @@ function strToDate(dateStr, fmt) {
   }
   // 进行一次排序, 依次对字符串进行截取
   dateUnits
-    .sort(function(a, b) {
+    .sort(function (a, b) {
       return a.index - b.index
     })
     .map(format => {

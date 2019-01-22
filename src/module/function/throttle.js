@@ -8,9 +8,9 @@
  * @param {Function} action 真正需要执行的操作
  * @return {Function} 包装后有节流功能的函数
  */
-function throttle(delay, action) {
+function throttle (delay, action) {
   let last = 0
-  return function() {
+  return function () {
     const curr = Date.now()
     if (curr - last > delay) {
       action.apply(this, arguments)
@@ -18,3 +18,5 @@ function throttle(delay, action) {
     }
   }
 }
+
+export default throttle

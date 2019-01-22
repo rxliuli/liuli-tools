@@ -3,7 +3,7 @@
  * @param {Object} 任何对象
  * @returns {Object} 传入的参数
  */
-function returnItself(item) {
+function returnItself (item) {
   return item
 }
 

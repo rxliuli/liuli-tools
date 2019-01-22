@@ -5,7 +5,7 @@
  * @param {Number} {sep} 步长，默认为 1
  * @returns {Array} 等差数列数组
  */
-function range(start, end, sep = 1) {
+function range (start, end, sep = 1) {
   var arr = []
   for (let i = start; i < end; i += sep) {
     arr.push(i)

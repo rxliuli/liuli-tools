@@ -7,13 +7,13 @@
  * @param {Function} action 真正需要执行的操作
  * @return {Function} 包装后有去抖功能的函数
  */
-function debounce(delay, action) {
+function debounce (delay, action) {
   let tId
-  return function() {
+  return function () {
     const context = this
     const arg = arguments
     if (tId) clearTimeout(tId)
-    tId = setTimeout(function() {
+    tId = setTimeout(function () {
       action.apply(context, arg)
     }, delay)
   }

@@ -5,7 +5,7 @@
  * @param {Function} {vFn} 生成对象属性值的函数，默认为数组中的迭代元素
  * @returns {Object} 转化得到的对象
  */
-function toObject(arr, kFn, vFn = item => item) {
+function toObject (arr, kFn, vFn = item => item) {
   return arr.reduce((res, item) => {
     if (!res.hasOwnProperty(kFn(item))) {
       res[kFn(item)] = vFn(item)

@@ -4,7 +4,7 @@
  * @param {Number} start 光标所在位置的下标
  * @param {Number} {end} 结束位置，默认为输入框结束
  */
-function setCusorPostion(el, start, end = start) {
+function setCusorPostion (el, start, end = start) {
   el.focus()
   el.setSelectionRange(start, end)
 }

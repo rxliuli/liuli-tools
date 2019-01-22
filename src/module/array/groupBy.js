@@ -4,7 +4,7 @@
  * @param {Function} {fn} 元素分组的方法，默认使用 {@link JSON.stringify()}
  * @returns {Array} 新的数组
  */
-function groupBy(arr, fn = item => JSON.stringify(item)) {
+function groupBy (arr, fn = item => JSON.stringify(item)) {
   // 将元素按照分组条件进行分组得到一个 条件 -> 数组 的对象
   const obj = {}
   arr.forEach(item => {

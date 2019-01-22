@@ -11,7 +11,7 @@ var events = []
  * 用来保存监听到的事件信息
  */
 class Event {
-  constructor(el, type, listener, useCapture) {
+  constructor (el, type, listener, useCapture) {
     this.el = el
     this.type = type
     this.listener = listener
@@ -25,7 +25,7 @@ class Event {
  * @param {EventListener} listener 事件监听函数
  * @param {Boolean} {useCapture} 是否需要捕获事件冒泡，默认为 false
  */
-function addEventListener(type, listener, useCapture = false) {
+function addEventListener (type, listener, useCapture = false) {
   var _this = this
   var $addEventListener =
     _this === document ? documentAddEventListener : eventTargetAddEventListener
@@ -38,7 +38,7 @@ function addEventListener(type, listener, useCapture = false) {
  * 该方法会删除这个类型下面全部的监听函数，不管数量
  * @param {String} type 事件类型
  */
-function removeEventListenerByType(type) {
+function removeEventListenerByType (type) {
   var _this = this
   var $removeEventListener =
     _this === document
@@ -54,7 +54,7 @@ function removeEventListenerByType(type) {
   removeIndexs.sort((a, b) => b - a).forEach(i => events.splice(i, 1))
 }
 
-;(function init() {
+;(function init () {
   document.addEventListener = EventTarget.prototype.addEventListener = addEventListener
   document.removeEventListenerByType = EventTarget.prototype.removeEventListenerByType = removeEventListenerByType
 })()

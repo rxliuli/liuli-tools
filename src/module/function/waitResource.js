@@ -5,7 +5,7 @@
  * @param {Object} options 选项
  * @returns Promise 对象
  */
-function waitResource(resourceFn, options) {
+function waitResource (resourceFn, options) {
   var optionsRes = Object.assign(
     {
       interval: 1000,
@@ -23,7 +23,7 @@ function waitResource(resourceFn, options) {
       current++
       if (current >= optionsRes.max) {
         clearInterval(timer)
-        reject('等待超时')
+        reject(new Error('等待超时'))
       }
     }, optionsRes.interval)
   })

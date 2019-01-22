@@ -4,7 +4,7 @@
  * @param {String} fmt 日期的格式
  * @returns {String} 格式化得到的结果
  */
-function dateFormat(date, fmt) {
+function dateFormat (date, fmt) {
   var o = {
     'y+': date.getFullYear(),
     'M+': date.getMonth() + 1, // 月份
@@ -17,11 +17,11 @@ function dateFormat(date, fmt) {
   }
   for (var k in o) {
     if (new RegExp('(' + k + ')').test(fmt)) {
-      if (k == 'y+') {
+      if (k === 'y+') {
         fmt = fmt.replace(RegExp.$1, ('' + o[k]).substr(4 - RegExp.$1.length))
-      } else if (k == 'S+') {
+      } else if (k === 'S+') {
         var lens = RegExp.$1.length
-        lens = lens == 1 ? 3 : lens
+        lens = lens === 1 ? 3 : lens
         fmt = fmt.replace(
           RegExp.$1,
           ('00' + o[k]).substr(('' + o[k]).length - 1, lens)
@@ -29,7 +29,7 @@ function dateFormat(date, fmt) {
       } else {
         fmt = fmt.replace(
           RegExp.$1,
-          RegExp.$1.length == 1
+          RegExp.$1.length === 1
             ? o[k]
             : ('00' + o[k]).substr(('' + o[k]).length)
         )

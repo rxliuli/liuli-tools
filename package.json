@@ -1,7 +1,7 @@
 {
   "name": "rx-util",
-  "version": "1.0.0",
-  "description": "rxliuli 个人使用的 js 工具库",
+  "version": "1.1.0",
+  "description": "rxliuli 个人使用的 js 工具库（仅适用于浏览器）",
   "main": "./src/index.js",
   "scripts": {
     "build": "rollup -c",

@@ -1,18 +1,4 @@
-import resolve from 'rollup-plugin-node-resolve'
-import babel from 'rollup-plugin-babel'
-const path = require('path')
+import dev from './rollup.config.dev'
+import prod from './rollup.config.prod'
 
-module.exports = {
-  input: path.resolve(__dirname, 'src', 'main.js'),
-  output: {
-    name: 'rx',
-    file: path.resolve(__dirname, 'dist', 'rx.js'),
-    format: 'umd'
-  },
-  plugins: [
-    resolve(),
-    babel({
-      exclude: 'node_modules/**' // 只编译我们的源代码
-    })
-  ]
-}
+export default (process.env.NODE_ENV === 'production' ? prod : dev)

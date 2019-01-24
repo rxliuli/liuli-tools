@@ -8,7 +8,7 @@ export default {
     name: 'rx',
     file: 'dist/rx.min.js',
     format: 'umd',
-    sourceMap: true
+    sourcemap: true
   },
   plugins: [
     resolve(),

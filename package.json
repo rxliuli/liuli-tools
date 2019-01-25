@@ -4,10 +4,9 @@
   "description": "rxliuli 个人使用的 js 工具库（仅适用于浏览器）",
   "main": "./src/index.js",
   "scripts": {
-    "start": "npm run dev",
-    "dev": "rollup -c --environment NODE_ENV:development",
-    "build": "rollup -c --environment NODE_ENV:production",
-    "publish": "npm run dev && npm run build",
+    "start": "npm run build:dev",
+    "build:dev": "rollup -c build/rollup.config.js --environment NODE_ENV:development",
+    "build:prod": "rollup -c build/rollup.config.js --environment NODE_ENV:production",
     "lint": "eslint --fix ./src/"
   },
   "repository": {
@@ -35,6 +34,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "rollup": "^1.1.2",
     "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-eslint": "^5.0.0",
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-uglify": "^6.0.1"
   }

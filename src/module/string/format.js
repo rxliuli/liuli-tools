@@ -5,18 +5,14 @@
  * @param {Object} args 格式化参数值，替换字符串中的 {} 的值
  * @returns {String} 替换完成的字符串
  */
-const format = function (str, args) {
-  const rxstr = require('../str')
+function format (str, args) {
   if (!args) {
     return str
   }
-  for (var key in args) {
-    var value = args[key]
-    if (undefined !== value) {
-      str = rxstr.replaceAll(str, '\\{' + key + '\\}', value)
-    }
-  }
-  return str
+  return Object.keys(args).reduce(
+    (res, k) => res.replace(new RegExp(`{${k}}`, 'g'), args[k]),
+    str
+  )
 }
 
 export default format

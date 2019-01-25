@@ -6,6 +6,8 @@ import loadResource from './module/ajax/loadResource'
 import parseUrl from './module/ajax/parseUrl'
 import readLocal from './module/ajax/readLocal'
 import spliceParams from './module/ajax/spliceParams'
+import fetchTimeout from './module/ajax/fetchTimeout'
+import FetchLimiting from './module/ajax/FetchLimiting'
 
 import asIterator from './module/array/asIterator'
 import asyncFlatMap from './module/array/asyncFlatMap'
@@ -55,6 +57,8 @@ const rx = {
   parseUrl,
   readLocal,
   spliceParams,
+  fetchTimeout,
+  FetchLimiting,
   asIterator,
   asyncFlatMap,
   flatMap,

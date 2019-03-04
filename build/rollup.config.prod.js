@@ -13,7 +13,7 @@ export default [
     input: calcPath('../src/main.js'),
     output: {
       // 打包名称
-      name,
+      name: 'rx',
       // 打包的文件
       file: calcPath(`../dist/${name}.min.js`),
       // 打包的格式，umd 支持 commonjs/amd/life 三种方式
@@ -24,7 +24,8 @@ export default [
       eslint(),
       // 引入 babel 插件
       babel({
-        exclude: calcPath('../node_modules/**')
+        exclude: calcPath('../node_modules/**'),
+        runtimeHelpers: true
       }),
       // js 压缩插件，需要在最后引入
       uglify()

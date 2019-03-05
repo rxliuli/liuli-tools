@@ -88,19 +88,31 @@
   /**
    * Url 对象
    */
-  var RxUrl = {
+  const RxUrl = {
     createNew (rxUrl) {
-      var res = {
-        href: '', // 原链接
+      const res = {
+        href: '', // 不包含网站域名的链接
         website: '', // URL 站点
-        protocal: '', // 协议
+        protocol: '', // 协议
         domain: '', // 域名
-        accessPath: '', // 绝对路径
-        params: {} // 参数列表
+        accessPath: '', // 绝对路径,不包含参数
+        params: {}, // 参数列表,
+        url: '', // 原 url 链接
+        port: 0 // 端口号
       };
       Object.assign(res, rxUrl);
       return res
     }
+  };
+
+  /**
+   * 协议与默认端口映射表
+   */
+  const protocol2Port = {
+    http: 80,
+    https: 443,
+    ssh: 22,
+    ftp: 21
   };
 
   /**
@@ -113,13 +125,15 @@
       throw new Error('url 不能为空')
     }
 
-    const regexp = new RegExp('^(\\w+)://([\\w\\.]*)');
+    const regexp = new RegExp('^((\\w+)://([\\w\\.]*)(:(\\d+))?)(.*)');
     const temps = regexp.exec(url);
     const res = RxUrl.createNew({
-      href: url,
-      website: temps[0],
-      protocal: temps[1],
-      domain: temps[2]
+      url: url,
+      website: temps[1],
+      protocol: temps[2],
+      domain: temps[3],
+      port: temps[5],
+      href: temps[6]
     });
     let temp = url.substr(res.website.length);
     const markIndex = temp.indexOf('?');
@@ -128,6 +142,9 @@
       return res
     }
     res.accessPath = temp.substr(0, markIndex);
+    if (!res.port) {
+      res.port = protocol2Port[res.protocol] || '';
+    }
     // 解析参数列表
     res.params = temp
       .substr(markIndex + 1)
@@ -138,7 +155,7 @@
         const k = decodeURIComponent(arr[0]);
         const v = decodeURIComponent(arr.length === 1 ? '' : arr[1]);
         // 如果已经存在了就认为是数组参数
-        var vs = params[k];
+        const vs = params[k];
         if (vs !== undefined) {
           if (!Array.isArray(vs)) {
             params[k] = [vs];
@@ -220,70 +237,6 @@
       abortFn();
     }, timeout);
     return abortablePromise
-  }
-
-  /**
-   * 等待指定的时间/等待指定表达式成立
-   * @param {Number|Function} param 等待时间/等待条件
-   * @returns {Promise} Promise 对象
-   */
-  function wait (param) {
-    return new Promise(resolve => {
-      if (typeof param === 'number') {
-        setTimeout(resolve, param);
-      } else if (typeof param === 'function') {
-        var timer = setInterval(() => {
-          if (param()) {
-            clearInterval(timer);
-            resolve();
-          }
-        }, 100);
-      } else {
-        resolve();
-      }
-    })
-  }
-
-  /**
-   * 限制并发请求数量的 fetch 封装
-   */
-  class RequestLimiting {
-    constructor ({ timeout = 10000, limit = 10 }) {
-      this.timeout = timeout;
-      this.limit = limit;
-      this.execCount = 0;
-      // 等待队列
-      this.waitArr = [];
-    }
-
-    /**
-     * 执行一个请求
-     * 如果到达最大并发限制时就进行等待
-     * 注：该方法的请求顺序是无序的，与代码里的顺序无关
-     * @param {RequestInfo} url 请求 url 信息
-     * @param {RequestInit} init 请求的其他可选项
-     * @returns {Promise} 如果超时就提前返回 reject, 否则正常返回 fetch 结果
-     */
-    async _fetch (url, init) {
-      const _innerFetch = async () => {
-        console.log(
-          `执行 execCount: ${this.execCount}, waitArr length: ${
-          this.waitArr.length
-        }, index: ${JSON.stringify(this.waitArr[0])}`
-        );
-        this.execCount++;
-        const args = this.waitArr.shift(0);
-        try {
-          return await promiseTimeout(fetch(...args), this.timeout)
-        } finally {
-          this.execCount--;
-        }
-      };
-      this.waitArr.push(arguments);
-      await wait(() => this.execCount < this.limit);
-      // 尝试启动等待队列
-      return _innerFetch()
-    }
   }
 
   /**
@@ -851,6 +804,28 @@
   }
 
   /**
+   * 等待指定的时间/等待指定表达式成立
+   * @param {Number|Function} param 等待时间/等待条件
+   * @returns {Promise} Promise 对象
+   */
+  function wait (param) {
+    return new Promise(resolve => {
+      if (typeof param === 'number') {
+        setTimeout(resolve, param);
+      } else if (typeof param === 'function') {
+        var timer = setInterval(() => {
+          if (param()) {
+            clearInterval(timer);
+            resolve();
+          }
+        }, 100);
+      } else {
+        resolve();
+      }
+    })
+  }
+
+  /**
    * 轮询等待指定资源加载完毕再执行操作
    * 使用 Promises 实现，可以使用 ES7 的 {@async}/{@await} 调用
    * @param {Function} resourceFn 判断必须的资源是否存在的方法
@@ -920,7 +895,7 @@
     readLocal,
     spliceParams,
     fetchTimeout: promiseTimeout,
-    FetchLimiting: RequestLimiting,
+    // FetchLimiting,
     asIterator,
     asyncFlatMap,
     flatMap,

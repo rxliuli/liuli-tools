@@ -4,7 +4,8 @@
   "description": "rxliuli 个人使用的 js 工具库（仅适用于浏览器）",
   "main": "./src/main.js",
   "scripts": {
-    "start": "npm run build:dev",
+    "start": "npm run dev",
+    "dev": "rollup -c build/rollup.config.js --environment NODE_ENV:production --watch",
     "build:dev": "rollup -c build/rollup.config.js --environment NODE_ENV:development",
     "build:prod": "rollup -c build/rollup.config.js --environment NODE_ENV:production",
     "lint": "eslint --fix ./src/"
@@ -23,9 +24,10 @@
   },
   "homepage": "https://github.com/rxliuli/rx-util#readme",
   "devDependencies": {
-    "@babel/core": "^7.3.4",
-    "@babel/plugin-transform-runtime": "^7.3.4",
-    "@babel/preset-env": "^7.3.4",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-external-helpers": "^7.0.0",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.0.0",
     "eslint": "^5.12.1",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
@@ -35,7 +37,8 @@
     "rollup": "^1.1.2",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-eslint": "^5.0.0",
-    "rollup-plugin-node-resolve": "^4.0.0",
-    "rollup-plugin-uglify": "^6.0.1"
+    "rollup-plugin-node-resolve": "^4.0.1",
+    "rollup-plugin-uglify": "^6.0.1",
+    "rollup-plugin-commonjs": "^9.2.1"
   }
 }

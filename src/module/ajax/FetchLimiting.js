@@ -3,7 +3,7 @@ import fetchTimeout from './fetchTimeout'
 /**
  * 限制并发请求数量的 fetch 封装
  */
-class RequestLimiting {
+class FetchLimiting {
   constructor ({ timeout = 10000, limit = 10 }) {
     this.timeout = timeout
     this.limit = limit
@@ -42,4 +42,4 @@ class RequestLimiting {
   }
 }
 
-export default RequestLimiting
+export default FetchLimiting

@@ -1,4 +1,12 @@
 /**
+ * 定义监听对象时的回调函数 doc
+ * @callback WatchObjectCallback
+ * @param {Object} target 代理的对象变化后的值
+ * @param {String} k 变化的属性名
+ * @param {Object} v 变化的属性值
+ */
+
+/**
  * 深度监听指定对象属性的变化
  * 注：指定对象不能是原始类型，即不可变类型，而且对象本身的引用不能改变，最好使用 const 进行声明
  * @param {Object} object 需要监视的对象

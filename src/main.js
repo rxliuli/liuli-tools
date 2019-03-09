@@ -34,7 +34,7 @@ import watchEventListener from './module/event/watchEventListener'
 import appends from './module/formdata/appends'
 import deletes from './module/formdata/deletes'
 import sets from './module/formdata/sets'
-import toArray from './module/formdata/toArray'
+import formDataToArray from './module/formdata/formDataToArray'
 import objToFormData from './module/formdata/objToFormData'
 
 import debounce from './module/function/debounce'
@@ -82,7 +82,7 @@ const rx = {
   deletes,
   sets,
   objToFormData,
-  toArray,
+  formDataToArray,
   debounce,
   returnItself,
   throttle,

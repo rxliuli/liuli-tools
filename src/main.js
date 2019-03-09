@@ -35,6 +35,7 @@ import appends from './module/formdata/appends'
 import deletes from './module/formdata/deletes'
 import sets from './module/formdata/sets'
 import toArray from './module/formdata/toArray'
+import objToFormData from './module/formdata/objToFormData'
 
 import debounce from './module/function/debounce'
 import returnItself from './module/function/returnItself'
@@ -80,6 +81,7 @@ const rx = {
   appends,
   deletes,
   sets,
+  objToFormData,
   toArray,
   debounce,
   returnItself,

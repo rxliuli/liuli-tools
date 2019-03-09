@@ -7,6 +7,7 @@ import parseUrl from './module/ajax/parseUrl'
 import readLocal from './module/ajax/readLocal'
 import spliceParams from './module/ajax/spliceParams'
 import fetchTimeout from './module/ajax/fetchTimeout'
+import strToArrayBuffer from './module/ajax/strToArrayBuffer'
 // import FetchLimiting from './module/ajax/FetchLimiting'
 
 import asIterator from './module/array/asIterator'
@@ -59,6 +60,7 @@ const rx = {
   readLocal,
   spliceParams,
   fetchTimeout,
+  strToArrayBuffer,
   // FetchLimiting,
   asIterator,
   asyncFlatMap,

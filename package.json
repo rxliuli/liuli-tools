@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "rollup -c build/rollup.config.js --environment NODE_ENV:production --watch",
+    "build": "npm run build:prod",
     "build:dev": "rollup -c build/rollup.config.js --environment NODE_ENV:development",
     "build:prod": "rollup -c build/rollup.config.js --environment NODE_ENV:production",
     "lint": "eslint --fix ./src/"

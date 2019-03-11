@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: event/watchEventListener.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: event/watchEventListener.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * 监听 event 的添加，必须及早添加
+ */
+function initWatch () {
+  /**
+   * 监听所有的 addEventListener, removeEventListener 事件
+   */
+  const documentAddEventListener = document.addEventListener
+  const eventTargetAddEventListener = EventTarget.prototype.addEventListener
+  const documentRemoveEventListener = document.removeEventListener
+  const eventTargetRemoveEventListener =
+    EventTarget.prototype.removeEventListener
+  const events = []
+
+  /**
+   * 用来保存监听到的事件信息
+   */
+  class Event {
+    constructor (el, type, listener, useCapture) {
+      this.el = el
+      this.type = type
+      this.listener = listener
+      this.useCapture = useCapture
+    }
+  }
+
+  /**
+   * 自定义的添加事件监听函数
+   * @param {String} type 事件类型
+   * @param {EventListener} listener 事件监听函数
+   * @param {Boolean} {useCapture} 是否需要捕获事件冒泡，默认为 false
+   */
+  function addEventListener (type, listener, useCapture = false) {
+    const _this = this
+    const $addEventListener =
+      _this === document
+        ? documentAddEventListener
+        : eventTargetAddEventListener
+    events.push(new Event(_this, type, listener, useCapture))
+    $addEventListener.apply(this, arguments)
+  }
+
+  /**
+   * 自定义的根据类型删除事件函数
+   * 该方法会删除这个类型下面全部的监听函数，不管数量
+   * @param {String} type 事件类型
+   */
+  function removeEventListenerByType (type) {
+    const _this = this
+    const $removeEventListener =
+      _this === document
+        ? documentRemoveEventListener
+        : eventTargetRemoveEventListener
+    const removeIndexArr = events
+      .map((e, i) => (e.el === _this || e.type === arguments[0] ? i : -1))
+      .filter(i => i !== -1)
+    removeIndexArr.forEach(i => {
+      const e = events[i]
+      $removeEventListener.apply(e.el, [e.type, e.listener, e.useCapture])
+    })
+    removeIndexArr.sort((a, b) => b - a).forEach(i => events.splice(i, 1))
+  }
+
+  ;(function initWatchDOM () {
+    document.addEventListener = EventTarget.prototype.addEventListener = addEventListener
+    document.removeEventListenerByType = EventTarget.prototype.removeEventListenerByType = removeEventListenerByType
+  })()
+}
+
+export default initWatch
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="DateFormat.html">DateFormat</a></li><li><a href="Event.html">Event</a></li><li><a href="FetchLimiting.html">FetchLimiting</a></li><li><a href="StateMachine.html">StateMachine</a></li></ul><h3>Global</h3><ul><li><a href="global.html#appends">appends</a></li><li><a href="global.html#asIterator">asIterator</a></li><li><a href="global.html#asyncFlatMap">asyncFlatMap</a></li><li><a href="global.html#copyText">copyText</a></li><li><a href="global.html#createElByString">createElByString</a></li><li><a href="global.html#dateFormat">dateFormat</a></li><li><a href="global.html#debounce">debounce</a></li><li><a href="global.html#deletes">deletes</a></li><li><a href="global.html#download">download</a></li><li><a href="global.html#downloadString">downloadString</a></li><li><a href="global.html#downloadUrl">downloadUrl</a></li><li><a href="global.html#fill">fill</a></li><li><a href="global.html#flatMap">flatMap</a></li><li><a href="global.html#format">format</a></li><li><a href="global.html#formDataToArray">formDataToArray</a></li><li><a href="global.html#getCookies">getCookies</a></li><li><a href="global.html#getCusorPostion">getCusorPostion</a></li><li><a href="global.html#getInstance">getInstance</a></li><li><a href="global.html#groupBy">groupBy</a></li><li><a href="global.html#initWatch">initWatch</a></li><li><a href="global.html#insertText">insertText</a></li><li><a href="global.html#isEditable">isEditable</a></li><li><a href="global.html#isFloat">isFloat</a></li><li><a href="global.html#isInteger">isInteger</a></li><li><a href="global.html#lastFocus">lastFocus</a></li><li><a href="global.html#loadResource">loadResource</a></li><li><a href="global.html#objToFormData">objToFormData</a></li><li><a href="global.html#parseUrl">parseUrl</a></li><li><a href="global.html#promiseTimeout">promiseTimeout</a></li><li><a href="global.html#protocol2Port">protocol2Port</a></li><li><a href="global.html#range">range</a></li><li><a href="global.html#readLocal">readLocal</a></li><li><a href="global.html#register">register</a></li><li><a href="global.html#removeEl">removeEl</a></li><li><a href="global.html#removeText">removeText</a></li><li><a href="global.html#returnItself">returnItself</a></li><li><a href="global.html#RxUrl">RxUrl</a></li><li><a href="global.html#safeExec">safeExec</a></li><li><a href="global.html#setCusorPostion">setCusorPostion</a></li><li><a href="global.html#sets">sets</a></li><li><a href="global.html#spliceParams">spliceParams</a></li><li><a href="global.html#strToArrayBuffer">strToArrayBuffer</a></li><li><a href="global.html#strToDate">strToDate</a></li><li><a href="global.html#throttle">throttle</a></li><li><a href="global.html#timing">timing</a></li><li><a href="global.html#toLowerCase">toLowerCase</a></li><li><a href="global.html#toObject">toObject</a></li><li><a href="global.html#toUpperCase">toUpperCase</a></li><li><a href="global.html#uniqueBy">uniqueBy</a></li><li><a href="global.html#wait">wait</a></li><li><a href="global.html#waitResource">waitResource</a></li><li><a href="global.html#watch">watch</a></li><li><a href="global.html#watchObject">watchObject</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Mar 11 2019 14:03:33 GMT+0800 (GMT+08:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

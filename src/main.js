@@ -7,6 +7,7 @@ import parseUrl from './module/ajax/parseUrl'
 import readLocal from './module/ajax/readLocal'
 import spliceParams from './module/ajax/spliceParams'
 import fetchTimeout from './module/ajax/fetchTimeout'
+import strToArrayBuffer from './module/ajax/strToArrayBuffer'
 // import FetchLimiting from './module/ajax/FetchLimiting'
 
 import asIterator from './module/array/asIterator'
@@ -34,7 +35,8 @@ import watchEventListener from './module/event/watchEventListener'
 import appends from './module/formdata/appends'
 import deletes from './module/formdata/deletes'
 import sets from './module/formdata/sets'
-import toArray from './module/formdata/toArray'
+import formDataToArray from './module/formdata/formDataToArray'
+import objToFormData from './module/formdata/objToFormData'
 
 import debounce from './module/function/debounce'
 import returnItself from './module/function/returnItself'
@@ -58,6 +60,7 @@ const rx = {
   readLocal,
   spliceParams,
   fetchTimeout,
+  strToArrayBuffer,
   // FetchLimiting,
   asIterator,
   asyncFlatMap,
@@ -80,7 +83,8 @@ const rx = {
   appends,
   deletes,
   sets,
-  toArray,
+  objToFormData,
+  formDataToArray,
   debounce,
   returnItself,
   throttle,

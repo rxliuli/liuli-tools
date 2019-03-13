@@ -50,6 +50,8 @@ import format from './module/string/format'
 import toLowerCase from './module/string/toLowerCase'
 import toUpperCase from './module/string/toUpperCase'
 
+import emptyField from './module/obj/emptyField'
+
 const rx = {
   download,
   downloadString,
@@ -94,7 +96,8 @@ const rx = {
   fill,
   format,
   toLowerCase,
-  toUpperCase
+  toUpperCase,
+  emptyField
 }
 
 export default rx

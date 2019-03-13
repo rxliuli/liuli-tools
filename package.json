@@ -8,6 +8,7 @@
     "dev": "rollup -c build/rollup.config.js --environment NODE_ENV:production --watch",
     "build:dev": "rollup -c build/rollup.config.js --environment NODE_ENV:development",
     "build:prod": "rollup -c build/rollup.config.js --environment NODE_ENV:production",
+    "build": "npm run build:prod",
     "lint": "eslint --fix ./src/",
     "docs": "jsdoc src -c conf.json -d docs -r"
   },

@@ -10,5 +10,3 @@ export default function mapToObject (map) {
   }
   return res
 }
-
-export default mapToObject

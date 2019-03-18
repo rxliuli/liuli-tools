@@ -53,6 +53,7 @@ import blankToNull from './module/string/blankToNull'
 
 import emptyField from './module/obj/emptyField'
 import nullField from './module/obj/nullField'
+import mapToObject from './module/obj/mapToObject'
 
 const rx = {
   download,
@@ -101,7 +102,8 @@ const rx = {
   toUpperCase,
   blankToNull,
   emptyField,
-  nullField
+  nullField,
+  mapToObject
 }
 
 export default rx

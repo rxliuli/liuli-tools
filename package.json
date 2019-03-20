@@ -1,6 +1,6 @@
 {
   "name": "rx-util",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "rxliuli 个人使用的 js 工具库（仅适用于浏览器）",
   "main": "./src/main.js",
   "scripts": {
@@ -8,6 +8,7 @@
     "dev": "rollup -c build/rollup.config.js --environment NODE_ENV:production --watch",
     "build:dev": "rollup -c build/rollup.config.js --environment NODE_ENV:development",
     "build:prod": "rollup -c build/rollup.config.js --environment NODE_ENV:production",
+    "build": "npm run build:prod",
     "lint": "eslint --fix ./src/",
     "docs": "jsdoc src -c conf.json -d docs -r"
   },
@@ -29,12 +30,14 @@
     "@babel/plugin-external-helpers": "^7.0.0",
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.0.0",
+    "@types/jest": "^24.0.11",
     "eslint": "^5.12.1",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
+    "jest": "^24.5.0",
     "jsdoc": "^3.5.5",
     "rollup": "^1.1.2",
     "rollup-plugin-babel": "^4.3.2",

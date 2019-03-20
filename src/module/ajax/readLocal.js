@@ -1,7 +1,7 @@
 /**
  * 读取本地浏览器选择的文件
  * @param {File} file 选择的文件
- * @param {{String}} init 一些初始选项，目前只有 type 一项
+ * @param { readLocal.DataURL | readLocal.Text | readLocal.BinaryString | readLocal.ArrayBuffer } [type=readLocal.DataURL] 读取的类型，默认为
  * @returns {Promise} 返回了读取到的内容（异步）
  */
 const readLocal = (() => {

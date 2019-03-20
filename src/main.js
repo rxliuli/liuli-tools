@@ -49,6 +49,11 @@ import fill from './module/string/fill'
 import format from './module/string/format'
 import toLowerCase from './module/string/toLowerCase'
 import toUpperCase from './module/string/toUpperCase'
+import blankToNull from './module/string/blankToNull'
+
+import emptyField from './module/obj/emptyField'
+import nullField from './module/obj/nullField'
+import mapToObject from './module/obj/mapToObject'
 
 const rx = {
   download,
@@ -94,7 +99,11 @@ const rx = {
   fill,
   format,
   toLowerCase,
-  toUpperCase
+  toUpperCase,
+  blankToNull,
+  emptyField,
+  nullField,
+  mapToObject
 }
 
 export default rx

@@ -55,6 +55,8 @@ import emptyField from './module/obj/emptyField'
 import nullField from './module/obj/nullField'
 import mapToObject from './module/obj/mapToObject'
 
+import randomInt from './module/number/randomInt'
+
 const rx = {
   download,
   downloadString,
@@ -103,7 +105,8 @@ const rx = {
   blankToNull,
   emptyField,
   nullField,
-  mapToObject
+  mapToObject,
+  randomInt
 }
 
 export default rx

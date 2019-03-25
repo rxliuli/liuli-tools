@@ -53,6 +53,7 @@ import blankToNull from './module/string/blankToNull'
 
 import emptyField from './module/obj/emptyField'
 import nullField from './module/obj/nullField'
+import blankToNullField from './module/obj/blankToNullField'
 import mapToObject from './module/obj/mapToObject'
 
 import randomInt from './module/number/randomInt'
@@ -105,6 +106,7 @@ const rx = {
   blankToNull,
   emptyField,
   nullField,
+  blankToNullField,
   mapToObject,
   randomInt
 }

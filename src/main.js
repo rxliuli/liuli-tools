@@ -17,6 +17,7 @@ import groupBy from './module/array/groupBy'
 import range from './module/array/range'
 import toObject from './module/array/toObject'
 import uniqueBy from './module/array/uniqueBy'
+import arrayToMap from './module/array/arrayToMap'
 
 import dateFormat from './module/date/dateFormat'
 import strToDate from './module/date/strToDate'
@@ -77,6 +78,7 @@ const rx = {
   range,
   toObject,
   uniqueBy,
+  arrayToMap,
   dateFormat,
   strToDate,
   createElByString,

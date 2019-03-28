@@ -11,7 +11,8 @@
     "build": "npm run build:prod",
     "lint": "eslint --fix ./src/",
     "docs": "jsdoc src -c conf.json -d docs -r",
-    "pub": "npm publish"
+    "pub": "npm publish",
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",

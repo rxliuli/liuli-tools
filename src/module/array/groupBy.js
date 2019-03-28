@@ -1,11 +1,15 @@
+// @ts-check
+
 /**
  * js 数组按照某个条件进行分组
  *
- * @param {Array<V>} arr 要进行分组的数组
- * @param {Function<V,K>} fn 元素分组的方法
- * @returns {Map<K,V>} 对象 -> 数组映射对象
+ * @typedef {any} T 参数数组以及函数的参数类型
+ * @typedef {any} R 返回数组以及函数的返回值类型
+ * @param {Array<T>} arr 要进行分组的数组
+ * @param {Function} fn 元素分组的方法
+ * @returns {Map<R,T>} 对象 -> 数组映射对象
  */
-function groupBy (arr, fn) {
+export function groupBy (arr, fn) {
   // 将元素按照分组条件进行分组得到一个 条件 -> 数组 的对象
   return arr.reduce((res, item) => {
     const name = fn(item)
@@ -17,5 +21,3 @@ function groupBy (arr, fn) {
     return res
   }, new Map())
 }
-
-export default groupBy

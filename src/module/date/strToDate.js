@@ -1,5 +1,5 @@
 import fill from '../string/fill'
-import toObject from '../array/toObject'
+import { toObject } from '../array/toObject'
 
 /**
  * 解析字符串为 Date 对象

@@ -1,12 +1,12 @@
+// @ts-check
+import { asIterator } from './../array/asIterator'
+
 /**
- * FormData 添加转换为包含所有键值对 Array 的方法
- * FormData.key => Array.item.key: 每一项元素中的 key 是 FormData 中包含的属性的名称
- * FormData.value => Array.item.value: 每一项元素中的 value 是 FormData 中包含的属性的值
- * @param {FormData} formData 需要转换的 FormData 对象
+ * FormData 添加转换为包含所有键值数组的二维数组函数
+ * @deprecated 已被原生函数 Array.from 取代
+ * @param {FormData} fd 需要转换的 FormData 对象
  * @returns {Array} 转换后的数组
  */
-function formDataToArray (formData) {
-  return Array.from(formData.entries())
+export function formDataToArray (fd) {
+  return asIterator(fd.entries())
 }
-
-export default formDataToArray

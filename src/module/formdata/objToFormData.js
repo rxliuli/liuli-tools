@@ -1,9 +1,11 @@
+// @ts-check
+
 /**
  * 将参数对象转换为 FormData，只转换一层
  * @param data 参数对象
  * @return {FormData} 转换后的表单对象
  */
-function objToFormData (data) {
+export function objToFormData (data) {
   const fd = new FormData()
   if (data) {
     for (const k in data) {
@@ -15,5 +17,3 @@ function objToFormData (data) {
   }
   return fd
 }
-
-export default objToFormData

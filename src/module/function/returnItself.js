@@ -1,10 +1,9 @@
+// @ts-check
 /**
- * 返回对象参数本身
- * @param {Object} 任何对象
+ * 返回参数本身的函数
+ * @param {Object} obj 任何对象
  * @returns {Object} 传入的参数
  */
-function returnItself (item) {
-  return item
+export function returnItself (obj) {
+  return obj
 }
-
-export default returnItself

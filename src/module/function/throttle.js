@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * 函数节流
  * 节流 (throttle) 让一个函数不要执行的太频繁，减少执行过快的调用，叫节流
@@ -8,7 +9,7 @@
  * @param {Function} action 真正需要执行的操作
  * @return {Function} 包装后有节流功能的函数
  */
-function throttle (delay, action) {
+export function throttle (delay, action) {
   let last = 0
   return function () {
     const curr = Date.now()
@@ -18,5 +19,3 @@ function throttle (delay, action) {
     }
   }
 }
-
-export default throttle

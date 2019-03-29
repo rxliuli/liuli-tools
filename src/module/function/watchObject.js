@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * 定义监听对象时的回调函数 doc
  * @callback WatchObjectCallback
@@ -13,7 +14,7 @@
  * @param {WatchObjectCallback} callback 当代理对象发生改变时的回调函数，回调函数有三个参数，分别是
  * @returns {Object} 返回源对象的一个代理
  */
-function watchObject (object, callback) {
+export function watchObject (object, callback) {
   const handler = {
     get (target, property, receiver) {
       try {
@@ -29,5 +30,3 @@ function watchObject (object, callback) {
   }
   return new Proxy(object, handler)
 }
-
-export default watchObject

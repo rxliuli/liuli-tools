@@ -39,12 +39,17 @@ import { sets } from './module/formdata/sets'
 import { formDataToArray } from './module/formdata/formDataToArray'
 import { objToFormData } from './module/formdata/objToFormData'
 
-import debounce from './module/function/debounce'
-import returnItself from './module/function/returnItself'
-import throttle from './module/function/throttle'
-import timing from './module/function/timing'
-import wait from './module/function/wait'
-import waitResource from './module/function/waitResource'
+import { debounce } from './module/function/debounce'
+import { returnItself } from './module/function/returnItself'
+import { safeExec } from './module/function/safeExec'
+import { singleModel } from './module/function/singleModel'
+import { StateMachine } from './module/function/StateMachine'
+import { throttle } from './module/function/throttle'
+import { timing } from './module/function/timing'
+import { wait } from './module/function/wait'
+import { waitResource } from './module/function/waitResource'
+import { watch } from './module/function/watch'
+import { watchObject } from './module/function/watchObject'
 
 import fill from './module/string/fill'
 import format from './module/string/format'
@@ -97,10 +102,15 @@ const rx = {
   formDataToArray,
   debounce,
   returnItself,
+  safeExec,
+  singleModel,
+  StateMachine,
   throttle,
   timing,
   wait,
   waitResource,
+  watch,
+  watchObject,
   fill,
   format,
   toLowerCase,

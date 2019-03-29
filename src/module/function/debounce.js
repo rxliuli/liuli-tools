@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * 函数去抖
  * 去抖 (debounce) 去抖就是对于一定时间段的连续的函数调用，只让其执行一次
@@ -7,16 +8,13 @@
  * @param {Function} action 真正需要执行的操作
  * @return {Function} 包装后有去抖功能的函数
  */
-function debounce (delay, action) {
+export function debounce (delay, action) {
   let tId
-  return function () {
+  return function (...args) {
     const context = this
-    const arg = arguments
     if (tId) clearTimeout(tId)
     tId = setTimeout(function () {
-      action.apply(context, arg)
+      action.call(context, ...args)
     }, delay)
   }
 }
-
-export default debounce

@@ -121,4 +121,5 @@ const rx = {
   randomInt
 }
 
+module.exports = rx
 export default rx

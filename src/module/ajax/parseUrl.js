@@ -1,20 +1,36 @@
 /**
  * Url 对象
  */
-const RxUrl = {
-  createNew (rxUrl) {
-    const res = {
-      href: '', // 不包含网站域名的链接
-      website: '', // URL 站点
-      protocol: '', // 协议
-      domain: '', // 域名
-      accessPath: '', // 绝对路径,不包含参数
-      params: {}, // 参数列表,
-      url: '', // 原 url 链接
-      port: 0 // 端口号
-    }
-    Object.assign(res, rxUrl)
-    return res
+class UrlObject {
+  /**
+   * 构造函数
+   * {String} href 不包含网站域名的链接
+   * {String} website URL 站点
+   * {String} protocol 协议
+   * {String} domain 域名
+   * {String} accessPath 绝对路径,不包含参数
+   * {Object} params 参数列表,
+   * {String} url 原 url 链接
+   * {Number} port 端口号
+   */
+  constructor ({
+    href = '',
+    website = '',
+    protocol = '',
+    domain = '',
+    accessPath = '',
+    params = {},
+    url = '',
+    port = 0
+  }) {
+    this.href = href
+    this.website = website
+    this.protocol = protocol
+    this.domain = domain
+    this.accessPath = accessPath
+    this.params = params
+    this.url = url
+    this.port = port
   }
 }
 
@@ -31,16 +47,16 @@ const protocol2Port = {
 /**
  * 解析 url 字符串
  * @param {String} url url 字符串
- * @returns {RxUrl} json 对象
+ * @returns {UrlObject} url 对象
  */
-function parseUrl (url) {
+export function parseUrl (url) {
   if (!url) {
     throw new Error('url 不能为空')
   }
 
   const regexp = new RegExp('^((\\w+)://([\\w\\.]*)(:(\\d+))?)(.*)')
   const temps = regexp.exec(url)
-  const res = RxUrl.createNew({
+  const res = new UrlObject({
     url: url,
     website: temps[1],
     protocol: temps[2],
@@ -55,9 +71,10 @@ function parseUrl (url) {
     return res
   }
   res.accessPath = temp.substr(0, markIndex)
-  if (!res.port) {
-    res.port = protocol2Port[res.protocol] || ''
+  if (res.accessPath.endsWith('/')) {
+    res.accessPath = res.accessPath.substring(0, res.accessPath.length - 1)
   }
+  res.port = res.port || protocol2Port[res.protocol] || ''
   // 解析参数列表
   res.params = temp
     .substr(markIndex + 1)
@@ -81,5 +98,3 @@ function parseUrl (url) {
     }, {})
   return res
 }
-
-export default parseUrl

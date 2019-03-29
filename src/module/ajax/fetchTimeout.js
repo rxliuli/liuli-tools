@@ -5,7 +5,7 @@
  * @param {Number} timeout 超时时间
  * @returns {Promise} 如果超时就提前返回 reject, 否则正常返回 fetch 结果
  */
-function promiseTimeout (fetchPromise, timeout) {
+function fetchTimeout (fetchPromise, timeout) {
   var abortFn = null
   // 这是一个可以被 reject 的 Promise
   var abortPromise = new Promise(function (resolve, reject) {
@@ -21,4 +21,4 @@ function promiseTimeout (fetchPromise, timeout) {
   return abortablePromise
 }
 
-export default promiseTimeout
+export default fetchTimeout

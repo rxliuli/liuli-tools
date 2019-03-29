@@ -14,5 +14,5 @@ test('test waitResource', async () => {
     }
   )
   expect(Date.now() - now).toBeGreaterThanOrEqual(1000)
-  expect(num).toBe(10)
+  expect(num).toBeLessThanOrEqual(10)
 })

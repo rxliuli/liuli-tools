@@ -1,5 +1,5 @@
 import rx from './main'
 
-test('test main.js', () => {
+test('test main', () => {
   expect(rx).not.toBeNull()
 })

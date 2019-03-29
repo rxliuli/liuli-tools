@@ -19,8 +19,8 @@ import { toObject } from './module/array/toObject'
 import { uniqueBy } from './module/array/uniqueBy'
 import { arrayToMap } from './module/array/arrayToMap'
 
-import dateFormat from './module/date/dateFormat'
-import strToDate from './module/date/strToDate'
+import { dateFormat } from './module/date/dateFormat'
+import { strToDate } from './module/date/strToDate'
 
 import createElByString from './module/dom/createElByString'
 import getCusorPostion from './module/dom/getCusorPostion'

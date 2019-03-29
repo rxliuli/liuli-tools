@@ -29,7 +29,17 @@ export default [
       // 引入 babel 插件
       babel({
         exclude: calcPath('../node_modules/**'),
-        runtimeHelpers: true
+        runtimeHelpers: true,
+        presets: [
+          [
+            '@babel/preset-env',
+            {
+              targets: '> 0.25%, not dead',
+              modules: false,
+              useBuiltIns: 'entry'
+            }
+          ]
+        ]
       }),
       // js 压缩插件，需要在最后引入
       uglify()

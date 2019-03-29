@@ -1,5 +1,37 @@
+// @ts-check
+
 import fill from '../string/fill'
-import { toObject } from '../array/toObject'
+import { arrayToMap } from './../array/arrayToMap'
+
+/**
+ * 日期格式化类
+ */
+class DateFormat {
+  /**
+   * 构造函数
+   * @param {String} name 日期格式的名称
+   * @param {String} format 日期的格式值
+   * @param {String} value 格式化得到的值
+   * @param {Number} index 需要替换位置的索引
+   */
+  constructor (name, format, value, index) {
+    this.name = name
+    this.format = format
+    this.value = value
+    this.index = index
+  }
+}
+
+// 日期时间的正则表达式
+const dateFormats = {
+  year: 'y{4}|y{2}',
+  month: 'M{1,2}',
+  day: 'd{1,2}',
+  hour: 'h{1,2}',
+  minute: 'm{1,2}',
+  second: 's{1,2}',
+  milliSecond: 'S{1,3}'
+}
 
 /**
  * 解析字符串为 Date 对象
@@ -8,35 +40,8 @@ import { toObject } from '../array/toObject'
  * 目前仅支持使用 y(年),M(月),d(日),h(时),m(分),s(秒),S(毫秒)
  * @returns {Date} 解析得到的 Date 对象
  */
-function strToDate (dateStr, fmt) {
+export function strToDate (dateStr, fmt) {
   const now = new Date()
-  /**
-   * 日期格式化对象
-   * @param {String} name 日期格式的名称
-   * @param {String} format 日期的格式值
-   * @param {String} value 格式化得到的值
-   * @param {Number} index 需要替换位置的索引
-   * @constructor
-   */
-  class DateFormat {
-    constructor (name, format, value, index) {
-      this.name = name
-      this.format = format
-      this.value = value
-      this.index = index
-    }
-  }
-
-  // 日期时间的正则表达式
-  const dateFormats = {
-    year: 'y{2}|y{4}',
-    month: 'M{1,2}',
-    day: 'd{1,2}',
-    hour: 'h{1,2}',
-    minute: 'm{1,2}',
-    second: 's{1,2}',
-    milliSecond: 'S{1,3}'
-  }
   // 如果没有格式化某项的话则设置为默认时间
   const defaultDateValues = {
     year: now.getFullYear().toString(),
@@ -72,45 +77,43 @@ function strToDate (dateStr, fmt) {
   }
   // 进行一次排序, 依次对字符串进行截取
   dateUnits
+    // 过滤掉没有得到格式化的对象
+    .filter(({ format }) => format)
+    // 按照字符串中日期片段的索引进行排序
     .sort(function (a, b) {
       return a.index - b.index
     })
+    // 获取到匹配的日期片段的值
     .map(format => {
-      const matchDateUnit = new RegExp(format).exec(dateStr)
+      const matchDateUnit = new RegExp(format.format).exec(dateStr)
       if (matchDateUnit !== null && matchDateUnit.length > 0) {
         dateStr = dateStr.replace(matchDateUnit[0], '')
         format.value = matchDateUnit[0]
       }
       return format
     })
-  for (var i = 0, length = dateUnits.length; i < length; i++) {
-    const format = dateUnits[i].format
-    if (format == null) {
-      continue
-    }
-    const matchDateUnit = new RegExp(format).exec(dateStr)
-    if (matchDateUnit !== null && matchDateUnit.length > 0) {
-      dateStr = dateStr.replace(matchDateUnit[0], '')
-      dateUnits[i].value = matchDateUnit[0]
-    }
-  }
+    // 覆写到 dateStr 上面
+    .forEach(({ format }, i) => {
+      const matchDateUnit = new RegExp(format).exec(dateStr)
+      if (matchDateUnit !== null && matchDateUnit.length > 0) {
+        dateStr = dateStr.replace(matchDateUnit[0], '')
+        dateUnits[i].value = matchDateUnit[0]
+      }
+    })
   // 将截取完成的信息封装成对象并格式化标准的日期字符串
-  const obj = toObject(dateUnits, item => item.name, item => item.value)
-  if (obj.year.length === 2) {
-    obj.year = now
-      .getFullYear()
-      .toString()
-      .substr(0, 2)
-      .concat(obj.year)
+  const map = arrayToMap(dateUnits, item => item.name, item => item.value)
+  if (map.get('year').length === 2) {
+    map.set('year', defaultDateValues.year.substr(0, 2).concat(map.get('year')))
   }
-  const date = `${obj.year}-${obj.month}-${obj.day}T${obj.hour}:${obj.minute}:${
-    obj.second
-  }.${obj.milliSecond}Z`
+  // 注意：此处使用的是本地时间而非 UTC 时间
+  const date = `${map.get('year')}-${map.get('month')}-${map.get(
+    'day'
+  )}T${map.get('hour')}:${map.get('minute')}:${map.get('second')}.${map.get(
+    'milliSecond'
+  )}`
   try {
     return new Date(date)
   } catch (e) {
     return null
   }
 }
-
-export default strToDate

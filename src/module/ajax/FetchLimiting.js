@@ -1,9 +1,10 @@
-import wait from '../function/wait'
-import fetchTimeout from './fetchTimeout'
+// @ts-check
+import { wait } from '../function/wait'
+import { fetchTimeout } from './fetchTimeout'
 /**
  * 限制并发请求数量的 fetch 封装
  */
-class FetchLimiting {
+export class FetchLimiting {
   constructor ({ timeout = 10000, limit = 10 }) {
     this.timeout = timeout
     this.limit = limit
@@ -28,8 +29,10 @@ class FetchLimiting {
         }, index: ${JSON.stringify(this.waitArr[0])}`
       )
       this.execCount++
-      const args = this.waitArr.shift(0)
+      const args = this.waitArr.shift()
       try {
+        // TODO bug
+        // @ts-ignore
         return await fetchTimeout(fetch(...args), this.timeout)
       } finally {
         this.execCount--
@@ -41,5 +44,3 @@ class FetchLimiting {
     return _innerFetch()
   }
 }
-
-export default FetchLimiting

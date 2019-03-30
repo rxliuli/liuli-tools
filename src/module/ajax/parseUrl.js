@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * Url 对象
  */
@@ -61,6 +62,7 @@ export function parseUrl (url) {
     website: temps[1],
     protocol: temps[2],
     domain: temps[3],
+    // @ts-ignore
     port: temps[5],
     href: temps[6]
   })

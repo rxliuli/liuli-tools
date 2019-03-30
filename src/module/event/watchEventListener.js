@@ -1,7 +1,8 @@
+// @ts-check
 /**
  * 监听 event 的添加，必须及早添加
  */
-function initWatch () {
+export function initWatch () {
   /**
    * 监听所有的 addEventListener, removeEventListener 事件
    */
@@ -28,7 +29,7 @@ function initWatch () {
    * 自定义的添加事件监听函数
    * @param {String} type 事件类型
    * @param {EventListener} listener 事件监听函数
-   * @param {Boolean} {useCapture} 是否需要捕获事件冒泡，默认为 false
+   * @param {Boolean} [useCapture=true] 是否需要捕获事件冒泡，默认为 false
    */
   function addEventListener (type, listener, useCapture = false) {
     const _this = this
@@ -45,6 +46,7 @@ function initWatch () {
    * 该方法会删除这个类型下面全部的监听函数，不管数量
    * @param {String} type 事件类型
    */
+  // @ts-ignore
   function removeEventListenerByType (type) {
     const _this = this
     const $removeEventListener =
@@ -63,8 +65,8 @@ function initWatch () {
 
   ;(function initWatchDOM () {
     document.addEventListener = EventTarget.prototype.addEventListener = addEventListener
+    // 此处是为了新增函数 removeEventListenerByType
+    // @ts-ignore
     document.removeEventListenerByType = EventTarget.prototype.removeEventListenerByType = removeEventListenerByType
   })()
 }
-
-export default initWatch

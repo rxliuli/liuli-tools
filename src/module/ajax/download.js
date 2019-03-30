@@ -1,9 +1,10 @@
+// @ts-check
 /**
  * 在浏览器上下载二进制资源
  * @param {Blob} blob 要下载的二进制资源
  * @param {String} filename 文件名
  */
-function download (blob, filename = 'unknown') {
+export function download (blob, filename = 'unknown') {
   // 创建隐藏的可下载链接
   var eleLink = document.createElement('a')
   eleLink.download = filename
@@ -16,5 +17,3 @@ function download (blob, filename = 'unknown') {
   // 然后移除
   document.body.removeChild(eleLink)
 }
-
-export default download

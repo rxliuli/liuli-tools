@@ -354,6 +354,30 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "",
+    "test-file/src/module/array/arrayToMap.test.js.html#lineNumber3",
+    "arrayToMap [1, 2, 3] to equals Map({1 => 1, 2 => 2, 3 => 3})",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/asIterator.test.js.html#lineNumber3",
+    "asIterator test Array",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/groupBy.test.js.html#lineNumber3",
+    "groupBy [1, 2, 3] to equals Map({true => [1, 2], false => 2})",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/range.test.js.html#lineNumber3",
+    "range 1-3 is [1,2,3]",
+    "test"
+  ],
+  [
     "src/.external-ecmascript.js~array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
     "src/.external-ecmascript.js~Array",
@@ -642,6 +666,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/main.test.js",
+    "test-file/src/main.test.js.html",
+    "src/main.test.js",
+    "testFile"
+  ],
+  [
     "src/module/ajax/fetchlimiting.js",
     "file/src/module/ajax/FetchLimiting.js.html",
     "src/module/ajax/FetchLimiting.js",
@@ -726,6 +756,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/ajax/parseurl.test.js",
+    "test-file/src/module/ajax/parseUrl.test.js.html",
+    "src/module/ajax/parseUrl.test.js",
+    "testFile"
+  ],
+  [
     "src/module/ajax/readlocal.js",
     "file/src/module/ajax/readLocal.js.html",
     "src/module/ajax/readLocal.js",
@@ -736,6 +772,12 @@ window.esdocSearchIndex = [
     "file/src/module/ajax/spliceParams.js.html",
     "src/module/ajax/spliceParams.js",
     "file"
+  ],
+  [
+    "src/module/ajax/spliceparams.test.js",
+    "test-file/src/module/ajax/spliceParams.test.js.html",
+    "src/module/ajax/spliceParams.test.js",
+    "testFile"
   ],
   [
     "src/module/ajax/strtoarraybuffer.js",
@@ -750,10 +792,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/array/arraytomap.test.js",
+    "test-file/src/module/array/arrayToMap.test.js.html",
+    "src/module/array/arrayToMap.test.js",
+    "testFile"
+  ],
+  [
     "src/module/array/asiterator.js",
     "file/src/module/array/asIterator.js.html",
     "src/module/array/asIterator.js",
     "file"
+  ],
+  [
+    "src/module/array/asiterator.test.js",
+    "test-file/src/module/array/asIterator.test.js.html",
+    "src/module/array/asIterator.test.js",
+    "testFile"
   ],
   [
     "src/module/array/asyncflatmap.js",
@@ -762,10 +816,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/array/asyncflatmap.test.js",
+    "test-file/src/module/array/asyncFlatMap.test.js.html",
+    "src/module/array/asyncFlatMap.test.js",
+    "testFile"
+  ],
+  [
     "src/module/array/flatmap.js",
     "file/src/module/array/flatMap.js.html",
     "src/module/array/flatMap.js",
     "file"
+  ],
+  [
+    "src/module/array/flatmap.test.js",
+    "test-file/src/module/array/flatMap.test.js.html",
+    "src/module/array/flatMap.test.js",
+    "testFile"
   ],
   [
     "src/module/array/groupby.js",
@@ -774,10 +840,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/array/groupby.test.js",
+    "test-file/src/module/array/groupBy.test.js.html",
+    "src/module/array/groupBy.test.js",
+    "testFile"
+  ],
+  [
     "src/module/array/range.js",
     "file/src/module/array/range.js.html",
     "src/module/array/range.js",
     "file"
+  ],
+  [
+    "src/module/array/range.test.js",
+    "test-file/src/module/array/range.test.js.html",
+    "src/module/array/range.test.js",
+    "testFile"
   ],
   [
     "src/module/array/toobject.js",
@@ -786,10 +864,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/array/toobject.test.js",
+    "test-file/src/module/array/toObject.test.js.html",
+    "src/module/array/toObject.test.js",
+    "testFile"
+  ],
+  [
     "src/module/array/uniqueby.js",
     "file/src/module/array/uniqueBy.js.html",
     "src/module/array/uniqueBy.js",
     "file"
+  ],
+  [
+    "src/module/array/uniqueby.test.js",
+    "test-file/src/module/array/uniqueBy.test.js.html",
+    "src/module/array/uniqueBy.test.js",
+    "testFile"
   ],
   [
     "src/module/date/dateformat.js",
@@ -798,10 +888,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/date/dateformat.test.js",
+    "test-file/src/module/date/dateFormat.test.js.html",
+    "src/module/date/dateFormat.test.js",
+    "testFile"
+  ],
+  [
     "src/module/date/strtodate.js",
     "file/src/module/date/strToDate.js.html",
     "src/module/date/strToDate.js",
     "file"
+  ],
+  [
+    "src/module/date/strtodate.test.js",
+    "test-file/src/module/date/strToDate.test.js.html",
+    "src/module/date/strToDate.test.js",
+    "testFile"
   ],
   [
     "src/module/dom/copytext.js",
@@ -870,10 +972,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/formdata/appends.test.js",
+    "test-file/src/module/formdata/appends.test.js.html",
+    "src/module/formdata/appends.test.js",
+    "testFile"
+  ],
+  [
     "src/module/formdata/deletes.js",
     "file/src/module/formdata/deletes.js.html",
     "src/module/formdata/deletes.js",
     "file"
+  ],
+  [
+    "src/module/formdata/deletes.test.js",
+    "test-file/src/module/formdata/deletes.test.js.html",
+    "src/module/formdata/deletes.test.js",
+    "testFile"
   ],
   [
     "src/module/formdata/formdatatoarray.js",
@@ -882,16 +996,34 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/formdata/formdatatoarray.test.js",
+    "test-file/src/module/formdata/formDataToArray.test.js.html",
+    "src/module/formdata/formDataToArray.test.js",
+    "testFile"
+  ],
+  [
     "src/module/formdata/objtoformdata.js",
     "file/src/module/formdata/objToFormData.js.html",
     "src/module/formdata/objToFormData.js",
     "file"
   ],
   [
+    "src/module/formdata/objtoformdata.test.js",
+    "test-file/src/module/formdata/objToFormData.test.js.html",
+    "src/module/formdata/objToFormData.test.js",
+    "testFile"
+  ],
+  [
     "src/module/formdata/sets.js",
     "file/src/module/formdata/sets.js.html",
     "src/module/formdata/sets.js",
     "file"
+  ],
+  [
+    "src/module/formdata/sets.test.js",
+    "test-file/src/module/formdata/sets.test.js.html",
+    "src/module/formdata/sets.test.js",
+    "testFile"
   ],
   [
     "src/module/function/statemachine.js",
@@ -906,10 +1038,22 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/module/function/statemachine.test.js",
+    "test-file/src/module/function/StateMachine.test.js.html",
+    "src/module/function/StateMachine.test.js",
+    "testFile"
+  ],
+  [
     "src/module/function/debounce.js",
     "file/src/module/function/debounce.js.html",
     "src/module/function/debounce.js",
     "file"
+  ],
+  [
+    "src/module/function/debounce.test.js",
+    "test-file/src/module/function/debounce.test.js.html",
+    "src/module/function/debounce.test.js",
+    "testFile"
   ],
   [
     "src/module/function/returnitself.js",
@@ -918,10 +1062,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/function/returnitself.test.js",
+    "test-file/src/module/function/returnItself.test.js.html",
+    "src/module/function/returnItself.test.js",
+    "testFile"
+  ],
+  [
     "src/module/function/safeexec.js",
     "file/src/module/function/safeExec.js.html",
     "src/module/function/safeExec.js",
     "file"
+  ],
+  [
+    "src/module/function/safeexec.test.js",
+    "test-file/src/module/function/safeExec.test.js.html",
+    "src/module/function/safeExec.test.js",
+    "testFile"
   ],
   [
     "src/module/function/singlemodel.js",
@@ -930,10 +1086,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/function/singlemodel.test.js",
+    "test-file/src/module/function/singleModel.test.js.html",
+    "src/module/function/singleModel.test.js",
+    "testFile"
+  ],
+  [
     "src/module/function/throttle.js",
     "file/src/module/function/throttle.js.html",
     "src/module/function/throttle.js",
     "file"
+  ],
+  [
+    "src/module/function/throttle.test.js",
+    "test-file/src/module/function/throttle.test.js.html",
+    "src/module/function/throttle.test.js",
+    "testFile"
   ],
   [
     "src/module/function/timing.js",
@@ -942,10 +1110,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/function/timing.test.js",
+    "test-file/src/module/function/timing.test.js.html",
+    "src/module/function/timing.test.js",
+    "testFile"
+  ],
+  [
     "src/module/function/wait.js",
     "file/src/module/function/wait.js.html",
     "src/module/function/wait.js",
     "file"
+  ],
+  [
+    "src/module/function/wait.test.js",
+    "test-file/src/module/function/wait.test.js.html",
+    "src/module/function/wait.test.js",
+    "testFile"
   ],
   [
     "src/module/function/waitresource.js",
@@ -954,10 +1134,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/function/waitresource.test.js",
+    "test-file/src/module/function/waitResource.test.js.html",
+    "src/module/function/waitResource.test.js",
+    "testFile"
+  ],
+  [
     "src/module/function/watch.js",
     "file/src/module/function/watch.js.html",
     "src/module/function/watch.js",
     "file"
+  ],
+  [
+    "src/module/function/watch.test.js",
+    "test-file/src/module/function/watch.test.js.html",
+    "src/module/function/watch.test.js",
+    "testFile"
   ],
   [
     "src/module/function/watchobject.js",
@@ -966,10 +1158,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/function/watchobject.test.js",
+    "test-file/src/module/function/watchObject.test.js.html",
+    "src/module/function/watchObject.test.js",
+    "testFile"
+  ],
+  [
     "src/module/number/randomint.js",
     "file/src/module/number/randomInt.js.html",
     "src/module/number/randomInt.js",
     "file"
+  ],
+  [
+    "src/module/number/randomint.test.js",
+    "test-file/src/module/number/randomInt.test.js.html",
+    "src/module/number/randomInt.test.js",
+    "testFile"
   ],
   [
     "src/module/obj/blanktonullfield.js",
@@ -978,10 +1182,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/obj/blanktonullfield.test.js",
+    "test-file/src/module/obj/blankToNullField.test.js.html",
+    "src/module/obj/blankToNullField.test.js",
+    "testFile"
+  ],
+  [
     "src/module/obj/emptyallfield.js",
     "file/src/module/obj/emptyAllField.js.html",
     "src/module/obj/emptyAllField.js",
     "file"
+  ],
+  [
+    "src/module/obj/emptyallfield.test.js",
+    "test-file/src/module/obj/emptyAllField.test.js.html",
+    "src/module/obj/emptyAllField.test.js",
+    "testFile"
   ],
   [
     "src/module/obj/maptoobject.js",
@@ -990,10 +1206,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/obj/maptoobject.test.js",
+    "test-file/src/module/obj/mapToObject.test.js.html",
+    "src/module/obj/mapToObject.test.js",
+    "testFile"
+  ],
+  [
     "src/module/string/blanktonull.js",
     "file/src/module/string/blankToNull.js.html",
     "src/module/string/blankToNull.js",
     "file"
+  ],
+  [
+    "src/module/string/blanktonull.test.js",
+    "test-file/src/module/string/blankToNull.test.js.html",
+    "src/module/string/blankToNull.test.js",
+    "testFile"
   ],
   [
     "src/module/string/fill.js",
@@ -1002,10 +1230,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/string/fill.test.js",
+    "test-file/src/module/string/fill.test.js.html",
+    "src/module/string/fill.test.js",
+    "testFile"
+  ],
+  [
     "src/module/string/format.js",
     "file/src/module/string/format.js.html",
     "src/module/string/format.js",
     "file"
+  ],
+  [
+    "src/module/string/format.test.js",
+    "test-file/src/module/string/format.test.js.html",
+    "src/module/string/format.test.js",
+    "testFile"
   ],
   [
     "src/module/string/isfloat.js",
@@ -1014,10 +1254,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/string/isfloat.test.js",
+    "test-file/src/module/string/isFloat.test.js.html",
+    "src/module/string/isFloat.test.js",
+    "testFile"
+  ],
+  [
     "src/module/string/isnumber.js",
     "file/src/module/string/isNumber.js.html",
     "src/module/string/isNumber.js",
     "file"
+  ],
+  [
+    "src/module/string/isnumber.test.js",
+    "test-file/src/module/string/isNumber.test.js.html",
+    "src/module/string/isNumber.test.js",
+    "testFile"
   ],
   [
     "src/module/string/tolowercase.js",
@@ -1026,9 +1278,273 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/string/tolowercase.test.js",
+    "test-file/src/module/string/toLowerCase.test.js.html",
+    "src/module/string/toLowerCase.test.js",
+    "testFile"
+  ],
+  [
     "src/module/string/touppercase.js",
     "file/src/module/string/toUpperCase.js.html",
     "src/module/string/toUpperCase.js",
     "file"
+  ],
+  [
+    "src/module/string/touppercase.test.js",
+    "test-file/src/module/string/toUpperCase.test.js.html",
+    "src/module/string/toUpperCase.test.js",
+    "testFile"
+  ],
+  [
+    "",
+    "test-file/src/module/function/StateMachine.test.js.html#lineNumber2",
+    "test StateMachine",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/formdata/appends.test.js.html#lineNumber3",
+    "test appends",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/asyncFlatMap.test.js.html#lineNumber4",
+    "test asyncFlatMap",
+    "test"
+  ],
+  [
+    "blanktonull src/module/string/blanktonull.js~blanktonull,blanktonull",
+    "test-file/src/module/string/blankToNull.test.js.html#lineNumber6",
+    "test blankToNull",
+    "test"
+  ],
+  [
+    "* *,*",
+    "test-file/src/module/string/blankToNull.test.js.html#lineNumber12",
+    "test blankToNull test a",
+    "test"
+  ],
+  [
+    "* *,*",
+    "test-file/src/module/string/blankToNull.test.js.html#lineNumber8",
+    "test blankToNull test blank",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/obj/blankToNullField.test.js.html#lineNumber3",
+    "test blankToNullField",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateFormat.test.js.html#lineNumber2",
+    "test dateFormat",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/debounce.test.js.html#lineNumber3",
+    "test debounce",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/formdata/deletes.test.js.html#lineNumber4",
+    "test deletes",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/obj/emptyAllField.test.js.html#lineNumber3",
+    "test emptyAllField",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/string/fill.test.js.html#lineNumber3",
+    "test fill",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/flatMap.test.js.html#lineNumber3",
+    "test flatMap",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/formdata/formDataToArray.test.js.html#lineNumber4",
+    "test formDataToArray",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/string/format.test.js.html#lineNumber3",
+    "test format",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/string/isFloat.test.js.html#lineNumber3",
+    "test isFloat",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/string/isNumber.test.js.html#lineNumber4",
+    "test isNumber",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/main.test.js.html#lineNumber3",
+    "test main",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/main.test.js.html#lineNumber7",
+    "test main, use dateFormat for import {}",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/obj/mapToObject.test.js.html#lineNumber3",
+    "test mapToObject",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/formdata/objToFormData.test.js.html#lineNumber3",
+    "test objToFormData",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/ajax/parseUrl.test.js.html#lineNumber3",
+    "test parseUrl",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/number/randomInt.test.js.html#lineNumber3",
+    "test randomInt",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/returnItself.test.js.html#lineNumber3",
+    "test returnItSelf",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/safeExec.test.js.html#lineNumber3",
+    "test safeExec normal",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/safeExec.test.js.html#lineNumber6",
+    "test safeExec throw Error",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/safeExec.test.js.html#lineNumber13",
+    "test safeExec throw Error, and set default value",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/formdata/sets.test.js.html#lineNumber4",
+    "test sets",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/singleModel.test.js.html#lineNumber3",
+    "test singleModel for no parameter",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/ajax/spliceParams.test.js.html#lineNumber3",
+    "test spliceParams",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/strToDate.test.js.html#lineNumber3",
+    "test strToDate",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/throttle.test.js.html#lineNumber4",
+    "test throttle",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/timing.test.js.html#lineNumber4",
+    "test timing for normal function",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/timing.test.js.html#lineNumber16",
+    "test timing for promise function",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/string/toLowerCase.test.js.html#lineNumber3",
+    "test toLowerCase",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/toObject.test.js.html#lineNumber3",
+    "test toObject",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/string/toUpperCase.test.js.html#lineNumber3",
+    "test toUpperCase",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/uniqueBy.test.js.html#lineNumber2",
+    "test uniqueBy",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/wait.test.js.html#lineNumber3",
+    "test wait sepecify time",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/waitResource.test.js.html#lineNumber3",
+    "test waitResource",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/watch.test.js.html#lineNumber2",
+    "test watch",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/watchObject.test.js.html#lineNumber3",
+    "test watchObject",
+    "test"
   ]
 ]

@@ -10,11 +10,8 @@
     "build:prod": "rollup -c build/rollup.config.js --environment NODE_ENV:production",
     "build": "npm run build:prod",
     "lint": "eslint --fix ./src/",
-    "docs": "jsdoc src -c conf.json -d docs -r",
-    "pub": "npm publish",
-    "test": "jest --watch",
-    "docz:dev": "docz dev",
-    "docz:build": "docz build"
+    "docs": "esdoc",
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",

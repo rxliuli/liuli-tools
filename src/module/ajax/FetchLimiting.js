@@ -1,6 +1,7 @@
 // @ts-check
 import { wait } from '../function/wait'
 import { fetchTimeout } from './fetchTimeout'
+
 /**
  * 限制并发请求数量的 fetch 封装
  */
@@ -31,7 +32,7 @@ export class FetchLimiting {
       this.execCount++
       const args = this.waitArr.shift()
       try {
-        // TODO bug
+        // 这里的 args 实际上就是 arguments 对象，即上面的 url 和 init
         // @ts-ignore
         return await fetchTimeout(fetch(...args), this.timeout)
       } finally {

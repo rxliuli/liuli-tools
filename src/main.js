@@ -8,7 +8,7 @@ import { readLocal } from './module/ajax/readLocal'
 import { spliceParams } from './module/ajax/spliceParams'
 import { fetchTimeout } from './module/ajax/fetchTimeout'
 import { strToArrayBuffer } from './module/ajax/strToArrayBuffer'
-// import FetchLimiting from './module/ajax/FetchLimiting'
+import { FetchLimiting } from './module/ajax/FetchLimiting'
 
 import { asIterator } from './module/array/asIterator'
 import { asyncFlatMap } from './module/array/asyncFlatMap'
@@ -66,7 +66,7 @@ import { mapToObject } from './module/obj/mapToObject'
 
 import { randomInt } from './module/number/randomInt'
 
-export {
+const rx = {
   download,
   downloadString,
   downloadUrl,
@@ -77,7 +77,7 @@ export {
   spliceParams,
   fetchTimeout,
   strToArrayBuffer,
-  // FetchLimiting,
+  FetchLimiting,
   asIterator,
   asyncFlatMap,
   flatMap,
@@ -127,63 +127,5 @@ export {
   randomInt
 }
 
-export default {
-  download,
-  downloadString,
-  downloadUrl,
-  getCookies,
-  loadResource,
-  parseUrl,
-  readLocal,
-  spliceParams,
-  fetchTimeout,
-  strToArrayBuffer,
-  // FetchLimiting,
-  asIterator,
-  asyncFlatMap,
-  flatMap,
-  groupBy,
-  range,
-  toObject,
-  uniqueBy,
-  arrayToMap,
-  dateFormat,
-  strToDate,
-  copyText,
-  createElByString,
-  getCusorPostion,
-  insertText,
-  isEditable,
-  lastFocus,
-  removeEl,
-  removeText,
-  setCusorPostion,
-  watchEventListener,
-  appends,
-  deletes,
-  sets,
-  objToFormData,
-  formDataToArray,
-  debounce,
-  returnItself,
-  safeExec,
-  singleModel,
-  StateMachine,
-  throttle,
-  timing,
-  wait,
-  waitResource,
-  watch,
-  watchObject,
-  fill,
-  format,
-  isFloat,
-  isNumber,
-  toLowerCase,
-  toUpperCase,
-  blankToNull,
-  emptyAllField,
-  blankToNullField,
-  mapToObject,
-  randomInt
-}
+module.exports = rx
+export default rx

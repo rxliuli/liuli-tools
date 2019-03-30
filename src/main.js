@@ -22,6 +22,7 @@ import { arrayToMap } from './module/array/arrayToMap'
 import { dateFormat } from './module/date/dateFormat'
 import { strToDate } from './module/date/strToDate'
 
+import { copyText } from './module/dom/copyText'
 import { createElByString } from './module/dom/createElByString'
 import { getCusorPostion } from './module/dom/getCusorPostion'
 import { insertText } from './module/dom/insertText'
@@ -53,6 +54,8 @@ import { watchObject } from './module/function/watchObject'
 
 import { fill } from './module/string/fill'
 import { format } from './module/string/format'
+import { isFloat } from './module/string/isFloat'
+import { isNumber } from './module/string/isNumber'
 import { toLowerCase } from './module/string/toLowerCase'
 import { toUpperCase } from './module/string/toUpperCase'
 import { blankToNull } from './module/string/blankToNull'
@@ -63,7 +66,7 @@ import { mapToObject } from './module/obj/mapToObject'
 
 import { randomInt } from './module/number/randomInt'
 
-const rx = {
+export {
   download,
   downloadString,
   downloadUrl,
@@ -85,6 +88,7 @@ const rx = {
   arrayToMap,
   dateFormat,
   strToDate,
+  copyText,
   createElByString,
   getCusorPostion,
   insertText,
@@ -112,6 +116,8 @@ const rx = {
   watchObject,
   fill,
   format,
+  isFloat,
+  isNumber,
   toLowerCase,
   toUpperCase,
   blankToNull,
@@ -121,5 +127,63 @@ const rx = {
   randomInt
 }
 
-module.exports = rx
-export default rx
+export default {
+  download,
+  downloadString,
+  downloadUrl,
+  getCookies,
+  loadResource,
+  parseUrl,
+  readLocal,
+  spliceParams,
+  fetchTimeout,
+  strToArrayBuffer,
+  // FetchLimiting,
+  asIterator,
+  asyncFlatMap,
+  flatMap,
+  groupBy,
+  range,
+  toObject,
+  uniqueBy,
+  arrayToMap,
+  dateFormat,
+  strToDate,
+  copyText,
+  createElByString,
+  getCusorPostion,
+  insertText,
+  isEditable,
+  lastFocus,
+  removeEl,
+  removeText,
+  setCusorPostion,
+  watchEventListener,
+  appends,
+  deletes,
+  sets,
+  objToFormData,
+  formDataToArray,
+  debounce,
+  returnItself,
+  safeExec,
+  singleModel,
+  StateMachine,
+  throttle,
+  timing,
+  wait,
+  waitResource,
+  watch,
+  watchObject,
+  fill,
+  format,
+  isFloat,
+  isNumber,
+  toLowerCase,
+  toUpperCase,
+  blankToNull,
+  emptyAllField,
+  blankToNullField,
+  mapToObject,
+  randomInt
+}

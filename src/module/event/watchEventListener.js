@@ -1,8 +1,9 @@
 // @ts-check
 /**
- * 监听 event 的添加，必须及早添加
+ * 监听 event 的添加
+ * 注：必须及早添加
  */
-export function initWatch () {
+export function watchEventListener () {
   /**
    * 监听所有的 addEventListener, removeEventListener 事件
    */

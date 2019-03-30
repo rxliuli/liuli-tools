@@ -3,11 +3,9 @@
 /**
  * js 数组按照某个条件进行分组
  *
- * @typedef {any} T 参数数组以及函数的参数类型
- * @typedef {any} R 返回数组以及函数的返回值类型
- * @param {Array<T>} arr 要进行分组的数组
+ * @param {Array<Object>} arr 要进行分组的数组
  * @param {Function} fn 元素分组的方法
- * @returns {Map<R,T>} 对象 -> 数组映射对象
+ * @returns {Map<Object,Object>} 对象 -> 数组映射对象
  */
 export function groupBy (arr, fn) {
   // 将元素按照分组条件进行分组得到一个 条件 -> 数组 的对象

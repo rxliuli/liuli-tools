@@ -754,7 +754,7 @@
     "__docId__": 56,
     "kind": "file",
     "name": "src/module/ajax/FetchLimiting.js",
-    "content": "// @ts-check\r\nimport { wait } from '../function/wait'\r\nimport { fetchTimeout } from './fetchTimeout'\r\n\r\n/**\r\n * 限制并发请求数量的 fetch 封装\r\n */\r\nexport class FetchLimiting {\r\n  constructor ({ timeout = 10000, limit = 10 }) {\r\n    this.timeout = timeout\r\n    this.limit = limit\r\n    this.execCount = 0\r\n    // 等待队列\r\n    this.waitArr = []\r\n  }\r\n\r\n  /**\r\n   * 执行一个请求\r\n   * 如果到达最大并发限制时就进行等待\r\n   * 注：该方法的请求顺序是无序的，与代码里的顺序无关\r\n   * @param {RequestInfo} url 请求 url 信息\r\n   * @param {RequestInit} init 请求的其他可选项\r\n   * @returns {Promise} 如果超时就提前返回 reject, 否则正常返回 fetch 结果\r\n   */\r\n  async _fetch (url, init) {\r\n    const _innerFetch = async () => {\r\n      console.log(\r\n        `执行 execCount: ${this.execCount}, waitArr length: ${\r\n          this.waitArr.length\r\n        }, index: ${JSON.stringify(this.waitArr[0])}`\r\n      )\r\n      this.execCount++\r\n      const args = this.waitArr.shift()\r\n      try {\r\n        // 这里的 args 实际上就是 arguments 对象，即上面的 url 和 init\r\n        // @ts-ignore\r\n        return await fetchTimeout(fetch(...args), this.timeout)\r\n      } finally {\r\n        this.execCount--\r\n      }\r\n    }\r\n    this.waitArr.push(arguments)\r\n    await wait(() => this.execCount < this.limit)\r\n    // 尝试启动等待队列\r\n    return _innerFetch()\r\n  }\r\n}\r\n",
+    "content": "// @ts-check\r\nimport { wait } from '../function/wait'\r\nimport { fetchTimeout } from './fetchTimeout'\r\n\r\n/**\r\n * 限制并发请求数量的 fetch 封装\r\n * @class FetchLimiting\r\n * @property timeout 超时毫秒数\r\n * @property limit 最大并发数限制\r\n * @property execCount 当前正在执行请求的数量\r\n * @property waitArr 等待的队列\r\n * @example\r\n * const fetchLimiting = new FetchLimiting()\r\n * fetchLimiting._fetch('/')\r\n *   .then(res => res.json())\r\n *   .then(json => console.log(json))\r\n */\r\nexport class FetchLimiting {\r\n  /**\r\n   * 构造函数\r\n   * @param {Object} [option] 可选配置项\r\n   * @param {Number} [option.timeout=10000] 超时毫秒数\r\n   * @param {Number} [option.limit=10] 最大并发数限制\r\n   */\r\n  constructor ({ timeout = 10000, limit = 10 }) {\r\n    this.timeout = timeout\r\n    this.limit = limit\r\n    this.execCount = 0\r\n    this.waitArr = []\r\n  }\r\n\r\n  /**\r\n   * 执行一个请求\r\n   * 如果到达最大并发限制时就进行等待\r\n   * @param {RequestInfo} url 请求 url 信息\r\n   * @param {RequestInit} [init=undefined] 请求的其他可选项，默认为 undefined\r\n   * @returns {Promise} 如果超时就提前返回 reject, 否则正常返回 fetch 结果\r\n   */\r\n  async fetch (url, init) {\r\n    const _innerFetch = async () => {\r\n      console.log(\r\n        `执行 execCount: ${this.execCount}, waitArr length: ${\r\n          this.waitArr.length\r\n        }, index: ${JSON.stringify(this.waitArr[0])}`\r\n      )\r\n      this.execCount++\r\n      const args = this.waitArr.shift()\r\n      try {\r\n        // 这里的 args 实际上就是 arguments 对象，即上面的 url 和 init\r\n        // @ts-ignore\r\n        return await fetchTimeout(fetch(...args), this.timeout)\r\n      } finally {\r\n        this.execCount--\r\n      }\r\n    }\r\n    this.waitArr.push(arguments)\r\n    await wait(() => this.execCount < this.limit)\r\n    // 尝试启动等待队列\r\n    return _innerFetch()\r\n  }\r\n}\r\n",
     "static": true,
     "longname": "D:/Text/nodejs/rx-util/src/module/ajax/FetchLimiting.js",
     "access": "public",
@@ -773,7 +773,58 @@
     "importPath": "rx-util/src/module/ajax/FetchLimiting.js",
     "importStyle": "{FetchLimiting}",
     "description": "限制并发请求数量的 fetch 封装",
-    "lineNumber": 8,
+    "examples": [
+      "const fetchLimiting = new FetchLimiting()\nfetchLimiting._fetch('/')\n  .then(res => res.json())\n  .then(json => console.log(json))"
+    ],
+    "lineNumber": 18,
+    "unknown": [
+      {
+        "tagName": "@class",
+        "tagValue": "FetchLimiting"
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": "超时毫秒数"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "limit",
+        "description": "最大并发数限制"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "execCount",
+        "description": "当前正在执行请求的数量"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "waitArr",
+        "description": "等待的队列"
+      }
+    ],
     "interface": false
   },
   {
@@ -786,9 +837,44 @@
     "static": false,
     "longname": "src/module/ajax/FetchLimiting.js~FetchLimiting#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 9,
-    "undocument": true
+    "description": "构造函数",
+    "lineNumber": 25,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "option",
+        "description": "可选配置项"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "10000",
+        "defaultRaw": 10000,
+        "name": "option.timeout",
+        "description": "超时毫秒数"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "10",
+        "defaultRaw": 10,
+        "name": "option.limit",
+        "description": "最大并发数限制"
+      }
+    ]
   },
   {
     "__docId__": 59,
@@ -799,7 +885,7 @@
     "longname": "src/module/ajax/FetchLimiting.js~FetchLimiting#timeout",
     "access": "public",
     "description": null,
-    "lineNumber": 10,
+    "lineNumber": 26,
     "undocument": true,
     "type": {
       "types": [
@@ -816,7 +902,7 @@
     "longname": "src/module/ajax/FetchLimiting.js~FetchLimiting#limit",
     "access": "public",
     "description": null,
-    "lineNumber": 11,
+    "lineNumber": 27,
     "undocument": true,
     "type": {
       "types": [
@@ -833,7 +919,7 @@
     "longname": "src/module/ajax/FetchLimiting.js~FetchLimiting#execCount",
     "access": "public",
     "description": null,
-    "lineNumber": 12,
+    "lineNumber": 28,
     "undocument": true,
     "type": {
       "types": [
@@ -850,7 +936,7 @@
     "longname": "src/module/ajax/FetchLimiting.js~FetchLimiting#waitArr",
     "access": "public",
     "description": null,
-    "lineNumber": 14,
+    "lineNumber": 29,
     "undocument": true,
     "type": {
       "types": [
@@ -861,15 +947,15 @@
   {
     "__docId__": 63,
     "kind": "method",
-    "name": "_fetch",
+    "name": "fetch",
     "memberof": "src/module/ajax/FetchLimiting.js~FetchLimiting",
     "generator": false,
     "async": true,
     "static": false,
-    "longname": "src/module/ajax/FetchLimiting.js~FetchLimiting#_fetch",
-    "access": "private",
-    "description": "执行一个请求\n如果到达最大并发限制时就进行等待\n注：该方法的请求顺序是无序的，与代码里的顺序无关",
-    "lineNumber": 25,
+    "longname": "src/module/ajax/FetchLimiting.js~FetchLimiting#fetch",
+    "access": "public",
+    "description": "执行一个请求\n如果到达最大并发限制时就进行等待",
+    "lineNumber": 39,
     "unknown": [
       {
         "tagName": "@returns",
@@ -893,9 +979,11 @@
           "RequestInit"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "undefined",
+        "defaultRaw": "undefined",
         "name": "init",
-        "description": "请求的其他可选项"
+        "description": "请求的其他可选项，默认为 undefined"
       }
     ],
     "return": {
@@ -1502,7 +1590,7 @@
     "__docId__": 89,
     "kind": "file",
     "name": "src/module/array/arrayToMap.js",
-    "content": "// @ts-check\r\n\r\n/**\r\n * 将数组映射为 Map\r\n * @typedef {any} T 参数数组以及函数的参数类型\r\n * @typedef {any} K kFn 函数的返回值类型\r\n * @typedef {any} V vFn 函数的返回值类型\r\n * @param {Array.<T>} array 数组\r\n * @param {Function} kFn 产生 Map 元素唯一标识的函数\r\n * @param {Function} [vFn] 产生 Map 值的函数，默认为返回数组的元素\r\n * @returns {Map.<K,V>} 映射产生的 map 集合\r\n */\r\nexport function arrayToMap (array, kFn, vFn = v => v) {\r\n  return array.reduce((res, item) => {\r\n    res.set(kFn(item), vFn(item))\r\n    return res\r\n  }, new Map())\r\n}\r\n",
+    "content": "// @ts-check\r\n\r\n/**\r\n * 将数组映射为 Map\r\n * @param {Array.<Object>} array 数组\r\n * @param {Function} kFn 产生 Map 元素唯一标识的函数\r\n * @param {Function} [vFn] 产生 Map 值的函数，默认为返回数组的元素\r\n * @returns {Map.<Object,Object>} 映射产生的 map 集合\r\n */\r\nexport function arrayToMap (array, kFn, vFn = v => v) {\r\n  return array.reduce((res, item) => {\r\n    res.set(kFn(item), vFn(item))\r\n    return res\r\n  }, new Map())\r\n}\r\n",
     "static": true,
     "longname": "D:/Text/nodejs/rx-util/src/module/array/arrayToMap.js",
     "access": "public",
@@ -1511,25 +1599,30 @@
   },
   {
     "__docId__": 90,
-    "kind": "typedef",
-    "name": "V",
+    "kind": "function",
+    "name": "arrayToMap",
     "memberof": "src/module/array/arrayToMap.js",
+    "generator": false,
+    "async": false,
     "static": true,
-    "longname": "src/module/array/arrayToMap.js~V",
+    "longname": "src/module/array/arrayToMap.js~arrayToMap",
     "access": "public",
+    "export": true,
+    "importPath": "rx-util/src/module/array/arrayToMap.js",
+    "importStyle": "{arrayToMap}",
     "description": "将数组映射为 Map",
-    "lineNumber": 13,
+    "lineNumber": 10,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Map.<K,V>} 映射产生的 map 集合"
+        "tagValue": "{Map.<Object,Object>} 映射产生的 map 集合"
       }
     ],
     "params": [
       {
         "nullable": null,
         "types": [
-          "Array.<T>"
+          "Array.<Object>"
         ],
         "spread": false,
         "optional": false,
@@ -1560,24 +1653,17 @@
     "return": {
       "nullable": null,
       "types": [
-        "Map.<K,V>"
+        "Map.<Object,Object>"
       ],
       "spread": false,
       "description": "映射产生的 map 集合"
-    },
-    "type": {
-      "types": [
-        "any"
-      ],
-      "optional": false,
-      "name": "V"
     }
   },
   {
     "__docId__": 91,
     "kind": "file",
     "name": "src/module/array/asIterator.js",
-    "content": "// @ts-check\r\n\r\n/**\r\n * 将一个 Iterator 迭代器转换为一个 Array\r\n * 目前 {@override Array.from} 已取代改函数\r\n * @typedef {any} T 集合泛型类型\r\n * @param {Iterator.<T>} iterator Iterator 迭代器\r\n * @return {Array.<T>} Iterator 中每一项元素转换而得到的 Array\r\n */\r\nexport function asIterator (iterator) {\r\n  var arr = []\r\n  while (true) {\r\n    var next = iterator.next()\r\n    if (next.done) {\r\n      break\r\n    }\r\n    arr.push(next.value)\r\n  }\r\n  return arr\r\n}\r\n",
+    "content": "// @ts-check\r\n\r\n/**\r\n * 将一个 Iterator 迭代器转换为一个 Array\r\n * 目前 {@override Array.from} 已取代改函数\r\n * @param {Iterator.<Object>} iterator Iterator 迭代器\r\n * @return {Array.<Object>} Iterator 中每一项元素转换而得到的 Array\r\n */\r\nexport function asIterator (iterator) {\r\n  var arr = []\r\n  while (true) {\r\n    var next = iterator.next()\r\n    if (next.done) {\r\n      break\r\n    }\r\n    arr.push(next.value)\r\n  }\r\n  return arr\r\n}\r\n",
     "static": true,
     "longname": "D:/Text/nodejs/rx-util/src/module/array/asIterator.js",
     "access": "public",
@@ -1586,19 +1672,24 @@
   },
   {
     "__docId__": 92,
-    "kind": "typedef",
-    "name": "T",
+    "kind": "function",
+    "name": "asIterator",
     "memberof": "src/module/array/asIterator.js",
+    "generator": false,
+    "async": false,
     "static": true,
-    "longname": "src/module/array/asIterator.js~T",
+    "longname": "src/module/array/asIterator.js~asIterator",
     "access": "public",
+    "export": true,
+    "importPath": "rx-util/src/module/array/asIterator.js",
+    "importStyle": "{asIterator}",
     "description": "将一个 Iterator 迭代器转换为一个 Array\n目前 {@override Array.from} 已取代改函数",
-    "lineNumber": 10,
+    "lineNumber": 9,
     "params": [
       {
         "nullable": null,
         "types": [
-          "Iterator.<T>"
+          "Iterator.<Object>"
         ],
         "spread": false,
         "optional": false,
@@ -1609,24 +1700,17 @@
     "return": {
       "nullable": null,
       "types": [
-        "Array.<T>"
+        "Array.<Object>"
       ],
       "spread": false,
       "description": "Iterator 中每一项元素转换而得到的 Array"
-    },
-    "type": {
-      "types": [
-        "any"
-      ],
-      "optional": false,
-      "name": "T"
     }
   },
   {
     "__docId__": 93,
     "kind": "file",
     "name": "src/module/array/asyncFlatMap.js",
-    "content": "// @ts-check\r\n\r\n/**\r\n * 将数组异步压平一层\r\n * @typedef {any} T 数组参数泛型类型和映射函数的参数类型\r\n * @typedef {any} R 返回数组泛型类型和映射函数的返回值类型\r\n * @param {Array.<T>} arr 数组\r\n * @param {Function} fn 映射函数，将一个元素映射为一个数组\r\n * @returns {Promise.<Array.<R>>} 压平一层的数组\r\n */\r\nexport async function asyncFlatMap (arr, fn) {\r\n  let res = []\r\n  for (const i in arr) {\r\n    res = res.concat(await fn(arr[i]))\r\n  }\r\n  return res\r\n}\r\n",
+    "content": "// @ts-check\r\n\r\n/**\r\n * 将数组异步压平一层\r\n * @param {Array.<Object>} arr 数组\r\n * @param {Function} fn 映射函数，将一个元素映射为一个数组\r\n * @returns {Promise.<Array.<Object>>} 压平一层的数组\r\n */\r\nexport async function asyncFlatMap (arr, fn) {\r\n  let res = []\r\n  for (const i in arr) {\r\n    res = res.concat(await fn(arr[i]))\r\n  }\r\n  return res\r\n}\r\n",
     "static": true,
     "longname": "D:/Text/nodejs/rx-util/src/module/array/asyncFlatMap.js",
     "access": "public",
@@ -1635,25 +1719,30 @@
   },
   {
     "__docId__": 94,
-    "kind": "typedef",
-    "name": "R",
+    "kind": "function",
+    "name": "asyncFlatMap",
     "memberof": "src/module/array/asyncFlatMap.js",
+    "generator": false,
+    "async": true,
     "static": true,
-    "longname": "src/module/array/asyncFlatMap.js~R",
+    "longname": "src/module/array/asyncFlatMap.js~asyncFlatMap",
     "access": "public",
+    "export": true,
+    "importPath": "rx-util/src/module/array/asyncFlatMap.js",
+    "importStyle": "{asyncFlatMap}",
     "description": "将数组异步压平一层",
-    "lineNumber": 11,
+    "lineNumber": 9,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Promise.<Array.<R>>} 压平一层的数组"
+        "tagValue": "{Promise.<Array.<Object>>} 压平一层的数组"
       }
     ],
     "params": [
       {
         "nullable": null,
         "types": [
-          "Array.<T>"
+          "Array.<Object>"
         ],
         "spread": false,
         "optional": false,
@@ -1674,24 +1763,17 @@
     "return": {
       "nullable": null,
       "types": [
-        "Promise.<Array.<R>>"
+        "Promise.<Array.<Object>>"
       ],
       "spread": false,
       "description": "压平一层的数组"
-    },
-    "type": {
-      "types": [
-        "any"
-      ],
-      "optional": false,
-      "name": "R"
     }
   },
   {
     "__docId__": 95,
     "kind": "file",
     "name": "src/module/array/flatMap.js",
-    "content": "// @ts-check\r\n\r\n/**\r\n * 自行实现 flatMap，将数组压平一层\r\n * @typedef {any} T 数组参数泛型类型和映射函数的参数类型\r\n * @typedef {any} R 返回数组泛型类型和映射函数的返回值类型\r\n * @param {Array.<T>} arr 数组\r\n * @param {Function} fn 映射方法，将一个元素映射为一个数组\r\n * @returns {Array.<R>} 压平一层的数组\r\n */\r\nexport function flatMap (arr, fn) {\r\n  return arr.reduce((res, item) => res.concat(fn(item)), [])\r\n}\r\n",
+    "content": "// @ts-check\r\n\r\n/**\r\n * 自行实现 flatMap，将数组压平一层\r\n * @param {Array.<Object>} arr 数组\r\n * @param {Function} fn 映射方法，将一个元素映射为一个数组\r\n * @returns {Array.<Object>} 压平一层的数组\r\n */\r\nexport function flatMap (arr, fn) {\r\n  return arr.reduce((res, item) => res.concat(fn(item)), [])\r\n}\r\n",
     "static": true,
     "longname": "D:/Text/nodejs/rx-util/src/module/array/flatMap.js",
     "access": "public",
@@ -1700,25 +1782,30 @@
   },
   {
     "__docId__": 96,
-    "kind": "typedef",
-    "name": "R",
+    "kind": "function",
+    "name": "flatMap",
     "memberof": "src/module/array/flatMap.js",
+    "generator": false,
+    "async": false,
     "static": true,
-    "longname": "src/module/array/flatMap.js~R",
+    "longname": "src/module/array/flatMap.js~flatMap",
     "access": "public",
+    "export": true,
+    "importPath": "rx-util/src/module/array/flatMap.js",
+    "importStyle": "{flatMap}",
     "description": "自行实现 flatMap，将数组压平一层",
-    "lineNumber": 11,
+    "lineNumber": 9,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Array.<R>} 压平一层的数组"
+        "tagValue": "{Array.<Object>} 压平一层的数组"
       }
     ],
     "params": [
       {
         "nullable": null,
         "types": [
-          "Array.<T>"
+          "Array.<Object>"
         ],
         "spread": false,
         "optional": false,
@@ -1739,24 +1826,17 @@
     "return": {
       "nullable": null,
       "types": [
-        "Array.<R>"
+        "Array.<Object>"
       ],
       "spread": false,
       "description": "压平一层的数组"
-    },
-    "type": {
-      "types": [
-        "any"
-      ],
-      "optional": false,
-      "name": "R"
     }
   },
   {
     "__docId__": 97,
     "kind": "file",
     "name": "src/module/array/groupBy.js",
-    "content": "// @ts-check\r\n\r\n/**\r\n * js 数组按照某个条件进行分组\r\n *\r\n * @typedef {any} T 参数数组以及函数的参数类型\r\n * @typedef {any} R 返回数组以及函数的返回值类型\r\n * @param {Array<T>} arr 要进行分组的数组\r\n * @param {Function} fn 元素分组的方法\r\n * @returns {Map<R,T>} 对象 -> 数组映射对象\r\n */\r\nexport function groupBy (arr, fn) {\r\n  // 将元素按照分组条件进行分组得到一个 条件 -> 数组 的对象\r\n  return arr.reduce((res, item) => {\r\n    const name = fn(item)\r\n    // 如果已经有这个键了就直接追加, 否则先将之赋值为 [] 再追加元素\r\n    if (!res.has(name)) {\r\n      res.set(name, [])\r\n    }\r\n    res.get(name).push(item)\r\n    return res\r\n  }, new Map())\r\n}\r\n",
+    "content": "// @ts-check\r\n\r\n/**\r\n * js 数组按照某个条件进行分组\r\n *\r\n * @param {Array<Object>} arr 要进行分组的数组\r\n * @param {Function} fn 元素分组的方法\r\n * @returns {Map<Object,Object>} 对象 -> 数组映射对象\r\n */\r\nexport function groupBy (arr, fn) {\r\n  // 将元素按照分组条件进行分组得到一个 条件 -> 数组 的对象\r\n  return arr.reduce((res, item) => {\r\n    const name = fn(item)\r\n    // 如果已经有这个键了就直接追加, 否则先将之赋值为 [] 再追加元素\r\n    if (!res.has(name)) {\r\n      res.set(name, [])\r\n    }\r\n    res.get(name).push(item)\r\n    return res\r\n  }, new Map())\r\n}\r\n",
     "static": true,
     "longname": "D:/Text/nodejs/rx-util/src/module/array/groupBy.js",
     "access": "public",
@@ -1765,25 +1845,30 @@
   },
   {
     "__docId__": 98,
-    "kind": "typedef",
-    "name": "R",
+    "kind": "function",
+    "name": "groupBy",
     "memberof": "src/module/array/groupBy.js",
+    "generator": false,
+    "async": false,
     "static": true,
-    "longname": "src/module/array/groupBy.js~R",
+    "longname": "src/module/array/groupBy.js~groupBy",
     "access": "public",
+    "export": true,
+    "importPath": "rx-util/src/module/array/groupBy.js",
+    "importStyle": "{groupBy}",
     "description": "js 数组按照某个条件进行分组",
-    "lineNumber": 12,
+    "lineNumber": 10,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Map<R,T>} 对象 -> 数组映射对象"
+        "tagValue": "{Map<Object,Object>} 对象 -> 数组映射对象"
       }
     ],
     "params": [
       {
         "nullable": null,
         "types": [
-          "Array<T>"
+          "Array<Object>"
         ],
         "spread": false,
         "optional": false,
@@ -1804,17 +1889,10 @@
     "return": {
       "nullable": null,
       "types": [
-        "Map<R,T>"
+        "Map<Object,Object>"
       ],
       "spread": false,
       "description": "对象 -> 数组映射对象"
-    },
-    "type": {
-      "types": [
-        "any"
-      ],
-      "optional": false,
-      "name": "R"
     }
   },
   {
@@ -1894,7 +1972,7 @@
     "__docId__": 101,
     "kind": "file",
     "name": "src/module/array/toObject.js",
-    "content": "// @ts-check\r\n\r\n/**\r\n * 将数组转化为一个 Object 对象\r\n * @deprecated 已废弃，请使用更好的 @override arrayToMap 替代\r\n * @param {Array.<any>} arr 需要进行转换的数组\r\n * @param {Function} kFn 生成对象属性名的函数\r\n * @param {Function} [vFn] 生成对象属性值的函数，默认为数组中的迭代元素\r\n * @returns {Object} 转化得到的对象\r\n */\r\nexport function toObject (arr, kFn, vFn = item => item) {\r\n  return arr.reduce((res, item) => {\r\n    if (!res.hasOwnProperty(kFn(item))) {\r\n      res[kFn(item)] = vFn(item)\r\n    }\r\n    return res\r\n  }, {})\r\n}\r\n",
+    "content": "// @ts-check\r\n\r\n/**\r\n * 将数组转化为一个 Object 对象\r\n * @deprecated 已废弃，请使用更好的 @override arrayToMap 替代\r\n * @param {Array.<Object>} arr 需要进行转换的数组\r\n * @param {Function} kFn 生成对象属性名的函数\r\n * @param {Function} [vFn] 生成对象属性值的函数，默认为数组中的迭代元素\r\n * @returns {Object} 转化得到的对象\r\n */\r\nexport function toObject (arr, kFn, vFn = item => item) {\r\n  return arr.reduce((res, item) => {\r\n    if (!res.hasOwnProperty(kFn(item))) {\r\n      res[kFn(item)] = vFn(item)\r\n    }\r\n    return res\r\n  }, {})\r\n}\r\n",
     "static": true,
     "longname": "D:/Text/nodejs/rx-util/src/module/array/toObject.js",
     "access": "public",
@@ -1927,7 +2005,7 @@
       {
         "nullable": null,
         "types": [
-          "Array.<any>"
+          "Array.<Object>"
         ],
         "spread": false,
         "optional": false,
@@ -1968,7 +2046,7 @@
     "__docId__": 103,
     "kind": "file",
     "name": "src/module/array/uniqueBy.js",
-    "content": "// @ts-check\r\n\r\n/**\r\n * js 的数组去重方法\r\n *  @typedef {any} T 参数数组以及函数的参数类型\r\n * @param {Array.<T>} arr 要进行去重的数组\r\n * @param {Function} fn 唯一标识元素的方法，默认使用 {@link JSON.stringify()}\r\n * @returns {Array.<T>} 进行去重操作之后得到的新的数组 (原数组并未改变)\r\n */\r\nexport function uniqueBy (arr, fn = item => JSON.stringify(item)) {\r\n  const obj = {}\r\n  return arr.filter(item =>\r\n    obj.hasOwnProperty(fn(item)) ? false : (obj[fn(item)] = true)\r\n  )\r\n}\r\n",
+    "content": "// @ts-check\r\n/**\r\n * js 的数组去重方法\r\n * @param {Array.<Object>} arr 要进行去重的数组\r\n * @param {Function} [fn=item => JSON.stringify(item)] 唯一标识元素的方法，默认使用 {@link JSON.stringify()}\r\n * @returns {Array.<Object>} 进行去重操作之后得到的新的数组 (原数组并未改变)\r\n */\r\nexport function uniqueBy (arr, fn = item => JSON.stringify(item)) {\r\n  const obj = {}\r\n  return arr.filter(item =>\r\n    obj.hasOwnProperty(fn(item)) ? false : (obj[fn(item)] = true)\r\n  )\r\n}\r\n",
     "static": true,
     "longname": "D:/Text/nodejs/rx-util/src/module/array/uniqueBy.js",
     "access": "public",
@@ -1977,25 +2055,30 @@
   },
   {
     "__docId__": 104,
-    "kind": "typedef",
-    "name": "T",
+    "kind": "function",
+    "name": "uniqueBy",
     "memberof": "src/module/array/uniqueBy.js",
+    "generator": false,
+    "async": false,
     "static": true,
-    "longname": "src/module/array/uniqueBy.js~T",
+    "longname": "src/module/array/uniqueBy.js~uniqueBy",
     "access": "public",
+    "export": true,
+    "importPath": "rx-util/src/module/array/uniqueBy.js",
+    "importStyle": "{uniqueBy}",
     "description": "js 的数组去重方法",
-    "lineNumber": 10,
+    "lineNumber": 8,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{Array.<T>} 进行去重操作之后得到的新的数组 (原数组并未改变)"
+        "tagValue": "{Array.<Object>} 进行去重操作之后得到的新的数组 (原数组并未改变)"
       }
     ],
     "params": [
       {
         "nullable": null,
         "types": [
-          "Array.<T>"
+          "Array.<Object>"
         ],
         "spread": false,
         "optional": false,
@@ -2008,7 +2091,7 @@
           "Function"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
         "name": "fn",
         "description": "唯一标识元素的方法，默认使用 {@link JSON.stringify()}"
       }
@@ -2016,17 +2099,10 @@
     "return": {
       "nullable": null,
       "types": [
-        "Array.<T>"
+        "Array.<Object>"
       ],
       "spread": false,
       "description": "进行去重操作之后得到的新的数组 (原数组并未改变)"
-    },
-    "type": {
-      "types": [
-        "any"
-      ],
-      "optional": false,
-      "name": "T"
     }
   },
   {
@@ -2575,7 +2651,7 @@
     "__docId__": 126,
     "kind": "file",
     "name": "src/module/dom/lastFocus.js",
-    "content": "// @ts-check\r\n/**\r\n * 获取到最后一个获得焦点的元素\r\n * @returns {Element} 最后一个获取到焦点的元素\r\n */\r\nexport const lastFocus = (lastFocusEl => {\r\n  document.addEventListener(\r\n    'focus',\r\n    event => {\r\n      lastFocusEl = event.target\r\n    },\r\n    true\r\n  )\r\n  document.addEventListener(\r\n    'blur',\r\n    () => {\r\n      lastFocusEl = null\r\n    },\r\n    true\r\n  )\r\n  return () => lastFocusEl\r\n})(null)\r\n",
+    "content": "// @ts-check\r\n\r\nlet lastFocusEl\r\n\r\ndocument.addEventListener(\r\n  'focus',\r\n  event => {\r\n    lastFocusEl = event.target\r\n  },\r\n  true\r\n)\r\ndocument.addEventListener(\r\n  'blur',\r\n  () => {\r\n    lastFocusEl = null\r\n  },\r\n  true\r\n)\r\n/**\r\n * 获取到最后一个获得焦点的元素\r\n * @returns {Element} 最后一个获取到焦点的元素\r\n */\r\nexport function lastFocus () {\r\n  return lastFocusEl\r\n}\r\n",
     "static": true,
     "longname": "D:/Text/nodejs/rx-util/src/module/dom/lastFocus.js",
     "access": "public",
@@ -2584,9 +2660,11 @@
   },
   {
     "__docId__": 127,
-    "kind": "variable",
+    "kind": "function",
     "name": "lastFocus",
     "memberof": "src/module/dom/lastFocus.js",
+    "generator": false,
+    "async": false,
     "static": true,
     "longname": "src/module/dom/lastFocus.js~lastFocus",
     "access": "public",
@@ -2594,7 +2672,7 @@
     "importPath": "rx-util/src/module/dom/lastFocus.js",
     "importStyle": "{lastFocus}",
     "description": "获取到最后一个获得焦点的元素",
-    "lineNumber": 6,
+    "lineNumber": 23,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2609,11 +2687,7 @@
       "spread": false,
       "description": "最后一个获取到焦点的元素"
     },
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
+    "params": []
   },
   {
     "__docId__": 128,
@@ -3266,7 +3340,7 @@
     "__docId__": 152,
     "kind": "file",
     "name": "src/module/function/singleModel.js",
-    "content": "// @ts-check\r\n/**\r\n * 通用的单例模式\r\n * @typedef {Object} SingleClass 包装的单例类型\r\n * @param {Object} clazz 需要包装为单例的类型\r\n * @returns {SingleClass} 包装后的单例模式类，使用 {@code new} 创建将只在第一次有效\r\n */\r\nexport function singleModel (clazz) {\r\n  let instance\r\n  return class SingleClass extends clazz {\r\n    /**\r\n     * @param {...Object} args\r\n     */\r\n    constructor (...args) {\r\n      if (instance) {\r\n        return instance\r\n      }\r\n      super(...args)\r\n      instance = this\r\n    }\r\n  }\r\n}\r\n",
+    "content": "// @ts-check\r\n/**\r\n * 通用的单例模式\r\n * @param {Object} clazz 需要包装为单例的类型\r\n * @returns {Object} 包装后的单例模式类，使用 {@code new} 创建将只在第一次有效\r\n */\r\nexport function singleModel (clazz) {\r\n  let instance\r\n  return class SingleClass extends clazz {\r\n    /**\r\n     * @param {...Object} args\r\n     */\r\n    constructor (...args) {\r\n      if (instance) {\r\n        return instance\r\n      }\r\n      super(...args)\r\n      instance = this\r\n    }\r\n  }\r\n}\r\n",
     "static": true,
     "longname": "D:/Text/nodejs/rx-util/src/module/function/singleModel.js",
     "access": "public",
@@ -3275,18 +3349,23 @@
   },
   {
     "__docId__": 153,
-    "kind": "typedef",
-    "name": "SingleClass",
+    "kind": "function",
+    "name": "singleModel",
     "memberof": "src/module/function/singleModel.js",
+    "generator": false,
+    "async": false,
     "static": true,
-    "longname": "src/module/function/singleModel.js~SingleClass",
+    "longname": "src/module/function/singleModel.js~singleModel",
     "access": "public",
+    "export": true,
+    "importPath": "rx-util/src/module/function/singleModel.js",
+    "importStyle": "{singleModel}",
     "description": "通用的单例模式",
-    "lineNumber": 8,
+    "lineNumber": 7,
     "unknown": [
       {
         "tagName": "@returns",
-        "tagValue": "{SingleClass} 包装后的单例模式类，使用 {@code new} 创建将只在第一次有效"
+        "tagValue": "{Object} 包装后的单例模式类，使用 {@code new} 创建将只在第一次有效"
       }
     ],
     "params": [
@@ -3304,24 +3383,17 @@
     "return": {
       "nullable": null,
       "types": [
-        "SingleClass"
+        "Object"
       ],
       "spread": false,
       "description": "包装后的单例模式类，使用 {@code new} 创建将只在第一次有效"
-    },
-    "type": {
-      "types": [
-        "Object"
-      ],
-      "optional": false,
-      "name": "SingleClass"
     }
   },
   {
     "__docId__": 154,
     "kind": "file",
     "name": "src/module/function/StateMachine.js",
-    "content": "// @ts-check\r\n\r\n/**\r\n * 状态机\r\n * 用于避免使用 if-else 的一种方式\r\n */\r\nexport class StateMachine {\r\n  /**\r\n   * 获取到一个状态工厂\r\n   */\r\n  static getFactory () {\r\n    const classMap = new Map()\r\n    /**\r\n     * 状态注册器\r\n     * 更好的有限状态机，分离子类与构建的关系，无论子类如何增删该都不影响基类及工厂类\r\n     */\r\n    return new class Builder {\r\n      // noinspection JSMethodCanBeStatic\r\n      /**\r\n       * 注册一个 class，创建子类时调用，用于记录每一个 [状态 => 子类] 对应\r\n       * @param {Number|String} state 作为键的状态\r\n       * @param {Object} clazz 对应的子类型\r\n       * @returns {Object} 返回 clazz 本身\r\n       */\r\n      register (state, clazz) {\r\n        classMap.set(state, clazz)\r\n        return clazz\r\n      }\r\n\r\n      // noinspection JSMethodCanBeStatic\r\n      /**\r\n       * 获取一个标签子类对象\r\n       * @param {Number|String} state 状态索引\r\n       * @returns {Object} 子类对象\r\n       */\r\n      getInstance (state) {\r\n        const Class = classMap.get(state)\r\n        if (!Class) {\r\n          return null\r\n        }\r\n        // 构造函数的参数\r\n        return new Class(...Array.from(arguments).slice(1))\r\n      }\r\n    }()\r\n  }\r\n}\r\n",
+    "content": "// @ts-check\r\n/**\r\n * 状态机\r\n * 用于避免使用 if-else 的一种方式\r\n */\r\nexport class StateMachine {\r\n  /**\r\n   * 获取到一个状态工厂\r\n   */\r\n  static getFactory () {\r\n    const classMap = new Map()\r\n    /**\r\n     * 状态注册器\r\n     * 更好的有限状态机，分离子类与构建的关系，无论子类如何增删该都不影响基类及工厂类\r\n     */\r\n    return new class Builder {\r\n      /**\r\n       * 注册一个 class，创建子类时调用，用于记录每一个 [状态 => 子类] 对应\r\n       * @param {Number|String} state 作为键的状态\r\n       * @param {Object} clazz 对应的子类型\r\n       * @returns {Object} 返回 clazz 本身\r\n       */\r\n      register (state, clazz) {\r\n        classMap.set(state, clazz)\r\n        return clazz\r\n      }\r\n\r\n      // noinspection JSMethodCanBeStatic\r\n      /**\r\n       * 获取一个标签子类对象\r\n       * @param {Number|String} state 状态索引\r\n       * @returns {Object} 子类对象\r\n       */\r\n      getInstance (state) {\r\n        const Class = classMap.get(state)\r\n        if (!Class) {\r\n          return null\r\n        }\r\n        // 构造函数的参数\r\n        return new Class(...Array.from(arguments).slice(1))\r\n      }\r\n    }()\r\n  }\r\n}\r\n",
     "static": true,
     "longname": "D:/Text/nodejs/rx-util/src/module/function/StateMachine.js",
     "access": "public",
@@ -3340,7 +3412,7 @@
     "importPath": "rx-util/src/module/function/StateMachine.js",
     "importStyle": "{StateMachine}",
     "description": "状态机\n用于避免使用 if-else 的一种方式",
-    "lineNumber": 7,
+    "lineNumber": 6,
     "interface": false
   },
   {
@@ -3354,7 +3426,7 @@
     "longname": "src/module/function/StateMachine.js~StateMachine.getFactory",
     "access": "public",
     "description": "获取到一个状态工厂",
-    "lineNumber": 11,
+    "lineNumber": 10,
     "params": [],
     "return": {
       "types": [
@@ -4386,7 +4458,7 @@
   },
   {
     "kind": "index",
-    "content": "# 日常使用的浏览器 JavaScript 工具库\r\n\r\n> [JSDOC 文档](https://rx-util.rxliuli.com/)\r\n\r\n[![build-rollup-brightgreen](https://img.shields.io/badge/build-rollup-brightgreen.svg)](https://www.npmjs.com/package/rx-util) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://www.npmjs.com/package/rx-util)\r\n\r\n> 该库没有经过全面测试，**禁止**用于生产环境。\r\n\r\n吾辈日常用于写 Greasemonkey 脚本时需要大量相同的函数，所以需要写一个能在浏览器上使用的库，仅此而已。\r\n",
+    "content": "# 日常使用的 JavaScript 工具库\r\n\r\n> [JSDOC 文档](https://rx-util.rxliuli.com/)\r\n\r\n[![build-rollup-brightgreen](https://img.shields.io/badge/build-rollup-brightgreen.svg)](https://www.npmjs.com/package/rx-util) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://www.npmjs.com/package/rx-util)\r\n\r\n该库大部分代码已经通过单元测试，但还请谨慎用于生产环境。\r\n\r\n> 不包含单元测试的部分大部分是 DOM 操作相关函数，以及部分异步代码。\r\n\r\n吾辈日常写传统前端时需要大量相同的函数，所以需要写一个能在浏览器上使用的库，仅此而已。\r\n",
     "longname": "D:\\Text\\nodejs\\rx-util\\README.md",
     "name": "./README.md",
     "static": true,

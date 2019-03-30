@@ -4,25 +4,39 @@ import { fetchTimeout } from './fetchTimeout'
 
 /**
  * 限制并发请求数量的 fetch 封装
+ * @class FetchLimiting
+ * @property timeout 超时毫秒数
+ * @property limit 最大并发数限制
+ * @property execCount 当前正在执行请求的数量
+ * @property waitArr 等待的队列
+ * @example
+ * const fetchLimiting = new FetchLimiting()
+ * fetchLimiting._fetch('/')
+ *   .then(res => res.json())
+ *   .then(json => console.log(json))
  */
 export class FetchLimiting {
+  /**
+   * 构造函数
+   * @param {Object} [option] 可选配置项
+   * @param {Number} [option.timeout=10000] 超时毫秒数
+   * @param {Number} [option.limit=10] 最大并发数限制
+   */
   constructor ({ timeout = 10000, limit = 10 }) {
     this.timeout = timeout
     this.limit = limit
     this.execCount = 0
-    // 等待队列
     this.waitArr = []
   }
 
   /**
    * 执行一个请求
    * 如果到达最大并发限制时就进行等待
-   * 注：该方法的请求顺序是无序的，与代码里的顺序无关
    * @param {RequestInfo} url 请求 url 信息
-   * @param {RequestInit} init 请求的其他可选项
+   * @param {RequestInit} [init=undefined] 请求的其他可选项，默认为 undefined
    * @returns {Promise} 如果超时就提前返回 reject, 否则正常返回 fetch 结果
    */
-  async _fetch (url, init) {
+  async fetch (url, init) {
     const _innerFetch = async () => {
       console.log(
         `执行 execCount: ${this.execCount}, waitArr length: ${

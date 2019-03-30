@@ -1,7 +1,7 @@
 {
-  "coverage": "70.88%",
-  "expectCount": 79,
-  "actualCount": 56,
+  "coverage": "74.41%",
+  "expectCount": 86,
+  "actualCount": 64,
   "files": {
     "src/main.js": {
       "expectCount": 1,
@@ -27,13 +27,12 @@
     },
     "src/module/ajax/FetchLimiting.js": {
       "expectCount": 7,
-      "actualCount": 2,
+      "actualCount": 3,
       "undocumentLines": [
-        9,
-        10,
-        11,
-        12,
-        14
+        26,
+        27,
+        28,
+        29
       ]
     },
     "src/module/ajax/fetchTimeout.js": {
@@ -81,12 +80,42 @@
       "actualCount": 1,
       "undocumentLines": []
     },
+    "src/module/array/arrayToMap.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/module/array/asIterator.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/module/array/asyncFlatMap.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/module/array/flatMap.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/module/array/groupBy.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
     "src/module/array/range.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
     },
     "src/module/array/toObject.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/module/array/uniqueBy.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
@@ -194,6 +223,11 @@
       "undocumentLines": []
     },
     "src/module/function/safeExec.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/module/function/singleModel.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []

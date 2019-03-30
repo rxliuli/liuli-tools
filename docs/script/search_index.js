@@ -18,6 +18,24 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "rx-util/src/module/array/arraytomap.js~arraytomap",
+    "function/index.html#static-function-arrayToMap",
+    "<span>arrayToMap</span> <span class=\"search-result-import-path\">rx-util/src/module/array/arrayToMap.js</span>",
+    "function"
+  ],
+  [
+    "rx-util/src/module/array/asiterator.js~asiterator",
+    "function/index.html#static-function-asIterator",
+    "<span>asIterator</span> <span class=\"search-result-import-path\">rx-util/src/module/array/asIterator.js</span>",
+    "function"
+  ],
+  [
+    "rx-util/src/module/array/asyncflatmap.js~asyncflatmap",
+    "function/index.html#static-function-asyncFlatMap",
+    "<span>asyncFlatMap</span> <span class=\"search-result-import-path\">rx-util/src/module/array/asyncFlatMap.js</span>",
+    "function"
+  ],
+  [
     "rx-util/src/module/string/blanktonull.js~blanktonull",
     "function/index.html#static-function-blankToNull",
     "<span>blankToNull</span> <span class=\"search-result-import-path\">rx-util/src/module/string/blankToNull.js</span>",
@@ -96,6 +114,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "rx-util/src/module/array/flatmap.js~flatmap",
+    "function/index.html#static-function-flatMap",
+    "<span>flatMap</span> <span class=\"search-result-import-path\">rx-util/src/module/array/flatMap.js</span>",
+    "function"
+  ],
+  [
     "rx-util/src/module/formdata/formdatatoarray.js~formdatatoarray",
     "function/index.html#static-function-formDataToArray",
     "<span>formDataToArray</span> <span class=\"search-result-import-path\">rx-util/src/module/formdata/formDataToArray.js</span>",
@@ -117,6 +141,12 @@ window.esdocSearchIndex = [
     "rx-util/src/module/dom/getcusorpostion.js~getcusorpostion",
     "function/index.html#static-function-getCusorPostion",
     "<span>getCusorPostion</span> <span class=\"search-result-import-path\">rx-util/src/module/dom/getCusorPostion.js</span>",
+    "function"
+  ],
+  [
+    "rx-util/src/module/array/groupby.js~groupby",
+    "function/index.html#static-function-groupBy",
+    "<span>groupBy</span> <span class=\"search-result-import-path\">rx-util/src/module/array/groupBy.js</span>",
     "function"
   ],
   [
@@ -145,9 +175,9 @@ window.esdocSearchIndex = [
   ],
   [
     "rx-util/src/module/dom/lastfocus.js~lastfocus",
-    "variable/index.html#static-variable-lastFocus",
+    "function/index.html#static-function-lastFocus",
     "<span>lastFocus</span> <span class=\"search-result-import-path\">rx-util/src/module/dom/lastFocus.js</span>",
-    "variable"
+    "function"
   ],
   [
     "rx-util/src/module/ajax/loadresource.js~loadresource",
@@ -234,6 +264,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "rx-util/src/module/function/singlemodel.js~singlemodel",
+    "function/index.html#static-function-singleModel",
+    "<span>singleModel</span> <span class=\"search-result-import-path\">rx-util/src/module/function/singleModel.js</span>",
+    "function"
+  ],
+  [
     "rx-util/src/module/ajax/spliceparams.js~spliceparams",
     "function/index.html#static-function-spliceParams",
     "<span>spliceParams</span> <span class=\"search-result-import-path\">rx-util/src/module/ajax/spliceParams.js</span>",
@@ -279,6 +315,12 @@ window.esdocSearchIndex = [
     "rx-util/src/module/string/touppercase.js~touppercase",
     "function/index.html#static-function-toUpperCase",
     "<span>toUpperCase</span> <span class=\"search-result-import-path\">rx-util/src/module/string/toUpperCase.js</span>",
+    "function"
+  ],
+  [
+    "rx-util/src/module/array/uniqueby.js~uniqueby",
+    "function/index.html#static-function-uniqueBy",
+    "<span>uniqueBy</span> <span class=\"search-result-import-path\">rx-util/src/module/array/uniqueBy.js</span>",
     "function"
   ],
   [
@@ -606,12 +648,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/module/ajax/fetchlimiting.js~fetchlimiting#_fetch",
-    "class/src/module/ajax/FetchLimiting.js~FetchLimiting.html#instance-method-_fetch",
-    "src/module/ajax/FetchLimiting.js~FetchLimiting#_fetch",
-    "method"
-  ],
-  [
     "src/module/ajax/fetchlimiting.js~fetchlimiting#constructor",
     "class/src/module/ajax/FetchLimiting.js~FetchLimiting.html#instance-constructor-constructor",
     "src/module/ajax/FetchLimiting.js~FetchLimiting#constructor",
@@ -622,6 +658,12 @@ window.esdocSearchIndex = [
     "class/src/module/ajax/FetchLimiting.js~FetchLimiting.html#instance-member-execCount",
     "src/module/ajax/FetchLimiting.js~FetchLimiting#execCount",
     "member"
+  ],
+  [
+    "src/module/ajax/fetchlimiting.js~fetchlimiting#fetch",
+    "class/src/module/ajax/FetchLimiting.js~FetchLimiting.html#instance-method-fetch",
+    "src/module/ajax/FetchLimiting.js~FetchLimiting#fetch",
+    "method"
   ],
   [
     "src/module/ajax/fetchlimiting.js~fetchlimiting#limit",
@@ -708,22 +750,10 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/module/array/arraytomap.js~v",
-    "typedef/index.html#static-typedef-V",
-    "src/module/array/arrayToMap.js~V",
-    "typedef"
-  ],
-  [
     "src/module/array/asiterator.js",
     "file/src/module/array/asIterator.js.html",
     "src/module/array/asIterator.js",
     "file"
-  ],
-  [
-    "src/module/array/asiterator.js~t",
-    "typedef/index.html#static-typedef-T",
-    "src/module/array/asIterator.js~T",
-    "typedef"
   ],
   [
     "src/module/array/asyncflatmap.js",
@@ -732,34 +762,16 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/module/array/asyncflatmap.js~r",
-    "typedef/index.html#static-typedef-R",
-    "src/module/array/asyncFlatMap.js~R",
-    "typedef"
-  ],
-  [
     "src/module/array/flatmap.js",
     "file/src/module/array/flatMap.js.html",
     "src/module/array/flatMap.js",
     "file"
   ],
   [
-    "src/module/array/flatmap.js~r",
-    "typedef/index.html#static-typedef-R",
-    "src/module/array/flatMap.js~R",
-    "typedef"
-  ],
-  [
     "src/module/array/groupby.js",
     "file/src/module/array/groupBy.js.html",
     "src/module/array/groupBy.js",
     "file"
-  ],
-  [
-    "src/module/array/groupby.js~r",
-    "typedef/index.html#static-typedef-R",
-    "src/module/array/groupBy.js~R",
-    "typedef"
   ],
   [
     "src/module/array/range.js",
@@ -778,12 +790,6 @@ window.esdocSearchIndex = [
     "file/src/module/array/uniqueBy.js.html",
     "src/module/array/uniqueBy.js",
     "file"
-  ],
-  [
-    "src/module/array/uniqueby.js~t",
-    "typedef/index.html#static-typedef-T",
-    "src/module/array/uniqueBy.js~T",
-    "typedef"
   ],
   [
     "src/module/date/dateformat.js",
@@ -922,12 +928,6 @@ window.esdocSearchIndex = [
     "file/src/module/function/singleModel.js.html",
     "src/module/function/singleModel.js",
     "file"
-  ],
-  [
-    "src/module/function/singlemodel.js~singleclass",
-    "typedef/index.html#static-typedef-SingleClass",
-    "src/module/function/singleModel.js~SingleClass",
-    "typedef"
   ],
   [
     "src/module/function/throttle.js",

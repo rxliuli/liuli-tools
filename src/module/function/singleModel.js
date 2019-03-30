@@ -1,9 +1,8 @@
 // @ts-check
 /**
  * 通用的单例模式
- * @typedef {Object} SingleClass 包装的单例类型
  * @param {Object} clazz 需要包装为单例的类型
- * @returns {SingleClass} 包装后的单例模式类，使用 {@code new} 创建将只在第一次有效
+ * @returns {Object} 包装后的单例模式类，使用 {@code new} 创建将只在第一次有效
  */
 export function singleModel (clazz) {
   let instance

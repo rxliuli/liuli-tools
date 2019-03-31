@@ -66,6 +66,9 @@ import { mapToObject } from './module/obj/mapToObject'
 
 import { randomInt } from './module/number/randomInt'
 
+/**
+ * 全局导出的对象，用于浏览器中使用的全局变量 rx
+ */
 const rx = {
   download,
   downloadString,

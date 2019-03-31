@@ -17,6 +17,7 @@ export function readLocal (
     }
     const fr = new FileReader()
     fr.onload = event => {
+      // @ts-ignore
       resolve(event.target.result)
     }
     fr.onerror = error => {

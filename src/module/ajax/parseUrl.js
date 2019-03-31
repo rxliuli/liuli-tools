@@ -47,7 +47,7 @@ const protocol2Port = {
 
 /**
  * 解析 url 字符串
- * @param {String} url url 字符串
+ * @param {!String} url url 字符串
  * @returns {UrlObject} url 对象
  */
 export function parseUrl (url) {

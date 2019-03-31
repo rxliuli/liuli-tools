@@ -8,7 +8,7 @@
  * @returns {Array.<Number>} 等差数列数组
  */
 export function range (start, end, sep = 1) {
-  var arr = []
+  const arr = []
   for (let i = start; i < end; i += sep) {
     arr.push(i)
   }

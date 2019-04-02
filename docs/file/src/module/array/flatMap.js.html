@@ -29,8 +29,7 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rx">rx</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-ajax">module/ajax</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/module/ajax/FetchLimiting.js~FetchLimiting.html">FetchLimiting</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-ajax">module/ajax</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/module/ajax/FetchLimiting.js~FetchLimiting.html">FetchLimiting</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-download">download</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-downloadString">downloadString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-downloadUrl">downloadUrl</a></span></span></li>
@@ -98,10 +97,12 @@
 /**
  * &#x81EA;&#x884C;&#x5B9E;&#x73B0; flatMap&#xFF0C;&#x5C06;&#x6570;&#x7EC4;&#x538B;&#x5E73;&#x4E00;&#x5C42;
  * @param {Array.&lt;Object&gt;} arr &#x6570;&#x7EC4;
- * @param {Function} fn &#x6620;&#x5C04;&#x65B9;&#x6CD5;&#xFF0C;&#x5C06;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x6620;&#x5C04;&#x4E3A;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;
+ // @ts-ignore
+ * @param {function(item:Object):Array.&lt;Object&gt;} fn &#x6620;&#x5C04;&#x65B9;&#x6CD5;&#xFF0C;&#x5C06;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x6620;&#x5C04;&#x4E3A;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;
  * @returns {Array.&lt;Object&gt;} &#x538B;&#x5E73;&#x4E00;&#x5C42;&#x7684;&#x6570;&#x7EC4;
  */
 export function flatMap (arr, fn) {
+  // @ts-ignore
   return arr.reduce((res, item) =&gt; res.concat(fn(item)), [])
 }
 </code></pre>

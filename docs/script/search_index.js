@@ -240,12 +240,6 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "rx-util~rx",
-    "variable/index.html#static-variable-rx",
-    "<span>rx</span> <span class=\"search-result-import-path\">rx-util</span>",
-    "variable"
-  ],
-  [
     "rx-util/src/module/function/safeexec.js~safeexec",
     "function/index.html#static-function-safeExec",
     "<span>safeExec</span> <span class=\"search-result-import-path\">rx-util/src/module/function/safeExec.js</span>",
@@ -1399,13 +1393,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/src/main.test.js.html#lineNumber3",
+    "test-file/src/main.test.js.html#lineNumber6",
     "test main",
     "test"
   ],
   [
     "",
-    "test-file/src/main.test.js.html#lineNumber7",
+    "test-file/src/main.test.js.html#lineNumber10",
     "test main, use dateFormat for import {}",
     "test"
   ],

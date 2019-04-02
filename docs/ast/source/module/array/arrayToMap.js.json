@@ -643,7 +643,7 @@
             },
             {
               "type": "CommentBlock",
-              "value": "*\r\n * 将数组映射为 Map\r\n * @param {Array.<Object>} array 数组\r\n * @param {Function} kFn 产生 Map 元素唯一标识的函数\r\n * @param {Function} [vFn] 产生 Map 值的函数，默认为返回数组的元素\r\n * @returns {Map.<Object,Object>} 映射产生的 map 集合\r\n ",
+              "value": "*\r\n * 将数组映射为 Map\r\n * @param {Array.<Object>} array 数组\r\n * @param {function} kFn 产生 Map 元素唯一标识的函数\r\n * @param {Function} [vFn] 产生 Map 值的函数，默认为返回数组的元素\r\n * @returns {Map.<Object,Object>} 映射产生的 map 集合\r\n ",
               "start": 16,
               "end": 218,
               "loc": {
@@ -679,7 +679,7 @@
           },
           {
             "type": "CommentBlock",
-            "value": "*\r\n * 将数组映射为 Map\r\n * @param {Array.<Object>} array 数组\r\n * @param {Function} kFn 产生 Map 元素唯一标识的函数\r\n * @param {Function} [vFn] 产生 Map 值的函数，默认为返回数组的元素\r\n * @returns {Map.<Object,Object>} 映射产生的 map 集合\r\n ",
+            "value": "*\r\n * 将数组映射为 Map\r\n * @param {Array.<Object>} array 数组\r\n * @param {function} kFn 产生 Map 元素唯一标识的函数\r\n * @param {Function} [vFn] 产生 Map 值的函数，默认为返回数组的元素\r\n * @returns {Map.<Object,Object>} 映射产生的 map 集合\r\n ",
             "start": 16,
             "end": 218,
             "loc": {
@@ -717,7 +717,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\r\n * 将数组映射为 Map\r\n * @param {Array.<Object>} array 数组\r\n * @param {Function} kFn 产生 Map 元素唯一标识的函数\r\n * @param {Function} [vFn] 产生 Map 值的函数，默认为返回数组的元素\r\n * @returns {Map.<Object,Object>} 映射产生的 map 集合\r\n ",
+      "value": "*\r\n * 将数组映射为 Map\r\n * @param {Array.<Object>} array 数组\r\n * @param {function} kFn 产生 Map 元素唯一标识的函数\r\n * @param {Function} [vFn] 产生 Map 值的函数，默认为返回数组的元素\r\n * @returns {Map.<Object,Object>} 映射产生的 map 集合\r\n ",
       "start": 16,
       "end": 218,
       "loc": {
@@ -751,7 +751,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\r\n * 将数组映射为 Map\r\n * @param {Array.<Object>} array 数组\r\n * @param {Function} kFn 产生 Map 元素唯一标识的函数\r\n * @param {Function} [vFn] 产生 Map 值的函数，默认为返回数组的元素\r\n * @returns {Map.<Object,Object>} 映射产生的 map 集合\r\n ",
+      "value": "*\r\n * 将数组映射为 Map\r\n * @param {Array.<Object>} array 数组\r\n * @param {function} kFn 产生 Map 元素唯一标识的函数\r\n * @param {Function} [vFn] 产生 Map 值的函数，默认为返回数组的元素\r\n * @returns {Map.<Object,Object>} 映射产生的 map 集合\r\n ",
       "start": 16,
       "end": 218,
       "loc": {

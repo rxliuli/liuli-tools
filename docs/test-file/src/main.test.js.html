@@ -29,8 +29,7 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-rx">rx</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-ajax">module/ajax</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/module/ajax/FetchLimiting.js~FetchLimiting.html">FetchLimiting</a></span></span></li>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-ajax">module/ajax</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/module/ajax/FetchLimiting.js~FetchLimiting.html">FetchLimiting</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-download">download</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-downloadString">downloadString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-downloadUrl">downloadUrl</a></span></span></li>
@@ -93,10 +92,13 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/main.test.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import rx, { dateFormat } from &apos;./main&apos;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// eslint-disable-next-line import/no-duplicates
+import * as rx from &apos;./main&apos;
+// eslint-disable-next-line import/no-duplicates
+import { dateFormat } from &apos;./main&apos;
 
 test(&apos;test main&apos;, () =&gt; {
-  expect(rx).not.toBeNull()
+  expect(rx.dateFormat).not.toBeNull()
 })
 
 test(&apos;test main, use dateFormat for import {}&apos;, () =&gt; {

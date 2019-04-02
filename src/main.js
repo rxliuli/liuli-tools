@@ -69,7 +69,7 @@ import { randomInt } from './module/number/randomInt'
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
  */
-const rx = {
+export {
   download,
   downloadString,
   downloadUrl,
@@ -129,5 +129,3 @@ const rx = {
   mapToObject,
   randomInt
 }
-
-export default rx

@@ -36,10 +36,12 @@ export default [
             {
               targets: '> 0.25%, not dead',
               modules: false,
+              corejs: '3',
               useBuiltIns: 'entry'
             }
           ]
-        ]
+        ],
+        plugins: ['@babel/plugin-transform-runtime']
       }),
       // js 压缩插件，需要在最后引入
       uglify()

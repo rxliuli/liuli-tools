@@ -60,8 +60,9 @@ import { toLowerCase } from './module/string/toLowerCase'
 import { toUpperCase } from './module/string/toUpperCase'
 import { blankToNull } from './module/string/blankToNull'
 
-import { emptyAllField } from './module/obj/emptyAllField'
 import { blankToNullField } from './module/obj/blankToNullField'
+import { emptyAllField } from './module/obj/emptyAllField'
+import { excludeFields } from './module/obj/excludeFields'
 import { mapToObject } from './module/obj/mapToObject'
 
 import { randomInt } from './module/number/randomInt'
@@ -125,6 +126,7 @@ export {
   toUpperCase,
   blankToNull,
   emptyAllField,
+  excludeFields,
   blankToNullField,
   mapToObject,
   randomInt

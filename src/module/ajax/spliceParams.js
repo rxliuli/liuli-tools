@@ -14,10 +14,19 @@ export function spliceParams (params) {
     throw new Error(`参数对象不能为空：${params}`)
   }
   return Array.from(Object.entries(params)).reduce((res, [k, v]) => {
-    if (v instanceof Date) {
+    if (v === undefined || v === null) {
+      return res
+    } else if (v instanceof Date) {
       res += encode(k, dateFormat(v, deteFormatter))
     } else if (v instanceof Array) {
-      res += v.map(item => encode(k, item)).join('&')
+      res += v
+        .map(item =>
+          encode(
+            k,
+            item instanceof Date ? dateFormat(item, deteFormatter) : item
+          )
+        )
+        .join('&')
     } else {
       res += encode(k, v)
     }

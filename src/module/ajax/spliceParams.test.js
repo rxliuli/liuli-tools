@@ -33,4 +33,19 @@ describe('test spliceParams', () => {
       })
     ).toBe(`name=rx&bent=1&bent=2&bent=3&`)
   })
+  it('test spliceParams for array Date', () => {
+    const date = new Date()
+    expect(
+      spliceParams({
+        name: 'rx',
+        bent: [date, date]
+      })
+    ).toBe(
+      `name=rx&bent=${encodeURIComponent(
+        dateFormat(date, 'yyyy-MM-ddThh:mm:ss.SSSZ')
+      )}&bent=${encodeURIComponent(
+        dateFormat(date, 'yyyy-MM-ddThh:mm:ss.SSSZ')
+      )}&`
+    )
+  })
 })

@@ -33,6 +33,19 @@ describe('test spliceParams', () => {
       })
     ).toBe(`name=rx&bent=1&bent=2&bent=3&`)
   })
+  it('test spliceParams for {}', () => {
+    expect(spliceParams({})).toBe('')
+  })
+
+  it('test spliceParams for undefined', () => {
+    expect(spliceParams()).toBe('')
+  })
+  it('test spliceParams for other type', () => {
+    const str = 'test'
+    expect(() => spliceParams(str)).toThrowError(
+      `The parameter type must be Object: ${str}`
+    )
+  })
   it('test spliceParams for array Date', () => {
     const date = new Date()
     expect(

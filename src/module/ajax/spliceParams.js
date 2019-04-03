@@ -9,9 +9,9 @@ const encode = (k, v) => encodeURIComponent(k) + '=' + encodeURIComponent(v)
  * @param {Object} params 参数对象
  * @returns {String} 拼接后的字符串
  */
-export function spliceParams (params) {
-  if (!params) {
-    throw new Error(`参数对象不能为空：${params}`)
+export function spliceParams (params = {}) {
+  if (!(params instanceof Object)) {
+    throw new Error(`The parameter type must be Object: ${params}`)
   }
   return Array.from(Object.entries(params)).reduce((res, [k, v]) => {
     if (v === undefined || v === null) {

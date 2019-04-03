@@ -2,7 +2,7 @@
 
 > [JSDOC 文档](https://rx-util.rxliuli.com/)
 
-[![build-rollup-brightgreen](https://img.shields.io/badge/build-rollup-brightgreen.svg)](https://www.npmjs.com/package/rx-util) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://www.npmjs.com/package/rx-util)
+[![build-rollup-brightgreen](https://img.shields.io/badge/build-rollup-brightgreen.svg)](https://rollupjs.com/) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
 该库大部分代码已经通过单元测试，但还请谨慎用于生产环境。
 

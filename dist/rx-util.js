@@ -224,23 +224,80 @@
   readLocal.ArrayBuffer = 'readAsArrayBuffer';
 
   // @ts-check
+
+  /**
+   * 为 js 中的 Date 对象原型添加 format 格式化方法
+   * @param {Date} date 要进行格式化的日期
+   * @param {String} fmt 日期的格式
+   * @returns {String} 格式化得到的结果
+   */
+  function dateFormat (date, fmt) {
+    var o = {
+      'y+': date.getFullYear(),
+      'M+': date.getMonth() + 1, // 月份
+      'd+': date.getDate(), // 日
+      'h+': date.getHours(), // 小时
+      'm+': date.getMinutes(), // 分
+      's+': date.getSeconds(), // 秒
+      'q+': Math.floor((date.getMonth() + 3) / 3), // 季度
+      'S+': date.getMilliseconds() // 毫秒
+    };
+    for (var k in o) {
+      if (!new RegExp('(' + k + ')').test(fmt)) {
+        continue
+      }
+      if (k === 'y+') {
+        fmt = fmt.replace(RegExp.$1, ('' + o[k]).substr(4 - RegExp.$1.length));
+      } else if (k === 'S+') {
+        var lens = RegExp.$1.length;
+        lens = lens === 1 ? 3 : lens;
+        fmt = fmt.replace(
+          RegExp.$1,
+          ('00' + o[k]).substr(('' + o[k]).length - 1, lens)
+        );
+      } else {
+        fmt = fmt.replace(
+          RegExp.$1,
+          RegExp.$1.length === 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length)
+        );
+      }
+    }
+    return fmt
+  }
+
+  // @ts-check
+
+  const deteFormatter = 'yyyy-MM-ddThh:mm:ss.SSSZ';
+  const encode = (k, v) => encodeURIComponent(k) + '=' + encodeURIComponent(v);
+
   /**
    * 拼接参数字符串
    * @param {Object} params 参数对象
    * @returns {String} 拼接后的字符串
    */
-  function spliceParams (params) {
-    if (!params) {
-      throw new Error(`参数对象不能为空：${params}`)
+  function spliceParams (params = {}) {
+    if (!(params instanceof Object)) {
+      throw new Error(`The parameter type must be Object: ${params}`)
     }
-    var res = '';
-    for (const k in params) {
-      if (params.hasOwnProperty(k)) {
-        const v = params[k];
-        res += `${encodeURIComponent(k)}=${encodeURIComponent(v)}&`;
+    return Array.from(Object.entries(params)).reduce((res, [k, v]) => {
+      if (v === undefined || v === null) {
+        return res
+      } else if (v instanceof Date) {
+        res += encode(k, dateFormat(v, deteFormatter));
+      } else if (v instanceof Array) {
+        res += v
+          .map(item =>
+            encode(
+              k,
+              item instanceof Date ? dateFormat(item, deteFormatter) : item
+            )
+          )
+          .join('&');
+      } else {
+        res += encode(k, v);
       }
-    }
-    return res
+      return (res += '&')
+    }, '')
   }
 
   // @ts-check
@@ -502,48 +559,6 @@
       res.set(kFn(item), vFn(item));
       return res
     }, new Map())
-  }
-
-  // @ts-check
-
-  /**
-   * 为 js 中的 Date 对象原型添加 format 格式化方法
-   * @param {Date} date 要进行格式化的日期
-   * @param {String} fmt 日期的格式
-   * @returns {String} 格式化得到的结果
-   */
-  function dateFormat (date, fmt) {
-    var o = {
-      'y+': date.getFullYear(),
-      'M+': date.getMonth() + 1, // 月份
-      'd+': date.getDate(), // 日
-      'h+': date.getHours(), // 小时
-      'm+': date.getMinutes(), // 分
-      's+': date.getSeconds(), // 秒
-      'q+': Math.floor((date.getMonth() + 3) / 3), // 季度
-      'S+': date.getMilliseconds() // 毫秒
-    };
-    for (var k in o) {
-      if (!new RegExp('(' + k + ')').test(fmt)) {
-        continue
-      }
-      if (k === 'y+') {
-        fmt = fmt.replace(RegExp.$1, ('' + o[k]).substr(4 - RegExp.$1.length));
-      } else if (k === 'S+') {
-        var lens = RegExp.$1.length;
-        lens = lens === 1 ? 3 : lens;
-        fmt = fmt.replace(
-          RegExp.$1,
-          ('00' + o[k]).substr(('' + o[k]).length - 1, lens)
-        );
-      } else {
-        fmt = fmt.replace(
-          RegExp.$1,
-          RegExp.$1.length === 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length)
-        );
-      }
-    }
-    return fmt
   }
 
   // @ts-check
@@ -1269,20 +1284,6 @@
   }
 
   // @ts-check
-  /**
-   * 将对象的所有属性置空
-   * @param {Object} obj 需要置空属性的对象
-   * @returns {Object} 返回一个新的对象
-   */
-  function emptyAllField (obj) {
-    const res = {};
-    for (const k in obj) {
-      res[k] = null;
-    }
-    return res
-  }
-
-  // @ts-check
 
   /**
    * 置空对象所有空白的属性
@@ -1297,6 +1298,37 @@
       res[k] = typeof v === 'string' ? blankToNull(v) : v;
     }
     return res
+  }
+
+  // @ts-check
+  /**
+   * 将对象的所有属性置空
+   * @param {Object} obj 需要置空属性的对象
+   * @returns {Object} 返回一个新的对象
+   */
+  function emptyAllField (obj) {
+    const res = {};
+    for (const k in obj) {
+      res[k] = null;
+    }
+    return res
+  }
+
+  // @ts-check
+  /**
+   * 排除对象中的指定字段
+   * 注: 此处将获得一个浅拷贝对象
+   * @param {Object} object 排除对象
+   * @param {Set.<String>} filedSet 要排除的字段
+   * @returns {Object} 排除完指定字段得到的新的对象
+   */
+  function excludeFields (object, filedSet = new Set()) {
+    return Object.entries(object).reduce((res, [k, v]) => {
+      if (!filedSet.has(k)) {
+        res[k] = v;
+      }
+      return res
+    }, {})
   }
 
   // @ts-check
@@ -1351,6 +1383,7 @@
   exports.downloadString = downloadString;
   exports.downloadUrl = downloadUrl;
   exports.emptyAllField = emptyAllField;
+  exports.excludeFields = excludeFields;
   exports.fetchTimeout = fetchTimeout;
   exports.fill = fill;
   exports.flatMap = flatMap;

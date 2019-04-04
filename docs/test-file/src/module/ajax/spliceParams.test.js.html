@@ -79,6 +79,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-number">module/number</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-obj">module/obj</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blankToNullField">blankToNullField</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-emptyAllField">emptyAllField</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-excludeFields">excludeFields</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mapToObject">mapToObject</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-string">module/string</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blankToNull">blankToNull</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fill">fill</a></span></span></li>
@@ -93,14 +94,68 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/module/ajax/spliceParams.test.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { spliceParams } from &apos;./spliceParams&apos;
+import { dateFormat } from &apos;../date/dateFormat&apos;
 
-test(&apos;test spliceParams&apos;, () =&gt; {
-  expect(
-    spliceParams({
-      name: &apos;rx&apos;,
-      age: 17
-    })
-  ).toBe(&apos;name=rx&amp;age=17&amp;&apos;)
+/**
+ * @test {spliceParams} &#x6D4B;&#x8BD5;&#x62FC;&#x63A5;&#x53C2;&#x6570;&#x4E3A; url
+ */
+describe(&apos;test spliceParams&apos;, () =&gt; {
+  it(&apos;test spliceParams for normal param&apos;, () =&gt; {
+    expect(
+      spliceParams({
+        name: &apos;rx&apos;,
+        age: 17
+      })
+    ).toBe(&apos;name=rx&amp;age=17&amp;&apos;)
+  })
+  it(&apos;test spliceParams for Date type&apos;, () =&gt; {
+    const date = new Date()
+    expect(
+      spliceParams({
+        birthday: date
+      })
+    ).toBe(
+      `birthday=${encodeURIComponent(
+        dateFormat(date, &apos;yyyy-MM-ddThh:mm:ss.SSSZ&apos;)
+      )}&amp;`
+    )
+  })
+  it(&apos;test spliceParams for Array type&apos;, () =&gt; {
+    expect(
+      spliceParams({
+        name: &apos;rx&apos;,
+        bent: [1, 2, 3]
+      })
+    ).toBe(`name=rx&amp;bent=1&amp;bent=2&amp;bent=3&amp;`)
+  })
+  it(&apos;test spliceParams for {}&apos;, () =&gt; {
+    expect(spliceParams({})).toBe(&apos;&apos;)
+  })
+
+  it(&apos;test spliceParams for undefined&apos;, () =&gt; {
+    expect(spliceParams()).toBe(&apos;&apos;)
+  })
+  it(&apos;test spliceParams for other type&apos;, () =&gt; {
+    const str = &apos;test&apos;
+    expect(() =&gt; spliceParams(str)).toThrowError(
+      `The parameter type must be Object: ${str}`
+    )
+  })
+  it(&apos;test spliceParams for array Date&apos;, () =&gt; {
+    const date = new Date()
+    expect(
+      spliceParams({
+        name: &apos;rx&apos;,
+        bent: [date, date]
+      })
+    ).toBe(
+      `name=rx&amp;bent=${encodeURIComponent(
+        dateFormat(date, &apos;yyyy-MM-ddThh:mm:ss.SSSZ&apos;)
+      )}&amp;bent=${encodeURIComponent(
+        dateFormat(date, &apos;yyyy-MM-ddThh:mm:ss.SSSZ&apos;)
+      )}&amp;`
+    )
+  })
 })
 </code></pre>
 

@@ -79,6 +79,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-number">module/number</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-obj">module/obj</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blankToNullField">blankToNullField</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-emptyAllField">emptyAllField</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-excludeFields">excludeFields</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mapToObject">mapToObject</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-string">module/string</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blankToNull">blankToNull</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fill">fill</a></span></span></li>
@@ -154,8 +155,9 @@ import { toLowerCase } from &apos;./module/string/toLowerCase&apos;
 import { toUpperCase } from &apos;./module/string/toUpperCase&apos;
 import { blankToNull } from &apos;./module/string/blankToNull&apos;
 
-import { emptyAllField } from &apos;./module/obj/emptyAllField&apos;
 import { blankToNullField } from &apos;./module/obj/blankToNullField&apos;
+import { emptyAllField } from &apos;./module/obj/emptyAllField&apos;
+import { excludeFields } from &apos;./module/obj/excludeFields&apos;
 import { mapToObject } from &apos;./module/obj/mapToObject&apos;
 
 import { randomInt } from &apos;./module/number/randomInt&apos;
@@ -219,6 +221,7 @@ export {
   toUpperCase,
   blankToNull,
   emptyAllField,
+  excludeFields,
   blankToNullField,
   mapToObject,
   randomInt

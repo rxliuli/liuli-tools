@@ -79,6 +79,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-number">module/number</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-obj">module/obj</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blankToNullField">blankToNullField</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-emptyAllField">emptyAllField</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-excludeFields">excludeFields</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mapToObject">mapToObject</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-string">module/string</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blankToNull">blankToNull</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fill">fill</a></span></span></li>
@@ -93,10 +94,22 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/module/date/dateFormat.test.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { dateFormat } from &apos;./dateFormat&apos;
-test(&apos;test dateFormat&apos;, () =&gt; {
+/**
+ * @test {dateFormat} &#x6D4B;&#x8BD5; dateFormat &#x683C;&#x5F0F;&#x5316;&#x65E5;&#x671F;&#x65F6;&#x95F4;
+ */
+describe(&apos;test dateFormat&apos;, () =&gt; {
   const date = new Date(&apos;2019-12-11T11:11:10.100&apos;)
-  expect(dateFormat(date, &apos;yyyy-MM-dd&apos;)).toBe(&apos;2019-12-11&apos;)
-  expect(dateFormat(date, &apos;hh:mm:ss&apos;)).toBe(&apos;11:11:10&apos;)
+  it(&apos;test dateFormat for Date&apos;, () =&gt; {
+    expect(dateFormat(date, &apos;yyyy-MM-dd&apos;)).toBe(&apos;2019-12-11&apos;)
+  })
+  it(&apos;test dateFormat for Time&apos;, () =&gt; {
+    expect(dateFormat(date, &apos;hh:mm:ss&apos;)).toBe(&apos;11:11:10&apos;)
+  })
+  it(&apos;test dateFormat for ISO&apos;, () =&gt; {
+    expect(dateFormat(date, &apos;yyyy-MM-ddThh:mm:ss.SSSZ&apos;)).toBe(
+      &apos;2019-12-11T11:11:10.100Z&apos;
+    )
+  })
 })
 </code></pre>
 

@@ -79,6 +79,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-number">module/number</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-obj">module/obj</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blankToNullField">blankToNullField</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-emptyAllField">emptyAllField</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-excludeFields">excludeFields</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mapToObject">mapToObject</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-string">module/string</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blankToNull">blankToNull</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fill">fill</a></span></span></li>
@@ -93,23 +94,39 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/module/ajax/spliceParams.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// @ts-check
+import { dateFormat } from &apos;./../date/dateFormat&apos;
+
+const deteFormatter = &apos;yyyy-MM-ddThh:mm:ss.SSSZ&apos;
+const encode = (k, v) =&gt; encodeURIComponent(k) + &apos;=&apos; + encodeURIComponent(v)
+
 /**
  * &#x62FC;&#x63A5;&#x53C2;&#x6570;&#x5B57;&#x7B26;&#x4E32;
  * @param {Object} params &#x53C2;&#x6570;&#x5BF9;&#x8C61;
  * @returns {String} &#x62FC;&#x63A5;&#x540E;&#x7684;&#x5B57;&#x7B26;&#x4E32;
  */
-export function spliceParams (params) {
-  if (!params) {
-    throw new Error(`&#x53C2;&#x6570;&#x5BF9;&#x8C61;&#x4E0D;&#x80FD;&#x4E3A;&#x7A7A;&#xFF1A;${params}`)
+export function spliceParams (params = {}) {
+  if (!(params instanceof Object)) {
+    throw new Error(`The parameter type must be Object: ${params}`)
   }
-  var res = &apos;&apos;
-  for (const k in params) {
-    if (params.hasOwnProperty(k)) {
-      const v = params[k]
-      res += `${encodeURIComponent(k)}=${encodeURIComponent(v)}&amp;`
+  return Array.from(Object.entries(params)).reduce((res, [k, v]) =&gt; {
+    if (v === undefined || v === null) {
+      return res
+    } else if (v instanceof Date) {
+      res += encode(k, dateFormat(v, deteFormatter))
+    } else if (v instanceof Array) {
+      res += v
+        .map(item =&gt;
+          encode(
+            k,
+            item instanceof Date ? dateFormat(item, deteFormatter) : item
+          )
+        )
+        .join(&apos;&amp;&apos;)
+    } else {
+      res += encode(k, v)
     }
-  }
-  return res
+    return (res += &apos;&amp;&apos;)
+  }, &apos;&apos;)
 }
 </code></pre>
 

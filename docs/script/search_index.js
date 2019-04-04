@@ -102,6 +102,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "rx-util/src/module/obj/excludefields.js~excludefields",
+    "function/index.html#static-function-excludeFields",
+    "<span>excludeFields</span> <span class=\"search-result-import-path\">rx-util/src/module/obj/excludeFields.js</span>",
+    "function"
+  ],
+  [
     "rx-util/src/module/ajax/fetchtimeout.js~fetchtimeout",
     "function/index.html#static-function-fetchTimeout",
     "<span>fetchTimeout</span> <span class=\"search-result-import-path\">rx-util/src/module/ajax/fetchTimeout.js</span>",
@@ -1194,6 +1200,18 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "src/module/obj/excludefields.js",
+    "file/src/module/obj/excludeFields.js.html",
+    "src/module/obj/excludeFields.js",
+    "file"
+  ],
+  [
+    "src/module/obj/exculdefields.test.js",
+    "test-file/src/module/obj/exculdeFields.test.js.html",
+    "src/module/obj/exculdeFields.test.js",
+    "testFile"
+  ],
+  [
     "src/module/obj/maptoobject.js",
     "file/src/module/obj/mapToObject.js.html",
     "src/module/obj/mapToObject.js",
@@ -1332,9 +1350,27 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/date/dateFormat.test.js.html#lineNumber2",
+    "dateformat src/module/date/dateformat.js~dateformat,dateformat",
+    "test-file/src/module/date/dateFormat.test.js.html#lineNumber5",
     "test dateFormat",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateFormat.test.js.html#lineNumber7",
+    "test dateFormat test dateFormat for Date",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateFormat.test.js.html#lineNumber13",
+    "test dateFormat test dateFormat for ISO",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateFormat.test.js.html#lineNumber10",
+    "test dateFormat test dateFormat for Time",
     "test"
   ],
   [
@@ -1353,6 +1389,24 @@ window.esdocSearchIndex = [
     "",
     "test-file/src/module/obj/emptyAllField.test.js.html#lineNumber3",
     "test emptyAllField",
+    "test"
+  ],
+  [
+    "excludefields src/module/obj/excludefields.js~excludefields,excludefields",
+    "test-file/src/module/obj/exculdeFields.test.js.html#lineNumber6",
+    "test exculdeFields",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/obj/exculdeFields.test.js.html#lineNumber16",
+    "test exculdeFields test normal object and normal fields",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/obj/exculdeFields.test.js.html#lineNumber11",
+    "test exculdeFields test normal object and not exculde any field.",
     "test"
   ],
   [
@@ -1464,9 +1518,51 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/ajax/spliceParams.test.js.html#lineNumber3",
+    "spliceparams src/module/ajax/spliceparams.js~spliceparams,spliceparams",
+    "test-file/src/module/ajax/spliceParams.test.js.html#lineNumber7",
     "test spliceParams",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/ajax/spliceParams.test.js.html#lineNumber28",
+    "test spliceParams test spliceParams for Array type",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/ajax/spliceParams.test.js.html#lineNumber16",
+    "test spliceParams test spliceParams for Date type",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/ajax/spliceParams.test.js.html#lineNumber49",
+    "test spliceParams test spliceParams for array Date",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/ajax/spliceParams.test.js.html#lineNumber8",
+    "test spliceParams test spliceParams for normal param",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/ajax/spliceParams.test.js.html#lineNumber43",
+    "test spliceParams test spliceParams for other type",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/ajax/spliceParams.test.js.html#lineNumber40",
+    "test spliceParams test spliceParams for undefined",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/ajax/spliceParams.test.js.html#lineNumber36",
+    "test spliceParams test spliceParams for {}",
     "test"
   ],
   [

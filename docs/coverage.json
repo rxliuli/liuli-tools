@@ -1,7 +1,7 @@
 {
-  "coverage": "75.29%",
-  "expectCount": 85,
-  "actualCount": 64,
+  "coverage": "73.86%",
+  "expectCount": 88,
+  "actualCount": 65,
   "files": {
     "src/module/ajax/download.js": {
       "expectCount": 1,
@@ -64,9 +64,12 @@
       "undocumentLines": []
     },
     "src/module/ajax/spliceParams.js": {
-      "expectCount": 1,
+      "expectCount": 3,
       "actualCount": 1,
-      "undocumentLines": []
+      "undocumentLines": [
+        4,
+        5
+      ]
     },
     "src/module/ajax/strToArrayBuffer.js": {
       "expectCount": 1,
@@ -271,6 +274,11 @@
       "undocumentLines": []
     },
     "src/module/obj/emptyAllField.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/module/obj/excludeFields.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []

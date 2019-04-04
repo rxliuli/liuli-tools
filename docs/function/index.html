@@ -79,6 +79,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-number">module/number</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-randomInt">randomInt</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-obj">module/obj</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blankToNullField">blankToNullField</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-emptyAllField">emptyAllField</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-excludeFields">excludeFields</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mapToObject">mapToObject</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-string">module/string</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-blankToNull">blankToNull</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fill">fill</a></span></span></li>
@@ -528,6 +529,36 @@
         
         
         <div data-ice="description"><p>&#x5C06;&#x5BF9;&#x8C61;&#x7684;&#x6240;&#x6709;&#x5C5E;&#x6027;&#x7F6E;&#x7A7A;</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-excludeFields">excludeFields</a></span></span><span class="code" data-ice="signature">(object: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, filedSet: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">Set</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>&#x6392;&#x9664;&#x5BF9;&#x8C61;&#x4E2D;&#x7684;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;
+&#x6CE8;: &#x6B64;&#x5904;&#x5C06;&#x83B7;&#x5F97;&#x4E00;&#x4E2A;&#x6D45;&#x62F7;&#x8D1D;&#x5BF9;&#x8C61;</p>
 </div>
       </div>
     </td>
@@ -2444,7 +2475,13 @@
 
   
 
-  
+  <div data-ice="tests">
+    <h4>Test:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/src/module/date/dateFormat.test.js.html#lineNumber5">test dateFormat</a></span></li>
+</ul>
+  </div>
 
   
   
@@ -2901,6 +2938,94 @@
   
 
   
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-excludeFields">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">excludeFields</span><span class="code" data-ice="signature">(object: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, filedSet: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">Set</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/module/obj/excludeFields.js.html#lineNumber9">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {excludeFields} from &apos;<span><a href="file/src/module/obj/excludeFields.js.html#lineNumber9">rx-util/src/module/obj/excludeFields.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>&#x6392;&#x9664;&#x5BF9;&#x8C61;&#x4E2D;&#x7684;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;
+&#x6CE8;: &#x6B64;&#x5904;&#x5C06;&#x83B7;&#x5F97;&#x4E00;&#x4E2A;&#x6D45;&#x62F7;&#x8D1D;&#x5BF9;&#x8C61;</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">object</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>&#x6392;&#x9664;&#x5BF9;&#x8C61;</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">filedSet</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set">Set</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>&#x8981;&#x6392;&#x9664;&#x7684;&#x5B57;&#x6BB5;</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>&#x6392;&#x9664;&#x5B8C;&#x6307;&#x5B9A;&#x5B57;&#x6BB5;&#x5F97;&#x5230;&#x7684;&#x65B0;&#x7684;&#x5BF9;&#x8C61;</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Test:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/src/module/obj/exculdeFields.test.js.html#lineNumber6">test exculdeFields</a></span></li>
+</ul>
+  </div>
 
   
   
@@ -4963,11 +5088,11 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/module/ajax/spliceParams.js.html#lineNumber7">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/module/ajax/spliceParams.js.html#lineNumber12">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {spliceParams} from &apos;<span><a href="file/src/module/ajax/spliceParams.js.html#lineNumber7">rx-util/src/module/ajax/spliceParams.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {spliceParams} from &apos;<span><a href="file/src/module/ajax/spliceParams.js.html#lineNumber12">rx-util/src/module/ajax/spliceParams.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>&#x62FC;&#x63A5;&#x53C2;&#x6570;&#x5B57;&#x7B26;&#x4E32;</p>
@@ -5020,7 +5145,13 @@
 
   
 
-  
+  <div data-ice="tests">
+    <h4>Test:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/src/module/ajax/spliceParams.test.js.html#lineNumber7">test spliceParams</a></span></li>
+</ul>
+  </div>
 
   
   

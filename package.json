@@ -11,7 +11,8 @@
     "build": "npm run build:prod",
     "lint": "eslint --fix ./src/",
     "docs": "esdoc",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -48,7 +49,6 @@
     "jest-extended": "^0.11.1",
     "lint-staged": "^8.1.5",
     "prettier": "^1.16.4",
-    "puppeteer": "^1.14.0",
     "rollup": "^1.1.2",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.2.1",

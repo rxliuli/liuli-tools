@@ -6,14 +6,16 @@ import { safeExec } from './safeExec'
  * @param {Function} fn 需要监视的函数
  * @param {Function} callback 回调函数
  * @param {Number} [interval=100] 每次检查的间隔时间，默认为 100ms
+ * @returns {}
  */
 export function watch (fn, callback, interval = 100) {
   let oldVal = safeExec(fn)
-  setInterval(() => {
+  const timer = setInterval(() => {
     const newVal = safeExec(fn)
     if (oldVal !== newVal) {
       callback(newVal, oldVal)
     }
     oldVal = newVal
   }, interval)
+  return () => clearInterval(timer)
 }

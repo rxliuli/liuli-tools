@@ -1,7 +1,8 @@
 // @ts-check
 /**
  * 等待指定的时间/等待指定表达式成立
- * @param {Number|Function} param 等待时间/等待条件
+ * 如果未指定等待条件则立刻执行
+ * @param {Number|Function} [param] 等待时间/等待条件
  * @returns {Promise} Promise 对象
  */
 export function wait (param) {

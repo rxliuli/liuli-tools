@@ -3377,8 +3377,8 @@ jest-environment-node@^24.5.0:
 
 jest-extended@^0.11.1:
   version "0.11.1"
-  resolved "https://registry.yarnpkg.com/jest-extended/-/jest-extended-0.11.1.tgz#aad7cf5b3035ee0d058fefcef44c516bbfad66d6"
-  integrity sha512-4klauyMgaoqMG27yu2HMGoQLVJ5ntJuJRgUKA/HS0oiGNBuSOkXNB7dxDtL83qYaBDMLVaOjy23QPLXFASUbVg==
+  resolved "http://registry.npm.taobao.org/jest-extended/download/jest-extended-0.11.1.tgz#aad7cf5b3035ee0d058fefcef44c516bbfad66d6"
+  integrity sha1-qtfPWzA17g0Fj+/O9ExRa7+tZtY=
   dependencies:
     expect "^23.6.0"
     jest-get-type "^22.4.3"

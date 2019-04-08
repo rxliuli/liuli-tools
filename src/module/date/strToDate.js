@@ -72,7 +72,7 @@ export function strToDate (dateStr, fmt) {
   }
   // 进行验证是否真的是符合传入格式的字符串
   fmt = fmt.replace(new RegExp('`', 'g'), '\\d')
-  if (!new RegExp(fmt).test(dateStr)) {
+  if (!new RegExp(`^${fmt}$`).test(dateStr)) {
     return null
   }
   // 进行一次排序, 依次对字符串进行截取
@@ -103,7 +103,10 @@ export function strToDate (dateStr, fmt) {
   // 将截取完成的信息封装成对象并格式化标准的日期字符串
   const map = arrayToMap(dateUnits, item => item.name, item => item.value)
   if (map.get('year').length === 2) {
-    map.set('year', defaultDateValues.year.substr(0, 2).concat(map.get('year')))
+    map.set(
+      'year',
+      defaultDateValues.year.substr(0, 2).concat(map.get('year'))
+    )
   }
   // 注意：此处使用的是本地时间而非 UTC 时间
   const date = `${map.get('year')}-${map.get('month')}-${map.get(
@@ -111,9 +114,5 @@ export function strToDate (dateStr, fmt) {
   )}T${map.get('hour')}:${map.get('minute')}:${map.get('second')}.${map.get(
     'milliSecond'
   )}`
-  try {
-    return new Date(date)
-  } catch (e) {
-    return null
-  }
+  return new Date(date)
 }

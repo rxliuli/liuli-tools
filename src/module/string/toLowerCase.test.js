@@ -1,7 +1,14 @@
 import { toLowerCase } from './toLowerCase'
 
-test('test toLowerCase', () => {
-  expect(toLowerCase('STR')).toBe('str')
-  expect(toLowerCase('Str')).toBe('str')
-  expect(toLowerCase()).toBe(undefined)
+/**
+ * @test {toLowerCase}
+ */
+describe('test toLowerCase', () => {
+  it('test toLowerCase', () => {
+    expect(toLowerCase('STR')).toBe('str')
+    expect(toLowerCase('Str')).toBe('str')
+  })
+  it('test toLowerCase for undefined', () => {
+    expect(toLowerCase()).toBe(undefined)
+  })
 })

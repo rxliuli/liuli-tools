@@ -53,6 +53,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-dom">module/dom</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-copyText">copyText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createElByString">createElByString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCusorPostion">getCusorPostion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getSelectText">getSelectText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-insertText">insertText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEditable">isEditable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lastFocus">lastFocus</a></span></span></li>
@@ -95,15 +96,34 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/module/date/strToDate.test.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { strToDate } from &apos;./strToDate&apos;
 import { dateFormat } from &apos;./dateFormat&apos;
-test(&apos;test strToDate&apos;, () =&gt; {
-  const date = strToDate(&apos;2019-12-11&apos;, &apos;yyyy-MM-dd&apos;)
-  expect(dateFormat(date, &apos;yyyy/MM/dd&apos;)).toBe(&apos;2019/12/11&apos;)
-  expect(dateFormat(date, &apos;hh/mm/ss&apos;)).toBe(&apos;00/00/00&apos;)
-  const date2 = strToDate(
-    &apos;2019&#x5E74;12&#x6708;11&#x65E5; 11&#x65F6;11&#x5206;10&#x79D2;&apos;,
-    &apos;yyyy&#x5E74;MM&#x6708;dd&#x65E5; hh&#x65F6;mm&#x5206;ss&#x79D2;&apos;
-  )
-  expect(dateFormat(date2, &apos;yyyy-MM-dd hh:mm:ss&apos;)).toBe(&apos;2019-12-11 11:11:10&apos;)
+
+/**
+ * @test {strToDate}
+ */
+describe(&apos;test strToDate&apos;, () =&gt; {
+  it(&apos;test normal parse string to date&apos;, () =&gt; {
+    const date = strToDate(&apos;2019-12-11&apos;, &apos;yyyy-MM-dd&apos;)
+    expect(dateFormat(date, &apos;yyyy/MM/dd&apos;)).toBe(&apos;2019/12/11&apos;)
+    expect(dateFormat(date, &apos;hh/mm/ss&apos;)).toBe(&apos;00/00/00&apos;)
+    const date2 = strToDate(
+      &apos;2019&#x5E74;12&#x6708;11&#x65E5; 11&#x65F6;11&#x5206;10&#x79D2;&apos;,
+      &apos;yyyy&#x5E74;MM&#x6708;dd&#x65E5; hh&#x65F6;mm&#x5206;ss&#x79D2;&apos;
+    )
+    expect(dateFormat(date2, &apos;yyyy-MM-dd hh:mm:ss&apos;)).toBe(
+      &apos;2019-12-11 11:11:10&apos;
+    )
+  })
+
+  it(&apos;test the wrong string format&apos;, () =&gt; {
+    expect(strToDate(&apos;2019-12-11&apos;, &apos;yyyy-MM&apos;)).toBeNull()
+  })
+  it(&apos;test year for two numbers&apos;, () =&gt; {
+    expect(strToDate(&apos;19-12-11&apos;, &apos;yy-MM-dd&apos;).getFullYear()).toEqual(2019)
+  })
+  it(&apos;test error date for 13 month&apos;, () =&gt; {
+    const date = strToDate(&apos;2019-13-11&apos;, &apos;yyyy-MM-dd&apos;)
+    expect(date.getFullYear()).toBeNaN()
+  })
 })
 </code></pre>
 

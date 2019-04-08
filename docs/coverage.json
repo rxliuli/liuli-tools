@@ -1,7 +1,7 @@
 {
-  "coverage": "73.86%",
-  "expectCount": 88,
-  "actualCount": 65,
+  "coverage": "74.15%",
+  "expectCount": 89,
+  "actualCount": 66,
   "files": {
     "src/module/ajax/download.js": {
       "expectCount": 1,
@@ -144,6 +144,11 @@
       "undocumentLines": []
     },
     "src/module/dom/getCusorPostion.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/module/dom/getSelectText.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []

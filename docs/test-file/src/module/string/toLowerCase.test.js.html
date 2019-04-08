@@ -53,6 +53,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-dom">module/dom</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-copyText">copyText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createElByString">createElByString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCusorPostion">getCusorPostion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getSelectText">getSelectText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-insertText">insertText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEditable">isEditable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lastFocus">lastFocus</a></span></span></li>
@@ -95,10 +96,17 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/module/string/toLowerCase.test.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { toLowerCase } from &apos;./toLowerCase&apos;
 
-test(&apos;test toLowerCase&apos;, () =&gt; {
-  expect(toLowerCase(&apos;STR&apos;)).toBe(&apos;str&apos;)
-  expect(toLowerCase(&apos;Str&apos;)).toBe(&apos;str&apos;)
-  expect(toLowerCase()).toBe(undefined)
+/**
+ * @test {toLowerCase}
+ */
+describe(&apos;test toLowerCase&apos;, () =&gt; {
+  it(&apos;test toLowerCase&apos;, () =&gt; {
+    expect(toLowerCase(&apos;STR&apos;)).toBe(&apos;str&apos;)
+    expect(toLowerCase(&apos;Str&apos;)).toBe(&apos;str&apos;)
+  })
+  it(&apos;test toLowerCase for undefined&apos;, () =&gt; {
+    expect(toLowerCase()).toBe(undefined)
+  })
 })
 </code></pre>
 

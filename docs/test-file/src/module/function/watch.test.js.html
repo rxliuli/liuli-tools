@@ -53,6 +53,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-dom">module/dom</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-copyText">copyText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createElByString">createElByString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCusorPostion">getCusorPostion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getSelectText">getSelectText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-insertText">insertText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEditable">isEditable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lastFocus">lastFocus</a></span></span></li>
@@ -94,17 +95,48 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/module/function/watch.test.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { watch } from &apos;./watch&apos;
-test(&apos;test watch&apos;, () =&gt; {
-  let num = 0
-  const now = Date.now()
-  setInterval(() =&gt; num++, 100)
-  watch(
-    () =&gt; num &gt; 10,
-    () =&gt; {
-      expect(num).toBe(10)
-      expect(Date.now() - now).toBeGreaterThan(1000)
-    }
-  )
+
+/**
+ * @test {watch}
+ */
+describe(&apos;test watch&apos;, () =&gt; {
+  it(&apos;test watch for simple example&apos;, () =&gt; {
+    let now
+    watch(
+      () =&gt; Date.now(),
+      () =&gt; {
+        expect(Date.now() - now).toBeLessThan(1000)
+        now = Date.now()
+      }
+    )
+  })
+  it(&apos;test watch for closing&apos;, () =&gt; {
+    const start = Date.now()
+    const close = watch(
+      () =&gt; Date.now(),
+      () =&gt; {
+        if (Date.now() - start &gt; 1000) {
+          close()
+        }
+      }
+    )
+  })
+  it(&apos;test watch for dependent on external conditions&apos;, () =&gt; {
+    const interval = 100
+    const max = 10
+    let num = 0
+    const now = Date.now()
+    // &#x968F;&#x7740;&#x65F6;&#x95F4;&#x6539;&#x53D8; num &#x7684;&#x503C;
+    setInterval(() =&gt; num++, interval)
+    watch(
+      // &#x76D1;&#x89C6; num &#x7684;&#x503C;
+      () =&gt; num &gt; max,
+      () =&gt; {
+        expect(num).toBe(10)
+        expect(Date.now() - now).toBeGreaterThan(1000)
+      }
+    )
+  })
 })
 </code></pre>
 

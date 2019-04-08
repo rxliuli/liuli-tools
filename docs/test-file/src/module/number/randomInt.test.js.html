@@ -53,6 +53,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-dom">module/dom</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-copyText">copyText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createElByString">createElByString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCusorPostion">getCusorPostion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getSelectText">getSelectText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-insertText">insertText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEditable">isEditable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lastFocus">lastFocus</a></span></span></li>
@@ -95,14 +96,29 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/module/number/randomInt.test.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { randomInt } from &apos;./randomInt&apos;
 
-test(&apos;test randomInt&apos;, () =&gt; {
-  const min = 0
-  const max = 10
-  for (let i = 0; i &lt; 100; i++) {
-    const num = randomInt(min, max)
-    expect(num).toBeLessThanOrEqual(max)
-    expect(num).toBeGreaterThanOrEqual(min)
-  }
+/**
+ * @test {randomInt}
+ */
+describe(&apos;test randomInt&apos;, () =&gt; {
+  it(&apos;test for normal sepecify min and max&apos;, () =&gt; {
+    Array(100)
+      .fill(0)
+      .forEach((_v, i) =&gt; {
+        const num = randomInt(0, i)
+        expect(num).toBeLessThanOrEqual(i)
+        expect(num).toBeGreaterThanOrEqual(0)
+      })
+  })
+  it(&apos;test for no sepecify every paramater&apos;, () =&gt; {
+    expect(() =&gt; randomInt()).toThrowError(&apos;&#x975E;&#x6CD5;&#x53C2;&#x6570;&#xFF0C;&#x5FC5;&#x987B;&#x6307;&#x5B9A;&#x6700;&#x5927;&#x503C;&apos;)
+  })
+  it(&apos;test for single sepecify max&apos;, () =&gt; {
+    Array(100)
+      .fill(0)
+      .forEach((_v, i) =&gt; {
+        expect(randomInt(i)).toBeLessThanOrEqual(i)
+      })
+  })
 })
 </code></pre>
 

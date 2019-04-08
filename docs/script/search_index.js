@@ -150,6 +150,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "rx-util/src/module/dom/getselecttext.js~getselecttext",
+    "function/index.html#static-function-getSelectText",
+    "<span>getSelectText</span> <span class=\"search-result-import-path\">rx-util/src/module/dom/getSelectText.js</span>",
+    "function"
+  ],
+  [
     "rx-util/src/module/array/groupby.js~groupby",
     "function/index.html#static-function-groupBy",
     "<span>groupBy</span> <span class=\"search-result-import-path\">rx-util/src/module/array/groupBy.js</span>",
@@ -918,10 +924,34 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/dom/createelbystring.test.js",
+    "test-file/src/module/dom/createElByString.test.js.html",
+    "src/module/dom/createElByString.test.js",
+    "testFile"
+  ],
+  [
     "src/module/dom/getcusorpostion.js",
     "file/src/module/dom/getCusorPostion.js.html",
     "src/module/dom/getCusorPostion.js",
     "file"
+  ],
+  [
+    "src/module/dom/getcusorpostion.test.js",
+    "test-file/src/module/dom/getCusorPostion.test.js.html",
+    "src/module/dom/getCusorPostion.test.js",
+    "testFile"
+  ],
+  [
+    "src/module/dom/getselecttext.js",
+    "file/src/module/dom/getSelectText.js.html",
+    "src/module/dom/getSelectText.js",
+    "file"
+  ],
+  [
+    "src/module/dom/getselecttext.test.js",
+    "test-file/src/module/dom/getSelectText.test.js.html",
+    "src/module/dom/getSelectText.test.js",
+    "testFile"
   ],
   [
     "src/module/dom/inserttext.js",
@@ -930,10 +960,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/dom/inserttext.test.js",
+    "test-file/src/module/dom/insertText.test.js.html",
+    "src/module/dom/insertText.test.js",
+    "testFile"
+  ],
+  [
     "src/module/dom/iseditable.js",
     "file/src/module/dom/isEditable.js.html",
     "src/module/dom/isEditable.js",
     "file"
+  ],
+  [
+    "src/module/dom/iseditable.test.js",
+    "test-file/src/module/dom/isEditable.test.js.html",
+    "src/module/dom/isEditable.test.js",
+    "testFile"
   ],
   [
     "src/module/dom/lastfocus.js",
@@ -942,10 +984,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/dom/lastfocus.test.js",
+    "test-file/src/module/dom/lastFocus.test.js.html",
+    "src/module/dom/lastFocus.test.js",
+    "testFile"
+  ],
+  [
     "src/module/dom/removeel.js",
     "file/src/module/dom/removeEl.js.html",
     "src/module/dom/removeEl.js",
     "file"
+  ],
+  [
+    "src/module/dom/removeel.test.js",
+    "test-file/src/module/dom/removeEl.test.js.html",
+    "src/module/dom/removeEl.test.js",
+    "testFile"
   ],
   [
     "src/module/dom/removetext.js",
@@ -954,10 +1008,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/dom/removetext.test.js",
+    "test-file/src/module/dom/removeText.test.js.html",
+    "src/module/dom/removeText.test.js",
+    "testFile"
+  ],
+  [
     "src/module/dom/setcusorpostion.js",
     "file/src/module/dom/setCusorPostion.js.html",
     "src/module/dom/setCusorPostion.js",
     "file"
+  ],
+  [
+    "src/module/dom/setcusorpostion.test.js",
+    "test-file/src/module/dom/setCusorPostion.test.js.html",
+    "src/module/dom/setCusorPostion.test.js",
+    "testFile"
   ],
   [
     "src/module/event/watcheventlistener.js",
@@ -1315,6 +1381,12 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/src/module/dom/isEditable.test.js.html#lineNumber22",
+    "test an editable element",
+    "test"
+  ],
+  [
+    "",
     "test-file/src/module/formdata/appends.test.js.html#lineNumber3",
     "test appends",
     "test"
@@ -1347,6 +1419,18 @@ window.esdocSearchIndex = [
     "",
     "test-file/src/module/obj/blankToNullField.test.js.html#lineNumber3",
     "test blankToNullField",
+    "test"
+  ],
+  [
+    "createelbystring src/module/dom/createelbystring.js~createelbystring,createelbystring",
+    "test-file/src/module/dom/createElByString.test.js.html#lineNumber5",
+    "test createElByString",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/dom/createElByString.test.js.html#lineNumber6",
+    "test createElByString test normal situation",
     "test"
   ],
   [
@@ -1429,8 +1513,68 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/src/module/string/format.test.js.html#lineNumber3",
+    "test-file/src/module/string/format.test.js.html#lineNumber6",
     "test format",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/string/format.test.js.html#lineNumber16",
+    "test format test format for not arg",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/string/format.test.js.html#lineNumber8",
+    "test format test normal format",
+    "test"
+  ],
+  [
+    "getcusorpostion src/module/dom/getcusorpostion.js~getcusorpostion,getcusorpostion",
+    "test-file/src/module/dom/getCusorPostion.test.js.html#lineNumber6",
+    "test getCusorPostion",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/dom/getCusorPostion.test.js.html#lineNumber10",
+    "test getCusorPostion test normal situation",
+    "test"
+  ],
+  [
+    "inserttext src/module/dom/inserttext.js~inserttext,inserttext",
+    "test-file/src/module/dom/insertText.test.js.html#lineNumber6",
+    "test insertText",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/dom/insertText.test.js.html#lineNumber15",
+    "test insertText test not specify start insert index",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/dom/insertText.test.js.html#lineNumber20",
+    "test insertText test specify start insert index",
+    "test"
+  ],
+  [
+    "iseditable src/module/dom/iseditable.js~iseditable,iseditable",
+    "test-file/src/module/dom/isEditable.test.js.html#lineNumber5",
+    "test isEditable",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/dom/isEditable.test.js.html#lineNumber16",
+    "test isEditable test an not editable element",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/dom/isEditable.test.js.html#lineNumber13",
+    "test isEditable test input",
     "test"
   ],
   [
@@ -1443,6 +1587,30 @@ window.esdocSearchIndex = [
     "",
     "test-file/src/module/string/isNumber.test.js.html#lineNumber4",
     "test isNumber",
+    "test"
+  ],
+  [
+    "lastfocus src/module/dom/lastfocus.js~lastfocus,lastfocus",
+    "test-file/src/module/dom/lastFocus.test.js.html#lineNumber5",
+    "test lastFocus",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/dom/lastFocus.test.js.html#lineNumber24",
+    "test lastFocus test lastFocus for a tag",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/dom/lastFocus.test.js.html#lineNumber17",
+    "test lastFocus test lastFocus for input blur",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/dom/lastFocus.test.js.html#lineNumber12",
+    "test lastFocus test lastFocus for input focus",
     "test"
   ],
   [
@@ -1465,6 +1633,12 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/src/module/dom/getSelectText.test.js.html#lineNumber17",
+    "test normal situation",
+    "test"
+  ],
+  [
+    "",
     "test-file/src/module/formdata/objToFormData.test.js.html#lineNumber3",
     "test objToFormData",
     "test"
@@ -1476,9 +1650,63 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/number/randomInt.test.js.html#lineNumber3",
+    "randomint src/module/number/randomint.js~randomint,randomint",
+    "test-file/src/module/number/randomInt.test.js.html#lineNumber6",
     "test randomInt",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/number/randomInt.test.js.html#lineNumber16",
+    "test randomInt test for no sepecify every paramater",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/number/randomInt.test.js.html#lineNumber7",
+    "test randomInt test for normal sepecify min and max",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/number/randomInt.test.js.html#lineNumber19",
+    "test randomInt test for single sepecify max",
+    "test"
+  ],
+  [
+    "removeel src/module/dom/removeel.js~removeel,removeel",
+    "test-file/src/module/dom/removeEl.test.js.html#lineNumber5",
+    "test removeEl",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/dom/removeEl.test.js.html#lineNumber16",
+    "test removeEl test remove a nonexistent element",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/dom/removeEl.test.js.html#lineNumber13",
+    "test removeEl test remove element",
+    "test"
+  ],
+  [
+    "removetext src/module/dom/removetext.js~removetext,removetext",
+    "test-file/src/module/dom/removeText.test.js.html#lineNumber6",
+    "test removeText",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/dom/removeText.test.js.html#lineNumber15",
+    "test removeText test normal situation",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/dom/removeText.test.js.html#lineNumber19",
+    "test removeText test remove text for not specify start index",
     "test"
   ],
   [
@@ -1503,6 +1731,18 @@ window.esdocSearchIndex = [
     "",
     "test-file/src/module/function/safeExec.test.js.html#lineNumber13",
     "test safeExec throw Error, and set default value",
+    "test"
+  ],
+  [
+    "setcusorpostion src/module/dom/setcusorpostion.js~setcusorpostion,setcusorpostion",
+    "test-file/src/module/dom/setCusorPostion.test.js.html#lineNumber7",
+    "test setCusorPostion",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/dom/setCusorPostion.test.js.html#lineNumber16",
+    "test setCusorPostion test normal situation",
     "test"
   ],
   [
@@ -1566,9 +1806,33 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/date/strToDate.test.js.html#lineNumber3",
+    "strtodate src/module/date/strtodate.js~strtodate,strtodate",
+    "test-file/src/module/date/strToDate.test.js.html#lineNumber7",
     "test strToDate",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/strToDate.test.js.html#lineNumber27",
+    "test strToDate test error date for 13 month",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/strToDate.test.js.html#lineNumber8",
+    "test strToDate test normal parse string to date",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/strToDate.test.js.html#lineNumber21",
+    "test strToDate test the wrong string format",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/strToDate.test.js.html#lineNumber24",
+    "test strToDate test year for two numbers",
     "test"
   ],
   [
@@ -1590,9 +1854,21 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/string/toLowerCase.test.js.html#lineNumber3",
+    "tolowercase src/module/string/tolowercase.js~tolowercase,tolowercase",
+    "test-file/src/module/string/toLowerCase.test.js.html#lineNumber6",
     "test toLowerCase",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/string/toLowerCase.test.js.html#lineNumber7",
+    "test toLowerCase test toLowerCase",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/string/toLowerCase.test.js.html#lineNumber11",
+    "test toLowerCase test toLowerCase for undefined",
     "test"
   ],
   [
@@ -1602,9 +1878,27 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/string/toUpperCase.test.js.html#lineNumber3",
+    "touppercase src/module/string/touppercase.js~touppercase,touppercase",
+    "test-file/src/module/string/toUpperCase.test.js.html#lineNumber6",
     "test toUpperCase",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/string/toUpperCase.test.js.html#lineNumber7",
+    "test toUpperCase test toUpperCase for normal string",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/string/toUpperCase.test.js.html#lineNumber11",
+    "test toUpperCase test toUpperCase for other type",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/string/toUpperCase.test.js.html#lineNumber18",
+    "test toUpperCase test toUpperCase for undefined",
     "test"
   ],
   [
@@ -1614,9 +1908,27 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "wait src/module/function/wait.js~wait,wait",
+    "test-file/src/module/function/wait.test.js.html#lineNumber6",
+    "test wait",
+    "test"
+  ],
+  [
     "",
-    "test-file/src/module/function/wait.test.js.html#lineNumber3",
-    "test wait sepecify time",
+    "test-file/src/module/function/wait.test.js.html#lineNumber18",
+    "test wait test wait for not sepecify parameter",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/wait.test.js.html#lineNumber13",
+    "test wait test wait for sepecify function",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/wait.test.js.html#lineNumber8",
+    "test wait test wait for sepecify time",
     "test"
   ],
   [
@@ -1626,9 +1938,27 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/function/watch.test.js.html#lineNumber2",
+    "watch src/module/function/watch.js~watch,watch",
+    "test-file/src/module/function/watch.test.js.html#lineNumber6",
     "test watch",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/watch.test.js.html#lineNumber17",
+    "test watch test watch for closing",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/watch.test.js.html#lineNumber28",
+    "test watch test watch for dependent on external conditions",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/watch.test.js.html#lineNumber7",
+    "test watch test watch for simple example",
     "test"
   ],
   [

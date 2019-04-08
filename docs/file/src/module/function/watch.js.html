@@ -53,6 +53,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-dom">module/dom</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-copyText">copyText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createElByString">createElByString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCusorPostion">getCusorPostion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getSelectText">getSelectText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-insertText">insertText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEditable">isEditable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lastFocus">lastFocus</a></span></span></li>
@@ -101,16 +102,18 @@ import { safeExec } from &apos;./safeExec&apos;
  * @param {Function} fn &#x9700;&#x8981;&#x76D1;&#x89C6;&#x7684;&#x51FD;&#x6570;
  * @param {Function} callback &#x56DE;&#x8C03;&#x51FD;&#x6570;
  * @param {Number} [interval=100] &#x6BCF;&#x6B21;&#x68C0;&#x67E5;&#x7684;&#x95F4;&#x9694;&#x65F6;&#x95F4;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A; 100ms
+ * @returns {Function} &#x5173;&#x95ED;&#x8FD9;&#x4E2A;&#x76D1;&#x89C6;&#x51FD;&#x6570;
  */
 export function watch (fn, callback, interval = 100) {
   let oldVal = safeExec(fn)
-  setInterval(() =&gt; {
+  const timer = setInterval(() =&gt; {
     const newVal = safeExec(fn)
     if (oldVal !== newVal) {
       callback(newVal, oldVal)
     }
     oldVal = newVal
   }, interval)
+  return () =&gt; clearInterval(timer)
 }
 </code></pre>
 

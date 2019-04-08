@@ -53,6 +53,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-dom">module/dom</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-copyText">copyText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createElByString">createElByString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCusorPostion">getCusorPostion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getSelectText">getSelectText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-insertText">insertText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEditable">isEditable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lastFocus">lastFocus</a></span></span></li>
@@ -95,10 +96,26 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/module/function/wait.test.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { wait } from &apos;./wait&apos;
 
-test(&apos;test wait sepecify time&apos;, async () =&gt; {
-  const start = Date.now()
-  await wait(1000)
-  expect(Date.now() - start).toBeGreaterThanOrEqual(1000)
+/**
+ * @test {wait}
+ */
+describe(&apos;test wait&apos;, () =&gt; {
+  const time = 1000
+  it(&apos;test wait for sepecify time&apos;, async () =&gt; {
+    const start = Date.now()
+    await wait(time)
+    expect(Date.now() - start).toBeGreaterThanOrEqual(time)
+  })
+  it(&apos;test wait for sepecify function&apos;, async () =&gt; {
+    const start = Date.now()
+    await wait(() =&gt; Date.now() &gt; start + time)
+    expect(Date.now() - start).toBeGreaterThanOrEqual(time)
+  })
+  it(&apos;test wait for not sepecify parameter&apos;, async () =&gt; {
+    const start = Date.now()
+    await wait()
+    expect(Date.now() - start).toBeLessThan(100)
+  })
 })
 </code></pre>
 

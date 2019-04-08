@@ -53,6 +53,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-dom">module/dom</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-copyText">copyText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createElByString">createElByString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCusorPostion">getCusorPostion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getSelectText">getSelectText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-insertText">insertText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEditable">isEditable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lastFocus">lastFocus</a></span></span></li>
@@ -95,10 +96,24 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/module/string/toUpperCase.test.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { toUpperCase } from &apos;./toUpperCase&apos;
 
-test(&apos;test toUpperCase&apos;, () =&gt; {
-  expect(toUpperCase(&apos;str&apos;)).toBe(&apos;STR&apos;)
-  expect(toUpperCase(&apos;Str&apos;)).toBe(&apos;STR&apos;)
-  expect().toBe(undefined)
+/**
+ * @test {toUpperCase}
+ */
+describe(&apos;test toUpperCase&apos;, () =&gt; {
+  it(&apos;test toUpperCase for normal string&apos;, () =&gt; {
+    expect(toUpperCase(&apos;str&apos;)).toBe(&apos;STR&apos;)
+    expect(toUpperCase(&apos;Str&apos;)).toBe(&apos;STR&apos;)
+  })
+  it(&apos;test toUpperCase for other type&apos;, () =&gt; {
+    const user = {
+      name: &apos;rx&apos;,
+      age: 17
+    }
+    expect(toUpperCase(user)).toBe(user)
+  })
+  it(&apos;test toUpperCase for undefined&apos;, () =&gt; {
+    expect(toUpperCase()).toBe(undefined)
+  })
 })
 </code></pre>
 

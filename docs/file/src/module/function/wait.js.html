@@ -53,6 +53,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-dom">module/dom</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-copyText">copyText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createElByString">createElByString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCusorPostion">getCusorPostion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getSelectText">getSelectText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-insertText">insertText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEditable">isEditable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lastFocus">lastFocus</a></span></span></li>
@@ -96,7 +97,8 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// @ts-check
 /**
  * &#x7B49;&#x5F85;&#x6307;&#x5B9A;&#x7684;&#x65F6;&#x95F4;/&#x7B49;&#x5F85;&#x6307;&#x5B9A;&#x8868;&#x8FBE;&#x5F0F;&#x6210;&#x7ACB;
- * @param {Number|Function} param &#x7B49;&#x5F85;&#x65F6;&#x95F4;/&#x7B49;&#x5F85;&#x6761;&#x4EF6;
+ * &#x5982;&#x679C;&#x672A;&#x6307;&#x5B9A;&#x7B49;&#x5F85;&#x6761;&#x4EF6;&#x5219;&#x7ACB;&#x523B;&#x6267;&#x884C;
+ * @param {Number|Function} [param] &#x7B49;&#x5F85;&#x65F6;&#x95F4;/&#x7B49;&#x5F85;&#x6761;&#x4EF6;
  * @returns {Promise} Promise &#x5BF9;&#x8C61;
  */
 export function wait (param) {

@@ -2206,7 +2206,7 @@
     "__docId__": 108,
     "kind": "file",
     "name": "src/module/date/strToDate.js",
-    "content": "// @ts-check\r\n\r\nimport { fill } from '../string/fill'\r\nimport { arrayToMap } from './../array/arrayToMap'\r\n\r\n/**\r\n * 日期格式化类\r\n */\r\nclass DateFormat {\r\n  /**\r\n   * 构造函数\r\n   * @param {String} name 日期格式的名称\r\n   * @param {String} format 日期的格式值\r\n   * @param {String} value 格式化得到的值\r\n   * @param {Number} index 需要替换位置的索引\r\n   */\r\n  constructor (name, format, value, index) {\r\n    this.name = name\r\n    this.format = format\r\n    this.value = value\r\n    this.index = index\r\n  }\r\n}\r\n\r\n// 日期时间的正则表达式\r\nconst dateFormats = {\r\n  year: 'y{4}|y{2}',\r\n  month: 'M{1,2}',\r\n  day: 'd{1,2}',\r\n  hour: 'h{1,2}',\r\n  minute: 'm{1,2}',\r\n  second: 's{1,2}',\r\n  milliSecond: 'S{1,3}'\r\n}\r\n\r\n/**\r\n * 解析字符串为 Date 对象\r\n * @param {String} dateStr 日期字符串\r\n * @param {String} fmt 日期字符串的格式\r\n * 目前仅支持使用 y(年),M(月),d(日),h(时),m(分),s(秒),S(毫秒)\r\n * @returns {Date} 解析得到的 Date 对象\r\n */\r\nexport function strToDate (dateStr, fmt) {\r\n  const now = new Date()\r\n  // 如果没有格式化某项的话则设置为默认时间\r\n  const defaultDateValues = {\r\n    year: now.getFullYear().toString(),\r\n    month: '01',\r\n    day: '01',\r\n    hour: '00',\r\n    minute: '00',\r\n    second: '00',\r\n    milliSecond: '000'\r\n  }\r\n  // 保存对传入的日期字符串进行格式化的全部信息数组列表\r\n  const dateUnits = []\r\n  for (const fmtName in dateFormats) {\r\n    const regExp = new RegExp(dateFormats[fmtName])\r\n    if (regExp.test(fmt)) {\r\n      const matchStr = regExp.exec(fmt)[0]\r\n      const regexStr = fill('`', matchStr.length)\r\n      const index = fmt.indexOf(matchStr)\r\n      fmt = fmt.replace(matchStr, regexStr)\r\n      dateUnits.push(\r\n        new DateFormat(fmtName, fill('\\\\d', matchStr.length), null, index)\r\n      )\r\n    } else {\r\n      dateUnits.push(\r\n        new DateFormat(fmtName, null, defaultDateValues[fmtName], -1)\r\n      )\r\n    }\r\n  }\r\n  // 进行验证是否真的是符合传入格式的字符串\r\n  fmt = fmt.replace(new RegExp('`', 'g'), '\\\\d')\r\n  if (!new RegExp(fmt).test(dateStr)) {\r\n    return null\r\n  }\r\n  // 进行一次排序, 依次对字符串进行截取\r\n  dateUnits\r\n    // 过滤掉没有得到格式化的对象\r\n    .filter(({ format }) => format)\r\n    // 按照字符串中日期片段的索引进行排序\r\n    .sort(function (a, b) {\r\n      return a.index - b.index\r\n    })\r\n    // 获取到匹配的日期片段的值\r\n    .map(format => {\r\n      const matchDateUnit = new RegExp(format.format).exec(dateStr)\r\n      if (matchDateUnit !== null && matchDateUnit.length > 0) {\r\n        dateStr = dateStr.replace(matchDateUnit[0], '')\r\n        format.value = matchDateUnit[0]\r\n      }\r\n      return format\r\n    })\r\n    // 覆写到 dateStr 上面\r\n    .forEach(({ format }, i) => {\r\n      const matchDateUnit = new RegExp(format).exec(dateStr)\r\n      if (matchDateUnit !== null && matchDateUnit.length > 0) {\r\n        dateStr = dateStr.replace(matchDateUnit[0], '')\r\n        dateUnits[i].value = matchDateUnit[0]\r\n      }\r\n    })\r\n  // 将截取完成的信息封装成对象并格式化标准的日期字符串\r\n  const map = arrayToMap(dateUnits, item => item.name, item => item.value)\r\n  if (map.get('year').length === 2) {\r\n    map.set('year', defaultDateValues.year.substr(0, 2).concat(map.get('year')))\r\n  }\r\n  // 注意：此处使用的是本地时间而非 UTC 时间\r\n  const date = `${map.get('year')}-${map.get('month')}-${map.get(\r\n    'day'\r\n  )}T${map.get('hour')}:${map.get('minute')}:${map.get('second')}.${map.get(\r\n    'milliSecond'\r\n  )}`\r\n  try {\r\n    return new Date(date)\r\n  } catch (e) {\r\n    return null\r\n  }\r\n}\r\n",
+    "content": "// @ts-check\r\n\r\nimport { fill } from '../string/fill'\r\nimport { arrayToMap } from './../array/arrayToMap'\r\n\r\n/**\r\n * 日期格式化类\r\n */\r\nclass DateFormat {\r\n  /**\r\n   * 构造函数\r\n   * @param {String} name 日期格式的名称\r\n   * @param {String} format 日期的格式值\r\n   * @param {String} value 格式化得到的值\r\n   * @param {Number} index 需要替换位置的索引\r\n   */\r\n  constructor (name, format, value, index) {\r\n    this.name = name\r\n    this.format = format\r\n    this.value = value\r\n    this.index = index\r\n  }\r\n}\r\n\r\n// 日期时间的正则表达式\r\nconst dateFormats = {\r\n  year: 'y{4}|y{2}',\r\n  month: 'M{1,2}',\r\n  day: 'd{1,2}',\r\n  hour: 'h{1,2}',\r\n  minute: 'm{1,2}',\r\n  second: 's{1,2}',\r\n  milliSecond: 'S{1,3}'\r\n}\r\n\r\n/**\r\n * 解析字符串为 Date 对象\r\n * @param {String} dateStr 日期字符串\r\n * @param {String} fmt 日期字符串的格式\r\n * 目前仅支持使用 y(年),M(月),d(日),h(时),m(分),s(秒),S(毫秒)\r\n * @returns {Date} 解析得到的 Date 对象\r\n */\r\nexport function strToDate (dateStr, fmt) {\r\n  const now = new Date()\r\n  // 如果没有格式化某项的话则设置为默认时间\r\n  const defaultDateValues = {\r\n    year: now.getFullYear().toString(),\r\n    month: '01',\r\n    day: '01',\r\n    hour: '00',\r\n    minute: '00',\r\n    second: '00',\r\n    milliSecond: '000'\r\n  }\r\n  // 保存对传入的日期字符串进行格式化的全部信息数组列表\r\n  const dateUnits = []\r\n  for (const fmtName in dateFormats) {\r\n    const regExp = new RegExp(dateFormats[fmtName])\r\n    if (regExp.test(fmt)) {\r\n      const matchStr = regExp.exec(fmt)[0]\r\n      const regexStr = fill('`', matchStr.length)\r\n      const index = fmt.indexOf(matchStr)\r\n      fmt = fmt.replace(matchStr, regexStr)\r\n      dateUnits.push(\r\n        new DateFormat(fmtName, fill('\\\\d', matchStr.length), null, index)\r\n      )\r\n    } else {\r\n      dateUnits.push(\r\n        new DateFormat(fmtName, null, defaultDateValues[fmtName], -1)\r\n      )\r\n    }\r\n  }\r\n  // 进行验证是否真的是符合传入格式的字符串\r\n  fmt = fmt.replace(new RegExp('`', 'g'), '\\\\d')\r\n  if (!new RegExp(`^${fmt}$`).test(dateStr)) {\r\n    return null\r\n  }\r\n  // 进行一次排序, 依次对字符串进行截取\r\n  dateUnits\r\n    // 过滤掉没有得到格式化的对象\r\n    .filter(({ format }) => format)\r\n    // 按照字符串中日期片段的索引进行排序\r\n    .sort(function (a, b) {\r\n      return a.index - b.index\r\n    })\r\n    // 获取到匹配的日期片段的值\r\n    .map(format => {\r\n      const matchDateUnit = new RegExp(format.format).exec(dateStr)\r\n      if (matchDateUnit !== null && matchDateUnit.length > 0) {\r\n        dateStr = dateStr.replace(matchDateUnit[0], '')\r\n        format.value = matchDateUnit[0]\r\n      }\r\n      return format\r\n    })\r\n    // 覆写到 dateStr 上面\r\n    .forEach(({ format }, i) => {\r\n      const matchDateUnit = new RegExp(format).exec(dateStr)\r\n      if (matchDateUnit !== null && matchDateUnit.length > 0) {\r\n        dateStr = dateStr.replace(matchDateUnit[0], '')\r\n        dateUnits[i].value = matchDateUnit[0]\r\n      }\r\n    })\r\n  // 将截取完成的信息封装成对象并格式化标准的日期字符串\r\n  const map = arrayToMap(dateUnits, item => item.name, item => item.value)\r\n  if (map.get('year').length === 2) {\r\n    map.set(\r\n      'year',\r\n      defaultDateValues.year.substr(0, 2).concat(map.get('year'))\r\n    )\r\n  }\r\n  // 注意：此处使用的是本地时间而非 UTC 时间\r\n  const date = `${map.get('year')}-${map.get('month')}-${map.get(\r\n    'day'\r\n  )}T${map.get('hour')}:${map.get('minute')}:${map.get('second')}.${map.get(\r\n    'milliSecond'\r\n  )}`\r\n  return new Date(date)\r\n}\r\n",
     "static": true,
     "longname": "D:/Text/rx-util/src/module/date/strToDate.js",
     "access": "public",
@@ -2571,6 +2571,70 @@
   {
     "__docId__": 123,
     "kind": "file",
+    "name": "src/module/dom/getSelectText.js",
+    "content": "/**\n * 获取当前选中的文本\n * @param {HTMLFormElement} el 需要设置的输入框元素\n * @param {Number} [start] 开始位置，默认为当前选中开始位置\n * @param {Number} [end] 结束位置，默认为当前选中结束位置\n */\nexport function getSelectText () {\n  return getSelection().toString()\n}\n",
+    "static": true,
+    "longname": "D:/Text/rx-util/src/module/dom/getSelectText.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 124,
+    "kind": "function",
+    "name": "getSelectText",
+    "memberof": "src/module/dom/getSelectText.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/module/dom/getSelectText.js~getSelectText",
+    "access": "public",
+    "export": true,
+    "importPath": "rx-util/src/module/dom/getSelectText.js",
+    "importStyle": "{getSelectText}",
+    "description": "获取当前选中的文本",
+    "lineNumber": 7,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "HTMLFormElement"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "el",
+        "description": "需要设置的输入框元素"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "start",
+        "description": "开始位置，默认为当前选中开始位置"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "end",
+        "description": "结束位置，默认为当前选中结束位置"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 125,
+    "kind": "file",
     "name": "src/module/dom/insertText.js",
     "content": "// @ts-check\r\nimport { getCusorPostion } from './getCusorPostion'\r\nimport { setCusorPostion } from './setCusorPostion'\r\n\r\n/**\r\n * 在指定位置后插入文本\r\n * @param {HTMLFormElement} el 需要设置的输入框元素\r\n * @param {String} text 要插入的值\r\n * @param {Number} [start] 开始位置，默认为当前光标处\r\n */\r\nexport function insertText (el, text, start = getCusorPostion(el)) {\r\n  var value = el.value\r\n  el.value = value.substr(0, start) + text + value.substr(start)\r\n  setCusorPostion(el, start + text.length)\r\n}\r\n",
     "static": true,
@@ -2580,7 +2644,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 124,
+    "__docId__": 126,
     "kind": "function",
     "name": "insertText",
     "memberof": "src/module/dom/insertText.js",
@@ -2629,7 +2693,7 @@
     "return": null
   },
   {
-    "__docId__": 125,
+    "__docId__": 127,
     "kind": "file",
     "name": "src/module/dom/isEditable.js",
     "content": "// @ts-check\r\nimport { toLowerCase } from '../string/toLowerCase'\r\n/**\r\n * 判断指定元素是否是可编辑元素\r\n * 注：可编辑元素并不一定能够进行编辑，例如只读的 input 元素\r\n * @param {Element} el 需要进行判断的元素\r\n * @returns {Boolean} 是否为可编辑元素\r\n */\r\nexport function isEditable (el) {\r\n  var inputEls = ['input', 'date', 'datetime', 'select', 'textarea']\r\n  return (\r\n    // 此处需要判断是否存在属性 isContentEditable\r\n    // @ts-ignore\r\n    el && (el.isContentEditable || inputEls.includes(toLowerCase(el.tagName)))\r\n  )\r\n}\r\n",
@@ -2640,7 +2704,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 126,
+    "__docId__": 128,
     "kind": "function",
     "name": "isEditable",
     "memberof": "src/module/dom/isEditable.js",
@@ -2682,7 +2746,7 @@
     }
   },
   {
-    "__docId__": 127,
+    "__docId__": 129,
     "kind": "file",
     "name": "src/module/dom/lastFocus.js",
     "content": "// @ts-check\r\n\r\nlet lastFocusEl\r\n\r\ndocument.addEventListener(\r\n  'focus',\r\n  event => {\r\n    lastFocusEl = event.target\r\n  },\r\n  true\r\n)\r\ndocument.addEventListener(\r\n  'blur',\r\n  () => {\r\n    lastFocusEl = null\r\n  },\r\n  true\r\n)\r\n/**\r\n * 获取到最后一个获得焦点的元素\r\n * @returns {Element} 最后一个获取到焦点的元素\r\n */\r\nexport function lastFocus () {\r\n  return lastFocusEl\r\n}\r\n",
@@ -2693,7 +2757,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 128,
+    "__docId__": 130,
     "kind": "function",
     "name": "lastFocus",
     "memberof": "src/module/dom/lastFocus.js",
@@ -2724,10 +2788,10 @@
     "params": []
   },
   {
-    "__docId__": 129,
+    "__docId__": 131,
     "kind": "file",
     "name": "src/module/dom/removeEl.js",
-    "content": "// @ts-check\r\n/**\r\n * 直接删除指定元素\r\n * @param {Element} el 需要删除的元素\r\n */\r\nexport function removeEl (el) {\r\n  const parent = el.parentElement\r\n  parent.removeChild(el)\r\n}\r\n",
+    "content": "// @ts-check\r\n/**\r\n * 直接删除指定元素\r\n * @param {Element} el 需要删除的元素\r\n * @returns {Element} 返回被删除的元素\r\n */\r\nexport function removeEl (el) {\r\n  const parent = el.parentElement\r\n  return parent.removeChild(el)\r\n}\r\n",
     "static": true,
     "longname": "D:/Text/rx-util/src/module/dom/removeEl.js",
     "access": "public",
@@ -2735,7 +2799,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 130,
+    "__docId__": 132,
     "kind": "function",
     "name": "removeEl",
     "memberof": "src/module/dom/removeEl.js",
@@ -2748,7 +2812,13 @@
     "importPath": "rx-util/src/module/dom/removeEl.js",
     "importStyle": "{removeEl}",
     "description": "直接删除指定元素",
-    "lineNumber": 6,
+    "lineNumber": 7,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Element} 返回被删除的元素"
+      }
+    ],
     "params": [
       {
         "nullable": null,
@@ -2761,10 +2831,17 @@
         "description": "需要删除的元素"
       }
     ],
-    "return": null
+    "return": {
+      "nullable": null,
+      "types": [
+        "Element"
+      ],
+      "spread": false,
+      "description": "返回被删除的元素"
+    }
   },
   {
-    "__docId__": 131,
+    "__docId__": 133,
     "kind": "file",
     "name": "src/module/dom/removeText.js",
     "content": "// @ts-check\r\nimport { getCusorPostion } from './getCusorPostion'\r\nimport { setCusorPostion } from './setCusorPostion'\r\n\r\n/**\r\n * 在指定范围内删除文本\r\n * @param {HTMLFormElement} el 需要设置的输入框元素\r\n * @param {Number} [start] 开始位置，默认为当前选中开始位置\r\n * @param {Number} [end] 结束位置，默认为当前选中结束位置\r\n */\r\nexport function removeText (\r\n  el,\r\n  start = el.selectionStart,\r\n  end = el.selectionEnd\r\n) {\r\n  // 删除之前必须要 [记住] 当前光标的位置\r\n  const index = getCusorPostion(el)\r\n  const value = el.value\r\n  el.value = value.substr(0, start) + value.substr(end, value.length)\r\n  setCusorPostion(el, index)\r\n}\r\n",
@@ -2775,7 +2852,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 132,
+    "__docId__": 134,
     "kind": "function",
     "name": "removeText",
     "memberof": "src/module/dom/removeText.js",
@@ -2824,7 +2901,7 @@
     "return": null
   },
   {
-    "__docId__": 133,
+    "__docId__": 135,
     "kind": "file",
     "name": "src/module/dom/setCusorPostion.js",
     "content": "// @ts-check\r\n/**\r\n * 设置输入框中选中的文本/光标所在位置\r\n * @param {HTMLFormElement} el 需要设置的输入框元素\r\n * @param {Number} start 光标所在位置的下标\r\n * @param {Number} [end=start] 结束位置，默认为输入框结束\r\n */\r\nexport function setCusorPostion (el, start, end = start) {\r\n  el.focus()\r\n  el.setSelectionRange(start, end)\r\n}\r\n",
@@ -2835,7 +2912,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 134,
+    "__docId__": 136,
     "kind": "function",
     "name": "setCusorPostion",
     "memberof": "src/module/dom/setCusorPostion.js",
@@ -2886,7 +2963,7 @@
     "return": null
   },
   {
-    "__docId__": 135,
+    "__docId__": 137,
     "kind": "file",
     "name": "src/module/event/watchEventListener.js",
     "content": "// @ts-check\r\n/**\r\n * 监听 event 的添加\r\n * 注：必须及早添加\r\n */\r\nexport function watchEventListener () {\r\n  /**\r\n   * 监听所有的 addEventListener, removeEventListener 事件\r\n   */\r\n  const documentAddEventListener = document.addEventListener\r\n  const eventTargetAddEventListener = EventTarget.prototype.addEventListener\r\n  const documentRemoveEventListener = document.removeEventListener\r\n  const eventTargetRemoveEventListener =\r\n    EventTarget.prototype.removeEventListener\r\n  const events = []\r\n\r\n  /**\r\n   * 用来保存监听到的事件信息\r\n   */\r\n  class Event {\r\n    constructor (el, type, listener, useCapture) {\r\n      this.el = el\r\n      this.type = type\r\n      this.listener = listener\r\n      this.useCapture = useCapture\r\n    }\r\n  }\r\n\r\n  /**\r\n   * 自定义的添加事件监听函数\r\n   * @param {String} type 事件类型\r\n   * @param {EventListener} listener 事件监听函数\r\n   * @param {Boolean} [useCapture=true] 是否需要捕获事件冒泡，默认为 false\r\n   */\r\n  function addEventListener (type, listener, useCapture = false) {\r\n    const _this = this\r\n    const $addEventListener =\r\n      _this === document\r\n        ? documentAddEventListener\r\n        : eventTargetAddEventListener\r\n    events.push(new Event(_this, type, listener, useCapture))\r\n    $addEventListener.apply(this, arguments)\r\n  }\r\n\r\n  /**\r\n   * 自定义的根据类型删除事件函数\r\n   * 该方法会删除这个类型下面全部的监听函数，不管数量\r\n   * @param {String} type 事件类型\r\n   */\r\n  // @ts-ignore\r\n  function removeEventListenerByType (type) {\r\n    const _this = this\r\n    const $removeEventListener =\r\n      _this === document\r\n        ? documentRemoveEventListener\r\n        : eventTargetRemoveEventListener\r\n    const removeIndexArr = events\r\n      .map((e, i) => (e.el === _this || e.type === arguments[0] ? i : -1))\r\n      .filter(i => i !== -1)\r\n    removeIndexArr.forEach(i => {\r\n      const e = events[i]\r\n      $removeEventListener.apply(e.el, [e.type, e.listener, e.useCapture])\r\n    })\r\n    removeIndexArr.sort((a, b) => b - a).forEach(i => events.splice(i, 1))\r\n  }\r\n\r\n  ;(function initWatchDOM () {\r\n    document.addEventListener = EventTarget.prototype.addEventListener = addEventListener\r\n    // 此处是为了新增函数 removeEventListenerByType\r\n    // @ts-ignore\r\n    document.removeEventListenerByType = EventTarget.prototype.removeEventListenerByType = removeEventListenerByType\r\n  })()\r\n}\r\n",
@@ -2897,7 +2974,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 136,
+    "__docId__": 138,
     "kind": "function",
     "name": "watchEventListener",
     "memberof": "src/module/event/watchEventListener.js",
@@ -2915,7 +2992,7 @@
     "return": null
   },
   {
-    "__docId__": 137,
+    "__docId__": 139,
     "kind": "file",
     "name": "src/module/formdata/appends.js",
     "content": "// @ts-check\r\n\r\n/**\r\n * FormData 批量添加方法\r\n * 注：该方法不会覆盖掉原本的属性\r\n * @param {FormData} fd FormData 对象\r\n * @param {Object} obj 键值对对象\r\n * @returns {FormData} 添加完成后的 FormData 对象\r\n */\r\nexport function appends (fd, obj) {\r\n  for (const key in obj) {\r\n    fd.append(key, obj[key])\r\n  }\r\n  return fd\r\n}\r\n",
@@ -2926,7 +3003,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 138,
+    "__docId__": 140,
     "kind": "function",
     "name": "appends",
     "memberof": "src/module/formdata/appends.js",
@@ -2978,7 +3055,7 @@
     }
   },
   {
-    "__docId__": 139,
+    "__docId__": 141,
     "kind": "file",
     "name": "src/module/formdata/deletes.js",
     "content": "// @ts-check\r\n\r\n/**\r\n * FormData 批量删除方法\r\n * @param {FormData} fd FormData 对象\r\n * @param {Array} keys  删除的 key 列表\r\n * @returns {FormData} 返回删除后的 FormData 对象\r\n */\r\nexport function deletes (fd, keys) {\r\n  keys.forEach(key => fd.delete(key))\r\n  return fd\r\n}\r\n",
@@ -2989,7 +3066,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 140,
+    "__docId__": 142,
     "kind": "function",
     "name": "deletes",
     "memberof": "src/module/formdata/deletes.js",
@@ -3041,7 +3118,7 @@
     }
   },
   {
-    "__docId__": 141,
+    "__docId__": 143,
     "kind": "file",
     "name": "src/module/formdata/formDataToArray.js",
     "content": "// @ts-check\r\nimport { asIterator } from './../array/asIterator'\r\n\r\n/**\r\n * FormData 添加转换为包含所有键值数组的二维数组函数\r\n * @deprecated 已被原生函数 Array.from 取代\r\n * @param {FormData} fd 需要转换的 FormData 对象\r\n * @returns {Array} 转换后的数组\r\n */\r\nexport function formDataToArray (fd) {\r\n  return asIterator(fd.entries())\r\n}\r\n",
@@ -3052,7 +3129,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 142,
+    "__docId__": 144,
     "kind": "function",
     "name": "formDataToArray",
     "memberof": "src/module/formdata/formDataToArray.js",
@@ -3095,7 +3172,7 @@
     }
   },
   {
-    "__docId__": 143,
+    "__docId__": 145,
     "kind": "file",
     "name": "src/module/formdata/objToFormData.js",
     "content": "// @ts-check\r\n\r\n/**\r\n * 将参数对象转换为 FormData，只转换一层\r\n * @param data 参数对象\r\n * @return {FormData} 转换后的表单对象\r\n */\r\nexport function objToFormData (data) {\r\n  const fd = new FormData()\r\n  if (data) {\r\n    for (const k in data) {\r\n      if (data.hasOwnProperty(k)) {\r\n        const v = data[k]\r\n        fd.append(k, v)\r\n      }\r\n    }\r\n  }\r\n  return fd\r\n}\r\n",
@@ -3106,7 +3183,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 144,
+    "__docId__": 146,
     "kind": "function",
     "name": "objToFormData",
     "memberof": "src/module/formdata/objToFormData.js",
@@ -3142,7 +3219,7 @@
     }
   },
   {
-    "__docId__": 145,
+    "__docId__": 147,
     "kind": "file",
     "name": "src/module/formdata/sets.js",
     "content": "// @ts-check\r\n/**\r\n * FormData 批量设置方法\r\n * 注：该方法会覆盖掉原本的属性\r\n * @param {FormData} fd 表单对象\r\n * @param {Object} obj 键值对对象\r\n * @returns {FormData} 设置完成后的 FormData 对象\r\n */\r\nexport function sets (fd, obj) {\r\n  for (const k in obj) {\r\n    fd.set(k, obj[k])\r\n  }\r\n  return fd\r\n}\r\n",
@@ -3153,7 +3230,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 146,
+    "__docId__": 148,
     "kind": "function",
     "name": "sets",
     "memberof": "src/module/formdata/sets.js",
@@ -3205,7 +3282,7 @@
     }
   },
   {
-    "__docId__": 147,
+    "__docId__": 149,
     "kind": "file",
     "name": "src/module/function/debounce.js",
     "content": "// @ts-check\r\n/**\r\n * 函数去抖\r\n * 去抖 (debounce) 去抖就是对于一定时间段的连续的函数调用，只让其执行一次\r\n * 注: 包装后的函数如果两次操作间隔小于 delay 则不会被执行, 如果一直在操作就会一直不执行, 直到操作停止的时间大于 delay 最小间隔时间才会执行一次, 不管任何时间调用都需要停止操作等待最小延迟时间\r\n * 应用场景主要在那些连续的操作, 例如页面滚动监听, 包装后的函数只会执行最后一次\r\n * @param {Number} delay 最小延迟时间，单位为 ms\r\n * @param {Function} action 真正需要执行的操作\r\n * @return {Function} 包装后有去抖功能的函数\r\n */\r\nexport function debounce (delay, action) {\r\n  let tId\r\n  return function (...args) {\r\n    const context = this\r\n    if (tId) clearTimeout(tId)\r\n    tId = setTimeout(function () {\r\n      action.call(context, ...args)\r\n    }, delay)\r\n  }\r\n}\r\n",
@@ -3216,7 +3293,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 148,
+    "__docId__": 150,
     "kind": "function",
     "name": "debounce",
     "memberof": "src/module/function/debounce.js",
@@ -3262,7 +3339,7 @@
     }
   },
   {
-    "__docId__": 149,
+    "__docId__": 151,
     "kind": "file",
     "name": "src/module/function/returnItself.js",
     "content": "// @ts-check\r\n/**\r\n * 返回参数本身的函数\r\n * @param {Object} obj 任何对象\r\n * @returns {Object} 传入的参数\r\n */\r\nexport function returnItself (obj) {\r\n  return obj\r\n}\r\n",
@@ -3273,7 +3350,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 150,
+    "__docId__": 152,
     "kind": "function",
     "name": "returnItself",
     "memberof": "src/module/function/returnItself.js",
@@ -3315,7 +3392,7 @@
     }
   },
   {
-    "__docId__": 151,
+    "__docId__": 153,
     "kind": "file",
     "name": "src/module/function/safeExec.js",
     "content": "// @ts-check\r\n/**\r\n * 安全执行某个函数\r\n * @param {Function} fn 需要执行的函数\r\n * @param {Object} [defaultVal=undefined] 发生异常后的默认返回值，默认为 undefined\r\n */\r\nexport function safeExec (fn, defaultVal = undefined) {\r\n  try {\r\n    return fn()\r\n  } catch (err) {\r\n    return defaultVal\r\n  }\r\n}\r\n",
@@ -3326,7 +3403,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 152,
+    "__docId__": 154,
     "kind": "function",
     "name": "safeExec",
     "memberof": "src/module/function/safeExec.js",
@@ -3371,7 +3448,7 @@
     }
   },
   {
-    "__docId__": 153,
+    "__docId__": 155,
     "kind": "file",
     "name": "src/module/function/singleModel.js",
     "content": "// @ts-check\r\n/**\r\n * 通用的单例模式\r\n * @param {Object} clazz 需要包装为单例的类型\r\n * @returns {Object} 包装后的单例模式类，使用 {@code new} 创建将只在第一次有效\r\n */\r\nexport function singleModel (clazz) {\r\n  let instance\r\n  return class SingleClass extends clazz {\r\n    /**\r\n     * @param {...Object} args\r\n     */\r\n    constructor (...args) {\r\n      if (instance) {\r\n        return instance\r\n      }\r\n      super(...args)\r\n      instance = this\r\n    }\r\n  }\r\n}\r\n",
@@ -3382,7 +3459,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 154,
+    "__docId__": 156,
     "kind": "function",
     "name": "singleModel",
     "memberof": "src/module/function/singleModel.js",
@@ -3424,7 +3501,7 @@
     }
   },
   {
-    "__docId__": 155,
+    "__docId__": 157,
     "kind": "file",
     "name": "src/module/function/StateMachine.js",
     "content": "// @ts-check\r\n/**\r\n * 状态机\r\n * 用于避免使用 if-else 的一种方式\r\n */\r\nexport class StateMachine {\r\n  /**\r\n   * 获取到一个状态工厂\r\n   */\r\n  static getFactory () {\r\n    const classMap = new Map()\r\n    /**\r\n     * 状态注册器\r\n     * 更好的有限状态机，分离子类与构建的关系，无论子类如何增删该都不影响基类及工厂类\r\n     */\r\n    return new class Builder {\r\n      /**\r\n       * 注册一个 class，创建子类时调用，用于记录每一个 [状态 => 子类] 对应\r\n       * @param {Number|String} state 作为键的状态\r\n       * @param {Object} clazz 对应的子类型\r\n       * @returns {Object} 返回 clazz 本身\r\n       */\r\n      register (state, clazz) {\r\n        classMap.set(state, clazz)\r\n        return clazz\r\n      }\r\n\r\n      // noinspection JSMethodCanBeStatic\r\n      /**\r\n       * 获取一个标签子类对象\r\n       * @param {Number|String} state 状态索引\r\n       * @returns {Object} 子类对象\r\n       */\r\n      getInstance (state) {\r\n        const Class = classMap.get(state)\r\n        if (!Class) {\r\n          return null\r\n        }\r\n        // 构造函数的参数\r\n        return new Class(...Array.from(arguments).slice(1))\r\n      }\r\n    }()\r\n  }\r\n}\r\n",
@@ -3435,7 +3512,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 156,
+    "__docId__": 158,
     "kind": "class",
     "name": "StateMachine",
     "memberof": "src/module/function/StateMachine.js",
@@ -3450,7 +3527,7 @@
     "interface": false
   },
   {
-    "__docId__": 157,
+    "__docId__": 159,
     "kind": "method",
     "name": "getFactory",
     "memberof": "src/module/function/StateMachine.js~StateMachine",
@@ -3469,7 +3546,7 @@
     }
   },
   {
-    "__docId__": 158,
+    "__docId__": 160,
     "kind": "file",
     "name": "src/module/function/throttle.js",
     "content": "// @ts-check\r\n/**\r\n * 函数节流\r\n * 节流 (throttle) 让一个函数不要执行的太频繁，减少执行过快的调用，叫节流\r\n * 类似于上面而又不同于上面的函数去抖, 包装后函数在上一次操作执行过去了最小间隔时间后会直接执行, 否则会忽略该次操作\r\n * 与上面函数去抖的明显区别在连续操作时会按照最小间隔时间循环执行操作, 而非仅执行最后一次操作\r\n *\r\n * @param {Number} delay 最小间隔时间，单位为 ms\r\n * @param {Function} action 真正需要执行的操作\r\n * @return {Function} 包装后有节流功能的函数\r\n */\r\nexport function throttle (delay, action) {\r\n  let last = 0\r\n  return function () {\r\n    const curr = Date.now()\r\n    if (curr - last > delay) {\r\n      action.apply(this, arguments)\r\n      last = curr\r\n    }\r\n  }\r\n}\r\n",
@@ -3480,7 +3557,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 159,
+    "__docId__": 161,
     "kind": "function",
     "name": "throttle",
     "memberof": "src/module/function/throttle.js",
@@ -3526,7 +3603,7 @@
     }
   },
   {
-    "__docId__": 160,
+    "__docId__": 162,
     "kind": "file",
     "name": "src/module/function/timing.js",
     "content": "// @ts-check\r\n/**\r\n * 测试函数的执行时间\r\n * 注：如果函数返回 Promise，则该函数也会返回 Promise，否则直接返回执行时间\r\n * @param {Function} fn 需要测试的函数\r\n * @returns {Number|Promise} 执行的毫秒数\r\n */\r\nexport function timing (fn) {\r\n  var begin = performance.now()\r\n  var result = fn()\r\n  if (!(result instanceof Promise)) {\r\n    return performance.now() - begin\r\n  }\r\n  return result.then(() => performance.now() - begin)\r\n}\r\n",
@@ -3537,7 +3614,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 161,
+    "__docId__": 163,
     "kind": "function",
     "name": "timing",
     "memberof": "src/module/function/timing.js",
@@ -3580,10 +3657,10 @@
     }
   },
   {
-    "__docId__": 162,
+    "__docId__": 164,
     "kind": "file",
     "name": "src/module/function/wait.js",
-    "content": "// @ts-check\r\n/**\r\n * 等待指定的时间/等待指定表达式成立\r\n * @param {Number|Function} param 等待时间/等待条件\r\n * @returns {Promise} Promise 对象\r\n */\r\nexport function wait (param) {\r\n  return new Promise(resolve => {\r\n    if (typeof param === 'number') {\r\n      setTimeout(resolve, param)\r\n    } else if (typeof param === 'function') {\r\n      var timer = setInterval(() => {\r\n        if (param()) {\r\n          clearInterval(timer)\r\n          resolve()\r\n        }\r\n      }, 100)\r\n    } else {\r\n      resolve()\r\n    }\r\n  })\r\n}\r\n",
+    "content": "// @ts-check\r\n/**\r\n * 等待指定的时间/等待指定表达式成立\r\n * 如果未指定等待条件则立刻执行\r\n * @param {Number|Function} [param] 等待时间/等待条件\r\n * @returns {Promise} Promise 对象\r\n */\r\nexport function wait (param) {\r\n  return new Promise(resolve => {\r\n    if (typeof param === 'number') {\r\n      setTimeout(resolve, param)\r\n    } else if (typeof param === 'function') {\r\n      var timer = setInterval(() => {\r\n        if (param()) {\r\n          clearInterval(timer)\r\n          resolve()\r\n        }\r\n      }, 100)\r\n    } else {\r\n      resolve()\r\n    }\r\n  })\r\n}\r\n",
     "static": true,
     "longname": "D:/Text/rx-util/src/module/function/wait.js",
     "access": "public",
@@ -3591,7 +3668,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 163,
+    "__docId__": 165,
     "kind": "function",
     "name": "wait",
     "memberof": "src/module/function/wait.js",
@@ -3603,8 +3680,8 @@
     "export": true,
     "importPath": "rx-util/src/module/function/wait.js",
     "importStyle": "{wait}",
-    "description": "等待指定的时间/等待指定表达式成立",
-    "lineNumber": 7,
+    "description": "等待指定的时间/等待指定表达式成立\n如果未指定等待条件则立刻执行",
+    "lineNumber": 8,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3619,7 +3696,7 @@
           "Function"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
         "name": "param",
         "description": "等待时间/等待条件"
       }
@@ -3634,7 +3711,7 @@
     }
   },
   {
-    "__docId__": 164,
+    "__docId__": 166,
     "kind": "file",
     "name": "src/module/function/waitResource.js",
     "content": "// @ts-check\r\n/**\r\n * 轮询等待指定资源加载完毕再执行操作\r\n * 使用 Promises 实现，可以使用 ES7 的 {@async}/{@await} 调用\r\n * @param {Function} resourceFn 判断必须的资源是否存在的方法\r\n * @param {Object} option 可配置项\r\n * @param {Number} [option.interval=100] 轮询间隔\r\n * @param {Number} [option.max=10] 最大轮询次数\r\n * @returns Promise 对象\r\n */\r\nexport function waitResource (resourceFn, { interval = 100, max = 10 } = {}) {\r\n  var current = 0\r\n  return new Promise((resolve, reject) => {\r\n    var timer = setInterval(() => {\r\n      if (resourceFn()) {\r\n        clearInterval(timer)\r\n        resolve()\r\n      }\r\n      current++\r\n      if (current >= max) {\r\n        clearInterval(timer)\r\n        reject(new Error('等待超时'))\r\n      }\r\n    }, interval)\r\n  })\r\n}\r\n",
@@ -3645,7 +3722,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 165,
+    "__docId__": 167,
     "kind": "function",
     "name": "waitResource",
     "memberof": "src/module/function/waitResource.js",
@@ -3721,10 +3798,10 @@
     }
   },
   {
-    "__docId__": 166,
+    "__docId__": 168,
     "kind": "file",
     "name": "src/module/function/watch.js",
-    "content": "// @ts-check\r\nimport { safeExec } from './safeExec'\r\n\r\n/**\r\n * 监视指定函数返回值的变化\r\n * @param {Function} fn 需要监视的函数\r\n * @param {Function} callback 回调函数\r\n * @param {Number} [interval=100] 每次检查的间隔时间，默认为 100ms\r\n */\r\nexport function watch (fn, callback, interval = 100) {\r\n  let oldVal = safeExec(fn)\r\n  setInterval(() => {\r\n    const newVal = safeExec(fn)\r\n    if (oldVal !== newVal) {\r\n      callback(newVal, oldVal)\r\n    }\r\n    oldVal = newVal\r\n  }, interval)\r\n}\r\n",
+    "content": "// @ts-check\r\nimport { safeExec } from './safeExec'\r\n\r\n/**\r\n * 监视指定函数返回值的变化\r\n * @param {Function} fn 需要监视的函数\r\n * @param {Function} callback 回调函数\r\n * @param {Number} [interval=100] 每次检查的间隔时间，默认为 100ms\r\n * @returns {Function} 关闭这个监视函数\r\n */\r\nexport function watch (fn, callback, interval = 100) {\r\n  let oldVal = safeExec(fn)\r\n  const timer = setInterval(() => {\r\n    const newVal = safeExec(fn)\r\n    if (oldVal !== newVal) {\r\n      callback(newVal, oldVal)\r\n    }\r\n    oldVal = newVal\r\n  }, interval)\r\n  return () => clearInterval(timer)\r\n}\r\n",
     "static": true,
     "longname": "D:/Text/rx-util/src/module/function/watch.js",
     "access": "public",
@@ -3732,7 +3809,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 167,
+    "__docId__": 169,
     "kind": "function",
     "name": "watch",
     "memberof": "src/module/function/watch.js",
@@ -3745,7 +3822,13 @@
     "importPath": "rx-util/src/module/function/watch.js",
     "importStyle": "{watch}",
     "description": "监视指定函数返回值的变化",
-    "lineNumber": 10,
+    "lineNumber": 11,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Function} 关闭这个监视函数"
+      }
+    ],
     "params": [
       {
         "nullable": null,
@@ -3780,10 +3863,17 @@
         "description": "每次检查的间隔时间，默认为 100ms"
       }
     ],
-    "return": null
+    "return": {
+      "nullable": null,
+      "types": [
+        "Function"
+      ],
+      "spread": false,
+      "description": "关闭这个监视函数"
+    }
   },
   {
-    "__docId__": 168,
+    "__docId__": 170,
     "kind": "file",
     "name": "src/module/function/watchObject.js",
     "content": "// @ts-check\r\n/**\r\n * 定义监听对象时的回调函数 doc\r\n * @callback WatchObjectCallback\r\n * @param {Object} target 代理的对象变化后的值\r\n * @param {String} k 变化的属性名\r\n * @param {Object} v 变化的属性值\r\n */\r\n\r\n/**\r\n * 深度监听指定对象属性的变化\r\n * 注：指定对象不能是原始类型，即不可变类型，而且对象本身的引用不能改变，最好使用 const 进行声明\r\n * @param {Object} object 需要监视的对象\r\n * @param {WatchObjectCallback} callback 当代理对象发生改变时的回调函数，回调函数有三个参数，分别是\r\n * @returns {Object} 返回源对象的一个代理\r\n */\r\nexport function watchObject (object, callback) {\r\n  const handler = {\r\n    get (target, property, receiver) {\r\n      try {\r\n        return new Proxy(target[property], handler)\r\n      } catch (err) {\r\n        return Reflect.get(target, property, receiver)\r\n      }\r\n    },\r\n    set (target, key, value, receiver) {\r\n      callback(target, key, value)\r\n      return Reflect.set(target, key, value, receiver)\r\n    }\r\n  }\r\n  return new Proxy(object, handler)\r\n}\r\n",
@@ -3794,7 +3884,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 169,
+    "__docId__": 171,
     "kind": "function",
     "name": "watchObject",
     "memberof": "src/module/function/watchObject.js",
@@ -3846,7 +3936,7 @@
     }
   },
   {
-    "__docId__": 170,
+    "__docId__": 172,
     "kind": "file",
     "name": "src/module/number/randomInt.js",
     "content": "/**\r\n * 生成一个随机的数字\r\n * 如果没有参数，则会抛出异常\r\n * @param {Number} args 参数列表，如果只有一个参数，则认为是最大值，最小值为 0。否则认为第一个是最小值，第二个是最大值，忽略剩余的参数\r\n * @returns {Number} 生成的随机整数\r\n */\r\nexport function randomInt (...args) {\r\n  let min\r\n  let max\r\n  if (args.length === 0) {\r\n    throw new Error('非法参数，必须指定最大值')\r\n  } else if (args.length === 1) {\r\n    min = 0\r\n    max = args[0]\r\n  } else if (args.length > 1) {\r\n    min = args[0]\r\n    max = args[1]\r\n  }\r\n  return min + Math.floor(Math.random() * (max - min))\r\n}\r\n",
@@ -3857,7 +3947,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 171,
+    "__docId__": 173,
     "kind": "function",
     "name": "randomInt",
     "memberof": "src/module/number/randomInt.js",
@@ -3899,7 +3989,7 @@
     }
   },
   {
-    "__docId__": 172,
+    "__docId__": 174,
     "kind": "file",
     "name": "src/module/obj/blankToNullField.js",
     "content": "// @ts-check\r\nimport { blankToNull } from './../string/blankToNull'\r\n\r\n/**\r\n * 置空对象所有空白的属性\r\n *\r\n * @param {Object} obj 对象\r\n * @returns {Object} 将所有的空白属性全部转换为 null 的新对象\r\n */\r\nexport function blankToNullField (obj) {\r\n  const res = {}\r\n  for (const k in obj) {\r\n    const v = obj[k]\r\n    res[k] = typeof v === 'string' ? blankToNull(v) : v\r\n  }\r\n  return res\r\n}\r\n",
@@ -3910,7 +4000,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 173,
+    "__docId__": 175,
     "kind": "function",
     "name": "blankToNullField",
     "memberof": "src/module/obj/blankToNullField.js",
@@ -3952,7 +4042,7 @@
     }
   },
   {
-    "__docId__": 174,
+    "__docId__": 176,
     "kind": "file",
     "name": "src/module/obj/emptyAllField.js",
     "content": "// @ts-check\r\n/**\r\n * 将对象的所有属性置空\r\n * @param {Object} obj 需要置空属性的对象\r\n * @returns {Object} 返回一个新的对象\r\n */\r\nexport function emptyAllField (obj) {\r\n  const res = {}\r\n  for (const k in obj) {\r\n    res[k] = null\r\n  }\r\n  return res\r\n}\r\n",
@@ -3963,7 +4053,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 175,
+    "__docId__": 177,
     "kind": "function",
     "name": "emptyAllField",
     "memberof": "src/module/obj/emptyAllField.js",
@@ -4005,7 +4095,7 @@
     }
   },
   {
-    "__docId__": 176,
+    "__docId__": 178,
     "kind": "file",
     "name": "src/module/obj/excludeFields.js",
     "content": "// @ts-check\r\n/**\r\n * 排除对象中的指定字段\r\n * 注: 此处将获得一个浅拷贝对象\r\n * @param {Object} object 排除对象\r\n * @param {Set.<String>} filedSet 要排除的字段\r\n * @returns {Object} 排除完指定字段得到的新的对象\r\n */\r\nexport function excludeFields (object, filedSet = new Set()) {\r\n  return Object.entries(object).reduce((res, [k, v]) => {\r\n    if (!filedSet.has(k)) {\r\n      res[k] = v\r\n    }\r\n    return res\r\n  }, {})\r\n}\r\n",
@@ -4016,7 +4106,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 177,
+    "__docId__": 179,
     "kind": "function",
     "name": "excludeFields",
     "memberof": "src/module/obj/excludeFields.js",
@@ -4068,7 +4158,7 @@
     }
   },
   {
-    "__docId__": 178,
+    "__docId__": 180,
     "kind": "file",
     "name": "src/module/obj/mapToObject.js",
     "content": "// @ts-check\r\n/**\r\n * 将 map 转换为 Object 对象\r\n * @param {Map} map map 键值表\r\n * @returns {Object} 转换得到的 Object 对象\r\n */\r\nexport function mapToObject (map) {\r\n  const res = {}\r\n  for (let [k, v] of map) {\r\n    res[k] = v\r\n  }\r\n  return res\r\n}\r\n",
@@ -4079,7 +4169,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 179,
+    "__docId__": 181,
     "kind": "function",
     "name": "mapToObject",
     "memberof": "src/module/obj/mapToObject.js",
@@ -4121,7 +4211,7 @@
     }
   },
   {
-    "__docId__": 180,
+    "__docId__": 182,
     "kind": "file",
     "name": "src/module/string/blankToNull.js",
     "content": "// @ts-check\r\n/**\r\n * 将空白字符串转换为 null\r\n *\r\n * @param {String} str 将空字符串转换为 {@code null}\r\n * @returns {String} 可能为 {@code null}\r\n */\r\nexport function blankToNull (str) {\r\n  return !str || str.trim().length === 0 ? null : str\r\n}\r\n",
@@ -4132,7 +4222,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 181,
+    "__docId__": 183,
     "kind": "function",
     "name": "blankToNull",
     "memberof": "src/module/string/blankToNull.js",
@@ -4174,7 +4264,7 @@
     }
   },
   {
-    "__docId__": 182,
+    "__docId__": 184,
     "kind": "file",
     "name": "src/module/string/fill.js",
     "content": "// @ts-check\r\n/**\r\n * 填充字符串到指定长度\r\n * @param {String} item 填充的字符串\r\n * @param {Number} len 填充的长度\r\n * @returns {String} 填充完成的字符串\r\n */\r\nexport function fill (item, len) {\r\n  if (len <= 0) {\r\n    return ''\r\n  }\r\n  return item + fill(item, len - 1)\r\n}\r\n",
@@ -4185,7 +4275,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 183,
+    "__docId__": 185,
     "kind": "function",
     "name": "fill",
     "memberof": "src/module/string/fill.js",
@@ -4237,7 +4327,7 @@
     }
   },
   {
-    "__docId__": 184,
+    "__docId__": 186,
     "kind": "file",
     "name": "src/module/string/format.js",
     "content": "// @ts-check\r\n/**\r\n * 字符串格式化\r\n *\r\n * @param {String} str 要进行格式化的值\r\n * @param {Object} args 格式化参数值，替换字符串中的 {} 的值\r\n * @returns {String} 替换完成的字符串\r\n */\r\nexport function format (str, args) {\r\n  if (!args) {\r\n    return str\r\n  }\r\n  return Object.keys(args).reduce(\r\n    (res, k) => res.replace(new RegExp(`{${k}}`, 'g'), args[k]),\r\n    str\r\n  )\r\n}\r\n",
@@ -4248,7 +4338,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 185,
+    "__docId__": 187,
     "kind": "function",
     "name": "format",
     "memberof": "src/module/string/format.js",
@@ -4300,7 +4390,7 @@
     }
   },
   {
-    "__docId__": 186,
+    "__docId__": 188,
     "kind": "file",
     "name": "src/module/string/isFloat.js",
     "content": "// @ts-check\r\nconst regexp = new RegExp('^(-?\\\\d+)(.\\\\d+)?$')\r\n/**\r\n * 判断字符串是否位小数\r\n * @param {String} str 需要进行判断的字符串\r\n * @returns {Boolean} 是否为小数\r\n */\r\nexport function isFloat (str) {\r\n  return regexp.test(str)\r\n}\r\n",
@@ -4311,7 +4401,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 187,
+    "__docId__": 189,
     "kind": "variable",
     "name": "regexp",
     "memberof": "src/module/string/isFloat.js",
@@ -4332,7 +4422,7 @@
     "ignore": true
   },
   {
-    "__docId__": 188,
+    "__docId__": 190,
     "kind": "function",
     "name": "isFloat",
     "memberof": "src/module/string/isFloat.js",
@@ -4374,7 +4464,7 @@
     }
   },
   {
-    "__docId__": 189,
+    "__docId__": 191,
     "kind": "file",
     "name": "src/module/string/isNumber.js",
     "content": "// @ts-check\r\nconst regexp = new RegExp('^-?\\\\d+$')\r\n/**\r\n * 判断字符串是否位整数\r\n * @param {String} str 需要进行判断的字符串\r\n * @returns {Boolean} 是否为小数\r\n */\r\nexport function isNumber (str) {\r\n  return regexp.test(str)\r\n}\r\n",
@@ -4385,7 +4475,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 190,
+    "__docId__": 192,
     "kind": "variable",
     "name": "regexp",
     "memberof": "src/module/string/isNumber.js",
@@ -4406,7 +4496,7 @@
     "ignore": true
   },
   {
-    "__docId__": 191,
+    "__docId__": 193,
     "kind": "function",
     "name": "isNumber",
     "memberof": "src/module/string/isNumber.js",
@@ -4448,7 +4538,7 @@
     }
   },
   {
-    "__docId__": 192,
+    "__docId__": 194,
     "kind": "file",
     "name": "src/module/string/toLowerCase.js",
     "content": "// @ts-check\r\n/**\r\n * 字符串安全的转换为小写\r\n * @param {String} str 字符串\r\n * @returns {String} 转换后得到的全小写字符串\r\n */\r\nexport function toLowerCase (str) {\r\n  if (!str || typeof str !== 'string') {\r\n    return str\r\n  }\r\n  return str.toLowerCase()\r\n}\r\n",
@@ -4459,7 +4549,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 193,
+    "__docId__": 195,
     "kind": "function",
     "name": "toLowerCase",
     "memberof": "src/module/string/toLowerCase.js",
@@ -4501,7 +4591,7 @@
     }
   },
   {
-    "__docId__": 194,
+    "__docId__": 196,
     "kind": "file",
     "name": "src/module/string/toUpperCase.js",
     "content": "// @ts-check\r\n/**\r\n * 字符串安全的转换为大写\r\n * @param {String} str 字符串\r\n * @returns {String} 转换后得到的全大写字符串\r\n */\r\nexport function toUpperCase (str) {\r\n  if (!str || typeof str !== 'string') {\r\n    return str\r\n  }\r\n  return str.toUpperCase()\r\n}\r\n",
@@ -4512,7 +4602,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 195,
+    "__docId__": 197,
     "kind": "function",
     "name": "toUpperCase",
     "memberof": "src/module/string/toUpperCase.js",
@@ -4555,7 +4645,7 @@
   },
   {
     "kind": "index",
-    "content": "# 日常使用的 JavaScript 工具库\r\n\r\n> [JSDOC 文档](https://rx-util.rxliuli.com/)\r\n\r\n[![build-rollup-brightgreen](https://img.shields.io/badge/build-rollup-brightgreen.svg)](https://rollupjs.com/) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)\r\n\r\n该库大部分代码已经通过单元测试，但还请谨慎用于生产环境。\r\n\r\n> 不包含单元测试的部分大部分是 DOM 操作相关函数，以及部分异步代码。\r\n\r\n吾辈日常写传统前端时需要大量相同的函数，所以需要写一个能在浏览器上使用的库，仅此而已。\r\n",
+    "content": "# 日常使用的 JavaScript 工具库\r\n\r\n> [ESDOC 文档](https://rx-util.rxliuli.com/)\r\n\r\n[![build-rollup-brightgreen](https://img.shields.io/badge/build-rollup-brightgreen.svg)](https://rollupjs.com/) [![jest coverage](https://img.shields.io/badge/jest-70.95%25-lightgrey.svg)](/coverage/lcov-report/index.html) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)\r\n\r\n## 简介\r\n\r\n吾辈日常写传统前端时需要大量相同的函数，所以需要写一个能在浏览器上使用的库，仅此而已。\r\n该库大部分代码已经通过单元测试，但还请谨慎用于生产环境。不包含单元测试的部分大部分是 DOM 操作相关函数，以及部分异步代码。\r\n\r\n> 如果遇到了什么问题，欢迎提 [issue](https://github.com/rxliuli/rx-util/issues)，或者 [PR](https://github.com/rxliuli/rx-util/pulls) 亦可。\r\n\r\n## 使用\r\n\r\n### 浏览器\r\n\r\n下载 [rx-util.min.js](https://github.com/rxliuli/rx-util/raw/master/dist/rx-util.min.js)，然后在 HTML 中引入即可\r\n\r\n```html\r\n<script src=\"https://github.com/rxliuli/rx-util/raw/master/dist/rx-util.min.js\"></script>\r\n```\r\n\r\n开发环境更建议使用 [rx-util.js](https://github.com/rxliuli/rx-util/raw/master/dist/rx-util.js)，包含未压缩的代码及全部的注释内容。\r\n\r\n### 现代前端\r\n\r\n如果使用了现代前端构建工具（真实项目未使用，但吾辈测试可用），也可以安装到项目中。\r\n\r\nyarn\r\n\r\n```sh\r\nyarn add rx-util\r\n```\r\n\r\n或者 npm\r\n\r\n```sh\r\nnpm i rx-util\r\n```\r\n\r\n然后使用命名导入即可\r\n\r\n```js\r\nimport { dateFormat } from './main'\r\n```\r\n\r\n或者\r\n\r\n```js\r\nimport * as rx from './main'\r\n```\r\n",
     "longname": "D:\\Text\\rx-util\\README.md",
     "name": "./README.md",
     "static": true,
@@ -4563,14 +4653,14 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\r\n  \"name\": \"rx-util\",\r\n  \"version\": \"1.6.2\",\r\n  \"description\": \"rxliuli 个人使用的 js 工具库（仅适用于浏览器）\",\r\n  \"main\": \"./src/main.js\",\r\n  \"scripts\": {\r\n    \"start\": \"npm run dev\",\r\n    \"dev\": \"rollup -c build/rollup.config.js --environment NODE_ENV:production --watch\",\r\n    \"build:dev\": \"rollup -c build/rollup.config.js --environment NODE_ENV:development\",\r\n    \"build:prod\": \"rollup -c build/rollup.config.js --environment NODE_ENV:production\",\r\n    \"build\": \"npm run build:prod\",\r\n    \"lint\": \"eslint --fix ./src/\",\r\n    \"docs\": \"esdoc\",\r\n    \"test\": \"jest --watch\"\r\n  },\r\n  \"repository\": {\r\n    \"type\": \"git\",\r\n    \"url\": \"git+ssh://git@github.com/rxliuli/rx-util.git\"\r\n  },\r\n  \"keywords\": [\r\n    \"rx-util\"\r\n  ],\r\n  \"author\": \"rxliuli\",\r\n  \"license\": \"MIT\",\r\n  \"bugs\": {\r\n    \"url\": \"https://github.com/rxliuli/rx-util/issues\"\r\n  },\r\n  \"homepage\": \"https://github.com/rxliuli/rx-util#readme\",\r\n  \"devDependencies\": {\r\n    \"@babel/core\": \"^7.4.0\",\r\n    \"@babel/plugin-transform-runtime\": \"^7.4.0\",\r\n    \"@babel/polyfill\": \"^7.2.5\",\r\n    \"@babel/preset-env\": \"^7.4.2\",\r\n    \"@babel/runtime\": \"^7.4.2\",\r\n    \"@types/jest\": \"^24.0.11\",\r\n    \"core-js\": \"3\",\r\n    \"esdoc\": \"^1.1.0\",\r\n    \"esdoc-standard-plugin\": \"^1.0.0\",\r\n    \"eslint\": \"^5.15.3\",\r\n    \"eslint-config-standard\": \"^12.0.0\",\r\n    \"eslint-plugin-import\": \"^2.14.0\",\r\n    \"eslint-plugin-jest\": \"^22.4.1\",\r\n    \"eslint-plugin-node\": \"^8.0.1\",\r\n    \"eslint-plugin-promise\": \"^4.0.1\",\r\n    \"eslint-plugin-standard\": \"^4.0.0\",\r\n    \"jest\": \"^24.5.0\",\r\n    \"jest-extended\": \"^0.11.1\",\r\n    \"rollup\": \"^1.1.2\",\r\n    \"rollup-plugin-babel\": \"^4.3.2\",\r\n    \"rollup-plugin-commonjs\": \"^9.2.1\",\r\n    \"rollup-plugin-eslint\": \"^5.0.0\",\r\n    \"rollup-plugin-node-resolve\": \"^4.0.1\",\r\n    \"rollup-plugin-uglify\": \"^6.0.1\"\r\n  }\r\n}\r\n",
+    "content": "{\r\n  \"name\": \"rx-util\",\r\n  \"version\": \"1.6.3\",\r\n  \"description\": \"rxliuli 个人使用的 js 工具库（仅适用于浏览器）\",\r\n  \"main\": \"./src/main.js\",\r\n  \"scripts\": {\r\n    \"start\": \"npm run dev\",\r\n    \"dev\": \"rollup -c build/rollup.config.js --environment NODE_ENV:production --watch\",\r\n    \"build:dev\": \"rollup -c build/rollup.config.js --environment NODE_ENV:development\",\r\n    \"build:prod\": \"rollup -c build/rollup.config.js --environment NODE_ENV:production\",\r\n    \"build\": \"npm run build:prod\",\r\n    \"lint\": \"eslint --fix ./src/\",\r\n    \"docs\": \"esdoc\",\r\n    \"test\": \"jest --watch\",\r\n    \"coverage\": \"jest --coverage\"\r\n  },\r\n  \"repository\": {\r\n    \"type\": \"git\",\r\n    \"url\": \"git+ssh://git@github.com/rxliuli/rx-util.git\"\r\n  },\r\n  \"keywords\": [\r\n    \"rx-util\"\r\n  ],\r\n  \"author\": \"rxliuli\",\r\n  \"license\": \"MIT\",\r\n  \"bugs\": {\r\n    \"url\": \"https://github.com/rxliuli/rx-util/issues\"\r\n  },\r\n  \"homepage\": \"https://github.com/rxliuli/rx-util#readme\",\r\n  \"devDependencies\": {\r\n    \"@babel/core\": \"^7.4.0\",\r\n    \"@babel/plugin-transform-runtime\": \"^7.4.0\",\r\n    \"@babel/polyfill\": \"^7.2.5\",\r\n    \"@babel/preset-env\": \"^7.4.2\",\r\n    \"@babel/runtime\": \"^7.4.2\",\r\n    \"@types/jest\": \"^24.0.11\",\r\n    \"core-js\": \"3\",\r\n    \"esdoc\": \"^1.1.0\",\r\n    \"esdoc-standard-plugin\": \"^1.0.0\",\r\n    \"eslint\": \"^5.15.3\",\r\n    \"eslint-config-standard\": \"^12.0.0\",\r\n    \"eslint-plugin-import\": \"^2.14.0\",\r\n    \"eslint-plugin-jest\": \"^22.4.1\",\r\n    \"eslint-plugin-node\": \"^8.0.1\",\r\n    \"eslint-plugin-promise\": \"^4.0.1\",\r\n    \"eslint-plugin-standard\": \"^4.0.0\",\r\n    \"husky\": \"^1.3.1\",\r\n    \"jest\": \"^24.5.0\",\r\n    \"jest-extended\": \"^0.11.1\",\r\n    \"lint-staged\": \"^8.1.5\",\r\n    \"prettier\": \"^1.16.4\",\r\n    \"rollup\": \"^1.1.2\",\r\n    \"rollup-plugin-babel\": \"^4.3.2\",\r\n    \"rollup-plugin-commonjs\": \"^9.2.1\",\r\n    \"rollup-plugin-eslint\": \"^5.0.0\",\r\n    \"rollup-plugin-node-resolve\": \"^4.0.1\",\r\n    \"rollup-plugin-uglify\": \"^6.0.1\"\r\n  }\r\n}\r\n",
     "longname": "D:\\Text\\rx-util\\package.json",
     "name": "package.json",
     "static": true,
     "access": "public"
   },
   {
-    "__docId__": 196,
+    "__docId__": 198,
     "kind": "testFile",
     "name": "src/main.test.js",
     "content": "// eslint-disable-next-line import/no-duplicates\r\nimport * as rx from './main'\r\n// eslint-disable-next-line import/no-duplicates\r\nimport { dateFormat } from './main'\r\n\r\ntest('test main', () => {\r\n  expect(rx.dateFormat).not.toBeNull()\r\n})\r\n\r\ntest('test main, use dateFormat for import {}', () => {\r\n  const str = '2019-12-11'\r\n\r\n  expect(dateFormat(new Date(str), 'yyyy-MM-dd')).toBe(str)\r\n})\r\n",
@@ -4581,7 +4671,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 197,
+    "__docId__": 199,
     "kind": "test",
     "name": "test0",
     "testId": 0,
@@ -4594,7 +4684,7 @@
     "lineNumber": 6
   },
   {
-    "__docId__": 198,
+    "__docId__": 200,
     "kind": "test",
     "name": "test1",
     "testId": 1,
@@ -4607,7 +4697,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 199,
+    "__docId__": 201,
     "kind": "testFile",
     "name": "src/module/ajax/parseUrl.test.js",
     "content": "import { parseUrl } from './parseUrl'\r\n\r\ntest('test parseUrl', () => {\r\n  const rxUrl = parseUrl('http://blog.rxliuli.com/p/?id=1&commentId=2')\r\n  expect(rxUrl).toEqual({\r\n    href: '/p/?id=1&commentId=2',\r\n    website: 'http://blog.rxliuli.com',\r\n    protocol: 'http',\r\n    domain: 'blog.rxliuli.com',\r\n    accessPath: '/p',\r\n    params: {\r\n      id: '1',\r\n      commentId: '2'\r\n    },\r\n    url: 'http://blog.rxliuli.com/p/?id=1&commentId=2',\r\n    port: 80\r\n  })\r\n})\r\n",
@@ -4618,7 +4708,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 200,
+    "__docId__": 202,
     "kind": "test",
     "name": "test2",
     "testId": 2,
@@ -4631,7 +4721,7 @@
     "lineNumber": 3
   },
   {
-    "__docId__": 201,
+    "__docId__": 203,
     "kind": "testFile",
     "name": "src/module/ajax/spliceParams.test.js",
     "content": "import { spliceParams } from './spliceParams'\r\nimport { dateFormat } from '../date/dateFormat'\r\n\r\n/**\r\n * @test {spliceParams} 测试拼接参数为 url\r\n */\r\ndescribe('test spliceParams', () => {\r\n  it('test spliceParams for normal param', () => {\r\n    expect(\r\n      spliceParams({\r\n        name: 'rx',\r\n        age: 17\r\n      })\r\n    ).toBe('name=rx&age=17&')\r\n  })\r\n  it('test spliceParams for Date type', () => {\r\n    const date = new Date()\r\n    expect(\r\n      spliceParams({\r\n        birthday: date\r\n      })\r\n    ).toBe(\r\n      `birthday=${encodeURIComponent(\r\n        dateFormat(date, 'yyyy-MM-ddThh:mm:ss.SSSZ')\r\n      )}&`\r\n    )\r\n  })\r\n  it('test spliceParams for Array type', () => {\r\n    expect(\r\n      spliceParams({\r\n        name: 'rx',\r\n        bent: [1, 2, 3]\r\n      })\r\n    ).toBe(`name=rx&bent=1&bent=2&bent=3&`)\r\n  })\r\n  it('test spliceParams for {}', () => {\r\n    expect(spliceParams({})).toBe('')\r\n  })\r\n\r\n  it('test spliceParams for undefined', () => {\r\n    expect(spliceParams()).toBe('')\r\n  })\r\n  it('test spliceParams for other type', () => {\r\n    const str = 'test'\r\n    expect(() => spliceParams(str)).toThrowError(\r\n      `The parameter type must be Object: ${str}`\r\n    )\r\n  })\r\n  it('test spliceParams for array Date', () => {\r\n    const date = new Date()\r\n    expect(\r\n      spliceParams({\r\n        name: 'rx',\r\n        bent: [date, date]\r\n      })\r\n    ).toBe(\r\n      `name=rx&bent=${encodeURIComponent(\r\n        dateFormat(date, 'yyyy-MM-ddThh:mm:ss.SSSZ')\r\n      )}&bent=${encodeURIComponent(\r\n        dateFormat(date, 'yyyy-MM-ddThh:mm:ss.SSSZ')\r\n      )}&`\r\n    )\r\n  })\r\n})\r\n",
@@ -4642,7 +4732,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 202,
+    "__docId__": 204,
     "kind": "test",
     "name": "describe3",
     "testId": 3,
@@ -4658,7 +4748,7 @@
     ]
   },
   {
-    "__docId__": 203,
+    "__docId__": 205,
     "kind": "test",
     "name": "it4",
     "testId": 4,
@@ -4671,7 +4761,7 @@
     "lineNumber": 8
   },
   {
-    "__docId__": 204,
+    "__docId__": 206,
     "kind": "test",
     "name": "it5",
     "testId": 5,
@@ -4684,7 +4774,7 @@
     "lineNumber": 16
   },
   {
-    "__docId__": 205,
+    "__docId__": 207,
     "kind": "test",
     "name": "it6",
     "testId": 6,
@@ -4697,7 +4787,7 @@
     "lineNumber": 28
   },
   {
-    "__docId__": 206,
+    "__docId__": 208,
     "kind": "test",
     "name": "it7",
     "testId": 7,
@@ -4710,7 +4800,7 @@
     "lineNumber": 36
   },
   {
-    "__docId__": 207,
+    "__docId__": 209,
     "kind": "test",
     "name": "it8",
     "testId": 8,
@@ -4723,7 +4813,7 @@
     "lineNumber": 40
   },
   {
-    "__docId__": 208,
+    "__docId__": 210,
     "kind": "test",
     "name": "it9",
     "testId": 9,
@@ -4736,7 +4826,7 @@
     "lineNumber": 43
   },
   {
-    "__docId__": 209,
+    "__docId__": 211,
     "kind": "test",
     "name": "it10",
     "testId": 10,
@@ -4749,7 +4839,7 @@
     "lineNumber": 49
   },
   {
-    "__docId__": 210,
+    "__docId__": 212,
     "kind": "testFile",
     "name": "src/module/array/arrayToMap.test.js",
     "content": "import { arrayToMap } from './arrayToMap'\r\n\r\ntest('arrayToMap [1, 2, 3] to equals Map({1 => 1, 2 => 2, 3 => 3})', () => {\r\n  const arr = [1, 2, 3]\r\n  expect(arrayToMap(arr, i => i)).toEqual(\r\n    new Map()\r\n      .set(1, 1)\r\n      .set(2, 2)\r\n      .set(3, 3)\r\n  )\r\n})\r\n",
@@ -4760,7 +4850,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 211,
+    "__docId__": 213,
     "kind": "test",
     "name": "test11",
     "testId": 11,
@@ -4773,7 +4863,7 @@
     "lineNumber": 3
   },
   {
-    "__docId__": 212,
+    "__docId__": 214,
     "kind": "testFile",
     "name": "src/module/array/asIterator.test.js",
     "content": "// import asIterator from './asIterator'\r\n\r\ntest('asIterator test Array', () => {\r\n  // TODO 这里无法测试 Iterator 接口，未解决。。。\r\n  // const arr = ['name', 'age', 'sex']\r\n  // const iterator = arr.values()\r\n  // expect(asIterator(iterator)).toContain(arr)\r\n  // expect(asIterator(iterator)).toContain(Array.from(iterator))\r\n})\r\n",
@@ -4784,7 +4874,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 213,
+    "__docId__": 215,
     "kind": "test",
     "name": "test12",
     "testId": 12,
@@ -4797,7 +4887,7 @@
     "lineNumber": 3
   },
   {
-    "__docId__": 214,
+    "__docId__": 216,
     "kind": "testFile",
     "name": "src/module/array/asyncFlatMap.test.js",
     "content": "import { range } from './range'\r\nimport { asyncFlatMap } from './asyncFlatMap'\r\n\r\ntest('test asyncFlatMap', async () => {\r\n  const res = await asyncFlatMap(range(1, 4), async i => range(1, i + 1))\r\n  expect(res).toEqual(expect.arrayContaining([1, 1, 2, 1, 2, 3]))\r\n})\r\n",
@@ -4808,7 +4898,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 215,
+    "__docId__": 217,
     "kind": "test",
     "name": "test13",
     "testId": 13,
@@ -4821,7 +4911,7 @@
     "lineNumber": 4
   },
   {
-    "__docId__": 216,
+    "__docId__": 218,
     "kind": "testFile",
     "name": "src/module/array/flatMap.test.js",
     "content": "import { flatMap } from './flatMap'\r\nimport { range } from './range'\r\ntest('test flatMap', () => {\r\n  expect(flatMap(range(1, 4), i => range(1, i + 1))).toEqual(\r\n    expect.arrayContaining([1, 1, 2, 1, 2, 3])\r\n  )\r\n})\r\n",
@@ -4832,7 +4922,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 217,
+    "__docId__": 219,
     "kind": "test",
     "name": "test14",
     "testId": 14,
@@ -4845,7 +4935,7 @@
     "lineNumber": 3
   },
   {
-    "__docId__": 218,
+    "__docId__": 220,
     "kind": "testFile",
     "name": "src/module/array/groupBy.test.js",
     "content": "import { groupBy } from './groupBy'\r\n\r\ntest('groupBy [1, 2, 3] to equals Map({true => [1, 2], false => 2})', () => {\r\n  const arr = [1, 2, 3]\r\n  expect(groupBy(arr, i => i % 2 === 0)).toEqual(\r\n    new Map().set(true, [2]).set(false, [1, 3])\r\n  )\r\n})\r\n",
@@ -4856,7 +4946,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 219,
+    "__docId__": 221,
     "kind": "test",
     "name": "test15",
     "testId": 15,
@@ -4869,7 +4959,7 @@
     "lineNumber": 3
   },
   {
-    "__docId__": 220,
+    "__docId__": 222,
     "kind": "testFile",
     "name": "src/module/array/range.test.js",
     "content": "import { range } from './range'\r\n\r\ntest('range 1-3 is [1,2,3]', () => {\r\n  expect(range(1, 4)).toEqual(expect.arrayContaining([1, 2, 3]))\r\n})\r\n",
@@ -4880,7 +4970,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 221,
+    "__docId__": 223,
     "kind": "test",
     "name": "test16",
     "testId": 16,
@@ -4893,7 +4983,7 @@
     "lineNumber": 3
   },
   {
-    "__docId__": 222,
+    "__docId__": 224,
     "kind": "testFile",
     "name": "src/module/array/toObject.test.js",
     "content": "import { toObject } from './toObject'\r\n\r\ntest('test toObject', () => {\r\n  expect(toObject([1, 2, 3], i => i)).toEqual({ 1: 1, 2: 2, 3: 3 })\r\n})\r\n",
@@ -4904,7 +4994,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 223,
+    "__docId__": 225,
     "kind": "test",
     "name": "test17",
     "testId": 17,
@@ -4917,7 +5007,7 @@
     "lineNumber": 3
   },
   {
-    "__docId__": 224,
+    "__docId__": 226,
     "kind": "testFile",
     "name": "src/module/array/uniqueBy.test.js",
     "content": "import { uniqueBy } from './uniqueBy'\r\ntest('test uniqueBy', () => {\r\n  expect(uniqueBy([1, 2, 3, 4, 3, 2, 1])).toEqual(\r\n    expect.arrayContaining([1, 2, 3, 4])\r\n  )\r\n})\r\n",
@@ -4928,7 +5018,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 225,
+    "__docId__": 227,
     "kind": "test",
     "name": "test18",
     "testId": 18,
@@ -4941,7 +5031,7 @@
     "lineNumber": 2
   },
   {
-    "__docId__": 226,
+    "__docId__": 228,
     "kind": "testFile",
     "name": "src/module/date/dateFormat.test.js",
     "content": "import { dateFormat } from './dateFormat'\r\n/**\r\n * @test {dateFormat} 测试 dateFormat 格式化日期时间\r\n */\r\ndescribe('test dateFormat', () => {\r\n  const date = new Date('2019-12-11T11:11:10.100')\r\n  it('test dateFormat for Date', () => {\r\n    expect(dateFormat(date, 'yyyy-MM-dd')).toBe('2019-12-11')\r\n  })\r\n  it('test dateFormat for Time', () => {\r\n    expect(dateFormat(date, 'hh:mm:ss')).toBe('11:11:10')\r\n  })\r\n  it('test dateFormat for ISO', () => {\r\n    expect(dateFormat(date, 'yyyy-MM-ddThh:mm:ss.SSSZ')).toBe(\r\n      '2019-12-11T11:11:10.100Z'\r\n    )\r\n  })\r\n})\r\n",
@@ -4952,7 +5042,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 227,
+    "__docId__": 229,
     "kind": "test",
     "name": "describe19",
     "testId": 19,
@@ -4968,7 +5058,7 @@
     ]
   },
   {
-    "__docId__": 228,
+    "__docId__": 230,
     "kind": "test",
     "name": "it20",
     "testId": 20,
@@ -4981,7 +5071,7 @@
     "lineNumber": 7
   },
   {
-    "__docId__": 229,
+    "__docId__": 231,
     "kind": "test",
     "name": "it21",
     "testId": 21,
@@ -4994,7 +5084,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 230,
+    "__docId__": 232,
     "kind": "test",
     "name": "it22",
     "testId": 22,
@@ -5007,10 +5097,10 @@
     "lineNumber": 13
   },
   {
-    "__docId__": 231,
+    "__docId__": 233,
     "kind": "testFile",
     "name": "src/module/date/strToDate.test.js",
-    "content": "import { strToDate } from './strToDate'\r\nimport { dateFormat } from './dateFormat'\r\ntest('test strToDate', () => {\r\n  const date = strToDate('2019-12-11', 'yyyy-MM-dd')\r\n  expect(dateFormat(date, 'yyyy/MM/dd')).toBe('2019/12/11')\r\n  expect(dateFormat(date, 'hh/mm/ss')).toBe('00/00/00')\r\n  const date2 = strToDate(\r\n    '2019年12月11日 11时11分10秒',\r\n    'yyyy年MM月dd日 hh时mm分ss秒'\r\n  )\r\n  expect(dateFormat(date2, 'yyyy-MM-dd hh:mm:ss')).toBe('2019-12-11 11:11:10')\r\n})\r\n",
+    "content": "import { strToDate } from './strToDate'\r\nimport { dateFormat } from './dateFormat'\r\n\r\n/**\r\n * @test {strToDate}\r\n */\r\ndescribe('test strToDate', () => {\r\n  it('test normal parse string to date', () => {\r\n    const date = strToDate('2019-12-11', 'yyyy-MM-dd')\r\n    expect(dateFormat(date, 'yyyy/MM/dd')).toBe('2019/12/11')\r\n    expect(dateFormat(date, 'hh/mm/ss')).toBe('00/00/00')\r\n    const date2 = strToDate(\r\n      '2019年12月11日 11时11分10秒',\r\n      'yyyy年MM月dd日 hh时mm分ss秒'\r\n    )\r\n    expect(dateFormat(date2, 'yyyy-MM-dd hh:mm:ss')).toBe(\r\n      '2019-12-11 11:11:10'\r\n    )\r\n  })\r\n\r\n  it('test the wrong string format', () => {\r\n    expect(strToDate('2019-12-11', 'yyyy-MM')).toBeNull()\r\n  })\r\n  it('test year for two numbers', () => {\r\n    expect(strToDate('19-12-11', 'yy-MM-dd').getFullYear()).toEqual(2019)\r\n  })\r\n  it('test error date for 13 month', () => {\r\n    const date = strToDate('2019-13-11', 'yyyy-MM-dd')\r\n    expect(date.getFullYear()).toBeNaN()\r\n  })\r\n})\r\n",
     "static": true,
     "longname": "D:/Text/rx-util/src/module/date/strToDate.test.js",
     "access": null,
@@ -5018,20 +5108,510 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 232,
+    "__docId__": 234,
     "kind": "test",
-    "name": "test23",
+    "name": "describe23",
     "testId": 23,
     "memberof": "src/module/date/strToDate.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/date/strToDate.test.js~test23",
+    "longname": "src/module/date/strToDate.test.js~describe23",
     "access": null,
     "description": "test strToDate",
-    "lineNumber": 3
+    "lineNumber": 7,
+    "testTargets": [
+      "strToDate"
+    ]
   },
   {
-    "__docId__": 233,
+    "__docId__": 235,
+    "kind": "test",
+    "name": "it24",
+    "testId": 24,
+    "memberof": "src/module/date/strToDate.test.js~describe23",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/date/strToDate.test.js~describe23.it24",
+    "access": null,
+    "description": "test normal parse string to date",
+    "lineNumber": 8
+  },
+  {
+    "__docId__": 236,
+    "kind": "test",
+    "name": "it25",
+    "testId": 25,
+    "memberof": "src/module/date/strToDate.test.js~describe23",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/date/strToDate.test.js~describe23.it25",
+    "access": null,
+    "description": "test the wrong string format",
+    "lineNumber": 21
+  },
+  {
+    "__docId__": 237,
+    "kind": "test",
+    "name": "it26",
+    "testId": 26,
+    "memberof": "src/module/date/strToDate.test.js~describe23",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/date/strToDate.test.js~describe23.it26",
+    "access": null,
+    "description": "test year for two numbers",
+    "lineNumber": 24
+  },
+  {
+    "__docId__": 238,
+    "kind": "test",
+    "name": "it27",
+    "testId": 27,
+    "memberof": "src/module/date/strToDate.test.js~describe23",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/date/strToDate.test.js~describe23.it27",
+    "access": null,
+    "description": "test error date for 13 month",
+    "lineNumber": 27
+  },
+  {
+    "__docId__": 239,
+    "kind": "testFile",
+    "name": "src/module/dom/createElByString.test.js",
+    "content": "import { createElByString } from './createElByString'\n/**\n * @test {createElByString}\n */\ndescribe('test createElByString', () => {\n  it('test normal situation', () => {\n    document.body.innerHTML = /* html */ `\n    <main>\n    </main>\n    `\n    const $name = createElByString(`<input type=\"text\" id=\"name\" />`)\n    const $main = document.querySelector('main')\n    $main.append($name)\n    expect($main.querySelector('#name')).toEqual($name)\n  })\n})\n",
+    "static": true,
+    "longname": "D:/Text/rx-util/src/module/dom/createElByString.test.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 240,
+    "kind": "test",
+    "name": "describe28",
+    "testId": 28,
+    "memberof": "src/module/dom/createElByString.test.js",
+    "testDepth": 0,
+    "static": true,
+    "longname": "src/module/dom/createElByString.test.js~describe28",
+    "access": null,
+    "description": "test createElByString",
+    "lineNumber": 5,
+    "testTargets": [
+      "createElByString"
+    ]
+  },
+  {
+    "__docId__": 241,
+    "kind": "test",
+    "name": "it29",
+    "testId": 29,
+    "memberof": "src/module/dom/createElByString.test.js~describe28",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/dom/createElByString.test.js~describe28.it29",
+    "access": null,
+    "description": "test normal situation",
+    "lineNumber": 6
+  },
+  {
+    "__docId__": 242,
+    "kind": "testFile",
+    "name": "src/module/dom/getCusorPostion.test.js",
+    "content": "import { setCusorPostion } from './setCusorPostion'\nimport { getCusorPostion } from './getCusorPostion'\n/**\n * @test {getCusorPostion}\n */\ndescribe('test getCusorPostion', () => {\n  document.body.innerHTML = /* html */ `\n    <input type=\"text\" id=\"name\" />\n  `\n  it('test normal situation', () => {\n    const $name = document.querySelector('#name')\n    $name.value = 'getCusorPostion'\n    const index = 3\n    setCusorPostion($name, index)\n    expect(getCusorPostion($name)).toBe(index)\n  })\n})\n",
+    "static": true,
+    "longname": "D:/Text/rx-util/src/module/dom/getCusorPostion.test.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 243,
+    "kind": "test",
+    "name": "describe30",
+    "testId": 30,
+    "memberof": "src/module/dom/getCusorPostion.test.js",
+    "testDepth": 0,
+    "static": true,
+    "longname": "src/module/dom/getCusorPostion.test.js~describe30",
+    "access": null,
+    "description": "test getCusorPostion",
+    "lineNumber": 6,
+    "testTargets": [
+      "getCusorPostion"
+    ]
+  },
+  {
+    "__docId__": 244,
+    "kind": "test",
+    "name": "it31",
+    "testId": 31,
+    "memberof": "src/module/dom/getCusorPostion.test.js~describe30",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/dom/getCusorPostion.test.js~describe30.it31",
+    "access": null,
+    "description": "test normal situation",
+    "lineNumber": 10
+  },
+  {
+    "__docId__": 245,
+    "kind": "testFile",
+    "name": "src/module/dom/getSelectText.test.js",
+    "content": "import { setCusorPostion } from './setCusorPostion'\nimport { getSelectText } from './getSelectText'\n\n/**\n * @test {getSelectText}\n * @see https://github.com/jsdom/jsdom/issues/321\n */\ndescribe.skip('test getSelectText(But currently jsdom does not support the isContentEditable property.)', () => {\n  let $name\n  beforeEach(() => {\n    document.body.innerHTML = /* html */ `\n  <input type=\"text\" id=\"name\" />\n`\n    $name = document.querySelector('#name')\n    $name.value = 'text'\n  })\n  it('test normal situation', () => {\n    setCusorPostion($name, 1, 3)\n    expect(getSelectText()).toEqual('ex')\n  })\n})\n",
+    "static": true,
+    "longname": "D:/Text/rx-util/src/module/dom/getSelectText.test.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 246,
+    "kind": "test",
+    "name": "it32",
+    "testId": 32,
+    "memberof": "src/module/dom/getSelectText.test.js",
+    "testDepth": 0,
+    "static": true,
+    "longname": "src/module/dom/getSelectText.test.js~it32",
+    "access": null,
+    "description": "test normal situation",
+    "lineNumber": 17
+  },
+  {
+    "__docId__": 247,
+    "kind": "testFile",
+    "name": "src/module/dom/insertText.test.js",
+    "content": "import { insertText } from './insertText'\n\n/**\n * @test {insertText}\n */\ndescribe('test insertText', () => {\n  let $name\n  beforeEach(() => {\n    document.body.innerHTML = /* html */ `\n  <input type=\"text\" id=\"name\" />\n`\n    $name = document.querySelector('#name')\n    $name.value = 'text'\n  })\n  it('test not specify start insert index', () => {\n    insertText($name, 'insert ')\n    expect($name.value).toEqual('insert text')\n  })\n\n  it('test specify start insert index', () => {\n    insertText($name, ' insert success', 4)\n    expect($name.value).toEqual('text insert success')\n  })\n})\n",
+    "static": true,
+    "longname": "D:/Text/rx-util/src/module/dom/insertText.test.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 248,
+    "kind": "test",
+    "name": "describe33",
+    "testId": 33,
+    "memberof": "src/module/dom/insertText.test.js",
+    "testDepth": 0,
+    "static": true,
+    "longname": "src/module/dom/insertText.test.js~describe33",
+    "access": null,
+    "description": "test insertText",
+    "lineNumber": 6,
+    "testTargets": [
+      "insertText"
+    ]
+  },
+  {
+    "__docId__": 249,
+    "kind": "test",
+    "name": "it34",
+    "testId": 34,
+    "memberof": "src/module/dom/insertText.test.js~describe33",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/dom/insertText.test.js~describe33.it34",
+    "access": null,
+    "description": "test not specify start insert index",
+    "lineNumber": 15
+  },
+  {
+    "__docId__": 250,
+    "kind": "test",
+    "name": "it35",
+    "testId": 35,
+    "memberof": "src/module/dom/insertText.test.js~describe33",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/dom/insertText.test.js~describe33.it35",
+    "access": null,
+    "description": "test specify start insert index",
+    "lineNumber": 20
+  },
+  {
+    "__docId__": 251,
+    "kind": "testFile",
+    "name": "src/module/dom/isEditable.test.js",
+    "content": "import { isEditable } from './isEditable'\n/**\n * @test {isEditable}\n */\ndescribe('test isEditable', () => {\n  document.body.innerHTML = /* html */ `\n  <main>\n    <input type=\"text\" id=\"name\" />\n    <p id=\"not-editable\">this is not an editable element</p>\n    <p id=\"editable\" contenteditable=\"true\">this is an editable element</p>\n  </main>\n`\n  it('test input', () => {\n    expect(isEditable(document.querySelector('#name'))).toBeTrue()\n  })\n  it('test an not editable element', () => {\n    expect(isEditable(document.querySelector('#not-editable'))).toBeFalse()\n  })\n})\n\ndescribe.skip('Currently jsdom does not support the isContentEditable property', () => {\n  it('test an editable element', () => {\n    console.log(document.querySelector('#editable').isContentEditable)\n    expect(isEditable(document.querySelector('#editable'))).toBeTrue()\n  })\n})\n",
+    "static": true,
+    "longname": "D:/Text/rx-util/src/module/dom/isEditable.test.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 252,
+    "kind": "test",
+    "name": "describe36",
+    "testId": 36,
+    "memberof": "src/module/dom/isEditable.test.js",
+    "testDepth": 0,
+    "static": true,
+    "longname": "src/module/dom/isEditable.test.js~describe36",
+    "access": null,
+    "description": "test isEditable",
+    "lineNumber": 5,
+    "testTargets": [
+      "isEditable"
+    ]
+  },
+  {
+    "__docId__": 253,
+    "kind": "test",
+    "name": "it37",
+    "testId": 37,
+    "memberof": "src/module/dom/isEditable.test.js~describe36",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/dom/isEditable.test.js~describe36.it37",
+    "access": null,
+    "description": "test input",
+    "lineNumber": 13
+  },
+  {
+    "__docId__": 254,
+    "kind": "test",
+    "name": "it38",
+    "testId": 38,
+    "memberof": "src/module/dom/isEditable.test.js~describe36",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/dom/isEditable.test.js~describe36.it38",
+    "access": null,
+    "description": "test an not editable element",
+    "lineNumber": 16
+  },
+  {
+    "__docId__": 255,
+    "kind": "test",
+    "name": "it39",
+    "testId": 39,
+    "memberof": "src/module/dom/isEditable.test.js",
+    "testDepth": 0,
+    "static": true,
+    "longname": "src/module/dom/isEditable.test.js~it39",
+    "access": null,
+    "description": "test an editable element",
+    "lineNumber": 22
+  },
+  {
+    "__docId__": 256,
+    "kind": "testFile",
+    "name": "src/module/dom/lastFocus.test.js",
+    "content": "import { lastFocus } from './lastFocus'\r\n/**\r\n * @test {lastFocus}\r\n */\r\ndescribe('test lastFocus', () => {\r\n  document.body.innerHTML = /* html */ `\r\n    <main>\r\n      <input type=\"text\" id=\"name\" />\r\n      <a href=\"https://blog.rxliuli.com\" id=\"link\" />\r\n    </main>\r\n    `\r\n  it('test lastFocus for input focus', () => {\r\n    const $name = document.querySelector('#name')\r\n    $name.focus()\r\n    expect(lastFocus()).toEqual($name)\r\n  })\r\n  it('test lastFocus for input blur', () => {\r\n    const $name = document.querySelector('#name')\r\n    $name.focus()\r\n    expect(lastFocus()).toEqual($name)\r\n    $name.blur()\r\n    expect(lastFocus()).toBeNull()\r\n  })\r\n  it('test lastFocus for a tag', () => {\r\n    const $link = document.querySelector('#link')\r\n    $link.focus()\r\n    expect(lastFocus()).toEqual($link)\r\n    $link.blur()\r\n    expect(lastFocus()).toBeNull()\r\n  })\r\n})\r\n",
+    "static": true,
+    "longname": "D:/Text/rx-util/src/module/dom/lastFocus.test.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 257,
+    "kind": "test",
+    "name": "describe40",
+    "testId": 40,
+    "memberof": "src/module/dom/lastFocus.test.js",
+    "testDepth": 0,
+    "static": true,
+    "longname": "src/module/dom/lastFocus.test.js~describe40",
+    "access": null,
+    "description": "test lastFocus",
+    "lineNumber": 5,
+    "testTargets": [
+      "lastFocus"
+    ]
+  },
+  {
+    "__docId__": 258,
+    "kind": "test",
+    "name": "it41",
+    "testId": 41,
+    "memberof": "src/module/dom/lastFocus.test.js~describe40",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/dom/lastFocus.test.js~describe40.it41",
+    "access": null,
+    "description": "test lastFocus for input focus",
+    "lineNumber": 12
+  },
+  {
+    "__docId__": 259,
+    "kind": "test",
+    "name": "it42",
+    "testId": 42,
+    "memberof": "src/module/dom/lastFocus.test.js~describe40",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/dom/lastFocus.test.js~describe40.it42",
+    "access": null,
+    "description": "test lastFocus for input blur",
+    "lineNumber": 17
+  },
+  {
+    "__docId__": 260,
+    "kind": "test",
+    "name": "it43",
+    "testId": 43,
+    "memberof": "src/module/dom/lastFocus.test.js~describe40",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/dom/lastFocus.test.js~describe40.it43",
+    "access": null,
+    "description": "test lastFocus for a tag",
+    "lineNumber": 24
+  },
+  {
+    "__docId__": 261,
+    "kind": "testFile",
+    "name": "src/module/dom/removeEl.test.js",
+    "content": "import { removeEl } from './removeEl'\n/**\n * @test {removeEl}\n */\ndescribe('test removeEl', () => {\n  let $name\n  beforeEach(() => {\n    document.body.innerHTML = /* html */ `\n  <input type=\"text\" id=\"name\" />\n`\n    $name = document.querySelector('#name')\n  })\n  it('test remove element', () => {\n    expect(removeEl($name)).toEqual($name)\n  })\n  it('test remove a nonexistent element', () => {\n    expect(() => removeEl(document.querySelector('#nonexistent'))).toThrow()\n  })\n})\n",
+    "static": true,
+    "longname": "D:/Text/rx-util/src/module/dom/removeEl.test.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 262,
+    "kind": "test",
+    "name": "describe44",
+    "testId": 44,
+    "memberof": "src/module/dom/removeEl.test.js",
+    "testDepth": 0,
+    "static": true,
+    "longname": "src/module/dom/removeEl.test.js~describe44",
+    "access": null,
+    "description": "test removeEl",
+    "lineNumber": 5,
+    "testTargets": [
+      "removeEl"
+    ]
+  },
+  {
+    "__docId__": 263,
+    "kind": "test",
+    "name": "it45",
+    "testId": 45,
+    "memberof": "src/module/dom/removeEl.test.js~describe44",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/dom/removeEl.test.js~describe44.it45",
+    "access": null,
+    "description": "test remove element",
+    "lineNumber": 13
+  },
+  {
+    "__docId__": 264,
+    "kind": "test",
+    "name": "it46",
+    "testId": 46,
+    "memberof": "src/module/dom/removeEl.test.js~describe44",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/dom/removeEl.test.js~describe44.it46",
+    "access": null,
+    "description": "test remove a nonexistent element",
+    "lineNumber": 16
+  },
+  {
+    "__docId__": 265,
+    "kind": "testFile",
+    "name": "src/module/dom/removeText.test.js",
+    "content": "import { removeText } from './removeText'\n\n/**\n * @test {removeText}\n */\ndescribe('test removeText', () => {\n  let $name\n  beforeEach(() => {\n    document.body.innerHTML = /* html */ `\n  <input type=\"text\" id=\"name\" />\n`\n    $name = document.querySelector('#name')\n    $name.value = 'text'\n  })\n  it('test normal situation', () => {\n    removeText($name, 0, $name.value.length)\n    expect($name.value).toBeEmpty()\n  })\n  it('test remove text for not specify start index', () => {\n    removeText($name)\n    expect($name.value).toEqual('text')\n  })\n})\n",
+    "static": true,
+    "longname": "D:/Text/rx-util/src/module/dom/removeText.test.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 266,
+    "kind": "test",
+    "name": "describe47",
+    "testId": 47,
+    "memberof": "src/module/dom/removeText.test.js",
+    "testDepth": 0,
+    "static": true,
+    "longname": "src/module/dom/removeText.test.js~describe47",
+    "access": null,
+    "description": "test removeText",
+    "lineNumber": 6,
+    "testTargets": [
+      "removeText"
+    ]
+  },
+  {
+    "__docId__": 267,
+    "kind": "test",
+    "name": "it48",
+    "testId": 48,
+    "memberof": "src/module/dom/removeText.test.js~describe47",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/dom/removeText.test.js~describe47.it48",
+    "access": null,
+    "description": "test normal situation",
+    "lineNumber": 15
+  },
+  {
+    "__docId__": 268,
+    "kind": "test",
+    "name": "it49",
+    "testId": 49,
+    "memberof": "src/module/dom/removeText.test.js~describe47",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/dom/removeText.test.js~describe47.it49",
+    "access": null,
+    "description": "test remove text for not specify start index",
+    "lineNumber": 19
+  },
+  {
+    "__docId__": 269,
+    "kind": "testFile",
+    "name": "src/module/dom/setCusorPostion.test.js",
+    "content": "import { setCusorPostion } from './setCusorPostion'\nimport { getCusorPostion } from './getCusorPostion'\n\n/**\n * @test {setCusorPostion}\n */\ndescribe('test setCusorPostion', () => {\n  let $name\n  beforeEach(() => {\n    document.body.innerHTML = /* html */ `\n  <input type=\"text\" id=\"name\" />\n`\n    $name = document.querySelector('#name')\n    $name.value = 'text'\n  })\n  it('test normal situation', () => {\n    setCusorPostion($name, 1, 3)\n    expect(getCusorPostion($name)).toEqual(1)\n  })\n})\n",
+    "static": true,
+    "longname": "D:/Text/rx-util/src/module/dom/setCusorPostion.test.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 270,
+    "kind": "test",
+    "name": "describe50",
+    "testId": 50,
+    "memberof": "src/module/dom/setCusorPostion.test.js",
+    "testDepth": 0,
+    "static": true,
+    "longname": "src/module/dom/setCusorPostion.test.js~describe50",
+    "access": null,
+    "description": "test setCusorPostion",
+    "lineNumber": 7,
+    "testTargets": [
+      "setCusorPostion"
+    ]
+  },
+  {
+    "__docId__": 271,
+    "kind": "test",
+    "name": "it51",
+    "testId": 51,
+    "memberof": "src/module/dom/setCusorPostion.test.js~describe50",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/dom/setCusorPostion.test.js~describe50.it51",
+    "access": null,
+    "description": "test normal situation",
+    "lineNumber": 16
+  },
+  {
+    "__docId__": 272,
     "kind": "testFile",
     "name": "src/module/formdata/appends.test.js",
     "content": "import { appends } from './appends'\r\n\r\ntest('test appends', () => {\r\n  const fd = new FormData()\r\n  appends(fd, {\r\n    name: 'rx',\r\n    age: 17\r\n  })\r\n  expect(fd.get('name')).toBe('rx')\r\n  expect(fd.get('age')).toBe('17')\r\n})\r\n",
@@ -5042,20 +5622,20 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 234,
+    "__docId__": 273,
     "kind": "test",
-    "name": "test24",
-    "testId": 24,
+    "name": "test52",
+    "testId": 52,
     "memberof": "src/module/formdata/appends.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/formdata/appends.test.js~test24",
+    "longname": "src/module/formdata/appends.test.js~test52",
     "access": null,
     "description": "test appends",
     "lineNumber": 3
   },
   {
-    "__docId__": 235,
+    "__docId__": 274,
     "kind": "testFile",
     "name": "src/module/formdata/deletes.test.js",
     "content": "import { objToFormData } from './objToFormData'\r\nimport { deletes } from './deletes'\r\n\r\ntest('test deletes', () => {\r\n  const fd = objToFormData({\r\n    name: 'rx',\r\n    age: 17\r\n  })\r\n  deletes(fd, ['age'])\r\n  expect(fd.get('age')).toBeNull()\r\n})\r\n",
@@ -5066,20 +5646,20 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 236,
+    "__docId__": 275,
     "kind": "test",
-    "name": "test25",
-    "testId": 25,
+    "name": "test53",
+    "testId": 53,
     "memberof": "src/module/formdata/deletes.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/formdata/deletes.test.js~test25",
+    "longname": "src/module/formdata/deletes.test.js~test53",
     "access": null,
     "description": "test deletes",
     "lineNumber": 4
   },
   {
-    "__docId__": 237,
+    "__docId__": 276,
     "kind": "testFile",
     "name": "src/module/formdata/formDataToArray.test.js",
     "content": "import { formDataToArray } from './formDataToArray'\r\nimport { objToFormData } from './objToFormData'\r\n\r\ntest('test formDataToArray', () => {\r\n  const fd = objToFormData({\r\n    name: 'rx',\r\n    age: 17\r\n  })\r\n  expect(formDataToArray(fd)).toEqual(\r\n    expect.arrayContaining([['name', 'rx'], ['age', '17']])\r\n  )\r\n})\r\n",
@@ -5090,20 +5670,20 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 238,
+    "__docId__": 277,
     "kind": "test",
-    "name": "test26",
-    "testId": 26,
+    "name": "test54",
+    "testId": 54,
     "memberof": "src/module/formdata/formDataToArray.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/formdata/formDataToArray.test.js~test26",
+    "longname": "src/module/formdata/formDataToArray.test.js~test54",
     "access": null,
     "description": "test formDataToArray",
     "lineNumber": 4
   },
   {
-    "__docId__": 239,
+    "__docId__": 278,
     "kind": "testFile",
     "name": "src/module/formdata/objToFormData.test.js",
     "content": "import { objToFormData } from './objToFormData'\r\n\r\ntest('test objToFormData', () => {\r\n  const fd = objToFormData({\r\n    name: 'rx',\r\n    age: 17\r\n  })\r\n  expect(fd.get('name')).toBe('rx')\r\n  expect(fd.get('age')).toBe('17')\r\n})\r\n",
@@ -5114,20 +5694,20 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 240,
+    "__docId__": 279,
     "kind": "test",
-    "name": "test27",
-    "testId": 27,
+    "name": "test55",
+    "testId": 55,
     "memberof": "src/module/formdata/objToFormData.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/formdata/objToFormData.test.js~test27",
+    "longname": "src/module/formdata/objToFormData.test.js~test55",
     "access": null,
     "description": "test objToFormData",
     "lineNumber": 3
   },
   {
-    "__docId__": 241,
+    "__docId__": 280,
     "kind": "testFile",
     "name": "src/module/formdata/sets.test.js",
     "content": "import { sets } from './sets'\r\nimport { objToFormData } from './objToFormData'\r\n\r\ntest('test sets', () => {\r\n  const user = {\r\n    name: 'rx',\r\n    age: 17\r\n  }\r\n\r\n  const fd = new FormData()\r\n  sets(fd, user)\r\n  expect(fd).toEqual(objToFormData(user))\r\n})\r\n",
@@ -5138,20 +5718,20 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 242,
+    "__docId__": 281,
     "kind": "test",
-    "name": "test28",
-    "testId": 28,
+    "name": "test56",
+    "testId": 56,
     "memberof": "src/module/formdata/sets.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/formdata/sets.test.js~test28",
+    "longname": "src/module/formdata/sets.test.js~test56",
     "access": null,
     "description": "test sets",
     "lineNumber": 4
   },
   {
-    "__docId__": 243,
+    "__docId__": 282,
     "kind": "testFile",
     "name": "src/module/function/debounce.test.js",
     "content": "import { wait } from './wait'\r\nimport { debounce } from './debounce'\r\ntest('test debounce', async () => {\r\n  let num = 0\r\n  const fn = debounce(100, () => num++)\r\n  fn()\r\n  fn()\r\n  fn()\r\n  await wait(200)\r\n  expect(num).toBe(1)\r\n  fn()\r\n  await wait(200)\r\n  expect(num).toBe(2)\r\n})\r\n",
@@ -5162,20 +5742,20 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 244,
+    "__docId__": 283,
     "kind": "test",
-    "name": "test29",
-    "testId": 29,
+    "name": "test57",
+    "testId": 57,
     "memberof": "src/module/function/debounce.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/function/debounce.test.js~test29",
+    "longname": "src/module/function/debounce.test.js~test57",
     "access": null,
     "description": "test debounce",
     "lineNumber": 3
   },
   {
-    "__docId__": 245,
+    "__docId__": 284,
     "kind": "testFile",
     "name": "src/module/function/returnItself.test.js",
     "content": "import { returnItself } from './returnItself'\r\n\r\ntest('test returnItSelf', () => {\r\n  const user = {\r\n    name: 'rx',\r\n    age: 17\r\n  }\r\n  expect(returnItself(user)).toEqual(user)\r\n})\r\n",
@@ -5186,20 +5766,20 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 246,
+    "__docId__": 285,
     "kind": "test",
-    "name": "test30",
-    "testId": 30,
+    "name": "test58",
+    "testId": 58,
     "memberof": "src/module/function/returnItself.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/function/returnItself.test.js~test30",
+    "longname": "src/module/function/returnItself.test.js~test58",
     "access": null,
     "description": "test returnItSelf",
     "lineNumber": 3
   },
   {
-    "__docId__": 247,
+    "__docId__": 286,
     "kind": "testFile",
     "name": "src/module/function/safeExec.test.js",
     "content": "import { safeExec } from './safeExec'\r\n\r\ntest('test safeExec normal', () => {\r\n  expect(safeExec(() => 10)).toBe(10)\r\n})\r\ntest('test safeExec throw Error', () => {\r\n  expect(\r\n    safeExec(() => {\r\n      throw new Error()\r\n    })\r\n  ).toBeUndefined()\r\n})\r\ntest('test safeExec throw Error, and set default value', () => {\r\n  expect(\r\n    safeExec(() => {\r\n      throw new Error()\r\n    }, 10)\r\n  ).toBe(10)\r\n})\r\n",
@@ -5210,46 +5790,46 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 248,
+    "__docId__": 287,
     "kind": "test",
-    "name": "test31",
-    "testId": 31,
+    "name": "test59",
+    "testId": 59,
     "memberof": "src/module/function/safeExec.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/function/safeExec.test.js~test31",
+    "longname": "src/module/function/safeExec.test.js~test59",
     "access": null,
     "description": "test safeExec normal",
     "lineNumber": 3
   },
   {
-    "__docId__": 249,
+    "__docId__": 288,
     "kind": "test",
-    "name": "test32",
-    "testId": 32,
+    "name": "test60",
+    "testId": 60,
     "memberof": "src/module/function/safeExec.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/function/safeExec.test.js~test32",
+    "longname": "src/module/function/safeExec.test.js~test60",
     "access": null,
     "description": "test safeExec throw Error",
     "lineNumber": 6
   },
   {
-    "__docId__": 250,
+    "__docId__": 289,
     "kind": "test",
-    "name": "test33",
-    "testId": 33,
+    "name": "test61",
+    "testId": 61,
     "memberof": "src/module/function/safeExec.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/function/safeExec.test.js~test33",
+    "longname": "src/module/function/safeExec.test.js~test61",
     "access": null,
     "description": "test safeExec throw Error, and set default value",
     "lineNumber": 13
   },
   {
-    "__docId__": 251,
+    "__docId__": 290,
     "kind": "testFile",
     "name": "src/module/function/singleModel.test.js",
     "content": "import { singleModel } from './singleModel'\r\n\r\ntest('test singleModel for no parameter', () => {\r\n  class Demo {}\r\n\r\n  const SingleDemo = singleModel(Demo)\r\n  const demo1 = new SingleDemo()\r\n  const demo2 = new SingleDemo()\r\n\r\n  expect(demo1).toBe(demo2)\r\n  expect(demo1 === demo2).toBe(true)\r\n})\r\n",
@@ -5260,20 +5840,20 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 252,
+    "__docId__": 291,
     "kind": "test",
-    "name": "test34",
-    "testId": 34,
+    "name": "test62",
+    "testId": 62,
     "memberof": "src/module/function/singleModel.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/function/singleModel.test.js~test34",
+    "longname": "src/module/function/singleModel.test.js~test62",
     "access": null,
     "description": "test singleModel for no parameter",
     "lineNumber": 3
   },
   {
-    "__docId__": 253,
+    "__docId__": 292,
     "kind": "testFile",
     "name": "src/module/function/StateMachine.test.js",
     "content": "import { StateMachine } from './StateMachine'\r\ntest('test StateMachine', () => {\r\n  const stateMachine = StateMachine.getFactory()\r\n  class Base {\r\n    hello () {\r\n      return 'base'\r\n    }\r\n  }\r\n  const A = stateMachine.register(\r\n    1,\r\n    class A extends Base {\r\n      hello () {\r\n        return 'a'\r\n      }\r\n    }\r\n  )\r\n  const B = stateMachine.register(2, class B extends Base {})\r\n\r\n  expect(stateMachine.getInstance(1).hello()).toBe('a')\r\n  expect(stateMachine.getInstance(2).hello()).toBe('base')\r\n  expect(stateMachine.getInstance(3)).toBeNull()\r\n})\r\n",
@@ -5284,20 +5864,20 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 254,
+    "__docId__": 293,
     "kind": "test",
-    "name": "test35",
-    "testId": 35,
+    "name": "test63",
+    "testId": 63,
     "memberof": "src/module/function/StateMachine.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/function/StateMachine.test.js~test35",
+    "longname": "src/module/function/StateMachine.test.js~test63",
     "access": null,
     "description": "test StateMachine",
     "lineNumber": 2
   },
   {
-    "__docId__": 255,
+    "__docId__": 294,
     "kind": "testFile",
     "name": "src/module/function/throttle.test.js",
     "content": "import { throttle } from './throttle'\r\nimport { waitResource } from './waitResource'\r\n\r\ntest('test throttle', async () => {\r\n  let num = 0\r\n  const fn = throttle(100, () => num++)\r\n  const now = Date.now()\r\n  await waitResource(() => {\r\n    fn()\r\n    return Date.now() - now > 1000\r\n  })\r\n  expect(num).toBeLessThanOrEqual(10)\r\n})\r\n",
@@ -5308,20 +5888,20 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 256,
+    "__docId__": 295,
     "kind": "test",
-    "name": "test36",
-    "testId": 36,
+    "name": "test64",
+    "testId": 64,
     "memberof": "src/module/function/throttle.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/function/throttle.test.js~test36",
+    "longname": "src/module/function/throttle.test.js~test64",
     "access": null,
     "description": "test throttle",
     "lineNumber": 4
   },
   {
-    "__docId__": 257,
+    "__docId__": 296,
     "kind": "testFile",
     "name": "src/module/function/timing.test.js",
     "content": "import { timing } from './timing'\r\nimport { wait } from './wait'\r\n\r\ntest('test timing for normal function', () => {\r\n  const fn = () => {\r\n    let now = Date.now()\r\n    while (true) {\r\n      if (Date.now() - now > 1000) {\r\n        break\r\n      }\r\n    }\r\n  }\r\n  expect(timing(fn)).toBeGreaterThan(900)\r\n})\r\n\r\ntest('test timing for promise function', async () => {\r\n  expect(await timing(() => wait(1000))).toBeGreaterThan(1000)\r\n})\r\n",
@@ -5332,36 +5912,36 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 258,
+    "__docId__": 297,
     "kind": "test",
-    "name": "test37",
-    "testId": 37,
+    "name": "test65",
+    "testId": 65,
     "memberof": "src/module/function/timing.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/function/timing.test.js~test37",
+    "longname": "src/module/function/timing.test.js~test65",
     "access": null,
     "description": "test timing for normal function",
     "lineNumber": 4
   },
   {
-    "__docId__": 259,
+    "__docId__": 298,
     "kind": "test",
-    "name": "test38",
-    "testId": 38,
+    "name": "test66",
+    "testId": 66,
     "memberof": "src/module/function/timing.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/function/timing.test.js~test38",
+    "longname": "src/module/function/timing.test.js~test66",
     "access": null,
     "description": "test timing for promise function",
     "lineNumber": 16
   },
   {
-    "__docId__": 260,
+    "__docId__": 299,
     "kind": "testFile",
     "name": "src/module/function/wait.test.js",
-    "content": "import { wait } from './wait'\r\n\r\ntest('test wait sepecify time', async () => {\r\n  const start = Date.now()\r\n  await wait(1000)\r\n  expect(Date.now() - start).toBeGreaterThanOrEqual(1000)\r\n})\r\n",
+    "content": "import { wait } from './wait'\r\n\r\n/**\r\n * @test {wait}\r\n */\r\ndescribe('test wait', () => {\r\n  const time = 1000\r\n  it('test wait for sepecify time', async () => {\r\n    const start = Date.now()\r\n    await wait(time)\r\n    expect(Date.now() - start).toBeGreaterThanOrEqual(time)\r\n  })\r\n  it('test wait for sepecify function', async () => {\r\n    const start = Date.now()\r\n    await wait(() => Date.now() > start + time)\r\n    expect(Date.now() - start).toBeGreaterThanOrEqual(time)\r\n  })\r\n  it('test wait for not sepecify parameter', async () => {\r\n    const start = Date.now()\r\n    await wait()\r\n    expect(Date.now() - start).toBeLessThan(100)\r\n  })\r\n})\r\n",
     "static": true,
     "longname": "D:/Text/rx-util/src/module/function/wait.test.js",
     "access": null,
@@ -5369,20 +5949,62 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 261,
+    "__docId__": 300,
     "kind": "test",
-    "name": "test39",
-    "testId": 39,
+    "name": "describe67",
+    "testId": 67,
     "memberof": "src/module/function/wait.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/function/wait.test.js~test39",
+    "longname": "src/module/function/wait.test.js~describe67",
     "access": null,
-    "description": "test wait sepecify time",
-    "lineNumber": 3
+    "description": "test wait",
+    "lineNumber": 6,
+    "testTargets": [
+      "wait"
+    ]
   },
   {
-    "__docId__": 262,
+    "__docId__": 301,
+    "kind": "test",
+    "name": "it68",
+    "testId": 68,
+    "memberof": "src/module/function/wait.test.js~describe67",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/function/wait.test.js~describe67.it68",
+    "access": null,
+    "description": "test wait for sepecify time",
+    "lineNumber": 8
+  },
+  {
+    "__docId__": 302,
+    "kind": "test",
+    "name": "it69",
+    "testId": 69,
+    "memberof": "src/module/function/wait.test.js~describe67",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/function/wait.test.js~describe67.it69",
+    "access": null,
+    "description": "test wait for sepecify function",
+    "lineNumber": 13
+  },
+  {
+    "__docId__": 303,
+    "kind": "test",
+    "name": "it70",
+    "testId": 70,
+    "memberof": "src/module/function/wait.test.js~describe67",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/function/wait.test.js~describe67.it70",
+    "access": null,
+    "description": "test wait for not sepecify parameter",
+    "lineNumber": 18
+  },
+  {
+    "__docId__": 304,
     "kind": "testFile",
     "name": "src/module/function/waitResource.test.js",
     "content": "import { waitResource } from './waitResource'\r\n\r\ntest('test waitResource', async () => {\r\n  let num = 0\r\n  const now = Date.now()\r\n  await waitResource(\r\n    () => {\r\n      num++\r\n      return Date.now() - now > 1000\r\n    },\r\n    {\r\n      interval: 100,\r\n      max: 10\r\n    }\r\n  )\r\n  expect(Date.now() - now).toBeGreaterThanOrEqual(1000)\r\n  expect(num).toBeLessThanOrEqual(10)\r\n})\r\n",
@@ -5393,23 +6015,23 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 263,
+    "__docId__": 305,
     "kind": "test",
-    "name": "test40",
-    "testId": 40,
+    "name": "test71",
+    "testId": 71,
     "memberof": "src/module/function/waitResource.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/function/waitResource.test.js~test40",
+    "longname": "src/module/function/waitResource.test.js~test71",
     "access": null,
     "description": "test waitResource",
     "lineNumber": 3
   },
   {
-    "__docId__": 264,
+    "__docId__": 306,
     "kind": "testFile",
     "name": "src/module/function/watch.test.js",
-    "content": "import { watch } from './watch'\r\ntest('test watch', () => {\r\n  let num = 0\r\n  const now = Date.now()\r\n  setInterval(() => num++, 100)\r\n  watch(\r\n    () => num > 10,\r\n    () => {\r\n      expect(num).toBe(10)\r\n      expect(Date.now() - now).toBeGreaterThan(1000)\r\n    }\r\n  )\r\n})\r\n",
+    "content": "import { watch } from './watch'\r\n\r\n/**\r\n * @test {watch}\r\n */\r\ndescribe('test watch', () => {\r\n  it('test watch for simple example', () => {\r\n    let now\r\n    watch(\r\n      () => Date.now(),\r\n      () => {\r\n        expect(Date.now() - now).toBeLessThan(1000)\r\n        now = Date.now()\r\n      }\r\n    )\r\n  })\r\n  it('test watch for closing', () => {\r\n    const start = Date.now()\r\n    const close = watch(\r\n      () => Date.now(),\r\n      () => {\r\n        if (Date.now() - start > 1000) {\r\n          close()\r\n        }\r\n      }\r\n    )\r\n  })\r\n  it('test watch for dependent on external conditions', () => {\r\n    const interval = 100\r\n    const max = 10\r\n    let num = 0\r\n    const now = Date.now()\r\n    // 随着时间改变 num 的值\r\n    setInterval(() => num++, interval)\r\n    watch(\r\n      // 监视 num 的值\r\n      () => num > max,\r\n      () => {\r\n        expect(num).toBe(10)\r\n        expect(Date.now() - now).toBeGreaterThan(1000)\r\n      }\r\n    )\r\n  })\r\n})\r\n",
     "static": true,
     "longname": "D:/Text/rx-util/src/module/function/watch.test.js",
     "access": null,
@@ -5417,20 +6039,62 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 265,
+    "__docId__": 307,
     "kind": "test",
-    "name": "test41",
-    "testId": 41,
+    "name": "describe72",
+    "testId": 72,
     "memberof": "src/module/function/watch.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/function/watch.test.js~test41",
+    "longname": "src/module/function/watch.test.js~describe72",
     "access": null,
     "description": "test watch",
-    "lineNumber": 2
+    "lineNumber": 6,
+    "testTargets": [
+      "watch"
+    ]
   },
   {
-    "__docId__": 266,
+    "__docId__": 308,
+    "kind": "test",
+    "name": "it73",
+    "testId": 73,
+    "memberof": "src/module/function/watch.test.js~describe72",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/function/watch.test.js~describe72.it73",
+    "access": null,
+    "description": "test watch for simple example",
+    "lineNumber": 7
+  },
+  {
+    "__docId__": 309,
+    "kind": "test",
+    "name": "it74",
+    "testId": 74,
+    "memberof": "src/module/function/watch.test.js~describe72",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/function/watch.test.js~describe72.it74",
+    "access": null,
+    "description": "test watch for closing",
+    "lineNumber": 17
+  },
+  {
+    "__docId__": 310,
+    "kind": "test",
+    "name": "it75",
+    "testId": 75,
+    "memberof": "src/module/function/watch.test.js~describe72",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/function/watch.test.js~describe72.it75",
+    "access": null,
+    "description": "test watch for dependent on external conditions",
+    "lineNumber": 28
+  },
+  {
+    "__docId__": 311,
     "kind": "testFile",
     "name": "src/module/function/watchObject.test.js",
     "content": "import { watchObject } from './watchObject'\r\n\r\ntest('test watchObject', () => {\r\n  const user = {\r\n    name: 'rx',\r\n    age: 17\r\n  }\r\n  let temp\r\n  watchObject(user, user => {\r\n    expect(user).not.toEqual(temp)\r\n    temp = user\r\n    console.log(temp)\r\n  })\r\n\r\n  user.name = '灵梦'\r\n  user.age = 19\r\n})\r\n",
@@ -5441,23 +6105,23 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 267,
+    "__docId__": 312,
     "kind": "test",
-    "name": "test42",
-    "testId": 42,
+    "name": "test76",
+    "testId": 76,
     "memberof": "src/module/function/watchObject.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/function/watchObject.test.js~test42",
+    "longname": "src/module/function/watchObject.test.js~test76",
     "access": null,
     "description": "test watchObject",
     "lineNumber": 3
   },
   {
-    "__docId__": 268,
+    "__docId__": 313,
     "kind": "testFile",
     "name": "src/module/number/randomInt.test.js",
-    "content": "import { randomInt } from './randomInt'\r\n\r\ntest('test randomInt', () => {\r\n  const min = 0\r\n  const max = 10\r\n  for (let i = 0; i < 100; i++) {\r\n    const num = randomInt(min, max)\r\n    expect(num).toBeLessThanOrEqual(max)\r\n    expect(num).toBeGreaterThanOrEqual(min)\r\n  }\r\n})\r\n",
+    "content": "import { randomInt } from './randomInt'\r\n\r\n/**\r\n * @test {randomInt}\r\n */\r\ndescribe('test randomInt', () => {\r\n  it('test for normal sepecify min and max', () => {\r\n    Array(100)\r\n      .fill(0)\r\n      .forEach((_v, i) => {\r\n        const num = randomInt(0, i)\r\n        expect(num).toBeLessThanOrEqual(i)\r\n        expect(num).toBeGreaterThanOrEqual(0)\r\n      })\r\n  })\r\n  it('test for no sepecify every paramater', () => {\r\n    expect(() => randomInt()).toThrowError('非法参数，必须指定最大值')\r\n  })\r\n  it('test for single sepecify max', () => {\r\n    Array(100)\r\n      .fill(0)\r\n      .forEach((_v, i) => {\r\n        expect(randomInt(i)).toBeLessThanOrEqual(i)\r\n      })\r\n  })\r\n})\r\n",
     "static": true,
     "longname": "D:/Text/rx-util/src/module/number/randomInt.test.js",
     "access": null,
@@ -5465,20 +6129,62 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 269,
+    "__docId__": 314,
     "kind": "test",
-    "name": "test43",
-    "testId": 43,
+    "name": "describe77",
+    "testId": 77,
     "memberof": "src/module/number/randomInt.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/number/randomInt.test.js~test43",
+    "longname": "src/module/number/randomInt.test.js~describe77",
     "access": null,
     "description": "test randomInt",
-    "lineNumber": 3
+    "lineNumber": 6,
+    "testTargets": [
+      "randomInt"
+    ]
   },
   {
-    "__docId__": 270,
+    "__docId__": 315,
+    "kind": "test",
+    "name": "it78",
+    "testId": 78,
+    "memberof": "src/module/number/randomInt.test.js~describe77",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/number/randomInt.test.js~describe77.it78",
+    "access": null,
+    "description": "test for normal sepecify min and max",
+    "lineNumber": 7
+  },
+  {
+    "__docId__": 316,
+    "kind": "test",
+    "name": "it79",
+    "testId": 79,
+    "memberof": "src/module/number/randomInt.test.js~describe77",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/number/randomInt.test.js~describe77.it79",
+    "access": null,
+    "description": "test for no sepecify every paramater",
+    "lineNumber": 16
+  },
+  {
+    "__docId__": 317,
+    "kind": "test",
+    "name": "it80",
+    "testId": 80,
+    "memberof": "src/module/number/randomInt.test.js~describe77",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/number/randomInt.test.js~describe77.it80",
+    "access": null,
+    "description": "test for single sepecify max",
+    "lineNumber": 19
+  },
+  {
+    "__docId__": 318,
     "kind": "testFile",
     "name": "src/module/obj/blankToNullField.test.js",
     "content": "import { blankToNullField } from './blankToNullField'\r\n\r\ntest('test blankToNullField', () => {\r\n  expect(\r\n    blankToNullField({\r\n      name: '',\r\n      age: ''\r\n    })\r\n  ).toEqual({\r\n    name: null,\r\n    age: null\r\n  })\r\n})\r\n",
@@ -5489,20 +6195,20 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 271,
+    "__docId__": 319,
     "kind": "test",
-    "name": "test44",
-    "testId": 44,
+    "name": "test81",
+    "testId": 81,
     "memberof": "src/module/obj/blankToNullField.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/obj/blankToNullField.test.js~test44",
+    "longname": "src/module/obj/blankToNullField.test.js~test81",
     "access": null,
     "description": "test blankToNullField",
     "lineNumber": 3
   },
   {
-    "__docId__": 272,
+    "__docId__": 320,
     "kind": "testFile",
     "name": "src/module/obj/emptyAllField.test.js",
     "content": "import { emptyAllField } from './emptyAllField'\r\n\r\ntest('test emptyAllField', () => {\r\n  expect(\r\n    emptyAllField({\r\n      name: 'rx',\r\n      age: 17\r\n    })\r\n  ).toEqual({\r\n    name: null,\r\n    age: null\r\n  })\r\n})\r\n",
@@ -5513,20 +6219,20 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 273,
+    "__docId__": 321,
     "kind": "test",
-    "name": "test45",
-    "testId": 45,
+    "name": "test82",
+    "testId": 82,
     "memberof": "src/module/obj/emptyAllField.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/obj/emptyAllField.test.js~test45",
+    "longname": "src/module/obj/emptyAllField.test.js~test82",
     "access": null,
     "description": "test emptyAllField",
     "lineNumber": 3
   },
   {
-    "__docId__": 274,
+    "__docId__": 322,
     "kind": "testFile",
     "name": "src/module/obj/exculdeFields.test.js",
     "content": "import { excludeFields } from './excludeFields'\r\n\r\n/**\r\n * @test {excludeFields} 测试从对象中排除字段\r\n */\r\ndescribe('test exculdeFields', () => {\r\n  const obj = {\r\n    name: 'rx',\r\n    age: 17\r\n  }\r\n  it('test normal object and not exculde any field.', () => {\r\n    expect(excludeFields(obj)).not.toBe(obj)\r\n    expect(excludeFields(obj)).toEqual(obj)\r\n  })\r\n\r\n  it('test normal object and normal fields', () => {\r\n    expect(excludeFields(obj, new Set(['name']))).toEqual({ age: 17 })\r\n    expect(excludeFields(obj, new Set(['name', 'age']))).toEqual({})\r\n  })\r\n})\r\n",
@@ -5537,14 +6243,14 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 275,
+    "__docId__": 323,
     "kind": "test",
-    "name": "describe46",
-    "testId": 46,
+    "name": "describe83",
+    "testId": 83,
     "memberof": "src/module/obj/exculdeFields.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/obj/exculdeFields.test.js~describe46",
+    "longname": "src/module/obj/exculdeFields.test.js~describe83",
     "access": null,
     "description": "test exculdeFields",
     "lineNumber": 6,
@@ -5553,33 +6259,33 @@
     ]
   },
   {
-    "__docId__": 276,
+    "__docId__": 324,
     "kind": "test",
-    "name": "it47",
-    "testId": 47,
-    "memberof": "src/module/obj/exculdeFields.test.js~describe46",
+    "name": "it84",
+    "testId": 84,
+    "memberof": "src/module/obj/exculdeFields.test.js~describe83",
     "testDepth": 1,
     "static": true,
-    "longname": "src/module/obj/exculdeFields.test.js~describe46.it47",
+    "longname": "src/module/obj/exculdeFields.test.js~describe83.it84",
     "access": null,
     "description": "test normal object and not exculde any field.",
     "lineNumber": 11
   },
   {
-    "__docId__": 277,
+    "__docId__": 325,
     "kind": "test",
-    "name": "it48",
-    "testId": 48,
-    "memberof": "src/module/obj/exculdeFields.test.js~describe46",
+    "name": "it85",
+    "testId": 85,
+    "memberof": "src/module/obj/exculdeFields.test.js~describe83",
     "testDepth": 1,
     "static": true,
-    "longname": "src/module/obj/exculdeFields.test.js~describe46.it48",
+    "longname": "src/module/obj/exculdeFields.test.js~describe83.it85",
     "access": null,
     "description": "test normal object and normal fields",
     "lineNumber": 16
   },
   {
-    "__docId__": 278,
+    "__docId__": 326,
     "kind": "testFile",
     "name": "src/module/obj/mapToObject.test.js",
     "content": "import { mapToObject } from './mapToObject'\r\n\r\ntest('test mapToObject', () => {\r\n  expect(\r\n    mapToObject(\r\n      new Map()\r\n        .set('name', 'rx')\r\n        .set('age', 17)\r\n        .set(1, 1)\r\n    )\r\n  ).toEqual({\r\n    name: 'rx',\r\n    age: 17,\r\n    '1': 1\r\n  })\r\n})\r\n",
@@ -5590,20 +6296,20 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 279,
+    "__docId__": 327,
     "kind": "test",
-    "name": "test49",
-    "testId": 49,
+    "name": "test86",
+    "testId": 86,
     "memberof": "src/module/obj/mapToObject.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/obj/mapToObject.test.js~test49",
+    "longname": "src/module/obj/mapToObject.test.js~test86",
     "access": null,
     "description": "test mapToObject",
     "lineNumber": 3
   },
   {
-    "__docId__": 280,
+    "__docId__": 328,
     "kind": "testFile",
     "name": "src/module/string/blankToNull.test.js",
     "content": "import { blankToNull } from './blankToNull'\r\n\r\n/**\r\n * @test {blankToNull} 测试 blankToNull\r\n */\r\ndescribe('test blankToNull', () => {\r\n  /** @test blankToNull('') */\r\n  it('test blank', () => {\r\n    expect(blankToNull('')).toBe(null)\r\n  })\r\n  /** @test blankToNull('a') */\r\n  it('test a', () => {\r\n    expect(blankToNull('a')).toBe('a')\r\n  })\r\n})\r\n",
@@ -5614,14 +6320,14 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 281,
+    "__docId__": 329,
     "kind": "test",
-    "name": "describe50",
-    "testId": 50,
+    "name": "describe87",
+    "testId": 87,
     "memberof": "src/module/string/blankToNull.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/string/blankToNull.test.js~describe50",
+    "longname": "src/module/string/blankToNull.test.js~describe87",
     "access": null,
     "description": "test blankToNull",
     "lineNumber": 6,
@@ -5630,14 +6336,14 @@
     ]
   },
   {
-    "__docId__": 282,
+    "__docId__": 330,
     "kind": "test",
-    "name": "it51",
-    "testId": 51,
-    "memberof": "src/module/string/blankToNull.test.js~describe50",
+    "name": "it88",
+    "testId": 88,
+    "memberof": "src/module/string/blankToNull.test.js~describe87",
     "testDepth": 1,
     "static": true,
-    "longname": "src/module/string/blankToNull.test.js~describe50.it51",
+    "longname": "src/module/string/blankToNull.test.js~describe87.it88",
     "access": null,
     "description": "test blank",
     "lineNumber": 8,
@@ -5646,14 +6352,14 @@
     ]
   },
   {
-    "__docId__": 283,
+    "__docId__": 331,
     "kind": "test",
-    "name": "it52",
-    "testId": 52,
-    "memberof": "src/module/string/blankToNull.test.js~describe50",
+    "name": "it89",
+    "testId": 89,
+    "memberof": "src/module/string/blankToNull.test.js~describe87",
     "testDepth": 1,
     "static": true,
-    "longname": "src/module/string/blankToNull.test.js~describe50.it52",
+    "longname": "src/module/string/blankToNull.test.js~describe87.it89",
     "access": null,
     "description": "test a",
     "lineNumber": 12,
@@ -5662,7 +6368,7 @@
     ]
   },
   {
-    "__docId__": 284,
+    "__docId__": 332,
     "kind": "testFile",
     "name": "src/module/string/fill.test.js",
     "content": "import { fill } from './fill'\r\n\r\ntest('test fill', () => {\r\n  expect(fill('*', 3)).toEqual('***')\r\n  expect(fill('*', 0)).toEqual('')\r\n})\r\n",
@@ -5673,23 +6379,23 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 285,
+    "__docId__": 333,
     "kind": "test",
-    "name": "test53",
-    "testId": 53,
+    "name": "test90",
+    "testId": 90,
     "memberof": "src/module/string/fill.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/string/fill.test.js~test53",
+    "longname": "src/module/string/fill.test.js~test90",
     "access": null,
     "description": "test fill",
     "lineNumber": 3
   },
   {
-    "__docId__": 286,
+    "__docId__": 334,
     "kind": "testFile",
     "name": "src/module/string/format.test.js",
-    "content": "import { format } from './format'\r\n\r\ntest('test format', () => {\r\n  expect(\r\n    format('name: {name}, age: {age}', {\r\n      name: 'rx',\r\n      age: 17\r\n    })\r\n  ).toEqual('name: rx, age: 17')\r\n})\r\n",
+    "content": "import { format } from './format'\r\n\r\n/**\r\n * @teset {format}\r\n */\r\ndescribe('test format', () => {\r\n  const str = 'name: {name}, age: {age}'\r\n  it('test normal format', () => {\r\n    expect(\r\n      format(str, {\r\n        name: 'rx',\r\n        age: 17\r\n      })\r\n    ).toEqual('name: rx, age: 17')\r\n  })\r\n  it('test format for not arg', () => {\r\n    expect(format(str)).toEqual(str)\r\n  })\r\n})\r\n",
     "static": true,
     "longname": "D:/Text/rx-util/src/module/string/format.test.js",
     "access": null,
@@ -5697,20 +6403,52 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 287,
+    "__docId__": 335,
     "kind": "test",
-    "name": "test54",
-    "testId": 54,
+    "name": "describe91",
+    "testId": 91,
     "memberof": "src/module/string/format.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/string/format.test.js~test54",
+    "longname": "src/module/string/format.test.js~describe91",
     "access": null,
     "description": "test format",
-    "lineNumber": 3
+    "lineNumber": 6,
+    "unknown": [
+      {
+        "tagName": "@teset",
+        "tagValue": "{format}"
+      }
+    ]
   },
   {
-    "__docId__": 288,
+    "__docId__": 336,
+    "kind": "test",
+    "name": "it92",
+    "testId": 92,
+    "memberof": "src/module/string/format.test.js~describe91",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/string/format.test.js~describe91.it92",
+    "access": null,
+    "description": "test normal format",
+    "lineNumber": 8
+  },
+  {
+    "__docId__": 337,
+    "kind": "test",
+    "name": "it93",
+    "testId": 93,
+    "memberof": "src/module/string/format.test.js~describe91",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/string/format.test.js~describe91.it93",
+    "access": null,
+    "description": "test format for not arg",
+    "lineNumber": 16
+  },
+  {
+    "__docId__": 338,
     "kind": "testFile",
     "name": "src/module/string/isFloat.test.js",
     "content": "import { isFloat } from './isFloat'\r\n\r\ntest('test isFloat', () => {\r\n  expect(isFloat('5')).toBe(true)\r\n  expect(isFloat('5.6')).toBe(true)\r\n  expect(isFloat('5.a')).toBe(false)\r\n})\r\n",
@@ -5721,20 +6459,20 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 289,
+    "__docId__": 339,
     "kind": "test",
-    "name": "test55",
-    "testId": 55,
+    "name": "test94",
+    "testId": 94,
     "memberof": "src/module/string/isFloat.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/string/isFloat.test.js~test55",
+    "longname": "src/module/string/isFloat.test.js~test94",
     "access": null,
     "description": "test isFloat",
     "lineNumber": 3
   },
   {
-    "__docId__": 290,
+    "__docId__": 340,
     "kind": "testFile",
     "name": "src/module/string/isNumber.test.js",
     "content": "\r\nimport { isNumber } from './isNumber';\r\n\r\ntest('test isNumber', ()=>{\r\n  expect(isNumber('7')).toBe(true)\r\n  expect(isNumber('7.5')).toBe(false)\r\n  expect(isNumber('7.a')).toBe(false)\r\n})",
@@ -5745,23 +6483,23 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 291,
+    "__docId__": 341,
     "kind": "test",
-    "name": "test56",
-    "testId": 56,
+    "name": "test95",
+    "testId": 95,
     "memberof": "src/module/string/isNumber.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/string/isNumber.test.js~test56",
+    "longname": "src/module/string/isNumber.test.js~test95",
     "access": null,
     "description": "test isNumber",
     "lineNumber": 4
   },
   {
-    "__docId__": 292,
+    "__docId__": 342,
     "kind": "testFile",
     "name": "src/module/string/toLowerCase.test.js",
-    "content": "import { toLowerCase } from './toLowerCase'\r\n\r\ntest('test toLowerCase', () => {\r\n  expect(toLowerCase('STR')).toBe('str')\r\n  expect(toLowerCase('Str')).toBe('str')\r\n  expect(toLowerCase()).toBe(undefined)\r\n})\r\n",
+    "content": "import { toLowerCase } from './toLowerCase'\r\n\r\n/**\r\n * @test {toLowerCase}\r\n */\r\ndescribe('test toLowerCase', () => {\r\n  it('test toLowerCase', () => {\r\n    expect(toLowerCase('STR')).toBe('str')\r\n    expect(toLowerCase('Str')).toBe('str')\r\n  })\r\n  it('test toLowerCase for undefined', () => {\r\n    expect(toLowerCase()).toBe(undefined)\r\n  })\r\n})\r\n",
     "static": true,
     "longname": "D:/Text/rx-util/src/module/string/toLowerCase.test.js",
     "access": null,
@@ -5769,23 +6507,52 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 293,
+    "__docId__": 343,
     "kind": "test",
-    "name": "test57",
-    "testId": 57,
+    "name": "describe96",
+    "testId": 96,
     "memberof": "src/module/string/toLowerCase.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/string/toLowerCase.test.js~test57",
+    "longname": "src/module/string/toLowerCase.test.js~describe96",
     "access": null,
     "description": "test toLowerCase",
-    "lineNumber": 3
+    "lineNumber": 6,
+    "testTargets": [
+      "toLowerCase"
+    ]
   },
   {
-    "__docId__": 294,
+    "__docId__": 344,
+    "kind": "test",
+    "name": "it97",
+    "testId": 97,
+    "memberof": "src/module/string/toLowerCase.test.js~describe96",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/string/toLowerCase.test.js~describe96.it97",
+    "access": null,
+    "description": "test toLowerCase",
+    "lineNumber": 7
+  },
+  {
+    "__docId__": 345,
+    "kind": "test",
+    "name": "it98",
+    "testId": 98,
+    "memberof": "src/module/string/toLowerCase.test.js~describe96",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/string/toLowerCase.test.js~describe96.it98",
+    "access": null,
+    "description": "test toLowerCase for undefined",
+    "lineNumber": 11
+  },
+  {
+    "__docId__": 346,
     "kind": "testFile",
     "name": "src/module/string/toUpperCase.test.js",
-    "content": "import { toUpperCase } from './toUpperCase'\r\n\r\ntest('test toUpperCase', () => {\r\n  expect(toUpperCase('str')).toBe('STR')\r\n  expect(toUpperCase('Str')).toBe('STR')\r\n  expect().toBe(undefined)\r\n})\r\n",
+    "content": "import { toUpperCase } from './toUpperCase'\r\n\r\n/**\r\n * @test {toUpperCase}\r\n */\r\ndescribe('test toUpperCase', () => {\r\n  it('test toUpperCase for normal string', () => {\r\n    expect(toUpperCase('str')).toBe('STR')\r\n    expect(toUpperCase('Str')).toBe('STR')\r\n  })\r\n  it('test toUpperCase for other type', () => {\r\n    const user = {\r\n      name: 'rx',\r\n      age: 17\r\n    }\r\n    expect(toUpperCase(user)).toBe(user)\r\n  })\r\n  it('test toUpperCase for undefined', () => {\r\n    expect(toUpperCase()).toBe(undefined)\r\n  })\r\n})\r\n",
     "static": true,
     "longname": "D:/Text/rx-util/src/module/string/toUpperCase.test.js",
     "access": null,
@@ -5793,16 +6560,58 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 295,
+    "__docId__": 347,
     "kind": "test",
-    "name": "test58",
-    "testId": 58,
+    "name": "describe99",
+    "testId": 99,
     "memberof": "src/module/string/toUpperCase.test.js",
     "testDepth": 0,
     "static": true,
-    "longname": "src/module/string/toUpperCase.test.js~test58",
+    "longname": "src/module/string/toUpperCase.test.js~describe99",
     "access": null,
     "description": "test toUpperCase",
-    "lineNumber": 3
+    "lineNumber": 6,
+    "testTargets": [
+      "toUpperCase"
+    ]
+  },
+  {
+    "__docId__": 348,
+    "kind": "test",
+    "name": "it100",
+    "testId": 100,
+    "memberof": "src/module/string/toUpperCase.test.js~describe99",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/string/toUpperCase.test.js~describe99.it100",
+    "access": null,
+    "description": "test toUpperCase for normal string",
+    "lineNumber": 7
+  },
+  {
+    "__docId__": 349,
+    "kind": "test",
+    "name": "it101",
+    "testId": 101,
+    "memberof": "src/module/string/toUpperCase.test.js~describe99",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/string/toUpperCase.test.js~describe99.it101",
+    "access": null,
+    "description": "test toUpperCase for other type",
+    "lineNumber": 11
+  },
+  {
+    "__docId__": 350,
+    "kind": "test",
+    "name": "it102",
+    "testId": 102,
+    "memberof": "src/module/string/toUpperCase.test.js~describe99",
+    "testDepth": 1,
+    "static": true,
+    "longname": "src/module/string/toUpperCase.test.js~describe99.it102",
+    "access": null,
+    "description": "test toUpperCase for undefined",
+    "lineNumber": 18
   }
 ]

@@ -53,6 +53,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-dom">module/dom</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-copyText">copyText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createElByString">createElByString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCusorPostion">getCusorPostion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getSelectText">getSelectText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-insertText">insertText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEditable">isEditable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lastFocus">lastFocus</a></span></span></li>
@@ -95,13 +96,22 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/module/string/format.test.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { format } from &apos;./format&apos;
 
-test(&apos;test format&apos;, () =&gt; {
-  expect(
-    format(&apos;name: {name}, age: {age}&apos;, {
-      name: &apos;rx&apos;,
-      age: 17
-    })
-  ).toEqual(&apos;name: rx, age: 17&apos;)
+/**
+ * @teset {format}
+ */
+describe(&apos;test format&apos;, () =&gt; {
+  const str = &apos;name: {name}, age: {age}&apos;
+  it(&apos;test normal format&apos;, () =&gt; {
+    expect(
+      format(str, {
+        name: &apos;rx&apos;,
+        age: 17
+      })
+    ).toEqual(&apos;name: rx, age: 17&apos;)
+  })
+  it(&apos;test format for not arg&apos;, () =&gt; {
+    expect(format(str)).toEqual(str)
+  })
 })
 </code></pre>
 

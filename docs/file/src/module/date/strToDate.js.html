@@ -53,6 +53,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#module-dom">module/dom</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-copyText">copyText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createElByString">createElByString</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCusorPostion">getCusorPostion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getSelectText">getSelectText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-insertText">insertText</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isEditable">isEditable</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lastFocus">lastFocus</a></span></span></li>
@@ -167,7 +168,7 @@ export function strToDate (dateStr, fmt) {
   }
   // &#x8FDB;&#x884C;&#x9A8C;&#x8BC1;&#x662F;&#x5426;&#x771F;&#x7684;&#x662F;&#x7B26;&#x5408;&#x4F20;&#x5165;&#x683C;&#x5F0F;&#x7684;&#x5B57;&#x7B26;&#x4E32;
   fmt = fmt.replace(new RegExp(&apos;`&apos;, &apos;g&apos;), &apos;\\d&apos;)
-  if (!new RegExp(fmt).test(dateStr)) {
+  if (!new RegExp(`^${fmt}$`).test(dateStr)) {
     return null
   }
   // &#x8FDB;&#x884C;&#x4E00;&#x6B21;&#x6392;&#x5E8F;, &#x4F9D;&#x6B21;&#x5BF9;&#x5B57;&#x7B26;&#x4E32;&#x8FDB;&#x884C;&#x622A;&#x53D6;
@@ -198,7 +199,10 @@ export function strToDate (dateStr, fmt) {
   // &#x5C06;&#x622A;&#x53D6;&#x5B8C;&#x6210;&#x7684;&#x4FE1;&#x606F;&#x5C01;&#x88C5;&#x6210;&#x5BF9;&#x8C61;&#x5E76;&#x683C;&#x5F0F;&#x5316;&#x6807;&#x51C6;&#x7684;&#x65E5;&#x671F;&#x5B57;&#x7B26;&#x4E32;
   const map = arrayToMap(dateUnits, item =&gt; item.name, item =&gt; item.value)
   if (map.get(&apos;year&apos;).length === 2) {
-    map.set(&apos;year&apos;, defaultDateValues.year.substr(0, 2).concat(map.get(&apos;year&apos;)))
+    map.set(
+      &apos;year&apos;,
+      defaultDateValues.year.substr(0, 2).concat(map.get(&apos;year&apos;))
+    )
   }
   // &#x6CE8;&#x610F;&#xFF1A;&#x6B64;&#x5904;&#x4F7F;&#x7528;&#x7684;&#x662F;&#x672C;&#x5730;&#x65F6;&#x95F4;&#x800C;&#x975E; UTC &#x65F6;&#x95F4;
   const date = `${map.get(&apos;year&apos;)}-${map.get(&apos;month&apos;)}-${map.get(
@@ -206,11 +210,7 @@ export function strToDate (dateStr, fmt) {
   )}T${map.get(&apos;hour&apos;)}:${map.get(&apos;minute&apos;)}:${map.get(&apos;second&apos;)}.${map.get(
     &apos;milliSecond&apos;
   )}`
-  try {
-    return new Date(date)
-  } catch (e) {
-    return null
-  }
+  return new Date(date)
 }
 </code></pre>
 

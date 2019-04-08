@@ -2,7 +2,7 @@
 
 > [ESDOC 文档](https://rx-util.rxliuli.com/)
 
-[![build-rollup-brightgreen](https://img.shields.io/badge/build-rollup-brightgreen.svg)](https://rollupjs.com/) [![jest coverage](https://img.shields.io/badge/jest-70.95%25-lightgrey.svg)](/coverage/lcov-report/index.html) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![build-rollup-brightgreen](https://img.shields.io/badge/build-rollup-brightgreen.svg)](https://rollupjs.com/) [![jest coverage](https://img.shields.io/badge/jest-70.95%25-lightgrey.svg)](https://rx-util.rxliuli.com/coverage/lcov-report/) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
 ## 简介
 

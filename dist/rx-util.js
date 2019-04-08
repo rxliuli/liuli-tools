@@ -343,7 +343,8 @@
   // @ts-check
   /**
    * 等待指定的时间/等待指定表达式成立
-   * @param {Number|Function} param 等待时间/等待条件
+   * 如果未指定等待条件则立刻执行
+   * @param {Number|Function} [param] 等待时间/等待条件
    * @returns {Promise} Promise 对象
    */
   function wait (param) {
@@ -646,7 +647,7 @@
     }
     // 进行验证是否真的是符合传入格式的字符串
     fmt = fmt.replace(new RegExp('`', 'g'), '\\d');
-    if (!new RegExp(fmt).test(dateStr)) {
+    if (!new RegExp(`^${fmt}$`).test(dateStr)) {
       return null
     }
     // 进行一次排序, 依次对字符串进行截取
@@ -677,7 +678,10 @@
     // 将截取完成的信息封装成对象并格式化标准的日期字符串
     const map = arrayToMap(dateUnits, item => item.name, item => item.value);
     if (map.get('year').length === 2) {
-      map.set('year', defaultDateValues.year.substr(0, 2).concat(map.get('year')));
+      map.set(
+        'year',
+        defaultDateValues.year.substr(0, 2).concat(map.get('year'))
+      );
     }
     // 注意：此处使用的是本地时间而非 UTC 时间
     const date = `${map.get('year')}-${map.get('month')}-${map.get(
@@ -685,11 +689,7 @@
   )}T${map.get('hour')}:${map.get('minute')}:${map.get('second')}.${map.get(
     'milliSecond'
   )}`;
-    try {
-      return new Date(date)
-    } catch (e) {
-      return null
-    }
+    return new Date(date)
   }
 
   // @ts-check
@@ -815,10 +815,11 @@
   /**
    * 直接删除指定元素
    * @param {Element} el 需要删除的元素
+   * @returns {Element} 返回被删除的元素
    */
   function removeEl (el) {
     const parent = el.parentElement;
-    parent.removeChild(el);
+    return parent.removeChild(el)
   }
 
   // @ts-check
@@ -1174,16 +1175,18 @@
    * @param {Function} fn 需要监视的函数
    * @param {Function} callback 回调函数
    * @param {Number} [interval=100] 每次检查的间隔时间，默认为 100ms
+   * @returns {Function} 关闭这个监视函数
    */
   function watch (fn, callback, interval = 100) {
     let oldVal = safeExec(fn);
-    setInterval(() => {
+    const timer = setInterval(() => {
       const newVal = safeExec(fn);
       if (oldVal !== newVal) {
         callback(newVal, oldVal);
       }
       oldVal = newVal;
     }, interval);
+    return () => clearInterval(timer)
   }
 
   // @ts-check
@@ -1366,6 +1369,21 @@
     return min + Math.floor(Math.random() * (max - min))
   }
 
+  // @ts-check
+
+  function getYearWeek (date) {
+    /*
+      date1是当前日期
+      date2是当年第一天
+      d是当前日期是今年第多少天
+      用d + 当前年的第一天的周差距的和在除以7就是本年第几周
+      */
+    const nowTime = date.getTime();
+    const startTime = new Date(date.getFullYear(), 0, 1).getTime();
+    var difTime = nowTime - startTime;
+    return Math.floor(difTime / (24 * 3600 * 1000) / 7)
+  }
+
   exports.FetchLimiting = FetchLimiting;
   exports.StateMachine = StateMachine;
   exports.appends = appends;
@@ -1391,6 +1409,7 @@
   exports.format = format;
   exports.getCookies = getCookies;
   exports.getCusorPostion = getCusorPostion;
+  exports.getYearWeek = getYearWeek;
   exports.groupBy = groupBy;
   exports.insertText = insertText;
   exports.isEditable = isEditable;

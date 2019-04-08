@@ -66,6 +66,7 @@ import { excludeFields } from './module/obj/excludeFields'
 import { mapToObject } from './module/obj/mapToObject'
 
 import { randomInt } from './module/number/randomInt'
+import { getYearWeek } from './module/date/getYearWeek'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -92,6 +93,7 @@ export {
   arrayToMap,
   dateFormat,
   strToDate,
+  getYearWeek,
   copyText,
   createElByString,
   getCusorPostion,

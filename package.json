@@ -12,7 +12,8 @@
     "lint": "eslint --fix ./src/",
     "docs": "esdoc",
     "test": "jest --watch",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "server": "npm run docs && npm run coverage && live-server docs/ --port=4000"
   },
   "repository": {
     "type": "git",
@@ -48,6 +49,7 @@
     "jest": "^24.5.0",
     "jest-extended": "^0.11.1",
     "lint-staged": "^8.1.5",
+    "live-server": "^1.2.1",
     "prettier": "^1.16.4",
     "rollup": "^1.1.2",
     "rollup-plugin-babel": "^4.3.2",

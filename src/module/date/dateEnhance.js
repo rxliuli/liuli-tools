@@ -38,9 +38,9 @@ class DateEnhance {
    * @returns {Number}
    */
   dayOfYear () {
-    return (
+    return Math.floor(
       (this.date.getTime() - dateConstants.yearStart().getTime()) /
-      DAY_UNIT_TIME
+        DAY_UNIT_TIME
     )
   }
   /**
@@ -62,14 +62,16 @@ class DateEnhance {
    * @returns {Number}
    */
   weekOfYear () {
-    return this.dayOfYear() / 7
+    const day = this.dayOfYear()
+    return Math.floor(day / 7 + (day % 7 === 0 ? 0 : 1))
   }
   /**
    * 获取一个月内的第多少星期
    * @returns {Number}
    */
   weekOfMonth () {
-    return this.dayOfMonth() / 7
+    const day = this.dayOfMonth()
+    return Math.floor(day / 7 + (day % 7 === 0 ? 0 : 1))
   }
   /**
    * 获取季度

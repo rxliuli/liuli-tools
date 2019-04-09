@@ -67,6 +67,11 @@ import { mapToObject } from './module/obj/mapToObject'
 
 import { randomInt } from './module/number/randomInt'
 import { getYearWeek } from './module/date/getYearWeek'
+import { dateConstants } from './module/date/dateConstants'
+import { dateEnhance } from './module/date/dateEnhance'
+import { dateBetween } from './module/date/dateBetween'
+import { isRange } from './module/number/isRange'
+import { dateParse } from './module/date/dateParse'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -92,6 +97,10 @@ export {
   uniqueBy,
   arrayToMap,
   dateFormat,
+  dateParse,
+  dateConstants,
+  dateEnhance,
+  dateBetween,
   strToDate,
   getYearWeek,
   copyText,
@@ -131,5 +140,6 @@ export {
   excludeFields,
   blankToNullField,
   mapToObject,
-  randomInt
+  randomInt,
+  isRange
 }

@@ -28,28 +28,28 @@ class DateBetween {
    * @returns {Number} 秒差值
    */
   second () {
-    return this.milliSecond() / 1000
+    return Math.floor(this.milliSecond() / 1000)
   }
   /**
    * 获取分钟差值
    * @returns {Number} 分钟差值
    */
   minute () {
-    return this.second() / 60
+    return Math.floor(this.second() / 60)
   }
   /**
    * 获取小时差值
    * @returns {Number} 小时差值
    */
   hour () {
-    return this.minute() / 60
+    return Math.floor(this.minute() / 60)
   }
   /**
    * 获取天数差值
    * @returns {Number} 天数差值
    */
   day () {
-    return this.hour() / 24
+    return Math.floor(this.hour() / 24)
   }
   /**
    * 获取月份差值
@@ -78,5 +78,5 @@ class DateBetween {
  * @returns {DateBetween} 差值对象
  */
 export function dateBetween (start, end) {
-  return Object.freeze(new DateBetween(start, end))
+  return new DateBetween(start, end)
 }

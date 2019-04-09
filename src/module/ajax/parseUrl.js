@@ -1,18 +1,20 @@
 // @ts-check
 /**
  * Url 对象
+ * @class UrlObject
  */
 class UrlObject {
   /**
    * 构造函数
-   * {String} href 不包含网站域名的链接
-   * {String} website URL 站点
-   * {String} protocol 协议
-   * {String} domain 域名
-   * {String} accessPath 绝对路径,不包含参数
-   * {Object} params 参数列表,
-   * {String} url 原 url 链接
-   * {Number} port 端口号
+   * @param {Object} option 可选项
+   * @param {String} [option.href] 不包含网站域名的链接
+   * @param {String} [option.website] URL 站点
+   * @param {String} [option.protocol] 协议
+   * @param {String} [option.domain] 域名
+   * @param {String} [option.accessPath] 绝对路径,不包含参数
+   * @param {Object} [option.params] 参数列表,
+   * @param {String} [option.url] 原 url 链接
+   * @param {Number} [option.port] 端口号
    */
   constructor ({
     href = '',
@@ -23,14 +25,38 @@ class UrlObject {
     params = {},
     url = '',
     port = 0
-  }) {
+  } = {}) {
+    /**
+     * @type {String} 不包含网站域名的链接
+     */
     this.href = href
+    /**
+     * @type {String} URL 站点
+     */
     this.website = website
+    /**
+     * @type {String} 协议
+     */
     this.protocol = protocol
+    /**
+     * @type {String} 域名
+     */
     this.domain = domain
+    /**
+     * @type {String} 绝对路径,不包含参数
+     */
     this.accessPath = accessPath
+    /**
+     * @type {Object} 参数列表,
+     */
     this.params = params
+    /**
+     * @type {String} 原 url 链接
+     */
     this.url = url
+    /**
+     * @type {Number} 端口号
+     */
     this.port = port
   }
 }

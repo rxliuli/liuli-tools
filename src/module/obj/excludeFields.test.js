@@ -14,7 +14,7 @@ describe('test exculdeFields', () => {
   })
 
   it('test normal object and normal fields', () => {
-    expect(excludeFields(obj, new Set(['name']))).toEqual({ age: 17 })
-    expect(excludeFields(obj, new Set(['name', 'age']))).toEqual({})
+    expect(excludeFields(obj, 'name')).toEqual({ age: 17 })
+    expect(excludeFields(obj, 'name', 'age')).toEqual({})
   })
 })

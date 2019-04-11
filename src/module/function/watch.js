@@ -14,8 +14,8 @@ export function watch (fn, callback, interval = 100) {
     const newVal = safeExec(fn)
     if (oldVal !== newVal) {
       callback(newVal, oldVal)
+      oldVal = newVal
     }
-    oldVal = newVal
   }, interval)
   return () => clearInterval(timer)
 }

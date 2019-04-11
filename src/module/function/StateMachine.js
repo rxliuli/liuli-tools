@@ -1,3 +1,5 @@
+import { singleModel } from './singleModel'
+
 // @ts-check
 /**
  * 状态机
@@ -21,7 +23,7 @@ export class StateMachine {
        * @returns {Object} 返回 clazz 本身
        */
       register (state, clazz) {
-        classMap.set(state, clazz)
+        classMap.set(state, singleModel(clazz))
         return clazz
       }
 

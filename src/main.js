@@ -72,6 +72,7 @@ import { dateEnhance } from './module/date/dateEnhance'
 import { dateBetween } from './module/date/dateBetween'
 import { isRange } from './module/number/isRange'
 import { dateParse } from './module/date/dateParse'
+import { onec } from './module/function/onec'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -119,6 +120,7 @@ export {
   objToFormData,
   formDataToArray,
   debounce,
+  onec,
   returnItself,
   safeExec,
   singleModel,

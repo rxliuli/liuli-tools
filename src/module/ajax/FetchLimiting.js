@@ -5,10 +5,6 @@ import { fetchTimeout } from './fetchTimeout'
 /**
  * 限制并发请求数量的 fetch 封装
  * @class FetchLimiting
- * @property timeout 超时毫秒数
- * @property limit 最大并发数限制
- * @property execCount 当前正在执行请求的数量
- * @property waitArr 等待的队列
  * @example
  * const fetchLimiting = new FetchLimiting()
  * fetchLimiting._fetch('/')
@@ -23,9 +19,22 @@ export class FetchLimiting {
    * @param {Number} [option.limit=10] 最大并发数限制
    */
   constructor ({ timeout = 10000, limit = 10 }) {
+    /**
+     * @field timeout 超时毫秒数
+     */
     this.timeout = timeout
+    /**
+     * @field limit 最大并发数限制
+     */
     this.limit = limit
+    /**
+     * @field execCount 当前正在执行请求的数量
+     */
     this.execCount = 0
+    /**
+     * @field waitArr 等待的队列
+     * @type {Array.<IArguments>}
+     */
     this.waitArr = []
   }
 

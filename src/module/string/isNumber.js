@@ -1,4 +1,7 @@
 // @ts-check
+/**
+ * 判断是否为整数的正则表达式
+ */
 const regexp = new RegExp('^-?\\d+$')
 /**
  * 判断字符串是否位整数

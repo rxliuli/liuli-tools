@@ -1,7 +1,16 @@
 // @ts-check
 import { dateFormat } from './../date/dateFormat'
 
-const deteFormatter = 'yyyy-MM-ddThh:mm:ss.SSSZ'
+/**
+ * 默认的日期格式
+ * 不加 Z 为本地日期时间
+ */
+const deteFormatter = 'yyyy-MM-ddThh:mm:ss.SSS'
+/**
+ * 编码函数
+ * @param {String} k 参数的名字
+ * @param {String} v 参数的值
+ */
 const encode = (k, v) => encodeURIComponent(k) + '=' + encodeURIComponent(v)
 
 /**

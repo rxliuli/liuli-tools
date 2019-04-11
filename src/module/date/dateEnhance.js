@@ -8,8 +8,7 @@ import { dateConstants } from './DateConstants'
 const DAY_UNIT_TIME = 1000 * 60 * 60 * 24
 /**
  * 日期增强
- * @class DateEnhance
- * @property {Date} date 要增强的日期
+ * @property {Date} date
  */
 class DateEnhance {
   /**
@@ -17,6 +16,9 @@ class DateEnhance {
    * @param {Date} date 要增强的日期
    */
   constructor (date) {
+    /**
+     * @field 要增强的日期
+     */
     this.date = date
   }
   /**

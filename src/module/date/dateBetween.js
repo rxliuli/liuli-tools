@@ -3,8 +3,6 @@
 /**
  * 时间日期间隔
  * @class DateBetween
- * @property {Date} start 开始时间
- * @property {Date} end 结束时间
  */
 class DateBetween {
   /**
@@ -13,7 +11,13 @@ class DateBetween {
    * @param {Date} end 结束时间
    */
   constructor (start, end) {
+    /**
+     * @field start 开始时间
+     */
     this.start = start
+    /**
+     * @field end 结束时间
+     */
     this.end = end
   }
   /**

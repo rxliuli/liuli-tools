@@ -5,6 +5,7 @@ import { arrayToMap } from './../array/arrayToMap'
 
 /**
  * 日期格式化类
+ * @class DateFormat
  */
 class DateFormat {
   /**
@@ -15,14 +16,28 @@ class DateFormat {
    * @param {Number} index 需要替换位置的索引
    */
   constructor (name, format, value, index) {
+    /**
+     * @field 日期格式的名称
+     */
     this.name = name
+    /**
+     * @field 日期的格式值
+     */
     this.format = format
+    /**
+     * @field 格式化得到的值
+     */
     this.value = value
+    /**
+     * @field 需要替换位置的索引
+     */
     this.index = index
   }
 }
 
-// 日期时间的正则表达式
+/**
+ * 日期时间的正则表达式
+ */
 const dateFormats = {
   year: 'y{4}|y{2}',
   month: 'M{1,2}',
@@ -36,8 +51,7 @@ const dateFormats = {
 /**
  * 解析字符串为 Date 对象
  * @param {String} dateStr 日期字符串
- * @param {String} fmt 日期字符串的格式
- * 目前仅支持使用 y(年),M(月),d(日),h(时),m(分),s(秒),S(毫秒)
+ * @param {String} fmt 日期字符串的格式，目前仅支持使用 y(年),M(月),d(日),h(时),m(分),s(秒),S(毫秒)
  * @returns {Date} 解析得到的 Date 对象
  */
 export function dateParse (dateStr, fmt) {

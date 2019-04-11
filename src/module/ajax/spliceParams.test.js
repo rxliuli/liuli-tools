@@ -21,7 +21,7 @@ describe('test spliceParams', () => {
       })
     ).toBe(
       `birthday=${encodeURIComponent(
-        dateFormat(date, 'yyyy-MM-ddThh:mm:ss.SSSZ')
+        dateFormat(date, 'yyyy-MM-ddThh:mm:ss.SSS')
       )}&`
     )
   })
@@ -53,11 +53,11 @@ describe('test spliceParams', () => {
         name: 'rx',
         bent: [date, date]
       })
-    ).toBe(
+    ).toEqual(
       `name=rx&bent=${encodeURIComponent(
-        dateFormat(date, 'yyyy-MM-ddThh:mm:ss.SSSZ')
+        dateFormat(date, 'yyyy-MM-ddThh:mm:ss.SSS')
       )}&bent=${encodeURIComponent(
-        dateFormat(date, 'yyyy-MM-ddThh:mm:ss.SSSZ')
+        dateFormat(date, 'yyyy-MM-ddThh:mm:ss.SSS')
       )}&`
     )
   })

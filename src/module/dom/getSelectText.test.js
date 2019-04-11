@@ -3,9 +3,10 @@ import { getSelectText } from './getSelectText'
 
 /**
  * @test {getSelectText}
+ * But currently jsdom does not support the isContentEditable property.
  * @see https://github.com/jsdom/jsdom/issues/321
  */
-describe.skip('test getSelectText(But currently jsdom does not support the isContentEditable property.)', () => {
+describe.skip('test getSelectText', () => {
   let $name
   beforeEach(() => {
     document.body.innerHTML = /* html */ `

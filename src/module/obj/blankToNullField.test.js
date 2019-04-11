@@ -1,13 +1,18 @@
 import { blankToNullField } from './blankToNullField'
 
-test('test blankToNullField', () => {
-  expect(
-    blankToNullField({
-      name: '',
-      age: ''
+/**
+ * @test {blankToNullField}
+ */
+describe('test blankToNullField', () => {
+  it('test blankToNullField', () => {
+    expect(
+      blankToNullField({
+        name: '',
+        age: ''
+      })
+    ).toEqual({
+      name: null,
+      age: null
     })
-  ).toEqual({
-    name: null,
-    age: null
   })
 })

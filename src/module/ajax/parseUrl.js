@@ -7,14 +7,14 @@ class UrlObject {
   /**
    * 构造函数
    * @param {Object} option 可选项
-   * @param {String} [option.href] 不包含网站域名的链接
-   * @param {String} [option.website] URL 站点
-   * @param {String} [option.protocol] 协议
-   * @param {String} [option.domain] 域名
-   * @param {String} [option.accessPath] 绝对路径,不包含参数
-   * @param {Object} [option.params] 参数列表,
-   * @param {String} [option.url] 原 url 链接
-   * @param {Number} [option.port] 端口号
+   * @param {String} [option.href=''] 不包含网站域名的链接
+   * @param {String} [option.website=''] URL 站点
+   * @param {String} [option.protocol=''] 协议
+   * @param {String} [option.domain=''] 域名
+   * @param {String} [option.accessPath=''] 绝对路径,不包含参数
+   * @param {Object} [option.params={}] 参数列表,
+   * @param {String} [option.url=''] 原 url 链接
+   * @param {Number} [option.port=0] 端口号
    */
   constructor ({
     href = '',
@@ -73,7 +73,7 @@ const protocol2Port = {
 
 /**
  * 解析 url 字符串
- * @param {!String} url url 字符串
+ * @param {String} url url 字符串，不能为空
  * @returns {UrlObject} url 对象
  */
 export function parseUrl (url) {

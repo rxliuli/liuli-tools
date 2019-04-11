@@ -1,13 +1,18 @@
 import { emptyAllField } from './emptyAllField'
 
-test('test emptyAllField', () => {
-  expect(
-    emptyAllField({
-      name: 'rx',
-      age: 17
+/**
+ * @test {emptyAllField}
+ */
+describe('test emptyAllField', () => {
+  it('test emptyAllField', () => {
+    expect(
+      emptyAllField({
+        name: 'rx',
+        age: 17
+      })
+    ).toEqual({
+      name: null,
+      age: null
     })
-  ).toEqual({
-    name: null,
-    age: null
   })
 })

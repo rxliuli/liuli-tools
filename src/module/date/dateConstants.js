@@ -5,7 +5,7 @@ import { dateFormat } from './dateFormat'
  * 日期固定时间点
  * @class DateConstants
  */
-class DateConstants {
+export class DateConstants {
   /**
    * 获取指定日期一天的开始时间
    * @param {Date} [date=new Date()] 指定的时间，默认为当前日期

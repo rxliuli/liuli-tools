@@ -4,7 +4,7 @@
  * 时间日期间隔
  * @class DateBetween
  */
-class DateBetween {
+export class DateBetween {
   /**
    * 构造函数
    * @param {Date} start 开始时间

@@ -75,6 +75,7 @@ import { dateParse } from './module/date/dateParse'
 import { onec } from './module/function/onec'
 import { onceOfSameParam } from './module/function/onceOfSameParam'
 import { returnReasonableItself } from './module/function/returnReasonableItself'
+import { filterItems } from './module/array/filterItems'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -96,6 +97,7 @@ export {
   flatMap,
   groupBy,
   range,
+  filterItems,
   toObject,
   uniqueBy,
   arrayToMap,

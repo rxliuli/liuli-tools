@@ -10,7 +10,7 @@ const DAY_UNIT_TIME = 1000 * 60 * 60 * 24
  * 日期增强
  * @property {Date} date
  */
-class DateEnhance {
+export class DateEnhance {
   /**
    * 构造函数
    * @param {Date} date 要增强的日期

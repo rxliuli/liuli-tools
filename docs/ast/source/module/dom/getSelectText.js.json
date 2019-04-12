@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 221,
+  "end": 143,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 10,
+      "line": 9,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 221,
+    "end": 143,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 10,
+        "line": 9,
         "column": 0
       }
     },
@@ -30,15 +30,15 @@
     "body": [
       {
         "type": "ExportNamedDeclaration",
-        "start": 149,
-        "end": 220,
+        "start": 68,
+        "end": 141,
         "loc": {
           "start": {
-            "line": 7,
+            "line": 6,
             "column": 0
           },
           "end": {
-            "line": 9,
+            "line": 8,
             "column": 1
           }
         },
@@ -46,29 +46,29 @@
         "source": null,
         "declaration": {
           "type": "FunctionDeclaration",
-          "start": 156,
-          "end": 220,
+          "start": 75,
+          "end": 141,
           "loc": {
             "start": {
-              "line": 7,
+              "line": 6,
               "column": 7
             },
             "end": {
-              "line": 9,
+              "line": 8,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 165,
-            "end": 178,
+            "start": 84,
+            "end": 97,
             "loc": {
               "start": {
-                "line": 7,
+                "line": 6,
                 "column": 16
               },
               "end": {
-                "line": 7,
+                "line": 6,
                 "column": 29
               },
               "identifierName": "getSelectText"
@@ -82,86 +82,86 @@
           "params": [],
           "body": {
             "type": "BlockStatement",
-            "start": 182,
-            "end": 220,
+            "start": 101,
+            "end": 141,
             "loc": {
               "start": {
-                "line": 7,
+                "line": 6,
                 "column": 33
               },
               "end": {
-                "line": 9,
+                "line": 8,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ReturnStatement",
-                "start": 186,
-                "end": 218,
+                "start": 106,
+                "end": 138,
                 "loc": {
                   "start": {
-                    "line": 8,
+                    "line": 7,
                     "column": 2
                   },
                   "end": {
-                    "line": 8,
+                    "line": 7,
                     "column": 34
                   }
                 },
                 "argument": {
                   "type": "CallExpression",
-                  "start": 193,
-                  "end": 218,
+                  "start": 113,
+                  "end": 138,
                   "loc": {
                     "start": {
-                      "line": 8,
+                      "line": 7,
                       "column": 9
                     },
                     "end": {
-                      "line": 8,
+                      "line": 7,
                       "column": 34
                     }
                   },
                   "callee": {
                     "type": "MemberExpression",
-                    "start": 193,
-                    "end": 216,
+                    "start": 113,
+                    "end": 136,
                     "loc": {
                       "start": {
-                        "line": 8,
+                        "line": 7,
                         "column": 9
                       },
                       "end": {
-                        "line": 8,
+                        "line": 7,
                         "column": 32
                       }
                     },
                     "object": {
                       "type": "CallExpression",
-                      "start": 193,
-                      "end": 207,
+                      "start": 113,
+                      "end": 127,
                       "loc": {
                         "start": {
-                          "line": 8,
+                          "line": 7,
                           "column": 9
                         },
                         "end": {
-                          "line": 8,
+                          "line": 7,
                           "column": 23
                         }
                       },
                       "callee": {
                         "type": "Identifier",
-                        "start": 193,
-                        "end": 205,
+                        "start": 113,
+                        "end": 125,
                         "loc": {
                           "start": {
-                            "line": 8,
+                            "line": 7,
                             "column": 9
                           },
                           "end": {
-                            "line": 8,
+                            "line": 7,
                             "column": 21
                           },
                           "identifierName": "getSelection"
@@ -172,15 +172,15 @@
                     },
                     "property": {
                       "type": "Identifier",
-                      "start": 208,
-                      "end": 216,
+                      "start": 128,
+                      "end": 136,
                       "loc": {
                         "start": {
-                          "line": 8,
+                          "line": 7,
                           "column": 24
                         },
                         "end": {
-                          "line": 8,
+                          "line": 7,
                           "column": 32
                         },
                         "identifierName": "toString"
@@ -197,17 +197,33 @@
           },
           "leadingComments": [
             {
-              "type": "CommentBlock",
-              "value": "*\n * 获取当前选中的文本\n * @param {HTMLFormElement} el 需要设置的输入框元素\n * @param {Number} [start] 开始位置，默认为当前选中开始位置\n * @param {Number} [end] 结束位置，默认为当前选中结束位置\n ",
+              "type": "CommentLine",
+              "value": " @ts-check",
               "start": 0,
-              "end": 148,
+              "end": 12,
               "loc": {
                 "start": {
                   "line": 1,
                   "column": 0
                 },
                 "end": {
-                  "line": 6,
+                  "line": 1,
+                  "column": 12
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\r\n * 获取当前选中的文本\r\n * @returns {String} 当前选中的文本\r\n ",
+              "start": 14,
+              "end": 66,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 0
+                },
+                "end": {
+                  "line": 5,
                   "column": 3
                 }
               }
@@ -217,17 +233,33 @@
         },
         "leadingComments": [
           {
-            "type": "CommentBlock",
-            "value": "*\n * 获取当前选中的文本\n * @param {HTMLFormElement} el 需要设置的输入框元素\n * @param {Number} [start] 开始位置，默认为当前选中开始位置\n * @param {Number} [end] 结束位置，默认为当前选中结束位置\n ",
+            "type": "CommentLine",
+            "value": " @ts-check",
             "start": 0,
-            "end": 148,
+            "end": 12,
             "loc": {
               "start": {
                 "line": 1,
                 "column": 0
               },
               "end": {
-                "line": 6,
+                "line": 1,
+                "column": 12
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\r\n * 获取当前选中的文本\r\n * @returns {String} 当前选中的文本\r\n ",
+            "start": 14,
+            "end": 66,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 5,
                 "column": 3
               }
             }
@@ -239,17 +271,33 @@
   },
   "comments": [
     {
-      "type": "CommentBlock",
-      "value": "*\n * 获取当前选中的文本\n * @param {HTMLFormElement} el 需要设置的输入框元素\n * @param {Number} [start] 开始位置，默认为当前选中开始位置\n * @param {Number} [end] 结束位置，默认为当前选中结束位置\n ",
+      "type": "CommentLine",
+      "value": " @ts-check",
       "start": 0,
-      "end": 148,
+      "end": 12,
       "loc": {
         "start": {
           "line": 1,
           "column": 0
         },
         "end": {
-          "line": 6,
+          "line": 1,
+          "column": 12
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\r\n * 获取当前选中的文本\r\n * @returns {String} 当前选中的文本\r\n ",
+      "start": 14,
+      "end": 66,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 5,
           "column": 3
         }
       }
@@ -257,17 +305,33 @@
   ],
   "tokens": [
     {
-      "type": "CommentBlock",
-      "value": "*\n * 获取当前选中的文本\n * @param {HTMLFormElement} el 需要设置的输入框元素\n * @param {Number} [start] 开始位置，默认为当前选中开始位置\n * @param {Number} [end] 结束位置，默认为当前选中结束位置\n ",
+      "type": "CommentLine",
+      "value": " @ts-check",
       "start": 0,
-      "end": 148,
+      "end": 12,
       "loc": {
         "start": {
           "line": 1,
           "column": 0
         },
         "end": {
-          "line": 6,
+          "line": 1,
+          "column": 12
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\r\n * 获取当前选中的文本\r\n * @returns {String} 当前选中的文本\r\n ",
+      "start": 14,
+      "end": 66,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 5,
           "column": 3
         }
       }
@@ -287,15 +351,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 149,
-      "end": 155,
+      "start": 68,
+      "end": 74,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 6,
           "column": 0
         },
         "end": {
-          "line": 7,
+          "line": 6,
           "column": 6
         }
       }
@@ -314,15 +378,15 @@
         "binop": null
       },
       "value": "function",
-      "start": 156,
-      "end": 164,
+      "start": 75,
+      "end": 83,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 6,
           "column": 7
         },
         "end": {
-          "line": 7,
+          "line": 6,
           "column": 15
         }
       }
@@ -340,15 +404,15 @@
         "binop": null
       },
       "value": "getSelectText",
-      "start": 165,
-      "end": 178,
+      "start": 84,
+      "end": 97,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 6,
           "column": 16
         },
         "end": {
-          "line": 7,
+          "line": 6,
           "column": 29
         }
       }
@@ -365,15 +429,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 179,
-      "end": 180,
+      "start": 98,
+      "end": 99,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 6,
           "column": 30
         },
         "end": {
-          "line": 7,
+          "line": 6,
           "column": 31
         }
       }
@@ -390,15 +454,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 180,
-      "end": 181,
+      "start": 99,
+      "end": 100,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 6,
           "column": 31
         },
         "end": {
-          "line": 7,
+          "line": 6,
           "column": 32
         }
       }
@@ -415,15 +479,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 182,
-      "end": 183,
+      "start": 101,
+      "end": 102,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 6,
           "column": 33
         },
         "end": {
-          "line": 7,
+          "line": 6,
           "column": 34
         }
       }
@@ -443,15 +507,15 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 186,
-      "end": 192,
+      "start": 106,
+      "end": 112,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 7,
           "column": 2
         },
         "end": {
-          "line": 8,
+          "line": 7,
           "column": 8
         }
       }
@@ -469,15 +533,15 @@
         "binop": null
       },
       "value": "getSelection",
-      "start": 193,
-      "end": 205,
+      "start": 113,
+      "end": 125,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 7,
           "column": 9
         },
         "end": {
-          "line": 8,
+          "line": 7,
           "column": 21
         }
       }
@@ -494,15 +558,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 205,
-      "end": 206,
+      "start": 125,
+      "end": 126,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 7,
           "column": 21
         },
         "end": {
-          "line": 8,
+          "line": 7,
           "column": 22
         }
       }
@@ -519,15 +583,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 206,
-      "end": 207,
+      "start": 126,
+      "end": 127,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 7,
           "column": 22
         },
         "end": {
-          "line": 8,
+          "line": 7,
           "column": 23
         }
       }
@@ -545,15 +609,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 207,
-      "end": 208,
+      "start": 127,
+      "end": 128,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 7,
           "column": 23
         },
         "end": {
-          "line": 8,
+          "line": 7,
           "column": 24
         }
       }
@@ -571,15 +635,15 @@
         "binop": null
       },
       "value": "toString",
-      "start": 208,
-      "end": 216,
+      "start": 128,
+      "end": 136,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 7,
           "column": 24
         },
         "end": {
-          "line": 8,
+          "line": 7,
           "column": 32
         }
       }
@@ -596,15 +660,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 216,
-      "end": 217,
+      "start": 136,
+      "end": 137,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 7,
           "column": 32
         },
         "end": {
-          "line": 8,
+          "line": 7,
           "column": 33
         }
       }
@@ -621,15 +685,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 217,
-      "end": 218,
+      "start": 137,
+      "end": 138,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 7,
           "column": 33
         },
         "end": {
-          "line": 8,
+          "line": 7,
           "column": 34
         }
       }
@@ -646,15 +710,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 219,
-      "end": 220,
+      "start": 140,
+      "end": 141,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 8,
           "column": 0
         },
         "end": {
-          "line": 9,
+          "line": 8,
           "column": 1
         }
       }
@@ -672,15 +736,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 221,
-      "end": 221,
+      "start": 143,
+      "end": 143,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 9,
           "column": 0
         },
         "end": {
-          "line": 10,
+          "line": 9,
           "column": 0
         }
       }

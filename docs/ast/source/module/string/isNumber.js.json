@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 206,
+  "end": 234,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 11,
+      "line": 14,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 206,
+    "end": 234,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 11,
+        "line": 14,
         "column": 0
       }
     },
@@ -30,44 +30,44 @@
     "body": [
       {
         "type": "VariableDeclaration",
-        "start": 14,
-        "end": 51,
+        "start": 42,
+        "end": 79,
         "loc": {
           "start": {
-            "line": 2,
+            "line": 5,
             "column": 0
           },
           "end": {
-            "line": 2,
+            "line": 5,
             "column": 37
           }
         },
         "declarations": [
           {
             "type": "VariableDeclarator",
-            "start": 20,
-            "end": 51,
+            "start": 48,
+            "end": 79,
             "loc": {
               "start": {
-                "line": 2,
+                "line": 5,
                 "column": 6
               },
               "end": {
-                "line": 2,
+                "line": 5,
                 "column": 37
               }
             },
             "id": {
               "type": "Identifier",
-              "start": 20,
-              "end": 26,
+              "start": 48,
+              "end": 54,
               "loc": {
                 "start": {
-                  "line": 2,
+                  "line": 5,
                   "column": 6
                 },
                 "end": {
-                  "line": 2,
+                  "line": 5,
                   "column": 12
                 },
                 "identifierName": "regexp"
@@ -77,29 +77,29 @@
             },
             "init": {
               "type": "NewExpression",
-              "start": 29,
-              "end": 51,
+              "start": 57,
+              "end": 79,
               "loc": {
                 "start": {
-                  "line": 2,
+                  "line": 5,
                   "column": 15
                 },
                 "end": {
-                  "line": 2,
+                  "line": 5,
                   "column": 37
                 }
               },
               "callee": {
                 "type": "Identifier",
-                "start": 33,
-                "end": 39,
+                "start": 61,
+                "end": 67,
                 "loc": {
                   "start": {
-                    "line": 2,
+                    "line": 5,
                     "column": 19
                   },
                   "end": {
-                    "line": 2,
+                    "line": 5,
                     "column": 25
                   },
                   "identifierName": "RegExp"
@@ -109,15 +109,15 @@
               "arguments": [
                 {
                   "type": "StringLiteral",
-                  "start": 40,
-                  "end": 50,
+                  "start": 68,
+                  "end": 78,
                   "loc": {
                     "start": {
-                      "line": 2,
+                      "line": 5,
                       "column": 26
                     },
                     "end": {
-                      "line": 2,
+                      "line": 5,
                       "column": 36
                     }
                   },
@@ -151,21 +151,37 @@
                 "column": 12
               }
             }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\r\n * 判断是否为整数的正则表达式\r\n ",
+            "start": 14,
+            "end": 40,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 3
+              }
+            }
           }
         ],
         "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\r\n * 判断字符串是否位整数\r\n * @param {String} str 需要进行判断的字符串\r\n * @returns {Boolean} 是否为小数\r\n ",
-            "start": 53,
-            "end": 140,
+            "start": 81,
+            "end": 168,
             "loc": {
               "start": {
-                "line": 3,
+                "line": 6,
                 "column": 0
               },
               "end": {
-                "line": 7,
+                "line": 10,
                 "column": 3
               }
             }
@@ -174,15 +190,15 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 142,
-        "end": 204,
+        "start": 170,
+        "end": 232,
         "loc": {
           "start": {
-            "line": 8,
+            "line": 11,
             "column": 0
           },
           "end": {
-            "line": 10,
+            "line": 13,
             "column": 1
           }
         },
@@ -190,29 +206,29 @@
         "source": null,
         "declaration": {
           "type": "FunctionDeclaration",
-          "start": 149,
-          "end": 204,
+          "start": 177,
+          "end": 232,
           "loc": {
             "start": {
-              "line": 8,
+              "line": 11,
               "column": 7
             },
             "end": {
-              "line": 10,
+              "line": 13,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 158,
-            "end": 166,
+            "start": 186,
+            "end": 194,
             "loc": {
               "start": {
-                "line": 8,
+                "line": 11,
                 "column": 16
               },
               "end": {
-                "line": 8,
+                "line": 11,
                 "column": 24
               },
               "identifierName": "isNumber"
@@ -226,15 +242,15 @@
           "params": [
             {
               "type": "Identifier",
-              "start": 168,
-              "end": 171,
+              "start": 196,
+              "end": 199,
               "loc": {
                 "start": {
-                  "line": 8,
+                  "line": 11,
                   "column": 26
                 },
                 "end": {
-                  "line": 8,
+                  "line": 11,
                   "column": 29
                 },
                 "identifierName": "str"
@@ -244,72 +260,72 @@
           ],
           "body": {
             "type": "BlockStatement",
-            "start": 173,
-            "end": 204,
+            "start": 201,
+            "end": 232,
             "loc": {
               "start": {
-                "line": 8,
+                "line": 11,
                 "column": 31
               },
               "end": {
-                "line": 10,
+                "line": 13,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ReturnStatement",
-                "start": 178,
-                "end": 201,
+                "start": 206,
+                "end": 229,
                 "loc": {
                   "start": {
-                    "line": 9,
+                    "line": 12,
                     "column": 2
                   },
                   "end": {
-                    "line": 9,
+                    "line": 12,
                     "column": 25
                   }
                 },
                 "argument": {
                   "type": "CallExpression",
-                  "start": 185,
-                  "end": 201,
+                  "start": 213,
+                  "end": 229,
                   "loc": {
                     "start": {
-                      "line": 9,
+                      "line": 12,
                       "column": 9
                     },
                     "end": {
-                      "line": 9,
+                      "line": 12,
                       "column": 25
                     }
                   },
                   "callee": {
                     "type": "MemberExpression",
-                    "start": 185,
-                    "end": 196,
+                    "start": 213,
+                    "end": 224,
                     "loc": {
                       "start": {
-                        "line": 9,
+                        "line": 12,
                         "column": 9
                       },
                       "end": {
-                        "line": 9,
+                        "line": 12,
                         "column": 20
                       }
                     },
                     "object": {
                       "type": "Identifier",
-                      "start": 185,
-                      "end": 191,
+                      "start": 213,
+                      "end": 219,
                       "loc": {
                         "start": {
-                          "line": 9,
+                          "line": 12,
                           "column": 9
                         },
                         "end": {
-                          "line": 9,
+                          "line": 12,
                           "column": 15
                         },
                         "identifierName": "regexp"
@@ -318,15 +334,15 @@
                     },
                     "property": {
                       "type": "Identifier",
-                      "start": 192,
-                      "end": 196,
+                      "start": 220,
+                      "end": 224,
                       "loc": {
                         "start": {
-                          "line": 9,
+                          "line": 12,
                           "column": 16
                         },
                         "end": {
-                          "line": 9,
+                          "line": 12,
                           "column": 20
                         },
                         "identifierName": "test"
@@ -338,15 +354,15 @@
                   "arguments": [
                     {
                       "type": "Identifier",
-                      "start": 197,
-                      "end": 200,
+                      "start": 225,
+                      "end": 228,
                       "loc": {
                         "start": {
-                          "line": 9,
+                          "line": 12,
                           "column": 21
                         },
                         "end": {
-                          "line": 9,
+                          "line": 12,
                           "column": 24
                         },
                         "identifierName": "str"
@@ -363,15 +379,15 @@
             {
               "type": "CommentBlock",
               "value": "*\r\n * 判断字符串是否位整数\r\n * @param {String} str 需要进行判断的字符串\r\n * @returns {Boolean} 是否为小数\r\n ",
-              "start": 53,
-              "end": 140,
+              "start": 81,
+              "end": 168,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 6,
                   "column": 0
                 },
                 "end": {
-                  "line": 7,
+                  "line": 10,
                   "column": 3
                 }
               }
@@ -383,15 +399,15 @@
           {
             "type": "CommentBlock",
             "value": "*\r\n * 判断字符串是否位整数\r\n * @param {String} str 需要进行判断的字符串\r\n * @returns {Boolean} 是否为小数\r\n ",
-            "start": 53,
-            "end": 140,
+            "start": 81,
+            "end": 168,
             "loc": {
               "start": {
-                "line": 3,
+                "line": 6,
                 "column": 0
               },
               "end": {
-                "line": 7,
+                "line": 10,
                 "column": 3
               }
             }
@@ -420,16 +436,32 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\r\n * 判断字符串是否位整数\r\n * @param {String} str 需要进行判断的字符串\r\n * @returns {Boolean} 是否为小数\r\n ",
-      "start": 53,
-      "end": 140,
+      "value": "*\r\n * 判断是否为整数的正则表达式\r\n ",
+      "start": 14,
+      "end": 40,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 2,
           "column": 0
         },
         "end": {
-          "line": 7,
+          "line": 4,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\r\n * 判断字符串是否位整数\r\n * @param {String} str 需要进行判断的字符串\r\n * @returns {Boolean} 是否为小数\r\n ",
+      "start": 81,
+      "end": 168,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 0
+        },
+        "end": {
+          "line": 10,
           "column": 3
         }
       }
@@ -453,6 +485,22 @@
       }
     },
     {
+      "type": "CommentBlock",
+      "value": "*\r\n * 判断是否为整数的正则表达式\r\n ",
+      "start": 14,
+      "end": 40,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 0
+        },
+        "end": {
+          "line": 4,
+          "column": 3
+        }
+      }
+    },
+    {
       "type": {
         "label": "const",
         "keyword": "const",
@@ -467,15 +515,15 @@
         "updateContext": null
       },
       "value": "const",
-      "start": 14,
-      "end": 19,
+      "start": 42,
+      "end": 47,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 5,
           "column": 0
         },
         "end": {
-          "line": 2,
+          "line": 5,
           "column": 5
         }
       }
@@ -493,15 +541,15 @@
         "binop": null
       },
       "value": "regexp",
-      "start": 20,
-      "end": 26,
+      "start": 48,
+      "end": 54,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 5,
           "column": 6
         },
         "end": {
-          "line": 2,
+          "line": 5,
           "column": 12
         }
       }
@@ -520,15 +568,15 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 27,
-      "end": 28,
+      "start": 55,
+      "end": 56,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 5,
           "column": 13
         },
         "end": {
-          "line": 2,
+          "line": 5,
           "column": 14
         }
       }
@@ -548,15 +596,15 @@
         "updateContext": null
       },
       "value": "new",
-      "start": 29,
-      "end": 32,
+      "start": 57,
+      "end": 60,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 5,
           "column": 15
         },
         "end": {
-          "line": 2,
+          "line": 5,
           "column": 18
         }
       }
@@ -574,15 +622,15 @@
         "binop": null
       },
       "value": "RegExp",
-      "start": 33,
-      "end": 39,
+      "start": 61,
+      "end": 67,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 5,
           "column": 19
         },
         "end": {
-          "line": 2,
+          "line": 5,
           "column": 25
         }
       }
@@ -599,15 +647,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 39,
-      "end": 40,
+      "start": 67,
+      "end": 68,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 5,
           "column": 25
         },
         "end": {
-          "line": 2,
+          "line": 5,
           "column": 26
         }
       }
@@ -626,15 +674,15 @@
         "updateContext": null
       },
       "value": "^-?\\d+$",
-      "start": 40,
-      "end": 50,
+      "start": 68,
+      "end": 78,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 5,
           "column": 26
         },
         "end": {
-          "line": 2,
+          "line": 5,
           "column": 36
         }
       }
@@ -651,15 +699,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 50,
-      "end": 51,
+      "start": 78,
+      "end": 79,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 5,
           "column": 36
         },
         "end": {
-          "line": 2,
+          "line": 5,
           "column": 37
         }
       }
@@ -667,15 +715,15 @@
     {
       "type": "CommentBlock",
       "value": "*\r\n * 判断字符串是否位整数\r\n * @param {String} str 需要进行判断的字符串\r\n * @returns {Boolean} 是否为小数\r\n ",
-      "start": 53,
-      "end": 140,
+      "start": 81,
+      "end": 168,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 6,
           "column": 0
         },
         "end": {
-          "line": 7,
+          "line": 10,
           "column": 3
         }
       }
@@ -695,15 +743,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 142,
-      "end": 148,
+      "start": 170,
+      "end": 176,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 11,
           "column": 0
         },
         "end": {
-          "line": 8,
+          "line": 11,
           "column": 6
         }
       }
@@ -722,15 +770,15 @@
         "binop": null
       },
       "value": "function",
-      "start": 149,
-      "end": 157,
+      "start": 177,
+      "end": 185,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 11,
           "column": 7
         },
         "end": {
-          "line": 8,
+          "line": 11,
           "column": 15
         }
       }
@@ -748,15 +796,15 @@
         "binop": null
       },
       "value": "isNumber",
-      "start": 158,
-      "end": 166,
+      "start": 186,
+      "end": 194,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 11,
           "column": 16
         },
         "end": {
-          "line": 8,
+          "line": 11,
           "column": 24
         }
       }
@@ -773,15 +821,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 167,
-      "end": 168,
+      "start": 195,
+      "end": 196,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 11,
           "column": 25
         },
         "end": {
-          "line": 8,
+          "line": 11,
           "column": 26
         }
       }
@@ -799,15 +847,15 @@
         "binop": null
       },
       "value": "str",
-      "start": 168,
-      "end": 171,
+      "start": 196,
+      "end": 199,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 11,
           "column": 26
         },
         "end": {
-          "line": 8,
+          "line": 11,
           "column": 29
         }
       }
@@ -824,15 +872,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 171,
-      "end": 172,
+      "start": 199,
+      "end": 200,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 11,
           "column": 29
         },
         "end": {
-          "line": 8,
+          "line": 11,
           "column": 30
         }
       }
@@ -849,15 +897,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 173,
-      "end": 174,
+      "start": 201,
+      "end": 202,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 11,
           "column": 31
         },
         "end": {
-          "line": 8,
+          "line": 11,
           "column": 32
         }
       }
@@ -877,15 +925,15 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 178,
-      "end": 184,
+      "start": 206,
+      "end": 212,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 12,
           "column": 2
         },
         "end": {
-          "line": 9,
+          "line": 12,
           "column": 8
         }
       }
@@ -903,15 +951,15 @@
         "binop": null
       },
       "value": "regexp",
-      "start": 185,
-      "end": 191,
+      "start": 213,
+      "end": 219,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 12,
           "column": 9
         },
         "end": {
-          "line": 9,
+          "line": 12,
           "column": 15
         }
       }
@@ -929,15 +977,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 191,
-      "end": 192,
+      "start": 219,
+      "end": 220,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 12,
           "column": 15
         },
         "end": {
-          "line": 9,
+          "line": 12,
           "column": 16
         }
       }
@@ -955,15 +1003,15 @@
         "binop": null
       },
       "value": "test",
-      "start": 192,
-      "end": 196,
+      "start": 220,
+      "end": 224,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 12,
           "column": 16
         },
         "end": {
-          "line": 9,
+          "line": 12,
           "column": 20
         }
       }
@@ -980,15 +1028,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 196,
-      "end": 197,
+      "start": 224,
+      "end": 225,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 12,
           "column": 20
         },
         "end": {
-          "line": 9,
+          "line": 12,
           "column": 21
         }
       }
@@ -1006,15 +1054,15 @@
         "binop": null
       },
       "value": "str",
-      "start": 197,
-      "end": 200,
+      "start": 225,
+      "end": 228,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 12,
           "column": 21
         },
         "end": {
-          "line": 9,
+          "line": 12,
           "column": 24
         }
       }
@@ -1031,15 +1079,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 200,
-      "end": 201,
+      "start": 228,
+      "end": 229,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 12,
           "column": 24
         },
         "end": {
-          "line": 9,
+          "line": 12,
           "column": 25
         }
       }
@@ -1056,15 +1104,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 203,
-      "end": 204,
+      "start": 231,
+      "end": 232,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 13,
           "column": 0
         },
         "end": {
-          "line": 10,
+          "line": 13,
           "column": 1
         }
       }
@@ -1082,15 +1130,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 206,
-      "end": 206,
+      "start": 234,
+      "end": 234,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 14,
           "column": 0
         },
         "end": {
-          "line": 11,
+          "line": 14,
           "column": 0
         }
       }

@@ -90,18 +90,20 @@
   // @ts-check
   /**
    * Url 对象
+   * @class UrlObject
    */
   class UrlObject {
     /**
      * 构造函数
-     * {String} href 不包含网站域名的链接
-     * {String} website URL 站点
-     * {String} protocol 协议
-     * {String} domain 域名
-     * {String} accessPath 绝对路径,不包含参数
-     * {Object} params 参数列表,
-     * {String} url 原 url 链接
-     * {Number} port 端口号
+     * @param {Object} option 可选项
+     * @param {String} [option.href=''] 不包含网站域名的链接
+     * @param {String} [option.website=''] URL 站点
+     * @param {String} [option.protocol=''] 协议
+     * @param {String} [option.domain=''] 域名
+     * @param {String} [option.accessPath=''] 绝对路径,不包含参数
+     * @param {Object} [option.params={}] 参数列表,
+     * @param {String} [option.url=''] 原 url 链接
+     * @param {Number} [option.port=0] 端口号
      */
     constructor ({
       href = '',
@@ -112,14 +114,38 @@
       params = {},
       url = '',
       port = 0
-    }) {
+    } = {}) {
+      /**
+       * @type {String} 不包含网站域名的链接
+       */
       this.href = href;
+      /**
+       * @type {String} URL 站点
+       */
       this.website = website;
+      /**
+       * @type {String} 协议
+       */
       this.protocol = protocol;
+      /**
+       * @type {String} 域名
+       */
       this.domain = domain;
+      /**
+       * @type {String} 绝对路径,不包含参数
+       */
       this.accessPath = accessPath;
+      /**
+       * @type {Object} 参数列表,
+       */
       this.params = params;
+      /**
+       * @type {String} 原 url 链接
+       */
       this.url = url;
+      /**
+       * @type {Number} 端口号
+       */
       this.port = port;
     }
   }
@@ -136,7 +162,7 @@
 
   /**
    * 解析 url 字符串
-   * @param {!String} url url 字符串
+   * @param {String} url url 字符串，不能为空
    * @returns {UrlObject} url 对象
    */
   function parseUrl (url) {
@@ -267,7 +293,16 @@
 
   // @ts-check
 
-  const deteFormatter = 'yyyy-MM-ddThh:mm:ss.SSSZ';
+  /**
+   * 默认的日期格式
+   * 不加 Z 为本地日期时间
+   */
+  const deteFormatter = 'yyyy-MM-ddThh:mm:ss.SSS';
+  /**
+   * 编码函数
+   * @param {String} k 参数的名字
+   * @param {String} v 参数的值
+   */
   const encode = (k, v) => encodeURIComponent(k) + '=' + encodeURIComponent(v);
 
   /**
@@ -369,10 +404,6 @@
   /**
    * 限制并发请求数量的 fetch 封装
    * @class FetchLimiting
-   * @property timeout 超时毫秒数
-   * @property limit 最大并发数限制
-   * @property execCount 当前正在执行请求的数量
-   * @property waitArr 等待的队列
    * @example
    * const fetchLimiting = new FetchLimiting()
    * fetchLimiting._fetch('/')
@@ -387,9 +418,22 @@
      * @param {Number} [option.limit=10] 最大并发数限制
      */
     constructor ({ timeout = 10000, limit = 10 }) {
+      /**
+       * @field timeout 超时毫秒数
+       */
       this.timeout = timeout;
+      /**
+       * @field limit 最大并发数限制
+       */
       this.limit = limit;
+      /**
+       * @field execCount 当前正在执行请求的数量
+       */
       this.execCount = 0;
+      /**
+       * @field waitArr 等待的队列
+       * @type {Array.<IArguments>}
+       */
       this.waitArr = [];
     }
 
@@ -580,6 +624,7 @@
 
   /**
    * 日期格式化类
+   * @class DateFormat
    */
   class DateFormat {
     /**
@@ -590,14 +635,28 @@
      * @param {Number} index 需要替换位置的索引
      */
     constructor (name, format, value, index) {
+      /**
+       * @field 日期格式的名称
+       */
       this.name = name;
+      /**
+       * @field 日期的格式值
+       */
       this.format = format;
+      /**
+       * @field 格式化得到的值
+       */
       this.value = value;
+      /**
+       * @field 需要替换位置的索引
+       */
       this.index = index;
     }
   }
 
-  // 日期时间的正则表达式
+  /**
+   * 日期时间的正则表达式
+   */
   const dateFormats = {
     year: 'y{4}|y{2}',
     month: 'M{1,2}',
@@ -611,11 +670,10 @@
   /**
    * 解析字符串为 Date 对象
    * @param {String} dateStr 日期字符串
-   * @param {String} fmt 日期字符串的格式
-   * 目前仅支持使用 y(年),M(月),d(日),h(时),m(分),s(秒),S(毫秒)
+   * @param {String} fmt 日期字符串的格式，目前仅支持使用 y(年),M(月),d(日),h(时),m(分),s(秒),S(毫秒)
    * @returns {Date} 解析得到的 Date 对象
    */
-  function strToDate (dateStr, fmt) {
+  function dateParse (dateStr, fmt) {
     const now = new Date();
     // 如果没有格式化某项的话则设置为默认时间
     const defaultDateValues = {
@@ -690,6 +748,20 @@
     'milliSecond'
   )}`;
     return new Date(date)
+  }
+
+  // @ts-check
+
+  /**
+   * 解析字符串为 Date 对象
+   * @deprecated 已弃用，请使用可读性更好的 {@link dateParse} 代替
+   * @param {String} dateStr 日期字符串
+   * @param {String} fmt 日期字符串的格式
+   * 目前仅支持使用 y(年),M(月),d(日),h(时),m(分),s(秒),S(毫秒)
+   * @returns {Date} 解析得到的 Date 对象
+   */
+  function strToDate (dateStr, fmt) {
+    return dateParse(dateStr, fmt)
   }
 
   // @ts-check
@@ -1081,7 +1153,7 @@
          * @returns {Object} 返回 clazz 本身
          */
         register (state, clazz) {
-          classMap.set(state, clazz);
+          classMap.set(state, singleModel(clazz));
           return clazz
         }
 
@@ -1183,8 +1255,8 @@
       const newVal = safeExec(fn);
       if (oldVal !== newVal) {
         callback(newVal, oldVal);
+        oldVal = newVal;
       }
-      oldVal = newVal;
     }, interval);
     return () => clearInterval(timer)
   }
@@ -1241,6 +1313,9 @@
   }
 
   // @ts-check
+  /**
+   * 判断是否为小数的正则表达式
+   */
   const regexp = new RegExp('^(-?\\d+)(.\\d+)?$');
   /**
    * 判断字符串是否位小数
@@ -1252,6 +1327,9 @@
   }
 
   // @ts-check
+  /**
+   * 判断是否为整数的正则表达式
+   */
   const regexp$1 = new RegExp('^-?\\d+$');
   /**
    * 判断字符串是否位整数
@@ -1322,12 +1400,13 @@
    * 排除对象中的指定字段
    * 注: 此处将获得一个浅拷贝对象
    * @param {Object} object 排除对象
-   * @param {Set.<String>} filedSet 要排除的字段
+   * @param {...String} fields 要排除的字段
    * @returns {Object} 排除完指定字段得到的新的对象
    */
-  function excludeFields (object, filedSet = new Set()) {
+  function excludeFields (object, ...fields) {
+    const set = new Set(fields);
     return Object.entries(object).reduce((res, [k, v]) => {
-      if (!filedSet.has(k)) {
+      if (!set.has(k)) {
         res[k] = v;
       }
       return res
@@ -1371,6 +1450,11 @@
 
   // @ts-check
 
+  /**
+   * 获取一年内的第多少星期
+   * @deprecated 不推荐使用，请使用 {@link dateEnhance} 代替
+   * @returns {Number}
+   */
   function getYearWeek (date) {
     /*
       date1是当前日期
@@ -1384,6 +1468,397 @@
     return Math.floor(difTime / (24 * 3600 * 1000) / 7)
   }
 
+  // @ts-check
+
+  /**
+   * 日期固定时间点
+   * @class DateConstants
+   */
+  class DateConstants {
+    /**
+     * 获取指定日期一天的开始时间
+     * @param {Date} [date=new Date()] 指定的时间，默认为当前日期
+     * @returns {Date} 一天的开始时间
+     */
+    dayStart (date = new Date()) {
+      return new Date(`${dateFormat(date, 'yyyy-MM-dd')}T00:00:00.000`)
+    }
+    /**
+     * 获取指定日期一天的结束时间
+     * @param {Date} [date=new Date()] 指定的时间，默认为当前日期
+     * @returns {Date} 一天的结束时间
+     */
+    dayEnd (date = new Date()) {
+      return new Date(`${dateFormat(date, 'yyyy-MM-dd')}T23:59:59.999`)
+    }
+    /**
+     * 获取指定日期所在年份的新年开始时间
+     * @param {Date} [date=new Date()] 指定的时间，默认为当前日期
+     * @returns {Date} 新年开始时间
+     */
+    yearStart (date = new Date()) {
+      return new Date(`${date.getFullYear()}-01-01T00:00:00.000`)
+    }
+    /**
+     * 获取指定日期所在年份的旧年结束时间
+     * @param {Date} [date=new Date()] 指定的时间，默认为当前日期
+     * @returns {Date} 旧年结束时间
+     */
+    yearEnd (date = new Date()) {
+      return new Date(`${date.getFullYear()}-12-31T23:59:59.999`)
+    }
+  }
+
+  /**
+   * 导出一个日期固定时间点的对象
+   * @type {DateConstants}
+   */
+  const dateConstants = new DateConstants();
+
+  // @ts-check
+  /**
+   * 判断数字是否在指定区间之中
+   * @param {Number} num 指定数字
+   * @param {Number} min 最小值
+   * @param {Number} max 最大值（不包含）
+   */
+  function isRange (num, min, max) {
+    return num >= min && num < max
+  }
+
+  // @ts-check
+
+  /**
+   * 日期固定时间点
+   * @class DateConstants
+   */
+  class DateConstants$1 {
+    /**
+     * 获取指定日期一天的开始时间
+     * @param {Date} [date=new Date()] 指定的时间，默认为当前日期
+     * @returns {Date} 一天的开始时间
+     */
+    dayStart (date = new Date()) {
+      return new Date(`${dateFormat(date, 'yyyy-MM-dd')}T00:00:00.000`)
+    }
+    /**
+     * 获取指定日期一天的结束时间
+     * @param {Date} [date=new Date()] 指定的时间，默认为当前日期
+     * @returns {Date} 一天的结束时间
+     */
+    dayEnd (date = new Date()) {
+      return new Date(`${dateFormat(date, 'yyyy-MM-dd')}T23:59:59.999`)
+    }
+    /**
+     * 获取指定日期所在年份的新年开始时间
+     * @param {Date} [date=new Date()] 指定的时间，默认为当前日期
+     * @returns {Date} 新年开始时间
+     */
+    yearStart (date = new Date()) {
+      return new Date(`${date.getFullYear()}-01-01T00:00:00.000`)
+    }
+    /**
+     * 获取指定日期所在年份的旧年结束时间
+     * @param {Date} [date=new Date()] 指定的时间，默认为当前日期
+     * @returns {Date} 旧年结束时间
+     */
+    yearEnd (date = new Date()) {
+      return new Date(`${date.getFullYear()}-12-31T23:59:59.999`)
+    }
+  }
+
+  /**
+   * 导出一个日期固定时间点的对象
+   * @type {DateConstants}
+   */
+  const dateConstants$1 = new DateConstants$1();
+
+  // @ts-check
+
+  /**
+   * 一天标准的毫秒数
+   */
+  const DAY_UNIT_TIME = 1000 * 60 * 60 * 24;
+  /**
+   * 日期增强
+   * @property {Date} date
+   */
+  class DateEnhance {
+    /**
+     * 构造函数
+     * @param {Date} date 要增强的日期
+     */
+    constructor (date) {
+      /**
+       * @field 要增强的日期
+       */
+      this.date = date;
+    }
+    /**
+     * 获取到年份
+     * @returns {Number}
+     */
+    year () {
+      return this.date.getFullYear()
+    }
+    /**
+     * 获取月份
+     * @returns {Number}
+     */
+    month () {
+      return this.date.getMonth()
+    }
+    /**
+     * 获取一年内的第多少天
+     * @returns {Number}
+     */
+    dayOfYear () {
+      return Math.floor(
+        (this.date.getTime() - dateConstants$1.yearStart().getTime()) /
+          DAY_UNIT_TIME
+      )
+    }
+    /**
+     * 获取一个月内的第多少天
+     * @returns {Number}
+     */
+    dayOfMonth () {
+      return this.date.getDate()
+    }
+    /**
+     * 获取一个星期内的第多少天
+     * @returns {Number}
+     */
+    dayOfWeek () {
+      return this.date.getDay()
+    }
+    /**
+     * 获取一年内的第多少星期
+     * @returns {Number}
+     */
+    weekOfYear () {
+      const day = this.dayOfYear();
+      return Math.floor(day / 7 + (day % 7 === 0 ? 0 : 1))
+    }
+    /**
+     * 获取一个月内的第多少星期
+     * @returns {Number}
+     */
+    weekOfMonth () {
+      const day = this.dayOfMonth();
+      return Math.floor(day / 7 + (day % 7 === 0 ? 0 : 1))
+    }
+    /**
+     * 获取季度
+     * @returns {Number}
+     */
+    quarter () {
+      const month = this.month();
+      if (isRange(month, 0, 3)) {
+        return 1
+      } else if (isRange(month, 3, 6)) {
+        return 2
+      } else if (isRange(month, 6, 9)) {
+        return 3
+      } else {
+        return 4
+      }
+    }
+    /**
+     * 获取小时
+     * @returns {Number}
+     */
+    hour () {
+      return this.date.getHours()
+    }
+    /**
+     * 获取分钟
+     * @returns {Number}
+     */
+    minute () {
+      return this.date.getMinutes()
+    }
+    /**
+     * 获取秒
+     * @returns {Number}
+     */
+    second () {
+      return this.date.getSeconds()
+    }
+    /**
+     * 获取毫秒
+     * @returns {Number}
+     */
+    milliSecond () {
+      return this.date.getMilliseconds()
+    }
+  }
+
+  /**
+   * 获取一个增强的日期
+   * @param {Date} date 要增强的日期
+   * @returns {DateEnhance} 增强日期
+   */
+  function dateEnhance (date) {
+    return new DateEnhance(date)
+  }
+
+  // @ts-check
+
+  /**
+   * 时间日期间隔
+   * @class DateBetween
+   */
+  class DateBetween {
+    /**
+     * 构造函数
+     * @param {Date} start 开始时间
+     * @param {Date} end 结束时间
+     */
+    constructor (start, end) {
+      /**
+       * @field start 开始时间
+       */
+      this.start = start;
+      /**
+       * @field end 结束时间
+       */
+      this.end = end;
+    }
+    /**
+     * 获取毫秒差值
+     * @returns {Number} 毫秒差值
+     */
+    milliSecond () {
+      return this.end.getTime() - this.start.getTime()
+    }
+    /**
+     * 获取秒差值
+     * @returns {Number} 秒差值
+     */
+    second () {
+      return Math.floor(this.milliSecond() / 1000)
+    }
+    /**
+     * 获取分钟差值
+     * @returns {Number} 分钟差值
+     */
+    minute () {
+      return Math.floor(this.second() / 60)
+    }
+    /**
+     * 获取小时差值
+     * @returns {Number} 小时差值
+     */
+    hour () {
+      return Math.floor(this.minute() / 60)
+    }
+    /**
+     * 获取天数差值
+     * @returns {Number} 天数差值
+     */
+    day () {
+      return Math.floor(this.hour() / 24)
+    }
+    /**
+     * 获取月份差值
+     * 注: 此处获取的差值是按月计算的，即 2018-12-31 => 2019-01-01 也被认为相差一个月
+     * @returns {Number} 月份差值
+     */
+    month () {
+      const year = this.year();
+      const month = this.end.getMonth() - this.start.getMonth();
+      return year * 12 + month
+    }
+    /**
+     * 获取年份差值
+     * 注: 此处获取的差值是按年计算的，即 2018-12-31 => 2019-01-01 也被认为相差一年
+     * @returns {Number} 年份差值
+     */
+    year () {
+      return this.end.getFullYear() - this.start.getFullYear()
+    }
+  }
+
+  /**
+   * 获取两个时间的差值
+   * @param {Date} start 开始时间
+   * @param {Date} end 结束时间
+   * @returns {DateBetween} 差值对象
+   */
+  function dateBetween (start, end) {
+    return new DateBetween(start, end)
+  }
+
+  /**
+   * 将指定函数包装为只调用一次
+   * @param {Function} fn 需要包装的函数
+   * @returns {Function} 包装后的函数
+   */
+  function onec (fn) {
+    let flag = true;
+    let res;
+    return (...args) => {
+      if (flag === false) {
+        return res
+      }
+      flag = false;
+      return (res = fn.call(this, ...args))
+    }
+  }
+
+  // @ts-check
+
+  /**
+   * 包装一个函数为指定参数只执行一次的函数
+   * @param {Function} fn 需要包装的函数
+   * @param {Function} paramConverter 参数转换的函数，参数为需要包装函数的参数
+   * @returns {Function} 需要被包装的函数
+   */
+  function onceOfSameParam (
+    fn,
+    paramConverter = (...args) => JSON.stringify(args)
+  ) {
+    const paramMap = new Map();
+    return (...args) => {
+      const key = paramConverter(args);
+      const old = paramMap.get(key);
+      if (old !== undefined) {
+        return old
+      }
+      const res = fn.call(this, ...args);
+      if (res instanceof Promise) {
+        return res.then(res => {
+          paramMap.set(key, res);
+          return res
+        })
+      }
+      paramMap.set(key, res);
+      return res
+    }
+  }
+
+  // @ts-check
+
+  /**
+   * 返回合理参数本身的函数
+   * 1. 如果没有参数则返回 undefined
+   * 2. 如果只有一个参数则返回参数本身
+   * 3. 如果有两个以上的参数则返回参数列表
+   * @param {...Object} args 任何对象
+   * @returns {undefined|Object|Array.<Object>} 传入的参数
+   */
+  function returnReasonableItself (...args) {
+    const len = args.length;
+    if (len === 0) {
+      return
+    }
+    if (len === 1) {
+      return args[0]
+    }
+    return args
+  }
+
   exports.FetchLimiting = FetchLimiting;
   exports.StateMachine = StateMachine;
   exports.appends = appends;
@@ -1394,7 +1869,11 @@
   exports.blankToNullField = blankToNullField;
   exports.copyText = copyText;
   exports.createElByString = createElByString;
+  exports.dateBetween = dateBetween;
+  exports.dateConstants = dateConstants;
+  exports.dateEnhance = dateEnhance;
   exports.dateFormat = dateFormat;
+  exports.dateParse = dateParse;
   exports.debounce = debounce;
   exports.deletes = deletes;
   exports.download = download;
@@ -1415,10 +1894,13 @@
   exports.isEditable = isEditable;
   exports.isFloat = isFloat;
   exports.isNumber = isNumber;
+  exports.isRange = isRange;
   exports.lastFocus = lastFocus;
   exports.loadResource = loadResource;
   exports.mapToObject = mapToObject;
   exports.objToFormData = objToFormData;
+  exports.onceOfSameParam = onceOfSameParam;
+  exports.onec = onec;
   exports.parseUrl = parseUrl;
   exports.randomInt = randomInt;
   exports.range = range;
@@ -1426,6 +1908,7 @@
   exports.removeEl = removeEl;
   exports.removeText = removeText;
   exports.returnItself = returnItself;
+  exports.returnReasonableItself = returnReasonableItself;
   exports.safeExec = safeExec;
   exports.setCusorPostion = setCusorPostion;
   exports.sets = sets;

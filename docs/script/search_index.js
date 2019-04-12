@@ -1,5 +1,11 @@
 window.esdocSearchIndex = [
   [
+    "rx-util/src/module/date/dateconstants.js~dateconstants",
+    "class/src/module/date/dateConstants.js~DateConstants.html",
+    "<span>DateConstants</span> <span class=\"search-result-import-path\">rx-util/src/module/date/dateConstants.js</span>",
+    "class"
+  ],
+  [
     "rx-util/src/module/ajax/fetchlimiting.js~fetchlimiting",
     "class/src/module/ajax/FetchLimiting.js~FetchLimiting.html",
     "<span>FetchLimiting</span> <span class=\"search-result-import-path\">rx-util/src/module/ajax/FetchLimiting.js</span>",
@@ -60,9 +66,33 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "rx-util/src/module/date/datebetween.js~datebetween",
+    "function/index.html#static-function-dateBetween",
+    "<span>dateBetween</span> <span class=\"search-result-import-path\">rx-util/src/module/date/dateBetween.js</span>",
+    "function"
+  ],
+  [
+    "rx-util/src/module/date/dateconstants.js~dateconstants",
+    "variable/index.html#static-variable-dateConstants",
+    "<span>dateConstants</span> <span class=\"search-result-import-path\">rx-util/src/module/date/dateConstants.js</span>",
+    "variable"
+  ],
+  [
+    "rx-util/src/module/date/dateenhance.js~dateenhance",
+    "function/index.html#static-function-dateEnhance",
+    "<span>dateEnhance</span> <span class=\"search-result-import-path\">rx-util/src/module/date/dateEnhance.js</span>",
+    "function"
+  ],
+  [
     "rx-util/src/module/date/dateformat.js~dateformat",
     "function/index.html#static-function-dateFormat",
     "<span>dateFormat</span> <span class=\"search-result-import-path\">rx-util/src/module/date/dateFormat.js</span>",
+    "function"
+  ],
+  [
+    "rx-util/src/module/date/dateparse.js~dateparse",
+    "function/index.html#static-function-dateParse",
+    "<span>dateParse</span> <span class=\"search-result-import-path\">rx-util/src/module/date/dateParse.js</span>",
     "function"
   ],
   [
@@ -156,6 +186,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "rx-util/src/module/date/getyearweek.js~getyearweek",
+    "function/index.html#static-function-getYearWeek",
+    "<span>getYearWeek</span> <span class=\"search-result-import-path\">rx-util/src/module/date/getYearWeek.js</span>",
+    "function"
+  ],
+  [
     "rx-util/src/module/array/groupby.js~groupby",
     "function/index.html#static-function-groupBy",
     "<span>groupBy</span> <span class=\"search-result-import-path\">rx-util/src/module/array/groupBy.js</span>",
@@ -186,6 +222,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "rx-util/src/module/number/isrange.js~isrange",
+    "function/index.html#static-function-isRange",
+    "<span>isRange</span> <span class=\"search-result-import-path\">rx-util/src/module/number/isRange.js</span>",
+    "function"
+  ],
+  [
     "rx-util/src/module/dom/lastfocus.js~lastfocus",
     "function/index.html#static-function-lastFocus",
     "<span>lastFocus</span> <span class=\"search-result-import-path\">rx-util/src/module/dom/lastFocus.js</span>",
@@ -207,6 +249,18 @@ window.esdocSearchIndex = [
     "rx-util/src/module/formdata/objtoformdata.js~objtoformdata",
     "function/index.html#static-function-objToFormData",
     "<span>objToFormData</span> <span class=\"search-result-import-path\">rx-util/src/module/formdata/objToFormData.js</span>",
+    "function"
+  ],
+  [
+    "rx-util/src/module/function/onceofsameparam.js~onceofsameparam",
+    "function/index.html#static-function-onceOfSameParam",
+    "<span>onceOfSameParam</span> <span class=\"search-result-import-path\">rx-util/src/module/function/onceOfSameParam.js</span>",
+    "function"
+  ],
+  [
+    "rx-util/src/module/function/onec.js~onec",
+    "function/index.html#static-function-onec",
+    "<span>onec</span> <span class=\"search-result-import-path\">rx-util/src/module/function/onec.js</span>",
     "function"
   ],
   [
@@ -249,6 +303,12 @@ window.esdocSearchIndex = [
     "rx-util/src/module/function/returnitself.js~returnitself",
     "function/index.html#static-function-returnItself",
     "<span>returnItself</span> <span class=\"search-result-import-path\">rx-util/src/module/function/returnItself.js</span>",
+    "function"
+  ],
+  [
+    "rx-util/src/module/function/returnreasonableitself.js~returnreasonableitself",
+    "function/index.html#static-function-returnReasonableItself",
+    "<span>returnReasonableItself</span> <span class=\"search-result-import-path\">rx-util/src/module/function/returnReasonableItself.js</span>",
     "function"
   ],
   [
@@ -361,26 +421,8 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/src/module/array/arrayToMap.test.js.html#lineNumber3",
-    "arrayToMap [1, 2, 3] to equals Map({1 => 1, 2 => 2, 3 => 3})",
-    "test"
-  ],
-  [
-    "",
-    "test-file/src/module/array/asIterator.test.js.html#lineNumber3",
+    "test-file/src/module/array/asIterator.test.js.html#lineNumber7",
     "asIterator test Array",
-    "test"
-  ],
-  [
-    "",
-    "test-file/src/module/array/groupBy.test.js.html#lineNumber3",
-    "groupBy [1, 2, 3] to equals Map({true => [1, 2], false => 2})",
-    "test"
-  ],
-  [
-    "",
-    "test-file/src/module/array/range.test.js.html#lineNumber3",
-    "range 1-3 is [1,2,3]",
     "test"
   ],
   [
@@ -888,6 +930,66 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "src/module/date/datebetween.js",
+    "file/src/module/date/dateBetween.js.html",
+    "src/module/date/dateBetween.js",
+    "file"
+  ],
+  [
+    "src/module/date/datebetween.test.js",
+    "test-file/src/module/date/dateBetween.test.js.html",
+    "src/module/date/dateBetween.test.js",
+    "testFile"
+  ],
+  [
+    "src/module/date/dateconstants.js",
+    "file/src/module/date/dateConstants.js.html",
+    "src/module/date/dateConstants.js",
+    "file"
+  ],
+  [
+    "src/module/date/dateconstants.js~dateconstants#dayend",
+    "class/src/module/date/dateConstants.js~DateConstants.html#instance-method-dayEnd",
+    "src/module/date/dateConstants.js~DateConstants#dayEnd",
+    "method"
+  ],
+  [
+    "src/module/date/dateconstants.js~dateconstants#daystart",
+    "class/src/module/date/dateConstants.js~DateConstants.html#instance-method-dayStart",
+    "src/module/date/dateConstants.js~DateConstants#dayStart",
+    "method"
+  ],
+  [
+    "src/module/date/dateconstants.js~dateconstants#yearend",
+    "class/src/module/date/dateConstants.js~DateConstants.html#instance-method-yearEnd",
+    "src/module/date/dateConstants.js~DateConstants#yearEnd",
+    "method"
+  ],
+  [
+    "src/module/date/dateconstants.js~dateconstants#yearstart",
+    "class/src/module/date/dateConstants.js~DateConstants.html#instance-method-yearStart",
+    "src/module/date/dateConstants.js~DateConstants#yearStart",
+    "method"
+  ],
+  [
+    "src/module/date/dateconstants.test.js",
+    "test-file/src/module/date/dateConstants.test.js.html",
+    "src/module/date/dateConstants.test.js",
+    "testFile"
+  ],
+  [
+    "src/module/date/dateenhance.js",
+    "file/src/module/date/dateEnhance.js.html",
+    "src/module/date/dateEnhance.js",
+    "file"
+  ],
+  [
+    "src/module/date/dateenhance.test.js",
+    "test-file/src/module/date/dateEnhance.test.js.html",
+    "src/module/date/dateEnhance.test.js",
+    "testFile"
+  ],
+  [
     "src/module/date/dateformat.js",
     "file/src/module/date/dateFormat.js.html",
     "src/module/date/dateFormat.js",
@@ -897,6 +999,30 @@ window.esdocSearchIndex = [
     "src/module/date/dateformat.test.js",
     "test-file/src/module/date/dateFormat.test.js.html",
     "src/module/date/dateFormat.test.js",
+    "testFile"
+  ],
+  [
+    "src/module/date/dateparse.js",
+    "file/src/module/date/dateParse.js.html",
+    "src/module/date/dateParse.js",
+    "file"
+  ],
+  [
+    "src/module/date/dateparse.test.js",
+    "test-file/src/module/date/dateParse.test.js.html",
+    "src/module/date/dateParse.test.js",
+    "testFile"
+  ],
+  [
+    "src/module/date/getyearweek.js",
+    "file/src/module/date/getYearWeek.js.html",
+    "src/module/date/getYearWeek.js",
+    "file"
+  ],
+  [
+    "src/module/date/getyearweek.test.js",
+    "test-file/src/module/date/getYearWeek.test.js.html",
+    "src/module/date/getYearWeek.test.js",
     "testFile"
   ],
   [
@@ -916,6 +1042,12 @@ window.esdocSearchIndex = [
     "file/src/module/dom/copyText.js.html",
     "src/module/dom/copyText.js",
     "file"
+  ],
+  [
+    "src/module/dom/copytext.test.js",
+    "test-file/src/module/dom/copyText.test.js.html",
+    "src/module/dom/copyText.test.js",
+    "testFile"
   ],
   [
     "src/module/dom/createelbystring.js",
@@ -1122,6 +1254,30 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "src/module/function/onceofsameparam.js",
+    "file/src/module/function/onceOfSameParam.js.html",
+    "src/module/function/onceOfSameParam.js",
+    "file"
+  ],
+  [
+    "src/module/function/onceofsameparam.test.js",
+    "test-file/src/module/function/onceOfSameParam.test.js.html",
+    "src/module/function/onceOfSameParam.test.js",
+    "testFile"
+  ],
+  [
+    "src/module/function/onec.js",
+    "file/src/module/function/onec.js.html",
+    "src/module/function/onec.js",
+    "file"
+  ],
+  [
+    "src/module/function/onec.test.js",
+    "test-file/src/module/function/onec.test.js.html",
+    "src/module/function/onec.test.js",
+    "testFile"
+  ],
+  [
     "src/module/function/returnitself.js",
     "file/src/module/function/returnItself.js.html",
     "src/module/function/returnItself.js",
@@ -1131,6 +1287,18 @@ window.esdocSearchIndex = [
     "src/module/function/returnitself.test.js",
     "test-file/src/module/function/returnItself.test.js.html",
     "src/module/function/returnItself.test.js",
+    "testFile"
+  ],
+  [
+    "src/module/function/returnreasonableitself.js",
+    "file/src/module/function/returnReasonableItself.js.html",
+    "src/module/function/returnReasonableItself.js",
+    "file"
+  ],
+  [
+    "src/module/function/returnreasonableitself.test.js",
+    "test-file/src/module/function/returnReasonableItself.test.js.html",
+    "src/module/function/returnReasonableItself.test.js",
     "testFile"
   ],
   [
@@ -1230,6 +1398,18 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "src/module/number/isrange.js",
+    "file/src/module/number/isRange.js.html",
+    "src/module/number/isRange.js",
+    "file"
+  ],
+  [
+    "src/module/number/isrange.test.js",
+    "test-file/src/module/number/isRange.test.js.html",
+    "src/module/number/isRange.test.js",
+    "testFile"
+  ],
+  [
     "src/module/number/randomint.js",
     "file/src/module/number/randomInt.js.html",
     "src/module/number/randomInt.js",
@@ -1272,9 +1452,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/module/obj/exculdefields.test.js",
-    "test-file/src/module/obj/exculdeFields.test.js.html",
-    "src/module/obj/exculdeFields.test.js",
+    "src/module/obj/excludefields.test.js",
+    "test-file/src/module/obj/excludeFields.test.js.html",
+    "src/module/obj/excludeFields.test.js",
     "testFile"
   ],
   [
@@ -1374,9 +1554,15 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
-    "",
-    "test-file/src/module/function/StateMachine.test.js.html#lineNumber2",
+    "statemachine src/module/function/statemachine.js~statemachine,statemachine",
+    "test-file/src/module/function/StateMachine.test.js.html#lineNumber6",
     "test StateMachine",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/StateMachine.test.js.html#lineNumber7",
+    "test StateMachine simple example",
     "test"
   ],
   [
@@ -1386,15 +1572,39 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/formdata/appends.test.js.html#lineNumber3",
+    "appends src/module/formdata/appends.js~appends,appends",
+    "test-file/src/module/formdata/appends.test.js.html#lineNumber6",
     "test appends",
     "test"
   ],
   [
     "",
-    "test-file/src/module/array/asyncFlatMap.test.js.html#lineNumber4",
+    "test-file/src/module/formdata/appends.test.js.html#lineNumber7",
+    "test appends simple example",
+    "test"
+  ],
+  [
+    "arraytomap src/module/array/arraytomap.js~arraytomap,arraytomap",
+    "test-file/src/module/array/arrayToMap.test.js.html#lineNumber6",
+    "test arrayToMap",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/arrayToMap.test.js.html#lineNumber7",
+    "test arrayToMap arrayToMap [1, 2, 3] to equals Map({1 => 1, 2 => 2, 3 => 3})",
+    "test"
+  ],
+  [
+    "asyncflatmap src/module/array/asyncflatmap.js~asyncflatmap,asyncflatmap",
+    "test-file/src/module/array/asyncFlatMap.test.js.html#lineNumber7",
     "test asyncFlatMap",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/asyncFlatMap.test.js.html#lineNumber8",
+    "test asyncFlatMap test simple example",
     "test"
   ],
   [
@@ -1416,9 +1626,15 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/obj/blankToNullField.test.js.html#lineNumber3",
+    "blanktonullfield src/module/obj/blanktonullfield.js~blanktonullfield,blanktonullfield",
+    "test-file/src/module/obj/blankToNullField.test.js.html#lineNumber6",
     "test blankToNullField",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/obj/blankToNullField.test.js.html#lineNumber7",
+    "test blankToNullField test blankToNullField",
     "test"
   ],
   [
@@ -1431,6 +1647,78 @@ window.esdocSearchIndex = [
     "",
     "test-file/src/module/dom/createElByString.test.js.html#lineNumber6",
     "test createElByString test normal situation",
+    "test"
+  ],
+  [
+    "datebetween src/module/date/datebetween.js~datebetween,datebetween",
+    "test-file/src/module/date/dateBetween.test.js.html#lineNumber6",
+    "test dateBetween",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateBetween.test.js.html#lineNumber24",
+    "test dateBetween test decimals",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateBetween.test.js.html#lineNumber18",
+    "test dateBetween test negative value",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateBetween.test.js.html#lineNumber7",
+    "test dateBetween test simple example",
+    "test"
+  ],
+  [
+    "dateconstants src/module/date/dateconstants.js~dateconstants,dateconstants",
+    "test-file/src/module/date/dateConstants.test.js.html#lineNumber5",
+    "test dateConstants",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateConstants.test.js.html#lineNumber13",
+    "test dateConstants test get day end",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateConstants.test.js.html#lineNumber6",
+    "test dateConstants test get day start",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateConstants.test.js.html#lineNumber26",
+    "test dateConstants test get year end",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateConstants.test.js.html#lineNumber20",
+    "test dateConstants test get year start",
+    "test"
+  ],
+  [
+    "dateenhance src/module/date/dateenhance.js~dateenhance,dateenhance",
+    "test-file/src/module/date/dateEnhance.test.js.html#lineNumber5",
+    "test dateEnhance",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateEnhance.test.js.html#lineNumber22",
+    "test dateEnhance test quarter",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateEnhance.test.js.html#lineNumber6",
+    "test dateEnhance test simple example",
     "test"
   ],
   [
@@ -1458,57 +1746,123 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "dateparse src/module/date/dateparse.js~dateparse,dateparse",
+    "test-file/src/module/date/dateParse.test.js.html#lineNumber7",
+    "test dateParse",
+    "test"
+  ],
+  [
     "",
-    "test-file/src/module/function/debounce.test.js.html#lineNumber3",
+    "test-file/src/module/date/dateParse.test.js.html#lineNumber27",
+    "test dateParse test error date for 13 month",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateParse.test.js.html#lineNumber8",
+    "test dateParse test normal parse string to date",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateParse.test.js.html#lineNumber21",
+    "test dateParse test the wrong string format",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/dateParse.test.js.html#lineNumber24",
+    "test dateParse test year for two numbers",
+    "test"
+  ],
+  [
+    "debounce src/module/function/debounce.js~debounce,debounce",
+    "test-file/src/module/function/debounce.test.js.html#lineNumber7",
     "test debounce",
     "test"
   ],
   [
     "",
-    "test-file/src/module/formdata/deletes.test.js.html#lineNumber4",
+    "test-file/src/module/function/debounce.test.js.html#lineNumber8",
+    "test debounce simple example",
+    "test"
+  ],
+  [
+    "deletes src/module/formdata/deletes.js~deletes,deletes",
+    "test-file/src/module/formdata/deletes.test.js.html#lineNumber7",
     "test deletes",
     "test"
   ],
   [
     "",
-    "test-file/src/module/obj/emptyAllField.test.js.html#lineNumber3",
+    "test-file/src/module/formdata/deletes.test.js.html#lineNumber8",
+    "test deletes simple example",
+    "test"
+  ],
+  [
+    "emptyallfield src/module/obj/emptyallfield.js~emptyallfield,emptyallfield",
+    "test-file/src/module/obj/emptyAllField.test.js.html#lineNumber6",
     "test emptyAllField",
     "test"
   ],
   [
+    "",
+    "test-file/src/module/obj/emptyAllField.test.js.html#lineNumber7",
+    "test emptyAllField test emptyAllField",
+    "test"
+  ],
+  [
     "excludefields src/module/obj/excludefields.js~excludefields,excludefields",
-    "test-file/src/module/obj/exculdeFields.test.js.html#lineNumber6",
+    "test-file/src/module/obj/excludeFields.test.js.html#lineNumber6",
     "test exculdeFields",
     "test"
   ],
   [
     "",
-    "test-file/src/module/obj/exculdeFields.test.js.html#lineNumber16",
+    "test-file/src/module/obj/excludeFields.test.js.html#lineNumber16",
     "test exculdeFields test normal object and normal fields",
     "test"
   ],
   [
     "",
-    "test-file/src/module/obj/exculdeFields.test.js.html#lineNumber11",
+    "test-file/src/module/obj/excludeFields.test.js.html#lineNumber11",
     "test exculdeFields test normal object and not exculde any field.",
     "test"
   ],
   [
-    "",
-    "test-file/src/module/string/fill.test.js.html#lineNumber3",
+    "fill src/module/string/fill.js~fill,fill",
+    "test-file/src/module/string/fill.test.js.html#lineNumber6",
     "test fill",
     "test"
   ],
   [
     "",
-    "test-file/src/module/array/flatMap.test.js.html#lineNumber3",
+    "test-file/src/module/string/fill.test.js.html#lineNumber7",
+    "test fill test fill",
+    "test"
+  ],
+  [
+    "flatmap src/module/array/flatmap.js~flatmap,flatmap",
+    "test-file/src/module/array/flatMap.test.js.html#lineNumber7",
     "test flatMap",
     "test"
   ],
   [
     "",
-    "test-file/src/module/formdata/formDataToArray.test.js.html#lineNumber4",
+    "test-file/src/module/array/flatMap.test.js.html#lineNumber8",
+    "test flatMap test simple example",
+    "test"
+  ],
+  [
+    "formdatatoarray src/module/formdata/formdatatoarray.js~formdatatoarray,formdatatoarray",
+    "test-file/src/module/formdata/formDataToArray.test.js.html#lineNumber7",
     "test formDataToArray",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/formdata/formDataToArray.test.js.html#lineNumber8",
+    "test formDataToArray simple example",
     "test"
   ],
   [
@@ -1539,6 +1893,30 @@ window.esdocSearchIndex = [
     "",
     "test-file/src/module/dom/getCusorPostion.test.js.html#lineNumber10",
     "test getCusorPostion test normal situation",
+    "test"
+  ],
+  [
+    "getyearweek src/module/date/getyearweek.js~getyearweek,getyearweek",
+    "test-file/src/module/date/getYearWeek.test.js.html#lineNumber6",
+    "test getYearWeek",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/date/getYearWeek.test.js.html#lineNumber7",
+    "test getYearWeek 测试普通情况",
+    "test"
+  ],
+  [
+    "groupby src/module/array/groupby.js~groupby,groupby",
+    "test-file/src/module/array/groupBy.test.js.html#lineNumber6",
+    "test groupBy",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/groupBy.test.js.html#lineNumber7",
+    "test groupBy groupBy [1, 2, 3] to equals Map({true => [1, 2], false => 2})",
     "test"
   ],
   [
@@ -1578,15 +1956,39 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/string/isFloat.test.js.html#lineNumber3",
+    "isfloat src/module/string/isfloat.js~isfloat,isfloat",
+    "test-file/src/module/string/isFloat.test.js.html#lineNumber6",
     "test isFloat",
     "test"
   ],
   [
     "",
-    "test-file/src/module/string/isNumber.test.js.html#lineNumber4",
+    "test-file/src/module/string/isFloat.test.js.html#lineNumber7",
+    "test isFloat test isFloat",
+    "test"
+  ],
+  [
+    "isnumber src/module/string/isnumber.js~isnumber,isnumber",
+    "test-file/src/module/string/isNumber.test.js.html#lineNumber6",
     "test isNumber",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/string/isNumber.test.js.html#lineNumber7",
+    "test isNumber test isNumber",
+    "test"
+  ],
+  [
+    "isrange src/module/number/isrange.js~isrange,isrange",
+    "test-file/src/module/number/isRange.test.js.html#lineNumber5",
+    "test isRange",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/number/isRange.test.js.html#lineNumber6",
+    "test isRange test normal situation",
     "test"
   ],
   [
@@ -1614,39 +2016,111 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/main.test.js.html#lineNumber6",
+    "main main,main",
+    "test-file/src/main.test.js.html#lineNumber9",
     "test main",
     "test"
   ],
   [
     "",
     "test-file/src/main.test.js.html#lineNumber10",
-    "test main, use dateFormat for import {}",
+    "test main test dateFormat for global object rx",
     "test"
   ],
   [
     "",
-    "test-file/src/module/obj/mapToObject.test.js.html#lineNumber3",
+    "test-file/src/main.test.js.html#lineNumber14",
+    "test main test main, use dateFormat for import {}",
+    "test"
+  ],
+  [
+    "maptoobject src/module/obj/maptoobject.js~maptoobject,maptoobject",
+    "test-file/src/module/obj/mapToObject.test.js.html#lineNumber6",
     "test mapToObject",
     "test"
   ],
   [
     "",
-    "test-file/src/module/dom/getSelectText.test.js.html#lineNumber17",
-    "test normal situation",
+    "test-file/src/module/obj/mapToObject.test.js.html#lineNumber7",
+    "test mapToObject simple example",
     "test"
   ],
   [
     "",
-    "test-file/src/module/formdata/objToFormData.test.js.html#lineNumber3",
+    "test-file/src/module/dom/getSelectText.test.js.html#lineNumber18",
+    "test normal situation",
+    "test"
+  ],
+  [
+    "objtoformdata src/module/formdata/objtoformdata.js~objtoformdata,objtoformdata",
+    "test-file/src/module/formdata/objToFormData.test.js.html#lineNumber6",
     "test objToFormData",
     "test"
   ],
   [
     "",
-    "test-file/src/module/ajax/parseUrl.test.js.html#lineNumber3",
+    "test-file/src/module/formdata/objToFormData.test.js.html#lineNumber7",
+    "test objToFormData simple example",
+    "test"
+  ],
+  [
+    "onceofsameparam src/module/function/onceofsameparam.js~onceofsameparam,onceofsameparam",
+    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber7",
+    "test onceOfSameParam",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber8",
+    "test onceOfSameParam simple example",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber24",
+    "test onceOfSameParam simple example for custom paramater converter",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber45",
+    "test onceOfSameParam test async function for custom paramater converter",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber33",
+    "test onceOfSameParam test simple async function",
+    "test"
+  ],
+  [
+    "onec src/module/function/onec.js~onec,onec",
+    "test-file/src/module/function/onec.test.js.html#lineNumber6",
+    "test onec",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/onec.test.js.html#lineNumber15",
+    "test onec test async function",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/onec.test.js.html#lineNumber7",
+    "test onec test multiple calls plus one",
+    "test"
+  ],
+  [
+    "parseurl src/module/ajax/parseurl.js~parseurl,parseurl",
+    "test-file/src/module/ajax/parseUrl.test.js.html#lineNumber6",
     "test parseUrl",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/ajax/parseUrl.test.js.html#lineNumber7",
+    "test parseUrl test simple example",
     "test"
   ],
   [
@@ -1671,6 +2145,18 @@ window.esdocSearchIndex = [
     "",
     "test-file/src/module/number/randomInt.test.js.html#lineNumber19",
     "test randomInt test for single sepecify max",
+    "test"
+  ],
+  [
+    "range src/module/array/range.js~range,range",
+    "test-file/src/module/array/range.test.js.html#lineNumber6",
+    "test range",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/range.test.js.html#lineNumber7",
+    "test range range 1-3 is [1,2,3]",
     "test"
   ],
   [
@@ -1710,27 +2196,69 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/function/returnItself.test.js.html#lineNumber3",
-    "test returnItSelf",
+    "returnitself src/module/function/returnitself.js~returnitself,returnitself",
+    "test-file/src/module/function/returnItself.test.js.html#lineNumber6",
+    "test returnItself",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/safeExec.test.js.html#lineNumber3",
-    "test safeExec normal",
+    "test-file/src/module/function/returnItself.test.js.html#lineNumber7",
+    "test returnItself simple example",
+    "test"
+  ],
+  [
+    "returnreasonableitself src/module/function/returnreasonableitself.js~returnreasonableitself,returnreasonableitself",
+    "test-file/src/module/function/returnReasonableItself.test.js.html#lineNumber6",
+    "test returnReasonableItself",
     "test"
   ],
   [
     "",
+    "test-file/src/module/function/returnReasonableItself.test.js.html#lineNumber19",
+    "test returnReasonableItself test array paramater",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/returnReasonableItself.test.js.html#lineNumber17",
+    "test returnReasonableItself test multiple paramater",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/returnReasonableItself.test.js.html#lineNumber14",
+    "test returnReasonableItself test no paramater",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/returnReasonableItself.test.js.html#lineNumber7",
+    "test returnReasonableItself test singleton paramater",
+    "test"
+  ],
+  [
+    "safeexec src/module/function/safeexec.js~safeexec,safeexec",
     "test-file/src/module/function/safeExec.test.js.html#lineNumber6",
-    "test safeExec throw Error",
+    "test safeExec",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/safeExec.test.js.html#lineNumber13",
-    "test safeExec throw Error, and set default value",
+    "test-file/src/module/function/safeExec.test.js.html#lineNumber7",
+    "test safeExec test safeExec normal",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/safeExec.test.js.html#lineNumber10",
+    "test safeExec test safeExec throw Error",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/safeExec.test.js.html#lineNumber17",
+    "test safeExec test safeExec throw Error, and set default value",
     "test"
   ],
   [
@@ -1746,15 +2274,33 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/formdata/sets.test.js.html#lineNumber4",
+    "sets src/module/formdata/sets.js~sets,sets",
+    "test-file/src/module/formdata/sets.test.js.html#lineNumber7",
     "test sets",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/singleModel.test.js.html#lineNumber3",
-    "test singleModel for no parameter",
+    "test-file/src/module/formdata/sets.test.js.html#lineNumber8",
+    "test sets simple example",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/dom/copyText.test.js.html#lineNumber8",
+    "test simple copy text",
+    "test"
+  ],
+  [
+    "singlemodel src/module/function/singlemodel.js~singlemodel,singlemodel",
+    "test-file/src/module/function/singleModel.test.js.html#lineNumber6",
+    "test singleModel",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/singleModel.test.js.html#lineNumber7",
+    "test singleModel test singleModel for no parameter",
     "test"
   ],
   [
@@ -1836,21 +2382,33 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/function/throttle.test.js.html#lineNumber4",
+    "throttle src/module/function/throttle.js~throttle,throttle",
+    "test-file/src/module/function/throttle.test.js.html#lineNumber7",
     "test throttle",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/timing.test.js.html#lineNumber4",
-    "test timing for normal function",
+    "test-file/src/module/function/throttle.test.js.html#lineNumber8",
+    "test throttle simple example",
+    "test"
+  ],
+  [
+    "timing src/module/function/timing.js~timing,timing",
+    "test-file/src/module/function/timing.test.js.html#lineNumber7",
+    "test timing",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/timing.test.js.html#lineNumber16",
-    "test timing for promise function",
+    "test-file/src/module/function/timing.test.js.html#lineNumber8",
+    "test timing test timing for normal function",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/timing.test.js.html#lineNumber20",
+    "test timing test timing for promise function",
     "test"
   ],
   [
@@ -1872,9 +2430,15 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/array/toObject.test.js.html#lineNumber3",
+    "toobject src/module/array/toobject.js~toobject,toobject",
+    "test-file/src/module/array/toObject.test.js.html#lineNumber6",
     "test toObject",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/toObject.test.js.html#lineNumber7",
+    "test toObject simple example",
     "test"
   ],
   [
@@ -1902,9 +2466,15 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/array/uniqueBy.test.js.html#lineNumber2",
+    "uniqueby src/module/array/uniqueby.js~uniqueby,uniqueby",
+    "test-file/src/module/array/uniqueBy.test.js.html#lineNumber6",
     "test uniqueBy",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/uniqueBy.test.js.html#lineNumber7",
+    "test uniqueBy simple example",
     "test"
   ],
   [
@@ -1932,9 +2502,15 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/function/waitResource.test.js.html#lineNumber3",
+    "waitresource src/module/function/waitresource.js~waitresource,waitresource",
+    "test-file/src/module/function/waitResource.test.js.html#lineNumber6",
     "test waitResource",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/waitResource.test.js.html#lineNumber7",
+    "test waitResource test waitResource",
     "test"
   ],
   [
@@ -1962,9 +2538,15 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "",
-    "test-file/src/module/function/watchObject.test.js.html#lineNumber3",
+    "watchobject src/module/function/watchobject.js~watchobject,watchobject",
+    "test-file/src/module/function/watchObject.test.js.html#lineNumber6",
     "test watchObject",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/watchObject.test.js.html#lineNumber7",
+    "test watchObject simple example",
     "test"
   ]
 ]

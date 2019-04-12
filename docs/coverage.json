@@ -1,7 +1,7 @@
 {
-  "coverage": "74.15%",
-  "expectCount": 89,
-  "actualCount": 66,
+  "coverage": "98.46%",
+  "expectCount": 130,
+  "actualCount": 128,
   "files": {
     "src/module/ajax/download.js": {
       "expectCount": 1,
@@ -20,13 +20,8 @@
     },
     "src/module/ajax/FetchLimiting.js": {
       "expectCount": 7,
-      "actualCount": 3,
-      "undocumentLines": [
-        26,
-        27,
-        28,
-        29
-      ]
+      "actualCount": 7,
+      "undocumentLines": []
     },
     "src/module/ajax/fetchTimeout.js": {
       "expectCount": 1,
@@ -45,17 +40,9 @@
     },
     "src/module/ajax/parseUrl.js": {
       "expectCount": 12,
-      "actualCount": 3,
+      "actualCount": 11,
       "undocumentLines": [
-        27,
-        28,
-        29,
-        30,
-        31,
-        32,
-        33,
-        34,
-        53
+        79
       ]
     },
     "src/module/ajax/readLocal.js": {
@@ -65,11 +52,8 @@
     },
     "src/module/ajax/spliceParams.js": {
       "expectCount": 3,
-      "actualCount": 1,
-      "undocumentLines": [
-        4,
-        5
-      ]
+      "actualCount": 3,
+      "undocumentLines": []
     },
     "src/module/ajax/strToArrayBuffer.js": {
       "expectCount": 1,
@@ -116,22 +100,42 @@
       "actualCount": 1,
       "undocumentLines": []
     },
+    "src/module/date/dateBetween.js": {
+      "expectCount": 12,
+      "actualCount": 12,
+      "undocumentLines": []
+    },
+    "src/module/date/dateConstants.js": {
+      "expectCount": 6,
+      "actualCount": 6,
+      "undocumentLines": []
+    },
+    "src/module/date/dateEnhance.js": {
+      "expectCount": 17,
+      "actualCount": 17,
+      "undocumentLines": []
+    },
     "src/module/date/dateFormat.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
     },
-    "src/module/date/strToDate.js": {
+    "src/module/date/dateParse.js": {
       "expectCount": 8,
-      "actualCount": 2,
+      "actualCount": 7,
       "undocumentLines": [
-        18,
-        19,
-        20,
-        21,
-        26,
-        43
+        57
       ]
+    },
+    "src/module/date/getYearWeek.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/module/date/strToDate.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "src/module/dom/copyText.js": {
       "expectCount": 1,
@@ -218,7 +222,22 @@
       "actualCount": 1,
       "undocumentLines": []
     },
+    "src/module/function/onceOfSameParam.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/module/function/onec.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
     "src/module/function/returnItself.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/module/function/returnReasonableItself.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
@@ -268,6 +287,11 @@
       "actualCount": 1,
       "undocumentLines": []
     },
+    "src/module/number/isRange.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
     "src/module/number/randomInt.js": {
       "expectCount": 1,
       "actualCount": 1,
@@ -310,17 +334,13 @@
     },
     "src/module/string/isFloat.js": {
       "expectCount": 2,
-      "actualCount": 1,
-      "undocumentLines": [
-        2
-      ]
+      "actualCount": 2,
+      "undocumentLines": []
     },
     "src/module/string/isNumber.js": {
       "expectCount": 2,
-      "actualCount": 1,
-      "undocumentLines": [
-        2
-      ]
+      "actualCount": 2,
+      "undocumentLines": []
     },
     "src/module/string/toLowerCase.js": {
       "expectCount": 1,

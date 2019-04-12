@@ -41,11 +41,48 @@ describe('test onceOfSameParam', () => {
     // 换个名字就不同了
     expect(await fn('ling_meng')).not.toBe(res)
   })
-
   it('test async function for custom paramater converter', async () => {
     // 模拟加倍用户年龄的异步函数
     const doubleAge = async user => user.age * 2
     const fn = onceOfSameParam(doubleAge, user => user.name)
+    expect(await fn(new User('rxliuli', 10))).toEqual(20)
+    expect(await fn(new User('rxliuli', 20))).toEqual(20)
+    expect(await fn(new User('rxliuli'))).toEqual(20)
+  })
+  it('test this for lambda', async function () {
+    // 模拟加倍用户年龄的异步函数
+    this.i = 10
+    // 注意: 需要自动绑定 this 的话则函数必须是箭头表达式而非 function
+    const doubleAge = async () => {
+      this.i = this.i * 2
+      return this.i
+    }
+    const fn = onceOfSameParam(doubleAge, user => user.name)
+    expect(await fn(new User('rxliuli', 10))).toEqual(20)
+    expect(await fn(new User('rxliuli', 20))).toEqual(20)
+    expect(await fn(new User('rxliuli'))).toEqual(20)
+  })
+  it('test this for function', async function () {
+    // 模拟加倍用户年龄的异步函数
+    this.i = 10
+    // 注意: 需要自动绑定 this 的话则函数必须是箭头表达式而非 function
+    const doubleAge = async function () {
+      this.i = this.i * 2
+      return this.i
+    }
+    const fn = onceOfSameParam(doubleAge, user => user.name)
+    expect(await fn(new User('rxliuli', 10))).toEqual(20)
+    expect(await fn(new User('rxliuli', 20))).toEqual(20)
+    expect(await fn(new User('rxliuli'))).toEqual(20)
+  })
+  it('test this for bind', async () => {
+    // 模拟加倍用户年龄的异步函数
+    // 注意: 需要手动绑定 this 的话则函数必须是 function 而非箭头表达式
+    async function doubleAge () {
+      this.i = this.i * 2
+      return this.i
+    }
+    const fn = onceOfSameParam(doubleAge, user => user.name).bind({ i: 10 })
     expect(await fn(new User('rxliuli', 10))).toEqual(20)
     expect(await fn(new User('rxliuli', 20))).toEqual(20)
     expect(await fn(new User('rxliuli'))).toEqual(20)

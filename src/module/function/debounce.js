@@ -8,7 +8,7 @@
  * @param {Function} action 真正需要执行的操作
  * @return {Function} 包装后有去抖功能的函数
  */
-export function debounce (delay, action) {
+export const debounce = (delay, action) => {
   let tId
   return function (...args) {
     const context = this

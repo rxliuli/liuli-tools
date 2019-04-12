@@ -28,7 +28,7 @@ export class FetchLimiting {
      */
     this.limit = limit
     /**
-     * @field execCount 当前正在执行请求的数量
+     * @field execCount 当前正在执行异步的数量
      */
     this.execCount = 0
     /**

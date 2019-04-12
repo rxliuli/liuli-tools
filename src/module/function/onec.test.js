@@ -11,8 +11,14 @@ describe('test onec', () => {
     expect(fn(1)).toBe(1)
     expect(fn(2)).toBe(1)
   })
-
   it('test async function', async () => {
+    const add = async i => i - 1
+    const fn = onec(add)
+    expect(await fn(3)).toBe(2)
+    expect(await fn(2)).toBe(2)
+    expect(await fn(1)).toBe(2)
+  })
+  it('test this', async () => {
     const add = async i => i - 1
     const fn = onec(add)
     expect(await fn(3)).toBe(2)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1555041140596" clover="3.2.0">
-  <project timestamp="1555041140597" name="All files">
+<coverage generated="1555043725999" clover="3.2.0">
+  <project timestamp="1555043725999" name="All files">
     <metrics statements="450" coveredstatements="342" conditionals="184" coveredconditionals="135" methods="160" coveredmethods="123" elements="794" coveredelements="600" complexity="0" loc="450" ncloc="450" packages="11" files="70" classes="70"/>
     <package name="src">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -544,8 +544,8 @@
         <line num="14" count="1" type="stmt"/>
         <line num="15" count="10" type="stmt"/>
         <line num="16" count="10" type="cond" truecount="2" falsecount="0"/>
-        <line num="17" count="7" type="stmt"/>
-        <line num="18" count="7" type="stmt"/>
+        <line num="17" count="8" type="stmt"/>
+        <line num="18" count="8" type="stmt"/>
       </file>
       <file name="timing.js" path="D:\Text\rx-util\src\module\function\timing.js">
         <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>

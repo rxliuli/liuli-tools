@@ -16,8 +16,11 @@ describe('test timing', () => {
     }
     expect(timing(fn)).toBeGreaterThan(900)
   })
-
   it('test timing for promise function', async () => {
     expect(await timing(() => wait(1000))).toBeGreaterThan(1000)
+  })
+  it('test this', async function () {
+    this.num = 1000
+    expect(await timing(() => wait(this.num))).toBeGreaterThan(1000)
   })
 })

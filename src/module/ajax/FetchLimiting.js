@@ -47,11 +47,6 @@ export class FetchLimiting {
    */
   async fetch (url, init) {
     const _innerFetch = async () => {
-      console.log(
-        `执行 execCount: ${this.execCount}, waitArr length: ${
-          this.waitArr.length
-        }, index: ${JSON.stringify(this.waitArr[0])}`
-      )
       this.execCount++
       const args = this.waitArr.shift()
       try {

@@ -41,4 +41,14 @@ describe('test watch', () => {
       }
     )
   })
+  it('test this', function () {
+    this.now = 0
+    watch(
+      () => Date.now(),
+      () => {
+        expect(Date.now() - this.now).toBeLessThan(1000)
+        this.now = Date.now()
+      }
+    )
+  })
 })

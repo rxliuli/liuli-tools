@@ -5,7 +5,7 @@
  * @param {Number|Function} [param] 等待时间/等待条件
  * @returns {Promise} Promise 对象
  */
-export function wait (param) {
+export const wait = param => {
   return new Promise(resolve => {
     if (typeof param === 'number') {
       setTimeout(resolve, param)

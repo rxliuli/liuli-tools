@@ -9,18 +9,18 @@ describe('test timing', () => {
     const fn = () => {
       let now = Date.now()
       while (true) {
-        if (Date.now() - now > 1000) {
+        if (Date.now() - now > 100) {
           break
         }
       }
     }
-    expect(timing(fn)).toBeGreaterThan(900)
+    expect(timing(fn)).toBeGreaterThan(99)
   })
   it('test timing for promise function', async () => {
-    expect(await timing(() => wait(1000))).toBeGreaterThan(1000)
+    expect(await timing(() => wait(100))).toBeGreaterThan(95)
   })
   it('test this', async function () {
-    this.num = 1000
-    expect(await timing(() => wait(this.num))).toBeGreaterThan(1000)
+    this.num = 100
+    expect(await timing(() => wait(this.num))).toBeGreaterThan(95)
   })
 })

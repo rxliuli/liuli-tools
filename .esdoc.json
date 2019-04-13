@@ -5,6 +5,8 @@
     {
       "name": "esdoc-standard-plugin",
       "option": {
+        "lint": { "enable": true },
+        "coverage": { "enable": true },
         "test": {
           "source": "./src",
           "interfaces": ["describe", "it", "context", "suite", "test"],

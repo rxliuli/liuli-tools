@@ -8,5 +8,5 @@ import { range } from '../array/range'
  * @param  {...any} args 参数
  */
 export const repeatedCall = (num, fn, ...args) => {
-  return range(0, num).map(() => fn.call(this, ...args))
+  return range(0, num).map(() => fn(...args))
 }

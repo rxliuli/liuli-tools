@@ -8,7 +8,7 @@
  */
 export const safeExec = (fn, defaultVal = undefined, ...args) => {
   try {
-    return fn.call(this, ...args)
+    return fn(...args)
   } catch (err) {
     return defaultVal
   }

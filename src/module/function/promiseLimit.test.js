@@ -44,4 +44,17 @@ describe('test promiseLimit', () => {
     await wait(200)
     expect(this.i).toBeLessThanOrEqual(2)
   })
+  it('test this', async function () {
+    const obj = { i: 0 }
+    const add = async function () {
+      await wait(100)
+      this.i++
+    }
+    const fn = promiseLimit(add).bind(obj)
+    // 调用 5 次
+    repeatedCall(5, fn)
+    // 等待两百毫秒
+    await wait(200)
+    expect(obj.i).toBeLessThanOrEqual(2)
+  })
 })

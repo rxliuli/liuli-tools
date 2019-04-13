@@ -27,4 +27,16 @@ describe('test repeatedCall', () => {
     ])
     expect(this.i).toBe(6)
   })
+  it('test bind this', function () {
+    const obj = { i: 1 }
+    expect(
+      repeatedCall(
+        5,
+        function () {
+          return this.i++
+        }.bind(obj)
+      )
+    ).toIncludeSameMembers([1, 2, 3, 4, 5])
+    expect(obj.i).toBe(6)
+  })
 })

@@ -65,11 +65,12 @@ describe('test onceOfSameParam', () => {
   it('test this for function', async function () {
     // 模拟加倍用户年龄的异步函数
     this.i = 10
-    // 注意: 需要自动绑定 this 的话则函数必须是箭头表达式而非 function
+    // 注意: 需要绑定 this 且函数是 function 的话则必须手动绑定 this
     const doubleAge = async function () {
       this.i = this.i * 2
       return this.i
-    }
+    }.bind(this)
+
     const fn = onceOfSameParam(doubleAge, user => user.name)
     expect(await fn(new User('rxliuli', 10))).toEqual(20)
     expect(await fn(new User('rxliuli', 20))).toEqual(20)
@@ -77,7 +78,7 @@ describe('test onceOfSameParam', () => {
   })
   it('test this for bind', async () => {
     // 模拟加倍用户年龄的异步函数
-    // 注意: 需要手动绑定 this 的话则函数必须是 function 而非箭头表达式
+    // 或者绑定到返回的函数上面
     async function doubleAge () {
       this.i = this.i * 2
       return this.i

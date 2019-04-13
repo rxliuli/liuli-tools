@@ -11,10 +11,9 @@
 export const debounce = (delay, action) => {
   let tId
   return function (...args) {
-    const context = this
     if (tId) clearTimeout(tId)
-    tId = setTimeout(function () {
-      action.call(context, ...args)
+    tId = setTimeout(() => {
+      action.call(this, ...args)
     }, delay)
   }
 }

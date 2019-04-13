@@ -3,10 +3,10 @@
  * @param {Function} fn 需要包装的函数
  * @returns {Function} 包装后的函数
  */
-export function onec (fn) {
+export const onec = fn => {
   let flag = true
   let res
-  return (...args) => {
+  return function (...args) {
     if (flag === false) {
       return res
     }

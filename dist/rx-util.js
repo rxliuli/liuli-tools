@@ -382,7 +382,7 @@
    * @param {Number|Function} [param] 等待时间/等待条件
    * @returns {Promise} Promise 对象
    */
-  function wait (param) {
+  const wait = param => {
     return new Promise(resolve => {
       if (typeof param === 'number') {
         setTimeout(resolve, param);
@@ -397,7 +397,7 @@
         resolve();
       }
     })
-  }
+  };
 
   // @ts-check
 
@@ -427,7 +427,7 @@
        */
       this.limit = limit;
       /**
-       * @field execCount 当前正在执行请求的数量
+       * @field execCount 当前正在执行异步的数量
        */
       this.execCount = 0;
       /**
@@ -446,11 +446,6 @@
      */
     async fetch (url, init) {
       const _innerFetch = async () => {
-        console.log(
-          `执行 execCount: ${this.execCount}, waitArr length: ${
-          this.waitArr.length
-        }, index: ${JSON.stringify(this.waitArr[0])}`
-        );
         this.execCount++;
         const args = this.waitArr.shift();
         try {
@@ -1073,16 +1068,15 @@
    * @param {Function} action 真正需要执行的操作
    * @return {Function} 包装后有去抖功能的函数
    */
-  function debounce (delay, action) {
+  const debounce = (delay, action) => {
     let tId;
     return function (...args) {
-      const context = this;
       if (tId) clearTimeout(tId);
-      tId = setTimeout(function () {
-        action.call(context, ...args);
+      tId = setTimeout(() => {
+        action.call(this, ...args);
       }, delay);
     }
-  }
+  };
 
   // @ts-check
   /**
@@ -1099,14 +1093,16 @@
    * 安全执行某个函数
    * @param {Function} fn 需要执行的函数
    * @param {Object} [defaultVal=undefined] 发生异常后的默认返回值，默认为 undefined
+   * @param {...Object} [args] 可选的函数参数
+   * @returns {Object|undefined} 函数执行的结果，或者其默认值
    */
-  function safeExec (fn, defaultVal = undefined) {
+  const safeExec = (fn, defaultVal = undefined, ...args) => {
     try {
-      return fn()
+      return fn(...args)
     } catch (err) {
       return defaultVal
     }
-  }
+  };
 
   // @ts-check
   /**
@@ -1204,30 +1200,30 @@
    * @param {Function} fn 需要测试的函数
    * @returns {Number|Promise} 执行的毫秒数
    */
-  function timing (fn) {
-    var begin = performance.now();
-    var result = fn();
+  const timing = fn => {
+    const begin = performance.now();
+    const result = fn();
     if (!(result instanceof Promise)) {
       return performance.now() - begin
     }
     return result.then(() => performance.now() - begin)
-  }
+  };
 
   // @ts-check
   /**
    * 轮询等待指定资源加载完毕再执行操作
    * 使用 Promises 实现，可以使用 ES7 的 {@async}/{@await} 调用
-   * @param {Function} resourceFn 判断必须的资源是否存在的方法
+   * @param {Function} fn 判断必须的资源是否存在的方法
    * @param {Object} option 可配置项
    * @param {Number} [option.interval=100] 轮询间隔
    * @param {Number} [option.max=10] 最大轮询次数
    * @returns Promise 对象
    */
-  function waitResource (resourceFn, { interval = 100, max = 10 } = {}) {
+  const waitResource = (fn, { interval = 100, max = 10 } = {}) => {
     var current = 0;
     return new Promise((resolve, reject) => {
       var timer = setInterval(() => {
-        if (resourceFn()) {
+        if (fn()) {
           clearInterval(timer);
           resolve();
         }
@@ -1238,7 +1234,7 @@
         }
       }, interval);
     })
-  }
+  };
 
   // @ts-check
 
@@ -1249,7 +1245,7 @@
    * @param {Number} [interval=100] 每次检查的间隔时间，默认为 100ms
    * @returns {Function} 关闭这个监视函数
    */
-  function watch (fn, callback, interval = 100) {
+  const watch = (fn, callback, interval = 100) => {
     let oldVal = safeExec(fn);
     const timer = setInterval(() => {
       const newVal = safeExec(fn);
@@ -1259,7 +1255,7 @@
       }
     }, interval);
     return () => clearInterval(timer)
-  }
+  };
 
   // @ts-check
   /**
@@ -1301,6 +1297,7 @@
    * @param {String} str 要进行格式化的值
    * @param {Object} args 格式化参数值，替换字符串中的 {} 的值
    * @returns {String} 替换完成的字符串
+   * @deprecated 已废弃，请使用 ES6 模板字符串 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/template_strings
    */
   function format (str, args) {
     if (!args) {
@@ -1795,17 +1792,17 @@
    * @param {Function} fn 需要包装的函数
    * @returns {Function} 包装后的函数
    */
-  function onec (fn) {
+  const onec = fn => {
     let flag = true;
     let res;
-    return (...args) => {
+    return function (...args) {
       if (flag === false) {
         return res
       }
       flag = false;
       return (res = fn.call(this, ...args))
     }
-  }
+  };
 
   // @ts-check
 
@@ -1815,12 +1812,12 @@
    * @param {Function} paramConverter 参数转换的函数，参数为需要包装函数的参数
    * @returns {Function} 需要被包装的函数
    */
-  function onceOfSameParam (
+  const onceOfSameParam = (
     fn,
     paramConverter = (...args) => JSON.stringify(args)
-  ) {
+  ) => {
     const paramMap = new Map();
-    return (...args) => {
+    return function (...args) {
       const key = paramConverter(args);
       const old = paramMap.get(key);
       if (old !== undefined) {
@@ -1836,7 +1833,7 @@
       paramMap.set(key, res);
       return res
     }
-  }
+  };
 
   // @ts-check
 
@@ -1859,9 +1856,74 @@
     return args
   }
 
+  // @ts-check
+
+  /**
+   * 从数组中移除指定的元素
+   * 注: 时间复杂度为 1~3On
+   * @param {Array} arr 需要被过滤的数组
+   * @param {Array} deleteItems 要过滤的元素数组
+   * @param {Function} [kFn=returnItself] 每个元素的唯一键函数
+   */
+  function filterItems (arr, deleteItems, kFn = returnItself) {
+    // @ts-ignore
+    const kSet = new Set(deleteItems.map(kFn));
+    return arr.filter(v => !kSet.has(kFn(v)))
+  }
+
+  // @ts-check
+
+  /**
+   * 数组之间的差异结果类
+   * @class ArrayDiff
+   */
+  class ArrayDiff {
+    /**
+     * 构造函数
+     * @param {Array} left 第一个数组独有的元素列表
+     * @param {Array} right 第二个数组独有的元素列表
+     * @param {Array} common 两个数组共有的元素列表
+     */
+    constructor (left, right, common) {
+      /**
+       * @field 第一个数组独有的元素列表
+       */
+      this.left = left;
+      /**
+       * @field 第二个数组独有的元素列表
+       */
+      this.right = right;
+      /**
+       * @field 两个数组共有的元素列表
+       */
+      this.common = common;
+    }
+  }
+
+  /**
+   * 比较两个数组的差异
+   * @param {Array} thanArr 第一个数组
+   * @param {Array} thatArr 第二个数组
+   * @param {Function} [kFn=returnItself] 每个元素的唯一键函数
+   * @returns {ArrayDiff} 比较的差异结果
+   */
+  function arrayDiffBy (thanArr, thatArr, kFn = returnItself) {
+    // @ts-ignore
+    const kThanSet = new Set(thanArr.map(kFn));
+    // @ts-ignore
+    const kThatSet = new Set(thatArr.map(kFn));
+    const left = thanArr.filter(v => !kThatSet.has(kFn(v)));
+    const right = thatArr.filter(v => !kThanSet.has(kFn(v)));
+    // @ts-ignore
+    const kLeftSet = new Set(left.map(kFn));
+    const common = thanArr.filter(v => !kLeftSet.has(kFn(v)));
+    return new ArrayDiff(left, right, common)
+  }
+
   exports.FetchLimiting = FetchLimiting;
   exports.StateMachine = StateMachine;
   exports.appends = appends;
+  exports.arrayDiffBy = arrayDiffBy;
   exports.arrayToMap = arrayToMap;
   exports.asIterator = asIterator;
   exports.asyncFlatMap = asyncFlatMap;
@@ -1883,6 +1945,7 @@
   exports.excludeFields = excludeFields;
   exports.fetchTimeout = fetchTimeout;
   exports.fill = fill;
+  exports.filterItems = filterItems;
   exports.flatMap = flatMap;
   exports.formDataToArray = formDataToArray;
   exports.format = format;

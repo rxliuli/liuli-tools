@@ -1,8 +1,26 @@
 window.esdocSearchIndex = [
   [
+    "rx-util/src/module/array/arraydiffby.js~arraydiff",
+    "class/src/module/array/arrayDiffBy.js~ArrayDiff.html",
+    "<span>ArrayDiff</span> <span class=\"search-result-import-path\">rx-util/src/module/array/arrayDiffBy.js</span>",
+    "class"
+  ],
+  [
+    "rx-util/src/module/date/datebetween.js~datebetween",
+    "class/src/module/date/dateBetween.js~DateBetween.html",
+    "<span>DateBetween</span> <span class=\"search-result-import-path\">rx-util/src/module/date/dateBetween.js</span>",
+    "class"
+  ],
+  [
     "rx-util/src/module/date/dateconstants.js~dateconstants",
     "class/src/module/date/dateConstants.js~DateConstants.html",
     "<span>DateConstants</span> <span class=\"search-result-import-path\">rx-util/src/module/date/dateConstants.js</span>",
+    "class"
+  ],
+  [
+    "rx-util/src/module/date/dateenhance.js~dateenhance",
+    "class/src/module/date/dateEnhance.js~DateEnhance.html",
+    "<span>DateEnhance</span> <span class=\"search-result-import-path\">rx-util/src/module/date/dateEnhance.js</span>",
     "class"
   ],
   [
@@ -21,6 +39,12 @@ window.esdocSearchIndex = [
     "rx-util/src/module/formdata/appends.js~appends",
     "function/index.html#static-function-appends",
     "<span>appends</span> <span class=\"search-result-import-path\">rx-util/src/module/formdata/appends.js</span>",
+    "function"
+  ],
+  [
+    "rx-util/src/module/array/arraydiffby.js~arraydiffby",
+    "function/index.html#static-function-arrayDiffBy",
+    "<span>arrayDiffBy</span> <span class=\"search-result-import-path\">rx-util/src/module/array/arrayDiffBy.js</span>",
     "function"
   ],
   [
@@ -150,6 +174,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "rx-util/src/module/array/filteritems.js~filteritems",
+    "function/index.html#static-function-filterItems",
+    "<span>filterItems</span> <span class=\"search-result-import-path\">rx-util/src/module/array/filterItems.js</span>",
+    "function"
+  ],
+  [
     "rx-util/src/module/array/flatmap.js~flatmap",
     "function/index.html#static-function-flatMap",
     "<span>flatMap</span> <span class=\"search-result-import-path\">rx-util/src/module/array/flatMap.js</span>",
@@ -270,6 +300,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "rx-util/src/module/function/promiselimit.js~promiselimit",
+    "function/index.html#static-function-promiseLimit",
+    "<span>promiseLimit</span> <span class=\"search-result-import-path\">rx-util/src/module/function/promiseLimit.js</span>",
+    "function"
+  ],
+  [
     "rx-util/src/module/number/randomint.js~randomint",
     "function/index.html#static-function-randomInt",
     "<span>randomInt</span> <span class=\"search-result-import-path\">rx-util/src/module/number/randomInt.js</span>",
@@ -297,6 +333,12 @@ window.esdocSearchIndex = [
     "rx-util/src/module/dom/removetext.js~removetext",
     "function/index.html#static-function-removeText",
     "<span>removeText</span> <span class=\"search-result-import-path\">rx-util/src/module/dom/removeText.js</span>",
+    "function"
+  ],
+  [
+    "rx-util/src/module/function/repeatedcall.js~repeatedcall",
+    "function/index.html#static-function-repeatedCall",
+    "<span>repeatedCall</span> <span class=\"search-result-import-path\">rx-util/src/module/function/repeatedCall.js</span>",
     "function"
   ],
   [
@@ -375,6 +417,12 @@ window.esdocSearchIndex = [
     "rx-util/src/module/array/toobject.js~toobject",
     "function/index.html#static-function-toObject",
     "<span>toObject</span> <span class=\"search-result-import-path\">rx-util/src/module/array/toObject.js</span>",
+    "function"
+  ],
+  [
+    "rx-util/src/module/function/tostring.js~tostring",
+    "function/index.html#static-function-toString",
+    "<span>toString</span> <span class=\"search-result-import-path\">rx-util/src/module/function/toString.js</span>",
     "function"
   ],
   [
@@ -834,6 +882,42 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/array/arraydiffby.js",
+    "file/src/module/array/arrayDiffBy.js.html",
+    "src/module/array/arrayDiffBy.js",
+    "file"
+  ],
+  [
+    "src/module/array/arraydiffby.js~arraydiff#common",
+    "class/src/module/array/arrayDiffBy.js~ArrayDiff.html#instance-member-common",
+    "src/module/array/arrayDiffBy.js~ArrayDiff#common",
+    "member"
+  ],
+  [
+    "src/module/array/arraydiffby.js~arraydiff#constructor",
+    "class/src/module/array/arrayDiffBy.js~ArrayDiff.html#instance-constructor-constructor",
+    "src/module/array/arrayDiffBy.js~ArrayDiff#constructor",
+    "method"
+  ],
+  [
+    "src/module/array/arraydiffby.js~arraydiff#left",
+    "class/src/module/array/arrayDiffBy.js~ArrayDiff.html#instance-member-left",
+    "src/module/array/arrayDiffBy.js~ArrayDiff#left",
+    "member"
+  ],
+  [
+    "src/module/array/arraydiffby.js~arraydiff#right",
+    "class/src/module/array/arrayDiffBy.js~ArrayDiff.html#instance-member-right",
+    "src/module/array/arrayDiffBy.js~ArrayDiff#right",
+    "member"
+  ],
+  [
+    "src/module/array/arraydiffby.test.js",
+    "test-file/src/module/array/arrayDiffBy.test.js.html",
+    "src/module/array/arrayDiffBy.test.js",
+    "testFile"
+  ],
+  [
     "src/module/array/arraytomap.js",
     "file/src/module/array/arrayToMap.js.html",
     "src/module/array/arrayToMap.js",
@@ -867,6 +951,18 @@ window.esdocSearchIndex = [
     "src/module/array/asyncflatmap.test.js",
     "test-file/src/module/array/asyncFlatMap.test.js.html",
     "src/module/array/asyncFlatMap.test.js",
+    "testFile"
+  ],
+  [
+    "src/module/array/filteritems.js",
+    "file/src/module/array/filterItems.js.html",
+    "src/module/array/filterItems.js",
+    "file"
+  ],
+  [
+    "src/module/array/filteritems.test.js",
+    "test-file/src/module/array/filterItems.test.js.html",
+    "src/module/array/filterItems.test.js",
     "testFile"
   ],
   [
@@ -936,6 +1032,66 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/module/date/datebetween.js~datebetween#constructor",
+    "class/src/module/date/dateBetween.js~DateBetween.html#instance-constructor-constructor",
+    "src/module/date/dateBetween.js~DateBetween#constructor",
+    "method"
+  ],
+  [
+    "src/module/date/datebetween.js~datebetween#day",
+    "class/src/module/date/dateBetween.js~DateBetween.html#instance-method-day",
+    "src/module/date/dateBetween.js~DateBetween#day",
+    "method"
+  ],
+  [
+    "src/module/date/datebetween.js~datebetween#end",
+    "class/src/module/date/dateBetween.js~DateBetween.html#instance-member-end",
+    "src/module/date/dateBetween.js~DateBetween#end",
+    "member"
+  ],
+  [
+    "src/module/date/datebetween.js~datebetween#hour",
+    "class/src/module/date/dateBetween.js~DateBetween.html#instance-method-hour",
+    "src/module/date/dateBetween.js~DateBetween#hour",
+    "method"
+  ],
+  [
+    "src/module/date/datebetween.js~datebetween#millisecond",
+    "class/src/module/date/dateBetween.js~DateBetween.html#instance-method-milliSecond",
+    "src/module/date/dateBetween.js~DateBetween#milliSecond",
+    "method"
+  ],
+  [
+    "src/module/date/datebetween.js~datebetween#minute",
+    "class/src/module/date/dateBetween.js~DateBetween.html#instance-method-minute",
+    "src/module/date/dateBetween.js~DateBetween#minute",
+    "method"
+  ],
+  [
+    "src/module/date/datebetween.js~datebetween#month",
+    "class/src/module/date/dateBetween.js~DateBetween.html#instance-method-month",
+    "src/module/date/dateBetween.js~DateBetween#month",
+    "method"
+  ],
+  [
+    "src/module/date/datebetween.js~datebetween#second",
+    "class/src/module/date/dateBetween.js~DateBetween.html#instance-method-second",
+    "src/module/date/dateBetween.js~DateBetween#second",
+    "method"
+  ],
+  [
+    "src/module/date/datebetween.js~datebetween#start",
+    "class/src/module/date/dateBetween.js~DateBetween.html#instance-member-start",
+    "src/module/date/dateBetween.js~DateBetween#start",
+    "member"
+  ],
+  [
+    "src/module/date/datebetween.js~datebetween#year",
+    "class/src/module/date/dateBetween.js~DateBetween.html#instance-method-year",
+    "src/module/date/dateBetween.js~DateBetween#year",
+    "method"
+  ],
+  [
     "src/module/date/datebetween.test.js",
     "test-file/src/module/date/dateBetween.test.js.html",
     "src/module/date/dateBetween.test.js",
@@ -982,6 +1138,90 @@ window.esdocSearchIndex = [
     "file/src/module/date/dateEnhance.js.html",
     "src/module/date/dateEnhance.js",
     "file"
+  ],
+  [
+    "src/module/date/dateenhance.js~dateenhance#constructor",
+    "class/src/module/date/dateEnhance.js~DateEnhance.html#instance-constructor-constructor",
+    "src/module/date/dateEnhance.js~DateEnhance#constructor",
+    "method"
+  ],
+  [
+    "src/module/date/dateenhance.js~dateenhance#date",
+    "class/src/module/date/dateEnhance.js~DateEnhance.html#instance-member-date",
+    "src/module/date/dateEnhance.js~DateEnhance#date",
+    "member"
+  ],
+  [
+    "src/module/date/dateenhance.js~dateenhance#dayofmonth",
+    "class/src/module/date/dateEnhance.js~DateEnhance.html#instance-method-dayOfMonth",
+    "src/module/date/dateEnhance.js~DateEnhance#dayOfMonth",
+    "method"
+  ],
+  [
+    "src/module/date/dateenhance.js~dateenhance#dayofweek",
+    "class/src/module/date/dateEnhance.js~DateEnhance.html#instance-method-dayOfWeek",
+    "src/module/date/dateEnhance.js~DateEnhance#dayOfWeek",
+    "method"
+  ],
+  [
+    "src/module/date/dateenhance.js~dateenhance#dayofyear",
+    "class/src/module/date/dateEnhance.js~DateEnhance.html#instance-method-dayOfYear",
+    "src/module/date/dateEnhance.js~DateEnhance#dayOfYear",
+    "method"
+  ],
+  [
+    "src/module/date/dateenhance.js~dateenhance#hour",
+    "class/src/module/date/dateEnhance.js~DateEnhance.html#instance-method-hour",
+    "src/module/date/dateEnhance.js~DateEnhance#hour",
+    "method"
+  ],
+  [
+    "src/module/date/dateenhance.js~dateenhance#millisecond",
+    "class/src/module/date/dateEnhance.js~DateEnhance.html#instance-method-milliSecond",
+    "src/module/date/dateEnhance.js~DateEnhance#milliSecond",
+    "method"
+  ],
+  [
+    "src/module/date/dateenhance.js~dateenhance#minute",
+    "class/src/module/date/dateEnhance.js~DateEnhance.html#instance-method-minute",
+    "src/module/date/dateEnhance.js~DateEnhance#minute",
+    "method"
+  ],
+  [
+    "src/module/date/dateenhance.js~dateenhance#month",
+    "class/src/module/date/dateEnhance.js~DateEnhance.html#instance-method-month",
+    "src/module/date/dateEnhance.js~DateEnhance#month",
+    "method"
+  ],
+  [
+    "src/module/date/dateenhance.js~dateenhance#quarter",
+    "class/src/module/date/dateEnhance.js~DateEnhance.html#instance-method-quarter",
+    "src/module/date/dateEnhance.js~DateEnhance#quarter",
+    "method"
+  ],
+  [
+    "src/module/date/dateenhance.js~dateenhance#second",
+    "class/src/module/date/dateEnhance.js~DateEnhance.html#instance-method-second",
+    "src/module/date/dateEnhance.js~DateEnhance#second",
+    "method"
+  ],
+  [
+    "src/module/date/dateenhance.js~dateenhance#weekofmonth",
+    "class/src/module/date/dateEnhance.js~DateEnhance.html#instance-method-weekOfMonth",
+    "src/module/date/dateEnhance.js~DateEnhance#weekOfMonth",
+    "method"
+  ],
+  [
+    "src/module/date/dateenhance.js~dateenhance#weekofyear",
+    "class/src/module/date/dateEnhance.js~DateEnhance.html#instance-method-weekOfYear",
+    "src/module/date/dateEnhance.js~DateEnhance#weekOfYear",
+    "method"
+  ],
+  [
+    "src/module/date/dateenhance.js~dateenhance#year",
+    "class/src/module/date/dateEnhance.js~DateEnhance.html#instance-method-year",
+    "src/module/date/dateEnhance.js~DateEnhance#year",
+    "method"
   ],
   [
     "src/module/date/dateenhance.test.js",
@@ -1278,6 +1518,30 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "src/module/function/promiselimit.js",
+    "file/src/module/function/promiseLimit.js.html",
+    "src/module/function/promiseLimit.js",
+    "file"
+  ],
+  [
+    "src/module/function/promiselimit.test.js",
+    "test-file/src/module/function/promiseLimit.test.js.html",
+    "src/module/function/promiseLimit.test.js",
+    "testFile"
+  ],
+  [
+    "src/module/function/repeatedcall.js",
+    "file/src/module/function/repeatedCall.js.html",
+    "src/module/function/repeatedCall.js",
+    "file"
+  ],
+  [
+    "src/module/function/repeatedcall.test.js",
+    "test-file/src/module/function/repeatedCall.test.js.html",
+    "src/module/function/repeatedCall.test.js",
+    "testFile"
+  ],
+  [
     "src/module/function/returnitself.js",
     "file/src/module/function/returnItself.js.html",
     "src/module/function/returnItself.js",
@@ -1347,6 +1611,18 @@ window.esdocSearchIndex = [
     "src/module/function/timing.test.js",
     "test-file/src/module/function/timing.test.js.html",
     "src/module/function/timing.test.js",
+    "testFile"
+  ],
+  [
+    "src/module/function/tostring.js",
+    "file/src/module/function/toString.js.html",
+    "src/module/function/toString.js",
+    "file"
+  ],
+  [
+    "src/module/function/tostring.test.js",
+    "test-file/src/module/function/toString.test.js.html",
+    "src/module/function/toString.test.js",
     "testFile"
   ],
   [
@@ -1584,6 +1860,24 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "arraydiffby src/module/array/arraydiffby.js~arraydiffby,arraydiffby",
+    "test-file/src/module/array/arrayDiffBy.test.js.html#lineNumber7",
+    "test arrayDiffBy",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/arrayDiffBy.test.js.html#lineNumber17",
+    "test arrayDiffBy custom kFn",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/arrayDiffBy.test.js.html#lineNumber8",
+    "test arrayDiffBy simple example",
+    "test"
+  ],
+  [
     "arraytomap src/module/array/arraytomap.js~arraytomap,arraytomap",
     "test-file/src/module/array/arrayToMap.test.js.html#lineNumber6",
     "test arrayToMap",
@@ -1777,14 +2071,26 @@ window.esdocSearchIndex = [
   ],
   [
     "debounce src/module/function/debounce.js~debounce,debounce",
-    "test-file/src/module/function/debounce.test.js.html#lineNumber7",
+    "test-file/src/module/function/debounce.test.js.html#lineNumber8",
     "test debounce",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/debounce.test.js.html#lineNumber8",
+    "test-file/src/module/function/debounce.test.js.html#lineNumber9",
     "test debounce simple example",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/debounce.test.js.html#lineNumber29",
+    "test debounce test for bind this",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/debounce.test.js.html#lineNumber19",
+    "test debounce test this",
     "test"
   ],
   [
@@ -1839,6 +2145,24 @@ window.esdocSearchIndex = [
     "",
     "test-file/src/module/string/fill.test.js.html#lineNumber7",
     "test fill test fill",
+    "test"
+  ],
+  [
+    "filteritems src/module/array/filteritems.js~filteritems,filteritems",
+    "test-file/src/module/array/filterItems.test.js.html#lineNumber5",
+    "test filterItems",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/filterItems.test.js.html#lineNumber13",
+    "test filterItems custom kFn",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/array/filterItems.test.js.html#lineNumber6",
+    "test filterItems simple example",
     "test"
   ],
   [
@@ -2083,7 +2407,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber45",
+    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber44",
     "test onceOfSameParam test async function for custom paramater converter",
     "test"
   ],
@@ -2094,8 +2418,26 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "",
+    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber79",
+    "test onceOfSameParam test this for bind",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber65",
+    "test onceOfSameParam test this for function",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber52",
+    "test onceOfSameParam test this for lambda",
+    "test"
+  ],
+  [
     "onec src/module/function/onec.js~onec,onec",
-    "test-file/src/module/function/onec.test.js.html#lineNumber6",
+    "test-file/src/module/function/onec.test.js.html#lineNumber7",
     "test onec",
     "test"
   ],
@@ -2107,8 +2449,20 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/src/module/function/onec.test.js.html#lineNumber7",
+    "test-file/src/module/function/onec.test.js.html#lineNumber31",
+    "test onec test bind this",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/onec.test.js.html#lineNumber8",
     "test onec test multiple calls plus one",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/onec.test.js.html#lineNumber22",
+    "test onec test this",
     "test"
   ],
   [
@@ -2121,6 +2475,36 @@ window.esdocSearchIndex = [
     "",
     "test-file/src/module/ajax/parseUrl.test.js.html#lineNumber7",
     "test parseUrl test simple example",
+    "test"
+  ],
+  [
+    "promiselimit src/module/function/promiselimit.js~promiselimit,promiselimit",
+    "test-file/src/module/function/promiseLimit.test.js.html#lineNumber8",
+    "test promiseLimit",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/promiseLimit.test.js.html#lineNumber21",
+    "test promiseLimit simple example no limit",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/promiseLimit.test.js.html#lineNumber9",
+    "test promiseLimit simple example no limit",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/promiseLimit.test.js.html#lineNumber47",
+    "test promiseLimit test this",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/promiseLimit.test.js.html#lineNumber34",
+    "test promiseLimit test this",
     "test"
   ],
   [
@@ -2196,6 +2580,36 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "repeatedcall src/module/function/repeatedcall.js~repeatedcall,repeatedcall",
+    "test-file/src/module/function/repeatedCall.test.js.html#lineNumber6",
+    "test repeatedCall",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/repeatedCall.test.js.html#lineNumber12",
+    "test repeatedCall async function",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/repeatedCall.test.js.html#lineNumber7",
+    "test repeatedCall simple example",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/repeatedCall.test.js.html#lineNumber30",
+    "test repeatedCall test bind this",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/repeatedCall.test.js.html#lineNumber19",
+    "test repeatedCall test this",
+    "test"
+  ],
+  [
     "returnitself src/module/function/returnitself.js~returnitself,returnitself",
     "test-file/src/module/function/returnItself.test.js.html#lineNumber6",
     "test returnItself",
@@ -2245,6 +2659,12 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/src/module/function/safeExec.test.js.html#lineNumber28",
+    "test safeExec test bind this",
+    "test"
+  ],
+  [
+    "",
     "test-file/src/module/function/safeExec.test.js.html#lineNumber7",
     "test safeExec test safeExec normal",
     "test"
@@ -2259,6 +2679,12 @@ window.esdocSearchIndex = [
     "",
     "test-file/src/module/function/safeExec.test.js.html#lineNumber17",
     "test safeExec test safeExec throw Error, and set default value",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/safeExec.test.js.html#lineNumber24",
+    "test safeExec test this",
     "test"
   ],
   [
@@ -2301,6 +2727,12 @@ window.esdocSearchIndex = [
     "",
     "test-file/src/module/function/singleModel.test.js.html#lineNumber7",
     "test singleModel test singleModel for no parameter",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/singleModel.test.js.html#lineNumber17",
+    "test singleModel test this",
     "test"
   ],
   [
@@ -2394,9 +2826,27 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "",
+    "test-file/src/module/function/throttle.test.js.html#lineNumber28",
+    "test throttle test bind this",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/throttle.test.js.html#lineNumber18",
+    "test throttle test this",
+    "test"
+  ],
+  [
     "timing src/module/function/timing.js~timing,timing",
     "test-file/src/module/function/timing.test.js.html#lineNumber7",
     "test timing",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/timing.test.js.html#lineNumber22",
+    "test timing test this",
     "test"
   ],
   [
@@ -2407,7 +2857,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/src/module/function/timing.test.js.html#lineNumber20",
+    "test-file/src/module/function/timing.test.js.html#lineNumber19",
     "test timing test timing for promise function",
     "test"
   ],
@@ -2439,6 +2889,18 @@ window.esdocSearchIndex = [
     "",
     "test-file/src/module/array/toObject.test.js.html#lineNumber7",
     "test toObject simple example",
+    "test"
+  ],
+  [
+    "tostring src/module/function/tostring.js~tostring,tostring",
+    "test-file/src/module/function/toString.test.js.html#lineNumber6",
+    "test toString",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/toString.test.js.html#lineNumber7",
+    "test toString simple example",
     "test"
   ],
   [
@@ -2485,19 +2947,25 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/src/module/function/wait.test.js.html#lineNumber18",
+    "test-file/src/module/function/wait.test.js.html#lineNumber27",
+    "test wait test this",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/wait.test.js.html#lineNumber22",
     "test wait test wait for not sepecify parameter",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/wait.test.js.html#lineNumber13",
+    "test-file/src/module/function/wait.test.js.html#lineNumber17",
     "test wait test wait for sepecify function",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/wait.test.js.html#lineNumber8",
+    "test-file/src/module/function/wait.test.js.html#lineNumber12",
     "test wait test wait for sepecify time",
     "test"
   ],
@@ -2505,6 +2973,12 @@ window.esdocSearchIndex = [
     "waitresource src/module/function/waitresource.js~waitresource,waitresource",
     "test-file/src/module/function/waitResource.test.js.html#lineNumber6",
     "test waitResource",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/waitResource.test.js.html#lineNumber23",
+    "test waitResource test this",
     "test"
   ],
   [
@@ -2517,6 +2991,12 @@ window.esdocSearchIndex = [
     "watch src/module/function/watch.js~watch,watch",
     "test-file/src/module/function/watch.test.js.html#lineNumber6",
     "test watch",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/watch.test.js.html#lineNumber44",
+    "test watch test this",
     "test"
   ],
   [

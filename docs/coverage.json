@@ -1,7 +1,7 @@
 {
-  "coverage": "98.46%",
-  "expectCount": 130,
-  "actualCount": 128,
+  "coverage": "98.57%",
+  "expectCount": 140,
+  "actualCount": 138,
   "files": {
     "src/module/ajax/download.js": {
       "expectCount": 1,
@@ -60,6 +60,11 @@
       "actualCount": 1,
       "undocumentLines": []
     },
+    "src/module/array/arrayDiffBy.js": {
+      "expectCount": 6,
+      "actualCount": 6,
+      "undocumentLines": []
+    },
     "src/module/array/arrayToMap.js": {
       "expectCount": 1,
       "actualCount": 1,
@@ -71,6 +76,11 @@
       "undocumentLines": []
     },
     "src/module/array/asyncFlatMap.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/module/array/filterItems.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
@@ -232,6 +242,16 @@
       "actualCount": 1,
       "undocumentLines": []
     },
+    "src/module/function/promiseLimit.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/module/function/repeatedCall.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
     "src/module/function/returnItself.js": {
       "expectCount": 1,
       "actualCount": 1,
@@ -263,6 +283,11 @@
       "undocumentLines": []
     },
     "src/module/function/timing.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/module/function/toString.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []

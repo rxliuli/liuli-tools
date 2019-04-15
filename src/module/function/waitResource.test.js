@@ -3,7 +3,7 @@ import { waitResource } from './waitResource'
 /**
  * @test {waitResource}
  */
-describe('test waitResource', async () => {
+describe('test waitResource', () => {
   it('test waitResource', async () => {
     let num = 0
     const now = Date.now()

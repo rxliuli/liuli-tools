@@ -77,6 +77,7 @@ import { onceOfSameParam } from './module/function/onceOfSameParam'
 import { returnReasonableItself } from './module/function/returnReasonableItself'
 import { filterItems } from './module/array/filterItems'
 import { arrayDiffBy } from './module/array/arrayDiffBy'
+import { autoIncrement } from './module/number/autoIncrement'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -151,5 +152,6 @@ export {
   blankToNullField,
   mapToObject,
   randomInt,
-  isRange
+  isRange,
+  autoIncrement
 }

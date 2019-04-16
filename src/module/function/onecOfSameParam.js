@@ -6,13 +6,13 @@
  * @param {Function} paramConverter 参数转换的函数，参数为需要包装函数的参数
  * @returns {Function} 需要被包装的函数
  */
-export const onceOfSameParam = (
+export const onecOfSameParam = (
   fn,
   paramConverter = (...args) => JSON.stringify(args)
 ) => {
   const paramMap = new Map()
   return function (...args) {
-    const key = paramConverter(args)
+    const key = paramConverter(...args)
     const old = paramMap.get(key)
     if (old !== undefined) {
       return old

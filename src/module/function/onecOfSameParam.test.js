@@ -1,5 +1,5 @@
-import { onceOfSameParam } from './onceOfSameParam'
-import { randomInt } from './../number/randomInt'
+import { onecOfSameParam } from './onecOfSameParam'
+import { randomInt } from '../number/randomInt'
 
 /**
  * @test {onceOfSameParam}
@@ -7,7 +7,7 @@ import { randomInt } from './../number/randomInt'
 describe('test onceOfSameParam', () => {
   it('simple example', () => {
     const add = i => i + Date.now()
-    const fn = onceOfSameParam(add)
+    const fn = onecOfSameParam(add)
     const res = fn(0)
     expect(fn(0)).toBe(res)
     expect(fn(0)).toBe(res)
@@ -24,7 +24,7 @@ describe('test onceOfSameParam', () => {
   it('simple example for custom paramater converter', () => {
     // 模拟加倍后用户的年龄
     const doubleAge = user => user.age * 2
-    const fn = onceOfSameParam(doubleAge, user => user.name)
+    const fn = onecOfSameParam(doubleAge, user => user.name)
     expect(fn(new User('rxliuli', 10))).toEqual(20)
     expect(fn(new User('rxliuli', 20))).toEqual(20)
     expect(fn(new User('rxliuli', 30))).toEqual(20)
@@ -33,7 +33,7 @@ describe('test onceOfSameParam', () => {
   it('test simple async function', async () => {
     // 模拟一个根据姓名获取 User 对象的值的 API
     const getById = async name => new User(name, randomInt(18))
-    const fn = onceOfSameParam(getById)
+    const fn = onecOfSameParam(getById)
     const res = await fn('rxliuli')
     expect(await fn('rxliuli')).toBe(res)
     // 相同的名字不会真正执行到服务端
@@ -44,7 +44,7 @@ describe('test onceOfSameParam', () => {
   it('test async function for custom paramater converter', async () => {
     // 模拟加倍用户年龄的异步函数
     const doubleAge = async user => user.age * 2
-    const fn = onceOfSameParam(doubleAge, user => user.name)
+    const fn = onecOfSameParam(doubleAge, user => user.name)
     expect(await fn(new User('rxliuli', 10))).toEqual(20)
     expect(await fn(new User('rxliuli', 20))).toEqual(20)
     expect(await fn(new User('rxliuli'))).toEqual(20)
@@ -57,7 +57,7 @@ describe('test onceOfSameParam', () => {
       this.i = this.i * 2
       return this.i
     }
-    const fn = onceOfSameParam(doubleAge, user => user.name)
+    const fn = onecOfSameParam(doubleAge, user => user.name)
     expect(await fn(new User('rxliuli', 10))).toEqual(20)
     expect(await fn(new User('rxliuli', 20))).toEqual(20)
     expect(await fn(new User('rxliuli'))).toEqual(20)
@@ -71,7 +71,7 @@ describe('test onceOfSameParam', () => {
       return this.i
     }.bind(this)
 
-    const fn = onceOfSameParam(doubleAge, user => user.name)
+    const fn = onecOfSameParam(doubleAge, user => user.name)
     expect(await fn(new User('rxliuli', 10))).toEqual(20)
     expect(await fn(new User('rxliuli', 20))).toEqual(20)
     expect(await fn(new User('rxliuli'))).toEqual(20)
@@ -83,7 +83,7 @@ describe('test onceOfSameParam', () => {
       this.i = this.i * 2
       return this.i
     }
-    const fn = onceOfSameParam(doubleAge, user => user.name).bind({ i: 10 })
+    const fn = onecOfSameParam(doubleAge, user => user.name).bind({ i: 10 })
     expect(await fn(new User('rxliuli', 10))).toEqual(20)
     expect(await fn(new User('rxliuli', 20))).toEqual(20)
     expect(await fn(new User('rxliuli'))).toEqual(20)

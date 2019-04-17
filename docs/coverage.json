@@ -1,7 +1,7 @@
 {
-  "coverage": "98.57%",
-  "expectCount": 140,
-  "actualCount": 138,
+  "coverage": "98.24%",
+  "expectCount": 171,
+  "actualCount": 168,
   "files": {
     "src/module/ajax/download.js": {
       "expectCount": 1,
@@ -232,12 +232,12 @@
       "actualCount": 1,
       "undocumentLines": []
     },
-    "src/module/function/onceOfSameParam.js": {
+    "src/module/function/onec.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
     },
-    "src/module/function/onec.js": {
+    "src/module/function/onecOfSameParam.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
@@ -312,6 +312,11 @@
       "actualCount": 1,
       "undocumentLines": []
     },
+    "src/module/number/autoIncrement.js": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
     "src/module/number/isRange.js": {
       "expectCount": 1,
       "actualCount": 1,
@@ -333,6 +338,11 @@
       "undocumentLines": []
     },
     "src/module/obj/excludeFields.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/module/obj/excludeFieldsDeep.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
@@ -366,6 +376,13 @@
       "expectCount": 2,
       "actualCount": 2,
       "undocumentLines": []
+    },
+    "src/module/string/StringConverter.js": {
+      "expectCount": 27,
+      "actualCount": 26,
+      "undocumentLines": [
+        169
+      ]
     },
     "src/module/string/toLowerCase.js": {
       "expectCount": 1,

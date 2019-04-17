@@ -6,6 +6,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "rx-util/src/module/string/stringconverter.js~camelconverter",
+    "class/src/module/string/StringConverter.js~CamelConverter.html",
+    "<span>CamelConverter</span> <span class=\"search-result-import-path\">rx-util/src/module/string/StringConverter.js</span>",
+    "class"
+  ],
+  [
+    "rx-util/src/module/string/stringconverter.js~camelorpascalfrom",
+    "class/src/module/string/StringConverter.js~CamelOrPascalFrom.html",
+    "<span>CamelOrPascalFrom</span> <span class=\"search-result-import-path\">rx-util/src/module/string/StringConverter.js</span>",
+    "class"
+  ],
+  [
     "rx-util/src/module/date/datebetween.js~datebetween",
     "class/src/module/date/dateBetween.js~DateBetween.html",
     "<span>DateBetween</span> <span class=\"search-result-import-path\">rx-util/src/module/date/dateBetween.js</span>",
@@ -30,9 +42,51 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "rx-util/src/module/string/stringconverter.js~iconverter",
+    "class/src/module/string/StringConverter.js~IConverter.html",
+    "<span>IConverter</span> <span class=\"search-result-import-path\">rx-util/src/module/string/StringConverter.js</span>",
+    "class"
+  ],
+  [
+    "rx-util/src/module/string/stringconverter.js~pascalconverter",
+    "class/src/module/string/StringConverter.js~PascalConverter.html",
+    "<span>PascalConverter</span> <span class=\"search-result-import-path\">rx-util/src/module/string/StringConverter.js</span>",
+    "class"
+  ],
+  [
+    "rx-util/src/module/string/stringconverter.js~screamingsnakeconverter",
+    "class/src/module/string/StringConverter.js~ScreamingSnakeConverter.html",
+    "<span>ScreamingSnakeConverter</span> <span class=\"search-result-import-path\">rx-util/src/module/string/StringConverter.js</span>",
+    "class"
+  ],
+  [
+    "rx-util/src/module/string/stringconverter.js~snakeconverter",
+    "class/src/module/string/StringConverter.js~SnakeConverter.html",
+    "<span>SnakeConverter</span> <span class=\"search-result-import-path\">rx-util/src/module/string/StringConverter.js</span>",
+    "class"
+  ],
+  [
+    "rx-util/src/module/string/stringconverter.js~snakeorscreamingsnakefrom",
+    "class/src/module/string/StringConverter.js~SnakeOrScreamingSnakeFrom.html",
+    "<span>SnakeOrScreamingSnakeFrom</span> <span class=\"search-result-import-path\">rx-util/src/module/string/StringConverter.js</span>",
+    "class"
+  ],
+  [
     "rx-util/src/module/function/statemachine.js~statemachine",
     "class/src/module/function/StateMachine.js~StateMachine.html",
     "<span>StateMachine</span> <span class=\"search-result-import-path\">rx-util/src/module/function/StateMachine.js</span>",
+    "class"
+  ],
+  [
+    "rx-util/src/module/string/stringconverter.js~stringstyleconverter",
+    "class/src/module/string/StringConverter.js~StringStyleConverter.html",
+    "<span>StringStyleConverter</span> <span class=\"search-result-import-path\">rx-util/src/module/string/StringConverter.js</span>",
+    "class"
+  ],
+  [
+    "rx-util/src/module/string/stringconverter.js~stringstyleutil",
+    "class/src/module/string/StringConverter.js~StringStyleUtil.html",
+    "<span>StringStyleUtil</span> <span class=\"search-result-import-path\">rx-util/src/module/string/StringConverter.js</span>",
     "class"
   ],
   [
@@ -63,6 +117,12 @@ window.esdocSearchIndex = [
     "rx-util/src/module/array/asyncflatmap.js~asyncflatmap",
     "function/index.html#static-function-asyncFlatMap",
     "<span>asyncFlatMap</span> <span class=\"search-result-import-path\">rx-util/src/module/array/asyncFlatMap.js</span>",
+    "function"
+  ],
+  [
+    "rx-util/src/module/number/autoincrement.js~autoincrement",
+    "function/index.html#static-function-autoIncrement",
+    "<span>autoIncrement</span> <span class=\"search-result-import-path\">rx-util/src/module/number/autoIncrement.js</span>",
     "function"
   ],
   [
@@ -159,6 +219,12 @@ window.esdocSearchIndex = [
     "rx-util/src/module/obj/excludefields.js~excludefields",
     "function/index.html#static-function-excludeFields",
     "<span>excludeFields</span> <span class=\"search-result-import-path\">rx-util/src/module/obj/excludeFields.js</span>",
+    "function"
+  ],
+  [
+    "rx-util/src/module/obj/excludefieldsdeep.js~excludefieldsdeep",
+    "function/index.html#static-function-excludeFieldsDeep",
+    "<span>excludeFieldsDeep</span> <span class=\"search-result-import-path\">rx-util/src/module/obj/excludeFieldsDeep.js</span>",
     "function"
   ],
   [
@@ -282,15 +348,15 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "rx-util/src/module/function/onceofsameparam.js~onceofsameparam",
-    "function/index.html#static-function-onceOfSameParam",
-    "<span>onceOfSameParam</span> <span class=\"search-result-import-path\">rx-util/src/module/function/onceOfSameParam.js</span>",
-    "function"
-  ],
-  [
     "rx-util/src/module/function/onec.js~onec",
     "function/index.html#static-function-onec",
     "<span>onec</span> <span class=\"search-result-import-path\">rx-util/src/module/function/onec.js</span>",
+    "function"
+  ],
+  [
+    "rx-util/src/module/function/onecofsameparam.js~onecofsameparam",
+    "function/index.html#static-function-onecOfSameParam",
+    "<span>onecOfSameParam</span> <span class=\"search-result-import-path\">rx-util/src/module/function/onecOfSameParam.js</span>",
     "function"
   ],
   [
@@ -394,6 +460,12 @@ window.esdocSearchIndex = [
     "function/index.html#static-function-strToDate",
     "<span>strToDate</span> <span class=\"search-result-import-path\">rx-util/src/module/date/strToDate.js</span>",
     "function"
+  ],
+  [
+    "rx-util/src/module/string/stringconverter.js~stringstyletype",
+    "variable/index.html#static-variable-stringStyleType",
+    "<span>stringStyleType</span> <span class=\"search-result-import-path\">rx-util/src/module/string/StringConverter.js</span>",
+    "variable"
   ],
   [
     "rx-util/src/module/function/throttle.js~throttle",
@@ -1494,18 +1566,6 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
-    "src/module/function/onceofsameparam.js",
-    "file/src/module/function/onceOfSameParam.js.html",
-    "src/module/function/onceOfSameParam.js",
-    "file"
-  ],
-  [
-    "src/module/function/onceofsameparam.test.js",
-    "test-file/src/module/function/onceOfSameParam.test.js.html",
-    "src/module/function/onceOfSameParam.test.js",
-    "testFile"
-  ],
-  [
     "src/module/function/onec.js",
     "file/src/module/function/onec.js.html",
     "src/module/function/onec.js",
@@ -1515,6 +1575,18 @@ window.esdocSearchIndex = [
     "src/module/function/onec.test.js",
     "test-file/src/module/function/onec.test.js.html",
     "src/module/function/onec.test.js",
+    "testFile"
+  ],
+  [
+    "src/module/function/onecofsameparam.js",
+    "file/src/module/function/onecOfSameParam.js.html",
+    "src/module/function/onecOfSameParam.js",
+    "file"
+  ],
+  [
+    "src/module/function/onecofsameparam.test.js",
+    "test-file/src/module/function/onecOfSameParam.test.js.html",
+    "src/module/function/onecOfSameParam.test.js",
     "testFile"
   ],
   [
@@ -1674,6 +1746,18 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "src/module/number/autoincrement.js",
+    "file/src/module/number/autoIncrement.js.html",
+    "src/module/number/autoIncrement.js",
+    "file"
+  ],
+  [
+    "src/module/number/autoincrement.test.js",
+    "test-file/src/module/number/autoIncrement.test.js.html",
+    "src/module/number/autoIncrement.test.js",
+    "testFile"
+  ],
+  [
     "src/module/number/isrange.js",
     "file/src/module/number/isRange.js.html",
     "src/module/number/isRange.js",
@@ -1734,6 +1818,18 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "src/module/obj/excludefieldsdeep.js",
+    "file/src/module/obj/excludeFieldsDeep.js.html",
+    "src/module/obj/excludeFieldsDeep.js",
+    "file"
+  ],
+  [
+    "src/module/obj/excludefieldsdeep.test.js",
+    "test-file/src/module/obj/excludeFieldsDeep.test.js.html",
+    "src/module/obj/excludeFieldsDeep.test.js",
+    "testFile"
+  ],
+  [
     "src/module/obj/maptoobject.js",
     "file/src/module/obj/mapToObject.js.html",
     "src/module/obj/mapToObject.js",
@@ -1743,6 +1839,102 @@ window.esdocSearchIndex = [
     "src/module/obj/maptoobject.test.js",
     "test-file/src/module/obj/mapToObject.test.js.html",
     "src/module/obj/mapToObject.test.js",
+    "testFile"
+  ],
+  [
+    "src/module/string/stringconverter.js",
+    "file/src/module/string/StringConverter.js.html",
+    "src/module/string/StringConverter.js",
+    "file"
+  ],
+  [
+    "src/module/string/stringconverter.js~camelconverter#to",
+    "class/src/module/string/StringConverter.js~CamelConverter.html#instance-method-to",
+    "src/module/string/StringConverter.js~CamelConverter#to",
+    "method"
+  ],
+  [
+    "src/module/string/stringconverter.js~camelorpascalfrom#from",
+    "class/src/module/string/StringConverter.js~CamelOrPascalFrom.html#instance-method-from",
+    "src/module/string/StringConverter.js~CamelOrPascalFrom#from",
+    "method"
+  ],
+  [
+    "src/module/string/stringconverter.js~iconverter#from",
+    "class/src/module/string/StringConverter.js~IConverter.html#instance-method-from",
+    "src/module/string/StringConverter.js~IConverter#from",
+    "method"
+  ],
+  [
+    "src/module/string/stringconverter.js~iconverter#to",
+    "class/src/module/string/StringConverter.js~IConverter.html#instance-method-to",
+    "src/module/string/StringConverter.js~IConverter#to",
+    "method"
+  ],
+  [
+    "src/module/string/stringconverter.js~pascalconverter#to",
+    "class/src/module/string/StringConverter.js~PascalConverter.html#instance-method-to",
+    "src/module/string/StringConverter.js~PascalConverter#to",
+    "method"
+  ],
+  [
+    "src/module/string/stringconverter.js~screamingsnakeconverter#to",
+    "class/src/module/string/StringConverter.js~ScreamingSnakeConverter.html#instance-method-to",
+    "src/module/string/StringConverter.js~ScreamingSnakeConverter#to",
+    "method"
+  ],
+  [
+    "src/module/string/stringconverter.js~snakeconverter#to",
+    "class/src/module/string/StringConverter.js~SnakeConverter.html#instance-method-to",
+    "src/module/string/StringConverter.js~SnakeConverter#to",
+    "method"
+  ],
+  [
+    "src/module/string/stringconverter.js~snakeorscreamingsnakefrom#from",
+    "class/src/module/string/StringConverter.js~SnakeOrScreamingSnakeFrom.html#instance-method-from",
+    "src/module/string/StringConverter.js~SnakeOrScreamingSnakeFrom#from",
+    "method"
+  ],
+  [
+    "src/module/string/stringconverter.js~stringstyleconverter#constructor",
+    "class/src/module/string/StringConverter.js~StringStyleConverter.html#instance-constructor-constructor",
+    "src/module/string/StringConverter.js~StringStyleConverter#constructor",
+    "method"
+  ],
+  [
+    "src/module/string/stringconverter.js~stringstyleconverter#convert",
+    "class/src/module/string/StringConverter.js~StringStyleConverter.html#instance-method-convert",
+    "src/module/string/StringConverter.js~StringStyleConverter#convert",
+    "method"
+  ],
+  [
+    "src/module/string/stringconverter.js~stringstyleconverter#fromconverter",
+    "class/src/module/string/StringConverter.js~StringStyleConverter.html#instance-member-fromConverter",
+    "src/module/string/StringConverter.js~StringStyleConverter#fromConverter",
+    "member"
+  ],
+  [
+    "src/module/string/stringconverter.js~stringstyleconverter#toconverter",
+    "class/src/module/string/StringConverter.js~StringStyleConverter.html#instance-member-toConverter",
+    "src/module/string/StringConverter.js~StringStyleConverter#toConverter",
+    "member"
+  ],
+  [
+    "src/module/string/stringconverter.js~stringstyleutil.convert",
+    "class/src/module/string/StringConverter.js~StringStyleUtil.html#static-method-convert",
+    "src/module/string/StringConverter.js~StringStyleUtil.convert",
+    "method"
+  ],
+  [
+    "src/module/string/stringconverter.js~stringstyleutil.getconverter",
+    "class/src/module/string/StringConverter.js~StringStyleUtil.html#static-method-getConverter",
+    "src/module/string/StringConverter.js~StringStyleUtil.getConverter",
+    "method"
+  ],
+  [
+    "src/module/string/stringconverter.test.js",
+    "test-file/src/module/string/StringConverter.test.js.html",
+    "src/module/string/StringConverter.test.js",
     "testFile"
   ],
   [
@@ -1842,6 +2034,18 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "stringconverter stringconverter,stringconverter",
+    "test-file/src/module/string/StringConverter.test.js.html#lineNumber6",
+    "test StringConverter",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/string/StringConverter.test.js.html#lineNumber7",
+    "test StringConverter simple example",
+    "test"
+  ],
+  [
     "",
     "test-file/src/module/dom/isEditable.test.js.html#lineNumber22",
     "test an editable element",
@@ -1899,6 +2103,18 @@ window.esdocSearchIndex = [
     "",
     "test-file/src/module/array/asyncFlatMap.test.js.html#lineNumber8",
     "test asyncFlatMap test simple example",
+    "test"
+  ],
+  [
+    "autoincrement src/module/number/autoincrement.js~autoincrement,autoincrement",
+    "test-file/src/module/number/autoIncrement.test.js.html#lineNumber6",
+    "test autoIncrement",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/number/autoIncrement.test.js.html#lineNumber7",
+    "test autoIncrement simple example",
     "test"
   ],
   [
@@ -2115,6 +2331,36 @@ window.esdocSearchIndex = [
     "",
     "test-file/src/module/obj/emptyAllField.test.js.html#lineNumber7",
     "test emptyAllField test emptyAllField",
+    "test"
+  ],
+  [
+    "excludefieldsdeep src/module/obj/excludefieldsdeep.js~excludefieldsdeep,excludefieldsdeep",
+    "test-file/src/module/obj/excludeFieldsDeep.test.js.html#lineNumber6",
+    "test excludeFieldsDeep",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/obj/excludeFieldsDeep.test.js.html#lineNumber21",
+    "test excludeFieldsDeep test deep exclude field",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/obj/excludeFieldsDeep.test.js.html#lineNumber54",
+    "test excludeFieldsDeep test deep exclude field for array",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/obj/excludeFieldsDeep.test.js.html#lineNumber16",
+    "test excludeFieldsDeep test normal object and normal fields",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/obj/excludeFieldsDeep.test.js.html#lineNumber11",
+    "test excludeFieldsDeep test normal object and not exculde any field.",
     "test"
   ],
   [
@@ -2388,50 +2634,50 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "onceofsameparam src/module/function/onceofsameparam.js~onceofsameparam,onceofsameparam",
-    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber7",
+    "onceofsameparam onceofsameparam,onceofsameparam",
+    "test-file/src/module/function/onecOfSameParam.test.js.html#lineNumber7",
     "test onceOfSameParam",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber8",
+    "test-file/src/module/function/onecOfSameParam.test.js.html#lineNumber8",
     "test onceOfSameParam simple example",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber24",
+    "test-file/src/module/function/onecOfSameParam.test.js.html#lineNumber24",
     "test onceOfSameParam simple example for custom paramater converter",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber44",
+    "test-file/src/module/function/onecOfSameParam.test.js.html#lineNumber44",
     "test onceOfSameParam test async function for custom paramater converter",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber33",
+    "test-file/src/module/function/onecOfSameParam.test.js.html#lineNumber33",
     "test onceOfSameParam test simple async function",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber79",
+    "test-file/src/module/function/onecOfSameParam.test.js.html#lineNumber79",
     "test onceOfSameParam test this for bind",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber65",
+    "test-file/src/module/function/onecOfSameParam.test.js.html#lineNumber65",
     "test onceOfSameParam test this for function",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/onceOfSameParam.test.js.html#lineNumber52",
+    "test-file/src/module/function/onecOfSameParam.test.js.html#lineNumber52",
     "test onceOfSameParam test this for lambda",
     "test"
   ],
@@ -2485,25 +2731,25 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/src/module/function/promiseLimit.test.js.html#lineNumber21",
-    "test promiseLimit simple example no limit",
-    "test"
-  ],
-  [
-    "",
     "test-file/src/module/function/promiseLimit.test.js.html#lineNumber9",
     "test promiseLimit simple example no limit",
     "test"
   ],
   [
     "",
-    "test-file/src/module/function/promiseLimit.test.js.html#lineNumber47",
-    "test promiseLimit test this",
+    "test-file/src/module/function/promiseLimit.test.js.html#lineNumber21",
+    "test promiseLimit simple example no limit",
     "test"
   ],
   [
     "",
     "test-file/src/module/function/promiseLimit.test.js.html#lineNumber34",
+    "test promiseLimit test this",
+    "test"
+  ],
+  [
+    "",
+    "test-file/src/module/function/promiseLimit.test.js.html#lineNumber47",
     "test promiseLimit test this",
     "test"
   ],

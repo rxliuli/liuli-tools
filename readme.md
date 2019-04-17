@@ -1,31 +1,32 @@
-# 日常使用的 JavaScript 工具库
+# JavaScript tool library for everyday use
+
+> [rx-util](https://github.com/rxliuli/rx-util) has nothing to do with the famous [rx series(rxjs/rxjava/...)](https://github.com/ReactiveX/) , just the first two of my user name(**rxliuli**), don't misunderstand!
 
 [![esdoc](https://img.shields.io/badge/document-98%25-brightgreen.svg)](https://rx-util.rxliuli.com/) [![jest coverage](https://img.shields.io/badge/jest-75.59%25-lightgrey.svg)](https://rx-util.rxliuli.com/coverage/lcov-report/) [![build-rollup-brightgreen](https://img.shields.io/badge/build-rollup-brightgreen.svg)](https://rollupjs.com/) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
-## 简介
+## Introduction
 
-> [rx-util](https://github.com/rxliuli/rx-util) 与大名鼎鼎的 [rx-（rxjs/rxjava/...）系列](https://github.com/ReactiveX/) 没有任何关系，仅仅只是吾辈用户名（**rxliuli**）的前两位而已，请勿误解！
+[简体中文](https://github.com/rxliuli/rx-util/blob/master/readme-zh-cn.md)
 
-吾辈日常写传统前端时需要大量相同的函数，所以需要写一个能在浏览器上使用的库，仅此而已。
-该库大部分代码已经通过单元测试，但还请谨慎用于生产环境。不包含单元测试的部分大部分是 DOM 操作相关函数，以及部分异步代码。
+Our daily writing of traditional front ends requires a lot of the same functions, so we need to write a library that can be used on the browser, and that's it. Most of the code in the library has passed unit testing, but please be cautious in production environments. Most of the parts that do not contain unit tests are DOM operation-related functions, as well as some asynchronous code.
 
-> 如果遇到了什么问题，欢迎提 [issue](https://github.com/rxliuli/rx-util/issues)，或者 [PR](https://github.com/rxliuli/rx-util/pulls) 亦可。
+> If you encounter any problems, please feel free to mention the [issue](https://github.com/rxliuli/rx-util/issues) , or [PR](https://github.com/rxliuli/rx-util/pulls) .
 
-## 使用
+## Use
 
-### 浏览器
+### Browser
 
-下载 [rx-util.min.js](https://github.com/rxliuli/rx-util/raw/master/dist/rx-util.min.js)，然后在 HTML 中引入即可
+Download [rx-util.min.js](https://github.com/rxliuli/rx-util/raw/master/dist/rx-util.min.js) and import it in HTML
 
 ```html
 <script src="https://github.com/rxliuli/rx-util/raw/master/dist/rx-util.min.js"></script>
 ```
 
-开发环境更建议使用 [rx-util.js](https://github.com/rxliuli/rx-util/raw/master/dist/rx-util.js)，包含未压缩的代码及全部的注释内容。
+The development environment is more recommended to use [rx-util.js](https://github.com/rxliuli/rx-util/raw/master/dist/rx-util.js) with uncompressed code and all comment content.
 
-### 现代前端
+### Modern front end
 
-如果使用了现代前端构建工具（真实项目未使用，但吾辈测试可用），也可以安装到项目中。
+If you use a modern front-end build tool (real projects are not used, but our tests are available), you can also install them into your project.
 
 yarn
 
@@ -33,19 +34,19 @@ yarn
 yarn add rx-util
 ```
 
-或者 npm
+Or npm
 
 ```sh
 npm i rx-util
 ```
 
-然后使用命名导入即可
+Then use the named import to
 
 ```js
 import { dateFormat } from './main'
 ```
 
-或者
+or
 
 ```js
 import * as rx from './main'

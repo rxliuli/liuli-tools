@@ -73,11 +73,15 @@ import { dateBetween } from './module/date/dateBetween'
 import { isRange } from './module/number/isRange'
 import { dateParse } from './module/date/dateParse'
 import { onec } from './module/function/onec'
-import { onceOfSameParam } from './module/function/onceOfSameParam'
+import { onecOfSameParam } from './module/function/onecOfSameParam'
 import { returnReasonableItself } from './module/function/returnReasonableItself'
 import { filterItems } from './module/array/filterItems'
 import { arrayDiffBy } from './module/array/arrayDiffBy'
 import { autoIncrement } from './module/number/autoIncrement'
+import {
+  stringStyleType,
+  StringStyleUtil
+} from './module/string/StringConverter'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -128,7 +132,7 @@ export {
   formDataToArray,
   debounce,
   onec,
-  onceOfSameParam,
+  onecOfSameParam,
   returnItself,
   returnReasonableItself,
   safeExec,
@@ -144,6 +148,8 @@ export {
   format,
   isFloat,
   isNumber,
+  stringStyleType,
+  StringStyleUtil,
   toLowerCase,
   toUpperCase,
   blankToNull,

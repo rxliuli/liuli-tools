@@ -14,7 +14,7 @@
     "docs": "esdoc",
     "test": "jest --watch",
     "coverage": "jest --coverage",
-    "pub": "npm run build && npm run docs && npm run coverage",
+    "pages": "node gh-pages-pub.js",
     "server": "npm run docs && npm run coverage && live-server docs/ --port=4000"
   },
   "repository": {

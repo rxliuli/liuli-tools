@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-duplicates
-import * as rx from './main'
+import * as rx from './index'
 // eslint-disable-next-line import/no-duplicates
-import { dateFormat } from './main'
+import { dateFormat } from './index'
 
 /**
  * @test {main}

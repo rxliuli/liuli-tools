@@ -1,4 +1,3 @@
-// @ts-check
 import { blankToNull } from './../string/blankToNull'
 
 /**

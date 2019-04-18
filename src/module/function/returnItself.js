@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * 返回参数本身的函数
  * @param {Object} obj 任何对象

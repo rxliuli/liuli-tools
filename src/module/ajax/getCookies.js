@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * 获取 cookie 键值映射 Map
  * @returns {Map.<String,String>} cookie 键值映射 Map

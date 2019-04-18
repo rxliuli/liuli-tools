@@ -1,6 +1,5 @@
 import { singleModel } from './singleModel'
 
-// @ts-check
 /**
  * 状态机
  * 用于避免使用 if-else 的一种方式

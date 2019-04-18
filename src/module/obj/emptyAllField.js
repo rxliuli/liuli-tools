@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * 将对象的所有属性置空
  * @param {Object} obj 需要置空属性的对象

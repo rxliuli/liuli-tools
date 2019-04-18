@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * 字符串安全的转换为小写
  * @param {String} str 字符串

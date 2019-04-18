@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * js 的数组去重方法
  * @param {Array.<Object>} arr 要进行去重的数组

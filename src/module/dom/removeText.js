@@ -1,4 +1,3 @@
-// @ts-check
 import { getCusorPostion } from './getCusorPostion'
 import { setCusorPostion } from './setCusorPostion'
 

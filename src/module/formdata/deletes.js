@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * FormData 批量删除方法
  * @param {FormData} fd FormData 对象

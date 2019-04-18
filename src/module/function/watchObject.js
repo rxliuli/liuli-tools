@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * 定义监听对象时的回调函数 doc
  * @callback WatchObjectCallback

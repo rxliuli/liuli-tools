@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * 时间日期间隔
  * @class DateBetween

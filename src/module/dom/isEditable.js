@@ -1,4 +1,3 @@
-// @ts-check
 import { toLowerCase } from '../string/toLowerCase'
 /**
  * 判断指定元素是否是可编辑元素

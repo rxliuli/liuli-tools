@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * 监听 event 的添加
  * 注：必须及早添加
@@ -64,7 +63,7 @@ export function watchEventListener () {
     removeIndexArr.sort((a, b) => b - a).forEach(i => events.splice(i, 1))
   }
 
-  ;(function initWatchDOM () {
+  (function initWatchDOM () {
     document.addEventListener = EventTarget.prototype.addEventListener = addEventListener
     // 此处是为了新增函数 removeEventListenerByType
     // @ts-ignore

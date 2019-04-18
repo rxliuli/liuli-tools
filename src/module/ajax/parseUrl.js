@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * Url 对象
  * @class UrlObject

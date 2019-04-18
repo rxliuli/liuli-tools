@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * 默认实现的 toString 函数
  * @param {Object} obj 对象

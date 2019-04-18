@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * 复制一段文本内容
  * @param {String} text 要进行复制的文本

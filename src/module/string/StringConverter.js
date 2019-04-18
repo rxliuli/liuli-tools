@@ -1,4 +1,3 @@
-// @ts-check
 import { onecOfSameParam } from '../function/onecOfSameParam'
 
 /**

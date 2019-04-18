@@ -1,5 +1,3 @@
-// @ts-check
-
 import { fill } from '../string/fill'
 import { arrayToMap } from './../array/arrayToMap'
 

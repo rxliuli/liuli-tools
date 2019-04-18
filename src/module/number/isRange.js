@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * 判断数字是否在指定区间之中
  * @param {Number} num 指定数字

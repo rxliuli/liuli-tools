@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * 填充字符串到指定长度
  * @param {String} item 填充的字符串

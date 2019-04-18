@@ -1,4 +1,3 @@
-// @ts-check
 import { wait } from '../function/wait'
 import { fetchTimeout } from './fetchTimeout'
 

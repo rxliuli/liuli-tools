@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * 将一个 Iterator 迭代器转换为一个 Array
  * 目前 {@override Array.from} 已取代改函数

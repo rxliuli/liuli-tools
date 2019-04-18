@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * 创建一个等差数列数组
  * @param {Number} start 开始（包含）

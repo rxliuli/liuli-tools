@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * 将数组转化为一个 Object 对象
  * @deprecated 已废弃，请使用更好的 @override arrayToMap 替代

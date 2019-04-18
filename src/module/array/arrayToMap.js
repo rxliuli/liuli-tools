@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * 将数组映射为 Map
  * @param {Array.<Object>} array 数组

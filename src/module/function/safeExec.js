@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * 安全执行某个函数
  * @param {Function} fn 需要执行的函数

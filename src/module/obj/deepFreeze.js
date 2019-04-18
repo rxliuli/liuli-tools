@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * 递归使对象不可变
  * @param {Object} obj 任何非空对象

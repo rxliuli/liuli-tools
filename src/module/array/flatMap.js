@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * 自行实现 flatMap，将数组压平一层
  * @param {Array.<Object>} arr 数组

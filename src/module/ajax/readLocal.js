@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * 读取本地浏览器选择的文件
  * @param {File} file 选择的文件

@@ -1,4 +1,3 @@
-// @ts-check
 import { onec } from './../function/onec'
 /**
  * 使用 Generator 实现一个从 0 开始的自增序列

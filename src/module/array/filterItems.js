@@ -1,4 +1,3 @@
-// @ts-check
 import { returnItself } from './../function/returnItself'
 
 /**

@@ -1,4 +1,3 @@
-// @ts-check
 import { isRange } from '../number/isRange'
 import { dateConstants } from './DateConstants'
 

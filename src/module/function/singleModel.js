@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * 通用的单例模式
  * @param {Object} clazz 需要包装为单例的类型

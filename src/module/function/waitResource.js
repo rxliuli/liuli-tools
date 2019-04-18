@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * 轮询等待指定资源加载完毕再执行操作
  * 使用 Promises 实现，可以使用 ES7 的 {@async}/{@await} 调用

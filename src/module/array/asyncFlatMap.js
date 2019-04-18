@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * 将数组异步压平一层
  * @param {Array.<Object>} arr 数组

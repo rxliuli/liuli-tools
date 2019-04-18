@@ -1,5 +1,3 @@
-// @ts-check
-
 let lastFocusEl
 
 document.addEventListener(

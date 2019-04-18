@@ -1,7 +1,5 @@
 import { dateParse } from './dateParse'
 
-// @ts-check
-
 /**
  * 解析字符串为 Date 对象
  * @deprecated 已弃用，请使用可读性更好的 {@link dateParse} 代替

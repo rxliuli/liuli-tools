@@ -1,8 +1,9 @@
 {
   "name": "rx-util",
-  "version": "1.6.7",
+  "version": "1.6.10",
   "description": "rxliuli 个人使用的 js 工具库（仅适用于浏览器）",
-  "main": "./src/index.js",
+  "main": "./dist/rx-util.js",
+  "module": "./dist/rx-util-es.js",
   "scripts": {
     "start": "npm run test",
     "dev": "rollup -c build/rollup.config.js --environment NODE_ENV:production --watch",
@@ -60,6 +61,6 @@
     "rollup-plugin-eslint": "^5.0.0",
     "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-plugin-uglify": "^6.0.1",
-    "rx-util": "^1.6.7-beta"
+    "rx-util": "^1.6.10"
   }
 }

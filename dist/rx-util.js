@@ -4,7 +4,6 @@
   (global = global || self, factory(global.rx = {}));
 }(this, function (exports) { 'use strict';
 
-  // @ts-check
   /**
    * 在浏览器上下载二进制资源
    * @param {Blob} blob 要下载的二进制资源
@@ -24,8 +23,6 @@
     document.body.removeChild(eleLink);
   }
 
-  // @ts-check
-
   /**
    * 在浏览器上下载文本内容
    * @param {String} str 字符串内容
@@ -37,8 +34,6 @@
     });
     download(blob, filename);
   }
-
-  // @ts-check
 
   /**
    * 根据 url 下载二进制资源
@@ -58,7 +53,6 @@
     }
   }
 
-  // @ts-check
   /**
    * 获取 cookie 键值映射 Map
    * @returns {Map.<String,String>} cookie 键值映射 Map
@@ -71,7 +65,6 @@
       .reduce((res, [k, v]) => res.set(k, v), new Map())
   }
 
-  // @ts-check
   /**
    * 将 url 中的内容加载到元素上
    * 注：domSelector 必须有 src 属性用以将加载完成的资源赋值给其，加载默认是异步的
@@ -87,7 +80,6 @@
     dom.src = window.URL.createObjectURL(blob);
   }
 
-  // @ts-check
   /**
    * Url 对象
    * @class UrlObject
@@ -216,7 +208,6 @@
     return res
   }
 
-  // @ts-check
   /**
    * 读取本地浏览器选择的文件
    * @param {File} file 选择的文件
@@ -248,8 +239,6 @@
   readLocal.Text = 'readAsText';
   readLocal.BinaryString = 'readAsBinaryString';
   readLocal.ArrayBuffer = 'readAsArrayBuffer';
-
-  // @ts-check
 
   /**
    * 为 js 中的 Date 对象原型添加 format 格式化方法
@@ -290,8 +279,6 @@
     }
     return fmt
   }
-
-  // @ts-check
 
   /**
    * 默认的日期格式
@@ -335,7 +322,6 @@
     }, '')
   }
 
-  // @ts-check
   /**
    * 为 fetch 请求添加超时选项
    * 注：超时选项并非真正意义上的超时即取消请求，请求依旧正常执行完成，但会提前返回 reject 结果
@@ -359,7 +345,6 @@
     return abortablePromise
   }
 
-  // @ts-check
   /**
    * 将字符串转为字符流
    *
@@ -375,7 +360,6 @@
     return buf
   }
 
-  // @ts-check
   /**
    * 等待指定的时间/等待指定表达式成立
    * 如果未指定等待条件则立刻执行
@@ -398,8 +382,6 @@
       }
     })
   };
-
-  // @ts-check
 
   /**
    * 限制并发请求数量的 fetch 封装
@@ -463,8 +445,6 @@
     }
   }
 
-  // @ts-check
-
   /**
    * 将一个 Iterator 迭代器转换为一个 Array
    * 目前 {@override Array.from} 已取代改函数
@@ -483,8 +463,6 @@
     return arr
   }
 
-  // @ts-check
-
   /**
    * 将数组异步压平一层
    * @param {Array.<Object>} arr 数组
@@ -499,8 +477,6 @@
     return res
   }
 
-  // @ts-check
-
   /**
    * 自行实现 flatMap，将数组压平一层
    * @param {Array.<Object>} arr 数组
@@ -512,8 +488,6 @@
     // @ts-ignore
     return arr.reduce((res, item) => res.concat(fn(item)), [])
   }
-
-  // @ts-check
 
   /**
    * js 数组按照某个条件进行分组
@@ -535,8 +509,6 @@
     }, new Map())
   }
 
-  // @ts-check
-
   /**
    * 创建一个等差数列数组
    * @param {Number} start 开始（包含）
@@ -551,8 +523,6 @@
     }
     return arr
   }
-
-  // @ts-check
 
   /**
    * 将数组转化为一个 Object 对象
@@ -571,7 +541,6 @@
     }, {})
   }
 
-  // @ts-check
   /**
    * js 的数组去重方法
    * @param {Array.<Object>} arr 要进行去重的数组
@@ -584,8 +553,6 @@
       obj.hasOwnProperty(fn(item)) ? false : (obj[fn(item)] = true)
     )
   }
-
-  // @ts-check
 
   /**
    * 将数组映射为 Map
@@ -601,7 +568,6 @@
     }, new Map())
   }
 
-  // @ts-check
   /**
    * 填充字符串到指定长度
    * @param {String} item 填充的字符串
@@ -614,8 +580,6 @@
     }
     return item + fill(item, len - 1)
   }
-
-  // @ts-check
 
   /**
    * 日期格式化类
@@ -745,8 +709,6 @@
     return new Date(date)
   }
 
-  // @ts-check
-
   /**
    * 解析字符串为 Date 对象
    * @deprecated 已弃用，请使用可读性更好的 {@link dateParse} 代替
@@ -759,7 +721,6 @@
     return dateParse(dateStr, fmt)
   }
 
-  // @ts-check
   /**
    * 复制一段文本内容
    * @param {String} text 要进行复制的文本
@@ -775,7 +736,6 @@
     return res
   }
 
-  // @ts-check
   /**
    * 根据 html 字符串创建 Element 元素
    * @param {String} str html 字符串
@@ -787,7 +747,6 @@
     return root.querySelector('*')
   }
 
-  // @ts-check
   /**
    * 获取输入框中光标所在位置
    * @param  {HTMLFormElement} el 需要获取的输入框元素
@@ -797,7 +756,6 @@
     return el.selectionStart
   }
 
-  // @ts-check
   /**
    * 设置输入框中选中的文本/光标所在位置
    * @param {HTMLFormElement} el 需要设置的输入框元素
@@ -808,8 +766,6 @@
     el.focus();
     el.setSelectionRange(start, end);
   }
-
-  // @ts-check
 
   /**
    * 在指定位置后插入文本
@@ -823,7 +779,6 @@
     setCusorPostion(el, start + text.length);
   }
 
-  // @ts-check
   /**
    * 字符串安全的转换为小写
    * @param {String} str 字符串
@@ -836,7 +791,6 @@
     return str.toLowerCase()
   }
 
-  // @ts-check
   /**
    * 判断指定元素是否是可编辑元素
    * 注：可编辑元素并不一定能够进行编辑，例如只读的 input 元素
@@ -851,8 +805,6 @@
       el && (el.isContentEditable || inputEls.includes(toLowerCase(el.tagName)))
     )
   }
-
-  // @ts-check
 
   let lastFocusEl;
 
@@ -878,7 +830,6 @@
     return lastFocusEl
   }
 
-  // @ts-check
   /**
    * 直接删除指定元素
    * @param {Element} el 需要删除的元素
@@ -888,8 +839,6 @@
     const parent = el.parentElement;
     return parent.removeChild(el)
   }
-
-  // @ts-check
 
   /**
    * 在指定范围内删除文本
@@ -909,7 +858,6 @@
     setCusorPostion(el, index);
   }
 
-  // @ts-check
   /**
    * 监听 event 的添加
    * 注：必须及早添加
@@ -974,15 +922,14 @@
       });
       removeIndexArr.sort((a, b) => b - a).forEach(i => events.splice(i, 1));
     }
-  (function initWatchDOM () {
+
+    (function initWatchDOM () {
       document.addEventListener = EventTarget.prototype.addEventListener = addEventListener;
       // 此处是为了新增函数 removeEventListenerByType
       // @ts-ignore
       document.removeEventListenerByType = EventTarget.prototype.removeEventListenerByType = removeEventListenerByType;
     })();
   }
-
-  // @ts-check
 
   /**
    * FormData 批量添加方法
@@ -998,8 +945,6 @@
     return fd
   }
 
-  // @ts-check
-
   /**
    * FormData 批量删除方法
    * @param {FormData} fd FormData 对象
@@ -1011,7 +956,6 @@
     return fd
   }
 
-  // @ts-check
   /**
    * FormData 批量设置方法
    * 注：该方法会覆盖掉原本的属性
@@ -1026,8 +970,6 @@
     return fd
   }
 
-  // @ts-check
-
   /**
    * FormData 添加转换为包含所有键值数组的二维数组函数
    * @deprecated 已被原生函数 Array.from 取代
@@ -1037,8 +979,6 @@
   function formDataToArray (fd) {
     return asIterator(fd.entries())
   }
-
-  // @ts-check
 
   /**
    * 将参数对象转换为 FormData，只转换一层
@@ -1058,7 +998,6 @@
     return fd
   }
 
-  // @ts-check
   /**
    * 函数去抖
    * 去抖 (debounce) 去抖就是对于一定时间段的连续的函数调用，只让其执行一次
@@ -1078,7 +1017,6 @@
     }
   };
 
-  // @ts-check
   /**
    * 返回参数本身的函数
    * @param {Object} obj 任何对象
@@ -1088,7 +1026,6 @@
     return obj
   }
 
-  // @ts-check
   /**
    * 安全执行某个函数
    * @param {Function} fn 需要执行的函数
@@ -1104,7 +1041,6 @@
     }
   };
 
-  // @ts-check
   /**
    * 通用的单例模式
    * @param {Object} clazz 需要包装为单例的类型
@@ -1126,7 +1062,6 @@
     }
   }
 
-  // @ts-check
   /**
    * 状态机
    * 用于避免使用 if-else 的一种方式
@@ -1193,7 +1128,6 @@
     }
   }
 
-  // @ts-check
   /**
    * 测试函数的执行时间
    * 注：如果函数返回 Promise，则该函数也会返回 Promise，否则直接返回执行时间
@@ -1209,7 +1143,6 @@
     return result.then(() => performance.now() - begin)
   };
 
-  // @ts-check
   /**
    * 轮询等待指定资源加载完毕再执行操作
    * 使用 Promises 实现，可以使用 ES7 的 {@async}/{@await} 调用
@@ -1236,8 +1169,6 @@
     })
   };
 
-  // @ts-check
-
   /**
    * 监视指定函数返回值的变化
    * @param {Function} fn 需要监视的函数
@@ -1257,7 +1188,6 @@
     return () => clearInterval(timer)
   };
 
-  // @ts-check
   /**
    * 定义监听对象时的回调函数 doc
    * @callback WatchObjectCallback
@@ -1290,7 +1220,6 @@
     return new Proxy(object, handler)
   }
 
-  // @ts-check
   /**
    * 字符串格式化
    *
@@ -1309,7 +1238,6 @@
     )
   }
 
-  // @ts-check
   /**
    * 判断是否为小数的正则表达式
    */
@@ -1323,7 +1251,6 @@
     return regexp.test(str)
   }
 
-  // @ts-check
   /**
    * 判断是否为整数的正则表达式
    */
@@ -1337,7 +1264,6 @@
     return regexp$1.test(str)
   }
 
-  // @ts-check
   /**
    * 字符串安全的转换为大写
    * @param {String} str 字符串
@@ -1350,7 +1276,6 @@
     return str.toUpperCase()
   }
 
-  // @ts-check
   /**
    * 将空白字符串转换为 null
    *
@@ -1360,8 +1285,6 @@
   function blankToNull (str) {
     return !str || str.trim().length === 0 ? null : str
   }
-
-  // @ts-check
 
   /**
    * 置空对象所有空白的属性
@@ -1378,7 +1301,6 @@
     return res
   }
 
-  // @ts-check
   /**
    * 将对象的所有属性置空
    * @param {Object} obj 需要置空属性的对象
@@ -1392,7 +1314,6 @@
     return res
   }
 
-  // @ts-check
   /**
    * 排除对象中的指定字段
    * 注: 此处将获得一个浅拷贝对象
@@ -1410,7 +1331,6 @@
     }, {})
   }
 
-  // @ts-check
   /**
    * 将 map 转换为 Object 对象
    * @param {Map} map map 键值表
@@ -1445,8 +1365,6 @@
     return min + Math.floor(Math.random() * (max - min))
   }
 
-  // @ts-check
-
   /**
    * 获取一年内的第多少星期
    * @deprecated 不推荐使用，请使用 {@link dateEnhance} 代替
@@ -1464,8 +1382,6 @@
     var difTime = nowTime - startTime;
     return Math.floor(difTime / (24 * 3600 * 1000) / 7)
   }
-
-  // @ts-check
 
   /**
    * 日期固定时间点
@@ -1512,7 +1428,6 @@
    */
   const dateConstants = new DateConstants();
 
-  // @ts-check
   /**
    * 判断数字是否在指定区间之中
    * @param {Number} num 指定数字
@@ -1522,8 +1437,6 @@
   function isRange (num, min, max) {
     return num >= min && num < max
   }
-
-  // @ts-check
 
   /**
    * 日期固定时间点
@@ -1569,8 +1482,6 @@
    * @type {DateConstants}
    */
   const dateConstants$1 = new DateConstants$1();
-
-  // @ts-check
 
   /**
    * 一天标准的毫秒数
@@ -1700,8 +1611,6 @@
     return new DateEnhance(date)
   }
 
-  // @ts-check
-
   /**
    * 时间日期间隔
    * @class DateBetween
@@ -1804,8 +1713,6 @@
     }
   };
 
-  // @ts-check
-
   /**
    * 包装一个函数为指定参数只执行一次的函数
    * @param {Function} fn 需要包装的函数
@@ -1835,8 +1742,6 @@
     }
   };
 
-  // @ts-check
-
   /**
    * 返回合理参数本身的函数
    * 1. 如果没有参数则返回 undefined
@@ -1856,8 +1761,6 @@
     return args
   }
 
-  // @ts-check
-
   /**
    * 从数组中移除指定的元素
    * 注: 时间复杂度为 1~3On
@@ -1870,8 +1773,6 @@
     const kSet = new Set(deleteItems.map(kFn));
     return arr.filter(v => !kSet.has(kFn(v)))
   }
-
-  // @ts-check
 
   /**
    * 数组之间的差异结果类
@@ -1920,7 +1821,6 @@
     return new ArrayDiff(left, right, common)
   }
 
-  // @ts-check
   /**
    * 使用 Generator 实现一个从 0 开始的自增序列
    */
@@ -1944,8 +1844,6 @@
   function autoIncrement () {
     return generator().next().value
   }
-
-  // @ts-check
 
   /**
    * 转换基类

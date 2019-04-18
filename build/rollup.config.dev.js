@@ -5,7 +5,7 @@ import { name } from '../package.json'
 
 export default {
   // 入口文件
-  input: calcPath('../src/main.js'),
+  input: calcPath('../src/index.js'),
   output: {
     // 打包名称
     name: 'rx',

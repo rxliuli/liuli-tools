@@ -2,7 +2,7 @@
 
 > [rx-util](https://github.com/rxliuli/rx-util) 与大名鼎鼎的 [rx-（rxjs/rxjava/...）系列](https://github.com/ReactiveX/) 没有任何关系，仅仅只是吾辈用户名（**rxliuli**）的前两位而已，请勿误解！
 
-[![esdoc](https://img.shields.io/badge/document-98%25-brightgreen.svg)](https://rx-util.rxliuli.com/) [![jest coverage](https://img.shields.io/badge/jest-75.59%25-lightgrey.svg)](https://rx-util.rxliuli.com/coverage/lcov-report/) [![build-rollup-brightgreen](https://img.shields.io/badge/build-rollup-brightgreen.svg)](https://rollupjs.com/) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![npm](https://img.shields.io/npm/v/rx-util.svg?color=red&label=npm)](https://www.npmjs.com/package/rx-util) [![esdoc](https://img.shields.io/badge/document-98%25-brightgreen.svg)](https://rx-util.rxliuli.com/) [![coverage](https://img.shields.io/badge/coverage-78%25-yellowgreen.svg)](https://rx-util.rxliuli.com/coverage/lcov-report/) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## 简介
 
@@ -42,11 +42,11 @@ npm i rx-util
 然后使用命名导入即可
 
 ```js
-import { dateFormat } from './main'
+import { dateFormat } from 'rx-util'
 ```
 
 或者
 
 ```js
-import * as rx from './main'
+import * as rx from 'rx-util'
 ```

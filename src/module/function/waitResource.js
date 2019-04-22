@@ -8,9 +8,9 @@
  * @returns Promise 对象
  */
 export const waitResource = (fn, { interval = 100, max = 10 } = {}) => {
-  var current = 0
+  let current = 0
   return new Promise((resolve, reject) => {
-    var timer = setInterval(() => {
+    const timer = setInterval(() => {
       if (fn()) {
         clearInterval(timer)
         resolve()

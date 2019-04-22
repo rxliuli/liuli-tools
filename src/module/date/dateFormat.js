@@ -5,7 +5,7 @@
  * @returns {String} 格式化得到的结果
  */
 export function dateFormat (date, fmt) {
-  var o = {
+  const o = {
     'y+': date.getFullYear(),
     'M+': date.getMonth() + 1, // 月份
     'd+': date.getDate(), // 日
@@ -15,14 +15,14 @@ export function dateFormat (date, fmt) {
     'q+': Math.floor((date.getMonth() + 3) / 3), // 季度
     'S+': date.getMilliseconds() // 毫秒
   }
-  for (var k in o) {
+  for (const k in o) {
     if (!new RegExp('(' + k + ')').test(fmt)) {
       continue
     }
     if (k === 'y+') {
       fmt = fmt.replace(RegExp.$1, ('' + o[k]).substr(4 - RegExp.$1.length))
     } else if (k === 'S+') {
-      var lens = RegExp.$1.length
+      let lens = RegExp.$1.length
       lens = lens === 1 ? 3 : lens
       fmt = fmt.replace(
         RegExp.$1,

@@ -9,7 +9,7 @@ export const wait = param => {
     if (typeof param === 'number') {
       setTimeout(resolve, param)
     } else if (typeof param === 'function') {
-      var timer = setInterval(() => {
+      const timer = setInterval(() => {
         if (param()) {
           clearInterval(timer)
           resolve()

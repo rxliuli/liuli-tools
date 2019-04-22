@@ -4,7 +4,7 @@
  * @returns {Element} 创建的 Element 元素
  */
 export function createElByString (str) {
-  var root = document.createElement('div')
+  const root = document.createElement('div')
   root.innerHTML = str
   return root.querySelector('*')
 }

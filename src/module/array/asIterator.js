@@ -5,9 +5,9 @@
  * @return {Array.<Object>} Iterator 中每一项元素转换而得到的 Array
  */
 export function asIterator (iterator) {
-  var arr = []
+  const arr = []
   while (true) {
-    var next = iterator.next()
+    const next = iterator.next()
     if (next.done) {
       break
     }

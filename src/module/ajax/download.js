@@ -5,7 +5,7 @@
  */
 export function download (blob, filename = 'unknown') {
   // 创建隐藏的可下载链接
-  var eleLink = document.createElement('a')
+  const eleLink = document.createElement('a')
   eleLink.download = filename
   eleLink.style.display = 'none'
   // 为 link 赋值

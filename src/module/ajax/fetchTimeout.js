@@ -6,15 +6,15 @@
  * @returns {Promise} 如果超时就提前返回 reject, 否则正常返回 fetch 结果
  */
 export function fetchTimeout (fetchPromise, timeout) {
-  var abortFn = null
+  let abortFn = null
   // 这是一个可以被 reject 的 Promise
-  var abortPromise = new Promise(function (resolve, reject) {
+  const abortPromise = new Promise(function (resolve, reject) {
     abortFn = function () {
       reject(new Error('abort promise'))
     }
   })
   // 有一个 Promise 完成就立刻结束
-  var abortablePromise = Promise.race([fetchPromise, abortPromise])
+  const abortablePromise = Promise.race([fetchPromise, abortPromise])
   setTimeout(function () {
     abortFn()
   }, timeout)

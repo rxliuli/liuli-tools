@@ -8,7 +8,7 @@ import { setCusorPostion } from './setCusorPostion'
  * @param {Number} [start] 开始位置，默认为当前光标处
  */
 export function insertText (el, text, start = getCusorPostion(el)) {
-  var value = el.value
+  const value = el.value
   el.value = value.substr(0, start) + text + value.substr(start)
   setCusorPostion(el, start + text.length)
 }

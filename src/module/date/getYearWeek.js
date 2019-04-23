@@ -12,6 +12,6 @@ export function getYearWeek (date) {
     */
   const nowTime = date.getTime()
   const startTime = new Date(date.getFullYear(), 0, 1).getTime()
-  var difTime = nowTime - startTime
+  const difTime = nowTime - startTime
   return Math.floor(difTime / (24 * 3600 * 1000) / 7)
 }

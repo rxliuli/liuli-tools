@@ -6,7 +6,7 @@ import { toLowerCase } from '../string/toLowerCase'
  * @returns {Boolean} 是否为可编辑元素
  */
 export function isEditable (el) {
-  var inputEls = ['input', 'date', 'datetime', 'select', 'textarea']
+  const inputEls = ['input', 'date', 'datetime', 'select', 'textarea']
   return (
     // 此处需要判断是否存在属性 isContentEditable
     // @ts-ignore

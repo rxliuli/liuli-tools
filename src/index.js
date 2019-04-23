@@ -82,6 +82,8 @@ import {
   stringStyleType,
   StringStyleUtil
 } from './module/string/StringConverter'
+import { deepFreeze } from './module/obj/deepFreeze'
+import { deepProxy } from './module/obj/deepProxy'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -157,6 +159,8 @@ export {
   excludeFields,
   blankToNullField,
   mapToObject,
+  deepFreeze,
+  deepProxy,
   randomInt,
   isRange,
   autoIncrement

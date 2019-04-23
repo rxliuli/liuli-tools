@@ -5,6 +5,7 @@
  */
 export function mapToObject (map) {
   const res = {}
+  // @ts-ignore
   for (let [k, v] of map) {
     res[k] = v
   }

@@ -85,6 +85,7 @@ import {
 import { deepFreeze } from './module/obj/deepFreeze'
 import { deepProxy } from './module/obj/deepProxy'
 import { curry } from './module/function/curry'
+import { DateFormatter } from './module/date/DateFormatter'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -114,6 +115,7 @@ export {
   dateFormat,
   dateParse,
   dateConstants,
+  DateFormatter,
   dateEnhance,
   dateBetween,
   strToDate,

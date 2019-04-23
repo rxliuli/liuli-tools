@@ -84,6 +84,7 @@ import {
 } from './module/string/StringConverter'
 import { deepFreeze } from './module/obj/deepFreeze'
 import { deepProxy } from './module/obj/deepProxy'
+import { curry } from './module/function/curry'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -146,6 +147,7 @@ export {
   waitResource,
   watch,
   watchObject,
+  curry,
   fill,
   format,
   isFloat,

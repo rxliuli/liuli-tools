@@ -36,16 +36,18 @@ export class DateEnhance {
   }
   /**
    * 获取一年内的第多少天
+   * 注: 这个天数指定的在第几天而非过去了多少天，例如 2018-01-10 的结果会是 10
    * @returns {Number}
    */
   dayOfYear () {
-    return Math.floor(
-      (this.date.getTime() - dateConstants.yearStart().getTime()) /
+    return Math.ceil(
+      (this.date.getTime() - dateConstants.yearStart(this.date).getTime()) /
         DAY_UNIT_TIME
     )
   }
   /**
    * 获取一个月内的第多少天
+   * 注: 这个天数指的是在第几天而非过去了多少天，例如 2018-01-10 的结果会是 10
    * @returns {Number}
    */
   dayOfMonth () {
@@ -60,19 +62,18 @@ export class DateEnhance {
   }
   /**
    * 获取一年内的第多少星期
+   * 注: 这个星期指定的在第几天而非过去了多少天，例如 2018-01-10 的结果会是 10
    * @returns {Number}
    */
   weekOfYear () {
-    const day = this.dayOfYear()
-    return Math.floor(day / 7 + (day % 7 === 0 ? 0 : 1))
+    return Math.ceil(this.dayOfYear() / 7)
   }
   /**
    * 获取一个月内的第多少星期
    * @returns {Number}
    */
   weekOfMonth () {
-    const day = this.dayOfMonth()
-    return Math.floor(day / 7 + (day % 7 === 0 ? 0 : 1))
+    return Math.ceil(this.dayOfMonth() / 7)
   }
   /**
    * 获取季度

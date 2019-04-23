@@ -7,7 +7,7 @@
  */
 export const curry = (fn, ...args) => {
   if (args.filter(arg => arg !== curry._).length >= fn.length) {
-    return fn.call(this, ...args)
+    return fn(...args)
   }
   return function (...otherArgs) {
     const removeIndexSet = new Set()

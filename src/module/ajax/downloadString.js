@@ -7,7 +7,7 @@ import { download } from './download'
  */
 export async function downloadString (str, filename = 'unknown.txt') {
   const blob = new Blob([str], {
-    type: 'text/plain'
+    type: 'text/plain',
   })
   download(blob, filename)
 }

@@ -25,7 +25,7 @@ export function watchObject (object, callback) {
     set (target, key, value, receiver) {
       callback(target, key, value)
       return Reflect.set(target, key, value, receiver)
-    }
+    },
   }
   return new Proxy(object, handler)
 }

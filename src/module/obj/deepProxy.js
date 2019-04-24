@@ -17,7 +17,7 @@ export function deepProxy (object) {
         return new Proxy(v, handler)
       }
       return v
-    }
+    },
   }
   return new Proxy(object, handler)
 }

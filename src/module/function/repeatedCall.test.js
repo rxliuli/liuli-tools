@@ -23,7 +23,7 @@ describe('test repeatedCall', () => {
       2,
       3,
       4,
-      5
+      5,
     ])
     expect(this.i).toBe(6)
   })

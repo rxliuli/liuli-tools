@@ -14,7 +14,7 @@ export const timing = fn => {
         return performance.now() - begin
       }
       return result.then(() => performance.now() - begin)
-    }
+    },
   })
   return proxyFn()
   // const begin = performance.now()

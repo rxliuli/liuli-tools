@@ -8,7 +8,7 @@ describe('test formDataToArray', () => {
   it('simple example', () => {
     const fd = objToFormData({
       name: 'rx',
-      age: 17
+      age: 17,
     })
     expect(formDataToArray(fd)).toEqual(
       expect.arrayContaining([['name', 'rx'], ['age', '17']])

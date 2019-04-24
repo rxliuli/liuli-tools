@@ -7,7 +7,7 @@ describe('test watchObject', () => {
   it('simple example', () => {
     const user = {
       name: 'rx',
-      age: 17
+      age: 17,
     }
     let temp
     watchObject(user, user => {

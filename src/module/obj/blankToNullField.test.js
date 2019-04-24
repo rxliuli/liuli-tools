@@ -8,11 +8,11 @@ describe('test blankToNullField', () => {
     expect(
       blankToNullField({
         name: '',
-        age: ''
+        age: '',
       })
     ).toEqual({
       name: null,
-      age: null
+      age: null,
     })
   })
 })

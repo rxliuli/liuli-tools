@@ -11,7 +11,7 @@ describe('test toUpperCase', () => {
   it('test toUpperCase for other type', () => {
     const user = {
       name: 'rx',
-      age: 17
+      age: 17,
     }
     expect(toUpperCase(user)).toBe(user)
   })

@@ -8,11 +8,11 @@ describe('test emptyAllField', () => {
     expect(
       emptyAllField({
         name: 'rx',
-        age: 17
+        age: 17,
       })
     ).toEqual({
       name: null,
-      age: null
+      age: null,
     })
   })
 })

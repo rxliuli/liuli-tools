@@ -22,7 +22,7 @@ describe('test arrayDiffBy', () => {
     expect(right.map(toString)).toIncludeSameMembers(['Symbol(5)'])
     expect(common.map(toString)).toIncludeSameMembers([
       'Symbol(2)',
-      'Symbol(3)'
+      'Symbol(3)',
     ])
   })
 })

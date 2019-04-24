@@ -23,7 +23,7 @@ class UrlObject {
     accessPath = '',
     params = {},
     url = '',
-    port = 0
+    port = 0,
   } = {}) {
     /**
      * @type {String} 不包含网站域名的链接
@@ -67,7 +67,7 @@ const protocol2Port = {
   http: 80,
   https: 443,
   ssh: 22,
-  ftp: 21
+  ftp: 21,
 }
 
 /**
@@ -89,7 +89,7 @@ export function parseUrl (url) {
     domain: temps[3],
     // @ts-ignore
     port: temps[5],
-    href: temps[6]
+    href: temps[6],
   })
   let temp = url.substr(res.website.length)
   const markIndex = temp.indexOf('?')

@@ -6,7 +6,7 @@ import { excludeFieldsDeep } from './excludeFieldsDeep'
 describe('test excludeFieldsDeep', () => {
   const obj = {
     name: 'rx',
-    age: 17
+    age: 17,
   }
   it('test normal object and not exculde any field.', () => {
     expect(excludeFieldsDeep(obj)).not.toBe(obj)
@@ -27,14 +27,14 @@ describe('test excludeFieldsDeep', () => {
             {
               id: 2,
               name: '2',
-              parent: 1
+              parent: 1,
             },
             {
               id: 3,
               name: '2',
-              parent: 1
-            }
-          ]
+              parent: 1,
+            },
+          ],
         },
         'name',
         'parent'
@@ -43,12 +43,12 @@ describe('test excludeFieldsDeep', () => {
       id: 1,
       child: [
         {
-          id: 2
+          id: 2,
         },
         {
-          id: 3
-        }
-      ]
+          id: 3,
+        },
+      ],
     })
   })
   it('test deep exclude field for array', () => {
@@ -58,24 +58,24 @@ describe('test excludeFieldsDeep', () => {
           {
             id: 2,
             name: '2',
-            parent: 1
+            parent: 1,
           },
           {
             id: 3,
             name: '2',
-            parent: 1
-          }
+            parent: 1,
+          },
         ],
         'name',
         'parent'
       )
     ).toEqual([
       {
-        id: 2
+        id: 2,
       },
       {
-        id: 3
-      }
+        id: 3,
+      },
     ])
   })
 })

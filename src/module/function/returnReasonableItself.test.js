@@ -7,7 +7,7 @@ describe('test returnReasonableItself', () => {
   it('test singleton paramater', () => {
     const user = {
       name: 'rx',
-      age: 17
+      age: 17,
     }
     expect(returnReasonableItself(user)).toEqual(user)
   })

@@ -9,7 +9,7 @@ describe('test spliceParams', () => {
     expect(
       spliceParams({
         name: 'rx',
-        age: 17
+        age: 17,
       })
     ).toBe('name=rx&age=17&')
   })
@@ -17,7 +17,7 @@ describe('test spliceParams', () => {
     const date = new Date()
     expect(
       spliceParams({
-        birthday: date
+        birthday: date,
       })
     ).toBe(
       `birthday=${encodeURIComponent(
@@ -29,7 +29,7 @@ describe('test spliceParams', () => {
     expect(
       spliceParams({
         name: 'rx',
-        bent: [1, 2, 3]
+        bent: [1, 2, 3],
       })
     ).toBe(`name=rx&bent=1&bent=2&bent=3&`)
   })
@@ -51,7 +51,7 @@ describe('test spliceParams', () => {
     expect(
       spliceParams({
         name: 'rx',
-        bent: [date, date]
+        bent: [date, date],
       })
     ).toEqual(
       `name=rx&bent=${encodeURIComponent(

@@ -24,7 +24,7 @@ function download (blob, filename = 'unknown') {
  */
 async function downloadString (str, filename = 'unknown.txt') {
   const blob = new Blob([str], {
-    type: 'text/plain'
+    type: 'text/plain',
   });
   download(blob, filename);
 }
@@ -99,7 +99,7 @@ class UrlObject {
     accessPath = '',
     params = {},
     url = '',
-    port = 0
+    port = 0,
   } = {}) {
     /**
      * @type {String} 不包含网站域名的链接
@@ -143,7 +143,7 @@ const protocol2Port = {
   http: 80,
   https: 443,
   ssh: 22,
-  ftp: 21
+  ftp: 21,
 };
 
 /**
@@ -165,7 +165,7 @@ function parseUrl (url) {
     domain: temps[3],
     // @ts-ignore
     port: temps[5],
-    href: temps[6]
+    href: temps[6],
   });
   let temp = url.substr(res.website.length);
   const markIndex = temp.indexOf('?');
@@ -249,7 +249,7 @@ function dateFormat (date, fmt) {
     'm+': date.getMinutes(), // 分
     's+': date.getSeconds(), // 秒
     'q+': Math.floor((date.getMonth() + 3) / 3), // 季度
-    'S+': date.getMilliseconds() // 毫秒
+    'S+': date.getMilliseconds(), // 毫秒
   };
   for (const k in o) {
     if (!new RegExp('(' + k + ')').test(fmt)) {
@@ -617,7 +617,7 @@ const dateFormats = {
   hour: 'h{1,2}',
   minute: 'm{1,2}',
   second: 's{1,2}',
-  milliSecond: 'S{1,3}'
+  milliSecond: 'S{1,3}',
 };
 
 /**
@@ -636,7 +636,7 @@ function dateParse (dateStr, fmt) {
     hour: '00',
     minute: '00',
     second: '00',
-    milliSecond: '000'
+    milliSecond: '000',
   };
   // 保存对传入的日期字符串进行格式化的全部信息数组列表
   const dateUnits = [];
@@ -1140,7 +1140,7 @@ const timing = fn => {
         return performance.now() - begin
       }
       return result.then(() => performance.now() - begin)
-    }
+    },
   });
   return proxyFn()
   // const begin = performance.now()
@@ -1223,7 +1223,7 @@ function watchObject (object, callback) {
     set (target, key, value, receiver) {
       callback(target, key, value);
       return Reflect.set(target, key, value, receiver)
-    }
+    },
   };
   return new Proxy(object, handler)
 }
@@ -2014,7 +2014,7 @@ const stringStyleType = {
   /**
    * 大写下划线
    */
-  ScreamingSnake: Symbol(4)
+  ScreamingSnake: Symbol(4),
 };
 
 /**
@@ -2181,7 +2181,7 @@ function deepProxy (object) {
         return new Proxy(v, handler)
       }
       return v
-    }
+    },
   };
   return new Proxy(object, handler)
 }
@@ -2194,20 +2194,24 @@ function deepProxy (object) {
  * @returns {Function} 包装后的函数
  */
 const curry = (fn, ...args) => {
-  if (args.filter(arg => arg !== curry._).length >= fn.length) {
-    return fn(...args)
+  const realArgs = args.filter(arg => arg !== curry._);
+  if (realArgs.length >= fn.length) {
+    return fn(...realArgs)
   }
   return function (...otherArgs) {
+    // 记录需要移除补到前面的参数
     const removeIndexSet = new Set();
     let i = 0;
     const newArgs = args.map(arg => {
-      if (arg !== curry._) {
-        return arg
-      }
-      if (otherArgs[i] === undefined || otherArgs[i] === curry._) {
+      if (
+        arg !== curry._ ||
+        otherArgs[i] === undefined ||
+        otherArgs[i] === curry._
+      ) {
         return arg
       }
       removeIndexSet.add(i);
+      // 每次补偿前面的 curry._ 参数计数器 +1
       return otherArgs[i++]
     });
     const newOtherArgs = otherArgs.filter((_v, i) => !removeIndexSet.has(i));
@@ -2217,8 +2221,35 @@ const curry = (fn, ...args) => {
 
 /**
  * 柯里化的占位符，需要应用后面的参数时使用
+ * 例如 {@link curry(fn)(curry._, 1)} 意味着函数 fn 的第二个参数将被确定为 1
  */
 curry._ = Symbol('柯里化占位符');
+
+/**
+ * 快速根据指定函数对数组进行排序
+ * 注: 使用递归实现，对于超大数组（其实前端的数组不可能特别大吧？#笑）可能造成堆栈溢出
+ * @param {Array} arr 需要排序的数组
+ * @param {Function} [kFn=returnItself] 对数组中每个元素都产生可比较的值的函数，默认返回自身进行比较
+ * @returns {Array} 排序后的新数组
+ */
+function sortBy (arr, kFn = returnItself) {
+  // 边界条件，如果传入数组的值
+  if (arr.length <= 1) {
+    return arr
+  }
+  // 根据中间值对数组分治为两个数组
+  const medianIndex = Math.floor(arr.length / 2);
+  const newArr = arr.slice();
+  const median = newArr.splice(medianIndex, 1)[0];
+  const medianValue = kFn(median);
+  const map = groupBy(newArr, item => kFn(item) < medianValue);
+  // 对两个数组分别进行排序
+  return [
+    ...sortBy(map.get(true) || [], kFn),
+    median,
+    ...sortBy(map.get(false) || [], kFn),
+  ]
+}
 
 /**
  * 日期格式化器
@@ -2277,5 +2308,5 @@ DateFormatter.timeFormatter = new DateFormatter('hh:mm:ss');
  */
 DateFormatter.dateTimeFormatter = new DateFormatter('yyyy-MM-dd hh:mm:ss');
 
-export { DateFormatter, FetchLimiting, StateMachine, StringStyleUtil, appends, arrayDiffBy, arrayToMap, asIterator, asyncFlatMap, autoIncrement, blankToNull, blankToNullField, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, download, downloadString, downloadUrl, emptyAllField, excludeFields, fetchTimeout, fill, filterItems, flatMap, formDataToArray, format, getCookies, getCusorPostion, getYearWeek, groupBy, insertText, isEditable, isFloat, isNumber, isRange, lastFocus, loadResource, mapToObject, objToFormData, onec, onecOfSameParam, parseUrl, randomInt, range, readLocal, removeEl, removeText, returnItself, returnReasonableItself, safeExec, setCusorPostion, sets, singleModel, spliceParams, strToArrayBuffer, strToDate, stringStyleType, throttle, timing, toLowerCase, toObject, toUpperCase, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
+export { DateFormatter, FetchLimiting, StateMachine, StringStyleUtil, appends, arrayDiffBy, arrayToMap, asIterator, asyncFlatMap, autoIncrement, blankToNull, blankToNullField, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, download, downloadString, downloadUrl, emptyAllField, excludeFields, fetchTimeout, fill, filterItems, flatMap, formDataToArray, format, getCookies, getCusorPostion, getYearWeek, groupBy, insertText, isEditable, isFloat, isNumber, isRange, lastFocus, loadResource, mapToObject, objToFormData, onec, onecOfSameParam, parseUrl, randomInt, range, readLocal, removeEl, removeText, returnItself, returnReasonableItself, safeExec, setCusorPostion, sets, singleModel, sortBy, spliceParams, strToArrayBuffer, strToDate, stringStyleType, throttle, timing, toLowerCase, toObject, toUpperCase, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
 //# sourceMappingURL=rx-util-es.js.map

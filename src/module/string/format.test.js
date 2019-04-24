@@ -9,7 +9,7 @@ describe('test format', () => {
     expect(
       format(str, {
         name: 'rx',
-        age: 17
+        age: 17,
       })
     ).toEqual('name: rx, age: 17')
   })

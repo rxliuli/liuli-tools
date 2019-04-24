@@ -14,10 +14,10 @@ describe('test parseUrl', () => {
       accessPath: '/p',
       params: {
         id: '1',
-        commentId: '2'
+        commentId: '2',
       },
       url: 'http://blog.rxliuli.com/p/?id=1&commentId=2',
-      port: 80
+      port: 80,
     })
   })
 })

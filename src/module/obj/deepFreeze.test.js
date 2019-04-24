@@ -17,8 +17,8 @@ describe('test deepFreeze', () => {
   it('deep nest object', () => {
     const obj = deepFreeze({
       user: {
-        name: 'rx'
-      }
+        name: 'rx',
+      },
     })
     expect(() => (obj.user.name = '琉璃')).toThrowError()
     expect(obj.user.name).toBe('rx')
@@ -26,8 +26,8 @@ describe('test deepFreeze', () => {
   it('deep nest array', () => {
     const obj = deepFreeze([
       {
-        name: 'rx'
-      }
+        name: 'rx',
+      },
     ])
     expect(() => (obj[0].name = '琉璃')).toThrowError()
     expect(obj[0].name).toBe('rx')
@@ -37,10 +37,10 @@ describe('test deepFreeze', () => {
       arr: [
         {
           user: {
-            name: 'rx'
-          }
-        }
-      ]
+            name: 'rx',
+          },
+        },
+      ],
     })
     expect(() => (obj.arr[0].user.name = '琉璃')).toThrowError()
     expect(obj.arr[0].user.name).toBe('rx')

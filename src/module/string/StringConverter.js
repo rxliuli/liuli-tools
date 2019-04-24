@@ -159,7 +159,7 @@ export const stringStyleType = {
   /**
    * 大写下划线
    */
-  ScreamingSnake: Symbol(4)
+  ScreamingSnake: Symbol(4),
 }
 
 /**

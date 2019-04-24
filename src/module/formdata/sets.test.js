@@ -8,7 +8,7 @@ describe('test sets', () => {
   it('simple example', () => {
     const user = {
       name: 'rx',
-      age: 17
+      age: 17,
     }
 
     const fd = new FormData()

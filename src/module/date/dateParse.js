@@ -43,7 +43,7 @@ const dateFormats = {
   hour: 'h{1,2}',
   minute: 'm{1,2}',
   second: 's{1,2}',
-  milliSecond: 'S{1,3}'
+  milliSecond: 'S{1,3}',
 }
 
 /**
@@ -62,7 +62,7 @@ export function dateParse (dateStr, fmt) {
     hour: '00',
     minute: '00',
     second: '00',
-    milliSecond: '000'
+    milliSecond: '000',
   }
   // 保存对传入的日期字符串进行格式化的全部信息数组列表
   const dateUnits = []

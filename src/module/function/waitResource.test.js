@@ -14,7 +14,7 @@ describe('test waitResource', () => {
       },
       {
         interval: 100,
-        max: 10
+        max: 10,
       }
     )
     expect(Date.now() - now).toBeGreaterThanOrEqual(1000)
@@ -30,7 +30,7 @@ describe('test waitResource', () => {
       },
       {
         interval: 100,
-        max: 10
+        max: 10,
       }
     )
     expect(Date.now() - now).toBeGreaterThanOrEqual(1000)

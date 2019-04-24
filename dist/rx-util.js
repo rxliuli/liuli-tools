@@ -11,7 +11,7 @@
    */
   function download (blob, filename = 'unknown') {
     // 创建隐藏的可下载链接
-    var eleLink = document.createElement('a');
+    const eleLink = document.createElement('a');
     eleLink.download = filename;
     eleLink.style.display = 'none';
     // 为 link 赋值
@@ -247,7 +247,7 @@
    * @returns {String} 格式化得到的结果
    */
   function dateFormat (date, fmt) {
-    var o = {
+    const o = {
       'y+': date.getFullYear(),
       'M+': date.getMonth() + 1, // 月份
       'd+': date.getDate(), // 日
@@ -257,14 +257,14 @@
       'q+': Math.floor((date.getMonth() + 3) / 3), // 季度
       'S+': date.getMilliseconds() // 毫秒
     };
-    for (var k in o) {
+    for (const k in o) {
       if (!new RegExp('(' + k + ')').test(fmt)) {
         continue
       }
       if (k === 'y+') {
         fmt = fmt.replace(RegExp.$1, ('' + o[k]).substr(4 - RegExp.$1.length));
       } else if (k === 'S+') {
-        var lens = RegExp.$1.length;
+        let lens = RegExp.$1.length;
         lens = lens === 1 ? 3 : lens;
         fmt = fmt.replace(
           RegExp.$1,
@@ -330,15 +330,15 @@
    * @returns {Promise} 如果超时就提前返回 reject, 否则正常返回 fetch 结果
    */
   function fetchTimeout (fetchPromise, timeout) {
-    var abortFn = null;
+    let abortFn = null;
     // 这是一个可以被 reject 的 Promise
-    var abortPromise = new Promise(function (resolve, reject) {
+    const abortPromise = new Promise(function (resolve, reject) {
       abortFn = function () {
         reject(new Error('abort promise'));
       };
     });
     // 有一个 Promise 完成就立刻结束
-    var abortablePromise = Promise.race([fetchPromise, abortPromise]);
+    const abortablePromise = Promise.race([fetchPromise, abortPromise]);
     setTimeout(function () {
       abortFn();
     }, timeout);
@@ -371,7 +371,7 @@
       if (typeof param === 'number') {
         setTimeout(resolve, param);
       } else if (typeof param === 'function') {
-        var timer = setInterval(() => {
+        const timer = setInterval(() => {
           if (param()) {
             clearInterval(timer);
             resolve();
@@ -452,9 +452,9 @@
    * @return {Array.<Object>} Iterator 中每一项元素转换而得到的 Array
    */
   function asIterator (iterator) {
-    var arr = [];
+    const arr = [];
     while (true) {
-      var next = iterator.next();
+      const next = iterator.next();
       if (next.done) {
         break
       }
@@ -742,7 +742,7 @@
    * @returns {Element} 创建的 Element 元素
    */
   function createElByString (str) {
-    var root = document.createElement('div');
+    const root = document.createElement('div');
     root.innerHTML = str;
     return root.querySelector('*')
   }
@@ -774,7 +774,7 @@
    * @param {Number} [start] 开始位置，默认为当前光标处
    */
   function insertText (el, text, start = getCusorPostion(el)) {
-    var value = el.value;
+    const value = el.value;
     el.value = value.substr(0, start) + text + value.substr(start);
     setCusorPostion(el, start + text.length);
   }
@@ -798,7 +798,7 @@
    * @returns {Boolean} 是否为可编辑元素
    */
   function isEditable (el) {
-    var inputEls = ['input', 'date', 'datetime', 'select', 'textarea'];
+    const inputEls = ['input', 'date', 'datetime', 'select', 'textarea'];
     return (
       // 此处需要判断是否存在属性 isContentEditable
       // @ts-ignore
@@ -971,12 +971,14 @@
   }
 
   /**
-   * FormData 添加转换为包含所有键值数组的二维数组函数
-   * @deprecated 已被原生函数 Array.from 取代
+   * FormData 转换为包含所有键值数组的二维数组函数
+   *
    * @param {FormData} fd 需要转换的 FormData 对象
    * @returns {Array} 转换后的数组
+   * @deprecated 已被原生函数 Array.from 取代
    */
   function formDataToArray (fd) {
+    // @ts-ignore
     return asIterator(fd.entries())
   }
 
@@ -1135,12 +1137,24 @@
    * @returns {Number|Promise} 执行的毫秒数
    */
   const timing = fn => {
-    const begin = performance.now();
-    const result = fn();
-    if (!(result instanceof Promise)) {
-      return performance.now() - begin
-    }
-    return result.then(() => performance.now() - begin)
+    // 使用 Proxy 实现了一下，但感觉实际上与原来的差不多（或许是吾辈的使用场景不太对？）
+    const proxyFn = new Proxy(fn, {
+      apply (target, thisArg, args) {
+        const begin = performance.now();
+        const result = Reflect.apply(target, thisArg, args);
+        if (!(result instanceof Promise)) {
+          return performance.now() - begin
+        }
+        return result.then(() => performance.now() - begin)
+      }
+    });
+    return proxyFn()
+    // const begin = performance.now()
+    // const result = fn()
+    // if (!(result instanceof Promise)) {
+    //   return performance.now() - begin
+    // }
+    // return result.then(() => performance.now() - begin)
   };
 
   /**
@@ -1153,9 +1167,9 @@
    * @returns Promise 对象
    */
   const waitResource = (fn, { interval = 100, max = 10 } = {}) => {
-    var current = 0;
+    let current = 0;
     return new Promise((resolve, reject) => {
-      var timer = setInterval(() => {
+      const timer = setInterval(() => {
         if (fn()) {
           clearInterval(timer);
           resolve();
@@ -1338,6 +1352,7 @@
    */
   function mapToObject (map) {
     const res = {};
+    // @ts-ignore
     for (let [k, v] of map) {
       res[k] = v;
     }
@@ -1379,7 +1394,7 @@
       */
     const nowTime = date.getTime();
     const startTime = new Date(date.getFullYear(), 0, 1).getTime();
-    var difTime = nowTime - startTime;
+    const difTime = nowTime - startTime;
     return Math.floor(difTime / (24 * 3600 * 1000) / 7)
   }
 
@@ -1518,16 +1533,18 @@
     }
     /**
      * 获取一年内的第多少天
+     * 注: 这个天数指定的在第几天而非过去了多少天，例如 2018-01-10 的结果会是 10
      * @returns {Number}
      */
     dayOfYear () {
-      return Math.floor(
-        (this.date.getTime() - dateConstants$1.yearStart().getTime()) /
+      return Math.ceil(
+        (this.date.getTime() - dateConstants$1.yearStart(this.date).getTime()) /
           DAY_UNIT_TIME
       )
     }
     /**
      * 获取一个月内的第多少天
+     * 注: 这个天数指的是在第几天而非过去了多少天，例如 2018-01-10 的结果会是 10
      * @returns {Number}
      */
     dayOfMonth () {
@@ -1542,19 +1559,18 @@
     }
     /**
      * 获取一年内的第多少星期
+     * 注: 这个星期指定的在第几天而非过去了多少天，例如 2018-01-10 的结果会是 10
      * @returns {Number}
      */
     weekOfYear () {
-      const day = this.dayOfYear();
-      return Math.floor(day / 7 + (day % 7 === 0 ? 0 : 1))
+      return Math.ceil(this.dayOfYear() / 7)
     }
     /**
      * 获取一个月内的第多少星期
      * @returns {Number}
      */
     weekOfMonth () {
-      const day = this.dayOfMonth();
-      return Math.floor(day / 7 + (day % 7 === 0 ? 0 : 1))
+      return Math.ceil(this.dayOfMonth() / 7)
     }
     /**
      * 获取季度
@@ -2126,6 +2142,148 @@
     }
   }
 
+  /**
+   * 递归使对象不可变
+   * @param {Object} obj 任何非空对象
+   * @returns {Object} 新的不可变对象
+   */
+  function deepFreeze (obj) {
+    if (obj === undefined || obj === null) {
+      return
+    }
+    // 数组和对象分别处理
+    if (obj instanceof Array) {
+      obj.forEach(v => {
+        if (typeof v === 'object') {
+          deepFreeze(v);
+        }
+      });
+    } else if (obj instanceof Object) {
+      Object.values(obj).forEach(v => {
+        if (typeof v === 'object') {
+          deepFreeze(v);
+        }
+      });
+    }
+    return Object.freeze(obj)
+  }
+
+  /**
+   * 包装对象，使其成为可以任意深度调用而不会出现 undefined 调用的问题
+   * 注意: 该函数不能进行递归调用（{@link JSON.stringfy}），一定会造成堆栈溢出的问题（RangeError: Maximum call stack size exceeded）
+   * @param {Object} object 任意一个 Object 对象
+   * @returns {Object} 包装后的对象
+   */
+  function deepProxy (object) {
+    const handler = {
+      get (target, k) {
+        Reflect.set(
+          target,
+          k,
+          Reflect.has(target, k) ? Reflect.get(target, k) : {}
+        );
+        const v = Reflect.get(target, k);
+        if (typeof v === 'object') {
+          return new Proxy(v, handler)
+        }
+        return v
+      }
+    };
+    return new Proxy(object, handler)
+  }
+
+  /**
+   * 将函数包装为柯里化函数
+   * 注: 该函数模仿了 Lodash 的 curry 函数
+   * @param {Function} fn 需要包装的函数
+   * @param  {...any} args 应用的部分参数
+   * @returns {Function} 包装后的函数
+   */
+  const curry = (fn, ...args) => {
+    if (args.filter(arg => arg !== curry._).length >= fn.length) {
+      return fn(...args)
+    }
+    return function (...otherArgs) {
+      const removeIndexSet = new Set();
+      let i = 0;
+      const newArgs = args.map(arg => {
+        if (arg !== curry._) {
+          return arg
+        }
+        if (otherArgs[i] === undefined || otherArgs[i] === curry._) {
+          return arg
+        }
+        removeIndexSet.add(i);
+        return otherArgs[i++]
+      });
+      const newOtherArgs = otherArgs.filter((_v, i) => !removeIndexSet.has(i));
+      return curry(fn, ...newArgs, ...newOtherArgs)
+    }
+  };
+
+  /**
+   * 柯里化的占位符，需要应用后面的参数时使用
+   */
+  curry._ = Symbol('柯里化占位符');
+
+  /**
+   * 日期格式化器
+   * 包含格式化为字符串和解析字符串为日期的函数
+   */
+  class DateFormatter {
+    /**
+     * 构造函数
+     * @param {String} fmt 日期时间格式
+     */
+    constructor (fmt) {
+      /**
+       * @field 日期时间格式
+       */
+      this.fmt = fmt;
+    }
+    /**
+     * 格式化
+     * @param {Date} date 需要格式化的日期
+     * @returns {String} 格式化的字符串
+     */
+    format (date) {
+      return dateFormat(date, this.fmt)
+    }
+    /**
+     * 解析
+     * @param {String} str 字符串
+     * @returns {Date} 解析得到的日期
+     */
+    parse (str) {
+      return dateParse(str, this.fmt)
+    }
+    /**
+     * 将日期时间字符串转换为前端指定格式的字符串
+     * 主要适用场景是前端接收到后端的日期时间一般是一个字符串，然而需要自定义格式的时候还必须先创建 {@link Date} 对象才能格式化，略微繁琐，故使用该函数
+     * @param {String} str 字符串
+     * @param {String} [parseFmt=undefined] 解析的日期时间格式。默认直接使用 {@link new Date()} 创建
+     * @returns {String} 转换后得到的字符串
+     */
+    strFormat (str, parseFmt) {
+      const date = parseFmt ? dateParse(str, parseFmt) : new Date(str);
+      return dateFormat(date, this.fmt)
+    }
+  }
+
+  /**
+   * 日期格式化器
+   */
+  DateFormatter.dateFormatter = new DateFormatter('yyyy-MM-dd');
+  /**
+   * 时间格式化器
+   */
+  DateFormatter.timeFormatter = new DateFormatter('hh:mm:ss');
+  /**
+   * 日期时间格式化器
+   */
+  DateFormatter.dateTimeFormatter = new DateFormatter('yyyy-MM-dd hh:mm:ss');
+
+  exports.DateFormatter = DateFormatter;
   exports.FetchLimiting = FetchLimiting;
   exports.StateMachine = StateMachine;
   exports.StringStyleUtil = StringStyleUtil;
@@ -2139,12 +2297,15 @@
   exports.blankToNullField = blankToNullField;
   exports.copyText = copyText;
   exports.createElByString = createElByString;
+  exports.curry = curry;
   exports.dateBetween = dateBetween;
   exports.dateConstants = dateConstants;
   exports.dateEnhance = dateEnhance;
   exports.dateFormat = dateFormat;
   exports.dateParse = dateParse;
   exports.debounce = debounce;
+  exports.deepFreeze = deepFreeze;
+  exports.deepProxy = deepProxy;
   exports.deletes = deletes;
   exports.download = download;
   exports.downloadString = downloadString;

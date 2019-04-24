@@ -80,11 +80,12 @@ import { arrayDiffBy } from './module/array/arrayDiffBy'
 import { autoIncrement } from './module/number/autoIncrement'
 import {
   stringStyleType,
-  StringStyleUtil
+  StringStyleUtil,
 } from './module/string/StringConverter'
 import { deepFreeze } from './module/obj/deepFreeze'
 import { deepProxy } from './module/obj/deepProxy'
 import { curry } from './module/function/curry'
+import { sortBy } from './module/array/sortBy'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -106,8 +107,9 @@ export {
   flatMap,
   groupBy,
   range,
-  filterItems,
+  sortBy,
   toObject,
+  filterItems,
   uniqueBy,
   arrayToMap,
   arrayDiffBy,
@@ -165,5 +167,5 @@ export {
   deepProxy,
   randomInt,
   isRange,
-  autoIncrement
+  autoIncrement,
 }

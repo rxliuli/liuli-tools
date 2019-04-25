@@ -87,6 +87,7 @@ import { deepProxy } from './module/obj/deepProxy'
 import { curry } from './module/function/curry'
 import { sortBy } from './module/array/sortBy'
 import { DateFormatter } from './module/date/DateFormatter'
+import { compose } from './module/function/compose'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -151,6 +152,7 @@ export {
   waitResource,
   watch,
   watchObject,
+  compose,
   curry,
   fill,
   format,

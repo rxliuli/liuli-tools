@@ -1,4 +1,5 @@
 import { compose } from './compose'
+import { curry } from '../../index'
 
 describe('test', () => {
   it('simple example', () => {
@@ -23,5 +24,21 @@ describe('test', () => {
         )
       )(1)(2)(3)(2)
     ).toBe(4.5)
+  })
+  it('test multi paramater', () => {
+    const add = (a, b, c) => a + b + c
+    const mul = (a, b, c) => a * b * c
+    const div = (a, b, c) => a / b / c
+    const fn = compose(
+      add,
+      mul,
+      div
+    )
+    // 测试标准参数
+    expect(fn(1, 1, 1)(2, 2)(2, 3)).toBe(2)
+    // 测试柯里化参数
+    expect(fn(1)(1)(1)(2)(2)(2)(3)).toBe(2)
+    // 测试占位符
+    expect(fn(1)(1)(1)(2)(2)(curry._, 2)(3)).toBe(2)
   })
 })

@@ -10,7 +10,8 @@ export const curry = (fn, ...args) => {
   if (realArgs.length >= fn.length) {
     return fn(...realArgs)
   }
-  return function (...otherArgs) {
+
+  function innerFn (...otherArgs) {
     // 记录需要移除补到前面的参数
     const removeIndexSet = new Set()
     let i = 0
@@ -29,10 +30,17 @@ export const curry = (fn, ...args) => {
     const newOtherArgs = otherArgs.filter((_v, i) => !removeIndexSet.has(i))
     return curry(fn, ...newArgs, ...newOtherArgs)
   }
+
+  // 自定义 toString 函数便于调试
+  innerFn.toString = () =>
+    `name: ${fn.name}, args: [${args.map(o => o.toString()).join(', ')}]`
+  innerFn._curry = true
+
+  return innerFn
 }
 
 /**
  * 柯里化的占位符，需要应用后面的参数时使用
  * 例如 {@link curry(fn)(curry._, 1)} 意味着函数 fn 的第二个参数将被确定为 1
  */
-curry._ = Symbol('柯里化占位符')
+curry._ = Symbol('_')

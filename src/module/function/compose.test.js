@@ -1,7 +1,10 @@
 import { compose } from './compose'
 import { curry } from '../../index'
 
-describe('test', () => {
+/**
+ * @test {compose}
+ */
+describe('test compose', () => {
   it('simple example', () => {
     const add = (a, b) => a + b
     const mul = (a, b) => a * b

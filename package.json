@@ -31,9 +31,10 @@
   "author": "rxliuli",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rxliuli/rx-util/issues"
+    "url": "https://github.com/rxliuli/rx-util/issues",
+    "email": "rxliuli@gmail.com"
   },
-  "homepage": "https://github.com/rxliuli/rx-util#readme",
+  "homepage": "https://rx-util.rxliuli.com/",
   "devDependencies": {
     "@babel/core": "^7.4.0",
     "@babel/plugin-transform-runtime": "^7.4.0",

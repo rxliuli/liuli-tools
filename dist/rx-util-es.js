@@ -1498,7 +1498,6 @@ const dateConstants$1 = new DateConstants$1();
 const DAY_UNIT_TIME = 1000 * 60 * 60 * 24;
 /**
  * 日期增强
- * @property {Date} date
  */
 class DateEnhance {
   /**
@@ -1521,9 +1520,17 @@ class DateEnhance {
   /**
    * 获取月份
    * @returns {Number}
+   * @deprecated 已废弃，请使用 {@link this#monthOfYear} 函数
    */
   month () {
     return this.date.getMonth()
+  }
+  /**
+   * 获取今年的第几个月份
+   * 和 {@link this#month} 不同的是不再从 0 计算月份
+   */
+  monthOfYear () {
+    return this.date.getMonth() + 1
   }
   /**
    * 获取一年内的第多少天
@@ -2198,7 +2205,8 @@ const curry = (fn, ...args) => {
   if (realArgs.length >= fn.length) {
     return fn(...realArgs)
   }
-  return function (...otherArgs) {
+
+  function innerFn (...otherArgs) {
     // 记录需要移除补到前面的参数
     const removeIndexSet = new Set();
     let i = 0;
@@ -2217,13 +2225,20 @@ const curry = (fn, ...args) => {
     const newOtherArgs = otherArgs.filter((_v, i) => !removeIndexSet.has(i));
     return curry(fn, ...newArgs, ...newOtherArgs)
   }
+
+  // 自定义 toString 函数便于调试
+  innerFn.toString = () =>
+    `name: ${fn.name}, args: [${args.map(o => o.toString()).join(', ')}]`;
+  innerFn._curry = true;
+
+  return innerFn
 };
 
 /**
  * 柯里化的占位符，需要应用后面的参数时使用
  * 例如 {@link curry(fn)(curry._, 1)} 意味着函数 fn 的第二个参数将被确定为 1
  */
-curry._ = Symbol('柯里化占位符');
+curry._ = Symbol('_');
 
 /**
  * 快速根据指定函数对数组进行排序
@@ -2308,5 +2323,34 @@ DateFormatter.timeFormatter = new DateFormatter('hh:mm:ss');
  */
 DateFormatter.dateTimeFormatter = new DateFormatter('yyyy-MM-dd hh:mm:ss');
 
-export { DateFormatter, FetchLimiting, StateMachine, StringStyleUtil, appends, arrayDiffBy, arrayToMap, asIterator, asyncFlatMap, autoIncrement, blankToNull, blankToNullField, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, download, downloadString, downloadUrl, emptyAllField, excludeFields, fetchTimeout, fill, filterItems, flatMap, formDataToArray, format, getCookies, getCusorPostion, getYearWeek, groupBy, insertText, isEditable, isFloat, isNumber, isRange, lastFocus, loadResource, mapToObject, objToFormData, onec, onecOfSameParam, parseUrl, randomInt, range, readLocal, removeEl, removeText, returnItself, returnReasonableItself, safeExec, setCusorPostion, sets, singleModel, sortBy, spliceParams, strToArrayBuffer, strToDate, stringStyleType, throttle, timing, toLowerCase, toObject, toUpperCase, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
+/**
+ * 连接两个函数并自动柯里化
+ * @param {Function} fn1 第一个函数
+ * @param {Function} fn2 第二个函数
+ * @returns {Function} 连接后的函数
+ */
+const _compose = (fn1, fn2) => {
+  return function (...args) {
+    const res = curry(fn1, ...args);
+    // 如果这个函数的参数不足，则返回它
+    // @ts-ignore
+    if (res instanceof Function && res._curry === true) {
+      return _compose(res, fn2)
+    }
+    return curry(fn2, res)
+  }
+};
+
+/**
+ * 将多个函数组合起来
+ * 前面函数的返回值将变成后面函数的第一个参数，如果到了最后一个函数执行完成，则直接返回
+ * 该函数是自动柯里化，将对所有传入的函数进行柯里化处理
+ * @param  {...Function} fns 多个需要连接函数
+ * @returns {Function} 连接后的柯里化函数
+ */
+const compose = (...fns) =>
+  // TODO 反向连接就可以了?
+  fns.reduceRight((fn1, fn2) => _compose(fn2, fn1));
+
+export { DateFormatter, FetchLimiting, StateMachine, StringStyleUtil, appends, arrayDiffBy, arrayToMap, asIterator, asyncFlatMap, autoIncrement, blankToNull, blankToNullField, compose, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, download, downloadString, downloadUrl, emptyAllField, excludeFields, fetchTimeout, fill, filterItems, flatMap, formDataToArray, format, getCookies, getCusorPostion, getYearWeek, groupBy, insertText, isEditable, isFloat, isNumber, isRange, lastFocus, loadResource, mapToObject, objToFormData, onec, onecOfSameParam, parseUrl, randomInt, range, readLocal, removeEl, removeText, returnItself, returnReasonableItself, safeExec, setCusorPostion, sets, singleModel, sortBy, spliceParams, strToArrayBuffer, strToDate, stringStyleType, throttle, timing, toLowerCase, toObject, toUpperCase, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
 //# sourceMappingURL=rx-util-es.js.map

@@ -8,6 +8,7 @@ describe('test dateEnhance', () => {
     const enhance = dateEnhance(date)
     expect(enhance.year()).toBe(2019)
     expect(enhance.month()).toBe(1)
+    expect(enhance.monthOfYear()).toBe(2)
     expect(enhance.dayOfMonth()).toBe(8)
     expect(enhance.dayOfYear()).toBe(39)
     expect(enhance.dayOfWeek()).toBe(5)

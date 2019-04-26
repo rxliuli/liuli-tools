@@ -7,7 +7,6 @@ import { dateConstants } from './DateConstants'
 const DAY_UNIT_TIME = 1000 * 60 * 60 * 24
 /**
  * 日期增强
- * @property {Date} date
  */
 export class DateEnhance {
   /**
@@ -30,9 +29,17 @@ export class DateEnhance {
   /**
    * 获取月份
    * @returns {Number}
+   * @deprecated 已废弃，请使用 {@link this#monthOfYear} 函数
    */
   month () {
     return this.date.getMonth()
+  }
+  /**
+   * 获取今年的第几个月份
+   * 和 {@link this#month} 不同的是不再从 0 计算月份
+   */
+  monthOfYear () {
+    return this.date.getMonth() + 1
   }
   /**
    * 获取一年内的第多少天

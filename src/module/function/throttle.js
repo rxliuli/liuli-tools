@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * 函数节流
  * 节流 (throttle) 让一个函数不要执行的太频繁，减少执行过快的调用，叫节流
@@ -7,15 +6,20 @@
  *
  * @param {Number} delay 最小间隔时间，单位为 ms
  * @param {Function} action 真正需要执行的操作
- * @return {Function} 包装后有节流功能的函数
+ * @return {Function} 包装后有节流功能的函数。该函数是异步的，与需要包装的函数 {@link action} 是否异步没有太大关联
  */
-export function throttle (delay, action) {
+export const throttle = (delay, action) => {
   let last = 0
-  return function () {
-    const curr = Date.now()
-    if (curr - last > delay) {
-      action.apply(this, arguments)
-      last = curr
-    }
+  return function (...args) {
+    return new Promise(resolve => {
+      const curr = Date.now()
+      if (curr - last > delay) {
+        const result = action.call(this, ...args)
+        last = curr
+        resolve(result)
+        return
+      }
+      resolve()
+    })
   }
 }

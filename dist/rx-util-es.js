@@ -1001,15 +1001,20 @@ function objToFormData (data) {
  * 应用场景主要在那些连续的操作, 例如页面滚动监听, 包装后的函数只会执行最后一次
  * @param {Number} delay 最小延迟时间，单位为 ms
  * @param {Function} action 真正需要执行的操作
- * @return {Function} 包装后有去抖功能的函数
+ * @return {Function} 包装后有去抖功能的函数。该函数是异步的，与需要包装的函数 {@link action} 是否异步没有太大关联
  */
 const debounce = (delay, action) => {
-  let tId;
+  let flag;
   return function (...args) {
-    if (tId) clearTimeout(tId);
-    tId = setTimeout(() => {
-      action.call(this, ...args);
-    }, delay);
+    return new Promise(resolve => {
+      if (flag) clearTimeout(flag);
+      flag = setTimeout(() => {
+        resolve(action.call(this, ...args));
+      }, delay);
+      setTimeout(() => {
+        resolve();
+      }, delay);
+    })
   }
 };
 
@@ -1102,7 +1107,6 @@ class StateMachine {
   }
 }
 
-// @ts-check
 /**
  * 函数节流
  * 节流 (throttle) 让一个函数不要执行的太频繁，减少执行过快的调用，叫节流
@@ -1111,18 +1115,23 @@ class StateMachine {
  *
  * @param {Number} delay 最小间隔时间，单位为 ms
  * @param {Function} action 真正需要执行的操作
- * @return {Function} 包装后有节流功能的函数
+ * @return {Function} 包装后有节流功能的函数。该函数是异步的，与需要包装的函数 {@link action} 是否异步没有太大关联
  */
-function throttle (delay, action) {
+const throttle = (delay, action) => {
   let last = 0;
-  return function () {
-    const curr = Date.now();
-    if (curr - last > delay) {
-      action.apply(this, arguments);
-      last = curr;
-    }
+  return function (...args) {
+    return new Promise(resolve => {
+      const curr = Date.now();
+      if (curr - last > delay) {
+        const result = action.call(this, ...args);
+        last = curr;
+        resolve(result);
+        return
+      }
+      resolve();
+    })
   }
-}
+};
 
 /**
  * 测试函数的执行时间

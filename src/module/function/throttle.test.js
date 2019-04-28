@@ -42,8 +42,8 @@ describe('test throttle', () => {
     const add = async (a, b) => a + b
     const fn = throttle(10, add)
     fn(1, 2).then(res => expect(res).toBe(3))
-    fn(1, 3).then(res => expect(res).toBe(undefined))
-    fn(1, 4).then(res => expect(res).toBe(undefined))
+    fn(1, 3).then(res => expect(res).toBe(3))
+    fn(1, 4).then(res => expect(res).toBe(3))
     await wait(20)
     fn(1, 5).then(res => expect(res).toBe(6))
     await wait(20)

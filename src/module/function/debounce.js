@@ -5,18 +5,21 @@
  * 应用场景主要在那些连续的操作, 例如页面滚动监听, 包装后的函数只会执行最后一次
  * @param {Number} delay 最小延迟时间，单位为 ms
  * @param {Function} action 真正需要执行的操作
+ * @param {Object} [init=undefined] 初始的缓存值，不填默认为 {@link undefined}
  * @return {Function} 包装后有去抖功能的函数。该函数是异步的，与需要包装的函数 {@link action} 是否异步没有太大关联
  */
-export const debounce = (delay, action) => {
+export const debounce = (delay, action, init = undefined) => {
   let flag
+  let result = init
   return function (...args) {
     return new Promise(resolve => {
       if (flag) clearTimeout(flag)
       flag = setTimeout(() => {
-        resolve(action.call(this, ...args))
+        result = action.call(this, ...args)
+        resolve(result)
       }, delay)
       setTimeout(() => {
-        resolve()
+        resolve(result)
       }, delay)
     })
   }

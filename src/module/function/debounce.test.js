@@ -40,12 +40,12 @@ describe('test debounce', () => {
   })
   it('async and return result', async () => {
     const add = async (a, b) => a + b
-    const fn = debounce(10, add)
+    const fn = debounce(10, add, 0)
     // 这里没有使用 await 的原因是因为会造成顺序执行
-    fn(1, 2).then(res => expect(res).toBe(undefined))
-    fn(1, 3).then(res => expect(res).toBe(undefined))
-    fn(1, 4).then(res => expect(res).toBe(undefined))
-    fn(1, 5).then(res => expect(res).toBe(undefined))
+    fn(1, 2).then(res => expect(res).toBe(0))
+    fn(1, 3).then(res => expect(res).toBe(0))
+    fn(1, 4).then(res => expect(res).toBe(0))
+    fn(1, 5).then(res => expect(res).toBe(0))
     fn(1, 4).then(res => expect(res).toBe(5))
 
     await wait(200)

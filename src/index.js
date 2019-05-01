@@ -91,6 +91,7 @@ import { compose } from './module/function/compose'
 import { excludeFieldsDeep } from './module/obj/excludeFieldsDeep'
 import { isNullOrUndefined } from './module/obj/isNullOrUndefined'
 import { toString } from './module/string/toString'
+import { LocalStorageCache } from './module/cache/LocalStorageCache'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -107,17 +108,18 @@ export {
   fetchTimeout,
   strToArrayBuffer,
   FetchLimiting,
+  arrayDiffBy,
+  arrayToMap,
   asIterator,
   asyncFlatMap,
+  filterItems,
   flatMap,
   groupBy,
   range,
   sortBy,
   toObject,
-  filterItems,
   uniqueBy,
-  arrayToMap,
-  arrayDiffBy,
+  LocalStorageCache,
   dateFormat,
   dateParse,
   dateConstants,

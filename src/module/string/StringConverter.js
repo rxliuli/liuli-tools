@@ -1,7 +1,8 @@
-import { onecOfSameParam } from '../function/onecOfSameParam'
+import { onceOfSameParam } from '../function/onceOfSameParam'
 
 /**
- * 转换基类
+ * 转换接口
+ * @interface
  */
 export class IConverter {
   /**
@@ -238,7 +239,7 @@ export class StringStyleConverter {
  * @param {stringStyleType} to 转换风格
  * @return {StringStyleConverter} 转换器的实例
  */
-const _getConverter = onecOfSameParam(
+const _getConverter = onceOfSameParam(
   /**
    * @param {stringStyleType} from 解析风格
    * @param {stringStyleType} to 转换风格

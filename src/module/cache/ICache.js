@@ -21,6 +21,9 @@ export class ICache {
    * @param {CacheOption} cacheOption 缓存选项
    */
   constructor (cacheOption) {
+    /**
+     * @field 缓存选项
+     */
     this.cacheOption = assign(
       new CacheOption({
         timeout: TimeoutInfinite,

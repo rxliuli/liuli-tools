@@ -72,8 +72,8 @@ import { dateEnhance } from './module/date/dateEnhance'
 import { dateBetween } from './module/date/dateBetween'
 import { isRange } from './module/number/isRange'
 import { dateParse } from './module/date/dateParse'
-import { onec } from './module/function/onec'
-import { onecOfSameParam } from './module/function/onecOfSameParam'
+import { once } from './module/function/once'
+import { onceOfSameParam } from './module/function/onceOfSameParam'
 import { returnReasonableItself } from './module/function/returnReasonableItself'
 import { filterItems } from './module/array/filterItems'
 import { arrayDiffBy } from './module/array/arrayDiffBy'
@@ -146,8 +146,8 @@ export {
   objToFormData,
   formDataToArray,
   debounce,
-  onec,
-  onecOfSameParam,
+  once,
+  onceOfSameParam,
   returnItself,
   returnReasonableItself,
   safeExec,

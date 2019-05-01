@@ -43,16 +43,16 @@ const dateFormats = {
   hour: 'h{1,2}',
   minute: 'm{1,2}',
   second: 's{1,2}',
-  milliSecond: 'S{1,3}',
+  millieSecond: 'S{1,3}',
 }
 
 /**
  * 解析字符串为 Date 对象
- * @param {String} dateStr 日期字符串
+ * @param {String} str 日期字符串
  * @param {String} fmt 日期字符串的格式，目前仅支持使用 y(年),M(月),d(日),h(时),m(分),s(秒),S(毫秒)
  * @returns {Date} 解析得到的 Date 对象
  */
-export function dateParse (dateStr, fmt) {
+export function dateParse (str, fmt) {
   const now = new Date()
   // 如果没有格式化某项的话则设置为默认时间
   const defaultDateValues = {
@@ -62,7 +62,7 @@ export function dateParse (dateStr, fmt) {
     hour: '00',
     minute: '00',
     second: '00',
-    milliSecond: '000',
+    millieSecond: '000',
   }
   // 保存对传入的日期字符串进行格式化的全部信息数组列表
   const dateUnits = []
@@ -84,7 +84,7 @@ export function dateParse (dateStr, fmt) {
   }
   // 进行验证是否真的是符合传入格式的字符串
   fmt = fmt.replace(new RegExp('`', 'g'), '\\d')
-  if (!new RegExp(`^${fmt}$`).test(dateStr)) {
+  if (!new RegExp(`^${fmt}$`).test(str)) {
     return null
   }
   // 进行一次排序, 依次对字符串进行截取
@@ -97,18 +97,18 @@ export function dateParse (dateStr, fmt) {
     })
     // 获取到匹配的日期片段的值
     .map(format => {
-      const matchDateUnit = new RegExp(format.format).exec(dateStr)
+      const matchDateUnit = new RegExp(format.format).exec(str)
       if (matchDateUnit !== null && matchDateUnit.length > 0) {
-        dateStr = dateStr.replace(matchDateUnit[0], '')
+        str = str.replace(matchDateUnit[0], '')
         format.value = matchDateUnit[0]
       }
       return format
     })
     // 覆写到 dateStr 上面
     .forEach(({ format }, i) => {
-      const matchDateUnit = new RegExp(format).exec(dateStr)
+      const matchDateUnit = new RegExp(format).exec(str)
       if (matchDateUnit !== null && matchDateUnit.length > 0) {
-        dateStr = dateStr.replace(matchDateUnit[0], '')
+        str = str.replace(matchDateUnit[0], '')
         dateUnits[i].value = matchDateUnit[0]
       }
     })
@@ -124,7 +124,7 @@ export function dateParse (dateStr, fmt) {
   const date = `${map.get('year')}-${map.get('month')}-${map.get(
     'day'
   )}T${map.get('hour')}:${map.get('minute')}:${map.get('second')}.${map.get(
-    'milliSecond'
+    'millieSecond'
   )}`
   return new Date(date)
 }

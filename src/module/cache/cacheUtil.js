@@ -1,6 +1,9 @@
 import { LocalStorageCache } from './LocalStorageCache'
 import { TimeoutInfinite, CacheOption } from './CacheOption'
 
+/**
+ * 默认使用的 {@link ICache} 接口的缓存实现
+ */
 const cache = new LocalStorageCache()
 
 /**

@@ -1,4 +1,4 @@
-import { onec } from './../function/onec'
+import { once } from '../function/once'
 /**
  * 使用 Generator 实现一个从 0 开始的自增序列
  */
@@ -13,7 +13,7 @@ function * autoIncrementGenerator () {
 /**
  * 包装 {@link autoIncrementGenerator} 为只能调用一次的函数
  */
-const generator = onec(autoIncrementGenerator)
+const generator = once(autoIncrementGenerator)
 
 /**
  * 获取自增长序列的最新值

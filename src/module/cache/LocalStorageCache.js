@@ -13,6 +13,9 @@ export class LocalStorageCache extends ICache {
    */
   constructor (cacheOption) {
     super(cacheOption)
+    /**
+     * 缓存对象，默认使用 localStorage
+     */
     this.localStorage = window.localStorage
   }
   /**

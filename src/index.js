@@ -88,6 +88,8 @@ import { curry } from './module/function/curry'
 import { sortBy } from './module/array/sortBy'
 import { DateFormatter } from './module/date/DateFormatter'
 import { compose } from './module/function/compose'
+import { excludeFieldsDeep } from './module/obj/excludeFieldsDeep'
+import { isNullOrUndefined } from './module/obj/isNullOrUndefined'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -154,6 +156,7 @@ export {
   watchObject,
   compose,
   curry,
+  blankToNull,
   fill,
   format,
   isFloat,
@@ -162,13 +165,14 @@ export {
   StringStyleUtil,
   toLowerCase,
   toUpperCase,
-  blankToNull,
-  emptyAllField,
-  excludeFields,
   blankToNullField,
-  mapToObject,
   deepFreeze,
   deepProxy,
+  emptyAllField,
+  excludeFields,
+  excludeFieldsDeep,
+  isNullOrUndefined,
+  mapToObject,
   randomInt,
   isRange,
   autoIncrement,

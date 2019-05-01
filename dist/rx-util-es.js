@@ -617,16 +617,16 @@ const dateFormats = {
   hour: 'h{1,2}',
   minute: 'm{1,2}',
   second: 's{1,2}',
-  milliSecond: 'S{1,3}',
+  millieSecond: 'S{1,3}',
 };
 
 /**
  * 解析字符串为 Date 对象
- * @param {String} dateStr 日期字符串
+ * @param {String} str 日期字符串
  * @param {String} fmt 日期字符串的格式，目前仅支持使用 y(年),M(月),d(日),h(时),m(分),s(秒),S(毫秒)
  * @returns {Date} 解析得到的 Date 对象
  */
-function dateParse (dateStr, fmt) {
+function dateParse (str, fmt) {
   const now = new Date();
   // 如果没有格式化某项的话则设置为默认时间
   const defaultDateValues = {
@@ -636,7 +636,7 @@ function dateParse (dateStr, fmt) {
     hour: '00',
     minute: '00',
     second: '00',
-    milliSecond: '000',
+    millieSecond: '000',
   };
   // 保存对传入的日期字符串进行格式化的全部信息数组列表
   const dateUnits = [];
@@ -658,7 +658,7 @@ function dateParse (dateStr, fmt) {
   }
   // 进行验证是否真的是符合传入格式的字符串
   fmt = fmt.replace(new RegExp('`', 'g'), '\\d');
-  if (!new RegExp(`^${fmt}$`).test(dateStr)) {
+  if (!new RegExp(`^${fmt}$`).test(str)) {
     return null
   }
   // 进行一次排序, 依次对字符串进行截取
@@ -671,18 +671,18 @@ function dateParse (dateStr, fmt) {
     })
     // 获取到匹配的日期片段的值
     .map(format => {
-      const matchDateUnit = new RegExp(format.format).exec(dateStr);
+      const matchDateUnit = new RegExp(format.format).exec(str);
       if (matchDateUnit !== null && matchDateUnit.length > 0) {
-        dateStr = dateStr.replace(matchDateUnit[0], '');
+        str = str.replace(matchDateUnit[0], '');
         format.value = matchDateUnit[0];
       }
       return format
     })
     // 覆写到 dateStr 上面
     .forEach(({ format }, i) => {
-      const matchDateUnit = new RegExp(format).exec(dateStr);
+      const matchDateUnit = new RegExp(format).exec(str);
       if (matchDateUnit !== null && matchDateUnit.length > 0) {
-        dateStr = dateStr.replace(matchDateUnit[0], '');
+        str = str.replace(matchDateUnit[0], '');
         dateUnits[i].value = matchDateUnit[0];
       }
     });
@@ -698,7 +698,7 @@ function dateParse (dateStr, fmt) {
   const date = `${map.get('year')}-${map.get('month')}-${map.get(
     'day'
   )}T${map.get('hour')}:${map.get('minute')}:${map.get('second')}.${map.get(
-    'milliSecond'
+    'millieSecond'
   )}`;
   return new Date(date)
 }
@@ -999,6 +999,7 @@ function objToFormData (data) {
  * 去抖 (debounce) 去抖就是对于一定时间段的连续的函数调用，只让其执行一次
  * 注: 包装后的函数如果两次操作间隔小于 delay 则不会被执行, 如果一直在操作就会一直不执行, 直到操作停止的时间大于 delay 最小间隔时间才会执行一次, 不管任何时间调用都需要停止操作等待最小延迟时间
  * 应用场景主要在那些连续的操作, 例如页面滚动监听, 包装后的函数只会执行最后一次
+ * 注: 该函数第一次调用一定不会执行，第一次一定拿不到缓存值，后面的连续调用都会拿到上一次的缓存值。如果需要在第一次调用获取到的缓存值，则需要传入第三个参数 {@link init}，默认为 {@link undefined} 的可选参数
  * @param {Number} delay 最小延迟时间，单位为 ms
  * @param {Function} action 真正需要执行的操作
  * @param {Object} [init=undefined] 初始的缓存值，不填默认为 {@link undefined}
@@ -1370,7 +1371,7 @@ function mapToObject (map) {
 /**
  * 生成一个随机的数字
  * 如果没有参数，则会抛出异常
- * @param {Number} args 参数列表，如果只有一个参数，则认为是最大值，最小值为 0。否则认为第一个是最小值，第二个是最大值，忽略剩余的参数
+ * @param {Array.<Number>} args 参数列表，如果只有一个参数，则认为是最大值，最小值为 0。否则认为第一个是最小值，第二个是最大值，忽略剩余的参数
  * @returns {Number} 生成的随机整数
  */
 function randomInt (...args) {
@@ -1732,7 +1733,7 @@ function dateBetween (start, end) {
  * @param {Function} fn 需要包装的函数
  * @returns {Function} 包装后的函数
  */
-const onec = fn => {
+const once = fn => {
   let flag = true;
   let res;
   return function (...args) {
@@ -1750,7 +1751,7 @@ const onec = fn => {
  * @param {Function} paramConverter 参数转换的函数，参数为需要包装函数的参数
  * @returns {Function} 需要被包装的函数
  */
-const onecOfSameParam = (
+const onceOfSameParam = (
   fn,
   paramConverter = (...args) => JSON.stringify(args)
 ) => {
@@ -1866,7 +1867,7 @@ function * autoIncrementGenerator () {
 /**
  * 包装 {@link autoIncrementGenerator} 为只能调用一次的函数
  */
-const generator = onec(autoIncrementGenerator);
+const generator = once(autoIncrementGenerator);
 
 /**
  * 获取自增长序列的最新值
@@ -1877,7 +1878,8 @@ function autoIncrement () {
 }
 
 /**
- * 转换基类
+ * 转换接口
+ * @interface
  */
 class IConverter {
   /**
@@ -2114,7 +2116,7 @@ class StringStyleConverter {
  * @param {stringStyleType} to 转换风格
  * @return {StringStyleConverter} 转换器的实例
  */
-const _getConverter = onecOfSameParam(
+const _getConverter = onceOfSameParam(
   /**
    * @param {stringStyleType} from 解析风格
    * @param {stringStyleType} to 转换风格
@@ -2366,5 +2368,398 @@ const compose = (...fns) =>
   // TODO 反向连接就可以了?
   fns.reduceRight((fn1, fn2) => _compose(fn2, fn1));
 
-export { DateFormatter, FetchLimiting, StateMachine, StringStyleUtil, appends, arrayDiffBy, arrayToMap, asIterator, asyncFlatMap, autoIncrement, blankToNull, blankToNullField, compose, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, download, downloadString, downloadUrl, emptyAllField, excludeFields, fetchTimeout, fill, filterItems, flatMap, formDataToArray, format, getCookies, getCusorPostion, getYearWeek, groupBy, insertText, isEditable, isFloat, isNumber, isRange, lastFocus, loadResource, mapToObject, objToFormData, onec, onecOfSameParam, parseUrl, randomInt, range, readLocal, removeEl, removeText, returnItself, returnReasonableItself, safeExec, setCusorPostion, sets, singleModel, sortBy, spliceParams, strToArrayBuffer, strToDate, stringStyleType, throttle, timing, toLowerCase, toObject, toUpperCase, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
+/**
+ * 递归排除对象中的指定字段
+ * @param {Object} object 需要排除的对象
+ * @param  {...Object} fields 需要排除的字段
+ */
+function excludeFieldsDeep (object, ...fields) {
+  const res =
+    object instanceof Array ? object : excludeFields(object, ...fields);
+  for (const k in res) {
+    if (res.hasOwnProperty(k)) {
+      const v = res[k];
+      if (v instanceof Object) {
+        object[k] = excludeFieldsDeep(v, ...fields);
+      }
+    }
+  }
+  return res
+}
+
+/**
+ * 判断一个对象是否是无效的
+ * 无效的值包含 null/undefined
+ * @param {Object} object 任何一个对象
+ * @returns {Boolean} 是否无效的
+ */
+function isNullOrUndefined (object) {
+  return object === undefined || object === null
+}
+
+/**
+ * 将任意对象转换为 String
+ * 主要避免原生 Object toString 遇到某些空值的时候抛异常的问题
+ * @param {Object} object 任意对象
+ * @returns {String} 字符串
+ */
+const toString = object => {
+  if (isNullOrUndefined(object)) {
+    return ''
+  }
+  if (object instanceof Date) {
+    return object.toISOString()
+  }
+  return object.toString()
+};
+
+/**
+ * 无限的超时时间
+ * TODO 此处暂时使用字符串作为一种折衷方法，因为 Symbol 无法被序列化为 JSON，反向序列化也是不可能的
+ */
+const TimeoutInfinite = Symbol('TimoutInfinite').toString();
+
+/**
+ * 缓存选项
+ */
+class CacheOption {
+  /**
+   * 构造函数
+   * @param {Object} options 缓存选项对象
+   * @param {Number|Symbol|String} [options.timeout] 超时时间，以毫秒为单位
+   * @param {Number} [options.timeStart] 缓存开始时间
+   * @param {Function} [options.serialize] 缓存序列化
+   * @param {Function} [options.deserialize] 缓存反序列化
+   */
+  constructor ({ timeout, timeStart, serialize, deserialize } = {}) {
+    /**
+     * @field 超时时间，以毫秒为单位
+     */
+    this.timeStart = timeStart;
+    /**
+     * @field 缓存开始时间
+     */
+    this.timeout = timeout;
+    /**
+     * @field 缓存序列化
+     */
+    this.serialize = serialize;
+    /**
+     * @field 缓存反序列化
+     */
+    this.deserialize = deserialize;
+  }
+}
+
+/**
+ * 合并多个对象的属性
+ * 1. 该合并的方式为浅层合并，只会合并一层的对象
+ * 2. 默认忽略值为 undefined/null 的属性
+ * @param  {...Object} objects 任意数量的对象
+ * @returns {Object} 合并后的对象
+ */
+function assign (...objects) {
+  return flatMap(objects, object =>
+    isNullOrUndefined(object) ? [] : Object.entries(object)
+  ).reduce((res, [k, v]) => {
+    if (isNullOrUndefined(v)) {
+      return res
+    }
+    res[k] = v;
+    return res
+  }, {})
+}
+
+// eslint-disable-next-line no-unused-vars
+
+/**
+ * 缓存接口
+ * 功能
+ * 1. add 增加。如果不存在则添加，否则忽略
+ * 2. del 删除。如果存在则删除，否则忽略
+ * 3. set 修改。如果存在则设置，否则忽略
+ * 4. get 根据 key 获取。如果存在则获取，否则忽略
+ * 5. touch 根据 key 获取并刷新超时时间
+ * 6. find 根据谓词查询 key
+ * 7. list 根据谓词查询 key 获得列表
+ *
+ * @interface
+ */
+class ICache {
+  /**
+   * 全局缓存选项
+   * @param {CacheOption} cacheOption 缓存选项
+   */
+  constructor (cacheOption) {
+    /**
+     * @field 缓存选项
+     */
+    this.cacheOption = assign(
+      new CacheOption({
+        timeout: TimeoutInfinite,
+        serialize: JSON.stringify,
+        deserialize: JSON.parse,
+      }),
+      cacheOption
+    );
+  }
+  /**
+   * 根据 key + value 添加
+   * 如果不存在则添加，否则忽略
+   * @param {String} key 缓存的 key
+   * @param {Object} val 缓存的 value
+   * @param {CacheOption} cacheOption 缓存的选项
+   * @abstract
+   */
+  add (key, val, cacheOption) {}
+  /**
+   * 根据指定的 key 删除
+   * 如果存在则删除，否则忽略
+   * @param {String} key 删除的 key
+   * @abstract
+   */
+  del (key) {}
+  /**
+   * 根据指定的 key 修改
+   * 不管是否存在都会设置
+   * @param {String} key 修改的 key
+   * @param {Object} val 修改的 value
+   * @param {CacheOption} cacheOption 修改的选项
+   * @abstract
+   */
+  set (key, val, cacheOption) {}
+  /**
+   * 根据 key 获取
+   * 如果存在则获取，否则忽略
+   * @param {String} key 指定的 key
+   * @param {CacheOption} cacheOption 获取的选项
+   * @returns {Object} 获取到的缓存值
+   * @abstract
+   */
+  get (key, cacheOption) {}
+  /**
+   * 根据 key 获取并刷新超时时间
+   * @param {String} key 指定的 key
+   * @param {CacheOption} cacheOption 获取的选项
+   * @returns {Object} 获取到的缓存值
+   * @abstract
+   */
+  touch (key, cacheOption) {}
+}
+
+// eslint-disable-next-line no-unused-vars
+
+/**
+ * 缓存的值
+ */
+class CacheVal {
+  /**
+   * 构造函数
+   * @param {Object} options 缓存值对象
+   * @param {String} options.key 缓存的键原始值
+   * @param {Object} options.val 缓存的值
+   * @param {CacheOption} options.cacheOption 缓存的选项
+   */
+  constructor ({ key, val, cacheOption }) {
+    /**
+     * @field 缓存的键原始值
+     */
+    this.key = key;
+    /**
+     * @field 缓存的值
+     */
+    this.val = val;
+    /**
+     * @field 缓存的选项
+     */
+    this.cacheOption = cacheOption;
+  }
+}
+
+/**
+ * 使用 LocalStorage 实现的缓存
+ */
+class LocalStorageCache extends ICache {
+  /**
+   * 构造函数
+   * @param {CacheOption} [cacheOption] 全局缓存选项
+   */
+  constructor (cacheOption) {
+    super(cacheOption);
+    /**
+     * 缓存对象，默认使用 localStorage
+     */
+    this.localStorage = window.localStorage;
+  }
+  /**
+   * 根据 key + value 添加
+   * 如果不存在则添加，否则忽略
+   * @param {String} key 缓存的 key
+   * @param {Object} val 缓存的 value
+   * @param {CacheOption} [cacheOption] 缓存的选项，默认为无限时间
+   * @override
+   */
+  add (key, val, cacheOption) {
+    const result = this.get(
+      key,
+      assign({ timeStart: Date.now() }, cacheOption)
+    );
+    if (result !== null) {
+      return
+    }
+    this.set(key, val, cacheOption);
+  }
+  /**
+   * 根据指定的 key 删除
+   * 如果存在则删除，否则忽略
+   * @param {String} key 删除的 key
+   * @override
+   */
+  del (key) {
+    this.localStorage.removeItem(key);
+  }
+  /**
+   * 根据指定的 key 修改
+   * 不管是否存在都会设置
+   * @param {String} key 修改的 key
+   * @param {Object} val 修改的 value
+   * @param {CacheOption} [cacheOption] 修改的选项
+   * @override
+   */
+  set (key, val, cacheOption = new CacheOption()) {
+    const option = assign(
+      this.cacheOption,
+      { timeStart: Date.now() },
+      cacheOption
+    );
+    this.localStorage.setItem(
+      key,
+      JSON.stringify(
+        new CacheVal({
+          key,
+          val: option.serialize(val),
+          cacheOption: option,
+        })
+      )
+    );
+  }
+  /**
+   * 根据 key 获取
+   * 如果存在则获取，否则忽略
+   * @param {String} key 指定的 key
+   * @param {CacheOption} cacheOption 获取的选项
+   * @returns {Object} 获取到的缓存值
+   * @override
+   */
+  get (key, cacheOption = new CacheOption()) {
+    const str = this.localStorage.getItem(key);
+    const cacheVal = JSON.parse(str);
+    if (cacheVal === null) {
+      return null
+    }
+    const { timeStart, timeout, deserialize } = assign(
+      this.cacheOption,
+      cacheVal.cacheOption,
+      cacheOption
+    );
+    // 如果超时则删除并返回 null
+    if (timeout !== TimeoutInfinite && Date.now() - timeStart > timeout) {
+      this.del(key);
+      return null
+    }
+    try {
+      return deserialize(cacheVal.val)
+    } catch (e) {
+      this.del(key);
+      return null
+    }
+  }
+  /**
+   * 根据 key 获取并刷新超时时间
+   * @param {String} key 指定的 key
+   * @param {CacheOption} cacheOption 获取的选项
+   * @returns {Object} 获取到的缓存值
+   * @override
+   */
+  touch (key, cacheOption = new CacheOption()) {
+    const str = this.localStorage.getItem(key);
+    /**
+     * @type {CacheVal}
+     */
+    const cacheVal = JSON.parse(str);
+    if (cacheVal === null) {
+      return null
+    }
+    /**
+     * @type {CacheOption}
+     */
+    const option = assign(this.cacheOption, cacheVal.cacheOption, cacheOption);
+    const { timeStart, timeout, deserialize } = option;
+    // 如果超时则删除并返回 null
+    if (timeout !== TimeoutInfinite && Date.now() - timeStart > timeout) {
+      this.del(key);
+      return null
+    }
+    try {
+      const result = deserialize(cacheVal.val);
+      this.set(key, result, assign(option, { timeStart: Date.now() }));
+      return result
+    } catch (e) {
+      this.del(key);
+      return null
+    }
+  }
+}
+
+/**
+ * 默认使用的 {@link ICache} 接口的缓存实现
+ */
+const cache = new LocalStorageCache();
+
+/**
+ * 缓存工具类
+ * 主要实现缓存高阶函数的封装
+ */
+class CacheUtil {
+  /**
+   * 包裹函数为缓存函数
+   * @param {Function} fn 一个接受一些参数并返回结果的函数
+   * @param {Number|String} [timeout] 缓存时间。默认为无限
+   * @returns {Function|Object} 带有缓存功能的函数
+   */
+  onecOfSameParam (fn, timeout = TimeoutInfinite) {
+    const innerFn = function (...args) {
+      const key = 'onecOfSameParam' + fn.toString() + JSON.stringify(args);
+      const cacheOption = new CacheOption({ timeout });
+      const val = cache.get(key);
+      if (val !== null) {
+        return val
+      }
+      const result = fn.call(this, ...args);
+      cache.set(key, result, cacheOption);
+      return result
+    };
+    /**
+     * 所包装的原函数
+     * @type {Function}
+     */
+    innerFn.origin = fn;
+    /**
+     * 清空缓存，清空指定参数调用时的函数缓存
+     * @type {Function}
+     */
+    innerFn.clear = function (...args) {
+      const key = 'onecOfSameParam' + fn.toString() + JSON.stringify(args);
+      cache.del(key);
+    };
+    return innerFn
+  }
+}
+
+/**
+ * 导出一个默认的缓存工具对象
+ */
+const cacheUtil = new CacheUtil();
+
+export { DateFormatter, FetchLimiting, LocalStorageCache, StateMachine, StringStyleUtil, appends, arrayDiffBy, arrayToMap, asIterator, asyncFlatMap, autoIncrement, blankToNull, blankToNullField, cacheUtil, compose, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, download, downloadString, downloadUrl, emptyAllField, excludeFields, excludeFieldsDeep, fetchTimeout, fill, filterItems, flatMap, formDataToArray, format, getCookies, getCusorPostion, getYearWeek, groupBy, insertText, isEditable, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, loadResource, mapToObject, objToFormData, once, onceOfSameParam, parseUrl, randomInt, range, readLocal, removeEl, removeText, returnItself, returnReasonableItself, safeExec, setCusorPostion, sets, singleModel, sortBy, spliceParams, strToArrayBuffer, strToDate, stringStyleType, throttle, timing, toLowerCase, toObject, toString, toUpperCase, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
 //# sourceMappingURL=rx-util-es.js.map

@@ -92,6 +92,7 @@ import { excludeFieldsDeep } from './module/obj/excludeFieldsDeep'
 import { isNullOrUndefined } from './module/obj/isNullOrUndefined'
 import { toString } from './module/string/toString'
 import { LocalStorageCache } from './module/cache/LocalStorageCache'
+import { cacheUtil } from './module/cache/cacheUtil'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -120,6 +121,7 @@ export {
   toObject,
   uniqueBy,
   LocalStorageCache,
+  cacheUtil,
   dateFormat,
   dateParse,
   dateConstants,

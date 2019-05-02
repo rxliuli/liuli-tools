@@ -2727,9 +2727,9 @@ class CacheUtil {
    * @param {Number|String} [timeout] 缓存时间。默认为无限
    * @returns {Function|Object} 带有缓存功能的函数
    */
-  onecOfSameParam (fn, timeout = TimeoutInfinite) {
+  onceOfSameParam (fn, timeout = TimeoutInfinite) {
     const innerFn = function (...args) {
-      const key = 'onecOfSameParam' + fn.toString() + JSON.stringify(args);
+      const key = 'onceOfSameParam' + fn.toString() + JSON.stringify(args);
       const cacheOption = new CacheOption({ timeout });
       const val = cache.get(key);
       if (val !== null) {
@@ -2749,7 +2749,7 @@ class CacheUtil {
      * @type {Function}
      */
     innerFn.clear = function (...args) {
-      const key = 'onecOfSameParam' + fn.toString() + JSON.stringify(args);
+      const key = 'onceOfSameParam' + fn.toString() + JSON.stringify(args);
       cache.del(key);
     };
     return innerFn

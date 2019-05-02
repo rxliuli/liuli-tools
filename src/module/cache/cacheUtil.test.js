@@ -2,7 +2,7 @@ import { cacheUtil } from './cacheUtil'
 import { repeatedCall } from '../function/repeatedCall'
 import { wait } from '../function/wait'
 
-describe('test cacheOption', () => {
+describe('test cacheUtil', () => {
   let num = 0
   const get = id => ({ id, num: ++num })
   const id = 1
@@ -11,7 +11,7 @@ describe('test cacheOption', () => {
     num = 0
   })
   it('simple example', () => {
-    const fn = cacheUtil.onecOfSameParam(get)
+    const fn = cacheUtil.onceOfSameParam(get)
     // 直接获取 10 次，num 则增加 10
     repeatedCall(10, () => get(id))
     expect(num).toBe(10)
@@ -31,7 +31,7 @@ describe('test cacheOption', () => {
     expect(fn(id)).toEqual({ id, num: 15 })
   })
   it('test timeout', async () => {
-    const fn = cacheUtil.onecOfSameParam(get, 10)
+    const fn = cacheUtil.onceOfSameParam(get, 10)
     // 在超时间内重复执行获取的都是缓存值，所以计数器只加了一次
     repeatedCall(10, () => fn(id))
     expect(num).toBe(1)

@@ -93,6 +93,7 @@ import { isNullOrUndefined } from './module/obj/isNullOrUndefined'
 import { toString } from './module/string/toString'
 import { LocalStorageCache } from './module/cache/LocalStorageCache'
 import { cacheUtil } from './module/cache/cacheUtil'
+import { antiDebug } from './module/hook/antiDebug'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -179,6 +180,7 @@ export {
   excludeFieldsDeep,
   isNullOrUndefined,
   mapToObject,
+  antiDebug,
   randomInt,
   isRange,
   autoIncrement,

@@ -1,5 +1,7 @@
 import { dateFormat } from './dateFormat'
 import { dateParse } from './dateParse'
+import { isNullOrUndefined } from '../obj/isNullOrUndefined'
+import { isEmpty } from '../string/isEmpty'
 
 /**
  * 日期格式化器
@@ -22,6 +24,9 @@ export class DateFormatter {
    * @returns {String} 格式化的字符串
    */
   format (date) {
+    if (isNullOrUndefined(date)) {
+      return ''
+    }
     return dateFormat(date, this.fmt)
   }
   /**
@@ -30,6 +35,9 @@ export class DateFormatter {
    * @returns {Date} 解析得到的日期
    */
   parse (str) {
+    if (isEmpty(str)) {
+      return null
+    }
     return dateParse(str, this.fmt)
   }
   /**
@@ -40,6 +48,9 @@ export class DateFormatter {
    * @returns {String} 转换后得到的字符串
    */
   strFormat (str, parseFmt) {
+    if (isEmpty(str)) {
+      return null
+    }
     const date = parseFmt ? dateParse(str, parseFmt) : new Date(str)
     return dateFormat(date, this.fmt)
   }

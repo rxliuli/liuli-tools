@@ -487,18 +487,33 @@ function flatMap (arr, fn) {
  * js 数组按照某个条件进行分组
  *
  * @param {Array<Object>} arr 要进行分组的数组
- * @param {Function} fn 元素分组的方法
+ * @param {Function} kFn 元素分组的唯一标识函数
+ * @param {Function} [vFn] 元素分组的值处理的函数。第一个参数是累计值，第二个参数是当前正在迭代的元素，如果你使用过 {@link Array#reduce} 函数的话应该对此很熟悉
+ * @param {Function} [init=[]] 每个分组的产生初始值的函数。类似于 reduce 的初始值，但它是一个函数，避免初始值在所有分组中进行累加。
  * @returns {Map<Object,Object>} 对象 -> 数组映射对象
  */
-function groupBy (arr, fn) {
+function groupBy (
+  arr,
+  kFn,
+  /**
+   * 默认的值处理函数
+   * @param {Map} res 最终 map 集合
+   * @param {Object} item 当前迭代的元素
+   */
+  vFn = (res, item) => {
+    res.push(item);
+    return res
+  },
+  init = () => []
+) {
   // 将元素按照分组条件进行分组得到一个 条件 -> 数组 的对象
   return arr.reduce((res, item) => {
-    const name = fn(item);
+    const k = kFn(item);
     // 如果已经有这个键了就直接追加, 否则先将之赋值为 [] 再追加元素
-    if (!res.has(name)) {
-      res.set(name, []);
+    if (!res.has(k)) {
+      res.set(k, init());
     }
-    res.get(name).push(item);
+    res.set(k, vFn(res.get(k), item));
     return res
   }, new Map())
 }
@@ -1735,13 +1750,22 @@ function dateBetween (start, end) {
  */
 const once = fn => {
   let flag = true;
-  let res;
+  let cache;
   return function (...args) {
     if (flag === false) {
-      return res
+      return cache
     }
     flag = false;
-    return (res = fn.call(this, ...args))
+    const result = fn.call(this, ...args);
+    // 如果是异步函数则返回异步的结果
+    if (result instanceof Promise) {
+      return result.then(res => {
+        cache = res;
+        return res
+      })
+    }
+    cache = result;
+    return cache
   }
 };
 
@@ -1755,21 +1779,21 @@ const onceOfSameParam = (
   fn,
   paramConverter = (...args) => JSON.stringify(args)
 ) => {
-  const paramMap = new Map();
+  const cacheMap = new Map();
   return function (...args) {
     const key = paramConverter(...args);
-    const old = paramMap.get(key);
+    const old = cacheMap.get(key);
     if (old !== undefined) {
       return old
     }
     const res = fn.call(this, ...args);
     if (res instanceof Promise) {
       return res.then(res => {
-        paramMap.set(key, res);
+        cacheMap.set(key, res);
         return res
       })
     }
-    paramMap.set(key, res);
+    cacheMap.set(key, res);
     return res
   }
 };
@@ -2283,6 +2307,25 @@ function sortBy (arr, kFn = returnItself) {
 }
 
 /**
+ * 判断一个对象是否是无效的
+ * 无效的值包含 null/undefined
+ * @param {Object} object 任何一个对象
+ * @returns {Boolean} 是否无效的
+ */
+function isNullOrUndefined (object) {
+  return object === undefined || object === null
+}
+
+/**
+ * 判断一个字符串是否为空字符串
+ * @param {String} str 字符串
+ * @returns {Boolean} 是否为空字符串
+ */
+function isEmpty (str) {
+  return isNullOrUndefined(str) || str === ''
+}
+
+/**
  * 日期格式化器
  * 包含格式化为字符串和解析字符串为日期的函数
  */
@@ -2303,6 +2346,9 @@ class DateFormatter {
    * @returns {String} 格式化的字符串
    */
   format (date) {
+    if (isNullOrUndefined(date)) {
+      return ''
+    }
     return dateFormat(date, this.fmt)
   }
   /**
@@ -2311,6 +2357,9 @@ class DateFormatter {
    * @returns {Date} 解析得到的日期
    */
   parse (str) {
+    if (isEmpty(str)) {
+      return null
+    }
     return dateParse(str, this.fmt)
   }
   /**
@@ -2321,6 +2370,9 @@ class DateFormatter {
    * @returns {String} 转换后得到的字符串
    */
   strFormat (str, parseFmt) {
+    if (isEmpty(str)) {
+      return null
+    }
     const date = parseFmt ? dateParse(str, parseFmt) : new Date(str);
     return dateFormat(date, this.fmt)
   }
@@ -2385,16 +2437,6 @@ function excludeFieldsDeep (object, ...fields) {
     }
   }
   return res
-}
-
-/**
- * 判断一个对象是否是无效的
- * 无效的值包含 null/undefined
- * @param {Object} object 任何一个对象
- * @returns {Boolean} 是否无效的
- */
-function isNullOrUndefined (object) {
-  return object === undefined || object === null
 }
 
 /**
@@ -2724,18 +2766,31 @@ class CacheUtil {
   /**
    * 包裹函数为缓存函数
    * @param {Function} fn 一个接受一些参数并返回结果的函数
-   * @param {Number|String} [timeout] 缓存时间。默认为无限
+   * @param {Object} [options={}] 缓存选项对象。可选项
+   * @param {String|Number} [options.identity=fn.toString()] 缓存标识。默认为函数 {@link toString}，但有时候不太可行（继承自基类的函数）
+   * @param {Number|String} [options.timeout=TimeoutInfinite] 缓存时间。默认为无限
    * @returns {Function|Object} 带有缓存功能的函数
    */
-  onceOfSameParam (fn, timeout = TimeoutInfinite) {
+  onceOfSameParam (
+    fn,
+    { identity = fn.toString(), timeout = TimeoutInfinite } = {}
+  ) {
+    const generateKey = args =>
+      `onceOfSameParam-${identity}-${JSON.stringify(args)}`;
     const innerFn = function (...args) {
-      const key = 'onceOfSameParam' + fn.toString() + JSON.stringify(args);
+      const key = generateKey(args);
       const cacheOption = new CacheOption({ timeout });
       const val = cache.get(key);
       if (val !== null) {
         return val
       }
       const result = fn.call(this, ...args);
+      if (result instanceof Promise) {
+        return result.then(res => {
+          cache.set(key, res, cacheOption);
+          return res
+        })
+      }
       cache.set(key, result, cacheOption);
       return result
     };
@@ -2749,7 +2804,7 @@ class CacheUtil {
      * @type {Function}
      */
     innerFn.clear = function (...args) {
-      const key = 'onceOfSameParam' + fn.toString() + JSON.stringify(args);
+      const key = generateKey(args);
       cache.del(key);
     };
     return innerFn
@@ -2761,5 +2816,66 @@ class CacheUtil {
  */
 const cacheUtil = new CacheUtil();
 
-export { DateFormatter, FetchLimiting, LocalStorageCache, StateMachine, StringStyleUtil, appends, arrayDiffBy, arrayToMap, asIterator, asyncFlatMap, autoIncrement, blankToNull, blankToNullField, cacheUtil, compose, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, download, downloadString, downloadUrl, emptyAllField, excludeFields, excludeFieldsDeep, fetchTimeout, fill, filterItems, flatMap, formDataToArray, format, getCookies, getCusorPostion, getYearWeek, groupBy, insertText, isEditable, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, loadResource, mapToObject, objToFormData, once, onceOfSameParam, parseUrl, randomInt, range, readLocal, removeEl, removeText, returnItself, returnReasonableItself, safeExec, setCusorPostion, sets, singleModel, sortBy, spliceParams, strToArrayBuffer, strToDate, stringStyleType, throttle, timing, toLowerCase, toObject, toString, toUpperCase, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
+const antiDebug = {
+  /**
+   * 不停循环 debugger 防止有人调试代码
+   */
+  cyclingDebugger () {
+    setInterval(() => {
+      // eslint-disable-next-line no-debugger
+      debugger
+    }, 100);
+  },
+
+  /**
+   * 检查是否正在 debugger 并调用回调函数
+   * @param {Function} fn 回调函数，默认为重载页面
+   */
+  checkDebug (fn = () => window.location.reload()) {
+    setInterval(() => {
+      const diff = timing(() => {
+        for (let i = 0; i < 1000; i++) {
+          console.log(i);
+          console.clear();
+        }
+      });
+      if (diff > 500) {
+        console.log(diff);
+        fn();
+      }
+    }, 1000);
+  },
+
+  /**
+   * 禁用控制台调试输出
+   */
+  disableConsoleOutput () {
+    if (!window.console) {
+      // @ts-ignore
+      window.console = {};
+    }
+    const methods = [
+      'log',
+      'debug',
+      'warn',
+      'info',
+      'dir',
+      'dirxml',
+      'trace',
+      'profile',
+    ];
+    methods.forEach(k => (console[k] = function () {}));
+  },
+};
+
+/**
+ * 判断一个字符串是否为空白的字符串
+ * @param {String} str 字符串
+ * @returns {Boolean} 是否为空字符串
+ */
+function isBlank (str) {
+  return isEmpty(str) || str.trim() === ''
+}
+
+export { DateFormatter, FetchLimiting, LocalStorageCache, StateMachine, StringStyleUtil, antiDebug, appends, arrayDiffBy, arrayToMap, asIterator, asyncFlatMap, autoIncrement, blankToNull, blankToNullField, cacheUtil, compose, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, download, downloadString, downloadUrl, emptyAllField, excludeFields, excludeFieldsDeep, fetchTimeout, fill, filterItems, flatMap, formDataToArray, format, getCookies, getCusorPostion, getYearWeek, groupBy, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, loadResource, mapToObject, objToFormData, once, onceOfSameParam, parseUrl, randomInt, range, readLocal, removeEl, removeText, returnItself, returnReasonableItself, safeExec, setCusorPostion, sets, singleModel, sortBy, spliceParams, strToArrayBuffer, strToDate, stringStyleType, throttle, timing, toLowerCase, toObject, toString, toUpperCase, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
 //# sourceMappingURL=rx-util-es.js.map

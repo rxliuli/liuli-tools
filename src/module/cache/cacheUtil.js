@@ -14,12 +14,19 @@ export class CacheUtil {
   /**
    * 包裹函数为缓存函数
    * @param {Function} fn 一个接受一些参数并返回结果的函数
-   * @param {Number|String} [timeout] 缓存时间。默认为无限
+   * @param {Object} [options={}] 缓存选项对象。可选项
+   * @param {String|Number} [options.identity=fn.toString()] 缓存标识。默认为函数 {@link toString}，但有时候不太可行（继承自基类的函数）
+   * @param {Number|String} [options.timeout=TimeoutInfinite] 缓存时间。默认为无限
    * @returns {Function|Object} 带有缓存功能的函数
    */
-  onceOfSameParam (fn, timeout = TimeoutInfinite) {
+  onceOfSameParam (
+    fn,
+    { identity = fn.toString(), timeout = TimeoutInfinite } = {}
+  ) {
+    const generateKey = args =>
+      `onceOfSameParam-${identity}-${JSON.stringify(args)}`
     const innerFn = function (...args) {
-      const key = 'onceOfSameParam' + fn.toString() + JSON.stringify(args)
+      const key = generateKey(args)
       const cacheOption = new CacheOption({ timeout })
       const val = cache.get(key)
       if (val !== null) {
@@ -45,7 +52,7 @@ export class CacheUtil {
      * @type {Function}
      */
     innerFn.clear = function (...args) {
-      const key = 'onceOfSameParam' + fn.toString() + JSON.stringify(args)
+      const key = generateKey(args)
       cache.del(key)
     }
     return innerFn

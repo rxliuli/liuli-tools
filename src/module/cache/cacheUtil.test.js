@@ -32,7 +32,7 @@ describe('test cacheUtil', () => {
     expect(fn(id)).toEqual({ id, num: 15 })
   })
   it('test timeout', async () => {
-    const fn = cacheUtil.onceOfSameParam(get, 10)
+    const fn = cacheUtil.onceOfSameParam(get, { timeout: 10 })
     // 在超时间内重复执行获取的都是缓存值，所以计数器只加了一次
     repeatedCall(10, () => fn(id))
     expect(num).toBe(1)

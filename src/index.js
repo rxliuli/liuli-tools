@@ -94,6 +94,8 @@ import { toString } from './module/string/toString'
 import { LocalStorageCache } from './module/cache/LocalStorageCache'
 import { cacheUtil } from './module/cache/cacheUtil'
 import { antiDebug } from './module/hook/antiDebug'
+import { isBlank } from './module/string/isBlank'
+import { isEmpty } from './module/string/isEmpty'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -165,6 +167,8 @@ export {
   blankToNull,
   fill,
   format,
+  isBlank,
+  isEmpty,
   isFloat,
   isNumber,
   stringStyleType,

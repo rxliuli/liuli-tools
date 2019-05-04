@@ -26,6 +26,12 @@ export class CacheUtil {
         return val
       }
       const result = fn.call(this, ...args)
+      if (result instanceof Promise) {
+        return result.then(res => {
+          cache.set(key, res, cacheOption)
+          return res
+        })
+      }
       cache.set(key, result, cacheOption)
       return result
     }

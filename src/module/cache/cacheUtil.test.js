@@ -1,6 +1,7 @@
 import { cacheUtil } from './cacheUtil'
 import { repeatedCall } from '../function/repeatedCall'
 import { wait } from '../function/wait'
+import { randomInt } from '../../index'
 
 describe('test cacheUtil', () => {
   let num = 0
@@ -42,5 +43,24 @@ describe('test cacheUtil', () => {
       fn(id)
       expect(i).toBe(i + 1)
     })
+  })
+  it('test async function', async () => {
+    class User {
+      constructor (name, age) {
+        this.name = name
+        this.age = age
+      }
+    }
+    // 模拟一个根据姓名获取 User 对象的值的 API
+    const getById = async name => new User(name, randomInt(18))
+    const fn = cacheUtil.onceOfSameParam(getById)
+    const res = await fn('rxliuli')
+    // 相同的名字不会真正执行到服务端
+    expect(await fn('rxliuli')).toEqual(res)
+    expect(await fn('rxliuli')).toEqual(res)
+    // 注意: 和普通的 {@link onceOfSameParam} 不同的是，缓存是从 LocalStorage 中取出并反序列化，所以并非引用同一个对象
+    expect(await fn('rxliuli')).not.toBe(res)
+    // 换个名字就不同了
+    expect(await fn('ling_meng')).not.toEqual(res)
   })
 })

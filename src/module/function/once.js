@@ -5,12 +5,21 @@
  */
 export const once = fn => {
   let flag = true
-  let res
+  let cache
   return function (...args) {
     if (flag === false) {
-      return res
+      return cache
     }
     flag = false
-    return (res = fn.call(this, ...args))
+    const result = fn.call(this, ...args)
+    // 如果是异步函数则返回异步的结果
+    if (result instanceof Promise) {
+      return result.then(res => {
+        cache = res
+        return res
+      })
+    }
+    cache = result
+    return cache
   }
 }

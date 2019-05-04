@@ -8,21 +8,21 @@ export const onceOfSameParam = (
   fn,
   paramConverter = (...args) => JSON.stringify(args)
 ) => {
-  const paramMap = new Map()
+  const cacheMap = new Map()
   return function (...args) {
     const key = paramConverter(...args)
-    const old = paramMap.get(key)
+    const old = cacheMap.get(key)
     if (old !== undefined) {
       return old
     }
     const res = fn.call(this, ...args)
     if (res instanceof Promise) {
       return res.then(res => {
-        paramMap.set(key, res)
+        cacheMap.set(key, res)
         return res
       })
     }
-    paramMap.set(key, res)
+    cacheMap.set(key, res)
     return res
   }
 }

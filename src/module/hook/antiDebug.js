@@ -23,7 +23,8 @@ export const antiDebug = {
           console.clear()
         }
       })
-      if (diff > 2000) {
+      if (diff > 500) {
+        console.log(diff)
         fn()
       }
     }, 1000)
@@ -47,8 +48,6 @@ export const antiDebug = {
       'trace',
       'profile',
     ]
-    for (var i = 0; i < methods.length; i++) {
-      console[methods[i]] = function () {}
-    }
+    methods.forEach(k => (console[k] = function () {}))
   },
 }

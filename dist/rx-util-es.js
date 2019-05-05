@@ -535,7 +535,7 @@ function range (start, end, sep = 1) {
 
 /**
  * 将数组转化为一个 Object 对象
- * @deprecated 已废弃，请使用更好的 @override arrayToMap 替代
+ * @deprecated 已废弃，请使用更好的 {@link arrayToMap} 替代
  * @param {Array.<Object>} arr 需要进行转换的数组
  * @param {Function} kFn 生成对象属性名的函数
  * @param {Function} [vFn] 生成对象属性值的函数，默认为数组中的迭代元素
@@ -2877,5 +2877,39 @@ function isBlank (str) {
   return isEmpty(str) || str.trim() === ''
 }
 
-export { DateFormatter, FetchLimiting, LocalStorageCache, StateMachine, StringStyleUtil, antiDebug, appends, arrayDiffBy, arrayToMap, asIterator, asyncFlatMap, autoIncrement, blankToNull, blankToNullField, cacheUtil, compose, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, download, downloadString, downloadUrl, emptyAllField, excludeFields, excludeFieldsDeep, fetchTimeout, fill, filterItems, flatMap, formDataToArray, format, getCookies, getCusorPostion, getYearWeek, groupBy, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, loadResource, mapToObject, objToFormData, once, onceOfSameParam, parseUrl, randomInt, range, readLocal, removeEl, removeText, returnItself, returnReasonableItself, safeExec, setCusorPostion, sets, singleModel, sortBy, spliceParams, strToArrayBuffer, strToDate, stringStyleType, throttle, timing, toLowerCase, toObject, toString, toUpperCase, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
+/**
+ * 加载一个远程脚本文件
+ * @param {String} src 远程脚本路径
+ * @returns {Promise} 等待异步加载脚本完成
+ */
+function loadScript (src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.addEventListener('load', resolve);
+    script.addEventListener('error', reject);
+    document.body.appendChild(script);
+  })
+}
+
+/**
+ * 将一个谓词函数取反
+ * @param {Function} fn 要取反的函数
+ * @returns {Function} 取反得到的函数
+ */
+const deny = fn =>
+  /**
+   * 包装后的函数
+   * @param {...any} args 函数的参数
+   * @returns {any} 函数的返回值取反
+   */
+  function (...args) {
+    const result = fn.apply(this, args);
+    if (result instanceof Promise) {
+      return result.then(res => !res)
+    }
+    return !result
+  };
+
+export { DateFormatter, FetchLimiting, LocalStorageCache, StateMachine, StringStyleUtil, antiDebug, appends, arrayDiffBy, arrayToMap, asIterator, asyncFlatMap, autoIncrement, blankToNull, blankToNullField, cacheUtil, compose, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, deny, download, downloadString, downloadUrl, emptyAllField, excludeFields, excludeFieldsDeep, fetchTimeout, fill, filterItems, flatMap, formDataToArray, format, getCookies, getCusorPostion, getYearWeek, groupBy, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, loadResource, loadScript, mapToObject, objToFormData, once, onceOfSameParam, parseUrl, randomInt, range, readLocal, removeEl, removeText, returnItself, returnReasonableItself, safeExec, setCusorPostion, sets, singleModel, sortBy, spliceParams, strToArrayBuffer, strToDate, stringStyleType, throttle, timing, toLowerCase, toObject, toString, toUpperCase, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
 //# sourceMappingURL=rx-util-es.js.map

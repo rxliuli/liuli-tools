@@ -96,6 +96,7 @@ import { cacheUtil } from './module/cache/cacheUtil'
 import { antiDebug } from './module/hook/antiDebug'
 import { isBlank } from './module/string/isBlank'
 import { isEmpty } from './module/string/isEmpty'
+import { loadScript } from './module/ajax/loadScript'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -106,6 +107,7 @@ export {
   downloadUrl,
   getCookies,
   loadResource,
+  loadScript,
   parseUrl,
   readLocal,
   spliceParams,

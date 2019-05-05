@@ -4,7 +4,11 @@
 
 [![npm](https://img.shields.io/npm/v/rx-util.svg?color=red&label=npm)](https://www.npmjs.com/package/rx-util) [![esdoc](https://img.shields.io/badge/document-98%25-brightgreen.svg)](https://rx-util.rxliuli.com/) [![coverage](https://img.shields.io/badge/coverage-78%25-yellowgreen.svg)](https://rx-util.rxliuli.com/coverage/lcov-report/) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
+[贡献指南](https://github.com/rxliuli/rx-util/blob/master/CONTRIBUTING.md)
+
 ## 简介
+
+[English](https://github.com/rxliuli/rx-util/blob/master/readme.md) [简体中文](https://github.com/rxliuli/rx-util/blob/master/readme-zh-cn.md)
 
 吾辈日常写传统前端时需要大量相同的函数，所以需要写一个能在浏览器上使用的库，仅此而已。
 该库大部分代码已经通过单元测试，但还请谨慎用于生产环境。不包含单元测试的部分大部分是 DOM 操作相关函数，以及部分异步代码。

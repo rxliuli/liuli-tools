@@ -97,6 +97,7 @@ import { antiDebug } from './module/hook/antiDebug'
 import { isBlank } from './module/string/isBlank'
 import { isEmpty } from './module/string/isEmpty'
 import { loadScript } from './module/ajax/loadScript'
+import { deny } from './module/function/deny'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -151,6 +152,7 @@ export {
   objToFormData,
   formDataToArray,
   debounce,
+  deny,
   once,
   onceOfSameParam,
   returnItself,

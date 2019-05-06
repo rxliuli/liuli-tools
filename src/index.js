@@ -98,6 +98,9 @@ import { isBlank } from './module/string/isBlank'
 import { isEmpty } from './module/string/isEmpty'
 import { loadScript } from './module/ajax/loadScript'
 import { deny } from './module/function/deny'
+import { arrayValidator } from './module/array/arrayValidator'
+import { stringValidator } from './module/string/stringValidator'
+import { pathUtil } from './module/string/pathUtil'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -117,6 +120,7 @@ export {
   FetchLimiting,
   arrayDiffBy,
   arrayToMap,
+  arrayValidator,
   asIterator,
   asyncFlatMap,
   filterItems,
@@ -175,8 +179,10 @@ export {
   isEmpty,
   isFloat,
   isNumber,
+  pathUtil,
   stringStyleType,
   StringStyleUtil,
+  stringValidator,
   toLowerCase,
   toString,
   toUpperCase,

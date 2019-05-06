@@ -1,4 +1,5 @@
 import { timing } from '../function/timing'
+import { emptyFunc } from '../function/emptyFunc'
 
 export const antiDebug = {
   /**
@@ -35,19 +36,8 @@ export const antiDebug = {
    */
   disableConsoleOutput () {
     if (!window.console) {
-      // @ts-ignore
-      window.console = {}
+      return
     }
-    const methods = [
-      'log',
-      'debug',
-      'warn',
-      'info',
-      'dir',
-      'dirxml',
-      'trace',
-      'profile',
-    ]
-    methods.forEach(k => (console[k] = function () {}))
+    Object.keys(console).forEach(k => (console[k] = emptyFunc))
   },
 }

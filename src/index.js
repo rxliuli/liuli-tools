@@ -103,6 +103,7 @@ import { stringValidator } from './module/string/stringValidator'
 import { pathUtil } from './module/string/pathUtil'
 import { logger } from './module/hook/logger'
 import { emptyFunc } from './module/function/emptyFunc'
+import { objectToMap } from './module/obj/objectToMap'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -197,6 +198,7 @@ export {
   excludeFieldsDeep,
   isNullOrUndefined,
   mapToObject,
+  objectToMap,
   antiDebug,
   logger,
   randomInt,

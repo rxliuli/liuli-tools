@@ -10,6 +10,6 @@ describe('test pathUtil', () => {
     expect(pathUtil.join('/api/', '/user/login')).toBe(url)
     expect(pathUtil.join('/api', 'user/login')).toBe(url)
     expect(pathUtil.join('/api', 'user', 'login')).toBe(url)
-    expect(pathUtil.join('/api/', '/user/', '/login/')).toBe(url)
+    expect(pathUtil.join('/api/', '/user/', '/login')).toBe(url)
   })
 })

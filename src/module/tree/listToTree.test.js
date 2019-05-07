@@ -1,5 +1,5 @@
 import { listToTree } from './listToTree'
-import { bridge } from '../function/bridge'
+import { INode } from './Node'
 
 /**
  * @test {listToTree}
@@ -87,7 +87,7 @@ describe('test listToTree', () => {
     ]
     expect(listToTree(list)).toEqual({})
   })
-  class Node {
+  class CustomNode {
     constructor (uid, parent) {
       this.uid = uid
       this.parent = parent
@@ -109,24 +109,6 @@ describe('test listToTree', () => {
       },
     ],
   }
-  it('test custom field', () => {
-    const list = [
-      new Node(1),
-      new Node(2, 1),
-      new Node(3, 2),
-      new Node(4, 2),
-      new Node(5, 1),
-      new Node(6, 5),
-      new Node(7, 5),
-    ]
-
-    expect(
-      listToTree(list, {
-        id: 'uid',
-        parentId: 'parent',
-      })
-    ).toEqual(result)
-  })
   it('test custom field getter and setter', () => {
     // 桥接类，使用 getter/setter 包装对象
     class BridgeNode {
@@ -152,13 +134,13 @@ describe('test listToTree', () => {
     }
     // 使用 BridgeNode 包装 Node 类
     const list = [
-      new BridgeNode(new Node(1)),
-      new BridgeNode(new Node(2, 1)),
-      new BridgeNode(new Node(3, 2)),
-      new BridgeNode(new Node(4, 2)),
-      new BridgeNode(new Node(5, 1)),
-      new BridgeNode(new Node(6, 5)),
-      new BridgeNode(new Node(7, 5)),
+      new BridgeNode(new CustomNode(1)),
+      new BridgeNode(new CustomNode(2, 1)),
+      new BridgeNode(new CustomNode(3, 2)),
+      new BridgeNode(new CustomNode(4, 2)),
+      new BridgeNode(new CustomNode(5, 1)),
+      new BridgeNode(new CustomNode(6, 5)),
+      new BridgeNode(new CustomNode(7, 5)),
     ]
 
     expect(listToTree(list)).toEqual(result)
@@ -192,31 +174,31 @@ describe('test listToTree', () => {
     }
     // 使用 bridge 代理过的 Node 类
     const list = [
-      bridgeNode(new Node(1)),
-      bridgeNode(new Node(2, 1)),
-      bridgeNode(new Node(3, 2)),
-      bridgeNode(new Node(4, 2)),
-      bridgeNode(new Node(5, 1)),
-      bridgeNode(new Node(6, 5)),
-      bridgeNode(new Node(7, 5)),
+      bridgeNode(new CustomNode(1)),
+      bridgeNode(new CustomNode(2, 1)),
+      bridgeNode(new CustomNode(3, 2)),
+      bridgeNode(new CustomNode(4, 2)),
+      bridgeNode(new CustomNode(5, 1)),
+      bridgeNode(new CustomNode(6, 5)),
+      bridgeNode(new CustomNode(7, 5)),
     ]
 
     expect(listToTree(list)).toEqual(result)
   })
-  it('test custom common proxy', () => {
-    const bridgeNode = bridge({
+  it('test custom INode bridge', () => {
+    const bridgeNode = INode.bridge({
       id: 'uid',
       parentId: 'parent',
     })
     // 使用 bridge 代理过的 Node 类
     const list = [
-      new Node(1),
-      new Node(2, 1),
-      new Node(3, 2),
-      new Node(4, 2),
-      new Node(5, 1),
-      new Node(6, 5),
-      new Node(7, 5),
+      new CustomNode(1),
+      new CustomNode(2, 1),
+      new CustomNode(3, 2),
+      new CustomNode(4, 2),
+      new CustomNode(5, 1),
+      new CustomNode(6, 5),
+      new CustomNode(7, 5),
     ]
 
     // @ts-ignore

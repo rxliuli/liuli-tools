@@ -1,5 +1,5 @@
 import { listToTree } from './listToTree'
-import { INode } from './Node'
+import { NodeBridgeUtil } from './NodeBridgeUtil'
 
 /**
  * @test {listToTree}
@@ -186,7 +186,7 @@ describe('test listToTree', () => {
     expect(listToTree(list)).toEqual(result)
   })
   it('test custom INode bridge', () => {
-    const bridgeNode = INode.bridge({
+    const bridgeNode = NodeBridgeUtil.bridge({
       id: 'uid',
       parentId: 'parent',
     })

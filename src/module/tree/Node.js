@@ -1,5 +1,3 @@
-import { bridge } from '../function/bridge'
-
 /**
  * 基本的 Node 节点结构定义接口
  * @interface
@@ -32,27 +30,5 @@ export class INode {
      */
     this.path = path
     Object.assign(this, args)
-  }
-
-  /**
-   * 桥接对象为标准的树结构
-   * @param {Object} [options] 桥接对象
-   * @param {String} [options.id='id'] 树结点的 id 属性名
-   * @param {String} [options.parentId='parentId'] 树结点的父节点 id 属性名
-   * @param {String} [options.child='child'] 树结点的子节点数组属性名
-   * @param {String} [options.path='path'] 树结点的全路径属性名
-   */
-  static bridge ({
-    id = 'id',
-    parentId = 'parentId',
-    child = 'child',
-    path = 'path',
-  } = {}) {
-    return bridge({
-      id,
-      parentId,
-      child,
-      path,
-    })
   }
 }

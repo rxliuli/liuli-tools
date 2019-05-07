@@ -1,6 +1,6 @@
 import { treeToList } from './treeToList'
 import { excludeFieldsDeep } from '../obj/excludeFieldsDeep'
-import { INode } from './Node'
+import { NodeBridgeUtil } from './NodeBridgeUtil'
 
 /**
  * @test {treeToList}
@@ -91,7 +91,7 @@ describe('test treeToList', () => {
     expect(
       excludeFieldsDeep(
         treeToList(tree, {
-          bridge: INode.bridge({
+          bridge: NodeBridgeUtil.bridge({
             id: 'uid',
             parentId: 'parent',
             child: 'childrens',

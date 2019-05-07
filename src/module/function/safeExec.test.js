@@ -12,7 +12,7 @@ describe('test safeExec', () => {
       safeExec(() => {
         throw new Error()
       })
-    ).toBeUndefined()
+    ).toBeNull()
   })
   it('test safeExec throw Error, and set default value', () => {
     expect(

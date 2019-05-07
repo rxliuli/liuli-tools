@@ -2,6 +2,7 @@ import { ICache } from './ICache'
 import { CacheVal } from './CacheVal'
 import { CacheOption, TimeoutInfinite } from './CacheOption'
 import { assign } from '../obj/assign'
+import { safeExec } from '../function/safeExec'
 
 /**
  * 使用 LocalStorage 实现的缓存
@@ -80,7 +81,7 @@ export class LocalStorageCache extends ICache {
    */
   get (key, cacheOption = new CacheOption()) {
     const str = this.localStorage.getItem(key)
-    const cacheVal = JSON.parse(str)
+    const cacheVal = safeExec(JSON.parse, null, str)
     if (cacheVal === null) {
       return null
     }
@@ -113,7 +114,7 @@ export class LocalStorageCache extends ICache {
     /**
      * @type {CacheVal}
      */
-    const cacheVal = JSON.parse(str)
+    const cacheVal = safeExec(JSON.parse, null, str)
     if (cacheVal === null) {
       return null
     }

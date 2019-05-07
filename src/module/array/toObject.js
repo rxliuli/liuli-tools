@@ -8,8 +8,9 @@
  */
 export function toObject (arr, kFn, vFn = item => item) {
   return arr.reduce((res, item) => {
-    if (!res.hasOwnProperty(kFn(item))) {
-      res[kFn(item)] = vFn(item)
+    const k = kFn(item)
+    if (!Reflect.has(res, k)) {
+      res[k] = vFn(item)
     }
     return res
   }, {})

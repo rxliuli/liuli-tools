@@ -35,6 +35,12 @@ describe('test LocalStorageCache', () => {
     expect(cache.get(k)).toBe(v1)
     await wait(120)
     expect(cache.get(k)).toBe(null)
+    // @ts-ignore
+    cache.add(k, v1, {
+      timeout: 100,
+    })
+    await wait(120)
+    expect(cache.touch(k)).toBe(null)
   })
   it('test touch', async () => {
     const cache = new LocalStorageCache()
@@ -75,5 +81,34 @@ describe('test LocalStorageCache', () => {
     expect(cache.get(k)).toBe(v1)
     await wait(200)
     expect(cache.get(k)).toBe(v1)
+  })
+
+  describe('test error', () => {
+    it('get error cache', () => {
+      const cache = new LocalStorageCache()
+      const k = '1'
+      const v1 = ''
+      localStorage.setItem(k, v1)
+      expect(cache.get(k)).toBeNull()
+      expect(localStorage.getItem(k)).toBe(v1)
+      // 注意，如果可以被反序列化但不能使用 deserialize 进一步解析到真实值将会被删除而非直接返回 null
+      const v2 = '1'
+      localStorage.setItem(k, v2)
+      expect(cache.get(k)).toBeNull()
+      // 注意观察这里获取到的值
+      expect(localStorage.getItem(k)).toBeNull()
+    })
+    it('touch error cache', () => {
+      const cache = new LocalStorageCache()
+      const k = '1'
+      const v1 = ''
+      localStorage.setItem(k, v1)
+      expect(cache.touch(k)).toBeNull()
+      expect(localStorage.getItem(k)).toBe(v1)
+      const v2 = '1'
+      localStorage.setItem(k, v2)
+      expect(cache.touch(k)).toBeNull()
+      expect(localStorage.getItem(k)).toBeNull()
+    })
   })
 })

@@ -70,6 +70,23 @@ describe('test listToTree', () => {
       },
     ])
   })
+  it('test no root node', () => {
+    class Node {
+      constructor (id, parentId) {
+        this.id = id
+        this.parentId = parentId
+      }
+    }
+    const list = [
+      new Node(2, 1),
+      new Node(3, 2),
+      new Node(4, 2),
+      new Node(5, 1),
+      new Node(6, 5),
+      new Node(7, 5),
+    ]
+    expect(listToTree(list)).toEqual({})
+  })
   class Node {
     constructor (uid, parent) {
       this.uid = uid

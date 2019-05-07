@@ -1,6 +1,9 @@
 import { timing } from '../function/timing'
 import { emptyFunc } from '../function/emptyFunc'
 
+/**
+ * 禁止他人调试网站相关方法的集合对象
+ */
 export const antiDebug = {
   /**
    * 不停循环 debugger 防止有人调试代码

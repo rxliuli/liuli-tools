@@ -49,7 +49,7 @@ export class DateFormatter {
    */
   strFormat (str, parseFmt) {
     if (isEmpty(str)) {
-      return null
+      return ''
     }
     const date = parseFmt ? dateParse(str, parseFmt) : new Date(str)
     return dateFormat(date, this.fmt)

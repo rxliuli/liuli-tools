@@ -27,4 +27,10 @@ describe('test DateFormatter', () => {
       '2019-12-11 12:11:11'
     )
   })
+  it('test error parameter', () => {
+    const df = DateFormatter.dateFormatter
+    expect(df.parse(null)).toBeNull()
+    expect(df.format(null)).toBeEmpty()
+    expect(df.strFormat(null)).toBeEmpty()
+  })
 })

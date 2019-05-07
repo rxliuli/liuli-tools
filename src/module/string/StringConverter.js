@@ -1,4 +1,7 @@
 import { onceOfSameParam } from '../function/onceOfSameParam'
+import { stringValidator } from './stringValidator'
+import { toLowerCase } from './toLowerCase'
+import { toUpperCase } from './toUpperCase'
 
 /**
  * 转换接口
@@ -72,10 +75,12 @@ export class CamelConverter extends CamelOrPascalFrom {
    * @override
    */
   to (list) {
-    const str = list
-      .map(s => s.substring(0, 1).toUpperCase() + s.substring(1))
-      .join()
-    return str.substring(0, 1).toLowerCase() + str.substring(1)
+    return list.reduce((res, s, i) => {
+      const str = toLowerCase(s)
+      return (res +=
+        (i === 0 ? toLowerCase : toUpperCase)(str.substring(0, 1)) +
+        str.substring(1))
+    }, '')
   }
 }
 
@@ -91,9 +96,10 @@ export class PascalConverter extends CamelOrPascalFrom {
    * @override
    */
   to (list) {
-    return list
-      .map(s => s.substring(0, 1).toUpperCase() + s.substring(1))
-      .join()
+    return list.reduce((res, s) => {
+      const str = toLowerCase(s)
+      return (res += toUpperCase(str.substring(0, 1)) + str.substring(1))
+    }, '')
   }
 }
 /**
@@ -123,7 +129,7 @@ export class SnakeConverter extends SnakeOrScreamingSnakeFrom {
    * @override
    */
   to (list) {
-    return list.map(s => s.toLowerCase()).join('_')
+    return list.map(toLowerCase).join('_')
   }
 }
 /**
@@ -138,7 +144,7 @@ export class ScreamingSnakeConverter extends SnakeOrScreamingSnakeFrom {
    * @override
    */
   to (list) {
-    return list.map(s => s.toUpperCase()).join('_')
+    return list.map(toUpperCase).join('_')
   }
 }
 /**
@@ -166,7 +172,7 @@ export const stringStyleType = {
 /**
  * 转换器工厂
  */
-class ConverterFactory {
+export class ConverterFactory {
   /**
    * 获取一个转换器实例
    *
@@ -224,7 +230,7 @@ export class StringStyleConverter {
    * @return {String} 转换得到的字符串
    */
   convert (str) {
-    if (str === undefined || str === null || str.length === 0) {
+    if (stringValidator.isEmpty(str)) {
       return str
     }
     return this.toConverter.to(this.fromConverter.from(str))

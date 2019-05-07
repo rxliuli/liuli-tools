@@ -1,5 +1,6 @@
 import { flatMap } from '../array/flatMap'
 import { Path, Id, Child } from './treeConstant'
+import { arrayValidator } from '../array/arrayValidator'
 
 /**
  * 将树节点转为树节点列表
@@ -15,17 +16,19 @@ export function treeToList (
   root,
   { id = Id, child = Child, path = Path, calcPath = false } = {}
 ) {
-  // 树结构转列表，并且计算路径
+  // 树结构转列表，并且可以计算路径
   function _treeToList (node, parentPath) {
     // 是否计算全路径
     if (calcPath) {
       node[path] = (parentPath ? parentPath + ',' : '') + node[id]
     }
-    return [node].concat(
-      node[child]
-        ? flatMap(node[child], node => treeToList(node, node[path]))
-        : []
-    )
+    const childs = node[child]
+    return [
+      node,
+      ...(arrayValidator.isEmpty(childs)
+        ? []
+        : flatMap(childs, child => _treeToList(child, node[path]))),
+    ]
   }
   return _treeToList(root)
 }

@@ -32,4 +32,8 @@ describe('test curry', () => {
     const add = (i1, i2, i3, i4, i5) => i1 + i2 + i3 + i4 + i5
     expect(curry(add)(curry._, 2)(1, curry._)(3, curry._, 5)(4)).toBe(15)
   })
+  it('test curry toString', () => {
+    const add = (i1, i2, i3) => i1 + i2 + i3
+    expect(curry(add)(1)(2).toString()).toBe('name: add, args: [1, 2]')
+  })
 })

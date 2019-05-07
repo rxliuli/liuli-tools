@@ -106,6 +106,7 @@ import { emptyFunc } from './module/function/emptyFunc'
 import { objectToMap } from './module/obj/objectToMap'
 import { listToTree } from './module/tree/listToTree'
 import { bridge } from './module/function/bridge'
+import { treeToList } from './module/tree/treeToList'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -208,4 +209,5 @@ export {
   isRange,
   autoIncrement,
   listToTree,
+  treeToList,
 }

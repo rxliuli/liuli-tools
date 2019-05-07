@@ -8,6 +8,7 @@ describe('test deepFreeze', () => {
     const obj = deepFreeze({ name: 'rx' })
     expect(() => (obj.name = '琉璃')).toThrowError()
     expect(obj.name).toBe('rx')
+    expect(deepFreeze(null)).toBeNull()
   })
   it('deep freeze array', () => {
     const obj = deepFreeze([1, 2, 3])

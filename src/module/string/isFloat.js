@@ -1,4 +1,4 @@
-import { stringValidator } from '../../index'
+import { stringValidator } from './stringValidator'
 
 /**
  * 判断字符串是否位小数

@@ -1,11 +1,13 @@
+import { isNullOrUndefined } from './isNullOrUndefined'
+
 /**
  * 递归使对象不可变
  * @param {Object} obj 任何非空对象
  * @returns {Object} 新的不可变对象
  */
 export function deepFreeze (obj) {
-  if (obj === undefined || obj === null) {
-    return
+  if (isNullOrUndefined(obj)) {
+    return null
   }
   // 数组和对象分别处理
   if (obj instanceof Array) {

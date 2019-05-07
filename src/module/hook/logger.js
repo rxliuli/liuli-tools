@@ -18,6 +18,9 @@ export class Logger {
    * 设置 enable 的 setter 属性，在改变时合并对应的子类对象实现
    */
   set enable (enable) {
+    /**
+     * @field 是否开启全局控制台，该属性只写
+     */
     this._enable = enable
     Object.keys(console).forEach(
       k => (this[k] = enable ? console[k] : emptyFunc)
@@ -33,4 +36,8 @@ export class Logger {
   log (message, ...optionalParams) {}
 }
 
+/**
+ * 导出一个全局可用的 Logger 对象
+ * 使用 enable 属性控制是否开启日志输出，默认为 true
+ */
 export const logger = new Logger()

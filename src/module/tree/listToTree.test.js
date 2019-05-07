@@ -39,6 +39,37 @@ describe('test listToTree', () => {
       ],
     })
   })
+  it('test multi root node', () => {
+    class Node {
+      constructor (id, parentId) {
+        this.id = id
+        this.parentId = parentId
+      }
+    }
+    const list = [
+      new Node(1),
+      new Node(2),
+      new Node(3, 2),
+      new Node(4, 2),
+      new Node(5),
+      new Node(6, 5),
+      new Node(7, 5),
+    ]
+
+    expect(listToTree(list)).toEqual([
+      {
+        id: 1,
+      },
+      {
+        id: 2,
+        child: [{ id: 3, parentId: 2 }, { id: 4, parentId: 2 }],
+      },
+      {
+        id: 5,
+        child: [{ id: 6, parentId: 5 }, { id: 7, parentId: 5 }],
+      },
+    ])
+  })
   class Node {
     constructor (uid, parent) {
       this.uid = uid

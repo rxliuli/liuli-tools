@@ -17,9 +17,12 @@ export function sortBy (arr, kFn = returnItself) {
   const medianIndex = Math.floor(arr.length / 2)
   const newArr = arr.slice()
   const median = newArr.splice(medianIndex, 1)[0]
-  const medianValue = kFn(median)
-  const map = groupBy(newArr, item => kFn(item) < medianValue)
-  // 对两个数组分别进行排序
+  const medianValue = kFn(median, medianIndex, arr)
+  const map = groupBy(
+    newArr,
+    (item, ...args) => kFn(item, ...args) < medianValue
+  )
+  // 对两个数组分别进行递归排序
   return [
     ...sortBy(map.get(true) || [], kFn),
     median,

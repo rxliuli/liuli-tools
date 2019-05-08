@@ -5,9 +5,9 @@
  * @returns {Promise.<Array.<Object>>} 压平一层的数组
  */
 export async function asyncFlatMap (arr, fn) {
-  let res = []
-  for (const i in arr) {
-    res = res.concat(await fn(arr[i]))
+  const res = []
+  for (let i = 0; i < arr.length; i++) {
+    res.push(...(await fn(arr[i])))
   }
   return res
 }

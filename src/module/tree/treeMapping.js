@@ -17,7 +17,7 @@ export function treeMapping (
   {
     before = returnItself,
     after = returnItself,
-    paramFn = (node, args) => [],
+    paramFn = (node, ...args) => [],
   } = {}
 ) {
   /**

@@ -7,10 +7,10 @@
  * @returns {Object} 转化得到的对象
  */
 export function toObject (arr, kFn, vFn = item => item) {
-  return arr.reduce((res, item) => {
-    const k = kFn(item)
+  return arr.reduce((res, item, ...args) => {
+    const k = kFn(item, ...args)
     if (!Reflect.has(res, k)) {
-      res[k] = vFn(item)
+      res[k] = vFn(item, ...args)
     }
     return res
   }, {})

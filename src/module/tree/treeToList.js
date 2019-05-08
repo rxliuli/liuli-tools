@@ -1,6 +1,5 @@
-import { flatMap } from '../array/flatMap'
-import { arrayValidator } from '../array/arrayValidator'
 import { returnItself } from '../function/returnItself'
+import { treeMapping } from './treeMapping'
 
 /**
  * 将树节点转为树节点列表
@@ -14,20 +13,20 @@ export function treeToList (
   root,
   { bridge = returnItself, calcPath = false } = {}
 ) {
-  // 树结构转列表，并且可以计算路径
-  function _treeToList (nodex, parentPath) {
-    const node = bridge(nodex)
-    // 是否计算全路径
-    if (calcPath) {
-      node.path = (parentPath ? parentPath + ',' : '') + node.id
-    }
-    const childs = node.child
-    return [
-      node,
-      ...(arrayValidator.isEmpty(childs)
-        ? []
-        : flatMap(childs, child => _treeToList(child, node.path))),
-    ]
-  }
-  return _treeToList(root)
+  const res = []
+  // @ts-ignore
+  treeMapping(root, {
+    before (node, parentPath) {
+      const _node = bridge(node)
+      // 是否计算全路径
+      if (calcPath) {
+        _node.path = (parentPath ? parentPath + ',' : '') + _node.id
+      }
+      // 此时追加到数组中
+      res.push(_node)
+      return _node
+    },
+    paramFn: node => (calcPath ? [node.path] : []),
+  })
+  return res
 }

@@ -38,8 +38,7 @@ export function treeMapping (
       childs[i] = _treeMapping(childs[i], ...paramFn(_node, ...args))
     }
     // 之后的操作
-    _node = after(_node, ...args)
-    return _node
+    return after(_node, ...args)
   }
   return _treeMapping(root)
 }

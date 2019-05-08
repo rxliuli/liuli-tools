@@ -1,5 +1,4 @@
 import { isNullOrUndefined } from '../obj/isNullOrUndefined'
-import { isBlank } from './isBlank'
 /**
  * 判断是否为小数的正则表达式
  */
@@ -59,7 +58,7 @@ export class StringValidator {
    * @returns {Boolean} 是否是邮箱
    */
   isEmail (str) {
-    return !isBlank(str) && EmailRule.test(str)
+    return !this.isBlank(str) && EmailRule.test(str)
   }
 }
 

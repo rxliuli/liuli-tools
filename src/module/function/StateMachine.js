@@ -30,15 +30,16 @@ export class StateMachine {
       /**
        * 获取一个标签子类对象
        * @param {Number|String} state 状态索引
+       * @param {...Object} [args] 构造函数的参数
        * @returns {Object} 子类对象
        */
-      getInstance (state) {
+      getInstance (state, ...args) {
         const Class = classMap.get(state)
         if (!Class) {
           return null
         }
         // 构造函数的参数
-        return new Class(...Array.from(arguments).slice(1))
+        return new Class(...args)
       }
     }()
   }

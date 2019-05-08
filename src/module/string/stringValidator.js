@@ -1,12 +1,20 @@
 import { isNullOrUndefined } from '../obj/isNullOrUndefined'
+import { isBlank } from './isBlank'
 /**
  * 判断是否为小数的正则表达式
  */
-const FloatRegexp = new RegExp('^(-?\\d+)(.\\d+)?$')
+const FloatRule = new RegExp('^(-?\\d+)(.\\d+)?$')
 /**
  * 判断是否为整数的正则表达式
  */
-const IntegerRegexp = new RegExp('^-?\\d+$')
+const IntegerRule = new RegExp('^-?\\d+$')
+/**
+ * 判断是否为邮箱的正则表达式
+ */
+const EmailRule = new RegExp(
+  '^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z]+$'
+)
+
 /**
  * 字符串校验
  */
@@ -34,7 +42,7 @@ export class StringValidator {
    * @returns {Boolean} 是否为小数
    */
   isFloat (str) {
-    return FloatRegexp.test(str)
+    return FloatRule.test(str)
   }
 
   /**
@@ -43,7 +51,15 @@ export class StringValidator {
    * @returns {Boolean} 是否为小数
    */
   isInteger (str) {
-    return IntegerRegexp.test(str)
+    return IntegerRule.test(str)
+  }
+  /**
+   * 判断邮箱的格式是否正确
+   * @param {String} str 邮箱字符串
+   * @returns {Boolean} 是否是邮箱
+   */
+  isEmail (str) {
+    return !isBlank(str) && EmailRule.test(str)
   }
 }
 

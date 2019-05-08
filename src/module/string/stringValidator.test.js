@@ -4,7 +4,7 @@ import { stringValidator } from './stringValidator'
  * @test {stringValidator}
  */
 describe('test stringValidator', () => {
-  const { isBlank, isEmpty, isFloat, isInteger } = stringValidator
+  const { isBlank, isEmpty, isFloat, isInteger, isEmail } = stringValidator
   it('test isBlank', () => {
     expect(isBlank(null)).toBeTrue()
     expect(isBlank(undefined)).toBeTrue()
@@ -20,13 +20,18 @@ describe('test stringValidator', () => {
     expect(isEmpty('a')).toBeFalse()
   })
   it('test isFloat', () => {
-    expect(isFloat('5')).toBe(true)
-    expect(isFloat('5.6')).toBe(true)
-    expect(isFloat('5.a')).toBe(false)
+    expect(isFloat('5')).toBeTrue()
+    expect(isFloat('5.6')).toBeTrue()
+    expect(isFloat('5.a')).toBeFalse()
   })
   it('test isInteger', () => {
-    expect(isInteger('7')).toBe(true)
-    expect(isInteger('7.5')).toBe(false)
-    expect(isInteger('7.a')).toBe(false)
+    expect(isInteger('7')).toBeTrue()
+    expect(isInteger('7.5')).toBeFalse()
+    expect(isInteger('7.a')).toBeFalse()
+  })
+  it('test isEmail', () => {
+    expect(isEmail('rx@liuli.com')).toBeTrue()
+    expect(isEmail('@liuli.com')).toBeFalse()
+    expect(isEmail(null)).toBeFalse()
   })
 })

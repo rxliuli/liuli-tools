@@ -107,6 +107,9 @@ import { objectToMap } from './module/obj/objectToMap'
 import { listToTree } from './module/tree/listToTree'
 import { bridge } from './module/function/bridge'
 import { treeToList } from './module/tree/treeToList'
+import { treeMapping } from './module/tree/treeMapping'
+import { INodeBridge } from './module/tree/NodeBridge'
+import { nodeBridgeUtil } from './module/tree/NodeBridgeUtil'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -209,5 +212,8 @@ export {
   isRange,
   autoIncrement,
   listToTree,
+  treeMapping,
+  INodeBridge,
+  nodeBridgeUtil,
   treeToList,
 }

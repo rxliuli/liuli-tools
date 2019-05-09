@@ -1,4 +1,5 @@
 import { groupBy } from './groupBy'
+import { range } from './range'
 
 /**
  * @test {groupBy}
@@ -46,5 +47,11 @@ describe('test groupBy', () => {
         .set(false, new Map().set(1, 'rx').set(2, '琉璃'))
         .set(true, new Map().set(3, '楚轩'))
     )
+  })
+  it('group by index', () => {
+    const arr = range(1, 10, 1)
+    expect(
+      Array.from(groupBy(arr, (_v, i) => Math.floor(i / 3)).values())
+    ).toIncludeAllMembers([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
   })
 })

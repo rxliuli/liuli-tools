@@ -10,5 +10,5 @@ import { returnItself } from './../function/returnItself'
 export function filterItems (arr, deleteItems, kFn = returnItself) {
   // @ts-ignore
   const kSet = new Set(deleteItems.map(kFn))
-  return arr.filter(v => !kSet.has(kFn(v)))
+  return arr.filter((v, ...args) => !kSet.has(kFn(v, ...args)))
 }

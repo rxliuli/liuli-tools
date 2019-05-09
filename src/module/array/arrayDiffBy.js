@@ -39,10 +39,10 @@ export function arrayDiffBy (thanArr, thatArr, kFn = returnItself) {
   const kThanSet = new Set(thanArr.map(kFn))
   // @ts-ignore
   const kThatSet = new Set(thatArr.map(kFn))
-  const left = thanArr.filter(v => !kThatSet.has(kFn(v)))
-  const right = thatArr.filter(v => !kThanSet.has(kFn(v)))
+  const left = thanArr.filter((v, ...args) => !kThatSet.has(kFn(v, ...args)))
+  const right = thatArr.filter((v, ...args) => !kThanSet.has(kFn(v, ...args)))
   // @ts-ignore
   const kLeftSet = new Set(left.map(kFn))
-  const common = thanArr.filter(v => !kLeftSet.has(kFn(v)))
+  const common = thanArr.filter((v, ...args) => !kLeftSet.has(kFn(v, ...args)))
   return new ArrayDiff(left, right, common)
 }

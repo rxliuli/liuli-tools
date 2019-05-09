@@ -22,13 +22,13 @@ export function groupBy (
   init = () => []
 ) {
   // 将元素按照分组条件进行分组得到一个 条件 -> 数组 的对象
-  return arr.reduce((res, item) => {
-    const k = kFn(item)
-    // 如果已经有这个键了就直接追加, 否则先将之赋值为 [] 再追加元素
+  return arr.reduce((res, item, ...args) => {
+    const k = kFn(item, ...args)
+    // 如果已经有这个键了就直接追加, 否则先将之初始化再追加元素
     if (!res.has(k)) {
       res.set(k, init())
     }
-    res.set(k, vFn(res.get(k), item))
+    res.set(k, vFn(res.get(k), item, ...args))
     return res
   }, new Map())
 }

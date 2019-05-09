@@ -6,8 +6,8 @@
  * @returns {Map.<Object,Object>} 映射产生的 map 集合
  */
 export function arrayToMap (array, kFn, vFn = v => v) {
-  return array.reduce((res, item) => {
-    res.set(kFn(item), vFn(item))
-    return res
-  }, new Map())
+  return array.reduce(
+    (res, item, ...args) => res.set(kFn(item, ...args), vFn(item, ...args)),
+    new Map()
+  )
 }

@@ -7,5 +7,5 @@
  */
 export function flatMap (arr, fn) {
   // @ts-ignore
-  return arr.reduce((res, item) => res.concat(fn(item)), [])
+  return arr.reduce((res, item, ...args) => res.concat(fn(item, ...args)), [])
 }

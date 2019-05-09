@@ -18,13 +18,11 @@ export const debounce = (delay, action, init = undefined) => {
     apply (target, thisArg, args) {
       return new Promise(resolve => {
         if (flag) clearTimeout(flag)
-        flag = setTimeout(() => {
-          result = Reflect.apply(target, thisArg, args)
-          resolve(result)
-        }, delay)
-        setTimeout(() => {
-          resolve(result)
-        }, delay)
+        flag = setTimeout(
+          () => resolve((result = Reflect.apply(target, thisArg, args))),
+          delay
+        )
+        setTimeout(() => resolve(result), delay)
       })
     },
   })

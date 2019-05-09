@@ -15,16 +15,16 @@
  */
 export function watchObject (object, callback) {
   const handler = {
-    get (target, property, receiver) {
+    get (target, k, receiver) {
       try {
-        return new Proxy(target[property], handler)
+        return new Proxy(target[k], handler)
       } catch (err) {
-        return Reflect.get(target, property, receiver)
+        return Reflect.get(target, k, receiver)
       }
     },
-    set (target, key, value, receiver) {
-      callback(target, key, value)
-      return Reflect.set(target, key, value, receiver)
+    set (target, k, v, receiver) {
+      callback(target, k, v)
+      return Reflect.set(target, k, v, receiver)
     },
   }
   return new Proxy(object, handler)

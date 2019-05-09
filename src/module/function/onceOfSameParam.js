@@ -9,20 +9,22 @@ export const onceOfSameParam = (
   paramConverter = (...args) => JSON.stringify(args)
 ) => {
   const cacheMap = new Map()
-  return function (...args) {
-    const key = paramConverter(...args)
-    const old = cacheMap.get(key)
-    if (old !== undefined) {
-      return old
-    }
-    const res = fn.call(this, ...args)
-    if (res instanceof Promise) {
-      return res.then(res => {
-        cacheMap.set(key, res)
-        return res
-      })
-    }
-    cacheMap.set(key, res)
-    return res
-  }
+  return new Proxy(fn, {
+    apply (target, thisArg, args) {
+      const key = paramConverter(...args)
+      const old = cacheMap.get(key)
+      if (old !== undefined) {
+        return old
+      }
+      const res = Reflect.apply(target, thisArg, args)
+      if (res instanceof Promise) {
+        return res.then(res => {
+          cacheMap.set(key, res)
+          return res
+        })
+      }
+      cacheMap.set(key, res)
+      return res
+    },
+  })
 }

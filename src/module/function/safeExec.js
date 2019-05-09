@@ -7,7 +7,7 @@
  */
 export const safeExec = (fn, defaultVal = null, ...args) => {
   try {
-    return fn(...args)
+    return Reflect.apply(fn, this, args)
   } catch (err) {
     return defaultVal
   }

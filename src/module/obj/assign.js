@@ -1,5 +1,6 @@
 import { flatMap } from '../array/flatMap'
 import { isNullOrUndefined } from './isNullOrUndefined'
+import { getObjectEntries } from './getObjectEntries'
 
 /**
  * 合并多个对象的属性
@@ -10,7 +11,7 @@ import { isNullOrUndefined } from './isNullOrUndefined'
  */
 export function assign (...objects) {
   return flatMap(objects, object =>
-    isNullOrUndefined(object) ? [] : Object.entries(object)
+    isNullOrUndefined(object) ? [] : getObjectEntries(object)
   ).reduce((res, [k, v]) => {
     if (isNullOrUndefined(v)) {
       return res

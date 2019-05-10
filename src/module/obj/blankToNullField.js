@@ -1,4 +1,5 @@
 import { blankToNull } from './../string/blankToNull'
+import { getObjectKeys } from './getObjectKeys'
 
 /**
  * 置空对象所有空白的属性
@@ -8,9 +9,10 @@ import { blankToNull } from './../string/blankToNull'
  */
 export function blankToNullField (obj) {
   const res = {}
-  for (const k in obj) {
+  getObjectKeys(obj).forEach(k => {
+    // @ts-ignore
     const v = obj[k]
     res[k] = typeof v === 'string' ? blankToNull(v) : v
-  }
+  })
   return res
 }

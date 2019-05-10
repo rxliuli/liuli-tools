@@ -110,6 +110,8 @@ import { treeToList } from './module/tree/treeToList'
 import { treeMapping } from './module/tree/treeMapping'
 import { INodeBridge } from './module/tree/NodeBridge'
 import { nodeBridgeUtil } from './module/tree/NodeBridgeUtil'
+import { getObjectEntries } from './module/obj/getObjectEntries'
+import { getObjectKeys } from './module/obj/getObjectKeys'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -203,6 +205,8 @@ export {
   emptyAllField,
   excludeFields,
   excludeFieldsDeep,
+  getObjectEntries,
+  getObjectKeys,
   isNullOrUndefined,
   mapToObject,
   objectToMap,

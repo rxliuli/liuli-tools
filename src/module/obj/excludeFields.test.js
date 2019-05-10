@@ -17,4 +17,17 @@ describe('test exculdeFields', () => {
     expect(excludeFields(obj, 'name')).toEqual({ age: 17 })
     expect(excludeFields(obj, 'name', 'age')).toEqual({})
   })
+  it('test exclude Symbol', () => {
+    const symbol = Symbol('name')
+    const name = 'name'
+    expect(
+      excludeFields(
+        {
+          [symbol]: name,
+          [name]: symbol,
+        },
+        symbol
+      )
+    ).toEqual({ [name]: symbol })
+  })
 })

@@ -1,4 +1,5 @@
 import { excludeFields } from './excludeFields'
+import { getObjectKeys } from './getObjectKeys'
 
 /**
  * 递归排除对象中的指定字段
@@ -8,13 +9,13 @@ import { excludeFields } from './excludeFields'
 export function excludeFieldsDeep (object, ...fields) {
   const res =
     object instanceof Array ? object : excludeFields(object, ...fields)
-  for (const k in res) {
-    if (res.hasOwnProperty(k)) {
-      const v = res[k]
-      if (v instanceof Object) {
-        object[k] = excludeFieldsDeep(v, ...fields)
-      }
+  getObjectKeys(object).forEach(k => {
+    // @ts-ignore
+    const v = res[k]
+    if (v instanceof Object) {
+      // @ts-ignore
+      object[k] = excludeFieldsDeep(v, ...fields)
     }
-  }
+  })
   return res
 }

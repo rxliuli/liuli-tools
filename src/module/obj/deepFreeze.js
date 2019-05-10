@@ -1,4 +1,5 @@
 import { isNullOrUndefined } from './isNullOrUndefined'
+import { getObjectValues } from './getObjectValues'
 
 /**
  * 递归使对象不可变
@@ -17,7 +18,7 @@ export function deepFreeze (obj) {
       }
     })
   } else if (obj instanceof Object) {
-    Object.values(obj).forEach(v => {
+    getObjectValues(obj).forEach(v => {
       if (typeof v === 'object') {
         deepFreeze(v)
       }

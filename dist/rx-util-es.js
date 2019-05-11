@@ -1342,7 +1342,7 @@ class StringValidator {
    * @returns {Boolean} 是否是邮箱
    */
   isEmail (str) {
-    return !this.isBlank(str) && EmailRule.test(str)
+    return !stringValidator.isBlank(str) && EmailRule.test(str)
   }
 }
 

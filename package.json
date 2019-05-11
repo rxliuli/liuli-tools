@@ -18,7 +18,7 @@
     "server": "npm run docs && npm run coverage && live-server docs/ --port=4000",
     "predeploy": "yarn docs && yarn coverage && cp CNAME docs/ && cp readme.md docs/",
     "deploy": "gh-pages -d docs && rm -rf docs",
-    "prepublish": "yarn build && yarn deploy"
+    "prepublishOnly": "yarn build && yarn deploy"
   },
   "repository": {
     "type": "git",

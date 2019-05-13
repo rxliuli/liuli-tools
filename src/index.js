@@ -112,6 +112,7 @@ import { INodeBridge } from './module/tree/NodeBridge'
 import { nodeBridgeUtil } from './module/tree/NodeBridgeUtil'
 import { getObjectEntries } from './module/obj/getObjectEntries'
 import { getObjectKeys } from './module/obj/getObjectKeys'
+import { floatEquals } from './module/number/floatEquals'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -215,6 +216,7 @@ export {
   randomInt,
   isRange,
   autoIncrement,
+  floatEquals,
   listToTree,
   treeMapping,
   INodeBridge,

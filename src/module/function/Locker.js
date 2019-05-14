@@ -28,9 +28,19 @@ export class Locker {
       /**
        * @type {Number|Function}
        */
-      await Promise.race([wait(() => !this.isLocked()), wait(timeout)])
+      await Promise.race([
+        wait(() => {
+          const result = !this.isLocked()
+          if (result) {
+            this.limit--
+          }
+          return result
+        }),
+        wait(timeout),
+      ])
+    } else {
+      this.limit--
     }
-    this.limit--
   }
   /**
    * 删除异步锁

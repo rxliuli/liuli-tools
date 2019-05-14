@@ -464,9 +464,9 @@ function asIterator (iterator) {
  * @returns {Promise.<Array.<Object>>} 压平一层的数组
  */
 async function asyncFlatMap (arr, fn) {
-  let res = [];
-  for (const i in arr) {
-    res = res.concat(await fn(arr[i]));
+  const res = [];
+  for (let i = 0; i < arr.length; i++) {
+    res.push(...(await fn(arr[i])));
   }
   return res
 }
@@ -480,7 +480,7 @@ async function asyncFlatMap (arr, fn) {
  */
 function flatMap (arr, fn) {
   // @ts-ignore
-  return arr.reduce((res, item) => res.concat(fn(item)), [])
+  return arr.reduce((res, item, ...args) => res.concat(fn(item, ...args)), [])
 }
 
 /**
@@ -490,7 +490,7 @@ function flatMap (arr, fn) {
  * @param {Function} kFn 元素分组的唯一标识函数
  * @param {Function} [vFn] 元素分组的值处理的函数。第一个参数是累计值，第二个参数是当前正在迭代的元素，如果你使用过 {@link Array#reduce} 函数的话应该对此很熟悉
  * @param {Function} [init=[]] 每个分组的产生初始值的函数。类似于 reduce 的初始值，但它是一个函数，避免初始值在所有分组中进行累加。
- * @returns {Map<Object,Object>} 对象 -> 数组映射对象
+ * @returns {Map<Object,Object>} 元素标识 -> 数组映射 Map
  */
 function groupBy (
   arr,
@@ -507,13 +507,13 @@ function groupBy (
   init = () => []
 ) {
   // 将元素按照分组条件进行分组得到一个 条件 -> 数组 的对象
-  return arr.reduce((res, item) => {
-    const k = kFn(item);
-    // 如果已经有这个键了就直接追加, 否则先将之赋值为 [] 再追加元素
+  return arr.reduce((res, item, ...args) => {
+    const k = kFn(item, ...args);
+    // 如果已经有这个键了就直接追加, 否则先将之初始化再追加元素
     if (!res.has(k)) {
       res.set(k, init());
     }
-    res.set(k, vFn(res.get(k), item));
+    res.set(k, vFn(res.get(k), item, ...args));
     return res
   }, new Map())
 }
@@ -542,9 +542,10 @@ function range (start, end, sep = 1) {
  * @returns {Object} 转化得到的对象
  */
 function toObject (arr, kFn, vFn = item => item) {
-  return arr.reduce((res, item) => {
-    if (!res.hasOwnProperty(kFn(item))) {
-      res[kFn(item)] = vFn(item);
+  return arr.reduce((res, item, ...args) => {
+    const k = kFn(item, ...args);
+    if (!Reflect.has(res, k)) {
+      res[k] = vFn(item, ...args);
     }
     return res
   }, {})
@@ -553,14 +554,19 @@ function toObject (arr, kFn, vFn = item => item) {
 /**
  * js 的数组去重方法
  * @param {Array.<Object>} arr 要进行去重的数组
- * @param {Function} [fn=item => JSON.stringify(item)] 唯一标识元素的方法，默认使用 {@link JSON.stringify()}
+ * @param {Function} [kFn=item => JSON.stringify(item)] 唯一标识元素的方法，默认使用 {@link JSON.stringify()}
  * @returns {Array.<Object>} 进行去重操作之后得到的新的数组 (原数组并未改变)
  */
-function uniqueBy (arr, fn = item => JSON.stringify(item)) {
-  const obj = {};
-  return arr.filter(item =>
-    obj.hasOwnProperty(fn(item)) ? false : (obj[fn(item)] = true)
-  )
+function uniqueBy (arr, kFn = item => JSON.stringify(item)) {
+  const set = new Set();
+  return arr.filter((v, ...args) => {
+    const k = kFn(v, ...args);
+    if (set.has(k)) {
+      return false
+    }
+    set.add(k);
+    return true
+  })
 }
 
 /**
@@ -571,10 +577,10 @@ function uniqueBy (arr, fn = item => JSON.stringify(item)) {
  * @returns {Map.<Object,Object>} 映射产生的 map 集合
  */
 function arrayToMap (array, kFn, vFn = v => v) {
-  return array.reduce((res, item) => {
-    res.set(kFn(item), vFn(item));
-    return res
-  }, new Map())
+  return array.reduce(
+    (res, item, ...args) => res.set(kFn(item, ...args), vFn(item, ...args)),
+    new Map()
+  )
 }
 
 /**
@@ -1015,6 +1021,8 @@ function objToFormData (data) {
  * 注: 包装后的函数如果两次操作间隔小于 delay 则不会被执行, 如果一直在操作就会一直不执行, 直到操作停止的时间大于 delay 最小间隔时间才会执行一次, 不管任何时间调用都需要停止操作等待最小延迟时间
  * 应用场景主要在那些连续的操作, 例如页面滚动监听, 包装后的函数只会执行最后一次
  * 注: 该函数第一次调用一定不会执行，第一次一定拿不到缓存值，后面的连续调用都会拿到上一次的缓存值。如果需要在第一次调用获取到的缓存值，则需要传入第三个参数 {@link init}，默认为 {@link undefined} 的可选参数
+ * 注: 返回函数结果的高阶函数需要使用 {@link Proxy} 实现，以避免原函数原型链上的信息丢失
+ *
  * @param {Number} delay 最小延迟时间，单位为 ms
  * @param {Function} action 真正需要执行的操作
  * @param {Object} [init=undefined] 初始的缓存值，不填默认为 {@link undefined}
@@ -1023,24 +1031,24 @@ function objToFormData (data) {
 const debounce = (delay, action, init = undefined) => {
   let flag;
   let result = init;
-  return function (...args) {
-    return new Promise(resolve => {
-      if (flag) clearTimeout(flag);
-      flag = setTimeout(() => {
-        result = action.call(this, ...args);
-        resolve(result);
-      }, delay);
-      setTimeout(() => {
-        resolve(result);
-      }, delay);
-    })
-  }
+  return new Proxy(action, {
+    apply (target, thisArg, args) {
+      return new Promise(resolve => {
+        if (flag) clearTimeout(flag);
+        flag = setTimeout(
+          () => resolve((result = Reflect.apply(target, thisArg, args))),
+          delay
+        );
+        setTimeout(() => resolve(result), delay);
+      })
+    },
+  })
 };
 
 /**
  * 返回参数本身的函数
  * @param {Object} obj 任何对象
- * @returns {Object} 传入的参数
+ * @returns {Object} 传入的第一个参数
  */
 function returnItself (obj) {
   return obj
@@ -1049,11 +1057,11 @@ function returnItself (obj) {
 /**
  * 安全执行某个函数
  * @param {Function} fn 需要执行的函数
- * @param {Object} [defaultVal=undefined] 发生异常后的默认返回值，默认为 undefined
+ * @param {Object} [defaultVal=null] 发生异常后的默认返回值，默认为 null
  * @param {...Object} [args] 可选的函数参数
  * @returns {Object|undefined} 函数执行的结果，或者其默认值
  */
-const safeExec = (fn, defaultVal = undefined, ...args) => {
+const safeExec = (fn, defaultVal = null, ...args) => {
   try {
     return fn(...args)
   } catch (err) {
@@ -1062,24 +1070,21 @@ const safeExec = (fn, defaultVal = undefined, ...args) => {
 };
 
 /**
- * 通用的单例模式
+ * 使用 Proxy 实现通用的单例模式
  * @param {Object} clazz 需要包装为单例的类型
  * @returns {Object} 包装后的单例模式类，使用 {@code new} 创建将只在第一次有效
  */
 function singleModel (clazz) {
   let instance;
-  return class SingleClass extends clazz {
-    /**
-     * @param {...Object} args
-     */
-    constructor (...args) {
+  return new Proxy(clazz, {
+    construct (target, args, newTarget) {
       if (instance) {
         return instance
       }
-      super(...args);
-      instance = this;
-    }
-  }
+      instance = Reflect.construct(target, args, newTarget);
+      return instance
+    },
+  })
 }
 
 /**
@@ -1112,15 +1117,16 @@ class StateMachine {
       /**
        * 获取一个标签子类对象
        * @param {Number|String} state 状态索引
+       * @param {...Object} [args] 构造函数的参数
        * @returns {Object} 子类对象
        */
-      getInstance (state) {
+      getInstance (state, ...args) {
         const Class = classMap.get(state);
         if (!Class) {
           return null
         }
         // 构造函数的参数
-        return new Class(...Array.from(arguments).slice(1))
+        return new Class(...args)
       }
     }()
   }
@@ -1132,6 +1138,7 @@ class StateMachine {
  * 类似于上面而又不同于上面的函数去抖, 包装后函数在上一次操作执行过去了最小间隔时间后会直接执行, 否则会忽略该次操作
  * 与上面函数去抖的明显区别在连续操作时会按照最小间隔时间循环执行操作, 而非仅执行最后一次操作
  * 注: 该函数第一次调用一定会执行，不需要担心第一次拿不到缓存值，后面的连续调用都会拿到上一次的缓存值
+ * 注: 返回函数结果的高阶函数需要使用 {@link Proxy} 实现，以避免原函数原型链上的信息丢失
  *
  * @param {Number} delay 最小间隔时间，单位为 ms
  * @param {Function} action 真正需要执行的操作
@@ -1140,18 +1147,20 @@ class StateMachine {
 const throttle = (delay, action) => {
   let last = 0;
   let result;
-  return function (...args) {
-    return new Promise(resolve => {
-      const curr = Date.now();
-      if (curr - last > delay) {
-        result = action.call(this, ...args);
-        last = curr;
+  return new Proxy(action, {
+    apply (target, thisArg, args) {
+      return new Promise(resolve => {
+        const curr = Date.now();
+        if (curr - last > delay) {
+          result = Reflect.apply(target, thisArg, args);
+          last = curr;
+          resolve(result);
+          return
+        }
         resolve(result);
-        return
-      }
-      resolve(result);
-    })
-  }
+      })
+    },
+  })
 };
 
 /**
@@ -1161,24 +1170,12 @@ const throttle = (delay, action) => {
  * @returns {Number|Promise} 执行的毫秒数
  */
 const timing = fn => {
-  // 使用 Proxy 实现了一下，但感觉实际上与原来的差不多（或许是吾辈的使用场景不太对？）
-  const proxyFn = new Proxy(fn, {
-    apply (target, thisArg, args) {
-      const begin = performance.now();
-      const result = Reflect.apply(target, thisArg, args);
-      if (!(result instanceof Promise)) {
-        return performance.now() - begin
-      }
-      return result.then(() => performance.now() - begin)
-    },
-  });
-  return proxyFn()
-  // const begin = performance.now()
-  // const result = fn()
-  // if (!(result instanceof Promise)) {
-  //   return performance.now() - begin
-  // }
-  // return result.then(() => performance.now() - begin)
+  const begin = performance.now();
+  const result = fn();
+  if (!(result instanceof Promise)) {
+    return performance.now() - begin
+  }
+  return result.then(() => performance.now() - begin)
 };
 
 /**
@@ -1243,16 +1240,16 @@ const watch = (fn, callback, interval = 100) => {
  */
 function watchObject (object, callback) {
   const handler = {
-    get (target, property, receiver) {
+    get (target, k, receiver) {
       try {
-        return new Proxy(target[property], handler)
+        return new Proxy(target[k], handler)
       } catch (err) {
-        return Reflect.get(target, property, receiver)
+        return Reflect.get(target, k, receiver)
       }
     },
-    set (target, key, value, receiver) {
-      callback(target, key, value);
-      return Reflect.set(target, key, value, receiver)
+    set (target, k, v, receiver) {
+      callback(target, k, v);
+      return Reflect.set(target, k, v, receiver)
     },
   };
   return new Proxy(object, handler)
@@ -1277,29 +1274,101 @@ function format (str, args) {
 }
 
 /**
+ * 判断一个对象是否是无效的
+ * 无效的值包含 null/undefined
+ * @param {Object} object 任何一个对象
+ * @returns {Boolean} 是否无效的
+ */
+function isNullOrUndefined (object) {
+  return object === undefined || object === null
+}
+
+/**
  * 判断是否为小数的正则表达式
  */
-const regexp = new RegExp('^(-?\\d+)(.\\d+)?$');
+const FloatRule = new RegExp('^(-?\\d+)(.\\d+)?$');
+/**
+ * 判断是否为整数的正则表达式
+ */
+const IntegerRule = new RegExp('^-?\\d+$');
+/**
+ * 判断是否为邮箱的正则表达式
+ */
+const EmailRule = new RegExp(
+  '^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z]+$'
+);
+
+/**
+ * 字符串校验
+ */
+class StringValidator {
+  /**
+   * 判断一个字符串是否为空字符串
+   * @param {String} str 字符串
+   * @returns {Boolean} 是否为空字符串
+   */
+  isEmpty (str) {
+    return isNullOrUndefined(str) || str === ''
+  }
+  /**
+   * 判断一个字符串是否为空白的字符串
+   * @param {String} str 字符串
+   * @returns {Boolean} 是否为空字符串
+   */
+  isBlank (str) {
+    return stringValidator.isEmpty(str) || str.trim() === ''
+  }
+
+  /**
+   * 判断字符串是否位小数
+   * @param {String} str 需要进行判断的字符串
+   * @returns {Boolean} 是否为小数
+   */
+  isFloat (str) {
+    return FloatRule.test(str)
+  }
+
+  /**
+   * 判断字符串是否位整数
+   * @param {String} str 需要进行判断的字符串
+   * @returns {Boolean} 是否为小数
+   */
+  isInteger (str) {
+    return IntegerRule.test(str)
+  }
+  /**
+   * 判断邮箱的格式是否正确
+   * @param {String} str 邮箱字符串
+   * @returns {Boolean} 是否是邮箱
+   */
+  isEmail (str) {
+    return !stringValidator.isBlank(str) && EmailRule.test(str)
+  }
+}
+
+/**
+ * 导出一个字符串校验的对象
+ */
+const stringValidator = new StringValidator();
+
 /**
  * 判断字符串是否位小数
  * @param {String} str 需要进行判断的字符串
  * @returns {Boolean} 是否为小数
+ * @deprecated 已废弃，请使用 {@link stringValidator#isFloat}
  */
 function isFloat (str) {
-  return regexp.test(str)
+  return stringValidator.isFloat(str)
 }
 
-/**
- * 判断是否为整数的正则表达式
- */
-const regexp$1 = new RegExp('^-?\\d+$');
 /**
  * 判断字符串是否位整数
  * @param {String} str 需要进行判断的字符串
  * @returns {Boolean} 是否为小数
+ * @deprecated 已废弃，请使用 {@link stringValidator#isInteger}
  */
 function isNumber (str) {
-  return regexp$1.test(str)
+  return stringValidator.isInteger(str)
 }
 
 /**
@@ -1325,6 +1394,21 @@ function blankToNull (str) {
 }
 
 /**
+ * 获取对象中所有的属性，包括 ES6 新增的 Symbol 类型的属性
+ * @param {Object} object 任何对象
+ * @returns {Array.<String|Symbol>} 属性数组
+ */
+function getObjectKeys (object) {
+  if (isNullOrUndefined(object)) {
+    return []
+  }
+  return [
+    ...Object.getOwnPropertyNames(object),
+    ...Object.getOwnPropertySymbols(object),
+  ]
+}
+
+/**
  * 置空对象所有空白的属性
  *
  * @param {Object} obj 对象
@@ -1332,10 +1416,11 @@ function blankToNull (str) {
  */
 function blankToNullField (obj) {
   const res = {};
-  for (const k in obj) {
+  getObjectKeys(obj).forEach(k => {
+    // @ts-ignore
     const v = obj[k];
     res[k] = typeof v === 'string' ? blankToNull(v) : v;
-  }
+  });
   return res
 }
 
@@ -1345,33 +1430,34 @@ function blankToNullField (obj) {
  * @returns {Object} 返回一个新的对象
  */
 function emptyAllField (obj) {
-  const res = {};
-  for (const k in obj) {
+  return getObjectKeys(obj).reduce((res, k) => {
+    // @ts-ignore
     res[k] = null;
-  }
-  return res
+    return res
+  }, {})
 }
 
 /**
  * 排除对象中的指定字段
  * 注: 此处将获得一个浅拷贝对象
  * @param {Object} object 排除对象
- * @param {...String} fields 要排除的字段
+ * @param {...String|Symbol|Number} fields 要排除的多个字段
  * @returns {Object} 排除完指定字段得到的新的对象
  */
 function excludeFields (object, ...fields) {
   const set = new Set(fields);
-  return Object.entries(object).reduce((res, [k, v]) => {
+  return getObjectKeys(object).reduce((res, k) => {
     if (!set.has(k)) {
-      res[k] = v;
+      // @ts-ignore
+      res[k] = object[k];
     }
     return res
   }, {})
 }
 
 /**
- * 将 map 转换为 Object 对象
- * @param {Map} map map 键值表
+ * 将 Map 转换为 Object 对象
+ * @param {Map} map Map 键值表
  * @returns {Object} 转换得到的 Object 对象
  */
 function mapToObject (map) {
@@ -1751,22 +1837,24 @@ function dateBetween (start, end) {
 const once = fn => {
   let flag = true;
   let cache;
-  return function (...args) {
-    if (flag === false) {
+  return new Proxy(fn, {
+    apply (target, thisArg, args) {
+      if (flag === false) {
+        return cache
+      }
+      flag = false;
+      const result = Reflect.apply(target, thisArg, args);
+      // 如果是异步函数则返回异步的结果
+      if (result instanceof Promise) {
+        return result.then(res => {
+          cache = res;
+          return res
+        })
+      }
+      cache = result;
       return cache
-    }
-    flag = false;
-    const result = fn.call(this, ...args);
-    // 如果是异步函数则返回异步的结果
-    if (result instanceof Promise) {
-      return result.then(res => {
-        cache = res;
-        return res
-      })
-    }
-    cache = result;
-    return cache
-  }
+    },
+  })
 };
 
 /**
@@ -1780,22 +1868,24 @@ const onceOfSameParam = (
   paramConverter = (...args) => JSON.stringify(args)
 ) => {
   const cacheMap = new Map();
-  return function (...args) {
-    const key = paramConverter(...args);
-    const old = cacheMap.get(key);
-    if (old !== undefined) {
-      return old
-    }
-    const res = fn.call(this, ...args);
-    if (res instanceof Promise) {
-      return res.then(res => {
-        cacheMap.set(key, res);
-        return res
-      })
-    }
-    cacheMap.set(key, res);
-    return res
-  }
+  return new Proxy(fn, {
+    apply (target, thisArg, args) {
+      const key = paramConverter(...args);
+      const old = cacheMap.get(key);
+      if (old !== undefined) {
+        return old
+      }
+      const res = Reflect.apply(target, thisArg, args);
+      if (res instanceof Promise) {
+        return res.then(res => {
+          cacheMap.set(key, res);
+          return res
+        })
+      }
+      cacheMap.set(key, res);
+      return res
+    },
+  })
 };
 
 /**
@@ -1827,7 +1917,7 @@ function returnReasonableItself (...args) {
 function filterItems (arr, deleteItems, kFn = returnItself) {
   // @ts-ignore
   const kSet = new Set(deleteItems.map(kFn));
-  return arr.filter(v => !kSet.has(kFn(v)))
+  return arr.filter((v, ...args) => !kSet.has(kFn(v, ...args)))
 }
 
 /**
@@ -1839,7 +1929,7 @@ class ArrayDiff {
    * 构造函数
    * @param {Array} left 第一个数组独有的元素列表
    * @param {Array} right 第二个数组独有的元素列表
-   * @param {Array} common 两个数组共有的元素列表
+   * @param {Array} common 两个数组共有的元素列表。注意: 这里的元素实质上是从第一个集合获取的
    */
   constructor (left, right, common) {
     /**
@@ -1861,7 +1951,7 @@ class ArrayDiff {
  * 比较两个数组的差异
  * @param {Array} thanArr 第一个数组
  * @param {Array} thatArr 第二个数组
- * @param {Function} [kFn=returnItself] 每个元素的唯一键函数
+ * @param {Function} [kFn=returnItself] 每个元素的唯一标识产生函数
  * @returns {ArrayDiff} 比较的差异结果
  */
 function arrayDiffBy (thanArr, thatArr, kFn = returnItself) {
@@ -1869,11 +1959,11 @@ function arrayDiffBy (thanArr, thatArr, kFn = returnItself) {
   const kThanSet = new Set(thanArr.map(kFn));
   // @ts-ignore
   const kThatSet = new Set(thatArr.map(kFn));
-  const left = thanArr.filter(v => !kThatSet.has(kFn(v)));
-  const right = thatArr.filter(v => !kThanSet.has(kFn(v)));
+  const left = thanArr.filter((v, ...args) => !kThatSet.has(kFn(v, ...args)));
+  const right = thatArr.filter((v, ...args) => !kThanSet.has(kFn(v, ...args)));
   // @ts-ignore
   const kLeftSet = new Set(left.map(kFn));
-  const common = thanArr.filter(v => !kLeftSet.has(kFn(v)));
+  const common = thanArr.filter((v, ...args) => !kLeftSet.has(kFn(v, ...args)));
   return new ArrayDiff(left, right, common)
 }
 
@@ -1973,10 +2063,12 @@ class CamelConverter extends CamelOrPascalFrom {
    * @override
    */
   to (list) {
-    const str = list
-      .map(s => s.substring(0, 1).toUpperCase() + s.substring(1))
-      .join();
-    return str.substring(0, 1).toLowerCase() + str.substring(1)
+    return list.reduce((res, s, i) => {
+      const str = toLowerCase(s);
+      return (res +=
+        (i === 0 ? toLowerCase : toUpperCase)(str.substring(0, 1)) +
+        str.substring(1))
+    }, '')
   }
 }
 
@@ -1992,9 +2084,10 @@ class PascalConverter extends CamelOrPascalFrom {
    * @override
    */
   to (list) {
-    return list
-      .map(s => s.substring(0, 1).toUpperCase() + s.substring(1))
-      .join()
+    return list.reduce((res, s) => {
+      const str = toLowerCase(s);
+      return (res += toUpperCase(str.substring(0, 1)) + str.substring(1))
+    }, '')
   }
 }
 /**
@@ -2024,7 +2117,7 @@ class SnakeConverter extends SnakeOrScreamingSnakeFrom {
    * @override
    */
   to (list) {
-    return list.map(s => s.toLowerCase()).join('_')
+    return list.map(toLowerCase).join('_')
   }
 }
 /**
@@ -2039,7 +2132,7 @@ class ScreamingSnakeConverter extends SnakeOrScreamingSnakeFrom {
    * @override
    */
   to (list) {
-    return list.map(s => s.toUpperCase()).join('_')
+    return list.map(toUpperCase).join('_')
   }
 }
 /**
@@ -2125,7 +2218,7 @@ class StringStyleConverter {
    * @return {String} 转换得到的字符串
    */
   convert (str) {
-    if (str === undefined || str === null || str.length === 0) {
+    if (stringValidator.isEmpty(str)) {
       return str
     }
     return this.toConverter.to(this.fromConverter.from(str))
@@ -2184,13 +2277,23 @@ class StringStyleUtil {
 }
 
 /**
+ * 获取对象中所有的属性值，包括 ES6 新增的 Symbol 类型的属性
+ * @param {Object} object 任何对象
+ * @returns {Array.<String|Symbol>} 属性值数组
+ */
+function getObjectValues (object) {
+  // @ts-ignore
+  return getObjectKeys(object).map(k => object[k])
+}
+
+/**
  * 递归使对象不可变
  * @param {Object} obj 任何非空对象
  * @returns {Object} 新的不可变对象
  */
 function deepFreeze (obj) {
-  if (obj === undefined || obj === null) {
-    return
+  if (isNullOrUndefined(obj)) {
+    return null
   }
   // 数组和对象分别处理
   if (obj instanceof Array) {
@@ -2200,7 +2303,7 @@ function deepFreeze (obj) {
       }
     });
   } else if (obj instanceof Object) {
-    Object.values(obj).forEach(v => {
+    getObjectValues(obj).forEach(v => {
       if (typeof v === 'object') {
         deepFreeze(v);
       }
@@ -2296,9 +2399,12 @@ function sortBy (arr, kFn = returnItself) {
   const medianIndex = Math.floor(arr.length / 2);
   const newArr = arr.slice();
   const median = newArr.splice(medianIndex, 1)[0];
-  const medianValue = kFn(median);
-  const map = groupBy(newArr, item => kFn(item) < medianValue);
-  // 对两个数组分别进行排序
+  const medianValue = kFn(median, medianIndex, arr);
+  const map = groupBy(
+    newArr,
+    (item, ...args) => kFn(item, ...args) < medianValue
+  );
+  // 对两个数组分别进行递归排序
   return [
     ...sortBy(map.get(true) || [], kFn),
     median,
@@ -2307,22 +2413,13 @@ function sortBy (arr, kFn = returnItself) {
 }
 
 /**
- * 判断一个对象是否是无效的
- * 无效的值包含 null/undefined
- * @param {Object} object 任何一个对象
- * @returns {Boolean} 是否无效的
- */
-function isNullOrUndefined (object) {
-  return object === undefined || object === null
-}
-
-/**
  * 判断一个字符串是否为空字符串
  * @param {String} str 字符串
  * @returns {Boolean} 是否为空字符串
+ * @deprecated 已废弃，请使用 {@link stringValidator#isEmpty}
  */
 function isEmpty (str) {
-  return isNullOrUndefined(str) || str === ''
+  return stringValidator.isEmpty(str)
 }
 
 /**
@@ -2371,7 +2468,7 @@ class DateFormatter {
    */
   strFormat (str, parseFmt) {
     if (isEmpty(str)) {
-      return null
+      return ''
     }
     const date = parseFmt ? dateParse(str, parseFmt) : new Date(str);
     return dateFormat(date, this.fmt)
@@ -2428,14 +2525,14 @@ const compose = (...fns) =>
 function excludeFieldsDeep (object, ...fields) {
   const res =
     object instanceof Array ? object : excludeFields(object, ...fields);
-  for (const k in res) {
-    if (res.hasOwnProperty(k)) {
-      const v = res[k];
-      if (v instanceof Object) {
-        object[k] = excludeFieldsDeep(v, ...fields);
-      }
+  getObjectKeys(object).forEach(k => {
+    // @ts-ignore
+    const v = res[k];
+    if (v instanceof Object) {
+      // @ts-ignore
+      object[k] = excludeFieldsDeep(v, ...fields);
     }
-  }
+  });
   return res
 }
 
@@ -2494,6 +2591,16 @@ class CacheOption {
 }
 
 /**
+ * 获取对象中所有的属性及对应的值，包括 ES6 新增的 Symbol 类型的属性
+ * @param {Object} object 任何对象
+ * @returns {Array.<String|Symbol>} 属性及其对应值的二维数组
+ */
+function getObjectEntries (object) {
+  // @ts-ignore
+  return getObjectKeys(object).map(k => [k, object[k]])
+}
+
+/**
  * 合并多个对象的属性
  * 1. 该合并的方式为浅层合并，只会合并一层的对象
  * 2. 默认忽略值为 undefined/null 的属性
@@ -2502,7 +2609,7 @@ class CacheOption {
  */
 function assign (...objects) {
   return flatMap(objects, object =>
-    isNullOrUndefined(object) ? [] : Object.entries(object)
+    isNullOrUndefined(object) ? [] : getObjectEntries(object)
   ).reduce((res, [k, v]) => {
     if (isNullOrUndefined(v)) {
       return res
@@ -2695,7 +2802,7 @@ class LocalStorageCache extends ICache {
    */
   get (key, cacheOption = new CacheOption()) {
     const str = this.localStorage.getItem(key);
-    const cacheVal = JSON.parse(str);
+    const cacheVal = safeExec(JSON.parse, null, str);
     if (cacheVal === null) {
       return null
     }
@@ -2728,7 +2835,7 @@ class LocalStorageCache extends ICache {
     /**
      * @type {CacheVal}
      */
-    const cacheVal = JSON.parse(str);
+    const cacheVal = safeExec(JSON.parse, null, str);
     if (cacheVal === null) {
       return null
     }
@@ -2816,6 +2923,15 @@ class CacheUtil {
  */
 const cacheUtil = new CacheUtil();
 
+/**
+ * 空的函数
+ * @param {Array.<Object>} args 接受任何参数
+ */
+const emptyFunc = (...args) => {};
+
+/**
+ * 禁止他人调试网站相关方法的集合对象
+ */
 const antiDebug = {
   /**
    * 不停循环 debugger 防止有人调试代码
@@ -2851,20 +2967,9 @@ const antiDebug = {
    */
   disableConsoleOutput () {
     if (!window.console) {
-      // @ts-ignore
-      window.console = {};
+      return
     }
-    const methods = [
-      'log',
-      'debug',
-      'warn',
-      'info',
-      'dir',
-      'dirxml',
-      'trace',
-      'profile',
-    ];
-    methods.forEach(k => (console[k] = function () {}));
+    Object.keys(console).forEach(k => (console[k] = emptyFunc));
   },
 };
 
@@ -2872,9 +2977,10 @@ const antiDebug = {
  * 判断一个字符串是否为空白的字符串
  * @param {String} str 字符串
  * @returns {Boolean} 是否为空字符串
+ * @deprecated 已废弃，请使用 {@link stringValidator#isBlank}
  */
 function isBlank (str) {
-  return isEmpty(str) || str.trim() === ''
+  return stringValidator.isBlank(str)
 }
 
 /**
@@ -2911,5 +3017,336 @@ const deny = fn =>
     return !result
   };
 
-export { DateFormatter, FetchLimiting, LocalStorageCache, StateMachine, StringStyleUtil, antiDebug, appends, arrayDiffBy, arrayToMap, asIterator, asyncFlatMap, autoIncrement, blankToNull, blankToNullField, cacheUtil, compose, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, deny, download, downloadString, downloadUrl, emptyAllField, excludeFields, excludeFieldsDeep, fetchTimeout, fill, filterItems, flatMap, formDataToArray, format, getCookies, getCusorPostion, getYearWeek, groupBy, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, loadResource, loadScript, mapToObject, objToFormData, once, onceOfSameParam, parseUrl, randomInt, range, readLocal, removeEl, removeText, returnItself, returnReasonableItself, safeExec, setCusorPostion, sets, singleModel, sortBy, spliceParams, strToArrayBuffer, strToDate, stringStyleType, throttle, timing, toLowerCase, toObject, toString, toUpperCase, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
+/**
+ * 数组校验器
+ */
+class ArrayValidator {
+  /**
+   * 是否为空数组
+   * @param {Array} array 空数组
+   * @returns {Boolean} 是否为空数组
+   */
+  isEmpty (array) {
+    return (
+      isNullOrUndefined(array) ||
+      !(array instanceof Array) ||
+      array.length === 0
+    )
+  }
+}
+
+/**
+ * 导出一个默认的数组校验对象
+ */
+const arrayValidator = new ArrayValidator();
+
+/**
+ * 路径工具
+ */
+class PathUtil {
+  /**
+   * 拼接两个路径
+   *
+   * @param {String} pathStart 开始路径
+   * @param {String} pathEnd   结束路径
+   * @return {String} 拼接完成的两个路径
+   */
+  static _join (pathStart, pathEnd) {
+    if (pathStart.endsWith(PathUtil.Separator)) {
+      return (pathStart + pathEnd).replace(
+        PathUtil.Separator + PathUtil.Separator,
+        PathUtil.Separator
+      )
+    }
+    if (pathEnd.startsWith(PathUtil.Separator)) {
+      return pathStart + pathEnd
+    }
+    return pathStart + PathUtil.Separator + pathEnd
+  }
+  /**
+   * 拼接多个路径
+   *
+   * @param {...String} paths 路径数组
+   * @return {String} 拼接完成的路径
+   */
+  join (...paths) {
+    return paths.reduce(PathUtil._join)
+  }
+}
+/**
+ * 路径分隔符
+ */
+PathUtil.Separator = '/';
+
+/**
+ * 导出一个路径工具类
+ */
+const pathUtil = new PathUtil();
+
+/**
+ * 自定义的日志类
+ * 与浏览器默认的 {@link console} 拥有着完全相同的函数列表，唯一一点区别是包含了一个全局开关用于控制是否输出日志
+ */
+class Logger {
+  /**
+   * 构造函数
+   * @param {Object} [options] 可选项
+   * @param {Boolean} [options.enable] 是否开启日志
+   */
+  constructor ({ enable = true } = {}) {
+    this.enable = enable;
+  }
+
+  /**
+   * 设置 enable 的 setter 属性，在改变时合并对应的子类对象实现
+   */
+  set enable (enable) {
+    /**
+     * @field 是否开启全局控制台，该属性只写
+     */
+    this._enable = enable;
+    Object.keys(console).forEach(
+      k => (this[k] = enable ? console[k] : emptyFunc)
+    );
+  }
+  /**
+   * 替代原生的 {@link console.log}
+   * 虽然这里只写了一个 log，但事实上 {@link console} 所有的函数都存在
+   * @param {Object} message 打印的消息
+   * @param {Array.<Object>} optionalParams 其他参数
+   * @abstract
+   */
+  log (message, ...optionalParams) {}
+}
+
+/**
+ * 导出一个全局可用的 Logger 对象
+ * 使用 enable 属性控制是否开启日志输出，默认为 true
+ */
+const logger = new Logger();
+
+/**
+ * 将 Object 对象 转换为 Map
+ * @param {Object} obj Object 对象
+ * @returns {Map} 转换得到的 Map 键值表
+ */
+function objectToMap (obj) {
+  // @ts-ignore
+  return getObjectKeys(obj).reduce((map, k) => map.set(k, obj[k]), new Map())
+}
+
+/**
+ * 将列表转换为树节点
+ * 注: 该函数默认树的根节点只有一个，如果有多个，则返回一个数组
+ * @param {Array.<Object>} list 树节点列表
+ * @param {Object} [options] 其他选项
+ * @param {Function} [options.isRoot] 判断节点是否为根节点。默认根节点的父节点为空
+ * @returns {Object|Array.<String>} 树节点，或是树节点列表
+ */
+function listToTree (list, { isRoot = node => !node.parentId } = {}) {
+  const res = list.reduce((root, sub) => {
+    list.forEach(parent => {
+      if (sub.parentId === parent.id) {
+        (parent.child = parent.child || []).push(sub);
+      }
+    });
+    if (isRoot(sub)) {
+      root.push(sub);
+    }
+    return root
+  }, []);
+  // 根据顶级节点的数量决定如何返回
+  const len = res.length;
+  if (len === 0) return {}
+  if (len === 1) return res[0]
+  return res
+}
+
+/**
+ * 桥接对象不存在的字段
+ * @param {Map.<String|Number|symbol, String|Number|symbol>|Object} map 代理的字段映射 Map
+ * @returns {Function} 转换一个对象为代理对象
+ */
+const bridge = map => {
+  if (!(map instanceof Map)) {
+    map = objectToMap(map);
+  }
+  /**
+   * 为对象添加代理的函数
+   * @param {Object} obj 任何对象
+   * @returns {Proxy} 代理后的对象
+   */
+  return function (obj) {
+    return new Proxy(obj, {
+      get (target, k) {
+        if (map.has(k)) {
+          return Reflect.get(target, map.get(k))
+        }
+        return Reflect.get(target, k)
+      },
+      set (target, k, v) {
+        if (map.has(k)) {
+          Reflect.set(target, map.get(k), v);
+          return true
+        }
+        Reflect.set(target, k, v);
+        return true
+      },
+    })
+  }
+};
+
+/**
+ * 基本的 Node 节点结构定义接口
+ * @interface
+ */
+
+/**
+ * 遍历并映射一棵树的每个节点
+ * @param {Object} root 树节点
+ * @param {Object} [options] 其他选项
+ * @param {Function} [options.before=returnItself] 遍历子节点之前的操作。默认返回自身
+ * @param {Function} [options.after=returnItself] 遍历子节点之后的操作。默认返回自身
+ * @param {Function} [options.paramFn=(node, args) => []] 递归的参数生成函数。默认返回一个空数组
+ * @returns {INode} 递归遍历后的树节点
+ */
+function treeMapping (
+  root,
+  {
+    before = returnItself,
+    after = returnItself,
+    paramFn = (node, ...args) => [],
+  } = {}
+) {
+  /**
+   * 遍历一颗完整的树
+   * @param {INode} node 要遍历的树节点
+   * @param  {...Object} [args] 每次递归遍历时的参数
+   */
+  function _treeMapping (node, ...args) {
+    // 之前的操作
+    let _node = before(node, ...args);
+    const childs = _node.child;
+    if (arrayValidator.isEmpty(childs)) {
+      return _node
+    }
+    // 产生一个参数
+    const len = childs.length;
+    for (let i = 0; i < len; i++) {
+      childs[i] = _treeMapping(childs[i], ...paramFn(_node, ...args));
+    }
+    // 之后的操作
+    return after(_node, ...args)
+  }
+  return _treeMapping(root)
+}
+
+/**
+ * 将树节点转为树节点列表
+ * @param {Object} root 树节点
+ * @param {Object} [options] 其他选项
+ * @param {Function} [options.bridge=returnItself] 代理函数，默认返回自身
+ * @param {Boolean} [options.calcPath=false] 是否计算节点全路径，默认为 false
+ * @returns {Array.<Object>} 树节点列表
+ */
+function treeToList (
+  root,
+  { bridge = returnItself, calcPath = false } = {}
+) {
+  const res = [];
+  // @ts-ignore
+  treeMapping(root, {
+    before (node, parentPath) {
+      const _node = bridge(node);
+      // 是否计算全路径
+      if (calcPath) {
+        _node.path = (parentPath ? parentPath + ',' : '') + _node.id;
+      }
+      // 此时追加到数组中
+      res.push(_node);
+      return _node
+    },
+    paramFn: node => (calcPath ? [node.path] : []),
+  });
+  return res
+}
+
+/**
+ * 桥接对象为标准的树结构 {@link INode}
+ */
+class INodeBridge {
+  /**
+   * 构造函数
+   * @param {Object} [options] 桥接对象
+   * @param {String} [options.id='id'] 树结点的 id 属性名
+   * @param {String} [options.parentId='parentId'] 树结点的父节点 id 属性名
+   * @param {String} [options.child='child'] 树结点的子节点数组属性名
+   * @param {String} [options.path='path'] 树结点的全路径属性名
+   * @param {Array.<Object>} [options.args] 其他参数
+   */
+  static bridge ({
+    id = 'id',
+    parentId = 'parentId',
+    child = 'child',
+    path = 'path',
+    ...args
+  } = {}) {
+    /**
+     * @field 树结点的 id 属性名
+     */
+    this.id = id;
+    /**
+     * @field 树结点的父节点 id 属性名
+     */
+    this.parentId = parentId;
+    /**
+     * @field 树结点的子节点数组属性名
+     */
+    this.child = child;
+    /**
+     * @field 树结点的全路径属性名
+     */
+    this.path = path;
+    Object.assign(this, args);
+  }
+}
+
+class NodeBridgeUtil {
+  /**
+   * 桥接对象为标准的树结构
+   * @param {INodeBridge} [nodeBridge=new INodeBridge()] 桥接对象
+   * @returns {Function} 代理函数
+   */
+  bridge (nodeBridge) {
+    return bridge(Object.assign(new INodeBridge(), nodeBridge))
+  }
+  /**
+   * 桥接一棵完整的树
+   * @param {INode} tree 树节点
+   * @param {INodeBridge} [nodeBridge=new INodeBridge()] 桥接对象
+   * @returns {INode} 代理后的树对象
+   */
+  bridgeTree (tree, nodeBridge) {
+    return treeMapping(tree, {
+      before: this.bridge(nodeBridge),
+    })
+  }
+  /**
+   * 桥接一个树节点列表
+   * @param {Array.<INode>} list 树节点列表
+   * @param {INodeBridge} [nodeBridge=new INodeBridge()] 桥接对象
+   * @returns {Array.<INode>} 代理后的树节点列表
+   */
+  bridgeList (list, nodeBridge) {
+    // @ts-ignore
+    return list.map(this.bridge(nodeBridge))
+  }
+}
+
+/**
+ * 导出一个 NodeBridgeUtil 的实例
+ */
+const nodeBridgeUtil = new NodeBridgeUtil();
+
+export { DateFormatter, FetchLimiting, INodeBridge, LocalStorageCache, StateMachine, StringStyleUtil, antiDebug, appends, arrayDiffBy, arrayToMap, arrayValidator, asIterator, asyncFlatMap, autoIncrement, blankToNull, blankToNullField, bridge, cacheUtil, compose, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, deny, download, downloadString, downloadUrl, emptyAllField, emptyFunc, excludeFields, excludeFieldsDeep, fetchTimeout, fill, filterItems, flatMap, formDataToArray, format, getCookies, getCusorPostion, getObjectEntries, getObjectKeys, getYearWeek, groupBy, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, listToTree, loadResource, loadScript, logger, mapToObject, nodeBridgeUtil, objToFormData, objectToMap, once, onceOfSameParam, parseUrl, pathUtil, randomInt, range, readLocal, removeEl, removeText, returnItself, returnReasonableItself, safeExec, setCusorPostion, sets, singleModel, sortBy, spliceParams, strToArrayBuffer, strToDate, stringStyleType, stringValidator, throttle, timing, toLowerCase, toObject, toString, toUpperCase, treeMapping, treeToList, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
 //# sourceMappingURL=rx-util-es.js.map

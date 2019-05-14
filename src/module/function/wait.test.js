@@ -1,4 +1,6 @@
 import { wait } from './wait'
+import { range } from '../array/range'
+import { timing } from './timing'
 
 /**
  * @test {wait}
@@ -29,5 +31,27 @@ describe('test wait', () => {
     const start = Date.now()
     await wait(() => Date.now() > start + this.time)
     assertTime(start)
+  })
+  it('test Promise.all', async () => {
+    let flag = false
+    const add = async () => {
+      if (flag) {
+        await wait(() => {
+          const result = !flag
+          flag = true
+          return result
+        })
+      }
+      try {
+        // 注意: 这里的 i++ 实际上是异步的
+        flag = true
+        await wait(100)
+      } finally {
+        flag = false
+      }
+    }
+
+    const time = await timing(() => Promise.all(range(0, 10).map(add)))
+    expect(time).toBeGreaterThan(1000)
   })
 })

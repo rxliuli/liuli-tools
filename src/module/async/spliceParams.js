@@ -1,4 +1,4 @@
-import { dateFormat } from './../date/dateFormat'
+import { dateFormat } from '../date/dateFormat'
 
 /**
  * 默认的日期格式

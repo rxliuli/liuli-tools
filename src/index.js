@@ -113,6 +113,8 @@ import { nodeBridgeUtil } from './module/tree/NodeBridgeUtil'
 import { getObjectEntries } from './module/obj/getObjectEntries'
 import { getObjectKeys } from './module/obj/getObjectKeys'
 import { floatEquals } from './module/number/floatEquals'
+import { assign } from './module/obj/assign'
+import { aggregation } from './module/obj/aggregation'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -200,6 +202,8 @@ export {
   toLowerCase,
   toString,
   toUpperCase,
+  aggregation,
+  assign,
   blankToNullField,
   deepFreeze,
   deepProxy,

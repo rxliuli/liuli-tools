@@ -115,6 +115,8 @@ import { getObjectKeys } from './module/obj/getObjectKeys'
 import { floatEquals } from './module/number/floatEquals'
 import { assign } from './module/obj/assign'
 import { aggregation } from './module/obj/aggregation'
+import { asyncLimiting } from './module/async/asyncLimiting'
+import { Locker } from './module/function/Locker'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -172,6 +174,7 @@ export {
   debounce,
   deny,
   emptyFunc,
+  Locker,
   once,
   onceOfSameParam,
   returnItself,
@@ -185,6 +188,7 @@ export {
   waitResource,
   watch,
   watchObject,
+  asyncLimiting,
   bridge,
   compose,
   curry,

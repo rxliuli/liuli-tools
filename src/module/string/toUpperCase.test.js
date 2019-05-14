@@ -13,9 +13,11 @@ describe('test toUpperCase', () => {
       name: 'rx',
       age: 17,
     }
+    // @ts-ignore
     expect(toUpperCase(user)).toBe(user)
   })
   it('test toUpperCase for undefined', () => {
+    // @ts-ignore
     expect(toUpperCase()).toBe(undefined)
   })
 })

@@ -9,6 +9,7 @@ describe('test toLowerCase', () => {
     expect(toLowerCase('Str')).toBe('str')
   })
   it('test toLowerCase for undefined', () => {
+    // @ts-ignore
     expect(toLowerCase()).toBe(undefined)
   })
 })

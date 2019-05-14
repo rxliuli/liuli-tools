@@ -6,7 +6,7 @@ import { isNullOrUndefined } from '../obj/isNullOrUndefined'
  * @returns {String} 转换后得到的全小写字符串
  */
 export function toLowerCase (str) {
-  if (!isNullOrUndefined(str) || typeof str !== 'string') {
+  if (isNullOrUndefined(str) || typeof str !== 'string') {
     return str
   }
   return str.toLowerCase()

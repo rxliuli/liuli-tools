@@ -13,7 +13,10 @@ const IntegerRule = new RegExp('^-?\\d+$')
 const EmailRule = new RegExp(
   '^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z]+$'
 )
-
+/**
+ * 判断是否为 ipv4 地址的正则表达式
+ */
+const Ipv4Rule = /^((25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(25[0-5]|2[0-4]\d|1?\d?\d)$/
 /**
  * 字符串校验
  */
@@ -59,6 +62,14 @@ export class StringValidator {
    */
   isEmail (str) {
     return !stringValidator.isBlank(str) && EmailRule.test(str)
+  }
+  /**
+   * 判断 ipv4 地址的格式是否正确
+   * @param {String} str ipv4 字符串
+   * @returns {Boolean} 是否是 ipv4 地址
+   */
+  isIpv4 (str) {
+    return !stringValidator.isBlank(str) && Ipv4Rule.test(str)
   }
 }
 

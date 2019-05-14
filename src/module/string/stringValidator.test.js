@@ -4,7 +4,14 @@ import { stringValidator } from './stringValidator'
  * @test {stringValidator}
  */
 describe('test stringValidator', () => {
-  const { isBlank, isEmpty, isFloat, isInteger, isEmail } = stringValidator
+  const {
+    isBlank,
+    isEmpty,
+    isFloat,
+    isInteger,
+    isEmail,
+    isIpv4,
+  } = stringValidator
   it('test isBlank', () => {
     expect(isBlank(null)).toBeTrue()
     expect(isBlank(undefined)).toBeTrue()
@@ -33,5 +40,12 @@ describe('test stringValidator', () => {
     expect(isEmail('rx@liuli.com')).toBeTrue()
     expect(isEmail('@liuli.com')).toBeFalse()
     expect(isEmail(null)).toBeFalse()
+  })
+  it('test isIpv4', () => {
+    expect(isIpv4('127.0.0.1')).toBeTrue()
+    expect(isIpv4('127.0.0.266')).toBeFalse()
+    expect(isIpv4('127.0.0')).toBeFalse()
+    expect(isIpv4('')).toBeFalse()
+    expect(isIpv4(null)).toBeFalse()
   })
 })

@@ -5,7 +5,7 @@ import { range } from '../array/range'
 /**
  * @test {Locker}
  */
-describe('test Locker', () => {
+describe.skip('test Locker', () => {
   it('simple example', async () => {
     const locker = new Locker()
     const fn = async () => {

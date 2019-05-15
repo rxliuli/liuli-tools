@@ -4,6 +4,10 @@ import { INodeBridge } from './NodeBridge'
 import { INode } from './Node'
 import { treeMapping } from './treeMapping'
 
+/**
+ * 树节点桥接工具类
+ * 主要实现了桥接 {@field bridge} {@field bridgeTree} 和 {@field bridgeList} 三个函数，事实上桥接之后再转换相当于做了两遍，但就目前而言暂且只能如此了
+ */
 export class NodeBridgeUtil {
   /**
    * 桥接对象为标准的树结构

@@ -117,6 +117,8 @@ import { assign } from './module/obj/assign'
 import { aggregation } from './module/obj/aggregation'
 import { asyncLimiting } from './module/function/asyncLimiting'
 import { Locker } from './module/function/Locker'
+import { trySometime } from './module/function/trySometime'
+import { trySometimeParallel } from './module/function/trySometimeParallel'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -184,6 +186,8 @@ export {
   StateMachine,
   throttle,
   timing,
+  trySometime,
+  trySometimeParallel,
   wait,
   waitResource,
   watch,

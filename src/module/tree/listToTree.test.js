@@ -110,7 +110,7 @@ describe('test listToTree', () => {
     ],
   }
   it('test custom field getter and setter', () => {
-    // 桥接类，使用 getter/setter 包装对象
+    // 桥接类 BridgeNode，使用 getter/setter 包装对象
     class BridgeNode {
       constructor ({ uid, parent, ...args }) {
         this.uid = uid

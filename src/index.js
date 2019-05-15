@@ -115,7 +115,7 @@ import { getObjectKeys } from './module/obj/getObjectKeys'
 import { floatEquals } from './module/number/floatEquals'
 import { assign } from './module/obj/assign'
 import { aggregation } from './module/obj/aggregation'
-import { asyncLimiting } from './module/async/asyncLimiting'
+import { asyncLimiting } from './module/function/asyncLimiting'
 import { Locker } from './module/function/Locker'
 
 /**

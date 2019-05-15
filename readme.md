@@ -2,7 +2,7 @@
 
 > [rx-util](https://github.com/rxliuli/rx-util) has nothing to do with the famous [rx series(rxjs/rxjava/...)](https://github.com/ReactiveX/) , just the first two of my user name(**rxliuli**), don't misunderstand!
 
-[![npm](https://img.shields.io/npm/v/rx-util.svg?color=red&label=npm)](https://www.npmjs.com/package/rx-util) [![esdoc](https://img.shields.io/badge/document-98%25-brightgreen.svg)](https://rx-util.rxliuli.com/) [![coverage](https://img.shields.io/badge/coverage-78%25-yellowgreen.svg)](https://rx-util.rxliuli.com/coverage/lcov-report/) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![npm](https://img.shields.io/npm/v/rx-util.svg?color=red&label=npm)](https://www.npmjs.com/package/rx-util) [![esdoc](https://img.shields.io/badge/document-98%25-brightgreen.svg)](https://rx-util.rxliuli.com/) [![coverage](https://img.shields.io/badge/coverage-86%25-informational.svg)](https://rx-util.rxliuli.com/coverage/lcov-report/) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 [Contribution guide](https://github.com/rxliuli/rx-util/blob/master/CONTRIBUTING.md)
 

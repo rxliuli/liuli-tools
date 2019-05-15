@@ -2,7 +2,7 @@
 
 > [rx-util](https://github.com/rxliuli/rx-util) 与大名鼎鼎的 [rx-（rxjs/rxjava/...）系列](https://github.com/ReactiveX/) 没有任何关系，仅仅只是吾辈用户名（**rxliuli**）的前两位而已，请勿误解！
 
-[![npm](https://img.shields.io/npm/v/rx-util.svg?color=red&label=npm)](https://www.npmjs.com/package/rx-util) [![esdoc](https://img.shields.io/badge/document-98%25-brightgreen.svg)](https://rx-util.rxliuli.com/) [![coverage](https://img.shields.io/badge/coverage-78%25-yellowgreen.svg)](https://rx-util.rxliuli.com/coverage/lcov-report/) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![npm](https://img.shields.io/npm/v/rx-util.svg?color=red&label=npm)](https://www.npmjs.com/package/rx-util) [![esdoc](https://img.shields.io/badge/document-98%25-brightgreen.svg)](https://rx-util.rxliuli.com/) [![coverage](https://img.shields.io/badge/coverage-86%25-informational.svg)](https://rx-util.rxliuli.com/coverage/lcov-report/) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 [贡献指南](https://github.com/rxliuli/rx-util/blob/master/CONTRIBUTING.md)
 

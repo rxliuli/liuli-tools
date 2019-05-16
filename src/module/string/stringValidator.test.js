@@ -11,6 +11,8 @@ describe('test stringValidator', () => {
     isInteger,
     isEmail,
     isIpv4,
+    isTelephone,
+    isMoblie,
   } = stringValidator
   it('test isBlank', () => {
     expect(isBlank(null)).toBeTrue()
@@ -47,5 +49,19 @@ describe('test stringValidator', () => {
     expect(isIpv4('127.0.0')).toBeFalse()
     expect(isIpv4('')).toBeFalse()
     expect(isIpv4(null)).toBeFalse()
+  })
+  it('test isTelephone', () => {
+    expect(isTelephone('010-88888888')).toBeTrue()
+    expect(isTelephone('101-5574021')).toBeFalse()
+    expect(isTelephone('88888888')).toBeFalse()
+    expect(isTelephone('')).toBeFalse()
+    expect(isTelephone(null)).toBeFalse()
+  })
+  it('test isMoblie', () => {
+    expect(isMoblie('13532611510')).toBeTrue()
+    expect(isMoblie('12345678910')).toBeFalse()
+    expect(isMoblie('1234567891')).toBeFalse()
+    expect(isMoblie('')).toBeFalse()
+    expect(isMoblie(null)).toBeFalse()
   })
 })

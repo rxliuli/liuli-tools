@@ -2,21 +2,27 @@ import { isNullOrUndefined } from '../obj/isNullOrUndefined'
 /**
  * 判断是否为小数的正则表达式
  */
-const FloatRule = new RegExp('^(-?\\d+)(.\\d+)?$')
+const FloatRule = /^(-?\d+)(.\d+)?$/
 /**
  * 判断是否为整数的正则表达式
  */
-const IntegerRule = new RegExp('^-?\\d+$')
+const IntegerRule = /^-?\d+$/
 /**
  * 判断是否为邮箱的正则表达式
  */
-const EmailRule = new RegExp(
-  '^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z]+$'
-)
+const EmailRule = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
 /**
  * 判断是否为 ipv4 地址的正则表达式
  */
 const Ipv4Rule = /^((25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(25[0-5]|2[0-4]\d|1?\d?\d)$/
+/**
+ * 判断是否为固定电话的正则表达式
+ */
+const TelephoneRule = /^0[1-9][0-9]{1,2}-[2-8][0-9]{6,7}$/
+/**
+ * 判断是否为移动电话的正则表达式
+ */
+const MobileRule = /^(((13[0-9]{1})|15[0-9]{1}|18[0-9]{1}|)+\d{8})$/
 /**
  * 字符串校验
  */
@@ -61,7 +67,7 @@ export class StringValidator {
    * @returns {Boolean} 是否是邮箱
    */
   isEmail (str) {
-    return !stringValidator.isBlank(str) && EmailRule.test(str)
+    return EmailRule.test(str)
   }
   /**
    * 判断 ipv4 地址的格式是否正确
@@ -69,7 +75,23 @@ export class StringValidator {
    * @returns {Boolean} 是否是 ipv4 地址
    */
   isIpv4 (str) {
-    return !stringValidator.isBlank(str) && Ipv4Rule.test(str)
+    return Ipv4Rule.test(str)
+  }
+  /**
+   * 判断是否为固定电话
+   * @param {String} str 字符串
+   * @returns {Boolean} 是否为固定电话
+   */
+  isTelephone (str) {
+    return TelephoneRule.test(str)
+  }
+  /**
+   * 判断是否为移动电话
+   * @param {String} str 字符串
+   * @returns {Boolean} 是否为移动电话
+   */
+  isMoblie (str) {
+    return MobileRule.test(str)
   }
 }
 

@@ -7,10 +7,9 @@ export function singleModel (clazz) {
   let instance
   return new Proxy(clazz, {
     construct (target, args, newTarget) {
-      if (instance) {
-        return instance
+      if (instance === undefined) {
+        instance = Reflect.construct(target, args, newTarget)
       }
-      instance = Reflect.construct(target, args, newTarget)
       return instance
     },
   })

@@ -1,7 +1,7 @@
 import { dateFormat } from './dateFormat'
 import { dateParse } from './dateParse'
 import { isNullOrUndefined } from '../obj/isNullOrUndefined'
-import { isEmpty } from '../string/isEmpty'
+import { stringValidator } from '../string/stringValidator'
 
 /**
  * 日期格式化器
@@ -35,7 +35,7 @@ export class DateFormatter {
    * @returns {Date} 解析得到的日期
    */
   parse (str) {
-    if (isEmpty(str)) {
+    if (stringValidator.isEmpty(str)) {
       return null
     }
     return dateParse(str, this.fmt)
@@ -48,7 +48,7 @@ export class DateFormatter {
    * @returns {String} 转换后得到的字符串
    */
   strFormat (str, parseFmt) {
-    if (isEmpty(str)) {
+    if (stringValidator.isEmpty(str)) {
       return ''
     }
     const date = parseFmt ? dateParse(str, parseFmt) : new Date(str)

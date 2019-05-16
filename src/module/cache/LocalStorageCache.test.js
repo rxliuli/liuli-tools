@@ -2,6 +2,7 @@ import { LocalStorageCache } from './LocalStorageCache'
 import { wait } from '../function/wait'
 import { repeatedCall } from '../function/repeatedCall'
 import { TimeoutInfinite } from './CacheOption'
+import { sleep } from '../function/sleep'
 
 /**
  * @test {LocalStorageCache}
@@ -30,16 +31,16 @@ describe('test LocalStorageCache', () => {
     const v1 = '1'
     // @ts-ignore
     cache.add(k, v1, {
-      timeout: 100,
+      timeout: 10,
     })
     expect(cache.get(k)).toBe(v1)
-    await wait(120)
+    await wait(20)
     expect(cache.get(k)).toBe(null)
     // @ts-ignore
     cache.add(k, v1, {
-      timeout: 100,
+      timeout: 10,
     })
-    await wait(120)
+    await wait(20)
     expect(cache.touch(k)).toBe(null)
   })
   it('test touch', async () => {
@@ -48,10 +49,10 @@ describe('test LocalStorageCache', () => {
     const v1 = '1'
     // @ts-ignore
     cache.add(k, v1, {
-      timeout: 100,
+      timeout: 10,
     })
     await repeatedCall(4, async () => {
-      await wait(50)
+      await wait(5)
       expect(cache.touch(k)).toBe(v1)
     })
     expect(cache.touch(k)).toBe(v1)
@@ -59,19 +60,19 @@ describe('test LocalStorageCache', () => {
   it('test global default CacheOption', async () => {
     // @ts-ignore
     const cache = new LocalStorageCache({
-      timeout: 100,
+      timeout: 10,
     })
     const k = '1'
     const v1 = '1'
     cache.add(k, v1)
     expect(cache.get(k)).toBe(v1)
-    await wait(200)
+    await wait(20)
     expect(cache.get(k)).toBe(null)
   })
   it('test use set CacheOption override global default CacheOption', async () => {
     // @ts-ignore
     const cache = new LocalStorageCache({
-      timeout: 100,
+      timeout: 10,
     })
     const k = '1'
     const v1 = '1'
@@ -79,8 +80,50 @@ describe('test LocalStorageCache', () => {
       timeout: TimeoutInfinite,
     })
     expect(cache.get(k)).toBe(v1)
-    await wait(200)
+    await wait(20)
     expect(cache.get(k)).toBe(v1)
+  })
+  it('test auto clear expired', async () => {
+    const cache = new LocalStorageCache()
+    // @ts-ignore
+    cache.set('1', 1, {
+      timeout: 10,
+    })
+    // @ts-ignore
+    cache.set('2', 1, {
+      timeout: 10,
+    })
+    await wait(10)
+    // 即便过了超时时间只要没有调用 get 依然存在于缓存中
+    expect(window.localStorage.getItem('1')).not.toBeNull()
+    expect(window.localStorage.getItem('2')).not.toBeNull()
+    // eslint-disable-next-line no-new
+    new LocalStorageCache()
+    await wait(10)
+    // 然而现在获取不到了
+    expect(window.localStorage.getItem('1')).toBeNull()
+    expect(window.localStorage.getItem('2')).toBeNull()
+  })
+  it('test auto clear expired for sleep', async () => {
+    const cache = new LocalStorageCache()
+    // @ts-ignore
+    cache.set('1', 1, {
+      timeout: 10,
+    })
+    // @ts-ignore
+    cache.set('2', 1, {
+      timeout: 10,
+    })
+    await wait(10)
+    // 即便过了超时时间只要没有调用 get 依然存在于缓存中
+    expect(window.localStorage.getItem('1')).not.toBeNull()
+    expect(window.localStorage.getItem('2')).not.toBeNull()
+    // eslint-disable-next-line no-new
+    new LocalStorageCache()
+    sleep(10)
+    // 然而现在还能获取到，因为 sleep 阻塞了主线程，使得构造函数中的清理过期缓存函数 clearExpired 没有机会运行（异步）
+    expect(window.localStorage.getItem('1')).not.toBeNull()
+    expect(window.localStorage.getItem('2')).not.toBeNull()
   })
 
   describe('test error', () => {

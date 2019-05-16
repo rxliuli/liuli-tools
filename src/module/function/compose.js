@@ -26,6 +26,5 @@ const _compose = (fn1, fn2) => {
  * @returns {Function} 连接后的柯里化函数
  */
 export function compose (...fns) {
-  // TODO 反向连接就可以了?
   return fns.reduceRight((fn1, fn2) => _compose(fn2, fn1))
 }

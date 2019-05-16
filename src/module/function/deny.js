@@ -4,17 +4,13 @@
  * @returns {Function} 取反得到的函数
  */
 export function deny (fn) {
-  /**
-   * 包装后的函数
-   * @param {...any} args 函数的参数
-   * @returns {any} 函数的返回值取反
-   */
-  // TODO 此处要修改为 Proxy 实现
-  return function (...args) {
-    const result = fn.apply(this, args)
-    if (result instanceof Promise) {
-      return result.then(res => !res)
-    }
-    return !result
-  }
+  return new Proxy(fn, {
+    apply (_, _this, args) {
+      const result = Reflect.apply(_, this, args)
+      if (result instanceof Promise) {
+        return result.then(res => !res)
+      }
+      return !result
+    },
+  })
 }

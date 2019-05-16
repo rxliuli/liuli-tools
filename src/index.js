@@ -108,7 +108,7 @@ import { listToTree } from './module/tree/listToTree'
 import { bridge } from './module/function/bridge'
 import { treeToList } from './module/tree/treeToList'
 import { treeMapping } from './module/tree/treeMapping'
-import { INodeBridge } from './module/tree/NodeBridge'
+import { NodeBridge } from './module/tree/NodeBridge'
 import { nodeBridgeUtil } from './module/tree/nodeBridgeUtil'
 import { getObjectEntries } from './module/obj/getObjectEntries'
 import { getObjectKeys } from './module/obj/getObjectKeys'
@@ -235,7 +235,7 @@ export {
   floatEquals,
   listToTree,
   treeMapping,
-  INodeBridge,
+  NodeBridge,
   nodeBridgeUtil,
   treeToList,
 }

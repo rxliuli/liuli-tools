@@ -6,7 +6,7 @@
  * @param {Function} [errorCheck=res=>true] 检查返回结果是否需要重试的函数。默认只要 resolve() 就返回 true
  * @returns {Function} 包装后的有错误重试功能的函数
  */
-export const trySometime = (fn, num = 1, errorCheck = res => true) => {
+export function trySometime (fn, num = 1, errorCheck = res => true) {
   return new Proxy(fn, {
     async apply (target, thisArg, args) {
       let err

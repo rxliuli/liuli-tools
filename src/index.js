@@ -119,6 +119,7 @@ import { asyncLimiting } from './module/function/asyncLimiting'
 import { Locker } from './module/function/Locker'
 import { trySometime } from './module/function/trySometime'
 import { trySometimeParallel } from './module/function/trySometimeParallel'
+import { compare } from './module/obj/compare'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -213,6 +214,7 @@ export {
   aggregation,
   assign,
   blankToNullField,
+  compare,
   deepFreeze,
   deepProxy,
   emptyAllField,

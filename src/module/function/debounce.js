@@ -11,7 +11,7 @@
  * @param {Object} [init=undefined] 初始的缓存值，不填默认为 {@link undefined}
  * @return {Function} 包装后有去抖功能的函数。该函数是异步的，与需要包装的函数 {@link action} 是否异步没有太大关联
  */
-export const debounce = (delay, action, init = undefined) => {
+export function debounce (delay, action, init = undefined) {
   let flag
   let result = init
   return new Proxy(action, {

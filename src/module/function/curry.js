@@ -5,7 +5,7 @@
  * @param  {...any} args 应用的部分参数
  * @returns {Function} 包装后的函数
  */
-export const curry = (fn, ...args) => {
+export function curry (fn, ...args) {
   const realArgs = args.filter(arg => arg !== curry._)
   if (realArgs.length >= fn.length) {
     return fn(...realArgs)

@@ -10,7 +10,7 @@
  * @param {Function} action 真正需要执行的操作
  * @return {Function} 包装后有节流功能的函数。该函数是异步的，与需要包装的函数 {@link action} 是否异步没有太大关联
  */
-export const throttle = (delay, action) => {
+export function throttle (delay, action) {
   let last = 0
   let result
   return new Proxy(action, {

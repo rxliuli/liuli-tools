@@ -3,7 +3,7 @@
  * @param {Function} fn 需要包装的函数
  * @returns {Function} 包装后的函数
  */
-export const once = fn => {
+export function once (fn) {
   let flag = true
   let cache
   return new Proxy(fn, {

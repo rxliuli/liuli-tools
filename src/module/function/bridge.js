@@ -5,7 +5,7 @@ import { objectToMap } from '../obj/objectToMap'
  * @param {Map.<String|Number|symbol, String|Number|symbol>|Object} map 代理的字段映射 Map
  * @returns {Function} 转换一个对象为代理对象
  */
-export const bridge = map => {
+export function bridge (map) {
   if (!(map instanceof Map)) {
     map = objectToMap(map)
   }

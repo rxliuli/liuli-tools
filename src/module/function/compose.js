@@ -25,6 +25,7 @@ const _compose = (fn1, fn2) => {
  * @param  {...Function} fns 多个需要连接函数
  * @returns {Function} 连接后的柯里化函数
  */
-export const compose = (...fns) =>
+export function compose (...fns) {
   // TODO 反向连接就可以了?
-  fns.reduceRight((fn1, fn2) => _compose(fn2, fn1))
+  return fns.reduceRight((fn1, fn2) => _compose(fn2, fn1))
+}

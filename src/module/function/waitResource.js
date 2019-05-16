@@ -7,7 +7,7 @@
  * @param {Number} [option.max=10] 最大轮询次数
  * @returns Promise 对象
  */
-export const waitResource = (fn, { interval = 100, max = 10 } = {}) => {
+export function waitResource (fn, { interval = 100, max = 10 } = {}) {
   let current = 0
   return new Promise((resolve, reject) => {
     const timer = setInterval(() => {

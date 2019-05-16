@@ -4,7 +4,7 @@
  * @param {Function} fn 需要测试的函数
  * @returns {Number|Promise} 执行的毫秒数
  */
-export const timing = fn => {
+export function timing (fn) {
   const begin = performance.now()
   const result = fn()
   if (!(result instanceof Promise)) {

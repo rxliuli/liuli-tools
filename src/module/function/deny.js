@@ -3,16 +3,18 @@
  * @param {Function} fn 要取反的函数
  * @returns {Function} 取反得到的函数
  */
-export const deny = fn =>
+export function deny (fn) {
   /**
    * 包装后的函数
    * @param {...any} args 函数的参数
    * @returns {any} 函数的返回值取反
    */
-  function (...args) {
+  // TODO 此处要修改为 Proxy 实现
+  return function (...args) {
     const result = fn.apply(this, args)
     if (result instanceof Promise) {
       return result.then(res => !res)
     }
     return !result
   }
+}

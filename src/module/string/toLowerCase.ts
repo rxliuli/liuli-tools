@@ -5,7 +5,7 @@ import { isNullOrUndefined } from '../obj/isNullOrUndefined'
  * @param {String} str 字符串
  * @returns {String} 转换后得到的全小写字符串
  */
-export function toLowerCase (str) {
+export function toLowerCase(str: string): string {
   if (isNullOrUndefined(str) || typeof str !== 'string') {
     return str
   }

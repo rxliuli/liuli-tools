@@ -1,4 +1,4 @@
-import { pathUtil } from '../../index'
+import { pathUtil } from './pathUtil'
 
 /**
  * @test {pathUtil}

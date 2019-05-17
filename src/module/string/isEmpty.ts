@@ -6,6 +6,6 @@ import { stringValidator } from './stringValidator'
  * @returns {Boolean} 是否为空字符串
  * @deprecated 已废弃，请使用 {@link stringValidator#isEmpty}
  */
-export function isEmpty (str) {
+export function isEmpty(str: any): boolean {
   return stringValidator.isEmpty(str)
 }

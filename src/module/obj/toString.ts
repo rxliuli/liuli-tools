@@ -5,7 +5,7 @@ import { isNullOrUndefined } from './isNullOrUndefined'
  * @param {Object} obj 对象
  * @returns {String} 字符串
  */
-export function toString (obj) {
+export function toString(obj: any): string {
   if (isNullOrUndefined(obj)) {
     return obj
   }

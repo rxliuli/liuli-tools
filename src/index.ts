@@ -54,7 +54,7 @@ import { watchObject } from './module/function/watchObject'
 
 import { fill } from './module/string/fill'
 import { format } from './module/string/format'
-import { isFloat } from './module/string/isFloat'
+import { isFloat } from './module/string/isFloat.1'
 import { isNumber } from './module/string/isNumber'
 import { toLowerCase } from './module/string/toLowerCase'
 import { toUpperCase } from './module/string/toUpperCase'
@@ -79,9 +79,9 @@ import { filterItems } from './module/array/filterItems'
 import { arrayDiffBy } from './module/array/arrayDiffBy'
 import { autoIncrement } from './module/number/autoIncrement'
 import {
-  stringStyleType,
   StringStyleUtil,
 } from './module/string/StringConverter'
+import { StringStyleType } from "./module/string/StringConverter/StringStyleType";
 import { deepFreeze } from './module/obj/deepFreeze'
 import { deepProxy } from './module/obj/deepProxy'
 import { curry } from './module/function/curry'
@@ -207,7 +207,7 @@ export {
   isFloat,
   isNumber,
   pathUtil,
-  stringStyleType,
+  StringStyleType as stringStyleType,
   StringStyleUtil,
   stringValidator,
   toLowerCase,

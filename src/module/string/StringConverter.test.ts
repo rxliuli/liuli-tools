@@ -1,9 +1,7 @@
-import {
-  StringStyleUtil,
-  stringStyleType,
-  IConverter,
-  ConverterFactory,
-} from './StringConverter'
+import { StringStyleUtil } from './StringConverter'
+import { StringStyleType } from './StringConverter/StringStyleType'
+import { ConverterFactory } from './StringConverter/ConverterFactory'
+import { IConverter } from './StringConverter/IConverter'
 
 /**
  * @test {StringConverter}
@@ -13,54 +11,48 @@ describe('test StringConverter', () => {
     // 直接进行转换
     expect(
       StringStyleUtil.convert(
-        stringStyleType.Camel,
-        stringStyleType.Snake,
-        'stringFormat'
-      )
+        StringStyleType.Camel,
+        StringStyleType.Snake,
+        'stringFormat',
+      ),
     ).toBe('string_format')
     expect(
       StringStyleUtil.convert(
-        stringStyleType.Snake,
-        stringStyleType.Camel,
-        'string_format'
-      )
+        StringStyleType.Snake,
+        StringStyleType.Camel,
+        'string_format',
+      ),
     ).toBe('stringFormat')
 
     // 获取转换器后再进行转换
     const pascalToScreamingSnakeConverter = StringStyleUtil.getConverter(
-      stringStyleType.Pascal,
-      stringStyleType.ScreamingSnake
+      StringStyleType.Pascal,
+      StringStyleType.ScreamingSnake,
     )
     expect(pascalToScreamingSnakeConverter.convert('StringUtil')).toBe(
-      'STRING_UTIL'
+      'STRING_UTIL',
     )
     const screamingSnakeToPascalConverter = StringStyleUtil.getConverter(
-      stringStyleType.ScreamingSnake,
-      stringStyleType.Pascal
+      StringStyleType.ScreamingSnake,
+      StringStyleType.Pascal,
     )
     expect(screamingSnakeToPascalConverter.convert('STRING_UTIL')).toBe(
-      'StringUtil'
+      'StringUtil',
     )
   })
   describe('test error', () => {
     it('use null or ""', () => {
       const converter = StringStyleUtil.getConverter(
-        stringStyleType.Pascal,
-        stringStyleType.ScreamingSnake
+        StringStyleType.Pascal,
+        StringStyleType.ScreamingSnake,
       )
-      expect(converter.convert(null)).toBe(null)
       expect(converter.convert('')).toBe('')
     })
     it('use IConverter', () => {
       const converter = new IConverter()
       expect(() => converter.from('userLastUpdateTime')).toThrowError()
       expect(() =>
-        converter.to(['user', 'last', 'update', 'time'])
-      ).toThrowError()
-    })
-    it('use undefined style type', () => {
-      expect(() =>
-        ConverterFactory.getInstance(Symbol('custom'))
+        converter.to(['user', 'last', 'update', 'time']),
       ).toThrowError()
     })
   })

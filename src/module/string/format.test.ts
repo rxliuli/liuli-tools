@@ -10,10 +10,7 @@ describe('test format', () => {
       format(str, {
         name: 'rx',
         age: 17,
-      })
+      }),
     ).toEqual('name: rx, age: 17')
-  })
-  it('test format for not arg', () => {
-    expect(format(str)).toEqual(str)
   })
 })

@@ -1,0 +1,1 @@
+export type IPackFunc<R> = (...args: any[]) => R

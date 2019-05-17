@@ -6,6 +6,6 @@ import { stringValidator } from './stringValidator'
  * @returns {Boolean} 是否为小数
  * @deprecated 已废弃，请使用 {@link stringValidator#isInteger}
  */
-export function isNumber (str) {
+export function isNumber(str: string): boolean {
   return stringValidator.isInteger(str)
 }

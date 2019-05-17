@@ -1,13 +1,15 @@
+import { IPackFunc } from './IPackFunc';
+
 /**
  * 将指定函数包装为只调用一次
  * @param {Function} fn 需要包装的函数
  * @returns {Function} 包装后的函数
  */
-export function once (fn) {
+export function once<R>(fn: IPackFunc<R>): IPackFunc<R> {
   let flag = true
-  let cache
+  let cache: R
   return new Proxy(fn, {
-    apply (target, thisArg, args) {
+    apply(target, thisArg, args) {
       if (flag === false) {
         return cache
       }

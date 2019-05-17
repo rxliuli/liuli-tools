@@ -5,7 +5,7 @@ import { isNullOrUndefined } from '../obj/isNullOrUndefined'
  * @param {String} str 字符串
  * @returns {String} 转换后得到的全大写字符串
  */
-export function toUpperCase (str) {
+export function toUpperCase(str: string): string {
   if (isNullOrUndefined(str) || typeof str !== 'string') {
     return str
   }

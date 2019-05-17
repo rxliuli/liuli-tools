@@ -1,7 +1,7 @@
 /**
  * 桥接对象为标准的树结构 {@link INode}
  */
-export class INodeBridge {
+export class NodeBridge {
   /**
    * 构造函数
    * @param {Object} [options] 桥接对象

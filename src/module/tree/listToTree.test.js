@@ -204,4 +204,22 @@ describe('test listToTree', () => {
     // @ts-ignore
     expect(listToTree(list.map(bridgeNode))).toEqual(result)
   })
+  it('custom field for node', () => {
+    const list = [
+      new CustomNode(1),
+      new CustomNode(2, 1),
+      new CustomNode(3, 2),
+      new CustomNode(4, 2),
+      new CustomNode(5, 1),
+      new CustomNode(6, 5),
+      new CustomNode(7, 5),
+    ]
+
+    const bridge = nodeBridgeUtil.bridge({
+      id: 'uid',
+      parentId: 'parent',
+    })
+    // 转换时使用 bridge 代理 CustomNode 类
+    expect(listToTree(list, { bridge })).toEqual(result)
+  })
 })

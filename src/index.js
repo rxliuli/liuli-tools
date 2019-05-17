@@ -108,7 +108,7 @@ import { listToTree } from './module/tree/listToTree'
 import { bridge } from './module/function/bridge'
 import { treeToList } from './module/tree/treeToList'
 import { treeMapping } from './module/tree/treeMapping'
-import { INodeBridge } from './module/tree/NodeBridge'
+import { NodeBridge } from './module/tree/NodeBridge'
 import { nodeBridgeUtil } from './module/tree/nodeBridgeUtil'
 import { getObjectEntries } from './module/obj/getObjectEntries'
 import { getObjectKeys } from './module/obj/getObjectKeys'
@@ -120,6 +120,7 @@ import { Locker } from './module/function/Locker'
 import { trySometime } from './module/function/trySometime'
 import { trySometimeParallel } from './module/function/trySometimeParallel'
 import { compare } from './module/obj/compare'
+import { sleep } from './module/function/sleep'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -184,6 +185,7 @@ export {
   returnReasonableItself,
   safeExec,
   singleModel,
+  sleep,
   StateMachine,
   throttle,
   timing,
@@ -233,7 +235,7 @@ export {
   floatEquals,
   listToTree,
   treeMapping,
-  INodeBridge,
+  NodeBridge,
   nodeBridgeUtil,
   treeToList,
 }

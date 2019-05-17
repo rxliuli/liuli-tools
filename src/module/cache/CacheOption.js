@@ -20,11 +20,11 @@ export class CacheOption {
     /**
      * @field 超时时间，以毫秒为单位
      */
-    this.timeStart = timeStart
+    this.timeout = timeout
     /**
      * @field 缓存开始时间
      */
-    this.timeout = timeout
+    this.timeStart = timeStart
     /**
      * @field 缓存序列化
      */

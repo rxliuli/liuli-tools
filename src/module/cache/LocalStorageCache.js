@@ -3,6 +3,7 @@ import { CacheVal } from './CacheVal'
 import { CacheOption, TimeoutInfinite } from './CacheOption'
 import { assign } from '../obj/assign'
 import { safeExec } from '../function/safeExec'
+import { wait } from '../function/wait'
 
 /**
  * 使用 LocalStorage 实现的缓存
@@ -18,6 +19,34 @@ export class LocalStorageCache extends ICache {
      * 缓存对象，默认使用 localStorage
      */
     this.localStorage = window.localStorage
+    // 创建后将异步清空所有过期的缓存
+    this.clearExpired()
+  }
+  /**
+   * 清空所有过期的 key
+   * 注: 该函数是异步执行的
+   */
+  async clearExpired () {
+    const local = this.localStorage
+    const len = local.length
+    const delKeys = []
+    for (let i = 0; i < len; i++) {
+      await wait(0)
+      const key = local.key(i)
+      const str = local.getItem(key)
+      const cacheVal = safeExec(JSON.parse, null, str)
+      if (cacheVal === null) {
+        continue
+      }
+      const { timeStart, timeout } = cacheVal.cacheOption
+      // 如果超时则删除并返回 null
+      // console.log(i, cacheVal, Date.now(), Date.now() - timeStart > timeout)
+      if (timeout !== TimeoutInfinite && Date.now() - timeStart > timeout) {
+        delKeys.push(key)
+      }
+      // console.log(i, key, local.getItem(key))
+    }
+    await delKeys.forEach(async key => local.removeItem(key))
   }
   /**
    * 根据 key + value 添加
@@ -28,10 +57,7 @@ export class LocalStorageCache extends ICache {
    * @override
    */
   add (key, val, cacheOption) {
-    const result = this.get(
-      key,
-      assign({ timeStart: Date.now() }, cacheOption)
-    )
+    const result = this.get(key, cacheOption)
     if (result !== null) {
       return
     }
@@ -55,18 +81,14 @@ export class LocalStorageCache extends ICache {
    * @override
    */
   set (key, val, cacheOption = new CacheOption()) {
-    const option = assign(
-      this.cacheOption,
-      { timeStart: Date.now() },
-      cacheOption
-    )
+    const option = assign(this.cacheOption, cacheOption)
     this.localStorage.setItem(
       key,
       JSON.stringify(
         new CacheVal({
           key,
           val: option.serialize(val),
-          cacheOption: option,
+          cacheOption: { ...option, timeStart: option.timeStart || Date.now() },
         })
       )
     )

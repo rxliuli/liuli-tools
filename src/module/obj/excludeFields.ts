@@ -7,7 +7,10 @@ import { getObjectKeys } from './getObjectKeys'
  * @param {...String|Symbol|Number} fields 要排除的多个字段
  * @returns {Object} 排除完指定字段得到的新的对象
  */
-export function excludeFields (object, ...fields) {
+export function excludeFields(
+  object: Record<PropertyKey, any>,
+  ...fields: PropertyKey[]
+): object {
   const set = new Set(fields)
   return getObjectKeys(object).reduce((res, k) => {
     if (!set.has(k)) {

@@ -1,11 +1,12 @@
 import { returnItself } from '../function/returnItself'
+import { TypeParameter } from '@babel/types'
 
 /**
  * 根据不同的源对象获取不同的正则匹配，代表不需要拷贝的属性
  * @param {Object} source 源对象
  * @returns {RegExp} 匹配内部属性的正则表达式
  */
-function getInnerFieldRule (source) {
+function getInnerFieldRule(source: any): RegExp {
   if (source instanceof Function) {
     return /^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/
   } else {
@@ -19,7 +20,7 @@ function getInnerFieldRule (source) {
  * @param {Object} source 源对象
  * @returns {Object} 返回 {@param target} 目标对象
  */
-function _copyProps (target, source) {
+function _copyProps<T extends object>(target: T, source: T): T {
   const innerField = getInnerFieldRule(source)
   Reflect.ownKeys(source).forEach(prop => {
     if (typeof prop === 'string' && innerField.test(prop)) {
@@ -35,13 +36,13 @@ function _copyProps (target, source) {
  * @param  {...Class} mixins 需要混合的多个类及其构造函数参数映射函数的 Map 集合
  * @returns {Class} 返回一个混合后的类，构造函数将的参数
  */
-export function aggregation (mixins) {
+export function aggregation(mixins: Map<any, (...args: any[]) => any[]>): any {
   const map = Array.from(mixins)
-  class __Aggregate {
+  class Aggregate {
     /**
      * @param {...Object} args 任意数量的参数
      */
-    constructor (...args) {
+    constructor(...args: any[]) {
       map.forEach(([Mixin, fn = returnItself]) => {
         _copyProps(this, new Mixin(...fn(args)))
       })
@@ -49,9 +50,9 @@ export function aggregation (mixins) {
   }
 
   map.forEach(([Mixin]) => {
-    _copyProps(__Aggregate.prototype, Mixin.prototype)
-    _copyProps(__Aggregate, Mixin)
+    _copyProps(Aggregate.prototype, Mixin.prototype)
+    _copyProps(Aggregate, Mixin)
   })
 
-  return __Aggregate
+  return Aggregate
 }

@@ -4,7 +4,7 @@
  * @param {any} y 任何对象
  * @returns {Boolean} 是否相等
  */
-export function compare (x, y) {
+export function compare(x: any, y: any): boolean {
   if (typeof x === 'number' && typeof y === 'number') {
     // 如果都是 NaN 则直接返回 true
     if (isNaN(x) && isNaN(y)) {

@@ -11,7 +11,7 @@ describe('test getObjectKeys', () => {
       getObjectKeys({
         [symbol]: name,
         [name]: symbol,
-      })
+      }),
     ).toIncludeAllMembers([symbol, name])
   })
   it('test boundary situation', () => {

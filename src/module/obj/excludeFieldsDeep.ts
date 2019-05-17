@@ -6,7 +6,10 @@ import { getObjectKeys } from './getObjectKeys'
  * @param {Object} object 需要排除的对象
  * @param  {...Object} fields 需要排除的字段
  */
-export function excludeFieldsDeep (object, ...fields) {
+export function excludeFieldsDeep(
+  object: Record<PropertyKey, any>,
+  ...fields: PropertyKey[]
+) {
   const res =
     object instanceof Array ? object : excludeFields(object, ...fields)
   getObjectKeys(object).forEach(k => {

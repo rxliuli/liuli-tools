@@ -9,9 +9,11 @@ import { getObjectEntries } from './getObjectEntries'
  * @param  {...Object} objects 任意数量的对象
  * @returns {Object} 合并后的对象
  */
-export function assign (...objects) {
+export function assign(
+  ...objects: Array<Record<PropertyKey, any> | undefined | null>
+): Record<PropertyKey, any> {
   return flatMap(objects, object =>
-    isNullOrUndefined(object) ? [] : getObjectEntries(object)
+    isNullOrUndefined(object) ? [] : getObjectEntries(object),
   ).reduce((res, [k, v]) => {
     if (isNullOrUndefined(v)) {
       return res

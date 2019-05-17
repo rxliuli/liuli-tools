@@ -8,14 +8,14 @@ describe('test assign', () => {
     const res = assign(
       {
         name: 'rx',
-        hello () {
+        hello() {
           return this.name
         },
       },
       {
         name: '琉璃',
         hello: undefined,
-      }
+      },
     )
     expect(res.name).toEqual('琉璃')
     expect(res.hello()).toEqual('琉璃')
@@ -25,7 +25,7 @@ describe('test assign', () => {
       undefined,
       {
         name: 'rx',
-        hello () {
+        hello() {
           return this.name
         },
       },
@@ -33,7 +33,7 @@ describe('test assign', () => {
       {
         name: '琉璃',
         hello: undefined,
-      }
+      },
     )
     expect(res.name).toEqual('琉璃')
     expect(res.hello()).toEqual('琉璃')

@@ -11,7 +11,7 @@ describe('test getObjectValues', () => {
       getObjectValues({
         [symbol]: name,
         [name]: symbol,
-      })
+      }),
     ).toIncludeAllMembers([name, symbol])
   })
 })

@@ -5,7 +5,11 @@ import { getObjectKeys } from './getObjectKeys'
  * @param {Object} obj Object 对象
  * @returns {Map} 转换得到的 Map 键值表
  */
-export function objectToMap (obj) {
-  // @ts-ignore
-  return getObjectKeys(obj).reduce((map, k) => map.set(k, obj[k]), new Map())
+export function objectToMap(
+  obj: Record<PropertyKey, any>,
+): Map<PropertyKey, any> {
+  return getObjectKeys(obj).reduce(
+    (map, k) => map.set(k, Reflect.get(obj, k)),
+    new Map(),
+  )
 }

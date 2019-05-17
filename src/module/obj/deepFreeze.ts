@@ -6,10 +6,9 @@ import { getObjectValues } from './getObjectValues'
  * @param {Object} obj 任何非空对象
  * @returns {Object} 新的不可变对象
  */
-export function deepFreeze (obj) {
-  if (isNullOrUndefined(obj)) {
-    return null
-  }
+export function deepFreeze(
+  obj: Record<PropertyKey, any>,
+): Record<PropertyKey, any> {
   // 数组和对象分别处理
   if (obj instanceof Array) {
     obj.forEach(v => {

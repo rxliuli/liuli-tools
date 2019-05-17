@@ -5,10 +5,11 @@ import { getObjectKeys } from './getObjectKeys'
  * @param {Object} obj 需要置空属性的对象
  * @returns {Object} 返回一个新的对象
  */
-export function emptyAllField (obj) {
+export function emptyAllField(
+  obj: Record<PropertyKey, any>,
+): Record<PropertyKey, any> {
   return getObjectKeys(obj).reduce((res, k) => {
-    // @ts-ignore
-    res[k] = null
+    Reflect.set(res, k, null)
     return res
   }, {})
 }

@@ -9,11 +9,15 @@
     "noImplicitAny": true,
     "baseUrl": "./",
     //定义类型定义文件的根目录
-    "typeRoots": ["./node_modules/@types"],
     "esModuleInterop": true,
     // 引入辅助函数集
-    "importHelpers": true
+    "importHelpers": true,
+    "moduleResolution": "node"
   },
-  "include": ["./src/**/*"],
-  "exclude": ["./dist"]
+  "include": [
+    "./src/**/*", "test/jest-setup.ts"
+  ],
+  "exclude": [
+    "./dist"
+  ]
 }

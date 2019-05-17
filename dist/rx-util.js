@@ -323,6 +323,30 @@
   }
 
   /**
+   * 等待指定的时间/等待指定表达式成立
+   * 如果未指定等待条件则立刻执行
+   * 注: 此实现会存在宏任务与微任务的问题，切记 async-await 本质上还是 Promise 的语法糖，实际上并非真正的同步函数！！！
+   * @param {Number|Function} [param] 等待时间/等待条件
+   * @returns {Promise} Promise 对象
+   */
+  function wait (param) {
+    return new Promise(resolve => {
+      if (typeof param === 'number') {
+        setTimeout(resolve, param);
+      } else if (typeof param === 'function') {
+        const timer = setInterval(() => {
+          if (param()) {
+            clearInterval(timer);
+            resolve();
+          }
+        }, 100);
+      } else {
+        resolve();
+      }
+    })
+  }
+
+  /**
    * 为 fetch 请求添加超时选项
    * 注：超时选项并非真正意义上的超时即取消请求，请求依旧正常执行完成，但会提前返回 reject 结果
    * @param {Promise} fetchPromise fetch 请求的 Promise
@@ -330,19 +354,7 @@
    * @returns {Promise} 如果超时就提前返回 reject, 否则正常返回 fetch 结果
    */
   function fetchTimeout (fetchPromise, timeout) {
-    let abortFn = null;
-    // 这是一个可以被 reject 的 Promise
-    const abortPromise = new Promise(function (resolve, reject) {
-      abortFn = function () {
-        reject(new Error('abort promise'));
-      };
-    });
-    // 有一个 Promise 完成就立刻结束
-    const abortablePromise = Promise.race([fetchPromise, abortPromise]);
-    setTimeout(function () {
-      abortFn();
-    }, timeout);
-    return abortablePromise
+    return Promise.race([fetchPromise, wait(timeout)])
   }
 
   /**
@@ -359,29 +371,6 @@
     }
     return buf
   }
-
-  /**
-   * 等待指定的时间/等待指定表达式成立
-   * 如果未指定等待条件则立刻执行
-   * @param {Number|Function} [param] 等待时间/等待条件
-   * @returns {Promise} Promise 对象
-   */
-  const wait = param => {
-    return new Promise(resolve => {
-      if (typeof param === 'number') {
-        setTimeout(resolve, param);
-      } else if (typeof param === 'function') {
-        const timer = setInterval(() => {
-          if (param()) {
-            clearInterval(timer);
-            resolve();
-          }
-        }, 100);
-      } else {
-        resolve();
-      }
-    })
-  };
 
   /**
    * 限制并发请求数量的 fetch 封装
@@ -558,12 +547,22 @@
   }
 
   /**
+   * 返回第一个参数的函数
+   * 注: 一般可以当作返回参数自身的函数，如果你只关注第一个参数的话
+   * @param {Object} obj 任何对象
+   * @returns {Object} 传入的第一个参数
+   */
+  function returnItself (obj) {
+    return obj
+  }
+
+  /**
    * js 的数组去重方法
    * @param {Array.<Object>} arr 要进行去重的数组
-   * @param {Function} [kFn=item => JSON.stringify(item)] 唯一标识元素的方法，默认使用 {@link JSON.stringify()}
+   * @param {Function} [kFn=returnItself] 唯一标识元素的方法，默认使用 {@link returnItself}
    * @returns {Array.<Object>} 进行去重操作之后得到的新的数组 (原数组并未改变)
    */
-  function uniqueBy (arr, kFn = item => JSON.stringify(item)) {
+  function uniqueBy (arr, kFn = returnItself) {
     const set = new Set();
     return arr.filter((v, ...args) => {
       const k = kFn(v, ...args);
@@ -594,6 +593,7 @@
    * @param {String} item 填充的字符串
    * @param {Number} len 填充的长度
    * @returns {String} 填充完成的字符串
+   * @deprecated 已废弃，请使用 ES6 {@link String.prototype.repeat} 函数，具体请参考 MDN {@url(https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/repeat)}
    */
   function fill (item, len) {
     if (len <= 0) {
@@ -801,12 +801,22 @@
   }
 
   /**
+   * 判断一个对象是否是无效的
+   * 无效的值包含 null/undefined
+   * @param {Object} object 任何一个对象
+   * @returns {Boolean} 是否无效的
+   */
+  function isNullOrUndefined (object) {
+    return object === undefined || object === null
+  }
+
+  /**
    * 字符串安全的转换为小写
    * @param {String} str 字符串
    * @returns {String} 转换后得到的全小写字符串
    */
   function toLowerCase (str) {
-    if (!str || typeof str !== 'string') {
+    if (isNullOrUndefined(str) || typeof str !== 'string') {
       return str
     }
     return str.toLowerCase()
@@ -1034,7 +1044,7 @@
    * @param {Object} [init=undefined] 初始的缓存值，不填默认为 {@link undefined}
    * @return {Function} 包装后有去抖功能的函数。该函数是异步的，与需要包装的函数 {@link action} 是否异步没有太大关联
    */
-  const debounce = (delay, action, init = undefined) => {
+  function debounce (delay, action, init = undefined) {
     let flag;
     let result = init;
     return new Proxy(action, {
@@ -1049,15 +1059,6 @@
         })
       },
     })
-  };
-
-  /**
-   * 返回参数本身的函数
-   * @param {Object} obj 任何对象
-   * @returns {Object} 传入的第一个参数
-   */
-  function returnItself (obj) {
-    return obj
   }
 
   /**
@@ -1067,13 +1068,13 @@
    * @param {...Object} [args] 可选的函数参数
    * @returns {Object|undefined} 函数执行的结果，或者其默认值
    */
-  const safeExec = (fn, defaultVal = null, ...args) => {
+  function safeExec (fn, defaultVal = null, ...args) {
     try {
       return fn(...args)
     } catch (err) {
       return defaultVal
     }
-  };
+  }
 
   /**
    * 使用 Proxy 实现通用的单例模式
@@ -1084,10 +1085,9 @@
     let instance;
     return new Proxy(clazz, {
       construct (target, args, newTarget) {
-        if (instance) {
-          return instance
+        if (instance === undefined) {
+          instance = Reflect.construct(target, args, newTarget);
         }
-        instance = Reflect.construct(target, args, newTarget);
         return instance
       },
     })
@@ -1110,16 +1110,16 @@
       return new class Builder {
         /**
          * 注册一个 class，创建子类时调用，用于记录每一个 [状态 => 子类] 对应
+         * 注: 此处不再默认使用单例模式，如果需要，请自行对 class 进行包装
          * @param {Number|String} state 作为键的状态
          * @param {Object} clazz 对应的子类型
          * @returns {Object} 返回 clazz 本身
          */
         register (state, clazz) {
-          classMap.set(state, singleModel(clazz));
+          classMap.set(state, clazz);
           return clazz
         }
 
-        // noinspection JSMethodCanBeStatic
         /**
          * 获取一个标签子类对象
          * @param {Number|String} state 状态索引
@@ -1133,6 +1133,17 @@
           }
           // 构造函数的参数
           return new Class(...args)
+        }
+        /**
+         * 允许使用 for-of 遍历整个状态机
+         */
+        [Symbol.iterator] () {
+          const map = classMap.entries();
+          return {
+            next () {
+              return map.next()
+            },
+          }
         }
       }()
     }
@@ -1150,7 +1161,7 @@
    * @param {Function} action 真正需要执行的操作
    * @return {Function} 包装后有节流功能的函数。该函数是异步的，与需要包装的函数 {@link action} 是否异步没有太大关联
    */
-  const throttle = (delay, action) => {
+  function throttle (delay, action) {
     let last = 0;
     let result;
     return new Proxy(action, {
@@ -1167,7 +1178,7 @@
         })
       },
     })
-  };
+  }
 
   /**
    * 测试函数的执行时间
@@ -1175,14 +1186,14 @@
    * @param {Function} fn 需要测试的函数
    * @returns {Number|Promise} 执行的毫秒数
    */
-  const timing = fn => {
+  function timing (fn) {
     const begin = performance.now();
     const result = fn();
     if (!(result instanceof Promise)) {
       return performance.now() - begin
     }
     return result.then(() => performance.now() - begin)
-  };
+  }
 
   /**
    * 轮询等待指定资源加载完毕再执行操作
@@ -1193,7 +1204,7 @@
    * @param {Number} [option.max=10] 最大轮询次数
    * @returns Promise 对象
    */
-  const waitResource = (fn, { interval = 100, max = 10 } = {}) => {
+  function waitResource (fn, { interval = 100, max = 10 } = {}) {
     let current = 0;
     return new Promise((resolve, reject) => {
       const timer = setInterval(() => {
@@ -1208,7 +1219,7 @@
         }
       }, interval);
     })
-  };
+  }
 
   /**
    * 监视指定函数返回值的变化
@@ -1217,7 +1228,7 @@
    * @param {Number} [interval=100] 每次检查的间隔时间，默认为 100ms
    * @returns {Function} 关闭这个监视函数
    */
-  const watch = (fn, callback, interval = 100) => {
+  function watch (fn, callback, interval = 100) {
     let oldVal = safeExec(fn);
     const timer = setInterval(() => {
       const newVal = safeExec(fn);
@@ -1227,7 +1238,7 @@
       }
     }, interval);
     return () => clearInterval(timer)
-  };
+  }
 
   /**
    * 定义监听对象时的回调函数 doc
@@ -1267,7 +1278,7 @@
    * @param {String} str 要进行格式化的值
    * @param {Object} args 格式化参数值，替换字符串中的 {} 的值
    * @returns {String} 替换完成的字符串
-   * @deprecated 已废弃，请使用 ES6 模板字符串 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/template_strings
+   * @deprecated 已废弃，请使用 ES6 模板字符串 {@url(https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/template_strings)}
    */
   function format (str, args) {
     if (!args) {
@@ -1280,30 +1291,37 @@
   }
 
   /**
-   * 判断一个对象是否是无效的
-   * 无效的值包含 null/undefined
-   * @param {Object} object 任何一个对象
-   * @returns {Boolean} 是否无效的
-   */
-  function isNullOrUndefined (object) {
-    return object === undefined || object === null
-  }
-
-  /**
    * 判断是否为小数的正则表达式
    */
-  const FloatRule = new RegExp('^(-?\\d+)(.\\d+)?$');
+  const FloatRule = /^(-?\d+)(.\d+)?$/;
   /**
    * 判断是否为整数的正则表达式
    */
-  const IntegerRule = new RegExp('^-?\\d+$');
+  const IntegerRule = /^-?\d+$/;
   /**
    * 判断是否为邮箱的正则表达式
    */
-  const EmailRule = new RegExp(
-    '^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z]+$'
-  );
-
+  const EmailRule = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+  /**
+   * 判断是否为 ipv4 地址的正则表达式
+   */
+  const Ipv4Rule = /^((25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(25[0-5]|2[0-4]\d|1?\d?\d)$/;
+  /**
+   * 判断是否为固定电话的正则表达式
+   */
+  const TelephoneRule = /^0[1-9][0-9]{1,2}-[2-8][0-9]{6,7}$/;
+  /**
+   * 判断是否为移动电话的正则表达式
+   */
+  const MobileRule = /^(((13[0-9]{1})|15[0-9]{1}|18[0-9]{1}|)+\d{8})$/;
+  /**
+   * 判断是否为域名的正则表达式
+   */
+  const DomainRule = /^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$/;
+  /**
+   * 判断是否为邮政编码的正则表达式
+   */
+  const PostcodeRule = /^\d{6}$/;
   /**
    * 字符串校验
    */
@@ -1348,7 +1366,47 @@
      * @returns {Boolean} 是否是邮箱
      */
     isEmail (str) {
-      return !stringValidator.isBlank(str) && EmailRule.test(str)
+      return EmailRule.test(str)
+    }
+    /**
+     * 判断 ipv4 地址的格式是否正确
+     * @param {String} str ipv4 字符串
+     * @returns {Boolean} 是否是 ipv4 地址
+     */
+    isIpv4 (str) {
+      return Ipv4Rule.test(str)
+    }
+    /**
+     * 判断是否为固定电话
+     * @param {String} str 字符串
+     * @returns {Boolean} 是否为固定电话
+     */
+    isTelephone (str) {
+      return TelephoneRule.test(str)
+    }
+    /**
+     * 判断是否为移动电话
+     * @param {String} str 字符串
+     * @returns {Boolean} 是否为移动电话
+     */
+    isMoblie (str) {
+      return MobileRule.test(str)
+    }
+    /**
+     * 判断是否为域名
+     * @param {String} str 字符串
+     * @returns {Boolean} 是否为域名
+     */
+    isDomain (str) {
+      return DomainRule.test(str)
+    }
+    /**
+     * 判断是否为邮政编码
+     * @param {String} str 字符串
+     * @returns {Boolean} 是否为邮政编码
+     */
+    isPostcode (str) {
+      return PostcodeRule.test(str)
     }
   }
 
@@ -1383,7 +1441,7 @@
    * @returns {String} 转换后得到的全大写字符串
    */
   function toUpperCase (str) {
-    if (!str || typeof str !== 'string') {
+    if (isNullOrUndefined(str) || typeof str !== 'string') {
       return str
     }
     return str.toUpperCase()
@@ -1402,16 +1460,14 @@
   /**
    * 获取对象中所有的属性，包括 ES6 新增的 Symbol 类型的属性
    * @param {Object} object 任何对象
-   * @returns {Array.<String|Symbol>} 属性数组
+   * @returns {Array.<PropertyKey>} 属性数组
+   * @deprecated 已废弃，请使用 ES6 {@see Reflect.ownKeys} 代替，具体参考 {@link https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/ownKeys}
    */
   function getObjectKeys (object) {
     if (isNullOrUndefined(object)) {
       return []
     }
-    return [
-      ...Object.getOwnPropertyNames(object),
-      ...Object.getOwnPropertySymbols(object),
-    ]
+    return Reflect.ownKeys(object)
   }
 
   /**
@@ -1840,7 +1896,7 @@
    * @param {Function} fn 需要包装的函数
    * @returns {Function} 包装后的函数
    */
-  const once = fn => {
+  function once (fn) {
     let flag = true;
     let cache;
     return new Proxy(fn, {
@@ -1861,7 +1917,7 @@
         return cache
       },
     })
-  };
+  }
 
   /**
    * 包装一个函数为指定参数只执行一次的函数
@@ -1869,10 +1925,10 @@
    * @param {Function} paramConverter 参数转换的函数，参数为需要包装函数的参数
    * @returns {Function} 需要被包装的函数
    */
-  const onceOfSameParam = (
+  function onceOfSameParam (
     fn,
     paramConverter = (...args) => JSON.stringify(args)
-  ) => {
+  ) {
     const cacheMap = new Map();
     return new Proxy(fn, {
       apply (target, thisArg, args) {
@@ -1892,7 +1948,7 @@
         return res
       },
     })
-  };
+  }
 
   /**
    * 返回合理参数本身的函数
@@ -2349,7 +2405,7 @@
    * @param  {...any} args 应用的部分参数
    * @returns {Function} 包装后的函数
    */
-  const curry = (fn, ...args) => {
+  function curry (fn, ...args) {
     const realArgs = args.filter(arg => arg !== curry._);
     if (realArgs.length >= fn.length) {
       return fn(...realArgs)
@@ -2381,7 +2437,7 @@
     innerFn._curry = true;
 
     return innerFn
-  };
+  }
 
   /**
    * 柯里化的占位符，需要应用后面的参数时使用
@@ -2419,16 +2475,6 @@
   }
 
   /**
-   * 判断一个字符串是否为空字符串
-   * @param {String} str 字符串
-   * @returns {Boolean} 是否为空字符串
-   * @deprecated 已废弃，请使用 {@link stringValidator#isEmpty}
-   */
-  function isEmpty (str) {
-    return stringValidator.isEmpty(str)
-  }
-
-  /**
    * 日期格式化器
    * 包含格式化为字符串和解析字符串为日期的函数
    */
@@ -2460,7 +2506,7 @@
      * @returns {Date} 解析得到的日期
      */
     parse (str) {
-      if (isEmpty(str)) {
+      if (stringValidator.isEmpty(str)) {
         return null
       }
       return dateParse(str, this.fmt)
@@ -2473,7 +2519,7 @@
      * @returns {String} 转换后得到的字符串
      */
     strFormat (str, parseFmt) {
-      if (isEmpty(str)) {
+      if (stringValidator.isEmpty(str)) {
         return ''
       }
       const date = parseFmt ? dateParse(str, parseFmt) : new Date(str);
@@ -2519,9 +2565,9 @@
    * @param  {...Function} fns 多个需要连接函数
    * @returns {Function} 连接后的柯里化函数
    */
-  const compose = (...fns) =>
-    // TODO 反向连接就可以了?
-    fns.reduceRight((fn1, fn2) => _compose(fn2, fn1));
+  function compose (...fns) {
+    return fns.reduceRight((fn1, fn2) => _compose(fn2, fn1))
+  }
 
   /**
    * 递归排除对象中的指定字段
@@ -2548,7 +2594,7 @@
    * @param {Object} object 任意对象
    * @returns {String} 字符串
    */
-  const toString = object => {
+  function toString (object) {
     if (isNullOrUndefined(object)) {
       return ''
     }
@@ -2556,7 +2602,7 @@
       return object.toISOString()
     }
     return object.toString()
-  };
+  }
 
   /**
    * 无限的超时时间
@@ -2580,11 +2626,11 @@
       /**
        * @field 超时时间，以毫秒为单位
        */
-      this.timeStart = timeStart;
+      this.timeout = timeout;
       /**
        * @field 缓存开始时间
        */
-      this.timeout = timeout;
+      this.timeStart = timeStart;
       /**
        * @field 缓存序列化
        */
@@ -2639,6 +2685,7 @@
    * 7. list 根据谓词查询 key 获得列表
    *
    * @interface
+   * TODO 这里的接口 API 需要进行重构
    */
   class ICache {
     /**
@@ -2745,6 +2792,34 @@
        * 缓存对象，默认使用 localStorage
        */
       this.localStorage = window.localStorage;
+      // 创建后将异步清空所有过期的缓存
+      this.clearExpired();
+    }
+    /**
+     * 清空所有过期的 key
+     * 注: 该函数是异步执行的
+     */
+    async clearExpired () {
+      const local = this.localStorage;
+      const len = local.length;
+      const delKeys = [];
+      for (let i = 0; i < len; i++) {
+        await wait(0);
+        const key = local.key(i);
+        const str = local.getItem(key);
+        const cacheVal = safeExec(JSON.parse, null, str);
+        if (cacheVal === null) {
+          continue
+        }
+        const { timeStart, timeout } = cacheVal.cacheOption;
+        // 如果超时则删除并返回 null
+        // console.log(i, cacheVal, Date.now(), Date.now() - timeStart > timeout)
+        if (timeout !== TimeoutInfinite && Date.now() - timeStart > timeout) {
+          delKeys.push(key);
+        }
+        // console.log(i, key, local.getItem(key))
+      }
+      await delKeys.forEach(async key => local.removeItem(key));
     }
     /**
      * 根据 key + value 添加
@@ -2755,10 +2830,7 @@
      * @override
      */
     add (key, val, cacheOption) {
-      const result = this.get(
-        key,
-        assign({ timeStart: Date.now() }, cacheOption)
-      );
+      const result = this.get(key, cacheOption);
       if (result !== null) {
         return
       }
@@ -2782,18 +2854,14 @@
      * @override
      */
     set (key, val, cacheOption = new CacheOption()) {
-      const option = assign(
-        this.cacheOption,
-        { timeStart: Date.now() },
-        cacheOption
-      );
+      const option = assign(this.cacheOption, cacheOption);
       this.localStorage.setItem(
         key,
         JSON.stringify(
           new CacheVal({
             key,
             val: option.serialize(val),
-            cacheOption: option,
+            cacheOption: { ...option, timeStart: option.timeStart || Date.now() },
           })
         )
       );
@@ -2933,7 +3001,7 @@
    * 空的函数
    * @param {Array.<Object>} args 接受任何参数
    */
-  const emptyFunc = (...args) => {};
+  function emptyFunc (...args) {}
 
   /**
    * 禁止他人调试网站相关方法的集合对象
@@ -2990,6 +3058,16 @@
   }
 
   /**
+   * 判断一个字符串是否为空字符串
+   * @param {String} str 字符串
+   * @returns {Boolean} 是否为空字符串
+   * @deprecated 已废弃，请使用 {@link stringValidator#isEmpty}
+   */
+  function isEmpty (str) {
+    return stringValidator.isEmpty(str)
+  }
+
+  /**
    * 加载一个远程脚本文件
    * @param {String} src 远程脚本路径
    * @returns {Promise} 等待异步加载脚本完成
@@ -3009,19 +3087,17 @@
    * @param {Function} fn 要取反的函数
    * @returns {Function} 取反得到的函数
    */
-  const deny = fn =>
-    /**
-     * 包装后的函数
-     * @param {...any} args 函数的参数
-     * @returns {any} 函数的返回值取反
-     */
-    function (...args) {
-      const result = fn.apply(this, args);
-      if (result instanceof Promise) {
-        return result.then(res => !res)
-      }
-      return !result
-    };
+  function deny (fn) {
+    return new Proxy(fn, {
+      apply (_, _this, args) {
+        const result = Reflect.apply(_, this, args);
+        if (result instanceof Promise) {
+          return result.then(res => !res)
+        }
+        return !result
+      },
+    })
+  }
 
   /**
    * 数组校验器
@@ -3147,11 +3223,17 @@
    * @param {Array.<Object>} list 树节点列表
    * @param {Object} [options] 其他选项
    * @param {Function} [options.isRoot] 判断节点是否为根节点。默认根节点的父节点为空
+   * @param {Function} [options.bridge=returnItself] 桥接函数，默认返回自身
    * @returns {Object|Array.<String>} 树节点，或是树节点列表
    */
-  function listToTree (list, { isRoot = node => !node.parentId } = {}) {
-    const res = list.reduce((root, sub) => {
-      list.forEach(parent => {
+  function listToTree (
+    list,
+    { isRoot = node => !node.parentId, bridge = returnItself } = {}
+  ) {
+    const res = list.reduce((root, _sub) => {
+      const sub = bridge(_sub);
+      list.forEach(_parent => {
+        const parent = bridge(_parent);
         if (sub.parentId === parent.id) {
           (parent.child = parent.child || []).push(sub);
         }
@@ -3173,7 +3255,7 @@
    * @param {Map.<String|Number|symbol, String|Number|symbol>|Object} map 代理的字段映射 Map
    * @returns {Function} 转换一个对象为代理对象
    */
-  const bridge = map => {
+  function bridge (map) {
     if (!(map instanceof Map)) {
       map = objectToMap(map);
     }
@@ -3200,7 +3282,7 @@
         },
       })
     }
-  };
+  }
 
   /**
    * 基本的 Node 节点结构定义接口
@@ -3251,26 +3333,26 @@
    * 将树节点转为树节点列表
    * @param {Object} root 树节点
    * @param {Object} [options] 其他选项
-   * @param {Function} [options.bridge=returnItself] 代理函数，默认返回自身
    * @param {Boolean} [options.calcPath=false] 是否计算节点全路径，默认为 false
+   * @param {Function} [options.bridge=returnItself] 桥接函数，默认返回自身
    * @returns {Array.<Object>} 树节点列表
    */
   function treeToList (
     root,
-    { bridge = returnItself, calcPath = false } = {}
+    { calcPath = false, bridge = returnItself } = {}
   ) {
     const res = [];
     // @ts-ignore
     treeMapping(root, {
-      before (node, parentPath) {
-        const _node = bridge(node);
+      before (_node, parentPath) {
+        const node = bridge(_node);
         // 是否计算全路径
         if (calcPath) {
-          _node.path = (parentPath ? parentPath + ',' : '') + _node.id;
+          node.path = (parentPath ? parentPath + ',' : '') + node.id;
         }
         // 此时追加到数组中
-        res.push(_node);
-        return _node
+        res.push(node);
+        return node
       },
       paramFn: node => (calcPath ? [node.path] : []),
     });
@@ -3280,7 +3362,7 @@
   /**
    * 桥接对象为标准的树结构 {@link INode}
    */
-  class INodeBridge {
+  class NodeBridge {
     /**
      * 构造函数
      * @param {Object} [options] 桥接对象
@@ -3317,19 +3399,23 @@
     }
   }
 
+  /**
+   * 树节点桥接工具类
+   * 主要实现了桥接 {@field bridge} {@field bridgeTree} 和 {@field bridgeList} 三个函数，事实上桥接之后再转换相当于做了两遍，但就目前而言暂且只能如此了
+   */
   class NodeBridgeUtil {
     /**
      * 桥接对象为标准的树结构
-     * @param {INodeBridge} [nodeBridge=new INodeBridge()] 桥接对象
+     * @param {NodeBridge} [nodeBridge=new NodeBridge()] 桥接对象
      * @returns {Function} 代理函数
      */
     bridge (nodeBridge) {
-      return bridge(Object.assign(new INodeBridge(), nodeBridge))
+      return bridge(Object.assign(new NodeBridge(), nodeBridge))
     }
     /**
      * 桥接一棵完整的树
      * @param {INode} tree 树节点
-     * @param {INodeBridge} [nodeBridge=new INodeBridge()] 桥接对象
+     * @param {NodeBridge} [nodeBridge=new INodeBridge()] 桥接对象
      * @returns {INode} 代理后的树对象
      */
     bridgeTree (tree, nodeBridge) {
@@ -3340,7 +3426,7 @@
     /**
      * 桥接一个树节点列表
      * @param {Array.<INode>} list 树节点列表
-     * @param {INodeBridge} [nodeBridge=new INodeBridge()] 桥接对象
+     * @param {NodeBridge} [nodeBridge=new NodeBridge()] 桥接对象
      * @returns {Array.<INode>} 代理后的树节点列表
      */
     bridgeList (list, nodeBridge) {
@@ -3354,24 +3440,377 @@
    */
   const nodeBridgeUtil = new NodeBridgeUtil();
 
+  /**
+   * 比较两个浮点数是否相等
+   * 具体实现采用差值取绝对值并与 {@link Number.EPSILON} 比较的方式，如果小于浮点数最小差值，则认为它们是 [相等] 的
+   * @param {Number} num1 第一个浮点数
+   * @param {Number} num2 第二个浮点数
+   * @returns {Boolean} 两数是否相等
+   */
+  function floatEquals (num1, num2) {
+    return Math.abs(num1 - num2) < Number.EPSILON
+  }
+
+  /**
+   * 根据不同的源对象获取不同的正则匹配，代表不需要拷贝的属性
+   * @param {Object} source 源对象
+   * @returns {RegExp} 匹配内部属性的正则表达式
+   */
+  function getInnerFieldRule (source) {
+    if (source instanceof Function) {
+      return /^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/
+    } else {
+      return /^(?:toString|length)$/
+    }
+  }
+
+  /**
+   * 拷贝对象的属性到目标对象上
+   * @param {Object} target 目标对象
+   * @param {Object} source 源对象
+   * @returns {Object} 返回 {@param target} 目标对象
+   */
+  function _copyProps (target, source) {
+    const innerField = getInnerFieldRule(source);
+    Reflect.ownKeys(source).forEach(prop => {
+      if (typeof prop === 'string' && innerField.test(prop)) {
+        return
+      }
+      Reflect.set(target, prop, Reflect.get(source, prop));
+    });
+    return target
+  }
+
+  /**
+   * 混合多个类
+   * @param  {...Class} mixins 需要混合的多个类及其构造函数参数映射函数的 Map 集合
+   * @returns {Class} 返回一个混合后的类，构造函数将的参数
+   */
+  function aggregation (mixins) {
+    const map = Array.from(mixins);
+    class __Aggregate {
+      /**
+       * @param {...Object} args 任意数量的参数
+       */
+      constructor (...args) {
+        map.forEach(([Mixin, fn = returnItself]) => {
+          _copyProps(this, new Mixin(...fn(args)));
+        });
+      }
+    }
+
+    map.forEach(([Mixin]) => {
+      _copyProps(__Aggregate.prototype, Mixin.prototype);
+      _copyProps(__Aggregate, Mixin);
+    });
+
+    return __Aggregate
+  }
+
+  /**
+   * 包装一个异步函数为有限制并发功能的函数
+   * @param {Function} fn 异步函数
+   * @param {Object} [options={}] 可选参数
+   * @param {Number} [options.limit=1] 并发限制数量，默认为 1
+   * @returns {Function} 返回被包装后的限制并发功能的函数
+   */
+  function asyncLimiting (fn, { limit = 1 } = {}) {
+    // 当前正在执行异步的数量
+    let execCount = 0;
+    // waitArr 等待的队列
+    const takeQueue = [];
+    // 是否增加了 execCount 的标记
+    let flag = false;
+    return new Proxy(fn, {
+      async apply (target, thisArg, args) {
+        const _takeRun = async () => {
+          if (!flag) {
+            execCount++;
+            flag = false;
+          }
+          const tempArgs = takeQueue.shift();
+          // console.log(args + ' 执行前: ' + execCount)
+          try {
+            return await Reflect.apply(target, thisArg, tempArgs)
+          } finally {
+            // console.log(args + ' 执行后: ')
+            execCount--;
+          }
+        };
+        takeQueue.push(args);
+
+        // console.log(args + ' 判断前: ')
+        await wait(() => {
+          const result = execCount < limit;
+          if (result) {
+            flag = true;
+            execCount++;
+          }
+          return result
+        });
+        // console.log(args + ' 判断后: ' + execCount)
+        return _takeRun()
+      },
+    })
+  }
+
+  /**
+   * 默认的超时时间，可以认为是无限
+   */
+  const TimeoutInfinity = () => false;
+  /**
+   * 创建一个 Lock 对象，用于锁住当前的当前的异步流程
+   */
+  class Locker {
+    /**
+     * @param {Object} [options={}] 可选项
+     * @param {Number} [options.limit=1] 限制并发数量，默认为 1
+     * @param {Number|Function} [options.timeout=TimeoutInfinity] 超时时间，默认为无限
+     */
+    constructor ({ limit = 1, timeout = TimeoutInfinity } = {}) {
+      /**
+       * @field 限制并发数量，默认为 1
+       */
+      this.limit = limit;
+      /**
+       * @field 超时时间，默认为无限
+       */
+      this.timeout = timeout;
+    }
+    /**
+     * 当前是否锁住了
+     * @returns {Boolean} 是否锁住了
+     */
+    isLocked () {
+      return this.limit <= 0
+    }
+    /**
+     * 添加异步锁
+     * @param {Number|Function} [timeout=this.timeout] 超时时间，默认为全局 timeout
+     * @returns {Promise} 进行等待
+     */
+    async lock (timeout = this.timeout) {
+      if (this.isLocked()) {
+        /**
+         * @type {Number|Function}
+         */
+        await Promise.race([
+          wait(() => {
+            const result = !this.isLocked();
+            if (result) {
+              this.limit--;
+            }
+            return result
+          }),
+          wait(timeout),
+        ]);
+      } else {
+        this.limit--;
+      }
+    }
+    /**
+     * 删除异步锁
+     */
+    unlock () {
+      this.limit++;
+    }
+  }
+
+  /**
+   * 包装一个函数为有错误重试功能的函数
+   * 注: 如果发生错误，最终将抛出最后一次调用的异常
+   * @param {Function} fn 需要被包装的函数
+   * @param {Number} [num=1] 调用的次数。默认为 1
+   * @param {Function} [errorCheck=res=>true] 检查返回结果是否需要重试的函数。默认只要 resolve() 就返回 true
+   * @returns {Function} 包装后的有错误重试功能的函数
+   */
+  function trySometime (fn, num = 1, errorCheck = res => true) {
+    return new Proxy(fn, {
+      async apply (target, thisArg, args) {
+        let err;
+        for (let i = 0; i < num; i++) {
+          try {
+            // 等待结果出来
+            const res = await Reflect.apply(target, thisArg, args);
+            // 如果没问题就直接返回了
+            if (errorCheck(res) === true) {
+              return res
+            }
+            // 否则抛出异常以进行下一次重试
+            throw res
+          } catch (error) {
+            err = error;
+          }
+        }
+        throw err
+      },
+    })
+  }
+
+  /**
+   * 包装一个函数为有错误重试功能的函数
+   * 注意: 该函数是并行运行，所以一旦调用，就会同时调用 n 次，不管之前有没有失败。。。此函数不适合包装有副作用的操作，例如修改用户信息，请使用 {@link trySometime} 替代
+   * @param {Function} fn 需要被包装的函数
+   * @param {Number} [num=1] 调用的次数。默认为 1
+   * @param {Function} [errorCheck=res=>true] 检查返回结果是否需要重试的函数。默认只要 resolve() 就返回 true
+   * @returns {Function} 包装后的有错误重试功能的函数
+   */
+  function trySometimeParallel (fn, num = 1, errorCheck = res => true) {
+    return new Proxy(fn, {
+      async apply (target, thisArg, args) {
+        return new Promise(async (resolve, reject) => {
+          let err;
+          try {
+            await Promise.all(
+              range(0, num).map(async () => {
+                try {
+                  const res = await Reflect.apply(target, thisArg, args);
+                  if (errorCheck(res) === true) {
+                    resolve(res);
+                  }
+                  throw res
+                } catch (error) {
+                  err = error;
+                }
+              })
+            );
+          } catch (error) {
+            console.log(error);
+          }
+          reject(err);
+        })
+      },
+    })
+  }
+  // ;(async () => {
+  //   let num = 0
+  //   // 模拟前两次调用都挂掉了
+  //   const get = async i => {
+  //     num++
+  //     if (num < 3) {
+  //       throw num
+  //     }
+  //     return i
+  //   }
+  //   // 重复调用两次
+  //   const fn = trySometimeParallel(get, 2)
+  //   try {
+  //     const res = await fn(0)
+  //     console.log(res)
+  //   } catch (err) {
+  //     console.log(err)
+  //     // expect(err).toBe(2)
+  //   }
+  // })()
+
+  /**
+   * 深度比较两个对象是否相等
+   * @param {any} x 任何对象
+   * @param {any} y 任何对象
+   * @returns {Boolean} 是否相等
+   */
+  function compare (x, y) {
+    if (typeof x === 'number' && typeof y === 'number') {
+      // 如果都是 NaN 则直接返回 true
+      if (isNaN(x) && isNaN(y)) {
+        return true
+      }
+      // 如果均为数字且两数之差的绝对值小于浮点数的最小精度（此举主要是为了避免浮点数的精度丢失）
+      if (Math.abs(x - y) < Number.EPSILON) {
+        return true
+      }
+    }
+    // 如果恒等表达式成立则直接返回 true
+    if (x === y) {
+      return true
+    }
+    // 如果是函数则比较 toString() 后的字符串
+    if (typeof x === 'function' && typeof y === 'function') {
+      if (
+        (x instanceof RegExp && y instanceof RegExp) ||
+        (x instanceof String || y instanceof String) ||
+        (x instanceof Number || y instanceof Number)
+      ) {
+        return x.toString() === y.toString()
+      } else {
+        return false
+      }
+    }
+    // 如果都是时间则比较它们的时间戳
+    if (x instanceof Date && y instanceof Date) {
+      return x.getTime() === y.getTime()
+    }
+    // 如果两者有一个不是 Object 类型的话则直接返回 false
+    // 注: 此处直接返回 false 是因为特殊原生类型的都在上面处理过了
+    // 注: Array 可以按照 Object 的逻辑进行处理
+    if (!(x instanceof Object && y instanceof Object)) {
+      return false
+    }
+    // 比较它们的原型
+    if (x.prototype !== y.prototype) {
+      return false
+    }
+    // 比较构造函数
+    if (x.constructor !== y.constructor) {
+      return false
+    }
+    // 比较 y 中的属性是否全部都在 x 中
+    for (let p of Reflect.ownKeys(y)) {
+      if (!Reflect.has(x, p)) {
+        return false
+      }
+    }
+    // 比较 x 中的属性是否全部都在 y 中
+    for (let p of Reflect.ownKeys(x)) {
+      if (!Reflect.has(y, p)) {
+        return false
+      }
+      // 比较每个元素的类型，如果不同则直接返回 false
+      if (typeof y[p] !== typeof x[p]) {
+        return false
+      }
+      // 递归比较每个元素
+      if (!compare(x[p], y[p])) {
+        return false
+      }
+    }
+    // 全部比较完成仍然没有结果就返回 true
+    return true
+  }
+
+  /**
+   * 阻塞主线程指定时间
+   * 注: 和 {@link wait} 不同，该函数会真的阻塞住主线程，即这段时间内其他的代码都无法执行，例如用户的点击事件！
+   * @param {Number} time 阻塞毫秒数
+   */
+  function sleep (time) {
+    const start = performance.now();
+    while (performance.now() - start <= time) {}
+  }
+
   exports.DateFormatter = DateFormatter;
   exports.FetchLimiting = FetchLimiting;
-  exports.INodeBridge = INodeBridge;
   exports.LocalStorageCache = LocalStorageCache;
+  exports.Locker = Locker;
+  exports.NodeBridge = NodeBridge;
   exports.StateMachine = StateMachine;
   exports.StringStyleUtil = StringStyleUtil;
+  exports.aggregation = aggregation;
   exports.antiDebug = antiDebug;
   exports.appends = appends;
   exports.arrayDiffBy = arrayDiffBy;
   exports.arrayToMap = arrayToMap;
   exports.arrayValidator = arrayValidator;
   exports.asIterator = asIterator;
+  exports.assign = assign;
   exports.asyncFlatMap = asyncFlatMap;
+  exports.asyncLimiting = asyncLimiting;
   exports.autoIncrement = autoIncrement;
   exports.blankToNull = blankToNull;
   exports.blankToNullField = blankToNullField;
   exports.bridge = bridge;
   exports.cacheUtil = cacheUtil;
+  exports.compare = compare;
   exports.compose = compose;
   exports.copyText = copyText;
   exports.createElByString = createElByString;
@@ -3397,6 +3836,7 @@
   exports.fill = fill;
   exports.filterItems = filterItems;
   exports.flatMap = flatMap;
+  exports.floatEquals = floatEquals;
   exports.formDataToArray = formDataToArray;
   exports.format = format;
   exports.getCookies = getCookies;
@@ -3437,6 +3877,7 @@
   exports.setCusorPostion = setCusorPostion;
   exports.sets = sets;
   exports.singleModel = singleModel;
+  exports.sleep = sleep;
   exports.sortBy = sortBy;
   exports.spliceParams = spliceParams;
   exports.strToArrayBuffer = strToArrayBuffer;
@@ -3451,6 +3892,8 @@
   exports.toUpperCase = toUpperCase;
   exports.treeMapping = treeMapping;
   exports.treeToList = treeToList;
+  exports.trySometime = trySometime;
+  exports.trySometimeParallel = trySometimeParallel;
   exports.uniqueBy = uniqueBy;
   exports.wait = wait;
   exports.waitResource = waitResource;

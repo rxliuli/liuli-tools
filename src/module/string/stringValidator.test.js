@@ -13,6 +13,7 @@ describe('test stringValidator', () => {
     isIpv4,
     isTelephone,
     isMoblie,
+    isDomain,
   } = stringValidator
   it('test isBlank', () => {
     expect(isBlank(null)).toBeTrue()
@@ -63,5 +64,12 @@ describe('test stringValidator', () => {
     expect(isMoblie('1234567891')).toBeFalse()
     expect(isMoblie('')).toBeFalse()
     expect(isMoblie(null)).toBeFalse()
+  })
+  it('test isDomain', () => {
+    expect(isDomain('rxliuli.com')).toBeTrue()
+    expect(isDomain('blog.rxliuli.com')).toBeTrue()
+    expect(isDomain('rxliuli')).toBeFalse()
+    expect(isDomain('')).toBeFalse()
+    expect(isDomain(null)).toBeFalse()
   })
 })

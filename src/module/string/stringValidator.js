@@ -24,6 +24,10 @@ const TelephoneRule = /^0[1-9][0-9]{1,2}-[2-8][0-9]{6,7}$/
  */
 const MobileRule = /^(((13[0-9]{1})|15[0-9]{1}|18[0-9]{1}|)+\d{8})$/
 /**
+ * 判断是否为域名的正则表达式
+ */
+const DomainRule = /^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$/
+/**
  * 字符串校验
  */
 export class StringValidator {
@@ -92,6 +96,14 @@ export class StringValidator {
    */
   isMoblie (str) {
     return MobileRule.test(str)
+  }
+  /**
+   * 判断是否为域名
+   * @param {String} str 字符串
+   * @returns {Boolean} 是否为域名
+   */
+  isDomain (str) {
+    return DomainRule.test(str)
   }
 }
 

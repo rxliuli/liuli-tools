@@ -14,6 +14,7 @@ import { assign } from '../obj/assign'
  * 7. list 根据谓词查询 key 获得列表
  *
  * @interface
+ * TODO 这里的接口 API 需要进行重构
  */
 export class ICache {
   /**

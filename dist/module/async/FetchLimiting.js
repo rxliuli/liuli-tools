@@ -1,0 +1,73 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import { wait } from '../function/wait';
+import { fetchTimeout } from './fetchTimeout';
+/**
+ * 限制并发请求数量的 fetch 封装
+ * @class FetchLimiting
+ * @example
+ * const fetchLimiting = new FetchLimiting()
+ * fetchLimiting._fetch('/')
+ *   .then(res => res.json())
+ *   .then(json => console.log(json))
+ */
+export class FetchLimiting {
+    /**
+     * 构造函数
+     * @param {Object} [option] 可选配置项
+     * @param {Number} [option.timeout=10000] 超时毫秒数
+     * @param {Number} [option.limit=10] 最大并发数限制
+     */
+    constructor({ timeout = 10000, limit = 10 }) {
+        /**
+         * @field timeout 超时毫秒数
+         */
+        this.timeout = timeout;
+        /**
+         * @field limit 最大并发数限制
+         */
+        this.limit = limit;
+        /**
+         * @field execCount 当前正在执行异步的数量
+         */
+        this.execCount = 0;
+        /**
+         * @field waitArr 等待的队列
+         * @type {Array.<IArguments>}
+         */
+        this.waitArr = [];
+    }
+    /**
+     * 执行一个请求
+     * 如果到达最大并发限制时就进行等待
+     * @param {RequestInfo} url 请求 url 信息
+     * @param {RequestInit} [init=undefined] 请求的其他可选项，默认为 undefined
+     * @returns {Promise} 如果超时就提前返回 reject, 否则正常返回 fetch 结果
+     */
+    fetch(url, init) {
+        return __awaiter(this, arguments, void 0, function* () {
+            const _innerFetch = () => __awaiter(this, void 0, void 0, function* () {
+                this.execCount++;
+                const args = this.waitArr.shift();
+                try {
+                    // 这里的 args 实际上就是 arguments 对象，即上面的 url 和 init
+                    // @ts-ignore
+                    return yield fetchTimeout(fetch(...args), this.timeout);
+                }
+                finally {
+                    this.execCount--;
+                }
+            });
+            this.waitArr.push(arguments);
+            yield wait(() => this.execCount < this.limit);
+            // 尝试启动等待队列
+            return _innerFetch();
+        });
+    }
+}

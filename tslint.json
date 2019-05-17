@@ -1,0 +1,79 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended"],
+  "jsRules": {},
+  "rules": {
+    "max-line-length": [true, 140],
+    // 禁止内置原始类型
+    "ban-types": false,
+    // 禁止给参数赋值
+    "no-parameter-reassignment": false,
+    // 禁止空接口
+    "no-empty-interface": true,
+    // 显示类型代码就不需要再加类型声明了
+    "no-inferrable-types": true,
+    // 不允许使用内部模块
+    "no-internal-module": true,
+    // 不允许在变量赋值之外使用常量数值。如果未指定允许值的列表, 则默认情况下允许-1、0和1 => 乱七八糟的数字会让人混淆
+    // "no-magic-numbers": [true],
+    // 不允许使用内部 'modules' 和 'namespace'
+    "no-namespace": true,
+    // 非空断言，强制使用 == null 之类的断言
+    // "no-non-null-assertion": true
+    // 禁止 /// <reference path=>，直接用 import 即可
+    "no-reference": true,
+    // 禁止使用 require，应该使用 import foo = require('foo')
+    "no-var-requires": false,
+    // import 的顺序按照字母表
+    "ordered-imports": false,
+    // 对象属性声明按照字母表
+    "object-literal-sort-keys": false,
+    // // 结束语句后的分号
+    "semicolon": [false, "always"],
+    // 字符串强制单引号
+    "quotemark": [true, "single", "jsx-double"],
+    // 禁止 arguments.callee
+    "no-arg": true,
+    // if 语句的单行不用括号，多行用括号
+    "curly": false,
+    // 是否强制使用箭头函数，禁止匿名函数
+    "only-arrow-functions": false,
+    // 是否禁止多个空行
+    "no-consecutive-blank-lines": false,
+    // 在函数括号前要求或不允许空格
+    "space-before-function-paren": false,
+    // 箭头函数的参数使用括号
+    "arrow-parens": [true, "ban-single-arg-parens"],
+    // 不固定变量类型
+    "no-shadowed-variable": false,
+    // 行尾多余的空格
+    "no-trailing-whitespace": false,
+    // == 和 ===
+    "triple-equals": false,
+    // 禁止一些位运算符
+    "no-bitwise": false,
+    // 禁止 console
+    "no-console": false,
+    // 检查变量名
+    "variable-name": [
+      true,
+      "ban-keywords"
+      // "check-format",
+      // "allow-leading-underscore"
+    ],
+    // 一行声明变量表达式
+    "one-variable-per-declaration": false,
+    // 允许在一个文件里定义多个 class
+    "max-classes-per-file": [true, 5],
+    // 判断表达式 fn && fn()
+    "no-unused-expression": [true, "allow-fast-null-checks"],
+    // 空函数
+    "no-empty": false,
+    // forin 是否必须包含 hasOwnProperty 判断
+    "forin": false,
+    "no-debugger": false,
+    // 强制要求必须要声明类型
+    "typedef": [true]
+  },
+  "rulesDirectory": ["./src"]
+}

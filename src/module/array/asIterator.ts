@@ -4,7 +4,7 @@
  * @param {Iterator.<Object>} iterator Iterator 迭代器
  * @return {Array.<Object>} Iterator 中每一项元素转换而得到的 Array
  */
-export function asIterator (iterator) {
+export function asIterator<T>(iterator: Iterator<T>): T[] {
   const arr = []
   while (true) {
     const next = iterator.next()

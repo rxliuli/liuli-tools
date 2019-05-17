@@ -7,8 +7,11 @@ import { returnItself } from './../function/returnItself'
  * @param {Array} deleteItems 要过滤的元素数组
  * @param {Function} [kFn=returnItself] 每个元素的唯一键函数
  */
-export function filterItems (arr, deleteItems, kFn = returnItself) {
-  // @ts-ignore
+export function filterItems<T>(
+  arr: T[],
+  deleteItems: T[],
+  kFn: (item: T, ...args: any[]) => any = returnItself,
+) {
   const kSet = new Set(deleteItems.map(kFn))
   return arr.filter((v, ...args) => !kSet.has(kFn(v, ...args)))
 }

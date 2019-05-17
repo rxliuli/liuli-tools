@@ -8,19 +8,27 @@ describe('test groupBy', () => {
   it('groupBy [1, 2, 3] to equals Map({true => [1, 2], false => 2})', () => {
     const arr = [1, 2, 3]
     expect(groupBy(arr, i => i % 2 === 0)).toEqual(
-      new Map().set(true, [2]).set(false, [1, 3])
+      new Map().set(true, [2]).set(false, [1, 3]),
     )
   })
   it('groupBy for eval sum', () => {
     const arr = [1, 2, 3, 4]
     // 分组完成之后立即计算总和
     expect(
-      groupBy(arr, i => i % 2 === 0, (res, i) => (res += i), () => 0)
+      groupBy(
+        arr,
+        i => i % 2 === 0,
+        (res: number, i: number) => res + i,
+        () => 0,
+      ),
     ).toEqual(new Map().set(true, 6).set(false, 4))
   })
   it('groupBy for custom vFn', () => {
     class User {
-      constructor (id, name, sex) {
+      public id: any
+      public name: any
+      public sex: any
+      constructor(id: number, name: string, sex: number) {
         this.id = id
         this.name = name
         this.sex = sex
@@ -36,22 +44,22 @@ describe('test groupBy', () => {
       groupBy(
         users,
         ({ sex }) => sex % 2 === 0,
-        (res, { id, name }) => {
+        (res: { set: (arg0: any, arg1: any) => void }, { id, name }: any) => {
           res.set(id, name)
           return res
         },
-        () => new Map()
-      )
+        () => new Map(),
+      ),
     ).toEqual(
       new Map()
         .set(false, new Map().set(1, 'rx').set(2, '琉璃'))
-        .set(true, new Map().set(3, '楚轩'))
+        .set(true, new Map().set(3, '楚轩')),
     )
   })
   it('group by index', () => {
     const arr = range(1, 10, 1)
     expect(
-      Array.from(groupBy(arr, (_v, i) => Math.floor(i / 3)).values())
+      Array.from(groupBy(arr, (_v, i) => Math.floor(i / 3)).values()),
     ).toIncludeAllMembers([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
   })
 })

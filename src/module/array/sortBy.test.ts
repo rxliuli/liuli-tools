@@ -11,7 +11,9 @@ describe('test sortBy', () => {
   })
   it('test object item array', () => {
     class User {
-      constructor (name, age) {
+      public name: any
+      public age: any
+      constructor(name: string, age: number) {
         this.name = name
         this.age = age
       }

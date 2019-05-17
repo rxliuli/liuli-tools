@@ -7,20 +7,20 @@
  * @param {Function} [init=[]] 每个分组的产生初始值的函数。类似于 reduce 的初始值，但它是一个函数，避免初始值在所有分组中进行累加。
  * @returns {Map<Object,Object>} 元素标识 -> 数组映射 Map
  */
-export function groupBy (
-  arr,
-  kFn,
+export function groupBy(
+  arr: any[],
+  kFn: (item: any, ...args: any[]) => any,
   /**
    * 默认的值处理函数
    * @param {Map} res 最终 map 集合
    * @param {Object} item 当前迭代的元素
    */
-  vFn = (res, item) => {
+  vFn: Function = (res: any[], item: any) => {
     res.push(item)
     return res
   },
-  init = () => []
-) {
+  init: Function = () => [],
+): Map<any, any> {
   // 将元素按照分组条件进行分组得到一个 条件 -> 数组 的对象
   return arr.reduce((res, item, ...args) => {
     const k = kFn(item, ...args)

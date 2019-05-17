@@ -9,7 +9,7 @@ export class ArrayValidator {
    * @param {Array} array 空数组
    * @returns {Boolean} 是否为空数组
    */
-  isEmpty (array) {
+  public isEmpty(array: any[] | null | undefined): boolean {
     return (
       isNullOrUndefined(array) ||
       !(array instanceof Array) ||

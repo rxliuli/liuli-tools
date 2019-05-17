@@ -6,13 +6,16 @@ import { uniqueBy } from './uniqueBy'
 describe('test uniqueBy', () => {
   it('simple example', () => {
     expect(uniqueBy([1, 2, 3, 4, 3, 2, 1])).toEqual(
-      expect.arrayContaining([1, 2, 3, 4])
+      expect.arrayContaining([1, 2, 3, 4]),
     )
   })
 
   it('test custom kFn', () => {
     class User {
-      constructor (id, name, age) {
+      public id: any
+      public name: any
+      public age: any
+      constructor(id: number, name: string, age: number) {
         this.id = id
         this.name = name
         this.age = age

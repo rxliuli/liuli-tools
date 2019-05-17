@@ -8,7 +8,10 @@ import { returnItself } from '../function/returnItself'
  * @param {Function} [kFn=returnItself] 对数组中每个元素都产生可比较的值的函数，默认返回自身进行比较
  * @returns {Array} 排序后的新数组
  */
-export function sortBy (arr, kFn = returnItself) {
+export function sortBy<T>(
+  arr: T[],
+  kFn: (item: T, ...args: any[]) => any = returnItself,
+): T[] {
   // 边界条件，如果传入数组的值
   if (arr.length <= 1) {
     return arr
@@ -20,7 +23,7 @@ export function sortBy (arr, kFn = returnItself) {
   const medianValue = kFn(median, medianIndex, arr)
   const map = groupBy(
     newArr,
-    (item, ...args) => kFn(item, ...args) < medianValue
+    (item, ...args) => kFn(item, ...args) < medianValue,
   )
   // 对两个数组分别进行递归排序
   return [

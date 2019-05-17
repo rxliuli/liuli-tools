@@ -4,6 +4,6 @@
  * @param {Number} min 最小值
  * @param {Number} max 最大值（不包含）
  */
-export function isRange (num, min, max) {
+export function isRange(num: number, min: number, max: number) {
   return num >= min && num < max
 }

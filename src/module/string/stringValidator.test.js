@@ -14,6 +14,7 @@ describe('test stringValidator', () => {
     isTelephone,
     isMoblie,
     isDomain,
+    isPostcode,
   } = stringValidator
   it('test isBlank', () => {
     expect(isBlank(null)).toBeTrue()
@@ -71,5 +72,12 @@ describe('test stringValidator', () => {
     expect(isDomain('rxliuli')).toBeFalse()
     expect(isDomain('')).toBeFalse()
     expect(isDomain(null)).toBeFalse()
+  })
+  it('test isPostcode', () => {
+    expect(isPostcode('510000')).toBeTrue()
+    expect(isPostcode('011231')).toBeTrue()
+    expect(isPostcode('12345')).toBeFalse()
+    expect(isPostcode('')).toBeFalse()
+    expect(isPostcode(null)).toBeFalse()
   })
 })

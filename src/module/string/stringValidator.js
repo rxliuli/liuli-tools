@@ -28,6 +28,10 @@ const MobileRule = /^(((13[0-9]{1})|15[0-9]{1}|18[0-9]{1}|)+\d{8})$/
  */
 const DomainRule = /^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$/
 /**
+ * 判断是否为邮政编码的正则表达式
+ */
+const PostcodeRule = /^\d{6}$/
+/**
  * 字符串校验
  */
 export class StringValidator {
@@ -104,6 +108,14 @@ export class StringValidator {
    */
   isDomain (str) {
     return DomainRule.test(str)
+  }
+  /**
+   * 判断是否为邮政编码
+   * @param {String} str 字符串
+   * @returns {Boolean} 是否为邮政编码
+   */
+  isPostcode (str) {
+    return PostcodeRule.test(str)
   }
 }
 

@@ -7,7 +7,7 @@ import { timing } from './timing'
  */
 describe('test wait', () => {
   const time = 500
-  const assertTime = start => {
+  const assertTime = (start: number) => {
     // 注意: 此处是为了兼容误差时间，因为 js 中的 setTimeout 本身就是不准确的
     expect(Date.now() - start).toBeGreaterThanOrEqual(time - 10)
   }
@@ -26,9 +26,11 @@ describe('test wait', () => {
     await wait()
     expect(Date.now() - start).toBeLessThan(100)
   })
-  it('test this', async function () {
+  it('test this', async function() {
+    // @ts-ignore
     this.time = time
     const start = Date.now()
+    // @ts-ignore
     await wait(() => Date.now() > start + this.time)
     assertTime(start)
   })

@@ -5,7 +5,7 @@ import { trySometime } from './trySometime'
  */
 describe('test trySometime', () => {
   it('simple example', async () => {
-    const get = async i => i
+    const get = async (i: number) => i
     get.rx = 'rx'
     // @ts-ignore
     const fn = trySometime(get)
@@ -16,7 +16,7 @@ describe('test trySometime', () => {
   it('test error', async () => {
     let num = 0
     // 模拟前两次调用都挂掉了
-    const get = async i => {
+    const get = async (i: number) => {
       num++
       if (num < 3) {
         throw num
@@ -30,7 +30,7 @@ describe('test trySometime', () => {
   it('test error and get the correct result', async () => {
     let num = 0
     // 模拟前两次调用都挂掉了
-    const get = async i => {
+    const get = async (i: number) => {
       num++
       if (num < 3) {
         throw num
@@ -44,7 +44,7 @@ describe('test trySometime', () => {
   })
   it('test custom error check function', async () => {
     // 模拟前两次调用都挂掉了
-    const get = async i => i
+    const get = async (i: number) => i
     // 调用3次
     const fn = trySometime(get, 3, i => i > 0)
     expect(fn(1)).resolves.toBe(1)
@@ -53,7 +53,7 @@ describe('test trySometime', () => {
   it('Test the actual number of calls', async () => {
     let num = 0
     // 模拟前两次调用都挂掉了
-    const get = async i => {
+    const get = async (i: number) => {
       num++
       if (num < 2) {
         throw num

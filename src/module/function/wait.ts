@@ -6,8 +6,8 @@
  * @returns {Promise} Promise 对象
  */
 export function wait(
-  param: number | ((...args: any[]) => boolean | Promise<boolean>),
-): boolean | Promise<boolean> {
+  param?: number | ((...args: any[]) => boolean),
+): Promise<void> {
   return new Promise(resolve => {
     if (typeof param === 'number') {
       setTimeout(resolve, param)

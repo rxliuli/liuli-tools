@@ -11,11 +11,12 @@ describe('test returnReasonableItself', () => {
     }
     expect(returnReasonableItself(user)).toEqual(user)
   })
-  it('test no paramater', () =>
-    expect(returnReasonableItself()).toBeUndefined())
+  it('test no paramater', () => expect(returnReasonableItself()).toBeNull())
   const arr = [1, 2]
-  it('test multiple paramater', () =>
-    expect(returnReasonableItself(...arr)).toIncludeSameMembers(arr))
-  it('test array paramater', () =>
-    expect(returnReasonableItself(arr)).toIncludeSameMembers(arr))
+  it('test multiple paramater', () => {
+    expect(returnReasonableItself(...arr)).toIncludeSameMembers(arr)
+  })
+  it('test array paramater', () => {
+    expect(returnReasonableItself(arr)).toIncludeSameMembers(arr)
+  })
 })

@@ -10,11 +10,14 @@
  * @param {Function} action 真正需要执行的操作
  * @return {Function} 包装后有节流功能的函数。该函数是异步的，与需要包装的函数 {@link action} 是否异步没有太大关联
  */
-export function throttle (delay, action) {
+export function throttle<R, Func extends Function = (...args: any[]) => R>(
+  delay: number,
+  action: Func,
+): Func {
   let last = 0
-  let result
+  let result: R
   return new Proxy(action, {
-    apply (target, thisArg, args) {
+    apply(target, thisArg, args) {
       return new Promise(resolve => {
         const curr = Date.now()
         if (curr - last > delay) {

@@ -8,9 +8,12 @@ import { range } from '../array/range'
  * @param {Function} [errorCheck=res=>true] 检查返回结果是否需要重试的函数。默认只要 resolve() 就返回 true
  * @returns {Function} 包装后的有错误重试功能的函数
  */
-export function trySometimeParallel (fn, num = 1, errorCheck = res => true) {
+export function trySometimeParallel<
+  R,
+  Func extends Function = (...args: any[]) => R
+>(fn: Func, num = 1, errorCheck: (res: R) => boolean = res => true): Func {
   return new Proxy(fn, {
-    async apply (target, thisArg, args) {
+    async apply(target, thisArg, args) {
       return new Promise(async (resolve, reject) => {
         let err
         try {
@@ -25,7 +28,7 @@ export function trySometimeParallel (fn, num = 1, errorCheck = res => true) {
               } catch (error) {
                 err = error
               }
-            })
+            }),
           )
         } catch (error) {
           console.log(error)
@@ -35,23 +38,3 @@ export function trySometimeParallel (fn, num = 1, errorCheck = res => true) {
     },
   })
 }
-// ;(async () => {
-//   let num = 0
-//   // 模拟前两次调用都挂掉了
-//   const get = async i => {
-//     num++
-//     if (num < 3) {
-//       throw num
-//     }
-//     return i
-//   }
-//   // 重复调用两次
-//   const fn = trySometimeParallel(get, 2)
-//   try {
-//     const res = await fn(0)
-//     console.log(res)
-//   } catch (err) {
-//     console.log(err)
-//     // expect(err).toBe(2)
-//   }
-// })()

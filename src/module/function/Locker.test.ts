@@ -23,7 +23,7 @@ describe('test Locker', () => {
   it('test order', async () => {
     const locker = new Locker()
     let sum = 0
-    const add = async i => {
+    const add = async (i: number) => {
       try {
         locker.lock()
         await wait(100)

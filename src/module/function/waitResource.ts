@@ -1,3 +1,7 @@
+interface IWaitResource {
+  interval: number
+  max: number
+}
 /**
  * 轮询等待指定资源加载完毕再执行操作
  * 使用 Promises 实现，可以使用 ES7 的 {@async}/{@await} 调用
@@ -7,7 +11,10 @@
  * @param {Number} [option.max=10] 最大轮询次数
  * @returns Promise 对象
  */
-export function waitResource (fn, { interval = 100, max = 10 } = {}) {
+export function waitResource(
+  fn: (...args: any[]) => boolean,
+  { interval = 100, max = 10 }: Partial<IWaitResource> = {},
+) {
   let current = 0
   return new Promise((resolve, reject) => {
     const timer = setInterval(() => {
@@ -18,7 +25,7 @@ export function waitResource (fn, { interval = 100, max = 10 } = {}) {
       current++
       if (current >= max) {
         clearInterval(timer)
-        reject(new Error('等待超时'))
+        reject(new Error('waitResource call timeout'))
       }
     }, interval)
   })

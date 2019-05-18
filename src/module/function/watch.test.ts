@@ -6,13 +6,13 @@ import { wait } from './wait'
  */
 describe('test watch', () => {
   it.skip('test watch for simple example', () => {
-    let now
+    let now: number
     watch(
       () => Date.now(),
       () => {
         expect(Date.now() - now).toBeLessThan(200)
         now = Date.now()
-      }
+      },
     )
   })
   it('test watch for closing', async () => {
@@ -26,7 +26,7 @@ describe('test watch', () => {
           close()
         }
         num++
-      }
+      },
     )
     await wait(10)
     const temp1 = num
@@ -50,17 +50,20 @@ describe('test watch', () => {
       () => {
         expect(num).toBe(10)
         expect(Date.now() - now).toBeGreaterThan(1000)
-      }
+      },
     )
   })
-  it('test this', function () {
+  it('test this', function() {
+    // @ts-ignore
     this.now = 0
     watch(
       () => Date.now(),
       () => {
+        // @ts-ignore
         expect(Date.now() - this.now).toBeLessThan(1000)
+        // @ts-ignore
         this.now = Date.now()
-      }
+      },
     )
   })
 })

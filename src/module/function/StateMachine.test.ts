@@ -7,17 +7,17 @@ describe('test StateMachine', () => {
   it('simple example', () => {
     const stateMachine = StateMachine.getFactory()
     class Base {
-      hello () {
+      public hello() {
         return 'base'
       }
     }
     stateMachine.register(
       1,
       class A extends Base {
-        hello () {
+        public hello() {
           return 'a'
         }
-      }
+      },
     )
     stateMachine.register(2, class B extends Base {})
 
@@ -28,7 +28,9 @@ describe('test StateMachine', () => {
   it('use for-of foreach StateMachine', () => {
     class Base {}
     class A extends Base {}
+    // tslint:disable-next-line:max-classes-per-file
     class B extends Base {}
+    // tslint:disable-next-line:max-classes-per-file
     class C extends Base {}
 
     const stateMachine = StateMachine.getFactory()

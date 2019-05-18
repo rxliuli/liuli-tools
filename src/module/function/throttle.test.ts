@@ -16,19 +16,23 @@ describe('test throttle', () => {
     })
     expect(num).toBeLessThanOrEqual(10)
   })
-  it('test this', async function () {
+  it('test this', async function() {
+    // @ts-ignore
     this.num = 0
+    // @ts-ignore
     const fn = throttle(10, () => this.num++)
     const now = Date.now()
     await waitResource(() => {
       fn()
       return Date.now() - now > 100
     })
+    // @ts-ignore
     expect(this.num).toBeLessThanOrEqual(10)
   })
   it('test bind this', async () => {
     const obj = { num: 0 }
-    const fn = throttle(10, function () {
+    const fn = throttle(10, function() {
+      // @ts-ignore
       this.num++
     }).bind(obj)
     const now = Date.now()
@@ -39,7 +43,7 @@ describe('test throttle', () => {
     expect(obj.num).toBeLessThanOrEqual(10)
   })
   it('async and return result', async () => {
-    const add = async (a, b) => a + b
+    const add = async (a: number, b: number) => a + b
     const fn = throttle(10, add)
     fn(1, 2).then(res => expect(res).toBe(3))
     fn(1, 3).then(res => expect(res).toBe(3))

@@ -24,10 +24,10 @@ describe('test dateBetween', () => {
   it('test decimals', () => {
     const between = dateBetween(
       new Date('2018-12-11T00:00:00.000'),
-      new Date('2019-12-11T01:10:10.100')
+      new Date('2019-12-11T01:10:10.100'),
     )
     expect(between.milliSecond()).toBe(
-      (((365 * 24 + 1) * 60 + 10) * 60 + 10) * 1000 + 100
+      (((365 * 24 + 1) * 60 + 10) * 60 + 10) * 1000 + 100,
     )
     expect(between.second()).toBe(((365 * 24 + 1) * 60 + 10) * 60 + 10)
     expect(between.minute()).toBe((365 * 24 + 1) * 60 + 10)

@@ -9,32 +9,39 @@ import { stringValidator } from '../string/stringValidator'
  */
 export class DateFormatter {
   /**
+   * 日期格式化器
+   */
+  public static dateFormatter = new DateFormatter('yyyy-MM-dd')
+  /**
+   * 时间格式化器
+   */
+  public static timeFormatter = new DateFormatter('hh:mm:ss')
+  /**
+   * 日期时间格式化器
+   */
+  public static dateTimeFormatter = new DateFormatter('yyyy-MM-dd hh:mm:ss')
+  /**
    * 构造函数
    * @param {String} fmt 日期时间格式
    */
-  constructor (fmt) {
-    /**
-     * @field 日期时间格式
-     */
-    this.fmt = fmt
-  }
+  constructor(private fmt: string) {}
   /**
    * 格式化
    * @param {Date} date 需要格式化的日期
    * @returns {String} 格式化的字符串
    */
-  format (date) {
+  public format(date: Date | null): string {
     if (isNullOrUndefined(date)) {
       return ''
     }
-    return dateFormat(date, this.fmt)
+    return dateFormat(date!, this.fmt)
   }
   /**
    * 解析
    * @param {String} str 字符串
    * @returns {Date} 解析得到的日期
    */
-  parse (str) {
+  public parse(str: string | null | undefined): Date | null {
     if (stringValidator.isEmpty(str)) {
       return null
     }
@@ -47,24 +54,11 @@ export class DateFormatter {
    * @param {String} [parseFmt=undefined] 解析的日期时间格式。默认直接使用 {@link new Date()} 创建
    * @returns {String} 转换后得到的字符串
    */
-  strFormat (str, parseFmt) {
+  public strFormat(str: string | null | undefined, parseFmt?: string): string {
     if (stringValidator.isEmpty(str)) {
       return ''
     }
-    const date = parseFmt ? dateParse(str, parseFmt) : new Date(str)
-    return dateFormat(date, this.fmt)
+    const date = parseFmt ? dateParse(str, parseFmt) : new Date(str!)
+    return dateFormat(date!, this.fmt)
   }
 }
-
-/**
- * 日期格式化器
- */
-DateFormatter.dateFormatter = new DateFormatter('yyyy-MM-dd')
-/**
- * 时间格式化器
- */
-DateFormatter.timeFormatter = new DateFormatter('hh:mm:ss')
-/**
- * 日期时间格式化器
- */
-DateFormatter.dateTimeFormatter = new DateFormatter('yyyy-MM-dd hh:mm:ss')

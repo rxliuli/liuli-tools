@@ -1,3 +1,5 @@
+import { returnItself } from '../function/returnItself'
+
 /**
  * 将数组映射为 Map
  * @param {Array.<Object>} arr 数组
@@ -8,7 +10,7 @@
 export function arrayToMap<T, K, V>(
   arr: T[],
   kFn: (item: T, ...args: any[]) => K,
-  vFn: (item: T, ...args: any[]) => any = v => v,
+  vFn: (item: T, ...args: any[]) => V = returnItself,
 ): Map<K, V> {
   return arr.reduce(
     (res, item, ...args) => res.set(kFn(item, ...args), vFn(item, ...args)),

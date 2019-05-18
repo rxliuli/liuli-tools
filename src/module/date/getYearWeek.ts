@@ -3,7 +3,7 @@
  * @deprecated 不推荐使用，请使用 {@link dateEnhance} 代替
  * @returns {Number}
  */
-export function getYearWeek (date) {
+export function getYearWeek(date: Date): number {
   /*
     date1是当前日期
     date2是当年第一天

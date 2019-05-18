@@ -12,7 +12,7 @@ describe('test dateFormat', () => {
   })
   it('test dateFormat for ISO', () => {
     expect(dateFormat(date, 'yyyy-MM-ddThh:mm:ss.SSSZ')).toBe(
-      '2019-12-11T11:11:10.100Z'
+      '2019-12-11T11:11:10.100Z',
     )
   })
 })

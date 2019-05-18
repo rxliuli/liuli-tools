@@ -10,10 +10,10 @@ import { getObjectEntries } from './getObjectEntries'
  * @returns {Object} 合并后的对象
  */
 export function assign<T extends object>(
-  target: T,
+  target: T | null | undefined,
   ...sources: Array<any | null | undefined>
 ): T {
-  sources.reduce((res, source) => {
+  return [target, ...sources].reduce((res, source) => {
     if (isNullOrUndefined(source)) {
       return res
     }
@@ -25,14 +25,5 @@ export function assign<T extends object>(
       Reflect.set(res, k, v)
       return res
     }, res)
-  }, target)
-  return flatMap(sources, object =>
-    isNullOrUndefined(object) ? [] : getObjectEntries(object),
-  ).reduce((res, [k, v]) => {
-    if (isNullOrUndefined(v)) {
-      return res
-    }
-    res[k] = v
-    return res
-  }, target)
+  }, {})
 }

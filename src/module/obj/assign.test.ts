@@ -21,7 +21,7 @@ describe('test assign', () => {
     expect(res.hello()).toEqual('琉璃')
   })
   it('test undefined or null', () => {
-    const res = assign(
+    const res: any = assign(
       undefined,
       {
         name: 'rx',

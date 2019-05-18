@@ -118,7 +118,7 @@ describe('test LocalStorageCache', () => {
     // 即便过了超时时间只要没有调用 get 依然存在于缓存中
     expect(window.localStorage.getItem('1')).not.toBeNull()
     expect(window.localStorage.getItem('2')).not.toBeNull()
-    // eslint-disable-next-line no-new
+    // tslint:disable-next-line:no-unused-expression
     new LocalStorageCache()
     sleep(10)
     // 然而现在还能获取到，因为 sleep 阻塞了主线程，使得构造函数中的清理过期缓存函数 clearExpired 没有机会运行（异步）

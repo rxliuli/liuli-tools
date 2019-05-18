@@ -1,18 +1,11 @@
 import { arrayValidator } from '../array/arrayValidator'
 import { returnItself } from '../function/returnItself'
-import { IParamNode, INode } from './INode'
-import { assign } from '../obj/assign'
+import { INode } from './INode'
 
 interface ITreeMappingOptions<T> {
   before?: (node: T, ...args: any[]) => INode
   after?: (node: INode, ...args: any[]) => INode
   paramFn?: (node: INode, ...args: any[]) => any[]
-}
-
-class TreeMappingOptionsImpl<T> implements ITreeMappingOptions<T> {
-  public before: (node: T, ...args: any[]) => INode = returnItself
-  public after: (node: INode, ...args: any[]) => INode = returnItself
-  public paramFn: (node: INode, ...args: any[]) => any[] = (node, ...args) => []
 }
 
 /**
@@ -26,9 +19,12 @@ class TreeMappingOptionsImpl<T> implements ITreeMappingOptions<T> {
  */
 export function treeMapping<T>(
   root: T,
-  options: ITreeMappingOptions<T>,
+  {
+    before = returnItself,
+    after = returnItself,
+    paramFn = (node, ...args) => [],
+  }: Partial<ITreeMappingOptions<T>> = {},
 ): INode {
-  const _options = assign(new TreeMappingOptionsImpl(), options)
   /**
    * 遍历一颗完整的树
    * @param {IParamNode} node 要遍历的树节点
@@ -36,16 +32,16 @@ export function treeMapping<T>(
    */
   function _treeMapping(node: any, ...args: any[]): INode {
     // 之前的操作
-    const _node = _options.before(node, ...args)
+    const _node = before(node, ...args)
     const _child = _node.child
     if (!arrayValidator.isEmpty(_child)) {
       _node.child = _child.map(v =>
         // 产生一个参数
-        _treeMapping(v, ..._options.paramFn(_node, ...args)),
+        _treeMapping(v, ...paramFn(_node, ...args)),
       )
     }
     // 之后的操作
-    return _options.after(_node, ...args)
+    return after(_node, ...args)
   }
   return _treeMapping(root)
 }

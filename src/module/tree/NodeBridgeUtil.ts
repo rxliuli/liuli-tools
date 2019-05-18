@@ -1,5 +1,5 @@
 import { bridge } from '../function/bridge'
-import { INodeBridge, NodeBridge } from './NodeBridge'
+import { INodeBridge } from './NodeBridge'
 import { treeMapping } from './treeMapping'
 import { INode } from './INode'
 
@@ -13,8 +13,18 @@ export class NodeBridgeUtil {
    * @param {INodeBridge} [nodeBridge=new NodeBridge()] 桥接对象
    * @returns {Function} 代理函数
    */
-  public bridge<T>(nodeBridge: INodeBridge): (node: T) => INode {
-    return bridge(Object.assign(new NodeBridge(), nodeBridge))
+  public bridge<T>({
+    id = 'id',
+    parentId = 'parentId',
+    child = 'child',
+    path = 'path',
+  }: Partial<INodeBridge> = {}): (node: T) => INode {
+    return bridge({
+      id,
+      parentId,
+      child,
+      path,
+    })
   }
   /**
    * 桥接一棵完整的树
@@ -22,7 +32,7 @@ export class NodeBridgeUtil {
    * @param {INodeBridge} [nodeBridge=new INodeBridge()] 桥接对象
    * @returns {INode} 代理后的树对象
    */
-  public bridgeTree<T>(tree: T, nodeBridge: INodeBridge): INode {
+  public bridgeTree<T>(tree: T, nodeBridge?: INodeBridge): INode {
     return treeMapping(tree, {
       before: this.bridge(nodeBridge),
     })
@@ -33,7 +43,7 @@ export class NodeBridgeUtil {
    * @param {INodeBridge} [nodeBridge=new NodeBridge()] 桥接对象
    * @returns {Array.<INode>} 代理后的树节点列表
    */
-  public bridgeList<T>(list: T[], nodeBridge: INodeBridge): INode[] {
+  public bridgeList<T>(list: T[], nodeBridge?: INodeBridge): INode[] {
     return list.map(this.bridge(nodeBridge))
   }
 }

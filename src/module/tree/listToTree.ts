@@ -1,14 +1,9 @@
 import { returnItself } from '../function/returnItself'
 import { INode } from './INode'
-import { assign } from '../obj/assign'
 
 export interface IListToTreeOptoins<T> {
   bridge?: (node: T) => INode
   isRoot?: (node: INode) => boolean
-}
-export class ListToTreeOptoinsImpl<T> implements IListToTreeOptoins<T> {
-  public bridge: (node: T) => INode = returnItself
-  public isRoot: (node: INode) => boolean = node => !node.parentId
 }
 
 /**
@@ -22,19 +17,21 @@ export class ListToTreeOptoinsImpl<T> implements IListToTreeOptoins<T> {
  */
 export function listToTree<T>(
   list: T[],
-  options?: IListToTreeOptoins<T>,
+  {
+    bridge = returnItself,
+    isRoot = node => !node.parentId,
+  }: Partial<IListToTreeOptoins<T>> = {},
 ): INode | INode[] | object {
-  const _options = assign(new ListToTreeOptoinsImpl(), options)
   const arr: INode[] = []
   const res = list.reduce((root, _sub) => {
-    const sub = _options.bridge(_sub)
+    const sub = bridge(_sub)
     list.forEach(_parent => {
-      const parent = _options.bridge(_parent)
+      const parent = bridge(_parent)
       if (sub.parentId === parent.id) {
         ;(parent.child = parent.child || []).push(sub)
       }
     })
-    if (_options.isRoot(sub)) {
+    if (isRoot(sub)) {
       root.push(sub)
     }
     return root

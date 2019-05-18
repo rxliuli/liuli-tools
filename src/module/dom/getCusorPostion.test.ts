@@ -8,7 +8,8 @@ describe('test getCusorPostion', () => {
     <input type="text" id="name" />
   `
   it('test normal situation', () => {
-    const $name = document.querySelector('#name')
+    // @ts-ignore
+    const $name: HTMLFormElement = document.querySelector('#name')
     $name.value = 'getCusorPostion'
     const index = 3
     setCusorPostion($name, index)

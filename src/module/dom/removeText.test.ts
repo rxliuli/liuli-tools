@@ -4,11 +4,12 @@ import { removeText } from './removeText'
  * @test {removeText}
  */
 describe('test removeText', () => {
-  let $name
+  let $name: HTMLFormElement
   beforeEach(() => {
     document.body.innerHTML = /* html */ `
   <input type="text" id="name" />
 `
+    // @ts-ignore
     $name = document.querySelector('#name')
     $name.value = 'text'
   })

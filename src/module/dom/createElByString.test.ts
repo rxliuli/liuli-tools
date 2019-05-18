@@ -10,7 +10,7 @@ describe('test createElByString', () => {
     `
     const $name = createElByString(`<input type="text" id="name" />`)
     const $main = document.querySelector('main')
-    $main.append($name)
-    expect($main.querySelector('#name')).toEqual($name)
+    $main!.append($name!)
+    expect($main!.querySelector('#name')).toEqual($name)
   })
 })

@@ -7,11 +7,12 @@ import { getSelectText } from './getSelectText'
  * @see https://github.com/jsdom/jsdom/issues/321
  */
 describe.skip('test getSelectText', () => {
-  let $name
+  let $name: HTMLFormElement
   beforeEach(() => {
     document.body.innerHTML = /* html */ `
   <input type="text" id="name" />
 `
+    // @ts-ignore
     $name = document.querySelector('#name')
     $name.value = 'text'
   })

@@ -10,19 +10,22 @@ describe('test lastFocus', () => {
     </main>
     `
   it('test lastFocus for input focus', () => {
-    const $name = document.querySelector('#name')
+    // @ts-ignore
+    const $name: HTMLFormElement = document.querySelector('#name')
     $name.focus()
     expect(lastFocus()).toEqual($name)
   })
   it('test lastFocus for input blur', () => {
-    const $name = document.querySelector('#name')
+    // @ts-ignore
+    const $name: HTMLFormElement = document.querySelector('#name')
     $name.focus()
     expect(lastFocus()).toEqual($name)
     $name.blur()
     expect(lastFocus()).toBeNull()
   })
   it('test lastFocus for a tag', () => {
-    const $link = document.querySelector('#link')
+    // @ts-ignore
+    const $link: any = document.querySelector('#link')
     $link.focus()
     expect(lastFocus()).toEqual($link)
     $link.blur()

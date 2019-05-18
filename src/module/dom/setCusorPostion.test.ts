@@ -5,7 +5,7 @@ import { getCusorPostion } from './getCusorPostion'
  * @test {setCusorPostion}
  */
 describe('test setCusorPostion', () => {
-  let $name
+  let $name: any
   beforeEach(() => {
     document.body.innerHTML = /* html */ `
   <input type="text" id="name" />

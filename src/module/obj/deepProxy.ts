@@ -4,17 +4,9 @@
  * @param {Object} object 任意一个 Object 对象
  * @returns {Object} 包装后的对象
  */
-export function deepProxy(
-  object: Record<PropertyKey, any>,
-): Record<PropertyKey, any> {
+export function deepProxy(object: object): any {
   const handler = {
-    get({
-      target,
-      k,
-    }: {
-      target: Record<PropertyKey, any>
-      k: PropertyKey
-    }): any {
+    get(target: object, k: PropertyKey): object {
       Reflect.set(
         target,
         k,

@@ -97,7 +97,7 @@ describe('test LocalStorageCache', () => {
     // 即便过了超时时间只要没有调用 get 依然存在于缓存中
     expect(window.localStorage.getItem('1')).not.toBeNull()
     expect(window.localStorage.getItem('2')).not.toBeNull()
-    // eslint-disable-next-line no-new
+    // tslint:disable-next-line:no-unused-expression
     new LocalStorageCache()
     await wait(10)
     // 然而现在获取不到了

@@ -6,6 +6,11 @@ import { TimeoutInfinite, ICacheOption } from './CacheOption'
  */
 const cache = new LocalStorageCache()
 
+interface ICacheUtilInit {
+  identity: string
+  timeout: number | string
+}
+
 /**
  * 缓存工具类
  * 主要实现缓存高阶函数的封装
@@ -21,7 +26,10 @@ export class CacheUtil {
    */
   public onceOfSameParam(
     fn: Function,
-    { identity = fn.toString(), timeout = TimeoutInfinite } = {},
+    {
+      identity = fn.toString(),
+      timeout = TimeoutInfinite,
+    }: Partial<ICacheUtilInit> = {},
   ) {
     const generateKey = (args: any[]) =>
       `onceOfSameParam-${identity}-${JSON.stringify(args)}`

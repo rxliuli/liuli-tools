@@ -5,7 +5,7 @@ import { randomInt } from '../../index'
 
 describe('test cacheUtil', () => {
   let num = 0
-  const get = id => ({ id, num: ++num })
+  const get = (id: number) => ({ id, num: ++num })
   const id = 1
   beforeEach(() => {
     window.localStorage.clear()
@@ -46,13 +46,10 @@ describe('test cacheUtil', () => {
   })
   it('test async function', async () => {
     class User {
-      constructor (name, age) {
-        this.name = name
-        this.age = age
-      }
+      constructor(public name: any, public age: number) {}
     }
     // 模拟一个根据姓名获取 User 对象的值的 API
-    const getById = async name => new User(name, randomInt(18))
+    const getById = async (name: any) => new User(name, randomInt(18))
     const fn = cacheUtil.onceOfSameParam(getById)
     const res = await fn('rxliuli')
     // 相同的名字不会真正执行到服务端

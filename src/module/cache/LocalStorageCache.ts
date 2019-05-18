@@ -57,7 +57,7 @@ export class LocalStorageCache extends ICache {
    * @param {ICacheOption} [cacheOption] 缓存的选项，默认为无限时间
    * @override
    */
-  public add(key: string, val: object, cacheOption: ICacheOption) {
+  public add(key: string, val: any, cacheOption: Partial<ICacheOption> = {}) {
     const result = this.get(key, cacheOption)
     if (result !== null) {
       return
@@ -81,11 +81,7 @@ export class LocalStorageCache extends ICache {
    * @param {ICacheOption} [cacheOption] 修改的选项
    * @override
    */
-  public set(
-    key: string,
-    val: object,
-    cacheOption: Partial<ICacheOption> = {},
-  ) {
+  public set(key: string, val: any, cacheOption: Partial<ICacheOption> = {}) {
     const option = assign(this.cacheOption, cacheOption)
     this.localStorage.setItem(
       key,

@@ -5,9 +5,9 @@ import { download } from './download'
  * @param {String} url 下载请求信息
  * @param {String} [filename] 下载文件名，没有则默认为链接中的文件名
  */
-export async function downloadUrl (
-  url,
-  filename = url.substr(url.lastIndexOf('/'))
+export async function downloadUrl(
+  url: string,
+  filename: string = url.substr(url.lastIndexOf('/')),
 ) {
   try {
     const res = await fetch(url)

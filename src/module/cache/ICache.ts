@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { CacheOption, TimeoutInfinite } from './CacheOption'
+import { ICacheOption, TimeoutInfinite } from './CacheOption'
 import { assign } from '../obj/assign'
 
 /**
@@ -17,63 +17,65 @@ import { assign } from '../obj/assign'
  * TODO 这里的接口 API 需要进行重构
  */
 export class ICache {
+  public cacheOption: ICacheOption
   /**
    * 全局缓存选项
-   * @param {CacheOption} cacheOption 缓存选项
+   * @param {ICacheOption} cacheOption 缓存选项
    */
-  constructor (cacheOption) {
+  constructor({
+    timeout = TimeoutInfinite,
+    serialize = JSON.stringify,
+    deserialize = JSON.parse,
+  }: Partial<ICacheOption> = {}) {
     /**
      * @field 缓存选项
      */
-    this.cacheOption = assign(
-      new CacheOption({
-        timeout: TimeoutInfinite,
-        serialize: JSON.stringify,
-        deserialize: JSON.parse,
-      }),
-      cacheOption
-    )
+    this.cacheOption = {
+      timeout,
+      serialize,
+      deserialize,
+    }
   }
   /**
    * 根据 key + value 添加
    * 如果不存在则添加，否则忽略
    * @param {String} key 缓存的 key
    * @param {Object} val 缓存的 value
-   * @param {CacheOption} cacheOption 缓存的选项
+   * @param {ICacheOption} cacheOption 缓存的选项
    * @abstract
    */
-  add (key, val, cacheOption) {}
+  public add(key: string, val: object, cacheOption: ICacheOption) {}
   /**
    * 根据指定的 key 删除
    * 如果存在则删除，否则忽略
    * @param {String} key 删除的 key
    * @abstract
    */
-  del (key) {}
+  public del(key: string) {}
   /**
    * 根据指定的 key 修改
    * 不管是否存在都会设置
    * @param {String} key 修改的 key
    * @param {Object} val 修改的 value
-   * @param {CacheOption} cacheOption 修改的选项
+   * @param {ICacheOption} cacheOption 修改的选项
    * @abstract
    */
-  set (key, val, cacheOption) {}
+  public set(key: string, val: object, cacheOption: ICacheOption) {}
   /**
    * 根据 key 获取
    * 如果存在则获取，否则忽略
    * @param {String} key 指定的 key
-   * @param {CacheOption} cacheOption 获取的选项
+   * @param {ICacheOption} cacheOption 获取的选项
    * @returns {Object} 获取到的缓存值
    * @abstract
    */
-  get (key, cacheOption) {}
+  public get(key: string, cacheOption: ICacheOption): any {}
   /**
    * 根据 key 获取并刷新超时时间
    * @param {String} key 指定的 key
-   * @param {CacheOption} cacheOption 获取的选项
+   * @param {ICacheOption} cacheOption 获取的选项
    * @returns {Object} 获取到的缓存值
    * @abstract
    */
-  touch (key, cacheOption) {}
+  public touch(key: string, cacheOption: ICacheOption): any {}
 }

@@ -3,7 +3,7 @@
  * @param {Blob} blob 要下载的二进制资源
  * @param {String} filename 文件名
  */
-export function download (blob, filename = 'unknown') {
+export function download(blob: Blob, filename = 'unknown') {
   // 创建隐藏的可下载链接
   const eleLink = document.createElement('a')
   eleLink.download = filename

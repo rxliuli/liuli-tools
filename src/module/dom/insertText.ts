@@ -7,7 +7,11 @@ import { setCusorPostion } from './setCusorPostion'
  * @param {String} text 要插入的值
  * @param {Number} [start] 开始位置，默认为当前光标处
  */
-export function insertText (el, text, start = getCusorPostion(el)) {
+export function insertText(
+  el: HTMLFormElement,
+  text: string,
+  start: number = getCusorPostion(el),
+) {
   const value = el.value
   el.value = value.substr(0, start) + text + value.substr(start)
   setCusorPostion(el, start + text.length)

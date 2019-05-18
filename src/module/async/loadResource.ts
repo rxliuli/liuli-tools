@@ -6,7 +6,16 @@
  * @param {RequestInit} [init] 初始化参数, 实为 fetch() 的参数以及一些自定义的参数，默认 {}
  * 关于 fetch 具体可以参考 <https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch>
  */
-export async function loadResource (url, dom, init = {}) {
+export async function loadResource(
+  url: RequestInfo,
+  dom:
+    | HTMLImageElement
+    | HTMLAudioElement
+    | HTMLVideoElement
+    | HTMLTrackElement
+    | HTMLScriptElement,
+  init: RequestInit = {},
+) {
   const res = await fetch(url, init)
   const blob = await res.blob()
   // 生成一个本地的 url 并赋值给 src 属性

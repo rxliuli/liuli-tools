@@ -10,17 +10,15 @@ const deteFormatter = 'yyyy-MM-ddThh:mm:ss.SSS'
  * @param {String} k 参数的名字
  * @param {String} v 参数的值
  */
-const encode = (k, v) => encodeURIComponent(k) + '=' + encodeURIComponent(v)
+const encode = (k: string, v: string) =>
+  encodeURIComponent(k) + '=' + encodeURIComponent(v)
 
 /**
  * 拼接参数字符串
  * @param {Object} params 参数对象
  * @returns {String} 拼接后的字符串
  */
-export function spliceParams (params = {}) {
-  if (!(params instanceof Object)) {
-    throw new Error(`The parameter type must be Object: ${params}`)
-  }
+export function spliceParams(params: object = {}): string {
   return Array.from(Object.entries(params)).reduce((res, [k, v]) => {
     if (v === undefined || v === null) {
       return res
@@ -31,8 +29,8 @@ export function spliceParams (params = {}) {
         .map(item =>
           encode(
             k,
-            item instanceof Date ? dateFormat(item, deteFormatter) : item
-          )
+            item instanceof Date ? dateFormat(item, deteFormatter) : item,
+          ),
         )
         .join('&')
     } else {

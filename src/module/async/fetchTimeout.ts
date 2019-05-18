@@ -7,6 +7,14 @@ import { wait } from '../function/wait'
  * @param {Number} timeout 超时时间
  * @returns {Promise} 如果超时就提前返回 reject, 否则正常返回 fetch 结果
  */
-export function fetchTimeout (fetchPromise, timeout) {
-  return Promise.race([fetchPromise, wait(timeout)])
+export function fetchTimeout<R>(
+  fetchPromise: Promise<R>,
+  timeout: number,
+): Promise<R> {
+  return Promise.race([
+    fetchPromise,
+    wait(timeout).then(() => {
+      throw new Error('timeout')
+    }),
+  ])
 }

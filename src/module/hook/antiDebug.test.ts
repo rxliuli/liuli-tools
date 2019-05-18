@@ -12,7 +12,7 @@ describe('test antiDebug', () => {
   it.skip('test checkDebug', async () => {
     checkDebug(() => console.log('正在 debug?'))
     await wait(1000)
-    function sleep (milliSeconds) {
+    function sleep(milliSeconds: number) {
       const end = Date.now() + milliSeconds
       while (Date.now() < end) {}
     }

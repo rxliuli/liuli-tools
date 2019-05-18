@@ -1,6 +1,7 @@
 import { arrayValidator } from '../array/arrayValidator'
 import { returnItself } from '../function/returnItself'
 import { INode } from './INode'
+import { convert } from '../interface/convert'
 
 interface ITreeMappingOptions<T> {
   before?: (node: T, ...args: any[]) => INode
@@ -20,7 +21,7 @@ interface ITreeMappingOptions<T> {
 export function treeMapping<T>(
   root: T,
   {
-    before = returnItself,
+    before = convert(returnItself),
     after = returnItself,
     paramFn = (node, ...args) => [],
   }: Partial<ITreeMappingOptions<T>> = {},
@@ -32,7 +33,7 @@ export function treeMapping<T>(
    */
   function _treeMapping(node: any, ...args: any[]): INode {
     // 之前的操作
-    const _node = before(node, ...args)
+    const _node = before!(node, ...args)
     const _child = _node.child
     if (!arrayValidator.isEmpty(_child)) {
       _node.child = _child.map(v =>

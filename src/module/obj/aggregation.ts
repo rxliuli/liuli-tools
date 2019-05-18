@@ -1,5 +1,4 @@
 import { returnItself } from '../function/returnItself'
-import { TypeParameter } from '@babel/types'
 
 /**
  * 根据不同的源对象获取不同的正则匹配，代表不需要拷贝的属性
@@ -37,19 +36,20 @@ function _copyProps<T extends object>(target: T, source: T): T {
  * @returns {Class} 返回一个混合后的类，构造函数将的参数
  */
 export function aggregation(mixins: Map<any, (...args: any[]) => any[]>): any {
-  const map = Array.from(mixins)
+  const arr: Array<[any, (...args: any[]) => any[]]> = Array.from(mixins)
   class Aggregate {
     /**
      * @param {...Object} args 任意数量的参数
      */
     constructor(...args: any[]) {
-      map.forEach(([Mixin, fn = returnItself]) => {
-        _copyProps(this, new Mixin(...fn(args)))
+      arr.forEach(([Mixin, fn = returnItself]) => {
+        const temp: any[] = fn(args)
+        _copyProps(this, new Mixin(...temp))
       })
     }
   }
 
-  map.forEach(([Mixin]) => {
+  arr.forEach(([Mixin]) => {
     _copyProps(Aggregate.prototype, Mixin.prototype)
     _copyProps(Aggregate, Mixin)
   })

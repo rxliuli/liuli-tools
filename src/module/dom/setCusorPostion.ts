@@ -4,7 +4,11 @@
  * @param {Number} start 光标所在位置的下标
  * @param {Number} [end=start] 结束位置，默认为输入框结束
  */
-export function setCusorPostion (el, start, end = start) {
+export function setCusorPostion(
+  el: HTMLFormElement,
+  start: number,
+  end: number = start,
+) {
   el.focus()
   el.setSelectionRange(start, end)
 }

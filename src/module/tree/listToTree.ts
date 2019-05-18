@@ -1,5 +1,6 @@
 import { returnItself } from '../function/returnItself'
 import { INode } from './INode'
+import { convert } from '../interface/convert'
 
 export interface IListToTreeOptoins<T> {
   bridge?: (node: T) => INode
@@ -18,15 +19,15 @@ export interface IListToTreeOptoins<T> {
 export function listToTree<T>(
   list: T[],
   {
-    bridge = returnItself,
+    bridge = convert(returnItself),
     isRoot = node => !node.parentId,
   }: Partial<IListToTreeOptoins<T>> = {},
 ): INode | INode[] | object {
   const arr: INode[] = []
   const res = list.reduce((root, _sub) => {
-    const sub = bridge(_sub)
+    const sub = bridge!(_sub)
     list.forEach(_parent => {
-      const parent = bridge(_parent)
+      const parent = bridge!(_parent)
       if (sub.parentId === parent.id) {
         ;(parent.child = parent.child || []).push(sub)
       }

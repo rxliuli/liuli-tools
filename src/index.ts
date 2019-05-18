@@ -3,7 +3,7 @@ import { downloadString } from './module/async/downloadString'
 import { downloadUrl } from './module/async/downloadUrl'
 import { getCookies } from './module/async/getCookies'
 import { loadResource } from './module/async/loadResource'
-import { parseUrl } from './module/async/parseUrl'
+// import { parseUrl } from './module/async/parseUrl'
 import { readLocal } from './module/async/readLocal'
 import { spliceParams } from './module/async/spliceParams'
 import { fetchTimeout } from './module/async/fetchTimeout'
@@ -106,7 +106,7 @@ import { listToTree } from './module/tree/listToTree'
 import { bridge } from './module/function/bridge'
 import { treeToList } from './module/tree/treeToList'
 import { treeMapping } from './module/tree/treeMapping'
-import { INodeBridge } from './module/tree/NodeBridge'
+import { INodeBridge } from './module/tree/INodeBridge'
 import { nodeBridgeUtil } from './module/tree/nodeBridgeUtil'
 import { getObjectEntries } from './module/obj/getObjectEntries'
 import { getObjectKeys } from './module/obj/getObjectKeys'
@@ -130,7 +130,7 @@ export {
   getCookies,
   loadResource,
   loadScript,
-  parseUrl,
+  // parseUrl,
   readLocal,
   spliceParams,
   fetchTimeout,
@@ -233,7 +233,7 @@ export {
   floatEquals,
   listToTree,
   treeMapping,
-  INodeBridge as NodeBridge,
+  INodeBridge,
   nodeBridgeUtil,
   treeToList,
 }

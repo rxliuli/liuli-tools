@@ -1,5 +1,5 @@
 import { bridge } from '../function/bridge'
-import { INodeBridge } from './NodeBridge'
+import { INodeBridge } from './INodeBridge'
 import { treeMapping } from './treeMapping'
 import { INode } from './INode'
 

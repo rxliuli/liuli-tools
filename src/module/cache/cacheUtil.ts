@@ -1,5 +1,5 @@
 import { LocalStorageCache } from './LocalStorageCache'
-import { TimeoutInfinite, CacheOption } from './CacheOption'
+import { TimeoutInfinite, ICacheOption } from './CacheOption'
 
 /**
  * 默认使用的 {@link ICache} 接口的缓存实现
@@ -19,20 +19,20 @@ export class CacheUtil {
    * @param {Number|String} [options.timeout=TimeoutInfinite] 缓存时间。默认为无限
    * @returns {Function|Object} 带有缓存功能的函数
    */
-  onceOfSameParam (
-    fn,
-    { identity = fn.toString(), timeout = TimeoutInfinite } = {}
+  public onceOfSameParam(
+    fn: Function,
+    { identity = fn.toString(), timeout = TimeoutInfinite } = {},
   ) {
-    const generateKey = args =>
+    const generateKey = (args: any[]) =>
       `onceOfSameParam-${identity}-${JSON.stringify(args)}`
-    const innerFn = function (...args) {
+    const innerFn = function(...args: any[]) {
       const key = generateKey(args)
-      const cacheOption = new CacheOption({ timeout })
+      const cacheOption = { timeout }
       const val = cache.get(key)
       if (val !== null) {
         return val
       }
-      const result = fn.call(this, ...args)
+      const result = fn(...args)
       if (result instanceof Promise) {
         return result.then(res => {
           cache.set(key, res, cacheOption)
@@ -51,7 +51,7 @@ export class CacheUtil {
      * 清空缓存，清空指定参数调用时的函数缓存
      * @type {Function}
      */
-    innerFn.clear = function (...args) {
+    innerFn.clear = function(...args: any) {
       const key = generateKey(args)
       cache.del(key)
     }

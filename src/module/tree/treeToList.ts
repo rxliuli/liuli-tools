@@ -2,6 +2,7 @@ import { returnItself } from '../function/returnItself'
 import { treeMapping } from './treeMapping'
 import { INode } from './INode'
 import { assign } from '../obj/assign'
+import { convert } from '../interface/convert'
 
 interface ITreeToListOptoins<T> {
   calcPath?: boolean
@@ -20,14 +21,14 @@ export function treeToList<T>(
   root: T,
   {
     calcPath = false,
-    bridge = returnItself,
+    bridge = convert(returnItself),
   }: Partial<ITreeToListOptoins<T>> = {},
 ): INode[] {
   const res: INode[] = []
   // @ts-ignore
   treeMapping(root, {
     before(_node, parentPath) {
-      const node = bridge(_node)
+      const node = bridge!(_node)
       // 是否计算全路径
       if (calcPath) {
         node.path = (parentPath ? parentPath + ',' : '') + node.id

@@ -1,4 +1,7 @@
 import { returnItself } from '../function/returnItself'
+import { convert } from '../interface/convert'
+
+type Callback<T, R> = (item: T, index?: number, arr?: T[]) => R
 
 /**
  * 将数组映射为 Map
@@ -9,11 +12,15 @@ import { returnItself } from '../function/returnItself'
  */
 export function arrayToMap<T, K, V>(
   arr: T[],
-  kFn: (item: T, ...args: any[]) => K,
-  vFn: (item: T, ...args: any[]) => V = returnItself,
+  kFn: Callback<T, K>,
+  vFn: Callback<T, V> = convert(returnItself),
 ): Map<K, V> {
   return arr.reduce(
-    (res, item, ...args) => res.set(kFn(item, ...args), vFn(item, ...args)),
-    new Map(),
+    (res, item, index, arr) =>
+      res.set(kFn(item, index, arr), vFn(item, index, arr)),
+    new Map<K, V>(),
   )
 }
+
+const map: Map<number, string> = arrayToMap([1, 2], i => i, i => i + '')
+const map2: Map<number, number> = arrayToMap([1, 2], i => i)

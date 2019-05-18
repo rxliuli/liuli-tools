@@ -1,6 +1,6 @@
 import { ICache } from './ICache'
 import { CacheVal } from './CacheVal'
-import { CacheOption, TimeoutInfinite } from './CacheOption'
+import { ICacheOption, TimeoutInfinite } from './CacheOption'
 import { assign } from '../obj/assign'
 import { safeExec } from '../function/safeExec'
 import { wait } from '../function/wait'
@@ -9,11 +9,12 @@ import { wait } from '../function/wait'
  * 使用 LocalStorage 实现的缓存
  */
 export class LocalStorageCache extends ICache {
+  public localStorage: Storage
   /**
    * 构造函数
-   * @param {CacheOption} [cacheOption] 全局缓存选项
+   * @param {ICacheOption} [cacheOption] 全局缓存选项
    */
-  constructor (cacheOption) {
+  constructor(cacheOption: Partial<ICacheOption> = {}) {
     super(cacheOption)
     /**
      * 缓存对象，默认使用 localStorage
@@ -26,14 +27,14 @@ export class LocalStorageCache extends ICache {
    * 清空所有过期的 key
    * 注: 该函数是异步执行的
    */
-  async clearExpired () {
+  public async clearExpired() {
     const local = this.localStorage
     const len = local.length
     const delKeys = []
     for (let i = 0; i < len; i++) {
       await wait(0)
       const key = local.key(i)
-      const str = local.getItem(key)
+      const str = local.getItem(key!)
       const cacheVal = safeExec(JSON.parse, null, str)
       if (cacheVal === null) {
         continue
@@ -46,17 +47,17 @@ export class LocalStorageCache extends ICache {
       }
       // console.log(i, key, local.getItem(key))
     }
-    await delKeys.forEach(async key => local.removeItem(key))
+    await delKeys.forEach(async key => local.removeItem(key!))
   }
   /**
    * 根据 key + value 添加
    * 如果不存在则添加，否则忽略
    * @param {String} key 缓存的 key
    * @param {Object} val 缓存的 value
-   * @param {CacheOption} [cacheOption] 缓存的选项，默认为无限时间
+   * @param {ICacheOption} [cacheOption] 缓存的选项，默认为无限时间
    * @override
    */
-  add (key, val, cacheOption) {
+  public add(key: string, val: object, cacheOption: ICacheOption) {
     const result = this.get(key, cacheOption)
     if (result !== null) {
       return
@@ -69,7 +70,7 @@ export class LocalStorageCache extends ICache {
    * @param {String} key 删除的 key
    * @override
    */
-  del (key) {
+  public del(key: string) {
     this.localStorage.removeItem(key)
   }
   /**
@@ -77,10 +78,14 @@ export class LocalStorageCache extends ICache {
    * 不管是否存在都会设置
    * @param {String} key 修改的 key
    * @param {Object} val 修改的 value
-   * @param {CacheOption} [cacheOption] 修改的选项
+   * @param {ICacheOption} [cacheOption] 修改的选项
    * @override
    */
-  set (key, val, cacheOption = new CacheOption()) {
+  public set(
+    key: string,
+    val: object,
+    cacheOption: Partial<ICacheOption> = {},
+  ) {
     const option = assign(this.cacheOption, cacheOption)
     this.localStorage.setItem(
       key,
@@ -89,19 +94,19 @@ export class LocalStorageCache extends ICache {
           key,
           val: option.serialize(val),
           cacheOption: { ...option, timeStart: option.timeStart || Date.now() },
-        })
-      )
+        }),
+      ),
     )
   }
   /**
    * 根据 key 获取
    * 如果存在则获取，否则忽略
    * @param {String} key 指定的 key
-   * @param {CacheOption} cacheOption 获取的选项
+   * @param {ICacheOption} cacheOption 获取的选项
    * @returns {Object} 获取到的缓存值
    * @override
    */
-  get (key, cacheOption = new CacheOption()) {
+  public get(key: string, cacheOption: Partial<ICacheOption> = {}): any {
     const str = this.localStorage.getItem(key)
     const cacheVal = safeExec(JSON.parse, null, str)
     if (cacheVal === null) {
@@ -110,10 +115,10 @@ export class LocalStorageCache extends ICache {
     const { timeStart, timeout, deserialize } = assign(
       this.cacheOption,
       cacheVal.cacheOption,
-      cacheOption
+      cacheOption,
     )
     // 如果超时则删除并返回 null
-    if (timeout !== TimeoutInfinite && Date.now() - timeStart > timeout) {
+    if (timeout !== TimeoutInfinite && Date.now() - timeStart! > timeout) {
       this.del(key)
       return null
     }
@@ -127,26 +132,30 @@ export class LocalStorageCache extends ICache {
   /**
    * 根据 key 获取并刷新超时时间
    * @param {String} key 指定的 key
-   * @param {CacheOption} cacheOption 获取的选项
+   * @param {ICacheOption} cacheOption 获取的选项
    * @returns {Object} 获取到的缓存值
    * @override
    */
-  touch (key, cacheOption = new CacheOption()) {
+  public touch(key: string, cacheOption: Partial<ICacheOption> = {}): any {
     const str = this.localStorage.getItem(key)
     /**
      * @type {CacheVal}
      */
-    const cacheVal = safeExec(JSON.parse, null, str)
+    const cacheVal: CacheVal = safeExec(JSON.parse, null, str)
     if (cacheVal === null) {
       return null
     }
     /**
-     * @type {CacheOption}
+     * @type {ICacheOption}
      */
-    const option = assign(this.cacheOption, cacheVal.cacheOption, cacheOption)
+    const option: ICacheOption = assign(
+      this.cacheOption,
+      cacheVal.cacheOption,
+      cacheOption,
+    )
     const { timeStart, timeout, deserialize } = option
     // 如果超时则删除并返回 null
-    if (timeout !== TimeoutInfinite && Date.now() - timeStart > timeout) {
+    if (timeout !== TimeoutInfinite && Date.now() - timeStart! > timeout) {
       this.del(key)
       return null
     }

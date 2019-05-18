@@ -1,6 +1,11 @@
 import { wait } from '../function/wait'
 import { fetchTimeout } from './fetchTimeout'
 
+interface IFetchLimitingOptions {
+  timeout: number
+  limit: number
+}
+
 /**
  * 限制并发请求数量的 fetch 封装
  * @class FetchLimiting
@@ -11,13 +16,20 @@ import { fetchTimeout } from './fetchTimeout'
  *   .then(json => console.log(json))
  */
 export class FetchLimiting {
+  private timeout: number
+  private limit: number
+  private execCount: number
+  private waitArr: Array<[RequestInfo, RequestInit | undefined]>
   /**
    * 构造函数
    * @param {Object} [option] 可选配置项
    * @param {Number} [option.timeout=10000] 超时毫秒数
    * @param {Number} [option.limit=10] 最大并发数限制
    */
-  constructor ({ timeout = 10000, limit = 10 }) {
+  constructor({
+    timeout = 10000,
+    limit = 10,
+  }: Partial<IFetchLimitingOptions> = {}) {
     /**
      * @field timeout 超时毫秒数
      */
@@ -44,19 +56,21 @@ export class FetchLimiting {
    * @param {RequestInit} [init=undefined] 请求的其他可选项，默认为 undefined
    * @returns {Promise} 如果超时就提前返回 reject, 否则正常返回 fetch 结果
    */
-  async fetch (url, init) {
+  public async fetch(
+    input: RequestInfo,
+    init?: RequestInit,
+  ): Promise<Response> {
     const _innerFetch = async () => {
       this.execCount++
       const args = this.waitArr.shift()
       try {
         // 这里的 args 实际上就是 arguments 对象，即上面的 url 和 init
-        // @ts-ignore
-        return await fetchTimeout(fetch(...args), this.timeout)
+        return await fetchTimeout(fetch(args![0], args![1]), this.timeout)
       } finally {
         this.execCount--
       }
     }
-    this.waitArr.push(arguments)
+    this.waitArr.push([input, init])
     await wait(() => this.execCount < this.limit)
     // 尝试启动等待队列
     return _innerFetch()

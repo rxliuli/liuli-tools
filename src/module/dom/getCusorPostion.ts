@@ -3,6 +3,6 @@
  * @param  {HTMLFormElement} el 需要获取的输入框元素
  * @returns {Number} 光标所在位置的下标
  */
-export function getCusorPostion (el) {
+export function getCusorPostion(el: HTMLFormElement): number {
   return el.selectionStart
 }

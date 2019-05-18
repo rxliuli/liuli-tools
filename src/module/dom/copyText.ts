@@ -3,7 +3,7 @@
  * @param {String} text 要进行复制的文本
  * @returns {Boolean} 是否复制成功
  */
-export function copyText (text) {
+export function copyText(text: string): boolean {
   const input = document.createElement('input')
   document.body.appendChild(input)
   input.setAttribute('value', text)

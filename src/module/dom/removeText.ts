@@ -7,10 +7,10 @@ import { setCusorPostion } from './setCusorPostion'
  * @param {Number} [start] 开始位置，默认为当前选中开始位置
  * @param {Number} [end] 结束位置，默认为当前选中结束位置
  */
-export function removeText (
-  el,
-  start = el.selectionStart,
-  end = el.selectionEnd
+export function removeText(
+  el: HTMLFormElement,
+  start: number = el.selectionStart,
+  end: number = el.selectionEnd,
 ) {
   // 删除之前必须要 [记住] 当前光标的位置
   const index = getCusorPostion(el)

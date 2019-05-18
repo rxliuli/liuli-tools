@@ -7,7 +7,7 @@ import { asIterator } from './../array/asIterator'
  * @returns {Array} 转换后的数组
  * @deprecated 已被原生函数 Array.from 取代
  */
-export function formDataToArray (fd) {
+export function formDataToArray(fd: FormData): Array<[string, string | Blob]> {
   // @ts-ignore
-  return asIterator(fd.entries())
+  return Array.from(fd)
 }

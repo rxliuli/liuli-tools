@@ -5,7 +5,10 @@
  * @param {Object} obj 键值对对象
  * @returns {FormData} 设置完成后的 FormData 对象
  */
-export function sets (fd, obj) {
+export function sets(
+  fd: FormData,
+  obj: Record<string, string | Blob | any>,
+): FormData {
   for (const k in obj) {
     fd.set(k, obj[k])
   }

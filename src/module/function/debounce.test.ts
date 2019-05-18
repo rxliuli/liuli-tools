@@ -16,19 +16,24 @@ describe('test debounce', () => {
     await wait(20)
     expect(num).toBe(2)
   })
-  it('test this', async function () {
+  it('test this', async function() {
+    // @ts-ignore
     this.num = 0
+    // @ts-ignore
     const fn = debounce(10, () => this.num++)
     repeatedCall(3, fn)
     await wait(20)
+    // @ts-ignore
     expect(this.num).toBe(1)
     fn()
     await wait(20)
+    // @ts-ignore
     expect(this.num).toBe(2)
   })
-  it('test for bind this', async function () {
+  it('test for bind this', async function() {
     const obj = { num: 0 }
-    const fn = debounce(10, function () {
+    const fn = debounce(10, function() {
+      // @ts-ignore
       return this.num++
     }).bind(obj)
     repeatedCall(3, fn)
@@ -39,7 +44,7 @@ describe('test debounce', () => {
     expect(obj.num).toBe(2)
   })
   it('async and return result', async () => {
-    const add = async (a, b) => a + b
+    const add = async (a: number, b: number) => a + b
     const fn = debounce(10, add, 0)
     // 这里没有使用 await 的原因是因为会造成顺序执行
     fn(1, 2).then(res => expect(res).toBe(0))

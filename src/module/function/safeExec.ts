@@ -5,7 +5,11 @@
  * @param {...Object} [args] 可选的函数参数
  * @returns {Object|undefined} 函数执行的结果，或者其默认值
  */
-export function safeExec (fn, defaultVal = null, ...args) {
+export function safeExec<R>(
+  fn: (...args: any[]) => R,
+  defaultVal: R | null = null,
+  ...args: any[]
+): R | null {
   try {
     return fn(...args)
   } catch (err) {

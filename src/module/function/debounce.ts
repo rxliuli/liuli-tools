@@ -11,16 +11,20 @@
  * @param {Object} [init=undefined] 初始的缓存值，不填默认为 {@link undefined}
  * @return {Function} 包装后有去抖功能的函数。该函数是异步的，与需要包装的函数 {@link action} 是否异步没有太大关联
  */
-export function debounce (delay, action, init = undefined) {
-  let flag
+export function debounce<Func extends Function = (...args: any[]) => any>(
+  delay: number,
+  action: Func,
+  init: any = null,
+): Func {
+  let flag: number
   let result = init
   return new Proxy(action, {
-    apply (target, thisArg, args) {
+    apply(_: Func, _this: any, args: ArrayLike<any>) {
       return new Promise(resolve => {
         if (flag) clearTimeout(flag)
         flag = setTimeout(
-          () => resolve((result = Reflect.apply(target, thisArg, args))),
-          delay
+          () => resolve((result = Reflect.apply(_, _this, args))),
+          delay,
         )
         setTimeout(() => resolve(result), delay)
       })

@@ -5,13 +5,13 @@
  * @param  {...any} args 应用的部分参数
  * @returns {Function} 包装后的函数
  */
-export function curry (fn, ...args) {
+export function curry(fn: Function, ...args: any[]): Function {
   const realArgs = args.filter(arg => arg !== curry._)
   if (realArgs.length >= fn.length) {
     return fn(...realArgs)
   }
 
-  function innerFn (...otherArgs) {
+  function innerFn(...otherArgs: any[]) {
     // 记录需要移除补到前面的参数
     const removeIndexSet = new Set()
     let i = 0

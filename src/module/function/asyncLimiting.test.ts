@@ -13,7 +13,7 @@ describe('test asyncLimiting', () => {
   })
   it('test order', async () => {
     let sum = 0
-    const add = async i => {
+    const add = async (i: number) => {
       await wait(100)
       sum += i
     }

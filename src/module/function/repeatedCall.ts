@@ -7,6 +7,10 @@ import { range } from '../array/range'
  * @param  {...Object} args 参数
  * @returns {Array} 执行返回结果
  */
-export function repeatedCall (num, fn, ...args) {
+export function repeatedCall<R>(
+  num: number,
+  fn: (...args: any[]) => R,
+  ...args: any[]
+): R[] {
   return range(0, num).map(() => fn(...args))
 }

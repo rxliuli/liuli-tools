@@ -7,7 +7,7 @@ import { wait } from './wait'
 describe('test timing', () => {
   it('test timing for normal function', () => {
     const fn = () => {
-      let now = Date.now()
+      const now = Date.now()
       while (true) {
         if (Date.now() - now > 100) {
           break
@@ -19,8 +19,10 @@ describe('test timing', () => {
   it('test timing for promise function', async () => {
     expect(await timing(() => wait(100))).toBeGreaterThan(95)
   })
-  it('test this', async function () {
+  it('test this', async function() {
+    // @ts-ignore
     this.num = 100
+    // @ts-ignore
     expect(await timing(() => wait(this.num))).toBeGreaterThan(95)
   })
 })

@@ -6,8 +6,8 @@ import { curry } from './curry'
  * @param {Function} fn2 第二个函数
  * @returns {Function} 连接后的函数
  */
-const _compose = (fn1, fn2) => {
-  return function (...args) {
+const _compose = (fn1: Function, fn2: Function): Function => {
+  return function(...args: any[]) {
     const res = curry(fn1, ...args)
     // 如果这个函数的参数不足，则返回它
     // @ts-ignore
@@ -25,6 +25,6 @@ const _compose = (fn1, fn2) => {
  * @param  {...Function} fns 多个需要连接函数
  * @returns {Function} 连接后的柯里化函数
  */
-export function compose (...fns) {
+export function compose(...fns: Function[]): Function {
   return fns.reduceRight((fn1, fn2) => _compose(fn2, fn1))
 }

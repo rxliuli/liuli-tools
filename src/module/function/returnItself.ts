@@ -4,6 +4,6 @@
  * @param obj 任何对象
  * @returns 传入的第一个参数
  */
-export function returnItself(obj: any): any {
+export function returnItself<T>(obj: T): T {
   return obj
 }

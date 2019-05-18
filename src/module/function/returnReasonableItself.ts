@@ -6,10 +6,10 @@
  * @param {...Object} args 任何对象
  * @returns {undefined|Object|Array.<Object>} 传入的参数
  */
-export function returnReasonableItself (...args) {
+export function returnReasonableItself(...args: any[]): null | any | any[] {
   const len = args.length
   if (len === 0) {
-    return
+    return null
   }
   if (len === 1) {
     return args[0]

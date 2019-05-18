@@ -60,7 +60,7 @@ describe('test treeToList', () => {
       { id: 7, parentId: 5, path: '1,5,7' },
     ]
     expect(
-      excludeFieldsDeep(treeToList(tree, { calcPath: true }), 'child')
+      excludeFieldsDeep(treeToList(tree, { calcPath: true }), 'child'),
     ).toEqual(list)
   })
   it('custom field for node', () => {
@@ -98,8 +98,8 @@ describe('test treeToList', () => {
           }),
           calcPath: true,
         }),
-        'childrens'
-      )
+        'childrens',
+      ),
     ).toEqual(list)
   })
 })

@@ -36,17 +36,12 @@ describe('test NodeBridgeUtil', () => {
         },
       ],
     }
-    // @ts-ignore
     const newTree = nodeBridgeUtil.bridgeTree(tree, bridgeNode)
-    // @ts-ignore
     expect(newTree.child[0].child[0].id).toBe(3)
   })
   it('test bridgeList', () => {
     class CustomNode {
-      constructor (uid, parent) {
-        this.uid = uid
-        this.parent = parent
-      }
+      constructor(public uid: number, public parent?: number) {}
     }
     const list = [
       new CustomNode(1),

@@ -29,6 +29,7 @@ describe('test treeForeach', () => {
     treeMapping(tree, {
       before: (node, parentPath) => {
         const _node = bridge(node)
+        // @ts-ignore
         _node.parentPath = parentPath
         return _node
       },

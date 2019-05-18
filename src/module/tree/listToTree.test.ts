@@ -1,5 +1,6 @@
-import { listToTree } from './listToTree'
+import { listToTree, IListToTreeOptoins } from './listToTree'
 import { nodeBridgeUtil } from './nodeBridgeUtil'
+import { INode } from './INode'
 
 /**
  * @test {listToTree}
@@ -7,10 +8,7 @@ import { nodeBridgeUtil } from './nodeBridgeUtil'
 describe('test listToTree', () => {
   it('simple example', () => {
     class Node {
-      constructor (id, parentId) {
-        this.id = id
-        this.parentId = parentId
-      }
+      constructor(public id: number, public parentId?: number) {}
     }
     const list = [
       new Node(1),
@@ -41,10 +39,7 @@ describe('test listToTree', () => {
   })
   it('test multi root node', () => {
     class Node {
-      constructor (id, parentId) {
-        this.id = id
-        this.parentId = parentId
-      }
+      constructor(public id: number, public parentId?: number) {}
     }
     const list = [
       new Node(1),
@@ -72,10 +67,7 @@ describe('test listToTree', () => {
   })
   it('test no root node', () => {
     class Node {
-      constructor (id, parentId) {
-        this.id = id
-        this.parentId = parentId
-      }
+      constructor(public id: number, public parentId: number) {}
     }
     const list = [
       new Node(2, 1),
@@ -88,10 +80,7 @@ describe('test listToTree', () => {
     expect(listToTree(list)).toEqual({})
   })
   class CustomNode {
-    constructor (uid, parent) {
-      this.uid = uid
-      this.parent = parent
-    }
+    constructor(public uid: number, public parent?: number) {}
   }
   const result = {
     uid: 1,
@@ -112,23 +101,24 @@ describe('test listToTree', () => {
   it('test custom field getter and setter', () => {
     // 桥接类 BridgeNode，使用 getter/setter 包装对象
     class BridgeNode {
-      constructor ({ uid, parent, ...args }) {
+      public uid: number
+      public parent?: number
+      constructor({ uid, parent }: CustomNode) {
         this.uid = uid
         this.parent = parent
-        Object.assign(this, args)
       }
       // 定义 Getter 拦截 id 并返回 this.uid
-      get id () {
+      get id() {
         return this.uid
       }
-      set id (id) {
+      set id(id) {
         this.uid = id
       }
-      get parentId () {
+      get parentId() {
         return this.parent
       }
 
-      set parentId (parentId) {
+      set parentId(parentId) {
         this.parent = parentId
       }
     }
@@ -146,30 +136,30 @@ describe('test listToTree', () => {
     expect(listToTree(list)).toEqual(result)
   })
   it('test custom proxy', () => {
-    const handler = {
-      get (target, k) {
+    const handler: ProxyHandler<CustomNode> = {
+      get(target: CustomNode, k: PropertyKey) {
         if (k === 'id') {
           return target.uid
         }
         if (k === 'parentId') {
           return target.parent
         }
-        return target[k]
+        return Reflect.get(target, k)
       },
-      set (target, k, v) {
+      set(target: CustomNode, k: PropertyKey, v: any) {
         if (k === 'id') {
           target.uid = v
-          return
+          return false
         }
         if (k === 'parentId') {
           target.parent = v
-          return
+          return false
         }
-        target[k] = v
+        Reflect.set(target, k, v)
         return true
       },
     }
-    function bridgeNode (node) {
+    function bridgeNode(node: CustomNode) {
       return new Proxy(node, handler)
     }
     // 使用 bridge 代理过的 Node 类

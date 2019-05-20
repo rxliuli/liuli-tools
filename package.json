@@ -12,7 +12,7 @@
     "build": "npm run build:prod",
     "lint": "tslint \"src/**/*.ts\" ",
     "docs": "esdoc",
-    "test": "jest --watchAll",
+    "test": "jest --watch",
     "coverage": "jest --coverage",
     "fix": "eslint --fix src/",
     "server": "npm run docs && npm run coverage && live-server docs/ --port=4000",

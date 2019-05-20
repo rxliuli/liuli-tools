@@ -1,7 +1,6 @@
 import { returnItself } from '../function/returnItself'
 import { convert } from '../interface/convert'
-
-type Callback<T, R> = (item: T, index?: number, arr?: T[]) => R
+import { ArrayCallback } from '../interface/ArrayCallback'
 
 /**
  * 将数组映射为 Map
@@ -12,8 +11,8 @@ type Callback<T, R> = (item: T, index?: number, arr?: T[]) => R
  */
 export function arrayToMap<T, K, V>(
   arr: T[],
-  kFn: Callback<T, K>,
-  vFn: Callback<T, V> = convert(returnItself),
+  kFn: ArrayCallback<T, K>,
+  vFn: ArrayCallback<T, V> = convert(returnItself),
 ): Map<K, V> {
   return arr.reduce(
     (res, item, index, arr) =>

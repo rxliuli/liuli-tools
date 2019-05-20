@@ -35,17 +35,16 @@ function _copyProps<T extends object>(target: T, source: T): T {
  * @param  {...Class} mixins 需要混合的多个类及其构造函数参数映射函数的 Map 集合
  * @returns {Class} 返回一个混合后的类，构造函数将的参数
  */
-export function aggregation(mixins: Map<any, (...args: any[]) => any[]>): any {
-  const arr: Array<[any, (...args: any[]) => any[]]> = Array.from(mixins)
+export function aggregation(mixins: Map<any, (args: any[]) => any[]>): any {
+  const arr: Array<[any, (args: any[]) => any[]]> = Array.from(mixins)
   class Aggregate {
     /**
      * @param {...Object} args 任意数量的参数
      */
     constructor(...args: any[]) {
-      arr.forEach(([Mixin, fn = returnItself]) => {
-        const temp: any[] = fn(args)
-        _copyProps(this, new Mixin(...temp))
-      })
+      arr.forEach(([Mixin, fn = returnItself]) =>
+        _copyProps(this, new Mixin(...fn(args))),
+      )
     }
   }
 

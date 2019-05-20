@@ -15,7 +15,7 @@ describe('test mapToObject', () => {
     ).toEqual({
       name: 'rx',
       age: 17,
-      '1': 1,
+      1: 1,
     })
   })
 })

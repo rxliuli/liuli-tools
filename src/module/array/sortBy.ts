@@ -27,8 +27,8 @@ export function sortBy<T>(
   )
   // 对两个数组分别进行递归排序
   return [
-    ...sortBy(map.has(true) ? map.get(true)! : [], kFn),
+    ...sortBy(map.get(true) || [], kFn),
     median,
-    ...sortBy(map.has(true) ? map.get(false)! : [], kFn),
+    ...sortBy(map.get(false) || [], kFn),
   ]
 }

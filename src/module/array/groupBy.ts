@@ -18,16 +18,16 @@ export function groupBy<T, K, R>(
    * @param {Map} res 最终 map 集合
    * @param {Object} item 当前迭代的元素
    */
-  vFn: (res: R, item: T, index?: number, arr?: T[]) => R = convert(
+  vFn: (res: R, item: T, index: number, arr: T[]) => R = convert(
     (res: T[], item: T) => {
       res.push(item)
       return res
     },
   ),
-  init: () => R = () => convert([]),
+  init: () => R = convert(() => []),
 ): Map<K, R> {
   // 将元素按照分组条件进行分组得到一个 条件 -> 数组 的对象
-  return arr.reduce((res, item: T, index?: number, arr?: T[]) => {
+  return arr.reduce((res, item: T, index: number, arr: T[]) => {
     const k = kFn(item, index, arr)
     // 如果已经有这个键了就直接追加, 否则先将之初始化再追加元素
     if (!res.has(k)) {

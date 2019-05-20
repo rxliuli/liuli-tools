@@ -50,13 +50,13 @@ export function compare(x: any, y: any): boolean {
     return false
   }
   // 比较 y 中的属性是否全部都在 x 中
-  for (let p of Reflect.ownKeys(y)) {
+  for (const p of Reflect.ownKeys(y)) {
     if (!Reflect.has(x, p)) {
       return false
     }
   }
   // 比较 x 中的属性是否全部都在 y 中
-  for (let p of Reflect.ownKeys(x)) {
+  for (const p of Reflect.ownKeys(x)) {
     if (!Reflect.has(y, p)) {
       return false
     }

@@ -6,6 +6,6 @@ import path from 'path'
  * @param {String} relaPath 相对路径
  * @returns {String} 绝对路径
  */
-export function calcPath (relaPath) {
+export function calcPath(relaPath) {
   return path.resolve(__dirname, relaPath)
 }

@@ -20,6 +20,3 @@ export function arrayToMap<T, K, V>(
     new Map<K, V>(),
   )
 }
-
-const map: Map<number, string> = arrayToMap([1, 2], i => i, i => i + '')
-const map2: Map<number, number> = arrayToMap([1, 2], i => i)

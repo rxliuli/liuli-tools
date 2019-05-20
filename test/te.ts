@@ -1,5 +1,8 @@
-import { ArrayCallback } from '../interface/ArrayCallback'
-import { convert } from '../interface/convert'
+export type ArrayCallback<T, R> = (item: T, index?: number, arr?: T[]) => R
+
+export function convert<T, R>(t: T): R {
+  return (t as unknown) as R
+}
 
 /**
  * js 数组按照某个条件进行分组
@@ -37,3 +40,6 @@ export function groupBy<T, K, R>(
     return res
   }, new Map())
 }
+
+// 推导出来的类型居然是: Map<boolean, {}>
+const map = groupBy([1, 2, 3], i => i % 2 === 0)

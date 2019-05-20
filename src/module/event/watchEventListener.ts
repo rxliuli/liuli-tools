@@ -1,4 +1,5 @@
 import { watch } from '../function/watch'
+import { groupBy } from '../array/groupBy'
 
 /**
  * 用来保存监听到的事件信息
@@ -24,7 +25,7 @@ export function watchEventListener() {
   const documentRemoveEventListener = document.removeEventListener
   const eventTargetRemoveEventListener =
     EventTarget.prototype.removeEventListener
-  const events: Event[] = []
+  let events: Event[] = []
 
   /**
    * 自定义的添加事件监听函数
@@ -61,15 +62,17 @@ export function watchEventListener() {
       _this === document
         ? documentRemoveEventListener
         : eventTargetRemoveEventListener
-    const removeIndexArr = events
-      .map((e, i) => (e.el === _this || e.type === arguments[0] ? i : -1))
-      .filter(i => i !== -1)
-    removeIndexArr.forEach(i => {
-      const e = events[i]
+    const map: Map<boolean, Event[]> = groupBy(
+      events,
+      e => e.el === _this && e.type === type,
+    )
+    const removeArr = map.get(true)
+    removeArr!.forEach(e => {
       // @ts-ignore
       $removeEventListener.apply(e.el, [e.type, e.listener, e.useCapture])
     })
-    removeIndexArr.sort((a, b) => b - a).forEach(i => events.splice(i, 1))
+    // @ts-ignore
+    events = map.get(false)
   }
 
   // @ts-ignore

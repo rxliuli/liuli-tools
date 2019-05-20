@@ -21,14 +21,14 @@ export function sortBy<T>(
   const newArr = arr.slice()
   const median = newArr.splice(medianIndex, 1)[0]
   const medianValue = kFn(median, medianIndex, arr)
-  const map = groupBy(
+  const map: Map<boolean, T[]> = groupBy(
     newArr,
     (item, ...args) => kFn(item, ...args) < medianValue,
   )
   // 对两个数组分别进行递归排序
   return [
-    ...sortBy(map.get(true) || [], kFn),
+    ...sortBy(map.has(true) ? map.get(true)! : [], kFn),
     median,
-    ...sortBy(map.get(false) || [], kFn),
+    ...sortBy(map.has(true) ? map.get(false)! : [], kFn),
   ]
 }

@@ -1,9 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
+    "target": "es2015",
     "lib": [
       "esnext",
       "dom"
+    ],
+    "types": [
+      "typescript",
+      "jest",
+      "jest-extended"
     ],
     "module": "ESNext",
     "declaration": true,

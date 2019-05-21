@@ -1,14 +1,14 @@
-// import asIterator from './asIterator'
+import { asIterator } from './asIterator'
 
 /**
  * @test {asIterator}
  */
 describe.skip('test asIterator', () => {
-  it('asIterator test Array', () => {
-    // TODO 这里无法测试 Iterator 接口，未解决。。。
-    // const arr = ['name', 'age', 'sex']
-    // const iterator = arr.values()
-    // expect(asIterator(iterator)).toContain(arr)
-    // expect(asIterator(iterator)).toContain(Array.from(iterator))
+  it('test Set', () => {
+    const arr = [1, 2, 3]
+    const set = new Set(arr)
+    const iterator = set.values()
+    expect(asIterator(iterator)).toIncludeAllMembers(arr)
+    expect(asIterator(iterator)).toIncludeAllMembers(Array.from(iterator))
   })
 })

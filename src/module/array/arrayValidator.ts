@@ -6,8 +6,8 @@ import { isNullOrUndefined } from '../obj/isNullOrUndefined'
 export class ArrayValidator {
   /**
    * 是否为空数组
-   * @param {Array} array 空数组
-   * @returns {Boolean} 是否为空数组
+   * @param array 空数组
+   * @returns 是否为空数组
    */
   public isEmpty(array: any[] | null | undefined): boolean {
     return (

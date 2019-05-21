@@ -11,6 +11,13 @@ describe('test groupBy', () => {
       new Map().set(true, [2]).set(false, [1, 3]),
     )
   })
+  it('use groupBy', () => {
+    const arr = [1, 2, 3]
+    expect(
+      // 注意: 由于 ts 类型推断的限制，此处的 res: string[] 是必不可少的！
+      groupBy(arr, i => i % 2 === 0, (res: string[], i) => [...res, i + '']),
+    ).toEqual(new Map().set(true, ['2']).set(false, ['1', '3']))
+  })
   it('groupBy for eval sum', () => {
     const arr = [1, 2, 3, 4]
     // 分组完成之后立即计算总和

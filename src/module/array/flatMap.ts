@@ -1,15 +1,18 @@
+import { ArrayCallback } from '../interface/ArrayCallback'
+import { convert } from '../interface/convert'
+
 /**
  * 自行实现 flatMap，将数组压平一层
- * @param {Array.<Object>} arr 数组
- * @param {function(item:Object):Array.<Object>} fn 映射方法，将一个元素映射为一个数组
- * @returns {Array.<Object>} 压平一层的数组
+ * @param arr 数组
+ * @param fn 映射方法，将一个元素映射为一个数组
+ * @returns 压平一层的数组
  */
-export function flatMap(
-  arr: any[],
-  fn: (item: any, ...args: any[]) => any[],
-): any[] {
-  return arr.reduce((res, item, ...args) => {
-    res.push(...fn(item, ...args))
+export function flatMap<T, V>(
+  arr: T[],
+  fn: ArrayCallback<T, V[]> = v => Array.from(convert(v)),
+): V[] {
+  return arr.reduce((res, v, i, arr) => {
+    res.push(...fn(v, i, arr))
     return res
-  }, [])
+  }, new Array<V>())
 }

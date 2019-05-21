@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es6",
     "lib": [
       "esnext",
       "dom"
@@ -10,7 +10,7 @@
       "jest",
       "jest-extended"
     ],
-    "module": "ESNext",
+    "module": "esnext",
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",
@@ -25,7 +25,6 @@
   },
   "include": [
     "./src/**/*",
-    "test/jest-setup.ts"
   ],
   "exclude": [
     "./dist"

@@ -22,9 +22,9 @@ export class FetchLimiting {
   private waitArr: Array<[RequestInfo, RequestInit | undefined]>
   /**
    * 构造函数
-   * @param {Object} [option] 可选配置项
-   * @param {Number} [option.timeout=10000] 超时毫秒数
-   * @param {Number} [option.limit=10] 最大并发数限制
+   * @param [option] 可选配置项
+   * @param [option.timeout=10000] 超时毫秒数
+   * @param [option.limit=10] 最大并发数限制
    */
   constructor({
     timeout = 10000,
@@ -52,9 +52,9 @@ export class FetchLimiting {
   /**
    * 执行一个请求
    * 如果到达最大并发限制时就进行等待
-   * @param {RequestInfo} url 请求 url 信息
-   * @param {RequestInit} [init=undefined] 请求的其他可选项，默认为 undefined
-   * @returns {Promise} 如果超时就提前返回 reject, 否则正常返回 fetch 结果
+   * @param url 请求 url 信息
+   * @param [init=undefined] 请求的其他可选项，默认为 undefined
+   * @returns 如果超时就提前返回 reject, 否则正常返回 fetch 结果
    */
   public async fetch(
     input: RequestInfo,

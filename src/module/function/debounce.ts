@@ -6,9 +6,9 @@
  * 注: 该函数第一次调用一定不会执行，第一次一定拿不到缓存值，后面的连续调用都会拿到上一次的缓存值。如果需要在第一次调用获取到的缓存值，则需要传入第三个参数 {@link init}，默认为 {@link undefined} 的可选参数
  * 注: 返回函数结果的高阶函数需要使用 {@link Proxy} 实现，以避免原函数原型链上的信息丢失
  *
- * @param {Number} delay 最小延迟时间，单位为 ms
- * @param {Function} action 真正需要执行的操作
- * @param {Object} [init=undefined] 初始的缓存值，不填默认为 {@link undefined}
+ * @param delay 最小延迟时间，单位为 ms
+ * @param action 真正需要执行的操作
+ * @param [init=undefined] 初始的缓存值，不填默认为 {@link undefined}
  * @return {Function} 包装后有去抖功能的函数。该函数是异步的，与需要包装的函数 {@link action} 是否异步没有太大关联
  */
 export function debounce<Func extends Function = (...args: any[]) => any>(

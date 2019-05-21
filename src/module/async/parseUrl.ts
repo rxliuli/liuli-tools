@@ -13,15 +13,15 @@
 //   public port: number
 //   /**
 //    * 构造函数
-//    * @param {Object} option 可选项
-//    * @param {String} [option.href=''] 不包含网站域名的链接
-//    * @param {String} [option.website=''] URL 站点
-//    * @param {String} [option.protocol=''] 协议
-//    * @param {String} [option.domain=''] 域名
-//    * @param {String} [option.accessPath=''] 绝对路径,不包含参数
-//    * @param {Object} [option.params={}] 参数列表,
-//    * @param {String} [option.url=''] 原 url 链接
-//    * @param {Number} [option.port=0] 端口号
+//    * @param option 可选项
+//    * @param [option.href=''] 不包含网站域名的链接
+//    * @param [option.website=''] URL 站点
+//    * @param [option.protocol=''] 协议
+//    * @param [option.domain=''] 域名
+//    * @param [option.accessPath=''] 绝对路径,不包含参数
+//    * @param [option.params={}] 参数列表,
+//    * @param [option.url=''] 原 url 链接
+//    * @param [option.port=0] 端口号
 //    */
 //   constructor({
 //     href = '',
@@ -80,8 +80,8 @@
 
 // /**
 //  * 解析 url 字符串
-//  * @param {string} url url 字符串，不能为空
-//  * @returns {UrlObject} url 对象
+//  * @param url url 字符串，不能为空
+//  * @returns url 对象
 //  */
 // export function parseUrl(url: string) {
 //   if (!url) {

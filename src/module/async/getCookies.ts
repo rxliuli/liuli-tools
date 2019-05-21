@@ -1,6 +1,6 @@
 /**
  * 获取 cookie 键值映射 Map
- * @returns {Map.<String,String>} cookie 键值映射 Map
+ * @returns cookie 键值映射 Map
  */
 export function getCookies() {
   return document.cookie.split(';').reduce((res, str) => {

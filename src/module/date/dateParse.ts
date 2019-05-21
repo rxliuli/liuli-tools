@@ -8,10 +8,10 @@ import { arrayToMap } from './../array/arrayToMap'
 class DateFormat {
   /**
    * 构造函数
-   * @param {String} name 日期格式的名称
-   * @param {String} format 日期的格式值
-   * @param {String} value 格式化得到的值
-   * @param {Number} index 需要替换位置的索引
+   * @param name 日期格式的名称
+   * @param format 日期的格式值
+   * @param value 格式化得到的值
+   * @param index 需要替换位置的索引
    */
   constructor(
     public name: string,
@@ -42,9 +42,9 @@ const defaultDateValues = new Map()
   .set('millieSecond', '000')
 /**
  * 解析字符串为 Date 对象
- * @param {String} str 日期字符串
- * @param {String} fmt 日期字符串的格式，目前仅支持使用 y(年),M(月),d(日),h(时),m(分),s(秒),S(毫秒)
- * @returns {Date} 解析得到的 Date 对象
+ * @param str 日期字符串
+ * @param fmt 日期字符串的格式，目前仅支持使用 y(年),M(月),d(日),h(时),m(分),s(秒),S(毫秒)
+ * @returns 解析得到的 Date 对象
  */
 export function dateParse(
   str: string | null | undefined,

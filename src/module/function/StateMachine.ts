@@ -18,9 +18,9 @@ export class StateMachine {
       /**
        * 注册一个 class，创建子类时调用，用于记录每一个 [状态 => 子类] 对应
        * 注: 此处不再默认使用单例模式，如果需要，请自行对 class 进行包装
-       * @param {Number|String} state 作为键的状态
-       * @param {Object} clazz 对应的子类型
-       * @returns {Object} 返回 clazz 本身
+       * @param state 作为键的状态
+       * @param clazz 对应的子类型
+       * @returns 返回 clazz 本身
        */
       public register(state: K, clazz: Newable): object {
         classMap.set(state, clazz)
@@ -29,9 +29,9 @@ export class StateMachine {
 
       /**
        * 获取一个标签子类对象
-       * @param {Number|String} state 状态索引
-       * @param {...Object} [args] 构造函数的参数
-       * @returns {Object} 子类对象
+       * @param state 状态索引
+       * @param [args] 构造函数的参数
+       * @returns 子类对象
        */
       public getInstance(state: K, ...args: undefined[]) {
         const Class = classMap.get(state)

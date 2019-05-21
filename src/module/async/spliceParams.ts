@@ -7,16 +7,16 @@ import { dateFormat } from '../date/dateFormat'
 const deteFormatter = 'yyyy-MM-ddThh:mm:ss.SSS'
 /**
  * 编码函数
- * @param {String} k 参数的名字
- * @param {String} v 参数的值
+ * @param k 参数的名字
+ * @param v 参数的值
  */
 const encode = (k: string, v: string) =>
   encodeURIComponent(k) + '=' + encodeURIComponent(v)
 
 /**
  * 拼接参数字符串
- * @param {Object} params 参数对象
- * @returns {String} 拼接后的字符串
+ * @param params 参数对象
+ * @returns 拼接后的字符串
  */
 export function spliceParams(params: object = {}): string {
   return Array.from(Object.entries(params)).reduce((res, [k, v]) => {

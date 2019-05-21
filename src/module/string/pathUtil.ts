@@ -9,8 +9,8 @@ export class PathUtil {
   /**
    * 拼接两个路径
    *
-   * @param {String} pathStart 开始路径
-   * @param {String} pathEnd   结束路径
+   * @param pathStart 开始路径
+   * @param pathEnd   结束路径
    * @return {String} 拼接完成的两个路径
    */
   private static _join(pathStart: string, pathEnd: string): string {
@@ -28,7 +28,7 @@ export class PathUtil {
   /**
    * 拼接多个路径
    *
-   * @param {...String} paths 路径数组
+   * @param paths 路径数组
    * @return {String} 拼接完成的路径
    */
   public join(...paths: string[]): string {

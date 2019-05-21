@@ -3,8 +3,8 @@ import { getObjectValues } from './getObjectValues'
 
 /**
  * 递归使对象不可变
- * @param {Object} obj 任何非空对象
- * @returns {Object} 新的不可变对象
+ * @param obj 任何非空对象
+ * @returns 新的不可变对象
  */
 export function deepFreeze(
   obj: Record<PropertyKey, any>,

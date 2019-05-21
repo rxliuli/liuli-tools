@@ -1,7 +1,7 @@
 /**
  * 在浏览器上下载二进制资源
- * @param {Blob} blob 要下载的二进制资源
- * @param {String} filename 文件名
+ * @param blob 要下载的二进制资源
+ * @param filename 文件名
  */
 export function download(blob: Blob, filename = 'unknown') {
   // 创建隐藏的可下载链接

@@ -1,8 +1,8 @@
 /**
  * 深度比较两个对象是否相等
- * @param {any} x 任何对象
- * @param {any} y 任何对象
- * @returns {Boolean} 是否相等
+ * @param x 任何对象
+ * @param y 任何对象
+ * @returns 是否相等
  */
 export function compare(x: any, y: any): boolean {
   if (typeof x === 'number' && typeof y === 'number') {

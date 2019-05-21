@@ -2,8 +2,8 @@ import { objectToMap } from '../obj/objectToMap'
 
 /**
  * 桥接对象不存在的字段
- * @param {Map.<String|Number|symbol, String|Number|symbol>|Object} map 代理的字段映射 Map
- * @returns {Function} 转换一个对象为代理对象
+ * @param map 代理的字段映射 Map
+ * @returns 转换一个对象为代理对象
  */
 export function bridge<T extends object>(
   map: Map<PropertyKey, PropertyKey> | object,
@@ -11,8 +11,8 @@ export function bridge<T extends object>(
   const _map = map instanceof Map ? map : objectToMap(map)
   /**
    * 为对象添加代理的函数
-   * @param {Object} obj 任何对象
-   * @returns {Proxy} 代理后的对象
+   * @param obj 任何对象
+   * @returns 代理后的对象
    */
   return function(obj: T): T {
     return new Proxy(obj, {

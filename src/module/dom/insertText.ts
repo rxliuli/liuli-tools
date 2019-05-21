@@ -3,9 +3,9 @@ import { setCusorPostion } from './setCusorPostion'
 
 /**
  * 在指定位置后插入文本
- * @param {HTMLFormElement} el 需要设置的输入框元素
- * @param {String} text 要插入的值
- * @param {Number} [start] 开始位置，默认为当前光标处
+ * @param el 需要设置的输入框元素
+ * @param text 要插入的值
+ * @param [start] 开始位置，默认为当前光标处
  */
 export function insertText(
   el: HTMLFormElement,

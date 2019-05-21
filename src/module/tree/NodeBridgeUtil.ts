@@ -10,8 +10,8 @@ import { INode } from './INode'
 export class NodeBridgeUtil {
   /**
    * 桥接对象为标准的树结构
-   * @param {INodeBridge} [nodeBridge=new NodeBridge()] 桥接对象
-   * @returns {Function} 代理函数
+   * @param [nodeBridge=new NodeBridge()] 桥接对象
+   * @returns 代理函数
    */
   public bridge<T>({
     id = 'id',
@@ -28,9 +28,9 @@ export class NodeBridgeUtil {
   }
   /**
    * 桥接一棵完整的树
-   * @param {INode} tree 树节点
-   * @param {INodeBridge} [nodeBridge=new INodeBridge()] 桥接对象
-   * @returns {INode} 代理后的树对象
+   * @param tree 树节点
+   * @param [nodeBridge=new INodeBridge()] 桥接对象
+   * @returns 代理后的树对象
    */
   public bridgeTree<T>(tree: T, nodeBridge?: INodeBridge): INode {
     return treeMapping(tree, {
@@ -39,9 +39,9 @@ export class NodeBridgeUtil {
   }
   /**
    * 桥接一个树节点列表
-   * @param {Array.<INode>} list 树节点列表
-   * @param {INodeBridge} [nodeBridge=new NodeBridge()] 桥接对象
-   * @returns {Array.<INode>} 代理后的树节点列表
+   * @param list 树节点列表
+   * @param [nodeBridge=new NodeBridge()] 桥接对象
+   * @returns 代理后的树节点列表
    */
   public bridgeList<T>(list: T[], nodeBridge?: INodeBridge): INode[] {
     return list.map(this.bridge(nodeBridge))

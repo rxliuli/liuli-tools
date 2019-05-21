@@ -1,8 +1,8 @@
 /**
  * 将字符串转为字符流
  *
- * @param {String} str 字符串
- * @returns {ArrayBuffer} 字符流对象
+ * @param str 字符串
+ * @returns 字符流对象
  */
 export function strToArrayBuffer(str: string): ArrayBuffer {
   const buf = new ArrayBuffer(str.length)

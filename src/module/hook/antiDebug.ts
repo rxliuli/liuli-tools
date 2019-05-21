@@ -17,7 +17,7 @@ export const antiDebug = {
 
   /**
    * 检查是否正在 debugger 并调用回调函数
-   * @param {Function} fn 回调函数，默认为重载页面
+   * @param fn 回调函数，默认为重载页面
    */
   checkDebug(fn: Function = () => window.location.reload()) {
     setInterval(() => {

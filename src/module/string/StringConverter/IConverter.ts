@@ -6,7 +6,7 @@ export class IConverter {
   /**
    * 将字符串解析为字符串列表
    *
-   * @param {String} str 字符串
+   * @param str 字符串
    * @return {Array.<String>} 字符串列表
    * @abstract
    */
@@ -16,7 +16,7 @@ export class IConverter {
   /**
    * 将字符串列表构造为字符串
    *
-   * @param {Array.<String>} list 字符串列表
+   * @param list 字符串列表
    * @return {String} 字符串
    * @abstract
    */

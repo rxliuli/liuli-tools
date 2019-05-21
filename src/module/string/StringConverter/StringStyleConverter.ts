@@ -12,8 +12,8 @@ export class StringStyleConverter {
   private toConverter: IConverter
   /**
    * 构造一个字符串任意风格转换器
-   * @param {Symbol} from 转换字符串的风格
-   * @param {Symbol} to 需要转换的风格
+   * @param from 转换字符串的风格
+   * @param to 需要转换的风格
    * @private
    */
   constructor(from: StringStyleType, to: StringStyleType) {
@@ -33,7 +33,7 @@ export class StringStyleConverter {
   /**
    * 转换字符串的风格
    *
-   * @param {String} str 要转换的字符串
+   * @param str 要转换的字符串
    * @return {String} 转换得到的字符串
    */
   public convert(str: string): string {

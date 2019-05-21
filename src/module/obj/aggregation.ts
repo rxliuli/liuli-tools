@@ -2,8 +2,8 @@ import { returnItself } from '../function/returnItself'
 
 /**
  * 根据不同的源对象获取不同的正则匹配，代表不需要拷贝的属性
- * @param {Object} source 源对象
- * @returns {RegExp} 匹配内部属性的正则表达式
+ * @param source 源对象
+ * @returns 匹配内部属性的正则表达式
  */
 function getInnerFieldRule(source: any): RegExp {
   if (source instanceof Function) {
@@ -15,9 +15,9 @@ function getInnerFieldRule(source: any): RegExp {
 
 /**
  * 拷贝对象的属性到目标对象上
- * @param {Object} target 目标对象
- * @param {Object} source 源对象
- * @returns {Object} 返回 {@param target} 目标对象
+ * @param target 目标对象
+ * @param source 源对象
+ * @returns 返回 {@param target} 目标对象
  */
 function _copyProps<T extends object>(target: T, source: T): T {
   const innerField = getInnerFieldRule(source)
@@ -33,13 +33,13 @@ function _copyProps<T extends object>(target: T, source: T): T {
 /**
  * 混合多个类
  * @param  {...Class} mixins 需要混合的多个类及其构造函数参数映射函数的 Map 集合
- * @returns {Class} 返回一个混合后的类，构造函数将的参数
+ * @returns 返回一个混合后的类，构造函数将的参数
  */
 export function aggregation(mixins: Map<any, (args: any[]) => any[]>): any {
   const arr: Array<[any, (args: any[]) => any[]]> = Array.from(mixins)
   class Aggregate {
     /**
-     * @param {...Object} args 任意数量的参数
+     * @param args 任意数量的参数
      */
     constructor(...args: any[]) {
       arr.forEach(([Mixin, fn = returnItself]) =>

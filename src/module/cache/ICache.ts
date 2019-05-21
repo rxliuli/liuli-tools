@@ -20,7 +20,7 @@ export class ICache {
   public cacheOption: ICacheOption
   /**
    * 全局缓存选项
-   * @param {ICacheOption} cacheOption 缓存选项
+   * @param cacheOption 缓存选项
    */
   constructor({
     timeout = TimeoutInfinite,
@@ -39,42 +39,42 @@ export class ICache {
   /**
    * 根据 key + value 添加
    * 如果不存在则添加，否则忽略
-   * @param {String} key 缓存的 key
-   * @param {Object} val 缓存的 value
-   * @param {ICacheOption} cacheOption 缓存的选项
+   * @param key 缓存的 key
+   * @param val 缓存的 value
+   * @param cacheOption 缓存的选项
    * @abstract
    */
   public add(key: string, val: object, cacheOption: ICacheOption) {}
   /**
    * 根据指定的 key 删除
    * 如果存在则删除，否则忽略
-   * @param {String} key 删除的 key
+   * @param key 删除的 key
    * @abstract
    */
   public del(key: string) {}
   /**
    * 根据指定的 key 修改
    * 不管是否存在都会设置
-   * @param {String} key 修改的 key
-   * @param {Object} val 修改的 value
-   * @param {ICacheOption} cacheOption 修改的选项
+   * @param key 修改的 key
+   * @param val 修改的 value
+   * @param cacheOption 修改的选项
    * @abstract
    */
   public set(key: string, val: object, cacheOption: ICacheOption) {}
   /**
    * 根据 key 获取
    * 如果存在则获取，否则忽略
-   * @param {String} key 指定的 key
-   * @param {ICacheOption} cacheOption 获取的选项
-   * @returns {Object} 获取到的缓存值
+   * @param key 指定的 key
+   * @param cacheOption 获取的选项
+   * @returns 获取到的缓存值
    * @abstract
    */
   public get(key: string, cacheOption: ICacheOption): any {}
   /**
    * 根据 key 获取并刷新超时时间
-   * @param {String} key 指定的 key
-   * @param {ICacheOption} cacheOption 获取的选项
-   * @returns {Object} 获取到的缓存值
+   * @param key 指定的 key
+   * @param cacheOption 获取的选项
+   * @returns 获取到的缓存值
    * @abstract
    */
   public touch(key: string, cacheOption: ICacheOption): any {}

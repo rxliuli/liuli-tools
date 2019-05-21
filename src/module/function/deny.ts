@@ -1,7 +1,7 @@
 /**
  * 将一个谓词函数取反
- * @param {Function} fn 要取反的函数
- * @returns {Function} 取反得到的函数
+ * @param fn 要取反的函数
+ * @returns 取反得到的函数
  */
 export function deny<Func extends Function = (...args: any[]) => any>(
   fn: Func,

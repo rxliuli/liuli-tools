@@ -7,7 +7,7 @@ export class ScreamingSnakeConverter extends SnakeOrScreamingSnakeFrom {
   /**
    * 将字符串列表构造为字符串
    *
-   * @param {Array.<String>} list 字符串列表
+   * @param list 字符串列表
    * @return {String} 字符串
    * @override
    */

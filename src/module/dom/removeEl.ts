@@ -2,8 +2,8 @@ import { Nullable } from '../interface/global'
 
 /**
  * 直接删除指定元素
- * @param {Element} el 需要删除的元素
- * @returns {Element} 返回被删除的元素
+ * @param el 需要删除的元素
+ * @returns 返回被删除的元素
  */
 export function removeEl(el: Element): Nullable<Node> {
   const parent = el.parentElement

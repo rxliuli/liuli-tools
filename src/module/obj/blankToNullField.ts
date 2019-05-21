@@ -4,8 +4,8 @@ import { getObjectKeys } from './getObjectKeys'
 /**
  * 置空对象所有空白的属性
  *
- * @param {Object} obj 对象
- * @returns {Object} 将所有的空白属性全部转换为 null 的新对象
+ * @param obj 对象
+ * @returns 将所有的空白属性全部转换为 null 的新对象
  */
 export function blankToNullField(
   obj: Record<PropertyKey, any>,

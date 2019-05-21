@@ -7,7 +7,7 @@ import { getObjectEntries } from './getObjectEntries'
  * 1. 该合并的方式为浅层合并，只会合并一层的对象
  * 2. 默认忽略值为 undefined/null 的属性
  * @param  {...Object} sources 任意数量的对象
- * @returns {Object} 合并后的对象
+ * @returns 合并后的对象
  */
 export function assign<T extends object>(
   target: T | null | undefined,

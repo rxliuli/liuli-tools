@@ -6,10 +6,10 @@ export const TimeoutInfinite = 'TimoutInfinite'
 
 /**
  * 缓存选项
- * @param {Number|Symbol|String} [options.timeout] 超时时间，以毫秒为单位
- * @param {Number} [options.timeStart] 缓存开始时间
- * @param {Function} [options.serialize] 缓存序列化
- * @param {Function} [options.deserialize] 缓存反序列化
+ * @param [options.timeout] 超时时间，以毫秒为单位
+ * @param [options.timeStart] 缓存开始时间
+ * @param [options.serialize] 缓存序列化
+ * @param [options.deserialize] 缓存反序列化
  */
 export interface ICacheOption {
   timeout: number | string

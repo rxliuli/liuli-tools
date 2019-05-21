@@ -5,7 +5,7 @@ import { once } from '../function/once'
 function* autoIncrementGenerator(): Generator {
   for (let i = 0; ; i++) {
     /**
-     * @returns {Number} 每次获取都返回循环中的当前迭代变量，然后暂停于此处
+     * @returns 每次获取都返回循环中的当前迭代变量，然后暂停于此处
      */
     yield i
   }

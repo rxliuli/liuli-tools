@@ -6,8 +6,8 @@
  * 注: 该函数第一次调用一定会执行，不需要担心第一次拿不到缓存值，后面的连续调用都会拿到上一次的缓存值
  * 注: 返回函数结果的高阶函数需要使用 {@link Proxy} 实现，以避免原函数原型链上的信息丢失
  *
- * @param {Number} delay 最小间隔时间，单位为 ms
- * @param {Function} action 真正需要执行的操作
+ * @param delay 最小间隔时间，单位为 ms
+ * @param action 真正需要执行的操作
  * @return {Function} 包装后有节流功能的函数。该函数是异步的，与需要包装的函数 {@link action} 是否异步没有太大关联
  */
 export function throttle<R, Func extends Function = (...args: any[]) => R>(

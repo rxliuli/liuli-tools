@@ -29,9 +29,9 @@ export function watchEventListener() {
 
   /**
    * 自定义的添加事件监听函数
-   * @param {String} type 事件类型
-   * @param {EventListener} listener 事件监听函数
-   * @param {Boolean} [useCapture=true] 是否需要捕获事件冒泡，默认为 false
+   * @param type 事件类型
+   * @param listener 事件监听函数
+   * @param [useCapture=true] 是否需要捕获事件冒泡，默认为 false
    */
   function addEventListener(
     type: string,
@@ -52,7 +52,7 @@ export function watchEventListener() {
   /**
    * 自定义的根据类型删除事件函数
    * 该方法会删除这个类型下面全部的监听函数，不管数量
-   * @param {String} type 事件类型
+   * @param type 事件类型
    */
   // @ts-ignore
   function removeEventListenerByType(type: string) {

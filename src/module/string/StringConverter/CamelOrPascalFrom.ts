@@ -6,7 +6,7 @@ export class CamelOrPascalFrom extends IConverter {
   /**
    * 将字符串解析为字符串列表
    *
-   * @param {String} str 字符串
+   * @param str 字符串
    * @return {Array.<String>} 字符串列表
    * @override
    */

@@ -39,16 +39,16 @@ const PostcodeRule = /^\d{6}$/
 export class StringValidator {
   /**
    * 判断一个字符串是否为空字符串
-   * @param {String} str 字符串
-   * @returns {Boolean} 是否为空字符串
+   * @param str 字符串
+   * @returns 是否为空字符串
    */
   public isEmpty(str: any): boolean {
     return isNullOrUndefined(str) || str === ''
   }
   /**
    * 判断一个字符串是否为空白的字符串
-   * @param {String} str 字符串
-   * @returns {Boolean} 是否为空字符串
+   * @param str 字符串
+   * @returns 是否为空字符串
    */
   public isBlank(str: any): boolean {
     return stringValidator.isEmpty(str) || str!.trim() === ''
@@ -56,8 +56,8 @@ export class StringValidator {
 
   /**
    * 判断字符串是否位小数
-   * @param {String} str 需要进行判断的字符串
-   * @returns {Boolean} 是否为小数
+   * @param str 需要进行判断的字符串
+   * @returns 是否为小数
    */
   public isFloat(str: any): boolean {
     return FloatRule.test(str!)
@@ -65,56 +65,56 @@ export class StringValidator {
 
   /**
    * 判断字符串是否位整数
-   * @param {String} str 需要进行判断的字符串
-   * @returns {Boolean} 是否为小数
+   * @param str 需要进行判断的字符串
+   * @returns 是否为小数
    */
   public isInteger(str: any): boolean {
     return IntegerRule.test(str!)
   }
   /**
    * 判断邮箱的格式是否正确
-   * @param {String} str 邮箱字符串
-   * @returns {Boolean} 是否是邮箱
+   * @param str 邮箱字符串
+   * @returns 是否是邮箱
    */
   public isEmail(str: any): boolean {
     return EmailRule.test(str!)
   }
   /**
    * 判断 ipv4 地址的格式是否正确
-   * @param {String} str ipv4 字符串
-   * @returns {Boolean} 是否是 ipv4 地址
+   * @param str ipv4 字符串
+   * @returns 是否是 ipv4 地址
    */
   public isIpv4(str: any): boolean {
     return Ipv4Rule.test(str!)
   }
   /**
    * 判断是否为固定电话
-   * @param {String} str 字符串
-   * @returns {Boolean} 是否为固定电话
+   * @param str 字符串
+   * @returns 是否为固定电话
    */
   public isTelephone(str: any): boolean {
     return TelephoneRule.test(str!)
   }
   /**
    * 判断是否为移动电话
-   * @param {String} str 字符串
-   * @returns {Boolean} 是否为移动电话
+   * @param str 字符串
+   * @returns 是否为移动电话
    */
   public isMoblie(str: any): boolean {
     return MobileRule.test(str!)
   }
   /**
    * 判断是否为域名
-   * @param {String} str 字符串
-   * @returns {Boolean} 是否为域名
+   * @param str 字符串
+   * @returns 是否为域名
    */
   public isDomain(str: any): boolean {
     return DomainRule.test(str!)
   }
   /**
    * 判断是否为邮政编码
-   * @param {String} str 字符串
-   * @returns {Boolean} 是否为邮政编码
+   * @param str 字符串
+   * @returns 是否为邮政编码
    */
   public isPostcode(str: any): boolean {
     return PostcodeRule.test(str!)

@@ -1,6 +1,5 @@
-import { listToTree, IListToTreeOptoins } from './listToTree'
+import { listToTree } from './listToTree'
 import { nodeBridgeUtil } from './nodeBridgeUtil'
-import { INode } from './INode'
 
 /**
  * @test {listToTree}

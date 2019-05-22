@@ -3,7 +3,7 @@ import { downloadString } from './module/async/downloadString'
 import { downloadUrl } from './module/async/downloadUrl'
 import { getCookies } from './module/async/getCookies'
 import { loadResource } from './module/async/loadResource'
-// import { parseUrl } from './module/async/parseUrl'
+import { parseUrl } from './module/async/parseUrl'
 import { readLocal } from './module/async/readLocal'
 import { spliceParams } from './module/async/spliceParams'
 import { fetchTimeout } from './module/async/fetchTimeout'
@@ -130,7 +130,7 @@ export {
   getCookies,
   loadResource,
   loadScript,
-  // parseUrl,
+  parseUrl,
   readLocal,
   spliceParams,
   fetchTimeout,
@@ -205,7 +205,7 @@ export {
   isFloat,
   isNumber,
   pathUtil,
-  StringStyleType as stringStyleType,
+  StringStyleType,
   StringStyleUtil,
   stringValidator,
   toLowerCase,

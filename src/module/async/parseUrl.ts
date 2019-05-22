@@ -1,135 +1,158 @@
-// /**
-//  * Url 对象
-//  * @class UrlObject
-//  */
-// class UrlObject {
-//   public href: string
-//   public website: string
-//   public protocol: string
-//   public domain: string
-//   public accessPath: string
-//   public params: object
-//   public url: string
-//   public port: number
-//   /**
-//    * 构造函数
-//    * @param option 可选项
-//    * @param [option.href=''] 不包含网站域名的链接
-//    * @param [option.website=''] URL 站点
-//    * @param [option.protocol=''] 协议
-//    * @param [option.domain=''] 域名
-//    * @param [option.accessPath=''] 绝对路径,不包含参数
-//    * @param [option.params={}] 参数列表,
-//    * @param [option.url=''] 原 url 链接
-//    * @param [option.port=0] 端口号
-//    */
-//   constructor({
-//     href = '',
-//     website = '',
-//     protocol = '',
-//     domain = '',
-//     accessPath = '',
-//     params = {},
-//     url = '',
-//     port = 0,
-//   } = {}) {
-//     /**
-//      * @type {String} 不包含网站域名的链接
-//      */
-//     this.href = href
-//     /**
-//      * @type {String} URL 站点
-//      */
-//     this.website = website
-//     /**
-//      * @type {String} 协议
-//      */
-//     this.protocol = protocol
-//     /**
-//      * @type {String} 域名
-//      */
-//     this.domain = domain
-//     /**
-//      * @type {String} 绝对路径,不包含参数
-//      */
-//     this.accessPath = accessPath
-//     /**
-//      * @type {Object} 参数列表,
-//      */
-//     this.params = params
-//     /**
-//      * @type {String} 原 url 链接
-//      */
-//     this.url = url
-//     /**
-//      * @type {Number} 端口号
-//      */
-//     this.port = port
-//   }
-// }
+interface IUrlObject {
+  href: string
+  website: string
+  protocol: string
+  domain: string
+  accessPath: string
+  params: Map<string, string | string[]>
+  url: string
+  port: number
+}
+/**
+ * Url 对象
+ * @class UrlObject
+ */
+class UrlObject {
+  /**
+   * href 不包含网站域名的链接
+   */
+  public href: string
+  /**
+   * website URL 站点
+   */
+  public website: string
+  /**
+   * protocol 协议
+   */
+  public protocol: string
+  /**
+   * domain 域名
+   */
+  public domain: string
+  /**
+   * accessPath 绝对路径,不包含参数
+   */
+  public accessPath: string
+  /**
+   * params 参数列表,
+   */
+  public params: Map<string, string | string[]>
+  /**
+   * url 原 url 链接
+   */
+  public url: string
+  /**
+   * port 端口号
+   */
+  public port: number
+  /**
+   * 构造函数
+   * @param option 可选项
+   */
+  constructor({
+    href = '',
+    website = '',
+    protocol = '',
+    domain = '',
+    accessPath = '',
+    params = new Map(),
+    url = '',
+    port = 0,
+  }: Partial<IUrlObject> = {}) {
+    this.href = href
+    this.website = website
+    this.protocol = protocol
+    this.domain = domain
+    this.accessPath = accessPath
+    this.params = params
+    this.url = url
+    this.port = port
+  }
+}
 
-// /**
-//  * 协议与默认端口映射表
-//  */
-// const protocol2Port = {
-//   http: 80,
-//   https: 443,
-//   ssh: 22,
-//   ftp: 21,
-// }
+/**
+ * 协议与默认端口映射表
+ */
+const protocolPortMap = new Map()
+  .set('http', 80)
+  .set('https', 443)
+  .set('ssh', 22)
+  .set('ftp', 21)
 
-// /**
-//  * 解析 url 字符串
-//  * @param url url 字符串，不能为空
-//  * @returns url 对象
-//  */
-// export function parseUrl(url: string) {
-//   if (!url) {
-//     throw new Error('url 不能为空')
-//   }
+/**
+ * 解析 url 字符串
+ * @param url url 字符串，不能为空
+ * @returns url 对象
+ */
+export function parseUrl(url: string): UrlObject | null {
+  if (!url) {
+    throw new Error('url 不能为空')
+  }
 
-//   const regexp = new RegExp('^((\\w+)://([\\w\\.]*)(:(\\d+))?)(.*)')
-//   const temps = regexp.exec(url)
-//   const res = new UrlObject({
-//     url,
-//     website: temps[1],
-//     protocol: temps[2],
-//     domain: temps[3],
-//     // @ts-ignore
-//     port: temps[5],
-//     href: temps[6],
-//   })
-//   const temp = url.substr(res.website.length)
-//   const markIndex = temp.indexOf('?')
-//   if (markIndex === -1) {
-//     res.accessPath = temp
-//     return res
-//   }
-//   res.accessPath = temp.substr(0, markIndex)
-//   if (res.accessPath.endsWith('/')) {
-//     res.accessPath = res.accessPath.substring(0, res.accessPath.length - 1)
-//   }
-//   res.port = res.port || protocol2Port[res.protocol] || ''
-//   // 解析参数列表
-//   res.params = temp
-//     .substr(markIndex + 1)
-//     .split('&')
-//     .map((str: { split: (arg0: string) => void }) => str.split('='))
-//     .filter((arr: string[]) => arr[0] !== '')
-//     .reduce((params: { [x: string]: string }, arr: string[]) => {
-//       const k = decodeURIComponent(arr[0])
-//       const v = decodeURIComponent(arr.length === 1 ? '' : arr[1])
-//       // 如果已经存在了就认为是数组参数
-//       const vs = params[k]
-//       if (vs !== undefined) {
-//         if (!Array.isArray(vs)) {
-//           params[k] = [vs]
-//         }
-//         params[k].push(v)
-//       } else {
-//         params[k] = v
-//       }
-//       return params
-//     }, {})
-//   return res
-// }
+  const regexp = new RegExp('^((\\w+)://([\\w\\.]*)(:(\\d+))?)(.*)')
+  const temps = regexp.exec(url)
+  if (temps === null) {
+    return null
+  }
+  const website = temps[1]
+  const protocol = temps[2]
+  const domain = temps[3]
+  const portStr = temps[5]
+  const href = temps[6]
+
+  // 截取域名之后的内容
+  const temp = url.substr(website.length)
+  const markIndex = temp.indexOf('?')
+  // 如果没有携带参数则直接返回
+  if (markIndex === -1) {
+    const accessPath = temp
+    return new UrlObject({
+      url,
+      website,
+      protocol,
+      domain,
+      // tslint:disable-next-line:radix
+      port: parseInt(portStr),
+      href,
+      accessPath,
+    })
+  }
+  let accessPath = temp.substr(0, markIndex)
+  if (accessPath.endsWith('/')) {
+    accessPath = accessPath.substring(0, accessPath.length - 1)
+  }
+  const port = portStr || protocolPortMap.get(protocol) || 0
+  // 解析参数列表
+  const params = temp
+    .substr(markIndex + 1)
+    .split('&')
+    .map(str => str.split('='))
+    .filter(arr => arr[0] !== '')
+    .reduce((params, arr: string[]) => {
+      const k = decodeURIComponent(arr[0])
+      const v = decodeURIComponent(arr.length === 1 ? '' : arr[1])
+      // 如果已经存在了就认为是数组参数
+      const vs = params.get(k)
+      if (vs === undefined) {
+        params.set(k, v)
+      } else {
+        if (!Array.isArray(vs)) {
+          params.set(k, [vs])
+        }
+        if ((params.get(k) as string[]).length !== undefined) {
+          ;(params.get(k) as string[]).push(v)
+        }
+      }
+      return params
+    }, new Map<string, string | string[]>())
+  return new UrlObject({
+    url,
+    website,
+    protocol,
+    domain,
+    port,
+    href,
+    accessPath,
+    params,
+  })
+}

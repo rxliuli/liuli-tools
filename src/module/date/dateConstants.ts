@@ -7,7 +7,7 @@ import { dateFormat } from './dateFormat'
 export class DateConstants {
   /**
    * 获取指定日期一天的开始时间
-   * @param [date=new Date()] 指定的时间，默认为当前日期
+   * @param date 指定的时间，默认为当前日期
    * @returns 一天的开始时间
    */
   public dayStart(date: Date = new Date()): Date {
@@ -15,7 +15,7 @@ export class DateConstants {
   }
   /**
    * 获取指定日期一天的结束时间
-   * @param [date=new Date()] 指定的时间，默认为当前日期
+   * @param date 指定的时间，默认为当前日期
    * @returns 一天的结束时间
    */
   public dayEnd(date: Date = new Date()): Date {
@@ -23,7 +23,7 @@ export class DateConstants {
   }
   /**
    * 获取指定日期所在年份的新年开始时间
-   * @param [date=new Date()] 指定的时间，默认为当前日期
+   * @param date 指定的时间，默认为当前日期
    * @returns 新年开始时间
    */
   public yearStart(date: Date = new Date()): Date {
@@ -31,7 +31,7 @@ export class DateConstants {
   }
   /**
    * 获取指定日期所在年份的旧年结束时间
-   * @param [date=new Date()] 指定的时间，默认为当前日期
+   * @param date 指定的时间，默认为当前日期
    * @returns 旧年结束时间
    */
   public yearEnd(date: Date = new Date()): Date {

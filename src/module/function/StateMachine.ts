@@ -30,7 +30,7 @@ export class StateMachine {
       /**
        * 获取一个标签子类对象
        * @param state 状态索引
-       * @param [args] 构造函数的参数
+       * @param args 构造函数的参数
        * @returns 子类对象
        */
       public getInstance(state: K, ...args: undefined[]) {

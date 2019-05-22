@@ -8,14 +8,14 @@ export class Logger {
   private _enable!: boolean
   /**
    * 构造函数
-   * @param [options] 可选项
-   * @param [options.enable] 是否开启日志
+   * @param options 可选项
+   * @param options.enable 是否开启日志
    */
 
   /**
    * 构造函数
-   * @param [options] 可选项
-   * @param [options.enable] 是否开启日志
+   * @param options 可选项
+   * @param options.enable 是否开启日志
    */
   constructor({ enable = true } = {}) {
     this.enable = enable

@@ -20,9 +20,9 @@ export class Locker {
   public timeout: number | Predicate
 
   /**
-   * @param [options={}] 可选项
-   * @param [options.limit=1] 限制并发数量，默认为 1
-   * @param [options.timeout=TimeoutInfinity] 超时时间，默认为无限
+   * @param options 可选项
+   * @param options.limit 限制并发数量，默认为 1
+   * @param options.timeout 超时时间，默认为无限
    */
   constructor({ limit = 1, timeout }: Partial<ILockerInit> = {}) {
     /**
@@ -43,7 +43,7 @@ export class Locker {
   }
   /**
    * 添加异步锁
-   * @param [timeout=this.timeout] 超时时间，默认为全局 timeout
+   * @param timeout 超时时间，默认为全局 timeout
    * @returns 进行等待
    */
   public async lock(timeout = this.timeout) {

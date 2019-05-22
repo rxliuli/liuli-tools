@@ -12,7 +12,7 @@ export class LocalStorageCache extends ICache {
   public localStorage: Storage
   /**
    * 构造函数
-   * @param [cacheOption] 全局缓存选项
+   * @param cacheOption 全局缓存选项
    */
   constructor(cacheOption: Partial<ICacheOption> = {}) {
     super(cacheOption)
@@ -54,7 +54,7 @@ export class LocalStorageCache extends ICache {
    * 如果不存在则添加，否则忽略
    * @param key 缓存的 key
    * @param val 缓存的 value
-   * @param [cacheOption] 缓存的选项，默认为无限时间
+   * @param cacheOption 缓存的选项，默认为无限时间
    * @override
    */
   public add(key: string, val: any, cacheOption: Partial<ICacheOption> = {}) {
@@ -78,7 +78,7 @@ export class LocalStorageCache extends ICache {
    * 不管是否存在都会设置
    * @param key 修改的 key
    * @param val 修改的 value
-   * @param [cacheOption] 修改的选项
+   * @param cacheOption 修改的选项
    * @override
    */
   public set(key: string, val: any, cacheOption: Partial<ICacheOption> = {}) {

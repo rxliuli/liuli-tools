@@ -1,0 +1,1 @@
+{"version":3,"file":"waitResource.d.ts","sourceRoot":"","sources":["../../src/module/function/waitResource.ts"],"names":[],"mappings":"AAAA,UAAU,aAAa;IACrB,QAAQ,EAAE,MAAM,CAAA;IAChB,GAAG,EAAE,MAAM,CAAA;CACZ;AACD;;;;;;;;GAQG;AACH,wBAAgB,YAAY,CAC1B,EAAE,EAAE,CAAC,GAAG,IAAI,EAAE,GAAG,EAAE,KAAK,OAAO,EAC/B,EAAE,QAAc,EAAE,GAAQ,EAAE,GAAE,OAAO,CAAC,aAAa,CAAM,eAgB1D"}

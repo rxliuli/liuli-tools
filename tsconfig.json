@@ -9,7 +9,8 @@
     "types": [
       "typescript",
       "jest",
-      "jest-extended"
+      "jest-extended",
+      "rx-util"
     ],
     "module": "esnext",
     "declaration": true,

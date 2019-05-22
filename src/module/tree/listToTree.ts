@@ -1,6 +1,7 @@
 import { returnItself } from '../function/returnItself'
 import { INode } from './INode'
 import { convert } from '../interface/convert'
+import { onceOfSameParam } from '../function/onceOfSameParam'
 
 export interface IListToTreeOptoins<T> {
   bridge?: (node: T) => INode
@@ -11,9 +12,9 @@ export interface IListToTreeOptoins<T> {
  * 将列表转换为树节点
  * 注: 该函数默认树的根节点只有一个，如果有多个，则返回一个数组
  * @param list 树节点列表
- * @param [options] 其他选项
- * @param [options.isRoot] 判断节点是否为根节点。默认根节点的父节点为空
- * @param [options.bridge=returnItself] 桥接函数，默认返回自身
+ * @param options 其他选项
+ * @param options.isRoot 判断节点是否为根节点。默认根节点的父节点为空
+ * @param options.bridge 桥接函数，默认返回自身
  * @returns 树节点，或是树节点列表
  */
 export function listToTree<T>(
@@ -26,14 +27,17 @@ export function listToTree<T>(
   const arr: INode[] = []
   const res = list.reduce((root, _sub) => {
     const sub = bridge!(_sub)
-    list.forEach(_parent => {
-      const parent = bridge!(_parent)
-      if (sub.parentId === parent.id) {
-        ;(parent.child = parent.child || []).push(sub)
-      }
-    })
     if (isRoot(sub)) {
       root.push(sub)
+      return root
+    }
+    for (const _parent of list) {
+      const parent = bridge!(_parent)
+      if (sub.parentId === parent.id) {
+        parent.child = parent.child || []
+        parent.child.push(sub)
+        return root
+      }
     }
     return root
   }, arr)

@@ -1,6 +1,9 @@
 import { wait } from '../function/wait'
 import { fetchTimeout } from './fetchTimeout'
 
+/**
+ * Fetch 对象参数接口
+ */
 interface IFetchLimitingOptions {
   timeout: number
   limit: number

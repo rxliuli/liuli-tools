@@ -2,13 +2,14 @@ import { dateFormat } from '../date/dateFormat'
 
 /**
  * 默认的日期格式
- * 不加 Z 为本地日期时间
+ * 不加 Z 为本地日期时间，避免出现时区的问题
  */
 const deteFormatter = 'yyyy-MM-ddThh:mm:ss.SSS'
 /**
- * 编码函数
+ * 将参数 key 与 value 进行 url 编码
  * @param k 参数的名字
  * @param v 参数的值
+ * @returns 编码后的字符串
  */
 const encode = (k: string, v: string) =>
   encodeURIComponent(k) + '=' + encodeURIComponent(v)

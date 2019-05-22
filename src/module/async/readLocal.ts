@@ -1,7 +1,22 @@
+/**
+ * 读取文件类型
+ */
 enum ReadType {
+  /**
+   * 以 data url 读取
+   */
   DataURL = 'readAsDataURL',
+  /**
+   * 以文本读取
+   */
   Text = 'readAsText',
+  /**
+   * 以二进制文件读取
+   */
   BinaryString = 'readAsBinaryString',
+  /**
+   * 以 ArrayBuffer 读取
+   */
   ArrayBuffer = 'readAsArrayBuffer',
 }
 interface IReadLocalInit {
@@ -43,7 +58,23 @@ export function readLocal(
   })
 }
 
+/**
+ * 以 data url 读取
+ * @deprecated 已废弃，请使用枚举类 ReadType
+ */
 readLocal.DataURL = ReadType.DataURL
+/**
+ * 以文本读取
+ * @deprecated 已废弃，请使用枚举类 ReadType
+ */
 readLocal.Text = ReadType.Text
+/**
+ * 以二进制文件读取
+ * @deprecated 已废弃，请使用枚举类 ReadType
+ */
 readLocal.BinaryString = ReadType.BinaryString
+/**
+ * 以 ArrayBuffer 读取
+ * @deprecated 已废弃，请使用枚举类 ReadType
+ */
 readLocal.ArrayBuffer = ReadType.ArrayBuffer

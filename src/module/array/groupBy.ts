@@ -31,8 +31,9 @@ export function groupBy<T, K, V = T[]>(
   kFn: ArrayCallback<T, K>,
   /**
    * 默认的值处理函数
-   * @param res 最终 map 集合
+   * @param res 最终 V 集合
    * @param item 当前迭代的元素
+   * @returns 将当前元素合并后的最终 V 集合
    */
   vFn: (res: V, item: T, index: number, arr: T[]) => V = convert(
     (res: T[], item: T) => {

@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { ICacheOption, TimeoutInfinite } from './CacheOption'
+import { ICacheOption, TimeoutInfinite } from './ICacheOption'
 import { assign } from '../obj/assign'
 
 /**

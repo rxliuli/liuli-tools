@@ -16,18 +16,18 @@ export function bridge<T extends object>(
    */
   return function(obj: T): T {
     return new Proxy(obj, {
-      get(target, k) {
+      get(_, k) {
         if (_map.has(k)) {
-          return Reflect.get(target, _map.get(k))
+          return Reflect.get(_, _map.get(k))
         }
-        return Reflect.get(target, k)
+        return Reflect.get(_, k)
       },
-      set(target, k, v) {
+      set(_, k, v) {
         if (_map.has(k)) {
-          Reflect.set(target, _map.get(k), v)
+          Reflect.set(_, _map.get(k), v)
           return true
         }
-        Reflect.set(target, k, v)
+        Reflect.set(_, k, v)
         return true
       },
     })

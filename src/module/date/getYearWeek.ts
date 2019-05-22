@@ -1,17 +1,11 @@
+import { dateEnhance } from './dateEnhance'
+
 /**
  * 获取一年内的第多少星期
- * @returns
- * @deprecated 不推荐使用，请使用 {@link dateEnhance} 代替
+ * @param date 日期
+ * @returns 这个日期第多少个星期
+ * @deprecated 不推荐使用，请使用 {@see dateEnhance} 代替
  */
 export function getYearWeek(date: Date): number {
-  /*
-    date1是当前日期
-    date2是当年第一天
-    d是当前日期是今年第多少天
-    用d + 当前年的第一天的周差距的和在除以7就是本年第几周
-    */
-  const nowTime = date.getTime()
-  const startTime = new Date(date.getFullYear(), 0, 1).getTime()
-  const difTime = nowTime - startTime
-  return Math.floor(difTime / (24 * 3600 * 1000) / 7)
+  return dateEnhance(date).weekOfYear()
 }

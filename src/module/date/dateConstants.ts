@@ -2,7 +2,6 @@ import { dateFormat } from './dateFormat'
 
 /**
  * 日期固定时间点
- * @class DateConstants
  */
 export class DateConstants {
   /**
@@ -41,6 +40,5 @@ export class DateConstants {
 
 /**
  * 导出一个日期固定时间点的对象
- * @type {DateConstants}
  */
 export const dateConstants: DateConstants = new DateConstants()

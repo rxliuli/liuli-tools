@@ -7,11 +7,17 @@
  */
 export function curry(fn: Function, ...args: any[]): Function {
   const realArgs = args.filter(arg => arg !== curry._)
+  // 如果函数参数足够则调用传入的函数
   if (realArgs.length >= fn.length) {
     return fn(...realArgs)
   }
 
-  function innerFn(...otherArgs: any[]) {
+  /**
+   * 最终返回的函数
+   * @param otherArgs 接受任意参数
+   * @returns 返回一个函数，或者函数调用完成返回结果
+   */
+  function innerFn(...otherArgs: any[]): Function {
     // 记录需要移除补到前面的参数
     const removeIndexSet = new Set()
     let i = 0

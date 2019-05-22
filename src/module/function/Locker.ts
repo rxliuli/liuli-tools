@@ -7,6 +7,9 @@ type Predicate = (...args: any[]) => boolean
  */
 const TimeoutInfinity: Predicate = () => false
 
+/**
+ * Locker 初始化对象接口
+ */
 interface ILockerInit {
   limit?: number
   timeout?: number
@@ -16,7 +19,13 @@ interface ILockerInit {
  * 创建一个 Lock 对象，用于锁住当前的当前的异步流程
  */
 export class Locker {
+  /**
+   * 限制并发数量，默认为 1
+   */
   public limit: number
+  /**
+   * 超时时间，默认为无限
+   */
   public timeout: number | Predicate
 
   /**
@@ -25,13 +34,7 @@ export class Locker {
    * @param options.timeout 超时时间，默认为无限
    */
   constructor({ limit = 1, timeout }: Partial<ILockerInit> = {}) {
-    /**
-     * @field 限制并发数量，默认为 1
-     */
     this.limit = limit
-    /**
-     * @field 超时时间，默认为无限
-     */
     this.timeout = timeout || TimeoutInfinity
   }
   /**

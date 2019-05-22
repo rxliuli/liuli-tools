@@ -1,6 +1,6 @@
 import { ICache } from './ICache'
 import { CacheVal } from './CacheVal'
-import { ICacheOption, TimeoutInfinite } from './CacheOption'
+import { ICacheOption, TimeoutInfinite } from './ICacheOption'
 import { assign } from '../obj/assign'
 import { safeExec } from '../function/safeExec'
 import { wait } from '../function/wait'

@@ -1,8 +1,20 @@
-import { ICacheOption } from './CacheOption'
+import { ICacheOption } from './ICacheOption'
 
+/**
+ * 缓存值的构造函数对象参数定义接口
+ */
 interface ICacheValInit {
+  /**
+   * 缓存的 key 值
+   */
   key: string
+  /**
+   * 缓存的 value
+   */
   val: any
+  /**
+   * 缓存的选项
+   */
   cacheOption: ICacheOption
 }
 

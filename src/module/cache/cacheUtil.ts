@@ -1,13 +1,22 @@
 import { LocalStorageCache } from './LocalStorageCache'
-import { TimeoutInfinite, ICacheOption } from './CacheOption'
+import { TimeoutInfinite, ICacheOption } from './ICacheOption'
 
 /**
  * 默认使用的 {@link ICache} 接口的缓存实现
  */
 const cache = new LocalStorageCache()
 
-interface ICacheUtilInit {
+/**
+ * 缓存工具类可选参数项类型
+ */
+interface ICacheUtilOptions {
+  /**
+   * 函数唯一标识，默认为函数 toString()
+   */
   identity: string
+  /**
+   * 缓存超时时间，默认为无限
+   */
   timeout: number | string
 }
 
@@ -29,7 +38,7 @@ export class CacheUtil {
     {
       identity = fn.toString(),
       timeout = TimeoutInfinite,
-    }: Partial<ICacheUtilInit> = {},
+    }: Partial<ICacheUtilOptions> = {},
   ) {
     const generateKey = (args: any[]) =>
       `onceOfSameParam-${identity}-${JSON.stringify(args)}`

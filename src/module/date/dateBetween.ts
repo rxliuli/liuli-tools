@@ -1,6 +1,5 @@
 /**
  * 时间日期间隔
- * @class DateBetween
  */
 export class DateBetween {
   /**

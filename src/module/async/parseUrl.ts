@@ -1,73 +1,39 @@
-interface IUrlObject {
-  href: string
-  website: string
-  protocol: string
-  domain: string
-  accessPath: string
-  params: Map<string, string | string[]>
-  url: string
-  port: number
-}
 /**
  * Url 对象
- * @class UrlObject
  */
-class UrlObject {
+interface IUrlObject {
   /**
    * href 不包含网站域名的链接
    */
-  public href: string
+  href: string
   /**
    * website URL 站点
    */
-  public website: string
+  website: string
   /**
    * protocol 协议
    */
-  public protocol: string
+  protocol: string
   /**
    * domain 域名
    */
-  public domain: string
+  domain: string
   /**
    * accessPath 绝对路径,不包含参数
    */
-  public accessPath: string
+  accessPath: string
   /**
    * params 参数列表,
    */
-  public params: Map<string, string | string[]>
+  params: Map<string, string | string[]>
   /**
    * url 原 url 链接
    */
-  public url: string
+  url: string
   /**
    * port 端口号
    */
-  public port: number
-  /**
-   * 构造函数
-   * @param option 可选项
-   */
-  constructor({
-    href = '',
-    website = '',
-    protocol = '',
-    domain = '',
-    accessPath = '',
-    params = new Map(),
-    url = '',
-    port = 0,
-  }: Partial<IUrlObject> = {}) {
-    this.href = href
-    this.website = website
-    this.protocol = protocol
-    this.domain = domain
-    this.accessPath = accessPath
-    this.params = params
-    this.url = url
-    this.port = port
-  }
+  port: number
 }
 
 /**
@@ -84,9 +50,9 @@ const protocolPortMap = new Map()
  * @param url url 字符串，不能为空
  * @returns url 对象
  */
-export function parseUrl(url: string): UrlObject | null {
+export function parseUrl(url: string): IUrlObject | null {
   if (!url) {
-    throw new Error('url 不能为空')
+    throw new Error('Url cannot be empty')
   }
 
   const regexp = new RegExp('^((\\w+)://([\\w\\.]*)(:(\\d+))?)(.*)')
@@ -106,7 +72,7 @@ export function parseUrl(url: string): UrlObject | null {
   // 如果没有携带参数则直接返回
   if (markIndex === -1) {
     const accessPath = temp
-    return new UrlObject({
+    return {
       url,
       website,
       protocol,
@@ -115,7 +81,8 @@ export function parseUrl(url: string): UrlObject | null {
       port: parseInt(portStr),
       href,
       accessPath,
-    })
+      params: new Map<string, string>(),
+    }
   }
   let accessPath = temp.substr(0, markIndex)
   if (accessPath.endsWith('/')) {
@@ -145,7 +112,7 @@ export function parseUrl(url: string): UrlObject | null {
       }
       return params
     }, new Map<string, string | string[]>())
-  return new UrlObject({
+  return {
     url,
     website,
     protocol,
@@ -154,5 +121,5 @@ export function parseUrl(url: string): UrlObject | null {
     href,
     accessPath,
     params,
-  })
+  }
 }

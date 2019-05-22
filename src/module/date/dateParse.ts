@@ -1,9 +1,9 @@
 import { fill } from '../string/fill'
 import { arrayToMap } from './../array/arrayToMap'
+import { Nullable } from '../interface/global'
 
 /**
  * 日期格式化类
- * @class DateFormat
  */
 class DateFormat {
   /**
@@ -32,7 +32,9 @@ const dateFormats = new Map()
   .set('minute', 'm{1,2}')
   .set('second', 's{1,2}')
   .set('millieSecond', 'S{1,3}')
-// 如果没有格式化某项的话则设置为默认时间
+/**
+ * 如果没有格式化某项的话则设置为默认时间
+ */
 const defaultDateValues = new Map()
   .set('month', '01')
   .set('day', '01')
@@ -46,10 +48,7 @@ const defaultDateValues = new Map()
  * @param fmt 日期字符串的格式，目前仅支持使用 y(年),M(月),d(日),h(时),m(分),s(秒),S(毫秒)
  * @returns 解析得到的 Date 对象
  */
-export function dateParse(
-  str: string | null | undefined,
-  fmt: string,
-): Date | null {
+export function dateParse(str: string, fmt: string): Nullable<Date> {
   const now = new Date()
   defaultDateValues.set('year', now.getFullYear().toString())
   // 保存对传入的日期字符串进行格式化的全部信息数组列表
@@ -72,7 +71,7 @@ export function dateParse(
   }
   // 进行验证是否真的是符合传入格式的字符串
   fmt = fmt.replace(new RegExp('`', 'g'), '\\d')
-  if (!new RegExp(`^${fmt}$`).test(str!)) {
+  if (!new RegExp(`^${fmt}$`).test(str)) {
     return null
   }
   // 进行一次排序, 依次对字符串进行截取
@@ -85,18 +84,18 @@ export function dateParse(
     })
     // 获取到匹配的日期片段的值
     .map(format => {
-      const matchDateUnit = new RegExp(format.format).exec(str!)
+      const matchDateUnit = new RegExp(format.format).exec(str)
       if (matchDateUnit !== null && matchDateUnit.length > 0) {
-        str = str!.replace(matchDateUnit[0], '')
+        str = str.replace(matchDateUnit[0], '')
         format.value = matchDateUnit[0]
       }
       return format
     })
     // 覆写到 dateStr 上面
     .forEach(({ format }, i) => {
-      const matchDateUnit = new RegExp(format).exec(str!)
+      const matchDateUnit = new RegExp(format).exec(str)
       if (matchDateUnit !== null && matchDateUnit.length > 0) {
-        str = str!.replace(matchDateUnit[0], '')
+        str = str.replace(matchDateUnit[0], '')
         dateUnits[i].value = matchDateUnit[0]
       }
     })

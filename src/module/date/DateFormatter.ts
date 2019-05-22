@@ -2,6 +2,7 @@ import { dateFormat } from './dateFormat'
 import { dateParse } from './dateParse'
 import { isNullOrUndefined } from '../obj/isNullOrUndefined'
 import { stringValidator } from '../string/stringValidator'
+import { Nullable } from '../interface/global'
 
 /**
  * 日期格式化器
@@ -37,15 +38,15 @@ export class DateFormatter {
     return dateFormat(date!, this.fmt)
   }
   /**
-   * 解析
+   * 解析字符串为日期对象
    * @param str 字符串
    * @returns 解析得到的日期
    */
-  public parse(str: string | null | undefined): Date | null {
+  public parse(str: string | null | undefined): Nullable<Date> {
     if (stringValidator.isEmpty(str)) {
       return null
     }
-    return dateParse(str, this.fmt)
+    return dateParse(str!, this.fmt)
   }
   /**
    * 将日期时间字符串转换为前端指定格式的字符串
@@ -58,7 +59,7 @@ export class DateFormatter {
     if (stringValidator.isEmpty(str)) {
       return ''
     }
-    const date = parseFmt ? dateParse(str, parseFmt) : new Date(str!)
+    const date = parseFmt ? dateParse(str!, parseFmt) : new Date(str!)
     return dateFormat(date!, this.fmt)
   }
 }

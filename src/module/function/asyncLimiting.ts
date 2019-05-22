@@ -1,6 +1,13 @@
 import { wait } from '../function/wait'
 
+/**
+ * 异步限制并发队列的接口
+ * 主要适用于限制某个函数的并发限制
+ */
 interface IAsyncLimiting {
+  /**
+   * 限制同时存在的异步的数量
+   */
   limit: number
 }
 
@@ -22,7 +29,7 @@ export function asyncLimiting<R>(
   // 是否增加了 execCount 的标记
   let flag = false
   return new Proxy(fn, {
-    async apply(target, thisArg, args) {
+    async apply(_, _this, args) {
       const _takeRun = async () => {
         if (!flag) {
           execCount++
@@ -30,7 +37,7 @@ export function asyncLimiting<R>(
         }
         const tempArgs = takeQueue.shift()
         try {
-          return await Reflect.apply(target, thisArg, tempArgs!)
+          return await Reflect.apply(_, _this, tempArgs!)
         } finally {
           execCount--
         }
@@ -39,6 +46,7 @@ export function asyncLimiting<R>(
 
       await wait(() => {
         const result = execCount < limit
+        // 如果等待结束则必须立刻增加 execCount，避免微任务与宏任务调度可能产生错误
         if (result) {
           flag = true
           execCount++

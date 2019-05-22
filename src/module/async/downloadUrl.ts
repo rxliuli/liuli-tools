@@ -14,6 +14,6 @@ export async function downloadUrl(
     const blob = await res.blob()
     download(blob, filename)
   } catch (error) {
-    return console.log('下载出错了 ', error)
+    throw error
   }
 }

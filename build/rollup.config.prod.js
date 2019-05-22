@@ -8,7 +8,7 @@ export default {
   output: {
     ...base.output,
     // 打包的文件
-    file: calcPath(`../dist/${name}.js`),
+    file: calcPath(`../dist/${name}.min.js`),
     // 打包的格式，umd 支持 commonjs/amd/life 三种方式
     format: 'umd',
   },

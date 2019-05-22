@@ -1,4 +1,3 @@
-import { once } from '../function/once'
 /**
  * 使用 Generator 实现一个从 0 开始的无限自增序列
  */
@@ -11,7 +10,10 @@ function* autoIncrementGenerator(): Generator {
   }
 }
 
-const generator: Generator = autoIncrementGenerator()
+/**
+ * 生成器对象
+ */
+const generator = autoIncrementGenerator()
 
 /**
  * 获取自增长序列的最新值

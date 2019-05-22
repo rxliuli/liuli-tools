@@ -5,7 +5,7 @@ import { StateMachine } from './StateMachine'
  */
 describe('test StateMachine', () => {
   it('simple example', () => {
-    const stateMachine = StateMachine.getFactory()
+    const stateMachine = new StateMachine()
     class Base {
       public hello() {
         return 'base'
@@ -33,12 +33,11 @@ describe('test StateMachine', () => {
     // tslint:disable-next-line:max-classes-per-file
     class C extends Base {}
 
-    const stateMachine = StateMachine.getFactory()
+    const stateMachine = new StateMachine<string>()
     stateMachine.register('A', A)
     stateMachine.register('B', B)
     stateMachine.register('C', C)
 
-    // @ts-ignore
     for (const [state, clazz] of stateMachine) {
       expect(['A', 'B', 'C'].includes(state)).toBeTrue()
       expect([A, B, C].includes(clazz)).toBeTrue()

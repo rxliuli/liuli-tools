@@ -1,22 +1,23 @@
-import { getObjectKeys } from './getObjectKeys'
+import { convert } from '../interface/convert'
 
 /**
  * 排除对象中的指定字段
  * 注: 此处将获得一个浅拷贝对象
- * @param object 排除对象
+ * @param obj 排除对象
  * @param fields 要排除的多个字段
  * @returns 排除完指定字段得到的新的对象
  */
-export function excludeFields(
-  object: Record<PropertyKey, any>,
+export function excludeFields<T extends object>(
+  obj: T,
   ...fields: PropertyKey[]
-): object {
+): T {
   const set = new Set(fields)
-  return getObjectKeys(object).reduce((res, k) => {
-    if (!set.has(k)) {
-      // @ts-ignore
-      res[k] = object[k]
-    }
-    return res
-  }, {})
+  return convert(
+    Reflect.ownKeys(obj).reduce((res, k) => {
+      if (!set.has(k)) {
+        Reflect.set(res, k, Reflect.get(obj, k))
+      }
+      return res
+    }, {}),
+  )
 }

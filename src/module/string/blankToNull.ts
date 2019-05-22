@@ -1,4 +1,5 @@
-import { isNullOrUndefined } from '../obj/isNullOrUndefined';
+import { isNullOrUndefined } from '../obj/isNullOrUndefined'
+import { stringValidator } from './stringValidator'
 
 /**
  * 将空白字符串转换为 null
@@ -7,5 +8,5 @@ import { isNullOrUndefined } from '../obj/isNullOrUndefined';
  * @returns 可能为 {@code null}
  */
 export function blankToNull(str: string): string | null {
-  return isNullOrUndefined(str) || str.trim().length === 0 ? null : str
+  return stringValidator.isBlank(str) ? null : str
 }

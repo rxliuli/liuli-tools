@@ -1,3 +1,5 @@
+import { ReturnFunc } from '../interface/ReturnFunc'
+
 /**
  * 将一个谓词函数取反
  * 如果是同步函数，则返回的函数也是同步的，否则返回的是取反后的异步函数
@@ -5,7 +7,7 @@
  * @returns 取反得到的函数
  */
 export function deny<
-  Func extends Function = (...args: any[]) => boolean | Promise<boolean>
+  Func extends Function = ReturnFunc<boolean | Promise<boolean>>
 >(fn: Func): Func {
   return new Proxy(fn, {
     apply(_, _this, args) {

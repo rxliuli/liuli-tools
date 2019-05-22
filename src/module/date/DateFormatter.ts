@@ -2,7 +2,7 @@ import { dateFormat } from './dateFormat'
 import { dateParse } from './dateParse'
 import { isNullOrUndefined } from '../obj/isNullOrUndefined'
 import { stringValidator } from '../string/stringValidator'
-import { Nullable } from '../interface/global'
+import { Nullable } from '../interface/Nullable'
 
 /**
  * 日期格式化器

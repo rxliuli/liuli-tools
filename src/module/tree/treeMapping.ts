@@ -3,9 +3,21 @@ import { returnItself } from '../function/returnItself'
 import { INode } from './INode'
 import { convert } from '../interface/convert'
 
+/**
+ * 遍历并映射一棵树的可选参数对象
+ */
 interface ITreeMappingOptions<T> {
+  /**
+   * 遍历子节点之前的操作。默认返回自身
+   */
   before?: (node: T, ...args: any[]) => INode
+  /**
+   * 遍历子节点之后的操作。默认返回自身
+   */
   after?: (node: INode, ...args: any[]) => INode
+  /**
+   * 递归的参数生成函数。默认返回一个空数组
+   */
   paramFn?: (node: INode, ...args: any[]) => any[]
 }
 
@@ -13,9 +25,6 @@ interface ITreeMappingOptions<T> {
  * 遍历并映射一棵树的每个节点
  * @param root 树节点
  * @param options 其他选项
- * @param options.before 遍历子节点之前的操作。默认返回自身
- * @param options.after 遍历子节点之后的操作。默认返回自身
- * @param options.paramFn] 递归的参数生成函数。默认返回一个空数组
  * @returns 递归遍历后的树节点
  */
 export function treeMapping<T>(
@@ -29,7 +38,7 @@ export function treeMapping<T>(
   /**
    * 遍历一颗完整的树
    * @param node 要遍历的树节点
-   * @param  {...Object} [args] 每次递归遍历时的参数
+   * @param args 每次递归遍历时的参数
    */
   function _treeMapping(node: any, ...args: any[]): INode {
     // 之前的操作

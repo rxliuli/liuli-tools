@@ -1,4 +1,4 @@
-import { toString } from '../obj/toString'
+import { toString } from '../string/toString'
 
 /**
  * 将参数对象转换为 FormData，只转换一层

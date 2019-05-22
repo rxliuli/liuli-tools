@@ -6,6 +6,6 @@ import { stringValidator } from './stringValidator'
  * @returns 是否为小数
  * @deprecated 已废弃，请使用 {@link stringValidator#isFloat}
  */
-export function isFloat(str: string): boolean {
+export function isFloat(str: string | null | undefined): boolean {
   return stringValidator.isFloat(str)
 }

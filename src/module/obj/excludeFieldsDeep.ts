@@ -1,24 +1,22 @@
 import { excludeFields } from './excludeFields'
-import { getObjectKeys } from './getObjectKeys'
 
 /**
  * 递归排除对象中的指定字段
- * @param object 需要排除的对象
- * @param  {...Object} fields 需要排除的字段
+ * @param obj 需要排除的对象
+ * @param  {...obj} fields 需要排除的字段
  */
-export function excludeFieldsDeep(
-  object: Record<PropertyKey, any>,
+export function excludeFieldsDeep<T extends object>(
+  obj: T,
   ...fields: PropertyKey[]
-) {
-  const res =
-    object instanceof Array ? object : excludeFields(object, ...fields)
-  getObjectKeys(object).forEach(k => {
-    // @ts-ignore
-    const v = res[k]
-    if (v instanceof Object) {
-      // @ts-ignore
-      object[k] = excludeFieldsDeep(v, ...fields)
-    }
-  })
-  return res
+): T {
+  return Reflect.ownKeys(obj).reduce(
+    (res, k) => {
+      const v = Reflect.get(res, k)
+      if (v instanceof Object) {
+        Reflect.set(obj, k, excludeFieldsDeep(v, ...fields))
+      }
+      return res
+    },
+    obj instanceof Array ? obj : excludeFields(obj, ...fields),
+  )
 }

@@ -1,4 +1,4 @@
-import { toString } from '../obj/toString';
+import { toString } from '../string/toString'
 
 /**
  * 字符串格式化

@@ -1,4 +1,4 @@
-import { Nullable } from '../interface/global'
+import { Nullable } from '../interface/Nullable'
 
 let lastFocusEl: Nullable<Element> | EventTarget
 

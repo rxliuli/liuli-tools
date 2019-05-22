@@ -8,7 +8,7 @@ import { getObjectKeys } from './getObjectKeys'
 export function objectToMap(
   obj: Record<PropertyKey, any>,
 ): Map<PropertyKey, any> {
-  return getObjectKeys(obj).reduce(
+  return Reflect.ownKeys(obj).reduce(
     (map, k) => map.set(k, Reflect.get(obj, k)),
     new Map(),
   )

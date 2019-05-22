@@ -10,7 +10,7 @@ describe('test blankToNullField', () => {
         name: '',
         age: '',
         sex: false,
-      })
+      }),
     ).toEqual({
       name: null,
       age: null,

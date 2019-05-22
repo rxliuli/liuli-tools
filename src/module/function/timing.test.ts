@@ -1,23 +1,18 @@
 import { timing } from './timing'
 import { wait } from './wait'
+import { sleep } from './sleep'
 
 /**
  * @test {timing}
  */
 describe('test timing', () => {
   it('test timing for normal function', () => {
-    const fn = () => {
-      const now = Date.now()
-      while (true) {
-        if (Date.now() - now > 100) {
-          break
-        }
-      }
-    }
-    expect(timing(fn)).toBeGreaterThan(99)
+    const res: number = timing(() => sleep(100))
+    expect(res).toBeGreaterThan(99)
   })
   it('test timing for promise function', async () => {
-    expect(await timing(() => wait(100))).toBeGreaterThan(95)
+    const res: Promise<number> = timing(async () => wait(100))
+    expect(await res).toBeGreaterThan(95)
   })
   it('test this', async function() {
     // @ts-ignore

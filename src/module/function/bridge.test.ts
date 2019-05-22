@@ -5,7 +5,7 @@ import { bridge } from './bridge'
  */
 describe('test bridge', () => {
   it('simple example', () => {
-    const bridgeUser = bridge(new Map().set('id', 'uid').set('name', 'uname'))
+    const bridgeUser = bridge({ id: 'uid', name: 'uname' })
     const user = bridgeUser({
       uid: 1,
       uname: 'rx',
@@ -38,6 +38,7 @@ describe('test bridge', () => {
       [uid]: 1,
       uname: 'rx',
     })
+    // @ts-ignore
     user[id] = 2
     user.name = '琉璃'
     expect(user).toEqual({

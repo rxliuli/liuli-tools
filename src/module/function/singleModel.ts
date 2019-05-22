@@ -1,4 +1,5 @@
-type Newable<R> = new (...args: any[]) => R
+import { Newable } from '../interface/Newable'
+
 /**
  * 使用 Proxy 实现通用的单例模式
  * @param clazz 需要包装为单例的类型

@@ -5,6 +5,6 @@
  * @param num2 第二个浮点数
  * @returns 两数是否相等
  */
-export function floatEquals(num1: number, num2: number) {
+export function floatEquals(num1: number, num2: number): boolean {
   return Math.abs(num1 - num2) < Number.EPSILON
 }

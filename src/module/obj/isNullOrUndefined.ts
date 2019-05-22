@@ -4,6 +4,6 @@
  * @param object 任何一个对象
  * @returns 是否无效的值
  */
-export function isNullOrUndefined(object: any): boolean {
+export function isNullOrUndefined(object: any): object is null | undefined {
   return object === undefined || object === null
 }

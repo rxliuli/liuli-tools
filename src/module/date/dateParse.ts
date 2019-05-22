@@ -1,6 +1,6 @@
 import { fill } from '../string/fill'
 import { arrayToMap } from './../array/arrayToMap'
-import { Nullable } from '../interface/global'
+import { Nullable } from '../interface/Nullable'
 
 /**
  * 日期格式化类

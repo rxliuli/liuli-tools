@@ -1,4 +1,4 @@
-import { Nullable } from '../interface/global'
+import { Nullable } from '../interface/Nullable'
 
 /**
  * 直接删除指定元素

@@ -1,10 +1,12 @@
+import { convert } from '../interface/convert'
+
 /**
  * 包装对象，使其成为可以任意深度调用而不会出现 undefined 调用的问题
  * 注意: 该函数不能进行递归调用（{@link JSON.stringfy}），一定会造成堆栈溢出的问题（RangeError: Maximum call stack size exceeded）
- * @param object 任意一个 Object 对象
+ * @param obj 任意一个 Object 对象
  * @returns 包装后的对象
  */
-export function deepProxy(object: object): any {
+export function deepProxy<T extends object>(obj: T): T | any {
   const handler = {
     get(target: object, k: PropertyKey): object {
       Reflect.set(
@@ -19,5 +21,5 @@ export function deepProxy(object: object): any {
       return v
     },
   }
-  return new Proxy(object, handler)
+  return convert(new Proxy(obj, handler))
 }

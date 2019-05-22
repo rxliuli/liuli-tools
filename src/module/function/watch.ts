@@ -1,4 +1,4 @@
-import { safeExec } from './safeExec'
+import { ReturnFunc } from '../interface/ReturnFunc'
 
 /**
  * 监视指定函数返回值的变化
@@ -7,14 +7,14 @@ import { safeExec } from './safeExec'
  * @param interval 每次检查的间隔时间，默认为 100ms
  * @returns 关闭这个监视函数
  */
-export function watch(
-  fn: (...args: any[]) => any,
-  callback: (...args: any[]) => void,
+export function watch<R>(
+  fn: ReturnFunc<R>,
+  callback: (newVal: R, oldVal: R) => void,
   interval = 100,
 ): Function {
-  let oldVal = safeExec(fn)
+  let oldVal = fn()
   const timer = setInterval(() => {
-    const newVal = safeExec(fn)
+    const newVal = fn()
     if (oldVal !== newVal) {
       callback(newVal, oldVal)
       oldVal = newVal

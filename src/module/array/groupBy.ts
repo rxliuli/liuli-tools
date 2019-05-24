@@ -56,7 +56,7 @@ export function groupBy<T, K, V = T[]>(
    * @param item 当前迭代的元素
    * @returns 将当前元素合并后的最终 V 集合
    */
-  vFn: ArrayReduceCallback<V, T> = convert((res: T[], item: T) => {
+  vFn: ArrayReduceCallback<T, V> = convert((res: T[], item: T) => {
     res.push(item)
     return res
   }),

@@ -26,9 +26,10 @@
     "moduleResolution": "node"
   },
   "include": [
-    "./src/**/*",
+    "./src/**/*.ts",
   ],
   "exclude": [
-    "./dist"
+    "./dist",
+    "./src/**/*.test.ts",
   ]
 }

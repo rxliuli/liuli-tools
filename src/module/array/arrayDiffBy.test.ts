@@ -1,5 +1,5 @@
 import { arrayDiffBy } from './arrayDiffBy'
-import { toString } from '../obj/toString'
+import { toString } from '../string/toString'
 
 /**
  * @test {arrayDiffBy}

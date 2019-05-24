@@ -64,4 +64,9 @@ describe('test AsyncArray', () => {
       expect(arr.includes(item)).toBeTrue()
     }
   })
+  it('test from', () => {
+    expect(AsyncArray.from(undefined).value()).toIncludeAllMembers([])
+    expect(AsyncArray.from(arr).value()).toIncludeAllMembers(arr)
+    expect(AsyncArray.from(new Set(arr)).value()).toIncludeAllMembers(arr)
+  })
 })

@@ -1,3 +1,6 @@
+import { Nullable } from '../interface/Nullable'
+import { isNullOrUndefined } from '../obj/isNullOrUndefined'
+
 /**
  * 异步的 reduce 回调函数类型
  */
@@ -27,6 +30,19 @@ export class AsyncArray<T> {
    */
   get length() {
     return this._arr.length
+  }
+  /**
+   * 提供一个函数方便根据已有的数组或类数组（Set/Map）
+   * @param arr 一个可迭代元素
+   * @returns 创建一个新的异步数组包装
+   */
+  public static from<T>(
+    arr: Iterable<T> | ArrayLike<T> | null | undefined,
+  ): AsyncArray<T> {
+    if (isNullOrUndefined(arr)) {
+      return new AsyncArray()
+    }
+    return new AsyncArray(...Array.from(arr))
   }
   /**
    * 内部的数组

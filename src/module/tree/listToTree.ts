@@ -1,6 +1,5 @@
 import { returnItself } from '../function/returnItself'
 import { INode } from './INode'
-import { convert } from '../interface/convert'
 
 /**
  * 列表转树可选项对象
@@ -26,7 +25,7 @@ export interface IListToTreeOptoins<T> {
 export function listToTree<T>(
   list: T[],
   {
-    bridge = convert(returnItself),
+    bridge = returnItself,
     isRoot = node => !node.parentId,
   }: Partial<IListToTreeOptoins<T>> = {},
 ): INode | INode[] | object {

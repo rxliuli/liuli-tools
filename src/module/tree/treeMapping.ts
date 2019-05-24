@@ -1,7 +1,6 @@
 import { arrayValidator } from '../array/arrayValidator'
 import { returnItself } from '../function/returnItself'
 import { INode } from './INode'
-import { convert } from '../interface/convert'
 
 /**
  * 遍历并映射一棵树的可选参数对象
@@ -30,7 +29,7 @@ interface ITreeMappingOptions<T> {
 export function treeMapping<T>(
   root: T,
   {
-    before = convert(returnItself),
+    before = returnItself,
     after = returnItself,
     paramFn = (node, ...args) => [],
   }: Partial<ITreeMappingOptions<T>> = {},

@@ -1,7 +1,6 @@
 import { groupBy } from './groupBy'
 import { returnItself } from '../function/returnItself'
 import { ArrayCallback } from '../interface/ArrayCallback'
-import { convert } from '../interface/convert'
 
 /**
  * 快速根据指定函数对数组进行排序
@@ -12,7 +11,7 @@ import { convert } from '../interface/convert'
  */
 export function sortBy<T, K>(
   arr: T[],
-  kFn: ArrayCallback<T, K> = convert(returnItself),
+  kFn: ArrayCallback<T, K> = returnItself,
 ): T[] {
   // 边界条件，如果传入数组的值
   if (arr.length <= 1) {

@@ -22,7 +22,7 @@ export function toObject<T, K extends PropertyKey, V>(
 export function toObject<T, K extends PropertyKey, V>(
   arr: T[],
   kFn: ArrayCallback<T, K>,
-  vFn: ArrayCallback<T, V> = convert(returnItself),
+  vFn: ArrayCallback<T, V> = returnItself,
 ): Record<PropertyKey, V> {
   return arr.reduce((res: Record<PropertyKey, V>, item, i, arr) => {
     const k = kFn(item, i, arr)

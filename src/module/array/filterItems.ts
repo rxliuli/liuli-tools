@@ -1,6 +1,5 @@
 import { returnItself } from './../function/returnItself'
 import { ArrayCallback } from '../interface/ArrayCallback'
-import { convert } from '../interface/convert'
 
 /**
  * 从数组中移除指定的元素
@@ -12,7 +11,7 @@ import { convert } from '../interface/convert'
 export function filterItems<T, K>(
   arr: T[],
   deleteItems: T[],
-  kFn: ArrayCallback<T, K> = convert(returnItself),
+  kFn: ArrayCallback<T, K> = returnItself,
 ) {
   const kSet = new Set(deleteItems.map(kFn))
   return arr.filter((v, i, arr) => !kSet.has(kFn(v, i, arr)))

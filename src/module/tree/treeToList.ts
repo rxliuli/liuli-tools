@@ -1,7 +1,6 @@
 import { returnItself } from '../function/returnItself'
 import { treeMapping } from './treeMapping'
 import { INode } from './INode'
-import { convert } from '../interface/convert'
 
 /**
  * 树转列表可选项参数接口
@@ -27,7 +26,7 @@ export function treeToList<T>(
   root: T,
   {
     calcPath = false,
-    bridge = convert(returnItself),
+    bridge = returnItself,
   }: Partial<ITreeToListOptoins<T>> = {},
 ): INode[] {
   const res: INode[] = []

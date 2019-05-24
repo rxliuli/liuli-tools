@@ -1,5 +1,4 @@
 import { returnItself } from '../function/returnItself'
-import { convert } from '../interface/convert'
 import { ArrayCallback } from '../interface/ArrayCallback'
 
 /**
@@ -12,7 +11,7 @@ import { ArrayCallback } from '../interface/ArrayCallback'
 export function arrayToMap<T, K, V>(
   arr: T[],
   kFn: ArrayCallback<T, K>,
-  vFn: ArrayCallback<T, V> = convert(returnItself),
+  vFn: ArrayCallback<T, V> = returnItself,
 ): Map<K, V> {
   return arr.reduce(
     (res, item, index, arr) =>

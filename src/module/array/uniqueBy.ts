@@ -1,6 +1,5 @@
 import { returnItself } from '../function/returnItself'
 import { ArrayCallback } from '../interface/ArrayCallback'
-import { convert } from '../interface/convert'
 
 /**
  * js 的数组去重方法
@@ -10,7 +9,7 @@ import { convert } from '../interface/convert'
  */
 export function uniqueBy<T, K>(
   arr: T[],
-  kFn: ArrayCallback<T, K> = convert(returnItself),
+  kFn: ArrayCallback<T, K> = returnItself,
 ): T[] {
   const set = new Set()
   return arr.filter((v, ...args) => {

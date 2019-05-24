@@ -110,6 +110,8 @@ import { trySometime } from './module/function/trySometime'
 import { trySometimeParallel } from './module/function/trySometimeParallel'
 import { compare } from './module/obj/compare'
 import { sleep } from './module/function/sleep'
+import { AsyncArray } from './module/array/AsyncArray'
+import { async } from './module/function/async'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -131,6 +133,7 @@ export {
   arrayToMap,
   arrayValidator,
   asIterator,
+  AsyncArray,
   asyncFlatMap,
   filterItems,
   flatMap,
@@ -184,6 +187,7 @@ export {
   waitResource,
   watch,
   watchObject,
+  async,
   asyncLimiting,
   bridge,
   compose,

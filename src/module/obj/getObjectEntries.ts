@@ -4,5 +4,9 @@
  * @returns 属性及其对应值的二维数组
  */
 export function getObjectEntries(obj: object): Array<[PropertyKey, any]> {
-  return Reflect.ownKeys(obj).map(k => [k, Reflect.get(obj, k)])
+  const mFn: (k: PropertyKey) => [PropertyKey, any] = k => [
+    k,
+    Reflect.get(obj, k),
+  ]
+  return Reflect.ownKeys(obj).map(mFn)
 }

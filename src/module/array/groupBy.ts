@@ -27,7 +27,7 @@ export function groupBy<T, K>(arr: T[], kFn: ArrayCallback<T, K>): Map<K, T[]>
 export function groupBy<T, K, R>(
   arr: T[],
   kFn: ArrayCallback<T, K>,
-  vFn: ArrayReduceCallback<R[], T>,
+  vFn: ArrayReduceCallback<T, R[]>,
 ): Map<K, R[]>
 /**
  * js 数组按照某个条件进行分组
@@ -44,7 +44,7 @@ export function groupBy<T, K, R>(
 export function groupBy<T = any, K = any, V = []>(
   arr: T[],
   kFn: ArrayCallback<T, K>,
-  vFn: ArrayReduceCallback<V, T>,
+  vFn: ArrayReduceCallback<T, V>,
   init: Supplier<V>,
 ): Map<K, V>
 export function groupBy<T, K, V = T[]>(

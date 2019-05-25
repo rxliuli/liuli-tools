@@ -32,14 +32,7 @@ describe('test groupBy', () => {
   })
   it('groupBy for custom vFn', () => {
     class User {
-      public id: any
-      public name: any
-      public sex: any
-      constructor(id: number, name: string, sex: number) {
-        this.id = id
-        this.name = name
-        this.sex = sex
-      }
+      constructor(public id: number, public name: string, public sex: number) {}
     }
     const users = [
       new User(1, 'rx', 1),
@@ -51,7 +44,7 @@ describe('test groupBy', () => {
       groupBy(
         users,
         ({ sex }) => sex % 2 === 0,
-        (res: { set: (arg0: any, arg1: any) => void }, { id, name }: any) => {
+        (res, { id, name }) => {
           res.set(id, name)
           return res
         },

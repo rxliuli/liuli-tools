@@ -8,7 +8,8 @@
   "scripts": {
     "start": "yarn test",
     "build": "rollup -c build/rollup.config.js",
-    "lint": "tslint \"src/**/*.ts\" ",
+    "lint": "tslint src/**/*.ts ",
+    "format": "prettier --write src/**/*.ts src/**/*.js",
     "docs": "rimraf docs && typedoc --out docs src",
     "test": "jest --watch",
     "coverage": "jest --coverage",
@@ -36,6 +37,7 @@
   "homepage": "https://rx-util.rxliuli.com/",
   "devDependencies": {
     "@types/jest": "^24.0.13",
+    "@types/prettier": "^1.16.4",
     "@types/rimraf": "^2.0.2",
     "@types/rollup": "^0.54.0",
     "@types/typescript": "^2.0.0",
@@ -45,6 +47,7 @@
     "jest-extended": "^0.11.1",
     "lint-staged": "^8.1.5",
     "live-server": "^1.2.1",
+    "prettier": "^1.17.1",
     "rimraf": "^2.6.3",
     "rollup": "^1.12.3",
     "rollup-plugin-terser": "^4.0.4",
@@ -56,6 +59,8 @@
     "ts-node": "^8.1.0",
     "tslib": "^1.9.3",
     "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
     "typedoc": "^0.14.2",
     "typescript": "^3.4.5"
   }

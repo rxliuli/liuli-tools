@@ -1,10 +1,19 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:recommended"],
-  "rulesDirectory": ["./src"],
+  "extends": [
+    "tslint:recommended",
+    "tslint-plugin-prettier",
+    "tslint-config-prettier"
+  ],
+  "rulesDirectory": [
+    "./src"
+  ],
   "jsRules": {},
   "rules": {
-    "max-line-length": [true, 140],
+    "max-line-length": [
+      true,
+      140
+    ],
     // 禁止内置原始类型
     "ban-types": false,
     // 禁止给参数赋值
@@ -30,9 +39,16 @@
     // 对象属性声明按照字母表
     "object-literal-sort-keys": false,
     // // 结束语句后的分号
-    "semicolon": [false, "always"],
+    "semicolon": [
+      false,
+      "always"
+    ],
     // 字符串强制单引号
-    "quotemark": [true, "single", "jsx-double"],
+    "quotemark": [
+      true,
+      "single",
+      "jsx-double"
+    ],
     // 禁止 arguments.callee
     "no-arg": true,
     // if 语句的单行不用括号，多行用括号
@@ -44,7 +60,10 @@
     // 在函数括号前要求或不允许空格
     "space-before-function-paren": false,
     // 箭头函数的参数使用括号
-    "arrow-parens": [true, "ban-single-arg-parens"],
+    "arrow-parens": [
+      true,
+      "ban-single-arg-parens"
+    ],
     // 不固定变量类型
     "no-shadowed-variable": false,
     // 行尾多余的空格
@@ -65,16 +84,24 @@
     // 一行声明变量表达式
     "one-variable-per-declaration": false,
     // 允许在一个文件里定义多个 class
-    "max-classes-per-file": [true, 5],
+    "max-classes-per-file": [
+      true,
+      5
+    ],
     // 判断表达式 fn && fn()
-    "no-unused-expression": [true, "allow-fast-null-checks"],
+    "no-unused-expression": [
+      true,
+      "allow-fast-null-checks"
+    ],
     // 空函数
     "no-empty": false,
     // forin 是否必须包含 hasOwnProperty 判断
     "forin": false,
     "no-debugger": false,
     // 强制要求必须要声明类型
-    "typedef": [true],
+    "typedef": [
+      true
+    ],
     "trailing-comma": true,
     "whitespace": false
   }

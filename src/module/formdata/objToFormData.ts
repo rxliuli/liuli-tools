@@ -1,5 +1,3 @@
-import { toString } from '../string/toString'
-
 /**
  * 将参数对象转换为 FormData，只转换一层
  * @param data 参数对象
@@ -8,10 +6,12 @@ import { toString } from '../string/toString'
 export function objToFormData(
   data: Record<string, string | Blob | any>,
 ): FormData {
-  const fd = new FormData()
-  for (const k in data) {
-    const v = data[k]
-    fd.append(k, toString(v))
-  }
-  return fd
+  return Object.entries(data).reduce((res, [k, v]) => {
+    if (v instanceof Blob) {
+      res.append(k, v)
+    } else {
+      res.append(k, v && v.toString())
+    }
+    return res
+  }, new FormData())
 }

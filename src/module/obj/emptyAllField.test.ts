@@ -9,7 +9,7 @@ describe('test emptyAllField', () => {
       emptyAllField({
         name: 'rx',
         age: 17,
-      })
+      }),
     ).toEqual({
       name: null,
       age: null,

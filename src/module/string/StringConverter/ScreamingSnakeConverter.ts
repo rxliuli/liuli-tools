@@ -1,5 +1,5 @@
-import { toUpperCase } from '../toUpperCase';
-import { SnakeOrScreamingSnakeFrom } from './SnakeOrScreamingSnakeFrom';
+import { toUpperCase } from '../toUpperCase'
+import { SnakeOrScreamingSnakeFrom } from './SnakeOrScreamingSnakeFrom'
 /**
  * 大写下划线的转换器
  */
@@ -12,6 +12,6 @@ export class ScreamingSnakeConverter extends SnakeOrScreamingSnakeFrom {
    * @override
    */
   public to(list: string[]): string {
-    return list.map(toUpperCase).join('_');
+    return list.map(toUpperCase).join('_')
   }
 }

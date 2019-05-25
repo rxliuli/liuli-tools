@@ -1,5 +1,5 @@
 import { randomInt } from './randomInt'
-import { range } from '../array/range';
+import { range } from '../array/range'
 
 /**
  * @test {randomInt}

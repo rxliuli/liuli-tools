@@ -37,8 +37,8 @@ describe('test excludeFieldsDeep', () => {
           ],
         },
         'name',
-        'parent'
-      )
+        'parent',
+      ),
     ).toEqual({
       id: 1,
       child: [
@@ -67,8 +67,8 @@ describe('test excludeFieldsDeep', () => {
           },
         ],
         'name',
-        'parent'
-      )
+        'parent',
+      ),
     ).toEqual([
       {
         id: 2,

@@ -10,8 +10,8 @@ describe('test mapToObject', () => {
         new Map()
           .set('name', 'rx')
           .set('age', 17)
-          .set(1, 1)
-      )
+          .set(1, 1),
+      ),
     ).toEqual({
       name: 'rx',
       age: 17,

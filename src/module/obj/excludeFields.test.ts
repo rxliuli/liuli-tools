@@ -26,8 +26,8 @@ describe('test exculdeFields', () => {
           [symbol]: name,
           [name]: symbol,
         },
-        symbol
-      )
+        symbol,
+      ),
     ).toEqual({ [name]: symbol })
   })
 })

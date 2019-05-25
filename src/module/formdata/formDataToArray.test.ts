@@ -11,7 +11,7 @@ describe('test formDataToArray', () => {
       age: 17,
     })
     expect(formDataToArray(fd)).toEqual(
-      expect.arrayContaining([['name', 'rx'], ['age', '17']])
+      expect.arrayContaining([['name', 'rx'], ['age', '17']]),
     )
   })
 })

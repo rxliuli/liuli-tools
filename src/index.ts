@@ -112,6 +112,7 @@ import { compare } from './module/obj/compare'
 import { sleep } from './module/function/sleep'
 import { AsyncArray } from './module/array/AsyncArray'
 import { async } from './module/function/async'
+import { findIndex } from './module/array/findIndex'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -136,6 +137,7 @@ export {
   AsyncArray,
   asyncFlatMap,
   filterItems,
+  findIndex,
   flatMap,
   groupBy,
   range,

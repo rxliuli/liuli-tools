@@ -1,11 +1,29 @@
 /**
+ * 柯里化后返回的函数
+ */
+interface IRFunc extends Function {
+  /**
+   * 是否为柯里化函数，默认为 true 以标识柯里化函数
+   */
+  _curry: boolean
+  /**
+   * 剩余参数的长度
+   */
+  _length: number
+  /**
+   * 重写 toString 便于调试
+   */
+  toString: () => string
+}
+
+/**
  * 将函数包装为柯里化函数
  * 注: 该函数模仿了 Lodash 的 curry 函数
  * @param fn 需要包装的函数
  * @param  {...any} args 应用的部分参数
  * @returns 包装后的函数
  */
-export function curry(fn: Function, ...args: any[]): Function {
+export function curry(fn: Function, ...args: any[]): IRFunc {
   const realArgs = args.filter(arg => arg !== curry._)
   // 如果函数参数足够则调用传入的函数
   if (realArgs.length >= fn.length) {
@@ -36,12 +54,13 @@ export function curry(fn: Function, ...args: any[]): Function {
     const newOtherArgs = otherArgs.filter((_v, i) => !removeIndexSet.has(i))
     return curry(fn, ...newArgs, ...newOtherArgs)
   }
-
+  // 定义柯里化函数的剩余参数长度，便于在其他地方进行部分参数应用
+  // 注: 不使用 length 属性的原因是 length 属性
+  innerFn._length = fn.length - args.filter(arg => arg !== curry._).length
   // 自定义 toString 函数便于调试
   innerFn.toString = () =>
     `name: ${fn.name}, args: [${args.map(o => o.toString()).join(', ')}]`
   innerFn._curry = true
-
   return innerFn
 }
 

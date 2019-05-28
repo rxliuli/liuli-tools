@@ -1,5 +1,5 @@
 import { compose } from './compose'
-import { curry } from '../../index'
+import { curry } from './curry'
 
 /**
  * @test {compose}
@@ -43,5 +43,21 @@ describe('test compose', () => {
     expect(fn(1)(1)(1)(2)(2)(2)(3)).toBe(2)
     // 测试占位符
     expect(fn(1)(1)(1)(2)(2)(curry._, 2)(3)).toBe(2)
+  })
+  it('test length', () => {
+    const add = (i: number, k: number, j: number) => i + k + j
+    const mul = (i: number, k: number, j: number) => i * k * j
+    expect(
+      compose(
+        add,
+        mul,
+      )(1, 2, 3)(2, 2),
+    ).toBe(24)
+    expect(
+      compose(
+        add,
+        mul,
+      )(1, 2, 3, 2, 2),
+    ).toBe(24)
   })
 })

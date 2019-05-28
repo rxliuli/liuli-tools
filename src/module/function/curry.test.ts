@@ -43,4 +43,13 @@ describe('test curry', () => {
     const add = (i1: number, i2: number, i3: number) => i1 + i2 + i3
     expect(curry(add)(1)(2).toString()).toBe('name: add, args: [1, 2]')
   })
+  it('test length', () => {
+    const add = (a: number, b: number, c: number) => a + b + c
+    expect(curry(add)._length).toBe(3)
+    expect(curry(add)(1)._length).toBe(2)
+    expect(curry(add)(1)(2)._length).toBe(1)
+    expect(curry(add)(1, 2)._length).toBe(1)
+    expect(curry(add)(1, curry._, 3)._length).toBe(1)
+    expect(curry(add)(curry._, 1)._length).toBe(2)
+  })
 })

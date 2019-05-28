@@ -4,6 +4,6 @@
  * @param time 阻塞毫秒数
  */
 export function sleep(time: number) {
-  const start = performance.now()
-  while (performance.now() - start <= time) {}
+  const end = performance.now() + time
+  while (performance.now() <= end) {}
 }

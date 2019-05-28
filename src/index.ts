@@ -113,6 +113,7 @@ import { sleep } from './module/function/sleep'
 import { AsyncArray } from './module/array/AsyncArray'
 import { async } from './module/function/async'
 import { findIndex } from './module/array/findIndex'
+import { CombinedPredicate } from './module/function/CombinedPredicate'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -192,6 +193,7 @@ export {
   async,
   asyncLimiting,
   bridge,
+  CombinedPredicate,
   compose,
   curry,
   blankToNull,

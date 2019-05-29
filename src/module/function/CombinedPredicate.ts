@@ -1,6 +1,4 @@
 import { ReturnFunc } from '../interface/ReturnFunc'
-import { async } from './async'
-import { stringValidator } from '../string/stringValidator'
 
 /**
  * 谓词的返回值，支持异步函数
@@ -12,27 +10,34 @@ type PredicateReturn = boolean | Promise<boolean>
 type PredicateFunc = ReturnFunc<PredicateReturn>
 
 /**
- * 内部函数
- * @param fns 传入剩余的函数列表
- * @param args 参数数组
- * @param call 执行的回调函数
- * @returns 执行结果
+ * 内部使用的函数
+ * 注: 如果谓词中包含任意一个异步(返回 Promise)函数,则整个返回结果将变成异步的,否则默认为同步操作.
+ * @param fns 谓词数组
+ * @param args 谓词应用的参数列表
+ * @param condition 临界条件
+ * @returns 返回结果
  */
 function _inner(
   fns: PredicateFunc[],
   args: any[],
-  call: (res: boolean) => PredicateReturn,
+  condition: (res: boolean) => boolean,
 ): PredicateReturn {
-  const fn = fns.shift()
-  if (!fn) {
-    return false
+  const fn = fns[0]
+  const res = fn!(...args)
+  function _call(res: boolean): PredicateReturn {
+    if (condition(res)) {
+      return res
+    }
+    const others = fns.slice(1)
+    if (others.length === 0) {
+      return res
+    }
+    return _inner(others, args, condition)
   }
-  // @ts-ignore
-  const result = fn.apply(this, args)
-  if (result instanceof Promise) {
-    return result.then(call)
+  if (res instanceof Promise) {
+    return res.then(_call)
   }
-  return call(result)
+  return _call(res)
 }
 
 /**
@@ -46,15 +51,7 @@ export class CombinedPredicate {
    */
   public static and(...fns: PredicateFunc[]) {
     return function(...args: any[]) {
-      return _inner(fns, args, function call(res): PredicateReturn {
-        if (!res) {
-          return false
-        }
-        if (fns.length === 0) {
-          return res
-        }
-        return _inner(fns, args, call)
-      })
+      return _inner(fns, args, res => !res)
     }
   }
   /**
@@ -64,15 +61,7 @@ export class CombinedPredicate {
    */
   public static or(...fns: PredicateFunc[]) {
     return function(...args: any[]) {
-      return _inner(fns, args, function call(res): PredicateReturn {
-        if (res) {
-          return true
-        }
-        if (fns.length === 0) {
-          return res
-        }
-        return _inner(fns, args, call)
-      })
+      return _inner(fns, args, res => res)
     }
   }
   /**
@@ -83,11 +72,11 @@ export class CombinedPredicate {
   public static not(fn: PredicateFunc) {
     return new Proxy(fn, {
       apply(_, _this, args) {
-        const result = Reflect.apply(_, this, args)
-        if (result instanceof Promise) {
-          return result.then(res => !res)
+        const res = Reflect.apply(_, this, args)
+        if (res instanceof Promise) {
+          return res.then(r => !r)
         }
-        return !result
+        return !res
       },
     })
   }

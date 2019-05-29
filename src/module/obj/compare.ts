@@ -5,13 +5,22 @@
  * @returns 是否相等
  */
 export function compare(x: any, y: any): boolean {
-  if (typeof x === 'number' && typeof y === 'number') {
+  if (
+    (typeof x === 'number' || x instanceof Number) &&
+    (typeof y === 'number' || y instanceof Number)
+  ) {
+    const _x = +x
+    const _y = +y
     // 如果都是 NaN 则直接返回 true
-    if (isNaN(x) && isNaN(y)) {
+    if (isNaN(_x) && isNaN(_y)) {
       return true
     }
+    // 如果是 -0/+0 则返回 false
+    if (_x === _y) {
+      return 1 / _x === 1 / _y
+    }
     // 如果均为数字且两数之差的绝对值小于浮点数的最小精度（此举主要是为了避免浮点数的精度丢失）
-    if (Math.abs(x - y) < Number.EPSILON) {
+    if (Math.abs(_x - _y) < Number.EPSILON) {
       return true
     }
   }
@@ -19,17 +28,13 @@ export function compare(x: any, y: any): boolean {
   if (x === y) {
     return true
   }
-  // 如果是函数则比较 toString() 后的字符串
-  if (typeof x === 'function' && typeof y === 'function') {
-    if (
-      (x instanceof RegExp && y instanceof RegExp) ||
-      (x instanceof String || y instanceof String) ||
-      (x instanceof Number || y instanceof Number)
-    ) {
-      return x.toString() === y.toString()
-    } else {
-      return false
-    }
+  // 比较正则和字符串
+  if (
+    (x instanceof RegExp && y instanceof RegExp) ||
+    ((typeof x === 'string' || x instanceof String) &&
+      (typeof y === 'string' || y instanceof String))
+  ) {
+    return x.toString() === y.toString()
   }
   // 如果都是时间则比较它们的时间戳
   if (x instanceof Date && y instanceof Date) {

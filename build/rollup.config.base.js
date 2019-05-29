@@ -14,6 +14,8 @@ export default {
   plugins: [
     // 引入 tslint 插件，必须在 babel 之前引入，因为 babel 编译之后的代码未必符合 tslint 规范，tslint 仅针对我们 [原本] 的代码
     tslint(),
-    typescript(),
+    typescript({
+      exclude: ['./dist', './src/**/*.test.ts'],
+    }),
   ],
 }

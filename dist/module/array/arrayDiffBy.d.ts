@@ -14,7 +14,7 @@ interface IArrayDiff<L, R> {
  * 比较两个数组的差异
  * @param left 第一个数组
  * @param right 第二个数组
- * @param [kFn=returnItself] 每个元素的唯一标识产生函数
+ * @param kFn 每个元素的唯一标识产生函数
  * @returns 比较的差异结果
  */
 export declare function arrayDiffBy<L, R>(left: L[], right: R[], kFn?: ArrayCallback<L | R, any>): IArrayDiff<L, R>;

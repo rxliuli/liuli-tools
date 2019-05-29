@@ -1,18 +1,7 @@
-interface IUrlObject {
-    href: string;
-    website: string;
-    protocol: string;
-    domain: string;
-    accessPath: string;
-    params: Map<string, string | string[]>;
-    url: string;
-    port: number;
-}
 /**
  * Url 对象
- * @class UrlObject
  */
-declare class UrlObject {
+interface IUrlObject {
     /**
      * href 不包含网站域名的链接
      */
@@ -45,17 +34,12 @@ declare class UrlObject {
      * port 端口号
      */
     port: number;
-    /**
-     * 构造函数
-     * @param option 可选项
-     */
-    constructor({ href, website, protocol, domain, accessPath, params, url, port, }?: Partial<IUrlObject>);
 }
 /**
  * 解析 url 字符串
  * @param url url 字符串，不能为空
  * @returns url 对象
  */
-export declare function parseUrl(url: string): UrlObject | null;
+export declare function parseUrl(url: string): IUrlObject | null;
 export {};
 //# sourceMappingURL=parseUrl.d.ts.map

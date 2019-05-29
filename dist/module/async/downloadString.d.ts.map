@@ -1,1 +1,1 @@
-{"version":3,"file":"downloadString.d.ts","sourceRoot":"","sources":["../../src/module/async/downloadString.ts"],"names":[],"mappings":"AAEA;;;;GAIG;AACH,wBAAsB,cAAc,CAAC,GAAG,EAAE,MAAM,EAAE,QAAQ,SAAgB,iBAKzE"}
+{"version":3,"file":"downloadString.d.ts","sourceRoot":"","sources":["../../src/module/async/downloadString.ts"],"names":[],"mappings":"AAGA;;;;GAIG;AACH,wBAAsB,cAAc,CAAC,GAAG,EAAE,MAAM,EAAE,QAAQ,SAAgB,iBAEzE"}

@@ -82,7 +82,7 @@ import { isNullOrUndefined } from './module/obj/isNullOrUndefined';
 import { toString } from './module/string/toString';
 import { LocalStorageCache } from './module/cache/LocalStorageCache';
 import { cacheUtil } from './module/cache/cacheUtil';
-import { antiDebug } from './module/hook/antiDebug';
+import { antiDebug } from './module/hack/antiDebug';
 import { isBlank } from './module/string/isBlank';
 import { isEmpty } from './module/string/isEmpty';
 import { loadScript } from './module/async/loadScript';
@@ -90,7 +90,7 @@ import { deny } from './module/function/deny';
 import { arrayValidator } from './module/array/arrayValidator';
 import { stringValidator } from './module/string/stringValidator';
 import { pathUtil } from './module/string/pathUtil';
-import { logger } from './module/hook/logger';
+import { logger } from './module/hack/logger';
 import { emptyFunc } from './module/function/emptyFunc';
 import { objectToMap } from './module/obj/objectToMap';
 import { listToTree } from './module/tree/listToTree';
@@ -110,8 +110,12 @@ import { trySometime } from './module/function/trySometime';
 import { trySometimeParallel } from './module/function/trySometimeParallel';
 import { compare } from './module/obj/compare';
 import { sleep } from './module/function/sleep';
+import { AsyncArray } from './module/array/AsyncArray';
+import { async } from './module/function/async';
+import { findIndex } from './module/array/findIndex';
+import { CombinedPredicate } from './module/function/CombinedPredicate';
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
  */
-export { download, downloadString, downloadUrl, getCookies, loadResource, loadScript, parseUrl, readLocal, spliceParams, fetchTimeout, strToArrayBuffer, FetchLimiting, arrayDiffBy, arrayToMap, arrayValidator, asIterator, asyncFlatMap, filterItems, flatMap, groupBy, range, sortBy, toObject, uniqueBy, LocalStorageCache, cacheUtil, dateFormat, dateParse, dateConstants, DateFormatter, dateEnhance, dateBetween, strToDate, getYearWeek, copyText, createElByString, getCusorPostion, insertText, isEditable, lastFocus, removeEl, removeText, setCusorPostion, watchEventListener, appends, deletes, sets, objToFormData, formDataToArray, debounce, deny, emptyFunc, Locker, once, onceOfSameParam, returnItself, returnReasonableItself, safeExec, singleModel, sleep, StateMachine, throttle, timing, trySometime, trySometimeParallel, wait, waitResource, watch, watchObject, asyncLimiting, bridge, compose, curry, blankToNull, fill, format, isBlank, isEmpty, isFloat, isNumber, pathUtil, StringStyleType, StringStyleUtil, stringValidator, toLowerCase, toString, toUpperCase, aggregation, assign, blankToNullField, compare, deepFreeze, deepProxy, emptyAllField, excludeFields, excludeFieldsDeep, getObjectEntries, getObjectKeys, isNullOrUndefined, mapToObject, objectToMap, antiDebug, logger, randomInt, isRange, autoIncrement, floatEquals, listToTree, treeMapping, INodeBridge, nodeBridgeUtil, treeToList, };
+export { download, downloadString, downloadUrl, getCookies, loadResource, loadScript, parseUrl, readLocal, spliceParams, fetchTimeout, strToArrayBuffer, FetchLimiting, arrayDiffBy, arrayToMap, arrayValidator, asIterator, AsyncArray, asyncFlatMap, filterItems, findIndex, flatMap, groupBy, range, sortBy, toObject, uniqueBy, LocalStorageCache, cacheUtil, dateFormat, dateParse, dateConstants, DateFormatter, dateEnhance, dateBetween, strToDate, getYearWeek, copyText, createElByString, getCusorPostion, insertText, isEditable, lastFocus, removeEl, removeText, setCusorPostion, watchEventListener, appends, deletes, sets, objToFormData, formDataToArray, debounce, deny, emptyFunc, Locker, once, onceOfSameParam, returnItself, returnReasonableItself, safeExec, singleModel, sleep, StateMachine, throttle, timing, trySometime, trySometimeParallel, wait, waitResource, watch, watchObject, async, asyncLimiting, bridge, CombinedPredicate, compose, curry, blankToNull, fill, format, isBlank, isEmpty, isFloat, isNumber, pathUtil, StringStyleType, StringStyleUtil, stringValidator, toLowerCase, toString, toUpperCase, aggregation, assign, blankToNullField, compare, deepFreeze, deepProxy, emptyAllField, excludeFields, excludeFieldsDeep, getObjectEntries, getObjectKeys, isNullOrUndefined, mapToObject, objectToMap, antiDebug, logger, randomInt, isRange, autoIncrement, floatEquals, listToTree, treeMapping, INodeBridge, nodeBridgeUtil, treeToList, };
 //# sourceMappingURL=index.d.ts.map

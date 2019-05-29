@@ -1,1 +1,1 @@
-{"version":3,"file":"lastFocus.d.ts","sourceRoot":"","sources":["../../src/module/dom/lastFocus.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,QAAQ,EAAE,MAAM,qBAAqB,CAAA;AAkB9C;;;GAGG;AACH,wBAAgB,SAAS,IAAI,QAAQ,CAAC,OAAO,CAAC,GAAG,WAAW,CAE3D"}
+{"version":3,"file":"lastFocus.d.ts","sourceRoot":"","sources":["../../src/module/dom/lastFocus.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,QAAQ,EAAE,MAAM,uBAAuB,CAAA;AAkBhD;;;GAGG;AACH,wBAAgB,SAAS,IAAI,QAAQ,CAAC,OAAO,CAAC,GAAG,WAAW,CAE3D"}

@@ -1,4 +1,7 @@
 declare type Predicate = (...args: any[]) => boolean;
+/**
+ * Locker 初始化对象接口
+ */
 interface ILockerInit {
     limit?: number;
     timeout?: number;
@@ -7,12 +10,18 @@ interface ILockerInit {
  * 创建一个 Lock 对象，用于锁住当前的当前的异步流程
  */
 export declare class Locker {
+    /**
+     * 限制并发数量，默认为 1
+     */
     limit: number;
+    /**
+     * 超时时间，默认为无限
+     */
     timeout: number | Predicate;
     /**
-     * @param [options={}] 可选项
-     * @param [options.limit=1] 限制并发数量，默认为 1
-     * @param [options.timeout=TimeoutInfinity] 超时时间，默认为无限
+     * @param options 可选项
+     * @param options.limit 限制并发数量，默认为 1
+     * @param options.timeout 超时时间，默认为无限
      */
     constructor({ limit, timeout }?: Partial<ILockerInit>);
     /**
@@ -22,7 +31,7 @@ export declare class Locker {
     isLocked(): boolean;
     /**
      * 添加异步锁
-     * @param [timeout=this.timeout] 超时时间，默认为全局 timeout
+     * @param timeout 超时时间，默认为全局 timeout
      * @returns 进行等待
      */
     lock(timeout?: number | Predicate): Promise<void>;

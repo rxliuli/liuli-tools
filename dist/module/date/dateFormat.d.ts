@@ -4,5 +4,5 @@
  * @param fmt 日期的格式
  * @returns 格式化得到的结果
  */
-export declare function dateFormat(date: Date | null | undefined, fmt: string): string;
+export declare function dateFormat(date: Date, fmt: string): string;
 //# sourceMappingURL=dateFormat.d.ts.map

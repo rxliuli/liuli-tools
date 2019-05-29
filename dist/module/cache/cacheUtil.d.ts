@@ -1,5 +1,14 @@
-interface ICacheUtilInit {
+/**
+ * 缓存工具类可选参数项类型
+ */
+interface ICacheUtilOptions {
+    /**
+     * 函数唯一标识，默认为函数 toString()
+     */
     identity: string;
+    /**
+     * 缓存超时时间，默认为无限
+     */
     timeout: number | string;
 }
 /**
@@ -10,12 +19,12 @@ export declare class CacheUtil {
     /**
      * 包裹函数为缓存函数
      * @param fn 一个接受一些参数并返回结果的函数
-     * @param [options={}] 缓存选项对象。可选项
-     * @param [options.identity=fn.toString()] 缓存标识。默认为函数 {@link toString}，但有时候不太可行（继承自基类的函数）
-     * @param [options.timeout=TimeoutInfinite] 缓存时间。默认为无限
+     * @param options 缓存选项对象。可选项
+     * @param options.identity 缓存标识。默认为函数 {@link toString}，但有时候不太可行（继承自基类的函数）
+     * @param options.timeout 缓存时间。默认为无限
      * @returns 带有缓存功能的函数
      */
-    onceOfSameParam(fn: Function, { identity, timeout, }?: Partial<ICacheUtilInit>): {
+    onceOfSameParam(fn: Function, { identity, timeout, }?: Partial<ICacheUtilOptions>): {
         (...args: any[]): any;
         /**
          * 所包装的原函数

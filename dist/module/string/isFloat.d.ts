@@ -4,5 +4,5 @@
  * @returns 是否为小数
  * @deprecated 已废弃，请使用 {@link stringValidator#isFloat}
  */
-export declare function isFloat(str: string): boolean;
+export declare function isFloat(str: string | null | undefined): boolean;
 //# sourceMappingURL=isFloat.d.ts.map

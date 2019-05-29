@@ -1,4 +1,4 @@
-import { ICacheOption } from './CacheOption';
+import { ICacheOption } from './ICacheOption';
 /**
  * 缓存接口
  * 功能

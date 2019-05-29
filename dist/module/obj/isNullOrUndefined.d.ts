@@ -4,5 +4,5 @@
  * @param object 任何一个对象
  * @returns 是否无效的值
  */
-export declare function isNullOrUndefined(object: any): boolean;
+export declare function isNullOrUndefined(object: any): object is null | undefined;
 //# sourceMappingURL=isNullOrUndefined.d.ts.map

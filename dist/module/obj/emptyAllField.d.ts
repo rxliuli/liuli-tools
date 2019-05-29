@@ -3,5 +3,5 @@
  * @param obj 需要置空属性的对象
  * @returns 返回一个新的对象
  */
-export declare function emptyAllField(obj: Record<PropertyKey, any>): Record<PropertyKey, any>;
+export declare function emptyAllField<T extends object>(obj: T): T;
 //# sourceMappingURL=emptyAllField.d.ts.map

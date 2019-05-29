@@ -1,0 +1,1 @@
+{"version":3,"file":"pathUtil.d.ts","sourceRoot":"","sources":["../../src/module/string/pathUtil.ts"],"names":[],"mappings":"AAAA;;GAEG;AACH,qBAAa,QAAQ;IACnB;;OAEG;IACH,OAAO,CAAC,MAAM,CAAC,SAAS,CAAM;IAC9B;;;;;;OAMG;IACH,OAAO,CAAC,MAAM,CAAC,KAAK;IAYpB;;;;;OAKG;IACI,IAAI,CAAC,GAAG,KAAK,EAAE,MAAM,EAAE,GAAG,MAAM;CAGxC;AAED;;GAEG;AACH,eAAO,MAAM,QAAQ,UAAiB,CAAA"}

@@ -1,8 +1,8 @@
  {
   "linters": {
-    "src/**/*.js": [
-      "prettier --write",
-      "eslint --fix",
+    "src/**/*.ts": [
+      "yarn fix",
+      "yarn format",
       "git add"
     ]
   }

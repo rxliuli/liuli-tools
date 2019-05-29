@@ -8,9 +8,6 @@
     ],
     "types": [
       "typescript",
-      "jest",
-      "jest-extended",
-      "rx-util"
     ],
     "module": "esnext",
     "declaration": true,
@@ -30,6 +27,6 @@
   ],
   "exclude": [
     "./dist",
-    // "./src/**/*.test.ts",
+    "./src/**/*.test.ts",
   ]
 }

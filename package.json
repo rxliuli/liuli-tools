@@ -10,7 +10,7 @@
     "build": "rollup -c build/rollup.config.js",
     "lint": "tslint src/**/*.ts ",
     "format": "prettier --write src/**/*.ts src/**/*.js",
-    "docs": "rimraf docs && typedoc --out docs src",
+    "docs": "rimraf docs && typedoc --out docs src --exclude src/**/*.test.ts",
     "test": "jest --watch",
     "coverage": "jest --coverage",
     "fix": "tslint --fix src/**/*.ts",

@@ -1,4 +1,3 @@
-import { Nullable } from '../interface/Nullable'
 import { isNullOrUndefined } from '../obj/isNullOrUndefined'
 
 /**
@@ -196,12 +195,9 @@ export class AsyncArray<T> {
   /**
    * 使该对象可以被 for-of 迭代
    */
-  public [Symbol.iterator]() {
-    const iterator = this._arr.values()
-    return {
-      next() {
-        return iterator.next()
-      },
+  public *[Symbol.iterator]() {
+    for (const v of this._arr) {
+      yield v
     }
   }
 }

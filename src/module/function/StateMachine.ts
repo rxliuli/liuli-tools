@@ -49,12 +49,9 @@ export class StateMachine<K = any, R = any> {
   /**
    * 允许使用 for-of 遍历整个状态机
    */
-  public [Symbol.iterator]() {
-    const map = this.classMap.entries()
-    return {
-      next() {
-        return map.next()
-      },
+  public *[Symbol.iterator]() {
+    for (const kv of this.classMap.entries()) {
+      yield kv
     }
   }
 }

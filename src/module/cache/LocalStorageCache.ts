@@ -8,14 +8,23 @@ import { wait } from '../function/wait'
 /**
  * 使用 LocalStorage 实现的缓存
  */
-export class LocalStorageCache extends ICache {
+export class LocalStorageCache implements ICache {
   public localStorage: Storage
+  public cacheOption: ICacheOption
   /**
    * 构造函数
    * @param cacheOption 全局缓存选项
    */
-  constructor(cacheOption: Partial<ICacheOption> = {}) {
-    super(cacheOption)
+  constructor({
+    timeout = TimeoutInfinite,
+    serialize = JSON.stringify,
+    deserialize = JSON.parse,
+  }: Partial<ICacheOption> = {}) {
+    this.cacheOption = {
+      timeout,
+      serialize,
+      deserialize,
+    }
     /**
      * 缓存对象，默认使用 localStorage
      */

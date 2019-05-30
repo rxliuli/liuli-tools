@@ -1,6 +1,4 @@
-// eslint-disable-next-line no-unused-vars
 import { ICacheOption, TimeoutInfinite } from './ICacheOption'
-import { assign } from '../obj/assign'
 
 /**
  * 缓存接口
@@ -16,26 +14,7 @@ import { assign } from '../obj/assign'
  * @interface
  * TODO 这里的接口 API 需要进行重构
  */
-export class ICache {
-  public cacheOption: ICacheOption
-  /**
-   * 全局缓存选项
-   * @param cacheOption 缓存选项
-   */
-  constructor({
-    timeout = TimeoutInfinite,
-    serialize = JSON.stringify,
-    deserialize = JSON.parse,
-  }: Partial<ICacheOption> = {}) {
-    /**
-     * @field 缓存选项
-     */
-    this.cacheOption = {
-      timeout,
-      serialize,
-      deserialize,
-    }
-  }
+export interface ICache {
   /**
    * 根据 key + value 添加
    * 如果不存在则添加，否则忽略
@@ -44,14 +23,14 @@ export class ICache {
    * @param cacheOption 缓存的选项
    * @abstract
    */
-  public add(key: string, val: object, cacheOption: ICacheOption) {}
+  add(key: string, val: any, cacheOption?: Partial<ICacheOption>): void
   /**
    * 根据指定的 key 删除
    * 如果存在则删除，否则忽略
    * @param key 删除的 key
    * @abstract
    */
-  public del(key: string) {}
+  del(key: string): void
   /**
    * 根据指定的 key 修改
    * 不管是否存在都会设置
@@ -60,7 +39,7 @@ export class ICache {
    * @param cacheOption 修改的选项
    * @abstract
    */
-  public set(key: string, val: object, cacheOption: ICacheOption) {}
+  set(key: string, val: any, cacheOption?: Partial<ICacheOption>): void
   /**
    * 根据 key 获取
    * 如果存在则获取，否则忽略
@@ -69,7 +48,7 @@ export class ICache {
    * @returns 获取到的缓存值
    * @abstract
    */
-  public get(key: string, cacheOption: ICacheOption): any {}
+  get(key: string, cacheOption?: Partial<ICacheOption>): any
   /**
    * 根据 key 获取并刷新超时时间
    * @param key 指定的 key
@@ -77,5 +56,5 @@ export class ICache {
    * @returns 获取到的缓存值
    * @abstract
    */
-  public touch(key: string, cacheOption: ICacheOption): any {}
+  touch(key: string, cacheOption?: Partial<ICacheOption>): any
 }

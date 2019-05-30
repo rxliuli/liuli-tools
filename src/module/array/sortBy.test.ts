@@ -1,4 +1,5 @@
 import { sortBy } from './sortBy'
+import { CombinedPredicate } from '../function/CombinedPredicate'
 
 /**
  * @test {sortBy}
@@ -23,12 +24,14 @@ describe('test sortBy', () => {
       new User('chu_xuan', 23),
       new User('rx', 17),
     ]
-    expect(sortBy(arr, user => user.age)).toIncludeSameMembers([
+    const kFn = (user: User) => user.age
+    const { not } = CombinedPredicate
+    expect(sortBy(arr, kFn)).toIncludeSameMembers([
       new User('rx', 17),
       new User('琉璃', 18),
       new User('chu_xuan', 23),
     ])
-    expect(sortBy(arr, user => -user.age)).toIncludeSameMembers([
+    expect(sortBy(arr, not(kFn))).toIncludeSameMembers([
       new User('chu_xuan', 23),
       new User('琉璃', 18),
       new User('rx', 17),

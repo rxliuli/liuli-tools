@@ -15,7 +15,7 @@
     "coverage": "jest --coverage",
     "fix": "tslint --fix src/**/*.ts",
     "server": "yarn docs && yarn coverage && live-server docs/ --port=4000",
-    "predeploy": "yarn docs && yarn coverage && cp CNAME docs/ && cp readme.md docs/",
+    "predeploy": "yarn docs && yarn coverage && cp readme.md docs/",
     "deploy": "gh-pages -d docs && rm -rf docs"
   },
   "repository": {

@@ -12,7 +12,7 @@ describe('test stringValidator', () => {
     isEmail,
     isIpv4,
     isTelephone,
-    isMoblie,
+    isMobile: isMoblie,
     isDomain,
     isPostcode,
   } = stringValidator

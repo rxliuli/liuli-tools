@@ -105,7 +105,7 @@ export class StringValidator {
    * @param str 字符串
    * @returns 是否为移动电话
    */
-  public isMoblie(str: IString): boolean {
+  public isMobile(str: IString): boolean {
     return !isNullOrUndefined(str) && MobileRule.test(str)
   }
   /**

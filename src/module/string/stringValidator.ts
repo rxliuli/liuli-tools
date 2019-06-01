@@ -53,7 +53,7 @@ export class StringValidator {
    * @returns 是否为空字符串
    */
   public isBlank(str: IString): boolean {
-    return stringValidator.isEmpty(str) || str!.trim() === ''
+    return stringValidator.isEmpty(str) || (str as string).trim() === ''
   }
 
   /**
@@ -74,7 +74,7 @@ export class StringValidator {
    * @returns 是否为小数
    */
   public isInteger(str: IString): boolean {
-    return IntegerRule.test(str!)
+    return !isNullOrUndefined(str) && IntegerRule.test(str)
   }
   /**
    * 判断邮箱的格式是否正确
@@ -82,7 +82,7 @@ export class StringValidator {
    * @returns 是否是邮箱
    */
   public isEmail(str: IString): boolean {
-    return EmailRule.test(str!)
+    return !isNullOrUndefined(str) && EmailRule.test(str)
   }
   /**
    * 判断 ipv4 地址的格式是否正确
@@ -90,7 +90,7 @@ export class StringValidator {
    * @returns 是否是 ipv4 地址
    */
   public isIpv4(str: IString): boolean {
-    return Ipv4Rule.test(str!)
+    return !isNullOrUndefined(str) && Ipv4Rule.test(str)
   }
   /**
    * 判断是否为固定电话
@@ -98,7 +98,7 @@ export class StringValidator {
    * @returns 是否为固定电话
    */
   public isTelephone(str: IString): boolean {
-    return TelephoneRule.test(str!)
+    return !isNullOrUndefined(str) && TelephoneRule.test(str)
   }
   /**
    * 判断是否为移动电话
@@ -106,7 +106,7 @@ export class StringValidator {
    * @returns 是否为移动电话
    */
   public isMoblie(str: IString): boolean {
-    return MobileRule.test(str!)
+    return !isNullOrUndefined(str) && MobileRule.test(str)
   }
   /**
    * 判断是否为域名
@@ -114,7 +114,7 @@ export class StringValidator {
    * @returns 是否为域名
    */
   public isDomain(str: IString): boolean {
-    return DomainRule.test(str!)
+    return !isNullOrUndefined(str) && DomainRule.test(str)
   }
   /**
    * 判断是否为邮政编码
@@ -122,7 +122,7 @@ export class StringValidator {
    * @returns 是否为邮政编码
    */
   public isPostcode(str: IString): boolean {
-    return PostcodeRule.test(str!)
+    return !isNullOrUndefined(str) && PostcodeRule.test(str)
   }
 }
 

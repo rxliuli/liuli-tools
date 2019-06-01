@@ -1,4 +1,5 @@
 import { ReturnFunc } from '../interface/ReturnFunc'
+import { compatibleAsync } from './compatibleAsync'
 
 /**
  * 将指定函数包装为只调用一次
@@ -14,16 +15,12 @@ export function once<R>(fn: ReturnFunc<R>): ReturnFunc<R> {
         return cache
       }
       flag = false
-      const result = Reflect.apply(target, thisArg, args)
+      const res = Reflect.apply(target, thisArg, args)
       // 如果是异步函数则返回异步的结果
-      if (result instanceof Promise) {
-        return result.then(res => {
-          cache = res
-          return res
-        })
-      }
-      cache = result
-      return cache
+      return compatibleAsync(res, res => {
+        cache = res
+        return cache
+      })
     },
   })
 }

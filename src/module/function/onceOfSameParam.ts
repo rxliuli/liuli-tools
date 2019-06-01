@@ -1,4 +1,5 @@
 import { ReturnFunc } from '../interface/ReturnFunc'
+import { compatibleAsync } from './compatibleAsync'
 
 /**
  * 包装一个函数为指定参数只执行一次的函数
@@ -20,14 +21,10 @@ export function onceOfSameParam<R>(
         return old
       }
       const res = Reflect.apply(target, thisArg, args)
-      if (res instanceof Promise) {
-        return res.then(res => {
-          cacheMap.set(key, res)
-          return res
-        })
-      }
-      cacheMap.set(key, res)
-      return res
+      return compatibleAsync(res, res => {
+        cacheMap.set(key, res)
+        return res
+      })
     },
   })
 }

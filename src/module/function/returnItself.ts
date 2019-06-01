@@ -1,5 +1,3 @@
-import { convert } from '../interface/convert'
-
 /**
  * 返回第一个参数的函数
  * 注: 一般可以当作返回参数自身的函数，如果你只关注第一个参数的话
@@ -9,5 +7,5 @@ import { convert } from '../interface/convert'
  * @returns 传入的第一个参数
  */
 export function returnItself<T, R = T>(obj: T): R {
-  return convert(obj)
+  return obj as any
 }

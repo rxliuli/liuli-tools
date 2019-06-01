@@ -1,4 +1,5 @@
 import { ReturnFunc } from '../interface/ReturnFunc'
+import { compatibleAsync } from './compatibleAsync'
 
 /**
  * 谓词的返回值，支持异步函数
@@ -34,10 +35,7 @@ function _inner(
     }
     return _inner(others, args, condition)
   }
-  if (res instanceof Promise) {
-    return res.then(_call)
-  }
-  return _call(res)
+  return compatibleAsync(res, _call) as any
 }
 
 /**
@@ -72,11 +70,7 @@ export class CombinedPredicate {
   public static not(fn: PredicateFunc) {
     return new Proxy(fn, {
       apply(_, _this, args) {
-        const res = Reflect.apply(_, this, args)
-        if (res instanceof Promise) {
-          return res.then(r => !r)
-        }
-        return !res
+        return compatibleAsync(Reflect.apply(_, this, args), res => !res)
       },
     })
   }

@@ -16,7 +16,8 @@
     "fix": "tslint --fix src/**/*.ts",
     "server": "yarn docs && yarn coverage && live-server docs/ --port=4000",
     "predeploy": "yarn docs && yarn coverage && cp CNAME docs/ && cp readme.md docs/",
-    "deploy": "gh-pages -d docs && rm -rf docs"
+    "deploy": "gh-pages -d docs && rm -rf docs",
+    "prepublishOnly": "yarn build && yarn deploy"
   },
   "repository": {
     "type": "git",
@@ -39,8 +40,6 @@
     "@types/prettier": "^1.16.4",
     "@types/rimraf": "^2.0.2",
     "@types/rollup": "^0.54.0",
-    "@types/rollup-plugin-commonjs": "^9.3.1",
-    "@types/rollup-plugin-node-resolve": "^4.1.0",
     "@types/typescript": "^2.0.0",
     "gh-pages": "^2.0.1",
     "husky": "^1.3.1",

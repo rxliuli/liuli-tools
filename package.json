@@ -6,7 +6,7 @@
   "module": "./dist/rx-util-es.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "start": "yarn test",
+    "start": "yarn-or-npm test",
     "build": "rollup -c build/rollup.config.js",
     "lint": "tslint src/**/*.ts ",
     "format": "prettier --write src/**/*.ts src/**/*.js",
@@ -14,10 +14,10 @@
     "test": "jest --watch",
     "coverage": "jest --coverage",
     "fix": "tslint --fix src/**/*.ts",
-    "server": "yarn docs && yarn coverage && live-server docs/ --port=4000",
-    "predeploy": "yarn docs && yarn coverage && cp CNAME docs/ && cp readme.md docs/",
+    "server": "yarn-or-npm docs && yarn-or-npm coverage && live-server docs/ --port=4000",
+    "predeploy": "yarn-or-npm docs && yarn-or-npm coverage && cp CNAME docs/ && cp readme.md docs/",
     "deploy": "gh-pages -d docs && rm -rf docs",
-    "prepublishOnly": "yarn build && yarn deploy"
+    "prepublishOnly": "yarn-or-npm build && yarn-or-npm deploy"
   },
   "repository": {
     "type": "git",
@@ -62,6 +62,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
     "typedoc": "^0.14.2",
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "yarn-or-npm": "^2.0.4"
   }
 }

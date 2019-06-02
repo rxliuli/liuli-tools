@@ -15,6 +15,7 @@ describe('test stringValidator', () => {
     isMobile: isMoblie,
     isDomain,
     isPostcode,
+    isPort,
   } = stringValidator
   it('test isBlank', () => {
     expect(isBlank(null)).toBeTrue()
@@ -79,5 +80,12 @@ describe('test stringValidator', () => {
     expect(isPostcode('12345')).toBeFalse()
     expect(isPostcode('')).toBeFalse()
     expect(isPostcode(null)).toBeFalse()
+  })
+  it('test isPort', () => {
+    expect(isPort('22')).toBeTrue()
+    expect(isPort('8080')).toBeTrue()
+    expect(isPort('70000')).toBeFalse()
+    expect(isPort('')).toBeFalse()
+    expect(isPort(null)).toBeFalse()
   })
 })

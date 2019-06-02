@@ -12,8 +12,9 @@
 
 吾辈日常写传统前端时需要大量相同的函数，所以需要写一个能在浏览器上使用的库，仅此而已。
 该库大部分代码已经通过单元测试，但还请谨慎用于生产环境。不包含单元测试的部分大部分是 DOM 操作相关函数，以及部分异步代码。
+如果在使用中遇到了什么问题，欢迎提 [issue](https://github.com/rxliuli/rx-util/issues)，或者 [PR](https://github.com/rxliuli/rx-util/pulls) 亦可。
 
-> 如果遇到了什么问题，欢迎提 [issue](https://github.com/rxliuli/rx-util/issues)，或者 [PR](https://github.com/rxliuli/rx-util/pulls) 亦可。
+> 1.7.0 之后的版本使用 TypeScript 进行了重构，如果需要参考 JavaScript 版本的话请查看 TypeScript 打包后生成的 [rx-util.js](https://github.com/rxliuli/rx-util/blob/master/dist/rx-util.js)，人类可读代码！
 
 ## 使用
 

@@ -18,14 +18,6 @@ const _getConverter = onceOfSameParam(
    */
   (from: StringStyleType, to: StringStyleType): StringStyleConverter =>
     new StringStyleConverter(from, to),
-  /**
-   * 根据参数生成唯一标识
-   * @param from 解析风格
-   * @param to 转换风格
-   * @return {String} 唯一参数标识字符串
-   */
-  (from: StringStyleType, to: StringStyleType): string =>
-    from.toString() + to.toString(),
 )
 
 /**

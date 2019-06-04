@@ -10,17 +10,19 @@ import { compatibleAsync } from './compatibleAsync'
  */
 export function onceOfSameParam<R>(
   fn: ReturnFunc<R>,
-  paramConverter: (...args: any[]) => any = (...args) => JSON.stringify(args),
+  identity = fn.toString(),
 ): ReturnFunc<R> {
+  const generateKey = (args: any[]) =>
+    `onceOfSameParam-${identity}-${JSON.stringify(args)}`
   const cacheMap = new Map()
   return new Proxy(fn, {
-    apply(target, thisArg, args) {
-      const key = paramConverter(...args)
+    apply(_, _this, args) {
+      const key = generateKey(args)
       const old = cacheMap.get(key)
       if (old !== undefined) {
         return old
       }
-      const res = Reflect.apply(target, thisArg, args)
+      const res = Reflect.apply(_, _this, args)
       return compatibleAsync(res, res => {
         cacheMap.set(key, res)
         return res

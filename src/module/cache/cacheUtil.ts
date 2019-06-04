@@ -41,7 +41,7 @@ export class CacheUtil {
     }: Partial<ICacheUtilOptions> = {},
   ) {
     const generateKey = (args: any[]) =>
-      `onceOfSameParam-${identity}-${JSON.stringify(args)}`
+      `CacheUtil.onceOfSameParam-${identity}-${JSON.stringify(args)}`
     const innerFn = function(...args: any[]) {
       const key = generateKey(args)
       const cacheOption = { timeout }

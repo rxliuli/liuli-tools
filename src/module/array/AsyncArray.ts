@@ -249,7 +249,7 @@ export class AsyncArrayParallel<T> extends BaseAsyncArray<T> {
   }
   /**
    * 异步的 forEach
-   * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [结合率] 的操作），则不应该使用此函数
+   * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [结合律] 的操作），则不应该使用此函数
    * @param fn 异步迭代函数
    */
   public async forEach(
@@ -259,7 +259,7 @@ export class AsyncArrayParallel<T> extends BaseAsyncArray<T> {
   }
   /**
    * 异步的 filter
-   * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [结合率] 的操作），则不应该使用此函数
+   * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [结合律] 的操作），则不应该使用此函数
    * @param fn 异步过滤函数
    * @returns 过滤后的新数组
    */
@@ -277,7 +277,7 @@ export class AsyncArrayParallel<T> extends BaseAsyncArray<T> {
   }
   /**
    * 异步的 map
-   * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [结合率] 的操作），则不应该使用此函数
+   * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [结合律] 的操作），则不应该使用此函数
    * @param fn 异步映射函数
    * @returns 经过映射产生的新的异步数组
    */
@@ -288,7 +288,7 @@ export class AsyncArrayParallel<T> extends BaseAsyncArray<T> {
   }
   /**
    * 异步的 flatMap
-   * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [结合率] 的操作），则不应该使用此函数
+   * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [结合律] 的操作），则不应该使用此函数
    * @param fn 异步映射函数，产生一个新的数组
    * @returns 压平一层的数组
    */
@@ -300,7 +300,7 @@ export class AsyncArrayParallel<T> extends BaseAsyncArray<T> {
   }
   /**
    * 异步的 every
-   * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [结合率] 的操作），则不应该使用此函数
+   * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [结合律] 的操作），则不应该使用此函数
    * 注: 实际上是全部遍历一遍才会去判断是否有不符合谓词的元素，所以如果异步操作有副作用请不要使用此函数（例如 Ajax 修改数据库）
    * @param fn 异步匹配函数
    * @returns 是否全部匹配
@@ -312,7 +312,7 @@ export class AsyncArrayParallel<T> extends BaseAsyncArray<T> {
   }
   /**
    * 异步的 find
-   * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [结合率] 的操作），则不应该使用此函数
+   * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [结合律] 的操作），则不应该使用此函数
    * 注: 实际上是全部遍历一遍才会去判断是否有符合谓词的元素，所以如果异步操作有副作用请不要使用此函数（例如 Ajax 修改数据库）
    * @param fn 异步查询函数
    * @returns 查询到的第一个值
@@ -330,7 +330,7 @@ export class AsyncArrayParallel<T> extends BaseAsyncArray<T> {
   }
   /**
    * 异步 findIndex
-   * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [结合率] 的操作），则不应该使用此函数
+   * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [结合律] 的操作），则不应该使用此函数
    * 注: 实际上是全部遍历一遍才会去判断是否有符合谓词的元素，所以如果异步操作有副作用请不要使用此函数（例如 Ajax 修改数据库）
    * @param fn 异步查询函数
    * @returns 查询到的第一个值的下标

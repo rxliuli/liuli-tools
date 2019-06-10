@@ -1,6 +1,5 @@
 import { ArrayCallback } from '../interface/ArrayCallback'
 import { returnItself } from '../function/returnItself'
-import { convert } from '../interface/convert'
 
 export function toObject<T, K extends PropertyKey>(
   arr: T[],

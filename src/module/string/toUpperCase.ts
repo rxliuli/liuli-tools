@@ -1,5 +1,4 @@
 import { isNullOrUndefined } from '../obj/isNullOrUndefined'
-import { convert } from '../interface/convert'
 
 /**
  * 字符串安全的转换为大写
@@ -10,5 +9,5 @@ export function toUpperCase<T = string | undefined | null>(str: T): T {
   if (isNullOrUndefined(str) || typeof str !== 'string') {
     return str
   }
-  return convert(str.toUpperCase())
+  return str.toUpperCase() as any
 }

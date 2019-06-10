@@ -1,5 +1,3 @@
-import { convert } from '../interface/convert'
-
 /**
  * 桥接对象不存在的字段
  * @param map 代理的字段映射 Map
@@ -17,23 +15,21 @@ export function bridge<
    * @returns 代理后的对象
    */
   return function(obj: T): R {
-    return convert(
-      new Proxy(obj, {
-        get(_, k) {
-          if (Reflect.has(map, k)) {
-            return Reflect.get(_, Reflect.get(map, k))
-          }
-          return Reflect.get(_, k)
-        },
-        set(_, k, v) {
-          if (Reflect.has(map, k)) {
-            Reflect.set(_, Reflect.get(map, k), v)
-            return true
-          }
-          Reflect.set(_, k, v)
+    return new Proxy(obj, {
+      get(_, k) {
+        if (Reflect.has(map, k)) {
+          return Reflect.get(_, Reflect.get(map, k))
+        }
+        return Reflect.get(_, k)
+      },
+      set(_, k, v) {
+        if (Reflect.has(map, k)) {
+          Reflect.set(_, Reflect.get(map, k), v)
           return true
-        },
-      }),
-    )
+        }
+        Reflect.set(_, k, v)
+        return true
+      },
+    }) as any
   }
 }

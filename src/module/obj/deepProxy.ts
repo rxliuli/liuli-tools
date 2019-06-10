@@ -1,5 +1,3 @@
-import { convert } from '../interface/convert'
-
 /**
  * 包装对象，使其成为可以任意深度调用而不会出现 undefined 调用的问题
  * 注意: 该函数不能进行递归调用（{@link JSON.stringfy}），一定会造成堆栈溢出的问题（RangeError: Maximum call stack size exceeded）
@@ -21,5 +19,5 @@ export function deepProxy<T extends object>(obj: T): T | any {
       return v
     },
   }
-  return convert(new Proxy(obj, handler))
+  return new Proxy(obj, handler)
 }

@@ -1,5 +1,4 @@
 import { ArrayCallback } from '../interface/ArrayCallback'
-import { convert } from '../interface/convert'
 import { ArrayReduceCallback } from '../interface/ArrayReduceCallback'
 import { Supplier } from '../interface/Supplier'
 
@@ -56,11 +55,11 @@ export function groupBy<T, K, V = T[]>(
    * @param item 当前迭代的元素
    * @returns 将当前元素合并后的最终 V 集合
    */
-  vFn: ArrayReduceCallback<T, V> = convert((res: T[], item: T) => {
+  vFn: ArrayReduceCallback<T, V> = ((res: T[], item: T) => {
     res.push(item)
     return res
-  }),
-  init: Supplier<V> = convert(() => []),
+  }) as any,
+  init: Supplier<V> = () => [] as any,
 ): Map<K, V> {
   // 将元素按照分组条件进行分组得到一个 条件 -> 数组 的对象
   return arr.reduce((res, item: T, index: number, arr: T[]) => {

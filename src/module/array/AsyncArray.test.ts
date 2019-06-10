@@ -1,6 +1,5 @@
 import { AsyncArray } from './AsyncArray'
 import { async } from '../function/async'
-import { convert } from '../interface/convert'
 import { range } from './range'
 import { flatMap } from './flatMap'
 
@@ -14,7 +13,7 @@ describe('test AsyncArray', () => {
     arr.forEach(fn)
     const arr1 = res.slice()
     res.length = 0
-    await new AsyncArray(...arr).forEach(convert(async(fn)))
+    await new AsyncArray(...arr).forEach(async(fn) as any)
     expect(arr1).toIncludeAllMembers(res)
   })
   it('teset filter', async () => {

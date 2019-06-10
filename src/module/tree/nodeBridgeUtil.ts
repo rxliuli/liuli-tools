@@ -2,7 +2,6 @@ import { bridge } from '../function/bridge'
 import { INodeBridge } from './INodeBridge'
 import { treeMapping } from './treeMapping'
 import { INode } from './INode'
-import { convert } from '../interface/convert'
 
 /**
  * 树节点桥接工具类
@@ -21,14 +20,12 @@ export class NodeBridgeUtil {
     child = 'child',
     path = 'path',
   }: Partial<INodeBridge> = {}): (node: T) => INode {
-    return convert(
-      bridge({
-        id,
-        parentId,
-        child,
-        path,
-      }),
-    )
+    return bridge({
+      id,
+      parentId,
+      child,
+      path,
+    }) as any
   }
   /**
    * 桥接一棵完整的树

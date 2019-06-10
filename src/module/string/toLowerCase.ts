@@ -1,5 +1,4 @@
 import { isNullOrUndefined } from '../obj/isNullOrUndefined'
-import { convert } from '../interface/convert'
 
 /**
  * 字符串安全的转换为小写
@@ -10,5 +9,5 @@ export function toLowerCase<T = string | undefined | null>(str: T): T {
   if (isNullOrUndefined(str) || typeof str !== 'string') {
     return str
   }
-  return convert(str.toLowerCase())
+  return str.toLowerCase() as any
 }

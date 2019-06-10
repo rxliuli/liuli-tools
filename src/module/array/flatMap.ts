@@ -1,5 +1,4 @@
 import { ArrayCallback } from '../interface/ArrayCallback'
-import { convert } from '../interface/convert'
 
 /**
  * 自行实现 flatMap，将数组压平一层
@@ -9,7 +8,7 @@ import { convert } from '../interface/convert'
  */
 export function flatMap<T, V>(
   arr: T[],
-  fn: ArrayCallback<T, V[]> = v => Array.from(convert(v)),
+  fn: ArrayCallback<T, V[]> = v => Array.from(v as any),
 ): V[] {
   return arr.reduce((res, v, i, arr) => {
     res.push(...fn(v, i, arr))

@@ -114,6 +114,8 @@ import { AsyncArray } from './module/array/AsyncArray'
 import { async } from './module/function/async'
 import { findIndex } from './module/array/findIndex'
 import { CombinedPredicate } from './module/function/CombinedPredicate'
+import { mergeMap } from './module/function/mergeMap'
+import { switchMap } from './module/function/switchMap'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -174,6 +176,7 @@ export {
   deny,
   emptyFunc,
   Locker,
+  mergeMap,
   once,
   onceOfSameParam,
   returnItself,
@@ -182,6 +185,7 @@ export {
   singleModel,
   sleep,
   StateMachine,
+  switchMap,
   throttle,
   timing,
   trySometime,

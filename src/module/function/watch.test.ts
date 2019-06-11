@@ -1,5 +1,5 @@
 import { watch } from './watch'
-import { wait } from './wait'
+import { wait } from '../async/wait'
 
 /**
  * @test {watch}

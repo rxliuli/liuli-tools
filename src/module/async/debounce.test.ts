@@ -1,6 +1,6 @@
 import { wait } from './wait'
 import { debounce } from './debounce'
-import { repeatedCall } from './repeatedCall'
+import { repeatedCall } from '../function/repeatedCall'
 
 /**
  * @test {debounce}

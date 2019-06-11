@@ -1,5 +1,5 @@
 import { ReturnFunc } from '../interface/ReturnFunc'
-import { compatibleAsync } from './compatibleAsync'
+import { compatibleAsync } from '../async/compatibleAsync'
 
 /**
  * 谓词的返回值，支持异步函数

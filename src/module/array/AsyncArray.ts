@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from '../obj/isNullOrUndefined'
-import { async } from '../function/async'
+import { async } from '../async/async'
 import { returnItself } from '../function/returnItself'
 
 /**

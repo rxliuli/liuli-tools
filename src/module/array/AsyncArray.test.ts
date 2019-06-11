@@ -1,5 +1,5 @@
 import { AsyncArray } from './AsyncArray'
-import { async } from '../function/async'
+import { async } from '../async/async'
 import { range } from './range'
 import { flatMap } from './flatMap'
 

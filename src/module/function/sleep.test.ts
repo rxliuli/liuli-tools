@@ -1,6 +1,6 @@
 import { timing } from './timing'
 import { sleep } from './sleep'
-import { wait } from './wait'
+import { wait } from '../async/wait'
 
 /**
  * @test {sleep}

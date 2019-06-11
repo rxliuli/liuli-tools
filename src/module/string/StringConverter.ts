@@ -1,6 +1,6 @@
-import { onceOfSameParam } from '../function/onceOfSameParam'
 import { StringStyleConverter } from './StringConverter/StringStyleConverter'
 import { StringStyleType } from './StringConverter/StringStyleType'
+import { onceOfSameParam } from '../function/onceOfSameParam'
 
 /**
  * 包装获取字符串风格转换器

@@ -1,4 +1,4 @@
-import { wait } from '../function/wait'
+import { wait } from './wait'
 
 type Predicate = (...args: any[]) => boolean
 

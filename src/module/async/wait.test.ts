@@ -1,6 +1,6 @@
 import { wait } from './wait'
 import { range } from '../array/range'
-import { timing } from './timing'
+import { timing } from '../function/timing'
 
 /**
  * @test {wait}

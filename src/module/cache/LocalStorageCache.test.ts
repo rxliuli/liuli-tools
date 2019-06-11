@@ -1,5 +1,5 @@
 import { LocalStorageCache } from './LocalStorageCache'
-import { wait } from '../function/wait'
+import { wait } from '../async/wait'
 import { repeatedCall } from '../function/repeatedCall'
 import { TimeoutInfinite } from './ICacheOption'
 import { sleep } from '../function/sleep'

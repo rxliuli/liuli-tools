@@ -1,5 +1,5 @@
 import { objToFormData } from './objToFormData'
-import { strToBlob } from '../async/strToBlob'
+import { strToBlob } from '../ajax/strToBlob'
 
 /**
  * @test {objToFormData}

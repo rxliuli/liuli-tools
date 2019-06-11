@@ -1,5 +1,5 @@
 import { ReturnFunc } from '../interface/ReturnFunc'
-import { compatibleAsync } from './compatibleAsync'
+import { compatibleAsync } from '../async/compatibleAsync'
 
 /**
  * 将指定函数包装为只调用一次

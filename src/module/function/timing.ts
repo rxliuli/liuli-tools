@@ -1,5 +1,5 @@
 import { ReturnFunc } from '../interface/ReturnFunc'
-import { compatibleAsync } from './compatibleAsync'
+import { compatibleAsync } from '../async/compatibleAsync'
 
 /**
  * 测试函数的执行时间

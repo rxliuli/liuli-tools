@@ -1,4 +1,4 @@
-import { wait } from '../function/wait'
+import { wait } from '../async/wait'
 
 /**
  * 为 fetch 请求添加超时选项

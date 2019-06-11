@@ -1,5 +1,5 @@
 import { asyncLimiting } from './asyncLimiting'
-import { wait } from '../function/wait'
+import { wait } from './wait'
 import { range } from '../array/range'
 import { timing } from '../function/timing'
 

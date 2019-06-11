@@ -1,6 +1,5 @@
 import { StringStyleUtil } from './StringConverter'
 import { StringStyleType } from './StringConverter/StringStyleType'
-import { ConverterFactory } from './StringConverter/ConverterFactory'
 import { IConverter } from './StringConverter/IConverter'
 
 /**

@@ -1,5 +1,5 @@
 import { timing } from './timing'
-import { wait } from './wait'
+import { wait } from '../async/wait'
 import { sleep } from './sleep'
 
 /**

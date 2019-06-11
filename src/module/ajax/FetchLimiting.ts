@@ -1,4 +1,4 @@
-import { wait } from '../function/wait'
+import { wait } from '../async/wait'
 import { fetchTimeout } from './fetchTimeout'
 
 /**

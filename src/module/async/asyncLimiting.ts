@@ -1,4 +1,4 @@
-import { wait } from '../function/wait'
+import { wait } from './wait'
 import { ReturnFunc } from '../interface/ReturnFunc'
 
 /**

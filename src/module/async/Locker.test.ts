@@ -1,4 +1,4 @@
-import { wait } from '../function/wait'
+import { wait } from './wait'
 import { Locker } from './Locker'
 import { range } from '../array/range'
 

@@ -1,5 +1,5 @@
 import { antiDebug } from './antiDebug'
-import { wait } from '../function/wait'
+import { wait } from '../async/wait'
 
 /**
  * @test {antiDebug}

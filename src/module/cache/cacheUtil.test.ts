@@ -1,6 +1,6 @@
 import { cacheUtil } from './cacheUtil'
 import { repeatedCall } from '../function/repeatedCall'
-import { wait } from '../function/wait'
+import { wait } from '../async/wait'
 import { randomInt } from '../number/randomInt'
 
 describe('test cacheUtil', () => {

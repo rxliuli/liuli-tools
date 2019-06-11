@@ -1,6 +1,6 @@
 import { CombinedPredicate } from './CombinedPredicate'
 import { stringValidator } from '../string/stringValidator'
-import { async } from './async'
+import { async } from '../async/async'
 
 describe('test CombinedPredicate', () => {
   const { and, or, not } = CombinedPredicate

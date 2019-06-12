@@ -116,6 +116,7 @@ import { mergeMap } from './module/async/mergeMap'
 import { switchMap } from './module/async/switchMap'
 import { once } from './module/function/once'
 import { onceOfSameParam } from './module/function/onceOfSameParam'
+import { concatMap } from './module/async/concatMap'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -196,6 +197,7 @@ export {
   watchObject,
   async,
   asyncLimiting,
+  concatMap,
   bridge,
   CombinedPredicate,
   compose,

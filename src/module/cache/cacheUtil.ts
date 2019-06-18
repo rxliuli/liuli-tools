@@ -1,5 +1,7 @@
 import { LocalStorageCache } from './LocalStorageCache'
 import { TimeoutInfinite, ICacheOption } from './ICacheOption'
+import { ReturnFunc } from '../interface/ReturnFunc'
+import { compatibleAsync } from '../async/compatibleAsync'
 
 /**
  * 默认使用的 {@link ICache} 接口的缓存实现
@@ -21,10 +23,59 @@ interface ICacheUtilOptions {
 }
 
 /**
+ * 缓存后的函数
+ */
+interface ICacheFunc<R> extends ReturnFunc<R> {
+  /**
+   * 所包装的原函数
+   * @type {Function}
+   */
+  origin: ReturnFunc<R>
+  /**
+   * 清空缓存，清空指定参数调用时的函数缓存
+   * @type {Function}
+   */
+  clear: ReturnFunc<void>
+}
+/**
  * 缓存工具类
  * 主要实现缓存高阶函数的封装
  */
 export class CacheUtil {
+  /**
+   * 将指定函数包装为只调用一次为缓存函数
+   * @param fn 需要包装的函数
+   * @returns 包装后的函数
+   */
+  public static once<R>(
+    fn: ReturnFunc<R>,
+    {
+      identity = fn.toString(),
+      timeout = TimeoutInfinite,
+    }: Partial<ICacheUtilOptions> = {},
+  ): ICacheFunc<R> {
+    const generateKey = () => `CacheUtil.onceOfSameParam-${identity}`
+    const innerFn = new Proxy(fn, {
+      apply(_, _this, args) {
+        const key = generateKey()
+        const cacheOption = { timeout }
+        const val = cache.get(key)
+        if (val !== null) {
+          return val
+        }
+        return compatibleAsync(Reflect.apply(_, _this, args), res => {
+          cache.set(key, res, cacheOption)
+          return res
+        })
+      },
+    })
+    return Object.assign(innerFn, {
+      origin: fn,
+      clear(): void {
+        cache.del(generateKey())
+      },
+    })
+  }
   /**
    * 包裹函数为缓存函数
    * @param fn 一个接受一些参数并返回结果的函数
@@ -33,46 +84,35 @@ export class CacheUtil {
    * @param options.timeout 缓存时间。默认为无限
    * @returns 带有缓存功能的函数
    */
-  public static onceOfSameParam(
-    fn: Function,
+  public static onceOfSameParam<R>(
+    fn: ReturnFunc<R>,
     {
       identity = fn.toString(),
       timeout = TimeoutInfinite,
     }: Partial<ICacheUtilOptions> = {},
-  ) {
+  ): ICacheFunc<R> {
     const generateKey = (args: any[]) =>
       `CacheUtil.onceOfSameParam-${identity}-${JSON.stringify(args)}`
-    const innerFn = function(...args: any[]) {
-      const key = generateKey(args)
-      const cacheOption = { timeout }
-      const val = cache.get(key)
-      if (val !== null) {
-        return val
-      }
-      const result = fn(...args)
-      if (result instanceof Promise) {
-        return result.then(res => {
+    const innerFn = new Proxy(fn, {
+      apply(_, _this, args) {
+        const key = generateKey(args)
+        const cacheOption = { timeout }
+        const val = cache.get(key)
+        if (val !== null) {
+          return val
+        }
+        return compatibleAsync(Reflect.apply(_, _this, args), res => {
           cache.set(key, res, cacheOption)
           return res
         })
-      }
-      cache.set(key, result, cacheOption)
-      return result
-    }
-    /**
-     * 所包装的原函数
-     * @type {Function}
-     */
-    innerFn.origin = fn
-    /**
-     * 清空缓存，清空指定参数调用时的函数缓存
-     * @type {Function}
-     */
-    innerFn.clear = function(...args: any) {
-      const key = generateKey(args)
-      cache.del(key)
-    }
-    return innerFn
+      },
+    })
+    return Object.assign(innerFn, {
+      origin: fn,
+      clear(...args: any): void {
+        cache.del(generateKey(args))
+      },
+    })
   }
 }
 

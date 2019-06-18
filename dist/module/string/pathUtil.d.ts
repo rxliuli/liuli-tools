@@ -3,6 +3,13 @@
  */
 export declare class PathUtil {
     /**
+     * 拼接多个路径
+     *
+     * @param paths 路径数组
+     * @return {String} 拼接完成的路径
+     */
+    static join(...paths: string[]): string;
+    /**
      * 路径分隔符
      */
     private static Separator;
@@ -14,16 +21,10 @@ export declare class PathUtil {
      * @return {String} 拼接完成的两个路径
      */
     private static _join;
-    /**
-     * 拼接多个路径
-     *
-     * @param paths 路径数组
-     * @return {String} 拼接完成的路径
-     */
-    join(...paths: string[]): string;
 }
 /**
  * 导出一个路径工具类
+ * @deprecated 已废弃，请直接使用类的静态函数
  */
-export declare const pathUtil: PathUtil;
-//# sourceMappingURL=pathUtil.d.ts.map
+export declare const pathUtil: typeof PathUtil;
+//# sourceMappingURL=PathUtil.d.ts.map

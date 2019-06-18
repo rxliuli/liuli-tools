@@ -10,24 +10,25 @@ export declare class NodeBridgeUtil {
      * @param nodeBridge 桥接对象
      * @returns 代理函数
      */
-    bridge<T>({ id, parentId, child, path, }?: Partial<INodeBridge>): (node: T) => INode;
+    static bridge<T>({ id, parentId, child, path, }?: Partial<INodeBridge>): (node: T) => INode;
     /**
      * 桥接一棵完整的树
      * @param tree 树节点
      * @param nodeBridge 桥接对象
      * @returns 代理后的树对象
      */
-    bridgeTree<T>(tree: T, nodeBridge?: INodeBridge): INode;
+    static bridgeTree<T>(tree: T, nodeBridge?: INodeBridge): INode;
     /**
      * 桥接一个树节点列表
      * @param list 树节点列表
      * @param nodeBridge 桥接对象
      * @returns 代理后的树节点列表
      */
-    bridgeList<T>(list: T[], nodeBridge?: INodeBridge): INode[];
+    static bridgeList<T>(list: T[], nodeBridge?: INodeBridge): INode[];
 }
 /**
  * 导出一个 NodeBridgeUtil 的实例
+ * @deprecated 已废弃，请直接使用类的静态函数
  */
-export declare const nodeBridgeUtil: NodeBridgeUtil;
-//# sourceMappingURL=nodeBridgeUtil.d.ts.map
+export declare const nodeBridgeUtil: typeof NodeBridgeUtil;
+//# sourceMappingURL=NodeBridgeUtil.d.ts.map

@@ -7,28 +7,29 @@ export declare class DateConstants {
      * @param date 指定的时间，默认为当前日期
      * @returns 一天的开始时间
      */
-    dayStart(date?: Date): Date;
+    static dayStart(date?: Date): Date;
     /**
      * 获取指定日期一天的结束时间
      * @param date 指定的时间，默认为当前日期
      * @returns 一天的结束时间
      */
-    dayEnd(date?: Date): Date;
+    static dayEnd(date?: Date): Date;
     /**
      * 获取指定日期所在年份的新年开始时间
      * @param date 指定的时间，默认为当前日期
      * @returns 新年开始时间
      */
-    yearStart(date?: Date): Date;
+    static yearStart(date?: Date): Date;
     /**
      * 获取指定日期所在年份的旧年结束时间
      * @param date 指定的时间，默认为当前日期
      * @returns 旧年结束时间
      */
-    yearEnd(date?: Date): Date;
+    static yearEnd(date?: Date): Date;
 }
 /**
  * 导出一个日期固定时间点的对象
+ * @deprecated 已废弃，请直接使用类的静态函数
  */
-export declare const dateConstants: DateConstants;
-//# sourceMappingURL=dateConstants.d.ts.map
+export declare const dateConstants: typeof DateConstants;
+//# sourceMappingURL=DateConstants.d.ts.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"switchMap.d.ts","sourceRoot":"","sources":["../../src/module/async/switchMap.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,yBAAyB,CAAA;AAEpD;;;;;GAKG;AACH,wBAAgB,SAAS,CAAC,CAAC,EACzB,EAAE,EAAE,UAAU,CAAC,OAAO,CAAC,CAAC,CAAC,CAAC,GACzB,UAAU,CAAC,OAAO,CAAC,CAAC,CAAC,CAAC,CAoBxB"}

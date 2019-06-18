@@ -3,13 +3,14 @@ import { ICacheOption } from './ICacheOption';
 /**
  * 使用 LocalStorage 实现的缓存
  */
-export declare class LocalStorageCache extends ICache {
+export declare class LocalStorageCache implements ICache {
     localStorage: Storage;
+    cacheOption: ICacheOption;
     /**
      * 构造函数
      * @param cacheOption 全局缓存选项
      */
-    constructor(cacheOption?: Partial<ICacheOption>);
+    constructor({ timeout, serialize, deserialize, }?: Partial<ICacheOption>);
     /**
      * 清空所有过期的 key
      * 注: 该函数是异步执行的

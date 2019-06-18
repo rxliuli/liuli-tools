@@ -5,6 +5,5 @@ import { ReturnFunc } from '../interface/ReturnFunc';
  * @param fn 需要测试的函数
  * @returns 执行的毫秒数
  */
-export declare function timing<R>(fn: ReturnFunc<Exclude<R, Promise<any>>>): number;
-export declare function timing<R>(fn: ReturnFunc<Promise<any>>): Promise<number>;
+export declare function timing<R>(fn: ReturnFunc<R>): R extends Promise<any> ? Promise<number> : number;
 //# sourceMappingURL=timing.d.ts.map

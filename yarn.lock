@@ -4388,10 +4388,10 @@ run-node@^1.0.0:
   resolved "https://registry.yarnpkg.com/run-node/-/run-node-1.0.0.tgz#46b50b946a2aa2d4947ae1d886e9856fd9cabe5e"
   integrity sha512-kc120TBlQ3mih1LSzdAJXo4xn/GWS2ec0l3S+syHDXP9uRr0JAT8Qd3mdMuyjqCzeZktgP3try92cEgf9Nks8A==
 
-rx-util@demo:
-  version "1.6.15-demo1"
-  resolved "https://registry.yarnpkg.com/rx-util/-/rx-util-1.6.15-demo1.tgz#c0c0d433e2a97846bc8a0cb6170c4cbbcff2a805"
-  integrity sha512-Us+Tpz7iOMuorouHHJuns9e1tPGy8Bh1BEHMD6OWtUfIrMUnumtmm8qtMBJJ58Ah+10RDF8c6ATQMt876hhURw==
+rx-util@latest:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/rx-util/-/rx-util-1.7.0.tgz#eb18f70d568d16edf72a8b7391150cc29272a781"
+  integrity sha512-OD9XzYEbrfk2iZ3vofPaxapESoIxBezdpq+TAx3/7/vAomBDbwM1qcAqGc1QvvW9DhSvfsEIc7OzNkd+17r1wA==
 
 rxjs@^6.3.3:
   version "6.4.0"

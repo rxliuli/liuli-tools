@@ -483,6 +483,7 @@ function asIterator(iterator) {
  * @param arr 数组
  * @param fn 映射函数，将一个元素映射为一个数组
  * @returns 压平一层的数组
+ * @deprecated 已废弃，请使用更强大的异步数组 {@link AsyncArray}
  */
 function asyncFlatMap(arr, fn) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -495,24 +496,12 @@ function asyncFlatMap(arr, fn) {
 }
 
 /**
- * 转换一种泛型为另一种需要合理的泛型类型
- * 实质上就是转换为 unknown 再转换为 R 而已，仅仅只是为了绕过 ts 的编译
- * @param t 需要转换的任何参数
- * @returns 返回需要的合理类型结果
- * @typeparam T 被转换的类型
- * @typeparam T 需要转换的类型
- */
-function convert(t) {
-    return t;
-}
-
-/**
  * 自行实现 flatMap，将数组压平一层
  * @param arr 数组
  * @param fn 映射方法，将一个元素映射为一个数组
  * @returns 压平一层的数组
  */
-function flatMap(arr, fn = v => Array.from(convert(v))) {
+function flatMap(arr, fn = v => Array.from(v)) {
     return arr.reduce((res, v, i, arr) => {
         res.push(...fn(v, i, arr));
         return res;
@@ -526,10 +515,10 @@ function groupBy(arr, kFn,
  * @param item 当前迭代的元素
  * @returns 将当前元素合并后的最终 V 集合
  */
-vFn = convert((res, item) => {
+vFn = ((res, item) => {
     res.push(item);
     return res;
-}), init = convert(() => [])) {
+}), init = () => []) {
     // 将元素按照分组条件进行分组得到一个 条件 -> 数组 的对象
     return arr.reduce((res, item, index, arr) => {
         const k = kFn(item, index, arr);
@@ -566,7 +555,7 @@ function range(start, end, sep = 1) {
  * @returns 传入的第一个参数
  */
 function returnItself(obj) {
-    return convert(obj);
+    return obj;
 }
 
 /**
@@ -608,11 +597,13 @@ function uniqueBy(arr, kFn = returnItself) {
 /**
  * 将数组映射为 Map
  * @param arr 数组
- * @param kFn 产生 Map 元素唯一标识的函数
- * @param vFn 产生 Map 值的函数，默认为返回数组的元素
+ * @param k 产生 Map 元素唯一标识的函数，或者对象元素中的一个属性名
+ * @param v 产生 Map 值的函数，默认为返回数组的元素，或者对象元素中的一个属性名
  * @returns 映射产生的 map 集合
  */
-function arrayToMap(arr, kFn, vFn = returnItself) {
+function arrayToMap(arr, k, v = returnItself) {
+    const kFn = k instanceof Function ? k : (item) => Reflect.get(item, k);
+    const vFn = v instanceof Function ? v : (item) => Reflect.get(item, v);
     return arr.reduce((res, item, index, arr) => res.set(kFn(item, index, arr), vFn(item, index, arr)), new Map());
 }
 
@@ -826,7 +817,7 @@ function toLowerCase(str) {
     if (isNullOrUndefined(str) || typeof str !== 'string') {
         return str;
     }
-    return convert(str.toLowerCase());
+    return str.toLowerCase();
 }
 
 /**
@@ -1148,13 +1139,10 @@ class StateMachine {
     /**
      * 允许使用 for-of 遍历整个状态机
      */
-    [Symbol.iterator]() {
-        const map = this.classMap.entries();
-        return {
-            next() {
-                return map.next();
-            },
-        };
+    *[Symbol.iterator]() {
+        for (const kv of this.classMap.entries()) {
+            yield kv;
+        }
     }
 }
 
@@ -1189,26 +1177,32 @@ function throttle(delay, action) {
     });
 }
 
+/**
+ * 兼容异步函数的返回值
+ * @param res 返回值
+ * @param callback 同步/异步结果的回调函数
+ * @typeparam T 处理参数的类型，如果是 Promise 类型，则取出其泛型类型
+ * @typeparam Param 处理参数具体的类型，如果是 Promise 类型，则指定为原类型
+ * @typeparam R 返回值具体的类型，如果是 Promise 类型，则指定为 Promise 类型，否则为原类型
+ * @returns 处理后的结果，如果是同步的，则返回结果是同步的，否则为异步的
+ */
+function compatibleAsync(res, callback) {
+    return (res instanceof Promise
+        ? res.then(callback)
+        : callback(res));
+}
+
+/**
+ * 测试函数的执行时间
+ * 注：如果函数返回 Promise，则该函数也会返回 Promise，否则直接返回执行时间
+ * @param fn 需要测试的函数
+ * @returns 执行的毫秒数
+ */
 function timing(fn) {
     const begin = performance.now();
-    const result = fn();
-    if (!(result instanceof Promise)) {
-        return performance.now() - begin;
-    }
-    return result.then(() => performance.now() - begin);
+    const res = fn();
+    return compatibleAsync(res, () => performance.now() - begin);
 }
-// 第二种实现方式，避免了重载，却需要在函数内部进行强制类型转换
-// export function timing<R>(
-//   fn: ReturnFunc<R>,
-//   // 函数返回类型是 Promise 的话，则返回 Promise<number>，否则返回 number
-// ): R extends Promise<any> ? Promise<number> : number {
-//   const begin = performance.now()
-//   const result = fn()
-//   if (!(result instanceof Promise)) {
-//     return convert(performance.now() - begin)
-//   }
-//   return result.then(() => performance.now() - begin) as any
-// }
 
 /**
  * 轮询等待指定资源加载完毕再执行操作
@@ -1257,7 +1251,7 @@ function watch(fn, callback, interval = 100) {
  * 深度监听指定对象属性的变化
  * 注：指定对象不能是原始类型，即不可变类型，而且对象本身的引用不能改变，最好使用 const 进行声明
  * @param object 需要监视的对象
- * @param callback 当代理对象发生改变时的回调函数，回调函数有三个参数，分别是
+ * @param callback 当代理对象发生改变时的回调函数，回调函数有三个参数，分别是对象，修改的 key，修改的 v
  * @returns 返回源对象的一个代理
  */
 function watchObject(object, callback) {
@@ -1289,6 +1283,16 @@ function watchObject(object, callback) {
  */
 function format(str, args) {
     return Object.keys(args).reduce((res, k) => res.replace(new RegExp(`{${k}}`, 'g'), toString(args[k])), str);
+}
+
+/**
+ * 判断数字是否在指定区间之中
+ * @param num 指定数字
+ * @param min 最小值
+ * @param max 最大值（不包含）
+ */
+function isRange(num, min, max) {
+    return num >= min && num < max;
 }
 
 /**
@@ -1333,7 +1337,7 @@ class StringValidator {
      * @param str 字符串
      * @returns 是否为空字符串
      */
-    isEmpty(str) {
+    static isEmpty(str) {
         return isNullOrUndefined(str) || str === '';
     }
     /**
@@ -1341,15 +1345,15 @@ class StringValidator {
      * @param str 字符串
      * @returns 是否为空字符串
      */
-    isBlank(str) {
-        return stringValidator.isEmpty(str) || str.trim() === '';
+    static isBlank(str) {
+        return StringValidator.isEmpty(str) || str.trim() === '';
     }
     /**
      * 判断字符串是否位小数
      * @param str 需要进行判断的字符串
      * @returns 是否为小数
      */
-    isFloat(str) {
+    static isFloat(str) {
         if (isNullOrUndefined(str)) {
             return false;
         }
@@ -1360,62 +1364,73 @@ class StringValidator {
      * @param str 需要进行判断的字符串
      * @returns 是否为小数
      */
-    isInteger(str) {
-        return IntegerRule.test(str);
+    static isInteger(str) {
+        return !isNullOrUndefined(str) && IntegerRule.test(str);
     }
     /**
      * 判断邮箱的格式是否正确
      * @param str 邮箱字符串
      * @returns 是否是邮箱
      */
-    isEmail(str) {
-        return EmailRule.test(str);
+    static isEmail(str) {
+        return !isNullOrUndefined(str) && EmailRule.test(str);
     }
     /**
      * 判断 ipv4 地址的格式是否正确
      * @param str ipv4 字符串
      * @returns 是否是 ipv4 地址
      */
-    isIpv4(str) {
-        return Ipv4Rule.test(str);
+    static isIpv4(str) {
+        return !isNullOrUndefined(str) && Ipv4Rule.test(str);
+    }
+    /**
+     * 判断字符串是否为正确的端口号
+     * 正确的端口号是 1-65535
+     * @param str 字符串
+     * @returns 是否为端口号
+     */
+    static isPort(str) {
+        // tslint:disable-next-line:radix
+        return StringValidator.isInteger(str) && isRange(parseInt(str), 1, 65535);
     }
     /**
      * 判断是否为固定电话
      * @param str 字符串
      * @returns 是否为固定电话
      */
-    isTelephone(str) {
-        return TelephoneRule.test(str);
+    static isTelephone(str) {
+        return !isNullOrUndefined(str) && TelephoneRule.test(str);
     }
     /**
      * 判断是否为移动电话
      * @param str 字符串
      * @returns 是否为移动电话
      */
-    isMoblie(str) {
-        return MobileRule.test(str);
+    static isMobile(str) {
+        return !isNullOrUndefined(str) && MobileRule.test(str);
     }
     /**
      * 判断是否为域名
      * @param str 字符串
      * @returns 是否为域名
      */
-    isDomain(str) {
-        return DomainRule.test(str);
+    static isDomain(str) {
+        return !isNullOrUndefined(str) && DomainRule.test(str);
     }
     /**
      * 判断是否为邮政编码
      * @param str 字符串
      * @returns 是否为邮政编码
      */
-    isPostcode(str) {
-        return PostcodeRule.test(str);
+    static isPostcode(str) {
+        return !isNullOrUndefined(str) && PostcodeRule.test(str);
     }
 }
 /**
  * 导出一个字符串校验的对象
+ * @deprecated 已废弃，请直接使用类的静态函数
  */
-const stringValidator = new StringValidator();
+const stringValidator = StringValidator;
 
 /**
  * 判断字符串是否位小数
@@ -1446,7 +1461,7 @@ function toUpperCase(str) {
     if (isNullOrUndefined(str) || typeof str !== 'string') {
         return str;
     }
-    return convert(str.toUpperCase());
+    return str.toUpperCase();
 }
 
 /**
@@ -1465,11 +1480,11 @@ function blankToNull(str) {
  * @returns 将所有的空白属性全部转换为 null 的新对象
  */
 function blankToNullField(obj) {
-    return convert(Reflect.ownKeys(obj).reduce((res, k) => {
+    return Reflect.ownKeys(obj).reduce((res, k) => {
         const v = Reflect.get(obj, k);
         Reflect.set(res, k, typeof v === 'string' ? blankToNull(v) : v);
         return res;
-    }, {}));
+    }, {});
 }
 
 /**
@@ -1478,10 +1493,10 @@ function blankToNullField(obj) {
  * @returns 返回一个新的对象
  */
 function emptyAllField(obj) {
-    return convert(Reflect.ownKeys(obj).reduce((res, k) => {
+    return Reflect.ownKeys(obj).reduce((res, k) => {
         Reflect.set(res, k, null);
         return res;
-    }, {}));
+    }, {});
 }
 
 /**
@@ -1493,12 +1508,12 @@ function emptyAllField(obj) {
  */
 function excludeFields(obj, ...fields) {
     const set = new Set(fields);
-    return convert(Reflect.ownKeys(obj).reduce((res, k) => {
+    return Reflect.ownKeys(obj).reduce((res, k) => {
         if (!set.has(k)) {
             Reflect.set(res, k, Reflect.get(obj, k));
         }
         return res;
-    }, {}));
+    }, {});
 }
 
 /**
@@ -1528,16 +1543,6 @@ function randomInt(num1, num2) {
 }
 
 /**
- * 判断数字是否在指定区间之中
- * @param num 指定数字
- * @param min 最小值
- * @param max 最大值（不包含）
- */
-function isRange(num, min, max) {
-    return num >= min && num < max;
-}
-
-/**
  * 日期固定时间点
  */
 class DateConstants {
@@ -1546,7 +1551,7 @@ class DateConstants {
      * @param date 指定的时间，默认为当前日期
      * @returns 一天的开始时间
      */
-    dayStart(date = new Date()) {
+    static dayStart(date = new Date()) {
         return new Date(`${dateFormat(date, 'yyyy-MM-dd')}T00:00:00.000`);
     }
     /**
@@ -1554,7 +1559,7 @@ class DateConstants {
      * @param date 指定的时间，默认为当前日期
      * @returns 一天的结束时间
      */
-    dayEnd(date = new Date()) {
+    static dayEnd(date = new Date()) {
         return new Date(`${dateFormat(date, 'yyyy-MM-dd')}T23:59:59.999`);
     }
     /**
@@ -1562,7 +1567,7 @@ class DateConstants {
      * @param date 指定的时间，默认为当前日期
      * @returns 新年开始时间
      */
-    yearStart(date = new Date()) {
+    static yearStart(date = new Date()) {
         return new Date(`${date.getFullYear()}-01-01T00:00:00.000`);
     }
     /**
@@ -1570,14 +1575,15 @@ class DateConstants {
      * @param date 指定的时间，默认为当前日期
      * @returns 旧年结束时间
      */
-    yearEnd(date = new Date()) {
+    static yearEnd(date = new Date()) {
         return new Date(`${date.getFullYear()}-12-31T23:59:59.999`);
     }
 }
 /**
  * 导出一个日期固定时间点的对象
+ * @deprecated 已废弃，请直接使用类的静态函数
  */
-const dateConstants = new DateConstants();
+const dateConstants = DateConstants;
 
 /**
  * 一天标准的毫秒数
@@ -1797,63 +1803,6 @@ class DateBetween {
  */
 function dateBetween(start, end) {
     return new DateBetween(start, end);
-}
-
-/**
- * 将指定函数包装为只调用一次
- * @param fn 需要包装的函数
- * @returns 包装后的函数
- */
-function once(fn) {
-    let flag = true;
-    let cache;
-    return new Proxy(fn, {
-        apply(target, thisArg, args) {
-            if (flag === false) {
-                return cache;
-            }
-            flag = false;
-            const result = Reflect.apply(target, thisArg, args);
-            // 如果是异步函数则返回异步的结果
-            if (result instanceof Promise) {
-                return result.then(res => {
-                    cache = res;
-                    return res;
-                });
-            }
-            cache = result;
-            return cache;
-        },
-    });
-}
-
-/**
- * 包装一个函数为指定参数只执行一次的函数
- * @param fn 需要包装的函数
- * @param paramConverter 参数转换的函数，参数为需要包装函数的参数
- * @returns 需要被包装的函数
- * TODO 高阶函数需要更完善的类型信息，主要是声明接受函数与返回函数的参数/返回值完全一致
- */
-function onceOfSameParam(fn, paramConverter = (...args) => JSON.stringify(args)) {
-    const cacheMap = new Map();
-    return new Proxy(fn, {
-        apply(target, thisArg, args) {
-            const key = paramConverter(...args);
-            const old = cacheMap.get(key);
-            if (old !== undefined) {
-                return old;
-            }
-            const res = Reflect.apply(target, thisArg, args);
-            if (res instanceof Promise) {
-                return res.then(res => {
-                    cacheMap.set(key, res);
-                    return res;
-                });
-            }
-            cacheMap.set(key, res);
-            return res;
-        },
-    });
 }
 
 /**
@@ -2166,6 +2115,31 @@ class StringStyleConverter {
 }
 
 /**
+ * 包装一个函数为指定参数只执行一次的函数
+ * @param fn 需要包装的函数
+ * @param identity 参数转换的函数，参数为需要包装函数的参数
+ * @returns 需要被包装的函数
+ */
+function onceOfSameParam(fn, identity = fn.toString()) {
+    const generateKey = (args) => `onceOfSameParam-${identity}-${JSON.stringify(args)}`;
+    const cacheMap = new Map();
+    return new Proxy(fn, {
+        apply(_, _this, args) {
+            const key = generateKey(args);
+            const old = cacheMap.get(key);
+            if (old !== undefined) {
+                return old;
+            }
+            const res = Reflect.apply(_, _this, args);
+            return compatibleAsync(res, res => {
+                cacheMap.set(key, res);
+                return res;
+            });
+        },
+    });
+}
+
+/**
  * 包装获取字符串风格转换器
  * 此处采用了单例模式，每种转换器只会有一个
  *
@@ -2179,14 +2153,7 @@ const _getConverter = onceOfSameParam(
  * @param to 转换风格
  * @return {StringStyleConverter} 转换器的实例
  */
-(from, to) => new StringStyleConverter(from, to), 
-/**
- * 根据参数生成唯一标识
- * @param from 解析风格
- * @param to 转换风格
- * @return {String} 唯一参数标识字符串
- */
-(from, to) => from.toString() + to.toString());
+(from, to) => new StringStyleConverter(from, to));
 /**
  * 字符串风格转换工具类
  */
@@ -2278,7 +2245,7 @@ function deepProxy(obj) {
             return v;
         },
     };
-    return convert(new Proxy(obj, handler));
+    return new Proxy(obj, handler);
 }
 
 /**
@@ -2483,86 +2450,6 @@ function excludeFieldsDeep(obj, ...fields) {
 }
 
 /**
- * 无限的超时时间
- * TODO 此处暂时使用字符串作为一种折衷方法，因为 Symbol 无法被序列化为 JSON，反向序列化也是不可能的
- */
-const TimeoutInfinite = 'TimoutInfinite';
-
-// eslint-disable-next-line no-unused-vars
-/**
- * 缓存接口
- * 功能
- * 1. add 增加。如果不存在则添加，否则忽略
- * 2. del 删除。如果存在则删除，否则忽略
- * 3. set 修改。如果存在则设置，否则忽略
- * 4. get 根据 key 获取。如果存在则获取，否则忽略
- * 5. touch 根据 key 获取并刷新超时时间
- * 6. find 根据谓词查询 key
- * 7. list 根据谓词查询 key 获得列表
- *
- * @interface
- * TODO 这里的接口 API 需要进行重构
- */
-class ICache {
-    /**
-     * 全局缓存选项
-     * @param cacheOption 缓存选项
-     */
-    constructor({ timeout = TimeoutInfinite, serialize = JSON.stringify, deserialize = JSON.parse, } = {}) {
-        /**
-         * @field 缓存选项
-         */
-        this.cacheOption = {
-            timeout,
-            serialize,
-            deserialize,
-        };
-    }
-    /**
-     * 根据 key + value 添加
-     * 如果不存在则添加，否则忽略
-     * @param key 缓存的 key
-     * @param val 缓存的 value
-     * @param cacheOption 缓存的选项
-     * @abstract
-     */
-    add(key, val, cacheOption) { }
-    /**
-     * 根据指定的 key 删除
-     * 如果存在则删除，否则忽略
-     * @param key 删除的 key
-     * @abstract
-     */
-    del(key) { }
-    /**
-     * 根据指定的 key 修改
-     * 不管是否存在都会设置
-     * @param key 修改的 key
-     * @param val 修改的 value
-     * @param cacheOption 修改的选项
-     * @abstract
-     */
-    set(key, val, cacheOption) { }
-    /**
-     * 根据 key 获取
-     * 如果存在则获取，否则忽略
-     * @param key 指定的 key
-     * @param cacheOption 获取的选项
-     * @returns 获取到的缓存值
-     * @abstract
-     */
-    get(key, cacheOption) { }
-    /**
-     * 根据 key 获取并刷新超时时间
-     * @param key 指定的 key
-     * @param cacheOption 获取的选项
-     * @returns 获取到的缓存值
-     * @abstract
-     */
-    touch(key, cacheOption) { }
-}
-
-/**
  * 缓存的值
  */
 class CacheVal {
@@ -2577,6 +2464,12 @@ class CacheVal {
         Object.assign(this, options);
     }
 }
+
+/**
+ * 无限的超时时间
+ * TODO 此处暂时使用字符串作为一种折衷方法，因为 Symbol 无法被序列化为 JSON，反向序列化也是不可能的
+ */
+const TimeoutInfinite = 'TimoutInfinite';
 
 /**
  * 合并多个对象的属性
@@ -2604,13 +2497,17 @@ function assign(target, ...sources) {
 /**
  * 使用 LocalStorage 实现的缓存
  */
-class LocalStorageCache extends ICache {
+class LocalStorageCache {
     /**
      * 构造函数
      * @param cacheOption 全局缓存选项
      */
-    constructor(cacheOption = {}) {
-        super(cacheOption);
+    constructor({ timeout = TimeoutInfinite, serialize = JSON.stringify, deserialize = JSON.parse, } = {}) {
+        this.cacheOption = {
+            timeout,
+            serialize,
+            deserialize,
+        };
         /**
          * 缓存对象，默认使用 localStorage
          */
@@ -2762,6 +2659,34 @@ const cache = new LocalStorageCache();
  */
 class CacheUtil {
     /**
+     * 将指定函数包装为只调用一次为缓存函数
+     * @param fn 需要包装的函数
+     * @returns 包装后的函数
+     */
+    static once(fn, { identity = fn.toString(), timeout = TimeoutInfinite, } = {}) {
+        const generateKey = () => `CacheUtil.onceOfSameParam-${identity}`;
+        const innerFn = new Proxy(fn, {
+            apply(_, _this, args) {
+                const key = generateKey();
+                const cacheOption = { timeout };
+                const val = cache.get(key);
+                if (val !== null) {
+                    return val;
+                }
+                return compatibleAsync(Reflect.apply(_, _this, args), res => {
+                    cache.set(key, res, cacheOption);
+                    return res;
+                });
+            },
+        });
+        return Object.assign(innerFn, {
+            origin: fn,
+            clear() {
+                cache.del(generateKey());
+            },
+        });
+    }
+    /**
      * 包裹函数为缓存函数
      * @param fn 一个接受一些参数并返回结果的函数
      * @param options 缓存选项对象。可选项
@@ -2769,45 +2694,34 @@ class CacheUtil {
      * @param options.timeout 缓存时间。默认为无限
      * @returns 带有缓存功能的函数
      */
-    onceOfSameParam(fn, { identity = fn.toString(), timeout = TimeoutInfinite, } = {}) {
-        const generateKey = (args) => `onceOfSameParam-${identity}-${JSON.stringify(args)}`;
-        const innerFn = function (...args) {
-            const key = generateKey(args);
-            const cacheOption = { timeout };
-            const val = cache.get(key);
-            if (val !== null) {
-                return val;
-            }
-            const result = fn(...args);
-            if (result instanceof Promise) {
-                return result.then(res => {
+    static onceOfSameParam(fn, { identity = fn.toString(), timeout = TimeoutInfinite, } = {}) {
+        const generateKey = (args) => `CacheUtil.onceOfSameParam-${identity}-${JSON.stringify(args)}`;
+        const innerFn = new Proxy(fn, {
+            apply(_, _this, args) {
+                const key = generateKey(args);
+                const cacheOption = { timeout };
+                const val = cache.get(key);
+                if (val !== null) {
+                    return val;
+                }
+                return compatibleAsync(Reflect.apply(_, _this, args), res => {
                     cache.set(key, res, cacheOption);
                     return res;
                 });
-            }
-            cache.set(key, result, cacheOption);
-            return result;
-        };
-        /**
-         * 所包装的原函数
-         * @type {Function}
-         */
-        innerFn.origin = fn;
-        /**
-         * 清空缓存，清空指定参数调用时的函数缓存
-         * @type {Function}
-         */
-        innerFn.clear = function (...args) {
-            const key = generateKey(args);
-            cache.del(key);
-        };
-        return innerFn;
+            },
+        });
+        return Object.assign(innerFn, {
+            origin: fn,
+            clear(...args) {
+                cache.del(generateKey(args));
+            },
+        });
     }
 }
 /**
  * 导出一个默认的缓存工具对象
  */
-const cacheUtil = new CacheUtil();
+const cacheUtil = CacheUtil;
 
 /**
  * 一个空的函数
@@ -2818,23 +2732,23 @@ function emptyFunc(...args) { }
 /**
  * 禁止他人调试网站相关方法的集合对象
  */
-const antiDebug = {
+class AntiDebug {
     /**
      * 不停循环 debugger 防止有人调试代码
      * @returns 取消函数
      */
-    cyclingDebugger() {
+    static cyclingDebugger() {
         const res = setInterval(() => {
             debugger;
         }, 100);
         return () => clearInterval(res);
-    },
+    }
     /**
      * 检查是否正在 debugger 并调用回调函数
      * @param fn 回调函数，默认为重载页面
      * @returns 取消函数
      */
-    checkDebug(fn = () => window.location.reload()) {
+    static checkDebug(fn = () => window.location.reload()) {
         const res = setInterval(() => {
             const diff = timing(() => {
                 for (let i = 0; i < 1000; i++) {
@@ -2848,12 +2762,12 @@ const antiDebug = {
             }
         }, 1000);
         return () => clearInterval(res);
-    },
+    }
     /**
      * 禁用控制台调试输出
      * @returns 取消函数
      */
-    disableConsoleOutput() {
+    static disableConsoleOutput() {
         if (!window.console) {
             return emptyFunc;
         }
@@ -2870,8 +2784,13 @@ const antiDebug = {
                 console[k] = v;
             }
         };
-    },
-};
+    }
+}
+/**
+ * 禁止他人调试网站相关方法的集合对象
+ * @deprecated 已废弃，请直接使用类的静态函数
+ */
+const antiDebug = AntiDebug;
 
 /**
  * 判断一个字符串是否为空白的字符串
@@ -2909,6 +2828,67 @@ function loadScript(src) {
 }
 
 /**
+ * 内部使用的函数
+ * 注: 如果谓词中包含任意一个异步(返回 Promise)函数,则整个返回结果将变成异步的,否则默认为同步操作.
+ * @param fns 谓词数组
+ * @param args 谓词应用的参数列表
+ * @param condition 临界条件
+ * @returns 返回结果
+ */
+function _inner(fns, args, condition) {
+    const fn = fns[0];
+    const res = fn(...args);
+    function _call(res) {
+        if (condition(res)) {
+            return res;
+        }
+        const others = fns.slice(1);
+        if (others.length === 0) {
+            return res;
+        }
+        return _inner(others, args, condition);
+    }
+    return compatibleAsync(res, _call);
+}
+/**
+ * 连接谓词函数
+ */
+class CombinedPredicate {
+    /**
+     * 使用 && 进行连接
+     * @param fns 连接任意多个谓词
+     * @returns 连接后的新谓词
+     */
+    static and(...fns) {
+        return function (...args) {
+            return _inner(fns, args, res => !res);
+        };
+    }
+    /**
+     * 使用 || 进行连接
+     * @param fns 连接任意多个谓词
+     * @returns 连接后的新谓词
+     */
+    static or(...fns) {
+        return function (...args) {
+            return _inner(fns, args, res => res);
+        };
+    }
+    /**
+     * 对谓词进行取反
+     * @param fn 谓词
+     * @returns 取反后的谓词
+     */
+    static not(fn) {
+        return new Proxy(fn, {
+            apply(_, _this, args) {
+                return compatibleAsync(Reflect.apply(_, this, args), res => !res);
+            },
+        });
+    }
+}
+
+/**
  * 将一个谓词函数取反
  * 如果是同步函数，则返回的函数也是同步的，否则返回的是取反后的异步函数
  * @param fn 要取反的函数
@@ -2916,15 +2896,7 @@ function loadScript(src) {
  * @deprecated 已废弃，请使用 {@link CombinedPredicate.not} 进行为此取反
  */
 function deny(fn) {
-    return new Proxy(fn, {
-        apply(_, _this, args) {
-            const result = Reflect.apply(_, this, args);
-            if (result instanceof Promise) {
-                return result.then(res => !res);
-            }
-            return !result;
-        },
-    });
+    return CombinedPredicate.not(fn);
 }
 
 /**
@@ -2936,7 +2908,7 @@ class ArrayValidator {
      * @param array 空数组
      * @returns 是否为空数组
      */
-    isEmpty(array) {
+    static isEmpty(array) {
         return (isNullOrUndefined(array) ||
             !(array instanceof Array) ||
             array.length === 0);
@@ -2945,12 +2917,21 @@ class ArrayValidator {
 /**
  * 导出一个默认的数组校验对象
  */
-const arrayValidator = new ArrayValidator();
+const arrayValidator = ArrayValidator;
 
 /**
  * 路径工具
  */
 class PathUtil {
+    /**
+     * 拼接多个路径
+     *
+     * @param paths 路径数组
+     * @return {String} 拼接完成的路径
+     */
+    static join(...paths) {
+        return paths.reduce(PathUtil._join);
+    }
     /**
      * 拼接两个路径
      *
@@ -2967,15 +2948,6 @@ class PathUtil {
         }
         return pathStart + PathUtil.Separator + pathEnd;
     }
-    /**
-     * 拼接多个路径
-     *
-     * @param paths 路径数组
-     * @return {String} 拼接完成的路径
-     */
-    join(...paths) {
-        return paths.reduce(PathUtil._join);
-    }
 }
 /**
  * 路径分隔符
@@ -2983,8 +2955,9 @@ class PathUtil {
 PathUtil.Separator = '/';
 /**
  * 导出一个路径工具类
+ * @deprecated 已废弃，请直接使用类的静态函数
  */
-const pathUtil = new PathUtil();
+const pathUtil = PathUtil;
 
 /**
  * 自定义的日志类
@@ -3092,7 +3065,7 @@ function bridge(map) {
      * @returns 代理后的对象
      */
     return function (obj) {
-        return convert(new Proxy(obj, {
+        return new Proxy(obj, {
             get(_, k) {
                 if (Reflect.has(map, k)) {
                     return Reflect.get(_, Reflect.get(map, k));
@@ -3107,7 +3080,7 @@ function bridge(map) {
                 Reflect.set(_, k, v);
                 return true;
             },
-        }));
+        });
     };
 }
 
@@ -3173,13 +3146,13 @@ class NodeBridgeUtil {
      * @param nodeBridge 桥接对象
      * @returns 代理函数
      */
-    bridge({ id = 'id', parentId = 'parentId', child = 'child', path = 'path', } = {}) {
-        return convert(bridge({
+    static bridge({ id = 'id', parentId = 'parentId', child = 'child', path = 'path', } = {}) {
+        return bridge({
             id,
             parentId,
             child,
             path,
-        }));
+        });
     }
     /**
      * 桥接一棵完整的树
@@ -3187,7 +3160,7 @@ class NodeBridgeUtil {
      * @param nodeBridge 桥接对象
      * @returns 代理后的树对象
      */
-    bridgeTree(tree, nodeBridge) {
+    static bridgeTree(tree, nodeBridge) {
         return treeMapping(tree, {
             before: this.bridge(nodeBridge),
         });
@@ -3198,14 +3171,15 @@ class NodeBridgeUtil {
      * @param nodeBridge 桥接对象
      * @returns 代理后的树节点列表
      */
-    bridgeList(list, nodeBridge) {
+    static bridgeList(list, nodeBridge) {
         return list.map(this.bridge(nodeBridge));
     }
 }
 /**
  * 导出一个 NodeBridgeUtil 的实例
+ * @deprecated 已废弃，请直接使用类的静态函数
  */
-const nodeBridgeUtil = new NodeBridgeUtil();
+const nodeBridgeUtil = NodeBridgeUtil;
 
 /**
  * 获取对象中所有的属性及对应的值，包括 ES6 新增的 Symbol 类型的属性
@@ -3466,13 +3440,20 @@ function trySometimeParallel(fn, num = 1, errorCheck = res => true) {
  * @returns 是否相等
  */
 function compare(x, y) {
-    if (typeof x === 'number' && typeof y === 'number') {
+    if ((typeof x === 'number' || x instanceof Number) &&
+        (typeof y === 'number' || y instanceof Number)) {
+        const _x = +x;
+        const _y = +y;
         // 如果都是 NaN 则直接返回 true
-        if (isNaN(x) && isNaN(y)) {
+        if (isNaN(_x) && isNaN(_y)) {
             return true;
         }
+        // 如果是 -0/+0 则返回 false
+        if (_x === _y) {
+            return 1 / _x === 1 / _y;
+        }
         // 如果均为数字且两数之差的绝对值小于浮点数的最小精度（此举主要是为了避免浮点数的精度丢失）
-        if (Math.abs(x - y) < Number.EPSILON) {
+        if (Math.abs(_x - _y) < Number.EPSILON) {
             return true;
         }
     }
@@ -3480,16 +3461,11 @@ function compare(x, y) {
     if (x === y) {
         return true;
     }
-    // 如果是函数则比较 toString() 后的字符串
-    if (typeof x === 'function' && typeof y === 'function') {
-        if ((x instanceof RegExp && y instanceof RegExp) ||
-            (x instanceof String || y instanceof String) ||
-            (x instanceof Number || y instanceof Number)) {
-            return x.toString() === y.toString();
-        }
-        else {
-            return false;
-        }
+    // 比较正则和字符串
+    if ((x instanceof RegExp && y instanceof RegExp) ||
+        ((typeof x === 'string' || x instanceof String) &&
+            (typeof y === 'string' || y instanceof String))) {
+        return x.toString() === y.toString();
     }
     // 如果都是时间则比较它们的时间戳
     if (x instanceof Date && y instanceof Date) {
@@ -3544,10 +3520,9 @@ function sleep(time) {
 }
 
 /**
- * 异步的数组
- * 基于普通的 Array 类型实现
+ * 抽象异步数组，实现了一些公共的函数
  */
-class AsyncArray {
+class BaseAsyncArray {
     /**
      * 构造函数
      * @param args 数组初始元素
@@ -3561,6 +3536,28 @@ class AsyncArray {
      */
     get length() {
         return this._arr.length;
+    }
+    /**
+     * 获取内部数组的值，将返回一个浅复制的数组
+     */
+    value() {
+        return this._arr.slice();
+    }
+    /**
+     * 使该对象可以被 for-of 迭代
+     */
+    *[Symbol.iterator]() {
+        for (const v of this._arr) {
+            yield v;
+        }
+    }
+}
+/**
+ * 串行的异步数组
+ */
+class AsyncArray extends BaseAsyncArray {
+    constructor(...args) {
+        super(...args);
     }
     /**
      * 提供一个函数方便根据已有的数组或类数组（Set/Map）
@@ -3704,6 +3701,144 @@ class AsyncArray {
         return __awaiter(this, void 0, void 0, function* () {
             for (let i = this.length - 1; i >= 0; i--) {
                 if (res) {
+                    res = yield fn.apply(this, [res, this._arr[i], i, this]);
+                }
+                else {
+                    res = this._arr[i];
+                }
+            }
+            return res;
+        });
+    }
+    /**
+     * 转换为并发的异步数组
+     * @returns {@link AsyncArrayParallel} 实例
+     */
+    parallel() {
+        return new AsyncArrayParallel(...this._arr);
+    }
+}
+/**
+ * 并发的异步数组
+ */
+class AsyncArrayParallel extends BaseAsyncArray {
+    constructor(...args) {
+        super(...args);
+    }
+    /**
+     * 提供一个函数方便根据已有的数组或类数组（Set/Map）
+     * @param arr 一个可迭代元素
+     * @returns 创建一个新的异步数组包装
+     */
+    static from(arr) {
+        if (isNullOrUndefined(arr)) {
+            return new AsyncArrayParallel();
+        }
+        return new AsyncArrayParallel(...Array.from(arr));
+    }
+    /**
+     * 异步的 forEach
+     * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [交换律] 的操作），则不应该使用此函数
+     * @param fn 异步迭代函数
+     */
+    forEach(fn) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this._all(fn);
+        });
+    }
+    /**
+     * 异步的 filter
+     * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [交换律] 的操作），则不应该使用此函数
+     * @param fn 异步过滤函数
+     * @returns 过滤后的新数组
+     */
+    filter(fn) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield this._all(fn);
+            const result = new AsyncArrayParallel();
+            for (let i = 0, len = res.length; i < len; i++) {
+                if (res[i]) {
+                    result._arr.push(this._arr[i]);
+                }
+            }
+            return result;
+        });
+    }
+    /**
+     * 异步的 map
+     * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [交换律] 的操作），则不应该使用此函数
+     * @param fn 异步映射函数
+     * @returns 经过映射产生的新的异步数组
+     */
+    map(fn) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new AsyncArrayParallel(...(yield this._all(fn)));
+        });
+    }
+    /**
+     * 异步的 flatMap
+     * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [交换律] 的操作），则不应该使用此函数
+     * @param fn 异步映射函数，产生一个新的数组
+     * @returns 压平一层的数组
+     */
+    flatMap(fn) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield this._all(fn);
+            return new AsyncArrayParallel(...res.flat());
+        });
+    }
+    /**
+     * 异步的 every
+     * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [交换律] 的操作），则不应该使用此函数
+     * 注: 实际上是全部遍历一遍才会去判断是否有不符合谓词的元素，所以如果异步操作有副作用请不要使用此函数（例如 Ajax 修改数据库）
+     * @param fn 异步匹配函数
+     * @returns 是否全部匹配
+     */
+    every(fn) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this._all(fn)).every(returnItself);
+        });
+    }
+    /**
+     * 异步的 find
+     * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [交换律] 的操作），则不应该使用此函数
+     * 注: 实际上是全部遍历一遍才会去判断是否有符合谓词的元素，所以如果异步操作有副作用请不要使用此函数（例如 Ajax 修改数据库）
+     * @param fn 异步查询函数
+     * @returns 查询到的第一个值
+     */
+    find(fn) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const res = yield this._all(fn);
+            for (let i = 0, len = res.length; i < len; i++) {
+                if (res[i]) {
+                    return this._arr[i];
+                }
+            }
+            return null;
+        });
+    }
+    /**
+     * 异步 findIndex
+     * 注: 执行异步操作的顺序无法确定，如果顺序很重要的话（不符合 [交换律] 的操作），则不应该使用此函数
+     * 注: 实际上是全部遍历一遍才会去判断是否有符合谓词的元素，所以如果异步操作有副作用请不要使用此函数（例如 Ajax 修改数据库）
+     * @param fn 异步查询函数
+     * @returns 查询到的第一个值的下标
+     */
+    findIndex(fn) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (yield this._all(fn)).findIndex(returnItself);
+        });
+    }
+    /**
+     * 异步的 reduce
+     * @param fn 归纳函数
+     * @param res 初始值，默认为第一个元素
+     * @returns 归纳后的值
+     */
+    reduce(fn, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            for (let i = 0; i < this.length; i++) {
+                if (res) {
                     res = yield fn.call(this, res, this._arr[i], i, this);
                 }
                 else {
@@ -3714,107 +3849,160 @@ class AsyncArray {
         });
     }
     /**
-     * 获取内部数组的值，将返回一个浅复制的数组
+     * 异步的 reduceRight
+     * @param fn 归纳函数
+     * @param res 初始值，默认为最后一个元素
+     * @returns 归纳后的值
      */
-    value() {
-        return this._arr.slice();
+    reduceRight(fn, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            for (let i = this.length - 1; i >= 0; i--) {
+                if (res) {
+                    res = yield fn.apply(this, [res, this._arr[i], i, this]);
+                }
+                else {
+                    res = this._arr[i];
+                }
+            }
+            return res;
+        });
     }
     /**
-     * 使该对象可以被 for-of 迭代
+     * 转换为串行化的异步数组
+     * @returns {@link AsyncArray} 实例
      */
-    [Symbol.iterator]() {
-        const iterator = this._arr.values();
-        return {
-            next() {
-                return iterator.next();
-            },
-        };
+    serial() {
+        return new AsyncArray(...this._arr);
+    }
+    _all(fn) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield Promise.all(this._arr.map((v, i) => fn.apply(this, [v, i, this])));
+        });
     }
 }
 
 /**
- * 包装一个函数位异步函数
+ * 包装一个函数为异步函数
  * @param fn 任意一个函数
  * @typeparam R 原函数函数返回值类型
  * @returns 返回的异步结果 Promise 对象
  */
 function async(fn) {
-    return convert(new Proxy(fn, {
+    return new Proxy(fn, {
         apply(_, _this, args) {
             return __awaiter(this, void 0, void 0, function* () {
                 return yield Reflect.apply(_, _this, args);
             });
         },
-    }));
+    });
 }
 
 /**
- * 内部使用的函数
- * 注: 如果谓词中包含任意一个异步(返回 Promise)函数,则整个返回结果将变成异步的,否则默认为同步操作.
- * @param fns 谓词数组
- * @param args 谓词应用的参数列表
- * @param condition 临界条件
- * @returns 返回结果
+ * 将一个异步函数包装为具有时序的异步函数
+ * 注: 该函数会按照调用顺序依次返回结果，后面的调用的结果需要等待前面的，所以如果不关心过时的结果，请使用 {@link switchMap} 函数
+ * @param fn 一个普通的异步函数
+ * @returns 包装后的函数
  */
-function _inner(fns, args, condition) {
-    const fn = fns[0];
-    const res = fn(...args);
-    function _call(res) {
-        if (condition(res)) {
-            return res;
-        }
-        const others = fns.slice(1);
-        if (others.length === 0) {
-            return res;
-        }
-        return _inner(others, args, condition);
-    }
-    if (res instanceof Promise) {
-        return res.then(_call);
-    }
-    return _call(res);
+function mergeMap(fn) {
+    // 当前执行的异步操作 id
+    let id = 0;
+    // 所执行的异步操作 id 列表
+    const ids = new Set();
+    return new Proxy(fn, {
+        apply(_, _this, args) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const prom = Reflect.apply(_, _this, args);
+                const temp = id;
+                ids.add(temp);
+                id++;
+                yield wait(() => !ids.has(temp - 1));
+                ids.delete(temp);
+                return yield prom;
+            });
+        },
+    });
 }
+
 /**
- * 连接谓词函数
+ * 将一个异步函数包装为具有时序的异步函数
+ * 注: 该函数会丢弃过期的异步操作结果，这样的话性能会稍稍提高（主要是响应比较快的结果会立刻生效而不必等待前面的响应结果）
+ * @param fn 一个普通的异步函数
+ * @returns 包装后的函数
  */
-class CombinedPredicate {
-    /**
-     * 使用 && 进行连接
-     * @param fns 连接任意多个谓词
-     * @returns 连接后的新谓词
-     */
-    static and(...fns) {
-        return function (...args) {
-            return _inner(fns, args, res => !res);
-        };
-    }
-    /**
-     * 使用 || 进行连接
-     * @param fns 连接任意多个谓词
-     * @returns 连接后的新谓词
-     */
-    static or(...fns) {
-        return function (...args) {
-            return _inner(fns, args, res => res);
-        };
-    }
-    /**
-     * 对谓词进行取反
-     * @param fn 谓词
-     * @returns 取反后的谓词
-     */
-    static not(fn) {
-        return new Proxy(fn, {
-            apply(_, _this, args) {
-                const res = Reflect.apply(_, this, args);
-                if (res instanceof Promise) {
-                    return res.then(r => !r);
+function switchMap(fn) {
+    // 当前执行的异步操作 id
+    let id = 0;
+    // 最后一次异步操作的 id，小于这个的操作结果会被丢弃
+    let last = 0;
+    // 缓存最后一次异步操作的结果
+    let cache;
+    return new Proxy(fn, {
+        apply(_, _this, args) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const temp = id;
+                id++;
+                const res = yield Reflect.apply(_, _this, args);
+                if (temp < last) {
+                    return cache;
                 }
-                return !res;
-            },
-        });
-    }
+                cache = res;
+                last = temp;
+                return res;
+            });
+        },
+    });
 }
 
-export { AsyncArray, CombinedPredicate, DateFormatter, FetchLimiting, LocalStorageCache, Locker, StateMachine, StringStyleType, StringStyleUtil, aggregation, antiDebug, appends, arrayDiffBy, arrayToMap, arrayValidator, asIterator, assign, async, asyncFlatMap, asyncLimiting, autoIncrement, blankToNull, blankToNullField, bridge, cacheUtil, compare, compose, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, deny, download, downloadString, downloadUrl, emptyAllField, emptyFunc, excludeFields, excludeFieldsDeep, fetchTimeout, fill, filterItems, findIndex, flatMap, floatEquals, formDataToArray, format, getCookies, getCusorPostion, getObjectEntries, getObjectKeys, getYearWeek, groupBy, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, listToTree, loadResource, loadScript, logger, mapToObject, nodeBridgeUtil, objToFormData, objectToMap, once, onceOfSameParam, parseUrl, pathUtil, randomInt, range, readLocal, removeEl, removeText, returnItself, returnReasonableItself, safeExec, setCusorPostion, sets, singleModel, sleep, sortBy, spliceParams, strToArrayBuffer, strToDate, stringValidator, throttle, timing, toLowerCase, toObject, toString, toUpperCase, treeMapping, treeToList, trySometime, trySometimeParallel, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
+/**
+ * 将指定函数包装为只调用一次
+ * @param fn 需要包装的函数
+ * @returns 包装后的函数
+ */
+function once(fn) {
+    let flag = true;
+    let cache;
+    return new Proxy(fn, {
+        apply(target, thisArg, args) {
+            if (flag === false) {
+                return cache;
+            }
+            flag = false;
+            // 如果是异步函数则返回异步的结果
+            return compatibleAsync(Reflect.apply(target, thisArg, args), res => {
+                cache = res;
+                return cache;
+            });
+        },
+    });
+}
+
+/**
+ * 将一个异步函数包装为具有时序的异步函数
+ * 注: 该函数会按照调用顺序依次返回结果，后面的执行的调用（不是调用结果）需要等待前面的，此函数适用于异步函数的内里执行也必须保证顺序时使用，否则请使用 {@link mergeMap} 函数
+ * 注: 该函数其实相当于调用 {@code asyncLimiting(fn, {limit: 1})} 函数
+ * 例如即时保存文档到服务器，当然要等待上一次的请求结束才能请求下一次，不然数据库保存的数据就存在谬误了
+ * @param fn 一个普通的异步函数
+ * @returns 包装后的函数
+ */
+function concatMap(fn) {
+    // 当前执行的异步操作 id
+    let id = 0;
+    // 所执行的异步操作 id 列表
+    const ids = new Set();
+    return new Proxy(fn, {
+        apply(_, _this, args) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const temp = id;
+                ids.add(temp);
+                id++;
+                yield wait(() => !ids.has(temp - 1));
+                const prom = Reflect.apply(_, _this, args);
+                ids.delete(temp);
+                return yield prom;
+            });
+        },
+    });
+}
+
+export { AntiDebug, ArrayValidator, AsyncArray, CacheUtil, CombinedPredicate, DateConstants, DateFormatter, FetchLimiting, LocalStorageCache, Locker, NodeBridgeUtil, PathUtil, StateMachine, StringStyleType, StringStyleUtil, StringValidator, aggregation, antiDebug, appends, arrayDiffBy, arrayToMap, arrayValidator, asIterator, assign, async, asyncFlatMap, asyncLimiting, autoIncrement, blankToNull, blankToNullField, bridge, cacheUtil, compare, compose, concatMap, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, deny, download, downloadString, downloadUrl, emptyAllField, emptyFunc, excludeFields, excludeFieldsDeep, fetchTimeout, fill, filterItems, findIndex, flatMap, floatEquals, formDataToArray, format, getCookies, getCusorPostion, getObjectEntries, getObjectKeys, getYearWeek, groupBy, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, listToTree, loadResource, loadScript, logger, mapToObject, mergeMap, nodeBridgeUtil, objToFormData, objectToMap, once, onceOfSameParam, parseUrl, pathUtil, randomInt, range, readLocal, removeEl, removeText, returnItself, returnReasonableItself, safeExec, setCusorPostion, sets, singleModel, sleep, sortBy, spliceParams, strToArrayBuffer, strToDate, stringValidator, switchMap, throttle, timing, toLowerCase, toObject, toString, toUpperCase, treeMapping, treeToList, trySometime, trySometimeParallel, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
 //# sourceMappingURL=rx-util-es.js.map

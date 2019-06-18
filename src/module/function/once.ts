@@ -15,9 +15,8 @@ export function once<R>(fn: ReturnFunc<R>): ReturnFunc<R> {
         return cache
       }
       flag = false
-      const res = Reflect.apply(target, thisArg, args)
       // 如果是异步函数则返回异步的结果
-      return compatibleAsync(res, res => {
+      return compatibleAsync(Reflect.apply(target, thisArg, args), res => {
         cache = res
         return cache
       })

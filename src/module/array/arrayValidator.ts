@@ -9,7 +9,7 @@ export class ArrayValidator {
    * @param array 空数组
    * @returns 是否为空数组
    */
-  public isEmpty(array: any[] | null | undefined): boolean {
+  public static isEmpty(array: any[] | null | undefined): boolean {
     return (
       isNullOrUndefined(array) ||
       !(array instanceof Array) ||
@@ -21,4 +21,4 @@ export class ArrayValidator {
 /**
  * 导出一个默认的数组校验对象
  */
-export const arrayValidator = new ArrayValidator()
+export const arrayValidator = ArrayValidator

@@ -1,4 +1,4 @@
-import { arrayValidator } from '../array/arrayValidator'
+import { arrayValidator } from '../array/ArrayValidator'
 import { returnItself } from '../function/returnItself'
 import { INode } from './INode'
 

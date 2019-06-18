@@ -1,10 +1,10 @@
-import { arrayValidator } from '../../index'
+import { ArrayValidator } from './ArrayValidator'
 
 /**
- * @test {arrayValidator}
+ * @test {ArrayValidator}
  */
-describe('test arrayValidator', () => {
-  const { isEmpty } = arrayValidator
+describe('test ArrayValidator', () => {
+  const { isEmpty } = ArrayValidator
   it('test isEmpty', () => {
     expect(isEmpty(undefined)).toBeTrue()
     expect(isEmpty(null)).toBeTrue()

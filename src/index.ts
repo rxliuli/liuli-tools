@@ -85,7 +85,7 @@ import { isBlank } from './module/string/isBlank'
 import { isEmpty } from './module/string/isEmpty'
 import { loadScript } from './module/ajax/loadScript'
 import { deny } from './module/function/deny'
-import { arrayValidator } from './module/array/arrayValidator'
+import { arrayValidator, ArrayValidator } from './module/array/ArrayValidator'
 import {
   stringValidator,
   StringValidator,
@@ -140,6 +140,7 @@ export {
   arrayDiffBy,
   arrayToMap,
   arrayValidator,
+  ArrayValidator,
   asIterator,
   AsyncArray,
   asyncFlatMap,

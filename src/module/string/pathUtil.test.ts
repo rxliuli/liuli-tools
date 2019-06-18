@@ -1,4 +1,4 @@
-import { pathUtil } from './pathUtil'
+import { PathUtil } from './PathUtil'
 
 /**
  * @test {pathUtil}
@@ -6,10 +6,10 @@ import { pathUtil } from './pathUtil'
 describe('test pathUtil', () => {
   it('simple example', () => {
     const url = '/api/user/login'
-    expect(pathUtil.join('/api', '/user/login')).toBe(url)
-    expect(pathUtil.join('/api/', '/user/login')).toBe(url)
-    expect(pathUtil.join('/api', 'user/login')).toBe(url)
-    expect(pathUtil.join('/api', 'user', 'login')).toBe(url)
-    expect(pathUtil.join('/api/', '/user/', '/login')).toBe(url)
+    expect(PathUtil.join('/api', '/user/login')).toBe(url)
+    expect(PathUtil.join('/api/', '/user/login')).toBe(url)
+    expect(PathUtil.join('/api', 'user/login')).toBe(url)
+    expect(PathUtil.join('/api', 'user', 'login')).toBe(url)
+    expect(PathUtil.join('/api/', '/user/', '/login')).toBe(url)
   })
 })

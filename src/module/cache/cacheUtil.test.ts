@@ -1,4 +1,4 @@
-import { cacheUtil } from './cacheUtil'
+import { cacheUtil } from './CacheUtil'
 import { repeatedCall } from '../function/repeatedCall'
 import { wait } from '../async/wait'
 import { randomInt } from '../number/randomInt'

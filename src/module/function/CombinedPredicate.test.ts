@@ -1,5 +1,5 @@
 import { CombinedPredicate } from './CombinedPredicate'
-import { stringValidator } from '../string/stringValidator'
+import { stringValidator } from '../string/StringValidator'
 import { async } from '../async/async'
 
 describe('test CombinedPredicate', () => {

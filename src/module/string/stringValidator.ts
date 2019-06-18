@@ -45,7 +45,7 @@ export class StringValidator {
    * @param str 字符串
    * @returns 是否为空字符串
    */
-  public isEmpty(str: IString): str is string {
+  public static isEmpty(str: IString): str is string {
     return isNullOrUndefined(str) || str === ''
   }
   /**
@@ -53,8 +53,8 @@ export class StringValidator {
    * @param str 字符串
    * @returns 是否为空字符串
    */
-  public isBlank(str: IString): str is string {
-    return stringValidator.isEmpty(str) || str!.trim() === ''
+  public static isBlank(str: IString): str is string {
+    return StringValidator.isEmpty(str) || str!.trim() === ''
   }
 
   /**
@@ -62,7 +62,7 @@ export class StringValidator {
    * @param str 需要进行判断的字符串
    * @returns 是否为小数
    */
-  public isFloat(str: IString): str is string {
+  public static isFloat(str: IString): str is string {
     if (isNullOrUndefined(str)) {
       return false
     }
@@ -74,7 +74,7 @@ export class StringValidator {
    * @param str 需要进行判断的字符串
    * @returns 是否为小数
    */
-  public isInteger(str: IString): str is string {
+  public static isInteger(str: IString): str is string {
     return !isNullOrUndefined(str) && IntegerRule.test(str)
   }
   /**
@@ -82,7 +82,7 @@ export class StringValidator {
    * @param str 邮箱字符串
    * @returns 是否是邮箱
    */
-  public isEmail(str: IString): str is string {
+  public static isEmail(str: IString): str is string {
     return !isNullOrUndefined(str) && EmailRule.test(str)
   }
   /**
@@ -90,7 +90,7 @@ export class StringValidator {
    * @param str ipv4 字符串
    * @returns 是否是 ipv4 地址
    */
-  public isIpv4(str: IString): str is string {
+  public static isIpv4(str: IString): str is string {
     return !isNullOrUndefined(str) && Ipv4Rule.test(str)
   }
   /**
@@ -99,16 +99,16 @@ export class StringValidator {
    * @param str 字符串
    * @returns 是否为端口号
    */
-  public isPort(str: IString): str is string {
+  public static isPort(str: IString): str is string {
     // tslint:disable-next-line:radix
-    return stringValidator.isInteger(str) && isRange(parseInt(str), 1, 65535)
+    return StringValidator.isInteger(str) && isRange(parseInt(str), 1, 65535)
   }
   /**
    * 判断是否为固定电话
    * @param str 字符串
    * @returns 是否为固定电话
    */
-  public isTelephone(str: IString): str is string {
+  public static isTelephone(str: IString): str is string {
     return !isNullOrUndefined(str) && TelephoneRule.test(str)
   }
   /**
@@ -116,7 +116,7 @@ export class StringValidator {
    * @param str 字符串
    * @returns 是否为移动电话
    */
-  public isMobile(str: IString): str is string {
+  public static isMobile(str: IString): str is string {
     return !isNullOrUndefined(str) && MobileRule.test(str)
   }
   /**
@@ -124,7 +124,7 @@ export class StringValidator {
    * @param str 字符串
    * @returns 是否为域名
    */
-  public isDomain(str: IString): str is string {
+  public static isDomain(str: IString): str is string {
     return !isNullOrUndefined(str) && DomainRule.test(str)
   }
   /**
@@ -132,12 +132,13 @@ export class StringValidator {
    * @param str 字符串
    * @returns 是否为邮政编码
    */
-  public isPostcode(str: IString): str is string {
+  public static isPostcode(str: IString): str is string {
     return !isNullOrUndefined(str) && PostcodeRule.test(str)
   }
 }
 
 /**
  * 导出一个字符串校验的对象
+ * @deprecated 已废弃，请直接使用类的静态函数
  */
-export const stringValidator = new StringValidator()
+export const stringValidator = StringValidator

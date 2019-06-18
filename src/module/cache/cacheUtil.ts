@@ -33,7 +33,7 @@ export class CacheUtil {
    * @param options.timeout 缓存时间。默认为无限
    * @returns 带有缓存功能的函数
    */
-  public onceOfSameParam(
+  public static onceOfSameParam(
     fn: Function,
     {
       identity = fn.toString(),
@@ -79,4 +79,4 @@ export class CacheUtil {
 /**
  * 导出一个默认的缓存工具对象
  */
-export const cacheUtil = new CacheUtil()
+export const cacheUtil = CacheUtil

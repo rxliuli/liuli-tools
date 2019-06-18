@@ -58,7 +58,7 @@ import { excludeFields } from './module/obj/excludeFields'
 import { mapToObject } from './module/obj/mapToObject'
 import { randomInt } from './module/number/randomInt'
 import { getYearWeek } from './module/date/getYearWeek'
-import { dateConstants } from './module/date/dateConstants'
+import { dateConstants, DateConstants } from './module/date/DateConstants'
 import { dateEnhance } from './module/date/dateEnhance'
 import { dateBetween } from './module/date/dateBetween'
 import { isRange } from './module/number/isRange'
@@ -79,15 +79,18 @@ import { excludeFieldsDeep } from './module/obj/excludeFieldsDeep'
 import { isNullOrUndefined } from './module/obj/isNullOrUndefined'
 import { toString } from './module/string/toString'
 import { LocalStorageCache } from './module/cache/LocalStorageCache'
-import { cacheUtil } from './module/cache/cacheUtil'
-import { antiDebug } from './module/hack/antiDebug'
+import { cacheUtil, CacheUtil } from './module/cache/CacheUtil'
+import { antiDebug, AntiDebug } from './module/hack/AntiDebug'
 import { isBlank } from './module/string/isBlank'
 import { isEmpty } from './module/string/isEmpty'
 import { loadScript } from './module/ajax/loadScript'
 import { deny } from './module/function/deny'
 import { arrayValidator } from './module/array/arrayValidator'
-import { stringValidator } from './module/string/stringValidator'
-import { pathUtil } from './module/string/pathUtil'
+import {
+  stringValidator,
+  StringValidator,
+} from './module/string/StringValidator'
+import { pathUtil, PathUtil } from './module/string/PathUtil'
 import { logger } from './module/hack/logger'
 import { emptyFunc } from './module/function/emptyFunc'
 import { objectToMap } from './module/obj/objectToMap'
@@ -96,7 +99,7 @@ import { bridge } from './module/function/bridge'
 import { treeToList } from './module/tree/treeToList'
 import { treeMapping } from './module/tree/treeMapping'
 import { INodeBridge } from './module/tree/INodeBridge'
-import { nodeBridgeUtil } from './module/tree/nodeBridgeUtil'
+import { nodeBridgeUtil, NodeBridgeUtil } from './module/tree/NodeBridgeUtil'
 import { getObjectEntries } from './module/obj/getObjectEntries'
 import { getObjectKeys } from './module/obj/getObjectKeys'
 import { floatEquals } from './module/number/floatEquals'
@@ -116,6 +119,7 @@ import { mergeMap } from './module/async/mergeMap'
 import { switchMap } from './module/async/switchMap'
 import { once } from './module/function/once'
 import { onceOfSameParam } from './module/function/onceOfSameParam'
+import { concatMap } from './module/async/concatMap'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -149,9 +153,11 @@ export {
   uniqueBy,
   LocalStorageCache,
   cacheUtil,
+  CacheUtil,
   dateFormat,
   dateParse,
   dateConstants,
+  DateConstants,
   DateFormatter,
   dateEnhance,
   dateBetween,
@@ -196,6 +202,7 @@ export {
   watchObject,
   async,
   asyncLimiting,
+  concatMap,
   bridge,
   CombinedPredicate,
   compose,
@@ -208,9 +215,11 @@ export {
   isFloat,
   isNumber,
   pathUtil,
+  PathUtil,
   StringStyleType,
   StringStyleUtil,
   stringValidator,
+  StringValidator,
   toLowerCase,
   toString,
   toUpperCase,
@@ -229,6 +238,7 @@ export {
   mapToObject,
   objectToMap,
   antiDebug,
+  AntiDebug,
   logger,
   randomInt,
   isRange,
@@ -238,5 +248,6 @@ export {
   treeMapping,
   INodeBridge,
   nodeBridgeUtil,
+  NodeBridgeUtil,
   treeToList,
 }

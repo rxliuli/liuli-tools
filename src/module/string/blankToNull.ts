@@ -1,5 +1,5 @@
 import { isNullOrUndefined } from '../obj/isNullOrUndefined'
-import { stringValidator } from './stringValidator'
+import { stringValidator } from './StringValidator'
 
 /**
  * 将空白字符串转换为 null

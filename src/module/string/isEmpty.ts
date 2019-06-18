@@ -1,4 +1,4 @@
-import { stringValidator } from './stringValidator'
+import { stringValidator } from './StringValidator'
 
 /**
  * 判断一个字符串是否为空字符串

@@ -1,5 +1,5 @@
-import { compose } from '../function/compose'
-import { curry } from '../function/curry'
+import { compose } from './compose'
+import { curry } from './curry'
 
 /**
  * @test {compose}

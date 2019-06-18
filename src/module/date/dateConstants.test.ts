@@ -1,4 +1,4 @@
-import { dateConstants } from './dateConstants'
+import { dateConstants } from './DateConstants'
 /**
  * @test {dateConstants}
  */

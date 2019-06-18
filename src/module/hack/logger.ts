@@ -1,5 +1,5 @@
 import { emptyFunc } from '../function/emptyFunc'
-import { antiDebug } from './antiDebug'
+import { antiDebug } from './AntiDebug'
 import { returnItself } from '../function/returnItself'
 
 /**

@@ -14,7 +14,7 @@ export class NodeBridgeUtil {
    * @param nodeBridge 桥接对象
    * @returns 代理函数
    */
-  public bridge<T>({
+  public static bridge<T>({
     id = 'id',
     parentId = 'parentId',
     child = 'child',
@@ -33,7 +33,7 @@ export class NodeBridgeUtil {
    * @param nodeBridge 桥接对象
    * @returns 代理后的树对象
    */
-  public bridgeTree<T>(tree: T, nodeBridge?: INodeBridge): INode {
+  public static bridgeTree<T>(tree: T, nodeBridge?: INodeBridge): INode {
     return treeMapping(tree, {
       before: this.bridge(nodeBridge),
     })
@@ -44,12 +44,13 @@ export class NodeBridgeUtil {
    * @param nodeBridge 桥接对象
    * @returns 代理后的树节点列表
    */
-  public bridgeList<T>(list: T[], nodeBridge?: INodeBridge): INode[] {
+  public static bridgeList<T>(list: T[], nodeBridge?: INodeBridge): INode[] {
     return list.map(this.bridge(nodeBridge))
   }
 }
 
 /**
  * 导出一个 NodeBridgeUtil 的实例
+ * @deprecated 已废弃，请直接使用类的静态函数
  */
-export const nodeBridgeUtil = new NodeBridgeUtil()
+export const nodeBridgeUtil = NodeBridgeUtil

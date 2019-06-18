@@ -23,4 +23,16 @@ describe('test arrayToMap', () => {
         .set(3, '6'),
     )
   })
+  it('use string k/v field', () => {
+    class User {
+      constructor(public id: number, public name: string) {}
+    }
+    const arr = [new User(1, 'rx'), new User(2, '琉璃'), new User(3, '楚轩')]
+    expect(arrayToMap(arr, 'id', 'name')).toEqual(
+      new Map()
+        .set(1, 'rx')
+        .set(2, '琉璃')
+        .set(3, '楚轩'),
+    )
+  })
 })

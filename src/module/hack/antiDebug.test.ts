@@ -1,4 +1,4 @@
-import { antiDebug } from './antiDebug'
+import { antiDebug } from './AntiDebug'
 import { wait } from '../async/wait'
 
 /**

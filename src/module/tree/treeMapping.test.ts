@@ -1,4 +1,4 @@
-import { nodeBridgeUtil } from './nodeBridgeUtil'
+import { nodeBridgeUtil } from './NodeBridgeUtil'
 import { treeMapping } from './treeMapping'
 
 /**

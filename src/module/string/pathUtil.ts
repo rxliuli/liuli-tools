@@ -3,6 +3,15 @@
  */
 export class PathUtil {
   /**
+   * 拼接多个路径
+   *
+   * @param paths 路径数组
+   * @return {String} 拼接完成的路径
+   */
+  public static join(...paths: string[]): string {
+    return paths.reduce(PathUtil._join)
+  }
+  /**
    * 路径分隔符
    */
   private static Separator = '/'
@@ -25,18 +34,10 @@ export class PathUtil {
     }
     return pathStart + PathUtil.Separator + pathEnd
   }
-  /**
-   * 拼接多个路径
-   *
-   * @param paths 路径数组
-   * @return {String} 拼接完成的路径
-   */
-  public join(...paths: string[]): string {
-    return paths.reduce(PathUtil._join)
-  }
 }
 
 /**
  * 导出一个路径工具类
+ * @deprecated 已废弃，请直接使用类的静态函数
  */
-export const pathUtil = new PathUtil()
+export const pathUtil = PathUtil

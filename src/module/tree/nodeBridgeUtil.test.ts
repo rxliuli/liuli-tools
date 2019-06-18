@@ -1,4 +1,4 @@
-import { nodeBridgeUtil } from './nodeBridgeUtil'
+import { nodeBridgeUtil } from './NodeBridgeUtil'
 
 /**
  * @test {nodeBridgeUtil}

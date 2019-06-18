@@ -1,6 +1,6 @@
 import { treeToList } from './treeToList'
 import { excludeFieldsDeep } from '../obj/excludeFieldsDeep'
-import { nodeBridgeUtil } from './nodeBridgeUtil'
+import { nodeBridgeUtil } from './NodeBridgeUtil'
 
 /**
  * @test {treeToList}

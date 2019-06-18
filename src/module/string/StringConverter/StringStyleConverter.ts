@@ -1,4 +1,4 @@
-import { stringValidator } from '../stringValidator'
+import { stringValidator } from '../StringValidator'
 import { ConverterFactory } from './ConverterFactory'
 import { IConverter } from './IConverter'
 import { StringStyleType } from './StringStyleType'

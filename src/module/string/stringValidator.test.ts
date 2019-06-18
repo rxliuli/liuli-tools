@@ -1,4 +1,4 @@
-import { stringValidator } from './stringValidator'
+import { stringValidator, StringValidator } from './StringValidator'
 
 /**
  * @test {stringValidator}
@@ -16,7 +16,7 @@ describe('test stringValidator', () => {
     isDomain,
     isPostcode,
     isPort,
-  } = stringValidator
+  } = StringValidator
   it('test isBlank', () => {
     expect(isBlank(null)).toBeTrue()
     expect(isBlank(undefined)).toBeTrue()

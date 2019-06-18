@@ -1,5 +1,5 @@
 import { isRange } from '../number/isRange'
-import { dateConstants } from './dateConstants'
+import { dateConstants } from './DateConstants'
 
 /**
  * 一天标准的毫秒数

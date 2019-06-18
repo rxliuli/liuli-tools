@@ -1,7 +1,7 @@
 import { dateFormat } from './dateFormat'
 import { dateParse } from './dateParse'
 import { isNullOrUndefined } from '../obj/isNullOrUndefined'
-import { stringValidator } from '../string/stringValidator'
+import { stringValidator } from '../string/StringValidator'
 import { Nullable } from '../interface/Nullable'
 
 /**

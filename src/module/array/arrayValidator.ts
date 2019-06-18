@@ -20,5 +20,6 @@ export class ArrayValidator {
 
 /**
  * 导出一个默认的数组校验对象
+ * @deprecated 已废弃，请直接使用类的静态函数
  */
 export const arrayValidator = ArrayValidator

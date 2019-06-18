@@ -118,5 +118,6 @@ export class CacheUtil {
 
 /**
  * 导出一个默认的缓存工具对象
+ * @deprecated 已废弃，请直接使用类的静态函数
  */
 export const cacheUtil = CacheUtil

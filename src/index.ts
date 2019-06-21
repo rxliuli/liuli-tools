@@ -91,7 +91,7 @@ import {
   StringValidator,
 } from './module/string/StringValidator'
 import { pathUtil, PathUtil } from './module/string/PathUtil'
-import { logger } from './module/hack/logger'
+import { logger, Logger } from './module/hack/logger'
 import { emptyFunc } from './module/function/emptyFunc'
 import { objectToMap } from './module/obj/objectToMap'
 import { listToTree } from './module/tree/listToTree'
@@ -240,6 +240,7 @@ export {
   objectToMap,
   antiDebug,
   AntiDebug,
+  Logger,
   logger,
   randomInt,
   isRange,

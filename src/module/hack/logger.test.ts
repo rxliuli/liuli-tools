@@ -11,7 +11,6 @@ describe('test logger', () => {
     expect(logger.log).toBe(emptyFunc)
     logger.enable = true
     expect(logger.log).toBe(console.log)
-    // @ts-ignore
     expect(logger.info).toBe(console.info)
   })
 })

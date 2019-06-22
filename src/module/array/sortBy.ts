@@ -1,4 +1,3 @@
-import { groupBy } from './groupBy'
 import { returnItself } from '../function/returnItself'
 import { ArrayCallback } from '../interface/ArrayCallback'
 
@@ -13,23 +12,41 @@ export function sortBy<T, K>(
   arr: T[],
   kFn: ArrayCallback<T, K> = returnItself,
 ): T[] {
-  // 边界条件，如果传入数组的值
-  if (arr.length <= 1) {
-    return arr
+  const newArr: Array<[T, number]> = arr.map((v, i) => [v, i])
+  function _sort<V>(arr: V[], fn: (v1: V, v2: V) => number): V[] {
+    // 边界条件，如果传入数组的值
+    if (arr.length <= 1) {
+      return arr
+    }
+    // 根据中间值对数组分治为两个数组
+    const medianIndex = Math.floor(arr.length / 2)
+    const medianValue = arr[medianIndex]
+    const left = []
+    const right = []
+    for (let i = 0, len = arr.length; i < len; i++) {
+      if (i === medianIndex) {
+        continue
+      }
+      const v = arr[i]
+      if (fn(v, medianValue) <= 0) {
+        left.push(v)
+      } else {
+        right.push(v)
+      }
+    }
+    return _sort(left, fn)
+      .concat([medianValue])
+      .concat(_sort(right, fn))
   }
-  // 根据中间值对数组分治为两个数组
-  const medianIndex = Math.floor(arr.length / 2)
-  const newArr = arr.slice()
-  const median = newArr.splice(medianIndex, 1)[0]
-  const medianValue = kFn(median, medianIndex, arr)
-  const map: Map<boolean, T[]> = groupBy(
-    newArr,
-    (item, ...args) => kFn(item, ...args) < medianValue,
-  )
-  // 对两个数组分别进行递归排序
-  return [
-    ...sortBy(map.get(true) || [], kFn),
-    median,
-    ...sortBy(map.get(false) || [], kFn),
-  ]
+  return _sort(newArr, ([t1, i1], [t2, i2]) => {
+    const k1 = kFn(t1, i1, arr)
+    const k2 = kFn(t2, i2, arr)
+    if (k1 === k2) {
+      return 0
+    } else if (k1 < k2) {
+      return -1
+    } else {
+      return 1
+    }
+  }).map(([_v, i]) => arr[i])
 }

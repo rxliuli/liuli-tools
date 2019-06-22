@@ -58,8 +58,8 @@ describe('test AsyncArray', () => {
     expect(arr).toIncludeAllMembers(await asyncArr.value())
     expect(arr).toIncludeAllMembers(await Array.from(asyncArr))
   })
-  it('test for-of', async () => {
-    for await (const item of asyncArr) {
+  it('test for-of', () => {
+    for (const item of asyncArr) {
       expect(arr.includes(item)).toBeTrue()
     }
   })
@@ -67,5 +67,23 @@ describe('test AsyncArray', () => {
     expect(await AsyncArray.from(undefined)).toIncludeAllMembers([])
     expect(await AsyncArray.from(arr)).toIncludeAllMembers(arr)
     expect(await AsyncArray.from(new Set(arr))).toIncludeAllMembers(arr)
+  })
+  it('test parallel and serial', async () => {
+    const filterOddNumber = (i: number) => i % 2 === 1
+    const mapDouble = (i: number) => i * 2
+    const mapDeleteOne = (i: number) => i - 1
+    expect(
+      await AsyncArray.from(arr)
+        .parallel()
+        .filter(async(filterOddNumber))
+        .map(async(mapDouble))
+        .serial()
+        .map(async(mapDeleteOne)),
+    ).toIncludeAllMembers(
+      arr
+        .filter(filterOddNumber)
+        .map(mapDouble)
+        .map(mapDeleteOne),
+    )
   })
 })

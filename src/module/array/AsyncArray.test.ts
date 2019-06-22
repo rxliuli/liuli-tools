@@ -19,13 +19,13 @@ describe('test AsyncArray', () => {
   it('teset filter', async () => {
     const fn = (i: number) => i % 2 === 0
     expect(arr.filter(fn)).toIncludeAllMembers(
-      (await asyncArr.filter(async(fn))).value(),
+      await asyncArr.filter(async(fn)).value(),
     )
   })
   it('test map', async () => {
     const fn = (i: number) => i * 2
     expect(arr.map(fn)).toIncludeAllMembers(
-      (await asyncArr.map(async(fn))).value(),
+      await asyncArr.map(async(fn)).value(),
     )
   })
   it('test every', async () => {
@@ -43,7 +43,7 @@ describe('test AsyncArray', () => {
   it('test flatMap', async () => {
     const fn = (i: number) => range(0, i)
     expect(flatMap(arr, fn)).toIncludeAllMembers(
-      (await asyncArr.flatMap(async(fn))).value(),
+      await asyncArr.flatMap(async(fn)).value(),
     )
   })
   it('test reduce', async () => {
@@ -55,17 +55,17 @@ describe('test AsyncArray', () => {
     expect(arr.reduceRight(fn)).toBe(await asyncArr.reduceRight(async(fn)))
   })
   it('test value', async () => {
-    expect(arr).toIncludeAllMembers(asyncArr.value())
-    expect(arr).toIncludeAllMembers(Array.from(asyncArr))
+    expect(arr).toIncludeAllMembers(await asyncArr.value())
+    expect(arr).toIncludeAllMembers(await Array.from(asyncArr))
   })
-  it('test for-of', () => {
-    for (const item of asyncArr) {
+  it('test for-of', async () => {
+    for await (const item of asyncArr) {
       expect(arr.includes(item)).toBeTrue()
     }
   })
-  it('test from', () => {
-    expect(AsyncArray.from(undefined).value()).toIncludeAllMembers([])
-    expect(AsyncArray.from(arr).value()).toIncludeAllMembers(arr)
-    expect(AsyncArray.from(new Set(arr)).value()).toIncludeAllMembers(arr)
+  it('test from', async () => {
+    expect(await AsyncArray.from(undefined)).toIncludeAllMembers([])
+    expect(await AsyncArray.from(arr)).toIncludeAllMembers(arr)
+    expect(await AsyncArray.from(new Set(arr))).toIncludeAllMembers(arr)
   })
 })

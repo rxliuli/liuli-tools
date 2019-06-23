@@ -1,9 +1,6 @@
 import { isNullOrUndefined } from '../obj/isNullOrUndefined'
 import { returnItself } from '../function/returnItself'
-import { async } from '../async/async'
-import { wait } from '../async/wait'
 import { CombinedPredicate } from '../function/CombinedPredicate'
-import { groupBy } from './groupBy'
 
 /**
  * 操作类型
@@ -62,14 +59,12 @@ abstract class InnerBaseAsyncArray<T> {
    * 内部的数组
    */
   protected _arr: T[]
-  protected length = 0
   /**
    * 构造函数
    * @param args 数组初始元素
    */
   constructor(args: T[] = []) {
     this._arr = args
-    this.length = args.length
   }
   /**
    * 异步的 forEach
@@ -221,14 +216,6 @@ abstract class InnerBaseAsyncArray<T> {
   public value(): T[] {
     return this._arr.slice()
   }
-  /**
-   * 使该对象可以被 for-of 迭代
-   */
-  public *[Symbol.iterator]() {
-    for (const v of this._arr) {
-      yield v
-    }
-  }
 }
 
 /**
@@ -241,7 +228,7 @@ class InnerAsyncArray<T> extends InnerBaseAsyncArray<T> {
   public async forEach(
     fn: AsyncArrayCallback<T, void, InnerAsyncArray<T>>,
   ): Promise<void> {
-    for (let i = 0; i < this.length; i++) {
+    for (let i = 0, len = this._arr.length; i < len; i++) {
       await fn.call(this, this._arr[i], i, this)
     }
   }
@@ -249,7 +236,7 @@ class InnerAsyncArray<T> extends InnerBaseAsyncArray<T> {
     fn: AsyncArrayCallback<T, boolean, InnerAsyncArray<T>>,
   ): Promise<InnerAsyncArray<T>> {
     const res = new InnerAsyncArray<T>()
-    for (let i = this.length - 1; i >= 0; i--) {
+    for (let i = 0, len = this._arr.length; i < len; i++) {
       if (await fn.call(this, this._arr[i], i, this)) {
         res._arr.push(this._arr[i])
       }
@@ -260,7 +247,7 @@ class InnerAsyncArray<T> extends InnerBaseAsyncArray<T> {
     fn: AsyncArrayCallback<T, R, InnerAsyncArray<T>>,
   ): Promise<InnerAsyncArray<R>> {
     const res = new InnerAsyncArray<R>()
-    for (let i = 0; i < this.length; i++) {
+    for (let i = 0, len = this._arr.length; i < len; i++) {
       res._arr.push(await fn.call(this, this._arr[i], i, this))
     }
     return res
@@ -269,7 +256,7 @@ class InnerAsyncArray<T> extends InnerBaseAsyncArray<T> {
     fn: AsyncArrayCallback<T, R[], InnerAsyncArray<T>>,
   ): Promise<InnerAsyncArray<R>> {
     const res = new InnerAsyncArray<R>()
-    for (let i = 0; i < this.length; i++) {
+    for (let i = 0, len = this._arr.length; i < len; i++) {
       res._arr.push(...(await fn.call(this, this._arr[i], i, this)))
     }
     return res
@@ -278,7 +265,7 @@ class InnerAsyncArray<T> extends InnerBaseAsyncArray<T> {
     fn: AsyncArrayReduceCallback<T, R, InnerAsyncArray<T>>,
     res?: R,
   ): Promise<R> {
-    for (let i = 0; i < this.length; i++) {
+    for (let i = 0, len = this._arr.length; i < len; i++) {
       if (res) {
         res = await fn.call(this, res, this._arr[i], i, this)
       } else {
@@ -291,7 +278,7 @@ class InnerAsyncArray<T> extends InnerBaseAsyncArray<T> {
     fn: AsyncArrayReduceCallback<T, R, InnerAsyncArray<T>>,
     res?: R,
   ): Promise<R> {
-    for (let i = this.length - 1; i >= 0; i--) {
+    for (let i = this._arr.length - 1; i >= 0; i--) {
       if (res) {
         res = await fn.apply(this, [res, this._arr[i], i, this])
       } else {
@@ -303,7 +290,7 @@ class InnerAsyncArray<T> extends InnerBaseAsyncArray<T> {
   public async findIndex(
     fn: AsyncArrayCallback<T, boolean, InnerAsyncArray<T>>,
   ): Promise<number> {
-    for (let i = 0; i < this.length; i++) {
+    for (let i = 0, len = this._arr.length; i < len; i++) {
       const res = await fn.call(this, this._arr[i], i, this)
       if (res) {
         return i
@@ -357,7 +344,7 @@ class InnerAsyncArrayParallel<T> extends InnerBaseAsyncArray<T> {
     fn: AsyncArrayReduceCallback<T, R, InnerAsyncArrayParallel<T>>,
     res?: R,
   ): Promise<R> {
-    for (let i = 0; i < this.length; i++) {
+    for (let i = 0, len = this._arr.length; i < len; i++) {
       if (res) {
         res = await fn.call(this, res, this._arr[i], i, this)
       } else {
@@ -370,7 +357,7 @@ class InnerAsyncArrayParallel<T> extends InnerBaseAsyncArray<T> {
     fn: AsyncArrayReduceCallback<T, R, InnerAsyncArrayParallel<T>>,
     res?: R,
   ): Promise<R> {
-    for (let i = this.length - 1; i >= 0; i--) {
+    for (let i = this._arr.length - 1; i >= 0; i--) {
       if (res) {
         res = await fn.apply(this, [res, this._arr[i], i, this])
       } else {
@@ -556,21 +543,20 @@ export class AsyncArray<T> implements PromiseLike<any> {
       let asyncArray = new InnerAsyncArray(this._arr)
       let result: any = this._arr
       for (const task of this._tasks) {
-        asyncArray = await Reflect.get(asyncArray, task.type).apply(
+        asyncArray = await Reflect.apply(
+          Reflect.get(asyncArray, task.type),
           asyncArray,
           task.args,
         )
         if (asyncArray instanceof InnerBaseAsyncArray) {
           result = asyncArray.value()
         } else {
-          this._tasks = []
           if (!isNullOrUndefined(onfulfilled)) {
             onfulfilled(result)
           }
           return asyncArray
         }
       }
-      this._tasks = []
       if (!isNullOrUndefined(onfulfilled)) {
         onfulfilled(result)
       }

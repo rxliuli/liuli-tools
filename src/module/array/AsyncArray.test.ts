@@ -86,4 +86,16 @@ describe('test AsyncArray', () => {
         .map(mapDeleteOne),
     )
   })
+  it('test cache operation', async () => {
+    const result = asyncArr.filter(async i => i % 2 === 0)
+    expect(await result.map(async i => i * 2)).toIncludeAllMembers([4, 8])
+    expect(await result).toIncludeAllMembers([2, 4])
+    expect(await result).toIncludeAllMembers([2, 4])
+  })
+  it('test parallel async', async () => {
+    expect(
+      asyncArr.filter(async i => i % 2 === 0),
+    ).resolves.toIncludeAllMembers([2, 4])
+    expect(asyncArr).resolves.toIncludeAllMembers(arr)
+  })
 })

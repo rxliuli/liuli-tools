@@ -4389,9 +4389,9 @@ run-node@^1.0.0:
   integrity sha512-kc120TBlQ3mih1LSzdAJXo4xn/GWS2ec0l3S+syHDXP9uRr0JAT8Qd3mdMuyjqCzeZktgP3try92cEgf9Nks8A==
 
 rx-util@latest:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/rx-util/-/rx-util-1.7.0.tgz#eb18f70d568d16edf72a8b7391150cc29272a781"
-  integrity sha512-OD9XzYEbrfk2iZ3vofPaxapESoIxBezdpq+TAx3/7/vAomBDbwM1qcAqGc1QvvW9DhSvfsEIc7OzNkd+17r1wA==
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/rx-util/-/rx-util-1.7.2.tgz#1d1839c7b3f5203a05be1d173fd748b19480c879"
+  integrity sha512-DtlYueyE9/1gsh2gxvlZ4UY0DbdnVjJuCu86jRVOqccyYinwDRU4FlrWkeEBGuSr9U3w9cgaCHAocMhdnF5gmA==
 
 rxjs@^6.3.3:
   version "6.4.0"

@@ -1010,6 +1010,11 @@ cliui@^4.0.0:
     strip-ansi "^4.0.0"
     wrap-ansi "^2.0.0"
 
+cloc@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/cloc/-/cloc-2.5.0.tgz#5463371e2eee7735744211c9b9a3641bbdafcfa6"
+  integrity sha512-ZPJI2BZ0mvE8bV6IkxVa3RvDoclsW1SqYwmaGTBGBtvXpu6CD271W2ishYDBHCOubec0HgeVisVy1AybkLTWnw==
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"

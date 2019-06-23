@@ -106,7 +106,10 @@ abstract class InnerBaseAsyncArray<T> {
     if (fn === undefined) {
       return new InnerAsyncArray(this._arr.sort())
     }
-    const arr: Array<[T, number]> = this._arr.map((v, i) => [v, i])
+    // TODO 此处为了让 typedoc 能生成文档而不得不加上类型
+    const arr: Array<[T, number]> = this._arr.map(
+      (v, i) => [v, i] as [T, number],
+    )
     async function _sort<V>(
       arr: V[],
       fn: (v1: V, v2: V) => Promise<number>,

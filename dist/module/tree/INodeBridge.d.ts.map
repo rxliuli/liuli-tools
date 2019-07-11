@@ -1,1 +1,0 @@
-{"version":3,"file":"INodeBridge.d.ts","sourceRoot":"","sources":["../../src/module/tree/INodeBridge.ts"],"names":[],"mappings":"AAAA;;;;;;;;GAQG;AACH,MAAM,WAAW,WAAW;IAC1B,EAAE,CAAC,EAAE,WAAW,CAAA;IAChB,QAAQ,CAAC,EAAE,WAAW,CAAA;IACtB,KAAK,CAAC,EAAE,WAAW,CAAA;IACnB,IAAI,CAAC,EAAE,WAAW,CAAA;CACnB"}

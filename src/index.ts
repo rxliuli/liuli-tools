@@ -122,6 +122,8 @@ import { onceOfSameParam } from './module/function/onceOfSameParam'
 import { concatMap } from './module/async/concatMap'
 import { repeatedCall } from './module/function/repeatedCall'
 import { PubSubMachine } from './module/function/PubSubMachine'
+import { diffBy } from './module/array/diffBy'
+import { extractFieldMap } from './module/array/extractFieldMap'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -146,6 +148,8 @@ export {
   asIterator,
   AsyncArray,
   asyncFlatMap,
+  diffBy,
+  extractFieldMap,
   filterItems,
   findIndex,
   flatMap,

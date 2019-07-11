@@ -45,6 +45,9 @@ export class CacheUtil {
   /**
    * 将指定函数包装为只调用一次为缓存函数
    * @param fn 需要包装的函数
+   * @param options 缓存选项对象。可选项
+   * @param options.identity 缓存标识。默认为函数 {@link toString}，但有时候不太可行（继承自基类的函数）
+   * @param options.timeout 缓存时间。默认为无限
    * @returns 包装后的函数
    */
   public static once<R>(

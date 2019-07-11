@@ -6,6 +6,7 @@ import { Nullable } from '../interface/Nullable'
  * 用于避免使用 if-else 的一种方式
  * @typeparam K 状态的类型，默认为 any
  * @typeparam V 构造函数返回值的类型，一般为实现子类的基类，默认为 any
+ * @deprecated 该类将在下个大版本进行重构，使用函数而非类作为基本单元
  */
 export class StateMachine<K = any, R = any> {
   /**

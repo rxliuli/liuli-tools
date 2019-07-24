@@ -125,6 +125,8 @@ import { PubSubMachine } from './module/function/PubSubMachine'
 import { diffBy } from './module/array/diffBy'
 import { extractFieldMap } from './module/array/extractFieldMap'
 import { TypeValidator } from './module/obj/TypeValidator'
+import { getCursorPosition } from './module/dom/getCursorPosition'
+import { setCursorPosition } from './module/dom/setCursorPosition'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -173,12 +175,14 @@ export {
   getYearWeek,
   copyText,
   createElByString,
+  getCursorPosition,
   getCusorPostion,
   insertText,
   isEditable,
   lastFocus,
   removeEl,
   removeText,
+  setCursorPosition,
   setCusorPostion,
   watchEventListener,
   appends,

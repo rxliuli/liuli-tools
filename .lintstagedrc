@@ -2,7 +2,6 @@
   "linters": {
     "src/**/*.ts": [
       "yarn fix",
-      "yarn format",
       "git add"
     ]
   }

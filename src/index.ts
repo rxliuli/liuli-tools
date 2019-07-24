@@ -124,6 +124,7 @@ import { repeatedCall } from './module/function/repeatedCall'
 import { PubSubMachine } from './module/function/PubSubMachine'
 import { diffBy } from './module/array/diffBy'
 import { extractFieldMap } from './module/array/extractFieldMap'
+import { TypeValidator } from './module/obj/TypeValidator'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -246,6 +247,7 @@ export {
   isNullOrUndefined,
   mapToObject,
   objectToMap,
+  TypeValidator,
   antiDebug,
   AntiDebug,
   Logger,

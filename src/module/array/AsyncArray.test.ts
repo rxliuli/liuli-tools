@@ -16,7 +16,7 @@ describe('test AsyncArray', () => {
     await new AsyncArray(...arr).forEach(async(fn) as any)
     expect(arr1).toIncludeAllMembers(res)
   })
-  it('teset filter', async () => {
+  it('test filter', async () => {
     const fn = (i: number) => i % 2 === 0
     expect(arr.filter(fn)).toIncludeAllMembers(
       await asyncArr.filter(async(fn)).value(),

@@ -106,7 +106,7 @@ abstract class InnerBaseAsyncArray<T> {
     if (fn === undefined) {
       return new InnerAsyncArray(this._arr.sort())
     }
-    // TODO 此处为了让 typedoc 能生成文档而不得不加上类型
+    // TODO 此处为了让 type-doc 能生成文档而不得不加上类型
     const arr: Array<[T, number]> = this._arr.map(
       (v, i) => [v, i] as [T, number],
     )
@@ -405,12 +405,12 @@ export class AsyncArray<T> implements PromiseLike<any> {
   public static from<T>(
     arr: Iterable<T> | ArrayLike<T> | null | undefined,
   ): AsyncArray<T> {
-    const reuslt = new AsyncArray<T>()
+    const result = new AsyncArray<T>()
     if (isNullOrUndefined(arr)) {
-      return reuslt
+      return result
     }
-    reuslt._arr = Array.from(arr)
-    return reuslt
+    result._arr = Array.from(arr)
+    return result
   }
   /**
    * 内部数组的长度，用于让 {@link AsyncArray} 的实例能作为 {@link Array.from} 的参数

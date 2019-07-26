@@ -38,4 +38,20 @@ describe('test assign', () => {
     expect(res.name).toEqual('琉璃')
     expect(res.hello()).toEqual('琉璃')
   })
+  it('test type', () => {
+    const res = assign(
+      {
+        name: '灵梦',
+      },
+      {
+        age: 17,
+      },
+      {
+        sex: false,
+      },
+    )
+    expect(res.name).toBe('灵梦')
+    expect(res.age).toBe(17)
+    expect(res.sex).toBe(false)
+  })
 })

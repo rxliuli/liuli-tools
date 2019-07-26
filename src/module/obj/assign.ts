@@ -1,7 +1,15 @@
-import { flatMap } from '../array/flatMap'
 import { isNullOrUndefined } from './isNullOrUndefined'
-import { getObjectEntries } from './getObjectEntries'
 
+export function assign<T, A>(target: T, a: A): T & A
+export function assign<T, A, B>(target: T, a: A, b: B): T & A & B
+export function assign<T, A, B, C>(target: T, a: A, b: B, c: C): T & A & B & C
+export function assign<T, A, B, C, D>(
+  target: T,
+  a: A,
+  b: B,
+  c: C,
+  d: D,
+): T & A & B & C & D
 /**
  * 合并多个对象的属性
  * 1. 该合并的方式为浅层合并，只会合并一层的对象

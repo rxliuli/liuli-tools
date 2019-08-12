@@ -16,8 +16,8 @@
     "coverage": "jest --coverage",
     "fix": "tslint --fix src/**/*.ts",
     "server": "yarn-or-npm docs && yarn-or-npm coverage && live-server docs/ --port=4000",
-    "predeploy": "yarn-or-npm docs && yarn-or-npm coverage && cp CNAME docs/ && cp readme.md docs/ && cp .nojekyll docs/",
-    "deploy": "gh-pages -d docs && rm -rf docs",
+    "predeploy": "yarn-or-npm docs && cp CNAME docs/ && cp readme.md docs/ && cp .nojekyll docs/",
+    "deploy": "yarn gh-pages -d docs -t true && rm -rf docs",
     "prepublishOnly": "yarn-or-npm build"
   },
   "repository": {

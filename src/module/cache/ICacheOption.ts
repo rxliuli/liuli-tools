@@ -2,7 +2,7 @@
  * 无限的超时时间
  * TODO 此处暂时使用字符串作为一种折衷方法，因为 Symbol 无法被序列化为 JSON，反向序列化也是不可能的
  */
-export const TimeoutInfinite = 'TimoutInfinite'
+export const TimeoutInfinite = 'TimeoutInfinite'
 
 /**
  * 缓存选项
@@ -13,7 +13,7 @@ export const TimeoutInfinite = 'TimoutInfinite'
  */
 export interface ICacheOption {
   timeout: number | string
-  timeStart?: number
+  timeStart: number
   serialize: (val: any) => string
   deserialize: (s: string) => any
 }

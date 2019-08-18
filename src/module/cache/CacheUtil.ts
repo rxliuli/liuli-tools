@@ -19,7 +19,7 @@ interface ICacheUtilOptions {
   /**
    * 缓存超时时间，默认为无限
    */
-  timeout: number | string
+  timeout: number
 }
 
 /**
@@ -52,22 +52,18 @@ export class CacheUtil {
    */
   public static once<R>(
     fn: ReturnFunc<R>,
-    {
-      identity = fn.toString(),
-      timeout = TimeoutInfinite,
-    }: Partial<ICacheUtilOptions> = {},
+    { identity = fn.toString(), timeout }: Partial<ICacheUtilOptions> = {},
   ): ICacheFunc<R> {
     const generateKey = () => `CacheUtil.onceOfSameParam-${identity}`
     const innerFn = new Proxy(fn, {
       apply(_, _this, args) {
         const key = generateKey()
-        const cacheOption = { timeout }
         const val = cache.get(key)
         if (val !== null) {
           return val
         }
         return compatibleAsync(Reflect.apply(_, _this, args), res => {
-          cache.set(key, res, cacheOption)
+          cache.set(key, res, timeout)
           return res
         })
       },
@@ -89,23 +85,19 @@ export class CacheUtil {
    */
   public static onceOfSameParam<R>(
     fn: ReturnFunc<R>,
-    {
-      identity = fn.toString(),
-      timeout = TimeoutInfinite,
-    }: Partial<ICacheUtilOptions> = {},
+    { identity = fn.toString(), timeout }: Partial<ICacheUtilOptions> = {},
   ): ICacheFunc<R> {
     const generateKey = (args: any[]) =>
       `CacheUtil.onceOfSameParam-${identity}-${JSON.stringify(args)}`
     const innerFn = new Proxy(fn, {
       apply(_, _this, args) {
         const key = generateKey(args)
-        const cacheOption = { timeout }
         const val = cache.get(key)
         if (val !== null) {
           return val
         }
         return compatibleAsync(Reflect.apply(_, _this, args), res => {
-          cache.set(key, res, cacheOption)
+          cache.set(key, res, timeout)
           return res
         })
       },

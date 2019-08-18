@@ -14,7 +14,7 @@ import { ICacheOption, TimeoutInfinite } from './ICacheOption'
  * @interface
  * TODO 这里的接口 API 需要进行重构
  */
-export interface ICache {
+export interface ICache<T = any> {
   /**
    * 根据 key + value 添加
    * 如果不存在则添加，否则忽略
@@ -23,7 +23,7 @@ export interface ICache {
    * @param cacheOption 缓存的选项
    * @abstract
    */
-  add(key: string, val: any, cacheOption?: Partial<ICacheOption>): void
+  add(key: string, val: T, timeout?: number): void
   /**
    * 根据指定的 key 删除
    * 如果存在则删除，否则忽略
@@ -39,7 +39,7 @@ export interface ICache {
    * @param cacheOption 修改的选项
    * @abstract
    */
-  set(key: string, val: any, cacheOption?: Partial<ICacheOption>): void
+  set(key: string, val: T, timeout?: number): void
   /**
    * 根据 key 获取
    * 如果存在则获取，否则忽略
@@ -48,7 +48,7 @@ export interface ICache {
    * @returns 获取到的缓存值
    * @abstract
    */
-  get(key: string, cacheOption?: Partial<ICacheOption>): any
+  get(key: string): T | null
   /**
    * 根据 key 获取并刷新超时时间
    * @param key 指定的 key
@@ -56,5 +56,5 @@ export interface ICache {
    * @returns 获取到的缓存值
    * @abstract
    */
-  touch(key: string, cacheOption?: Partial<ICacheOption>): any
+  touch(key: string): T | null
 }

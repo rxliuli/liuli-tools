@@ -114,7 +114,12 @@ import { sleep } from './module/function/sleep'
 import { AsyncArray } from './module/array/AsyncArray'
 import { async } from './module/async/async'
 import { findIndex } from './module/array/findIndex'
-import { CombinedPredicate } from './module/function/CombinedPredicate'
+import {
+  CombinedPredicate,
+  and,
+  or,
+  not,
+} from './module/function/CombinedPredicate'
 import { mergeMap } from './module/async/mergeMap'
 import { switchMap } from './module/async/switchMap'
 import { once } from './module/function/once'
@@ -221,6 +226,9 @@ export {
   concatMap,
   bridge,
   CombinedPredicate,
+  and,
+  or,
+  not,
   compose,
   curry,
   blankToNull,

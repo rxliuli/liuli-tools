@@ -75,3 +75,7 @@ export class CombinedPredicate {
     })
   }
 }
+
+export const and = CombinedPredicate.and
+export const or = CombinedPredicate.or
+export const not = CombinedPredicate.not

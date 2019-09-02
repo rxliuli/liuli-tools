@@ -1,4 +1,5 @@
 import { toLowerCase } from '../string/toLowerCase'
+
 /**
  * 判断指定元素是否是可编辑元素
  * 注：可编辑元素并不一定能够进行编辑，例如只读的 input 元素

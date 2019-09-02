@@ -1,5 +1,5 @@
-import { setCusorPostion } from './setCusorPostion'
 import { getSelectText } from './getSelectText'
+import { setCursorPosition } from './setCursorPosition'
 
 /**
  * @test {getSelectText}
@@ -17,7 +17,7 @@ describe.skip('test getSelectText', () => {
     $name.value = 'text'
   })
   it('test normal situation', () => {
-    setCusorPostion($name, 1, 3)
+    setCursorPosition($name, 1, 3)
     expect(getSelectText()).toEqual('ex')
   })
 })

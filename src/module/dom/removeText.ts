@@ -1,5 +1,5 @@
-import { getCusorPostion } from './getCusorPostion'
-import { setCusorPostion } from './setCusorPostion'
+import { getCursorPosition } from './getCursorPosition'
+import { setCursorPosition } from './setCursorPosition'
 
 /**
  * 在指定范围内删除文本
@@ -13,8 +13,8 @@ export function removeText(
   end: number = el.selectionEnd,
 ) {
   // 删除之前必须要 [记住] 当前光标的位置
-  const index = getCusorPostion(el)
+  const index = getCursorPosition(el)
   const value = el.value
   el.value = value.substr(0, start) + value.substr(end, value.length)
-  setCusorPostion(el, index)
+  setCursorPosition(el, index)
 }

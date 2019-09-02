@@ -1,5 +1,5 @@
-import { getCusorPostion } from './getCusorPostion'
-import { setCusorPostion } from './setCusorPostion'
+import { getCursorPosition } from './getCursorPosition'
+import { setCursorPosition } from './setCursorPosition'
 
 /**
  * 在指定位置后插入文本
@@ -10,9 +10,9 @@ import { setCusorPostion } from './setCusorPostion'
 export function insertText(
   el: HTMLFormElement,
   text: string,
-  start: number = getCusorPostion(el),
+  start: number = getCursorPosition(el),
 ) {
   const value = el.value
   el.value = value.substr(0, start) + text + value.substr(start)
-  setCusorPostion(el, start + text.length)
+  setCursorPosition(el, start + text.length)
 }

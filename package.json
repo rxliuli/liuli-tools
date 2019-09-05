@@ -6,19 +6,18 @@
   "module": "./dist/rx-util-es.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "start": "yarn-or-npm test",
+    "start": "yarn test",
     "build": "rollup -c build/rollup.config.js",
     "lint": "tslint src/**/*.ts ",
     "format": "prettier --write src/**/*.ts src/**/*.js",
-    "docs": "rimraf docs && typedoc --out docs src --exclude src/**/*.test.ts",
+    "docs": "rimraf docs && typedoc --out docs src --exclude src/**/*.test.ts && cp CNAME docs/ && cp readme.md docs/ && cp .nojekyll docs/",
     "cloc": "cloc src/ --exclude-ext=test.ts",
     "test": "jest --watch",
     "coverage": "jest --coverage",
     "fix": "tslint --fix src/**/*.ts",
-    "server": "yarn-or-npm docs && yarn-or-npm coverage && live-server docs/ --port=4000",
-    "predeploy": "yarn-or-npm docs && cp CNAME docs/ && cp readme.md docs/ && cp .nojekyll docs/",
+    "server": "yarn docs && yarn coverage && live-server docs/ --port=4000",
     "deploy": "yarn gh-pages -d docs -t true && rm -rf docs",
-    "prepublishOnly": "yarn-or-npm build"
+    "prepublishOnly": "yarn build"
   },
   "repository": {
     "type": "git",
@@ -64,7 +63,6 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
     "typedoc": "^0.14.2",
-    "typescript": "^3.4.5",
-    "yarn-or-npm": "^2.0.4"
+    "typescript": "^3.4.5"
   }
 }

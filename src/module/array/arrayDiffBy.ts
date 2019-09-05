@@ -1,5 +1,3 @@
-import { returnItself } from '../function/returnItself'
-import { ArrayCallback } from '../interface/ArrayCallback'
 import { diffBy } from './diffBy'
 
 /**

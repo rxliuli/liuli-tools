@@ -1,4 +1,4 @@
-name: Auto Build
+name: GitHub CI
 on:
   push:
     branches:
@@ -10,24 +10,23 @@ jobs:
       matrix:
         node: ['10']
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
-    # 单元测试
-    - name: Unit test
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node }}
+      - name: Checkout
+        uses: actions/checkout@master
+
+      # 单元测试
+      - name: Unit test
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
       - run: yarn
       - run: yarn jest
 
-    # 发布到 npm
-    - name: Publish
-    - uses: actions/setup-node@v1
+      # 发布到 npm
+      - name: Publish
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
           registry-url: 'https://registry.npmjs.org'
-      - run: npm install
-      - run: npm run build
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
@@ -38,12 +37,12 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    # 发布 API 文档到 github pages
-    - name: Deploy GitHub pages
-      uses: JamesIves/github-pages-deploy-action@master
-      env:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: docs
-        BUILD_SCRIPT: yarn && yarn docs
-    
+      # 发布 API 文档到 github pages
+      - name: Deploy GitHub pages
+        uses: JamesIves/github-pages-deploy-action@master
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: docs
+          BUILD_SCRIPT: yarn && yarn docs
+

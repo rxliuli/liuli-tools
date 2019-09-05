@@ -1,14 +1,12 @@
 import { LocalStorageCache } from './LocalStorageCache'
 import { wait } from '../async/wait'
 import { repeatedCall } from '../function/repeatedCall'
-import { TimeoutInfinite } from './ICacheOption'
 import { sleep } from '../function/sleep'
-import { CacheVal } from './CacheVal'
 
 /**
  * @test {LocalStorageCache}
  */
-describe('test LocalStorageCache', () => {
+describe.skip('test LocalStorageCache', () => {
   beforeEach(async () => {
     await new LocalStorageCache().clearExpired()
   })

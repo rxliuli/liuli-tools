@@ -51,6 +51,18 @@ export class TypeValidator {
     return typeof val === 'symbol'
   }
   /**
+   * 判断是否可以作为对象的属性
+   * @param val 需要判断的值
+   * @returns 是否为对象属性
+   */
+  public static isPropertyKey(val: any): val is PropertyKey {
+    return (
+      TypeValidator.isString(val) ||
+      TypeValidator.isNumber(val) ||
+      TypeValidator.isSymbol(val)
+    )
+  }
+  /**
    * 判断是否为对象
    * 注: 函数（包括 ES6 箭头函数）将不被视为对象
    * @param val 需要判断的值

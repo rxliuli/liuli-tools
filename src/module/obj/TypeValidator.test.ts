@@ -8,6 +8,7 @@ describe('test TypeValidator', () => {
     isUndefined,
     isNull,
     isSymbol,
+    isPropertyKey,
     isObject,
     isArray,
     isFunction,
@@ -37,6 +38,13 @@ describe('test TypeValidator', () => {
   })
   it('test isSymbol', () => {
     expect(isSymbol(Symbol('symbol'))).toBeTrue()
+  })
+  it('test isPropertyKey', () => {
+    expect(isPropertyKey(Symbol())).toBeTrue()
+    expect(isPropertyKey('name')).toBeTrue()
+    expect(isPropertyKey(1)).toBeTrue()
+    expect(isPropertyKey(undefined)).toBeFalse()
+    expect(isPropertyKey(Object.create(null))).toBeFalse()
   })
   it('test isObject', () => {
     expect(isObject({})).toBeTrue()

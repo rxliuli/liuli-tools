@@ -17,6 +17,7 @@ interface IFetchLimitingOptions {
  * fetchLimiting._fetch('/')
  *   .then(res => res.json())
  *   .then(json => console.log(json))
+ * @deprecated 已废弃，请使用 {@link asyncLimiting} 函数
  */
 export class FetchLimiting {
   private timeout: number

@@ -1,5 +1,5 @@
-import { isNullOrUndefined } from './isNullOrUndefined'
 import { getObjectValues } from './getObjectValues'
+import { TypeValidator } from './TypeValidator';
 
 /**
  * 递归使对象不可变
@@ -8,13 +8,13 @@ import { getObjectValues } from './getObjectValues'
  */
 export function deepFreeze<T extends object>(obj: T): T {
   // 数组和对象分别处理
-  if (obj instanceof Array) {
+  if (TypeValidator.isArray(obj)) {
     obj.forEach(v => {
       if (typeof v === 'object') {
         deepFreeze(v)
       }
     })
-  } else if (obj instanceof Object) {
+  } else if (TypeValidator.isObject(obj)) {
     getObjectValues(obj).forEach(v => {
       if (typeof v === 'object') {
         deepFreeze(v)

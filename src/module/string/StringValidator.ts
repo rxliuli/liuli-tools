@@ -1,5 +1,6 @@
 import { isNullOrUndefined } from '../obj/isNullOrUndefined'
 import { isRange } from '../number/isRange'
+
 /**
  * 判断是否为小数的正则表达式
  */

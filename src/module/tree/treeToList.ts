@@ -3,8 +3,6 @@ import { treeMapping } from './treeMapping'
 import { INode } from './INode'
 import { ArrayValidator } from '../array/ArrayValidator'
 import { isNullOrUndefined } from '../obj/isNullOrUndefined'
-import { excludeFieldsDeep } from '../obj/excludeFieldsDeep'
-import { nodeBridgeUtil } from './NodeBridgeUtil'
 
 /**
  * 树转列表可选项参数接口

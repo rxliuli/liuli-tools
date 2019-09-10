@@ -1,5 +1,6 @@
 import { ReturnFunc } from './ReturnFunc'
 import { PredicateReturn } from './PredicateReturn'
+
 /**
  * 谓词函数的类型
  */

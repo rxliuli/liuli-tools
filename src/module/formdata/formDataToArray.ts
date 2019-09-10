@@ -1,5 +1,3 @@
-import { asIterator } from './../array/asIterator'
-
 /**
  * FormData 转换为包含所有键值数组的二维数组函数
  *

@@ -1,5 +1,4 @@
 import { LocalStorageCache } from './LocalStorageCache'
-import { TimeoutInfinite, ICacheOption } from './ICacheOption'
 import { ReturnFunc } from '../interface/ReturnFunc'
 import { compatibleAsync } from '../async/compatibleAsync'
 

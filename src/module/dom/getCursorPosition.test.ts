@@ -1,5 +1,6 @@
 import { setCursorPosition } from './setCursorPosition'
 import { getCursorPosition } from './getCursorPosition'
+
 /**
  * @test {getCursorPosition}
  */

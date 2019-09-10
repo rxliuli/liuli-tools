@@ -1,5 +1,3 @@
-import { ICacheOption, TimeoutInfinite } from './ICacheOption'
-
 /**
  * 缓存接口
  * 功能

@@ -1,4 +1,5 @@
 import { lastFocus } from './lastFocus'
+
 /**
  * @test {lastFocus}
  */

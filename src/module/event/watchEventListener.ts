@@ -1,4 +1,3 @@
-import { watch } from '../function/watch'
 import { groupBy } from '../array/groupBy'
 
 /**

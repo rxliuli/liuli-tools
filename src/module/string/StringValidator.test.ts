@@ -1,4 +1,4 @@
-import { stringValidator, StringValidator } from './StringValidator'
+import { StringValidator } from './StringValidator'
 
 /**
  * @test {stringValidator}

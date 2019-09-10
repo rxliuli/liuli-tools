@@ -1,5 +1,6 @@
 import { setCusorPostion } from './setCusorPostion'
 import { getCusorPostion } from './getCusorPostion'
+
 /**
  * @test {getCusorPostion}
  */

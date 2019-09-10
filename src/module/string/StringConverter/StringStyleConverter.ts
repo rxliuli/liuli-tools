@@ -2,6 +2,7 @@ import { stringValidator } from '../StringValidator'
 import { ConverterFactory } from './ConverterFactory'
 import { IConverter } from './IConverter'
 import { StringStyleType } from './StringStyleType'
+
 /**
  * 字符串风格转换器
  * 请不要直接使用构造函数创建，而是用 {@link StringStyleUtil.getConverter} 来获得一个转换器

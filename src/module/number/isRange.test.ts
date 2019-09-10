@@ -1,4 +1,5 @@
 import { isRange } from './isRange'
+
 /**
  * @test {isRange}
  */

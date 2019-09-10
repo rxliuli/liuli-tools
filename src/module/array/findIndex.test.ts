@@ -1,5 +1,4 @@
 import { findIndex } from './findIndex'
-import { ArrayCallback } from '../interface/ArrayCallback'
 
 describe('test findIndex', () => {
   it('simple example', () => {

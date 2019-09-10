@@ -1,5 +1,6 @@
 import { toUpperCase } from '../toUpperCase'
 import { SnakeOrScreamingSnakeFrom } from './SnakeOrScreamingSnakeFrom'
+
 /**
  * 大写下划线的转换器
  */

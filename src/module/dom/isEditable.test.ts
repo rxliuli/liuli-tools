@@ -1,4 +1,5 @@
 import { isEditable } from './isEditable'
+
 /**
  * @test {isEditable}
  */

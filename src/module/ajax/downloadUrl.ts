@@ -9,11 +9,15 @@ export async function downloadUrl(
   url: string,
   filename: string = url.substr(url.lastIndexOf('/')),
 ) {
-  try {
-    const res = await fetch(url)
-    const blob = await res.blob()
-    download(blob, filename)
-  } catch (error) {
-    throw error
-  }
+  // 创建隐藏的可下载链接
+  const eleLink = document.createElement('a')
+  eleLink.download = filename
+  eleLink.style.display = 'none'
+  // 为 link 赋值
+  eleLink.href = url
+  // 触发点击
+  document.body.appendChild(eleLink)
+  eleLink.click()
+  // 然后移除
+  document.body.removeChild(eleLink)
 }

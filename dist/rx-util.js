@@ -76,14 +76,17 @@
    */
   function downloadUrl(url, filename = url.substr(url.lastIndexOf('/'))) {
       return __awaiter(this, void 0, void 0, function* () {
-          try {
-              const res = yield fetch(url);
-              const blob = yield res.blob();
-              download(blob, filename);
-          }
-          catch (error) {
-              throw error;
-          }
+          // 创建隐藏的可下载链接
+          const eleLink = document.createElement('a');
+          eleLink.download = filename;
+          eleLink.style.display = 'none';
+          // 为 link 赋值
+          eleLink.href = url;
+          // 触发点击
+          document.body.appendChild(eleLink);
+          eleLink.click();
+          // 然后移除
+          document.body.removeChild(eleLink);
       });
   }
 
@@ -411,6 +414,7 @@
    * fetchLimiting._fetch('/')
    *   .then(res => res.json())
    *   .then(json => console.log(json))
+   * @deprecated 已废弃，请使用 {@link asyncLimiting} 函数
    */
   class FetchLimiting {
       /**
@@ -1499,7 +1503,7 @@
    * @returns 可能为 {@code null}
    */
   function blankToNull(str) {
-      return stringValidator.isBlank(str) ? null : str;
+      return StringValidator.isBlank(str) ? null : str;
   }
 
   /**
@@ -1571,6 +1575,22 @@
   }
 
   /**
+   * 计算月有多少天
+   * @param date 日期
+   * @returns 月的总天数
+   */
+  function calcMonEndDay(date) {
+      const monthToDay = [
+          [new Set([1, 3, 5, 7, 8, 10, 12]), 30],
+          [new Set([4, 6, 9, 11]), 30],
+          [new Set([2]), 28],
+      ];
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const days = monthToDay.find(([monthSet]) => monthSet.has(month))[1];
+      return days + (month === 2 && year % 4 === 0 ? 1 : 0);
+  }
+  /**
    * 日期固定时间点
    */
   class DateConstants {
@@ -1589,6 +1609,22 @@
        */
       static dayEnd(date = new Date()) {
           return new Date(`${dateFormat(date, 'yyyy-MM-dd')}T23:59:59.999`);
+      }
+      /**
+       * 获取指定日期所在月的开始时间
+       * @param date 指定的时间，默认为当前日期
+       * @returns 月的开始时间
+       */
+      static monthStart(date = new Date()) {
+          return new Date(`${dateFormat(date, 'yyyy-MM')}-01T00:00:00.000`);
+      }
+      /**
+       * 获取指定日期所在月的结束时间
+       * @param date 指定的时间，默认为当前日期
+       * @returns 月的结束时间
+       */
+      static monthEnd(date = new Date()) {
+          return new Date(`${dateFormat(date, 'yyyy-MM')}-${calcMonEndDay(date)}T23:59:59.999`);
       }
       /**
        * 获取指定日期所在年份的新年开始时间
@@ -2215,26 +2251,169 @@
   }
 
   /**
-   * 获取对象中所有的属性，包括 ES6 新增的 Symbol 类型的属性
-   * @param obj 任何对象
-   * @returns 属性数组
-   * @deprecated 已废弃，请使用 ES6 {@see Reflect.ownKeys} 代替
-   * 具体参考 {@url(https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/ownKeys)}
-   */
-  function getObjectKeys(obj) {
-      if (isNullOrUndefined(obj)) {
-          return [];
-      }
-      return Reflect.ownKeys(obj);
-  }
-
-  /**
    * 获取对象中所有的属性值，包括 ES6 新增的 Symbol 类型的属性
    * @param obj 任何对象
    * @returns 属性值数组
    */
   function getObjectValues(obj) {
-      return getObjectKeys(obj).map(k => Reflect.get(obj, k));
+      return Reflect.ownKeys(obj).map(k => Reflect.get(obj, k));
+  }
+
+  /**
+   * 校验变量的类型
+   */
+  class TypeValidator {
+      /**
+       * 判断是否为字符串
+       * @param val 需要判断的值
+       * @returns 是否为字符串
+       */
+      static isString(val) {
+          return typeof val === 'string';
+      }
+      /**
+       * 判断是否为数字
+       * @param val 需要判断的值
+       * @returns 是否为数字
+       */
+      static isNumber(val) {
+          return typeof val === 'number';
+      }
+      /**
+       * 判断是否为布尔值
+       * @param val 需要判断的值
+       * @returns 是否为布尔值
+       */
+      static isBoolean(val) {
+          return typeof val === 'boolean';
+      }
+      /**
+       * 判断是否为 undefined
+       * @param val 需要判断的值
+       * @returns 是否为 undefined
+       */
+      static isUndefined(val) {
+          return val === undefined;
+      }
+      /**
+       * 判断是否为 null
+       * @param val 需要判断的值
+       * @returns 是否为 null
+       */
+      static isNull(val) {
+          return val === null;
+      }
+      /**
+       * 判断是否为 Symbol
+       * @param val 需要判断的值
+       * @returns 是否为 Symbol
+       */
+      static isSymbol(val) {
+          return typeof val === 'symbol';
+      }
+      /**
+       * 判断是否可以作为对象的属性
+       * @param val 需要判断的值
+       * @returns 是否为对象属性
+       */
+      static isPropertyKey(val) {
+          return (TypeValidator.isString(val) ||
+              TypeValidator.isNumber(val) ||
+              TypeValidator.isSymbol(val));
+      }
+      /**
+       * 判断是否为对象
+       * 注: 函数（包括 ES6 箭头函数）将不被视为对象
+       * @param val 需要判断的值
+       * @returns 是否为对象
+       */
+      static isObject(val) {
+          return (!TypeValidator.isNull(val) &&
+              !TypeValidator.isUndefined(val) &&
+              typeof val === 'object');
+      }
+      /**
+       * 判断是否为数组
+       * @param val 需要判断的值
+       * @returns 是否为数组
+       */
+      static isArray(val) {
+          return Array.isArray(val);
+      }
+      /**
+       * 判断是否为数组
+       * @param val 需要判断的值
+       * @returns 是否为数组
+       */
+      static isFunction(val) {
+          return toString.call(val) === '[object Function]';
+      }
+      /**
+       * 判断是否为日期
+       * @param val 需要判断的值
+       * @returns 是否为日期
+       */
+      static isDate(val) {
+          return toString.call(val) === '[object Date]';
+      }
+      /**
+       * 判断是否为浏览器文件类型
+       * @param val 需要判断的值
+       * @returns 是否为浏览器文件类型
+       */
+      static isFile(val) {
+          return toString.call(val) === '[object File]';
+      }
+      /**
+       * 判断是否为浏览器二进制类型
+       * @param val 需要判断的值
+       * @returns 是否为浏览器二进制类型
+       */
+      static isBlob(val) {
+          return toString.call(val) === '[object Blob]';
+      }
+      /**
+       * 判断是否为浏览器流类型
+       * @param val 需要判断的值
+       * @returns 是否为浏览器流类型
+       */
+      static isStream(val) {
+          return TypeValidator.isObject(val) && TypeValidator.isFunction(val.pipe);
+      }
+      /**
+       * 判断是否为浏览器 ArrayBuffer 类型
+       * @param val 需要判断的值
+       * @returns 是否为浏览器 ArrayBuffer 类型
+       */
+      static isArrayBuffer(val) {
+          return toString.call(val) === '[object ArrayBuffer]';
+      }
+      /**
+       * 判断是否为浏览器 ArrayBufferView 类型
+       * @param val 需要判断的值
+       * @returns 是否为浏览器 ArrayBufferView 类型
+       */
+      static isArrayBufferView(val) {
+          return typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView
+              ? ArrayBuffer.isView(val)
+              : val && val.buffer && val.buffer instanceof ArrayBuffer;
+      }
+      /**
+       * 判断是否为浏览器 URLSearchParams 类型
+       * @param val 需要判断的值
+       * @returns 是否为浏览器 URLSearchParams 类型
+       */
+      static isURLSearchParams(val) {
+          return !TypeValidator.isUndefined(val) && val instanceof URLSearchParams;
+      }
+      /**
+       * 判断是否为浏览器 FormData 类型
+       * @param val 需要判断的值
+       * @returns 是否为浏览器 FormData 类型
+       */
+      static isFormData(val) {
+          return !TypeValidator.isUndefined(val) && val instanceof FormData;
+      }
   }
 
   /**
@@ -2244,14 +2423,14 @@
    */
   function deepFreeze(obj) {
       // 数组和对象分别处理
-      if (obj instanceof Array) {
+      if (TypeValidator.isArray(obj)) {
           obj.forEach(v => {
               if (typeof v === 'object') {
                   deepFreeze(v);
               }
           });
       }
-      else if (obj instanceof Object) {
+      else if (TypeValidator.isObject(obj)) {
           getObjectValues(obj).forEach(v => {
               if (typeof v === 'object') {
                   deepFreeze(v);
@@ -3282,6 +3461,20 @@
   }
 
   /**
+   * 获取对象中所有的属性，包括 ES6 新增的 Symbol 类型的属性
+   * @param obj 任何对象
+   * @returns 属性数组
+   * @deprecated 已废弃，请使用 ES6 {@see Reflect.ownKeys} 代替
+   * 具体参考 {@url(https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect/ownKeys)}
+   */
+  function getObjectKeys(obj) {
+      if (isNullOrUndefined(obj)) {
+          return [];
+      }
+      return Reflect.ownKeys(obj);
+  }
+
+  /**
    * 比较两个浮点数是否相等
    * 具体实现采用差值取绝对值并与 {@link Number.EPSILON} 比较的方式，如果小于浮点数最小差值，则认为它们是 [相等] 的
    * @param num1 第一个浮点数
@@ -4258,153 +4451,6 @@
           }
           return res;
       }, arrayToMap(fields, k => k, () => new Array()));
-  }
-
-  /**
-   * 校验变量的类型
-   */
-  class TypeValidator {
-      /**
-       * 判断是否为字符串
-       * @param val 需要判断的值
-       * @returns 是否为字符串
-       */
-      static isString(val) {
-          return typeof val === 'string';
-      }
-      /**
-       * 判断是否为数字
-       * @param val 需要判断的值
-       * @returns 是否为数字
-       */
-      static isNumber(val) {
-          return typeof val === 'number';
-      }
-      /**
-       * 判断是否为布尔值
-       * @param val 需要判断的值
-       * @returns 是否为布尔值
-       */
-      static isBoolean(val) {
-          return typeof val === 'boolean';
-      }
-      /**
-       * 判断是否为 undefined
-       * @param val 需要判断的值
-       * @returns 是否为 undefined
-       */
-      static isUndefined(val) {
-          return val === undefined;
-      }
-      /**
-       * 判断是否为 null
-       * @param val 需要判断的值
-       * @returns 是否为 null
-       */
-      static isNull(val) {
-          return val === null;
-      }
-      /**
-       * 判断是否为 Symbol
-       * @param val 需要判断的值
-       * @returns 是否为 Symbol
-       */
-      static isSymbol(val) {
-          return typeof val === 'symbol';
-      }
-      /**
-       * 判断是否为对象
-       * 注: 函数（包括 ES6 箭头函数）将不被视为对象
-       * @param val 需要判断的值
-       * @returns 是否为对象
-       */
-      static isObject(val) {
-          return (!TypeValidator.isNull(val) &&
-              !TypeValidator.isUndefined(val) &&
-              typeof val === 'object');
-      }
-      /**
-       * 判断是否为数组
-       * @param val 需要判断的值
-       * @returns 是否为数组
-       */
-      static isArray(val) {
-          return Array.isArray(val);
-      }
-      /**
-       * 判断是否为数组
-       * @param val 需要判断的值
-       * @returns 是否为数组
-       */
-      static isFunction(val) {
-          return toString.call(val) === '[object Function]';
-      }
-      /**
-       * 判断是否为日期
-       * @param val 需要判断的值
-       * @returns 是否为日期
-       */
-      static isDate(val) {
-          return toString.call(val) === '[object Date]';
-      }
-      /**
-       * 判断是否为浏览器文件类型
-       * @param val 需要判断的值
-       * @returns 是否为浏览器文件类型
-       */
-      static isFile(val) {
-          return toString.call(val) === '[object File]';
-      }
-      /**
-       * 判断是否为浏览器二进制类型
-       * @param val 需要判断的值
-       * @returns 是否为浏览器二进制类型
-       */
-      static isBlob(val) {
-          return toString.call(val) === '[object Blob]';
-      }
-      /**
-       * 判断是否为浏览器流类型
-       * @param val 需要判断的值
-       * @returns 是否为浏览器流类型
-       */
-      static isStream(val) {
-          return TypeValidator.isObject(val) && TypeValidator.isFunction(val.pipe);
-      }
-      /**
-       * 判断是否为浏览器 ArrayBuffer 类型
-       * @param val 需要判断的值
-       * @returns 是否为浏览器 ArrayBuffer 类型
-       */
-      static isArrayBuffer(val) {
-          return toString.call(val) === '[object ArrayBuffer]';
-      }
-      /**
-       * 判断是否为浏览器 ArrayBufferView 类型
-       * @param val 需要判断的值
-       * @returns 是否为浏览器 ArrayBufferView 类型
-       */
-      static isArrayBufferView(val) {
-          return typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView
-              ? ArrayBuffer.isView(val)
-              : val && val.buffer && val.buffer instanceof ArrayBuffer;
-      }
-      /**
-       * 判断是否为浏览器 URLSearchParams 类型
-       * @param val 需要判断的值
-       * @returns 是否为浏览器 URLSearchParams 类型
-       */
-      static isURLSearchParams(val) {
-          return !TypeValidator.isUndefined(val) && val instanceof URLSearchParams;
-      }
-      /**
-       * 判断是否为浏览器 FormData 类型
-       * @param val 需要判断的值
-       * @returns 是否为浏览器 FormData 类型
-       */
-      static isFormData(val) {
-          return !TypeValidator.isUndefined(val) && val instanceof FormData;
-      }
   }
 
   /**

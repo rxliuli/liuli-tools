@@ -15,6 +15,18 @@ export declare class DateConstants {
      */
     static dayEnd(date?: Date): Date;
     /**
+     * 获取指定日期所在月的开始时间
+     * @param date 指定的时间，默认为当前日期
+     * @returns 月的开始时间
+     */
+    static monthStart(date?: Date): Date;
+    /**
+     * 获取指定日期所在月的结束时间
+     * @param date 指定的时间，默认为当前日期
+     * @returns 月的结束时间
+     */
+    static monthEnd(date?: Date): Date;
+    /**
      * 获取指定日期所在年份的新年开始时间
      * @param date 指定的时间，默认为当前日期
      * @returns 新年开始时间

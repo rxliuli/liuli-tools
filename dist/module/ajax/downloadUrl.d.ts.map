@@ -1,1 +1,1 @@
-{"version":3,"file":"downloadUrl.d.ts","sourceRoot":"","sources":["../../src/module/ajax/downloadUrl.ts"],"names":[],"mappings":"AAEA;;;;GAIG;AACH,wBAAsB,WAAW,CAC/B,GAAG,EAAE,MAAM,EACX,QAAQ,GAAE,MAAyC,iBASpD"}
+{"version":3,"file":"downloadUrl.d.ts","sourceRoot":"","sources":["../../src/module/ajax/downloadUrl.ts"],"names":[],"mappings":"AAEA;;;;GAIG;AACH,wBAAsB,WAAW,CAC/B,GAAG,EAAE,MAAM,EACX,QAAQ,GAAE,MAAyC,iBAapD"}

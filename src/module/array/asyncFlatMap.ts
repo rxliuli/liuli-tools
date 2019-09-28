@@ -5,13 +5,11 @@
  * @returns 压平一层的数组
  * @deprecated 已废弃，请使用更强大的异步数组 {@link AsyncArray}
  */
+import { AsyncArray } from './AsyncArray'
+
 export async function asyncFlatMap<T>(
   arr: T[],
   fn: (item: T, index: number, arr: T[]) => Promise<T[]>,
 ): Promise<T[]> {
-  const res = []
-  for (let i = 0; i < arr.length; i++) {
-    res.push(...(await fn(arr[i], i, arr)))
-  }
-  return res
+  return new AsyncArray(...arr).flatMap(fn as any)
 }

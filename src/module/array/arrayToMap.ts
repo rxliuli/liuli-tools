@@ -1,5 +1,6 @@
 import { returnItself } from '../function/returnItself'
-import { ArrayCallback } from '../interface/ArrayCallback'
+import { ArrayKFn } from '../interface/ArrayKFn'
+import { getKFn } from './getKFn'
 
 /**
  * 将数组映射为 Map
@@ -10,13 +11,11 @@ import { ArrayCallback } from '../interface/ArrayCallback'
  */
 export function arrayToMap<T, K, V>(
   arr: T[],
-  k: PropertyKey | ArrayCallback<T, K>,
-  v: PropertyKey | ArrayCallback<T, V> = returnItself,
+  k: ArrayKFn<T, K>,
+  v: ArrayKFn<T, V> = returnItself,
 ): Map<K, V> {
-  const kFn: ArrayCallback<T, K> =
-    k instanceof Function ? k : (item: T) => Reflect.get(item as any, k)
-  const vFn: ArrayCallback<T, V> =
-    v instanceof Function ? v : (item: T) => Reflect.get(item as any, v)
+  const kFn = getKFn(k)
+  const vFn = getKFn(v)
   return arr.reduce(
     (res, item, index, arr) =>
       res.set(kFn(item, index, arr), vFn(item, index, arr)),

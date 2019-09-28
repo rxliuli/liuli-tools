@@ -1,18 +1,17 @@
 import { returnItself } from '../function/returnItself'
-import { ArrayCallback } from '../interface/ArrayCallback'
+import { ArrayKFn } from '../interface/ArrayKFn'
+import { getKFn } from './getKFn'
 
 /**
  * 快速根据指定函数对数组进行排序
  * 注: 使用递归实现，对于超大数组（其实前端的数组不可能特别大吧？#笑）可能造成堆栈溢出
  * @param arr 需要排序的数组
- * @param kFn 对数组中每个元素都产生可比较的值的函数，默认返回自身进行比较
+ * @param k 对数组中每个元素都产生可比较的值的函数，默认返回自身进行比较
  * @returns 排序后的新数组
  */
-export function sortBy<T, K>(
-  arr: T[],
-  kFn: ArrayCallback<T, K> = returnItself,
-): T[] {
-  // TODO 此处为了让 typedoc 能生成文档而不得不加上类型
+export function sortBy<T, K>(arr: T[], k: ArrayKFn<T, K> = returnItself): T[] {
+  const kFn = getKFn(k)
+  //  此处为了让 typedoc 能生成文档而不得不加上类型
   const newArr: Array<[T, number]> = arr.map((v, i) => [v, i] as [T, number])
   function _sort<V>(arr: V[], fn: (v1: V, v2: V) => number): V[] {
     // 边界条件，如果传入数组的值

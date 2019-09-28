@@ -1,5 +1,6 @@
 import { returnItself } from '../function/returnItself'
-import { ArrayCallback } from '../interface/ArrayCallback'
+import { ArrayKFn } from '../interface/ArrayKFn'
+import { getKFn } from './getKFn'
 
 /**
  * 数组之间的差异结果对象结构接口
@@ -16,14 +17,15 @@ export interface IArrayDiff<L, R> {
  * 比较两个数组的差异
  * @param left 第一个数组
  * @param right 第二个数组
- * @param kFn 每个元素的唯一标识产生函数
+ * @param k 每个元素的唯一标识产生函数
  * @returns 比较的差异结果
  */
 export function diffBy<L, R>(
   left: L[],
   right: R[],
-  kFn: ArrayCallback<L | R, any> = returnItself,
+  k: ArrayKFn<L | R, any> = returnItself,
 ): IArrayDiff<L, R> {
+  const kFn = getKFn(k)
   // 首先得到两个 kSet 集合用于过滤
   const kThanSet = new Set(left.map(kFn))
   const kThatSet = new Set(right.map(kFn))

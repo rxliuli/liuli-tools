@@ -1,4 +1,4 @@
-import { ArrayCallback } from '../interface/ArrayCallback';
+import { ArrayKFn } from '../interface/ArrayKFn';
 /**
  * 将数组映射为 Map
  * @param arr 数组
@@ -6,5 +6,5 @@ import { ArrayCallback } from '../interface/ArrayCallback';
  * @param v 产生 Map 值的函数，默认为返回数组的元素，或者对象元素中的一个属性名
  * @returns 映射产生的 map 集合
  */
-export declare function arrayToMap<T, K, V>(arr: T[], k: PropertyKey | ArrayCallback<T, K>, v?: PropertyKey | ArrayCallback<T, V>): Map<K, V>;
+export declare function arrayToMap<T, K, V>(arr: T[], k: ArrayKFn<T, K>, v?: ArrayKFn<T, V>): Map<K, V>;
 //# sourceMappingURL=arrayToMap.d.ts.map

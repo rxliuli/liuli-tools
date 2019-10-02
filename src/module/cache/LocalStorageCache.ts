@@ -61,8 +61,12 @@ export class LocalStorageCache<T> implements ICache<T> {
           !isNullOrUndefined(cacheVal) &&
           isNullOrUndefined(cacheVal.cacheOption),
       )
-      .filter(({ cacheOption }: CacheVal) => {
+      // TODO 这里暂时加个补丁，过滤掉 timeStart,timeout 为 undefined 的缓存
+      .filter(({ cacheOption = {} as any }: CacheVal) => {
         const { timeStart, timeout } = cacheOption
+        if (isNullOrUndefined(timeStart) || isNullOrUndefined(timeout)) {
+          return false
+        }
         return timeout !== TimeoutInfinite && Date.now() - timeStart > timeout
       })
       .forEach(({ key }: CacheVal) => local.removeItem(key))

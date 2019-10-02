@@ -21,6 +21,7 @@ interface IRFunc extends Function {
  * @param fn 需要包装的函数
  * @param  {...any} args 应用的部分参数
  * @returns 包装后的函数
+ * @deprecated 由于之前的理解错误，该函数在下个大版本将会被废弃，请使用命名更合适的 {@link partial}
  */
 export declare function curry(fn: Function, ...args: any[]): IRFunc;
 export declare namespace curry {

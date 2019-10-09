@@ -10,11 +10,11 @@ describe('test sleep', () => {
     expect(timing(() => sleep(100))).toBeGreaterThanOrEqual(100)
   })
   it('test async queue', async () => {
-    let i = 0
-    wait(0).then(() => i++)
+    const mockFn = jest.fn()
+    wait(0).then(mockFn)
     sleep(10)
-    expect(i).toBe(0)
+    expect(mockFn.mock.calls.length).toBe(0)
     await wait(0)
-    expect(i).toBe(1)
+    expect(mockFn.mock.calls.length).toBe(1)
   })
 })

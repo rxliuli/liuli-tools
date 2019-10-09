@@ -4,7 +4,7 @@ import { dateFormat } from '../date/dateFormat'
  * 默认的日期格式
  * 不加 Z 为本地日期时间，避免出现时区的问题
  */
-const deteFormatter = 'yyyy-MM-ddThh:mm:ss.SSS'
+const dateFormatter = 'yyyy-MM-ddThh:mm:ss.SSS'
 /**
  * 将参数 key 与 value 进行 url 编码
  * @param k 参数的名字
@@ -24,13 +24,13 @@ export function spliceParams(params: object = {}): string {
     if (v === undefined || v === null) {
       return res
     } else if (v instanceof Date) {
-      res += encode(k, dateFormat(v, deteFormatter))
+      res += encode(k, dateFormat(v, dateFormatter))
     } else if (v instanceof Array) {
       res += v
         .map(item =>
           encode(
             k,
-            item instanceof Date ? dateFormat(item, deteFormatter) : item,
+            item instanceof Date ? dateFormat(item, dateFormatter) : item,
           ),
         )
         .join('&')

@@ -10,8 +10,8 @@ import { ArrayCallback } from '../interface/ArrayCallback'
  */
 export function arrayToMap<T, K, V>(
   arr: T[],
-  k: PropertyKey | ArrayCallback<T, K>,
-  v: PropertyKey | ArrayCallback<T, V> = returnItself,
+  k: keyof T | ArrayCallback<T, K>,
+  v: keyof T | ArrayCallback<T, V> = returnItself,
 ): Map<K, V> {
   const kFn: ArrayCallback<T, K> =
     k instanceof Function ? k : (item: T) => Reflect.get(item as any, k)

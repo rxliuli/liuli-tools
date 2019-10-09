@@ -1,3 +1,6 @@
+/**
+ * FormData 构建器
+ */
 export class FormDataBuilder {
   public static formDataToArray(fd: FormData): Array<[string, string | Blob]> {
     return Array.from(fd as any)

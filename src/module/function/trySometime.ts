@@ -21,7 +21,7 @@ export function trySometime<R, Func extends Function = ReturnFunc<R>>(
           // 等待结果出来
           const res = await Reflect.apply(target, thisArg, args)
           // 如果没问题就直接返回了
-          if (errorCheck(res) === true) {
+          if (errorCheck(res)) {
             return res
           }
           // 否则抛出异常以进行下一次重试

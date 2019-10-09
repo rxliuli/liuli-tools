@@ -1,26 +1,29 @@
 import { repeatedCall } from './repeatedCall'
+import { emptyFunc } from './emptyFunc'
+import { async } from '../async/async'
 
 /**
  * @test {repeatedCall}
  */
 describe('test repeatedCall', () => {
+  const len = 5
   it('simple example', () => {
     let i = 1
-    expect(repeatedCall(5, () => i++)).toIncludeSameMembers([1, 2, 3, 4, 5])
+    expect(repeatedCall(len, () => i++)).toIncludeSameMembers([1, 2, 3, 4, 5])
     expect(i).toBe(6)
   })
   it('async function', async () => {
-    let i = 1
-    const arr = repeatedCall(5, async () => i++)
+    const mockFn = jest.fn(async(emptyFunc))
+    const arr = repeatedCall(len, mockFn)
     expect(arr).toSatisfyAll(res => res instanceof Promise)
     await Promise.all(arr)
-    expect(i).toBe(6)
+    expect(mockFn.mock.calls.length).toBe(len)
   })
   it('test this', function() {
     // @ts-ignore
     this.i = 1
     // @ts-ignore
-    expect(repeatedCall(5, () => this.i++)).toIncludeSameMembers([
+    expect(repeatedCall(len, () => this.i++)).toIncludeSameMembers([
       1,
       2,
       3,
@@ -34,7 +37,7 @@ describe('test repeatedCall', () => {
     const obj = { i: 1 }
     expect(
       repeatedCall(
-        5,
+        len,
         function() {
           // @ts-ignore
           return this.i++

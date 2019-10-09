@@ -489,36 +489,752 @@
   }
 
   /**
-   * 将数组异步压平一层
-   * @param arr 数组
-   * @param fn 映射函数，将一个元素映射为一个数组
-   * @returns 压平一层的数组
-   * @deprecated 已废弃，请使用更强大的异步数组 {@link AsyncArray}
+   * 判断一个对象是否是无效的
+   * 无效的值仅包含 null/undefined
+   * @param object 任何一个对象
+   * @returns 是否无效的值
    */
+  function isNullOrUndefined(object) {
+      return object === undefined || object === null;
+  }
+
+  /**
+   * 返回第一个参数的函数
+   * 注: 一般可以当作返回参数自身的函数，如果你只关注第一个参数的话
+   * @param obj 任何对象
+   * @typeparam T 传入参数的类型
+   * @typeparam R 返回结果的类型，默认为 T，只是为了兼容该函数当参数被传递时可能出现需要类型不一致的问题
+   * @returns 传入的第一个参数
+   */
+  function returnItself(obj) {
+      return obj;
+  }
+
+  /**
+   * 兼容异步函数的返回值
+   * @param res 返回值
+   * @param callback 同步/异步结果的回调函数
+   * @typeparam T 处理参数的类型，如果是 Promise 类型，则取出其泛型类型
+   * @typeparam Param 处理参数具体的类型，如果是 Promise 类型，则指定为原类型
+   * @typeparam R 返回值具体的类型，如果是 Promise 类型，则指定为 Promise 类型，否则为原类型
+   * @returns 处理后的结果，如果是同步的，则返回结果是同步的，否则为异步的
+   */
+  function compatibleAsync(res, callback) {
+      return (res instanceof Promise
+          ? res.then(callback)
+          : callback(res));
+  }
+
+  /**
+   * 内部使用的函数
+   * 注: 如果谓词中包含任意一个异步(返回 Promise)函数,则整个返回结果将变成异步的,否则默认为同步操作.
+   * @param fns 谓词数组
+   * @param args 谓词应用的参数列表
+   * @param condition 临界条件
+   * @returns 返回结果
+   */
+  function _inner(fns, args, condition) {
+      const fn = fns[0];
+      const res = fn(...args);
+      function _call(res) {
+          if (condition(res)) {
+              return res;
+          }
+          const others = fns.slice(1);
+          if (others.length === 0) {
+              return res;
+          }
+          return _inner(others, args, condition);
+      }
+      return compatibleAsync(res, _call);
+  }
+  /**
+   * 连接谓词函数
+   */
+  class CombinedPredicate {
+      /**
+       * 使用 && 进行连接
+       * @param fns 连接任意多个谓词
+       * @returns 连接后的新谓词
+       */
+      static and(...fns) {
+          return function (...args) {
+              return _inner(fns, args, res => !res);
+          };
+      }
+      /**
+       * 使用 || 进行连接
+       * @param fns 连接任意多个谓词
+       * @returns 连接后的新谓词
+       */
+      static or(...fns) {
+          return function (...args) {
+              return _inner(fns, args, res => res);
+          };
+      }
+      /**
+       * 对谓词进行取反
+       * @param fn 谓词
+       * @returns 取反后的谓词
+       */
+      static not(fn) {
+          return new Proxy(fn, {
+              apply(_, _this, args) {
+                  return compatibleAsync(Reflect.apply(_, this, args), res => !res);
+              },
+          });
+      }
+  }
+  const and = CombinedPredicate.and;
+  const or = CombinedPredicate.or;
+  const not = CombinedPredicate.not;
+
+  /**
+   * 操作类型
+   */
+  var ActionType;
+  (function (ActionType) {
+      ActionType["forEach"] = "forEach";
+      ActionType["filter"] = "filter";
+      ActionType["map"] = "map";
+      ActionType["flatMap"] = "flatMap";
+      ActionType["sort"] = "sort";
+      ActionType["reduce"] = "reduce";
+      ActionType["reduceRight"] = "reduceRight";
+      ActionType["findIndex"] = "findIndex";
+      ActionType["find"] = "find";
+      ActionType["every"] = "every";
+      ActionType["some"] = "some";
+      ActionType["parallel"] = "parallel";
+      ActionType["serial"] = "serial";
+  })(ActionType || (ActionType = {}));
+  /**
+   * 保存高阶函数传入的异步操作
+   * @field 异步操作的类型
+   * @field 异步操作
+   */
+  class Action {
+      constructor(type, args) {
+          this.type = type;
+          this.args = args;
+          this.type = type;
+          this.args = args;
+      }
+  }
+  Action.Type = ActionType;
+  /**
+   * 抽象异步数组，实现了一些公共的函数
+   */
+  class InnerBaseAsyncArray {
+      /**
+       * 构造函数
+       * @param args 数组初始元素
+       */
+      constructor(args = []) {
+          this._arr = args;
+      }
+      /**
+       * 将整个数组排序
+       * @param fn 比较函数
+       * @returns 排序后的数组
+       */
+      sort(fn) {
+          return __awaiter(this, void 0, void 0, function* () {
+              if (fn === undefined) {
+                  return new InnerAsyncArray(this._arr.sort());
+              }
+              // TODO 此处为了让 type-doc 能生成文档而不得不加上类型
+              const arr = this._arr.map((v, i) => [v, i]);
+              function _sort(arr, fn) {
+                  return __awaiter(this, void 0, void 0, function* () {
+                      // 边界条件，如果传入数组的值
+                      if (arr.length <= 1) {
+                          return arr;
+                      }
+                      // 根据中间值对数组分治为两个数组
+                      const medianIndex = Math.floor(arr.length / 2);
+                      const medianValue = arr[medianIndex];
+                      const left = [];
+                      const right = [];
+                      for (let i = 0, len = arr.length; i < len; i++) {
+                          if (i === medianIndex) {
+                              continue;
+                          }
+                          const v = arr[i];
+                          if ((yield fn(v, medianValue)) <= 0) {
+                              left.push(v);
+                          }
+                          else {
+                              right.push(v);
+                          }
+                      }
+                      return (yield _sort(left, fn))
+                          .concat([medianValue])
+                          .concat(yield _sort(right, fn));
+                  });
+              }
+              return new InnerAsyncArray(yield (yield _sort(arr, ([t1], [t2]) => fn(t1, t2))).map(([_v, i]) => this._arr[i]));
+          });
+      }
+      /**
+       * 异步的 find
+       * @param fn 异步查询函数
+       * @returns 查询到的第一个值
+       */
+      find(fn) {
+          return __awaiter(this, void 0, void 0, function* () {
+              const i = yield this.findIndex(fn);
+              return i === -1 ? null : this._arr[i];
+          });
+      }
+      /**
+       * 异步的 every
+       * @param fn 异步匹配函数
+       * @returns 是否全部匹配
+       */
+      every(fn) {
+          return __awaiter(this, void 0, void 0, function* () {
+              return (yield this.findIndex(CombinedPredicate.not(fn))) === -1;
+          });
+      }
+      /**
+       * 异步的 some
+       * @param fn 异步匹配函数
+       * @returns 是否有任意一个匹配
+       */
+      some(fn) {
+          return __awaiter(this, void 0, void 0, function* () {
+              return (yield this.findIndex(fn)) !== -1;
+          });
+      }
+      /**
+       * 转换为并发异步数组
+       */
+      parallel() {
+          return new InnerAsyncArrayParallel(this._arr);
+      }
+      /**
+       * 转换为顺序异步数组
+       */
+      serial() {
+          return new InnerAsyncArray(this._arr);
+      }
+      /**
+       * 获取内部数组的值，将返回一个浅复制的数组
+       */
+      value() {
+          return this._arr.slice();
+      }
+  }
+  /**
+   * 串行的异步数组
+   */
+  class InnerAsyncArray extends InnerBaseAsyncArray {
+      constructor(args) {
+          super(args);
+      }
+      forEach(fn) {
+          return __awaiter(this, void 0, void 0, function* () {
+              for (let i = 0, len = this._arr.length; i < len; i++) {
+                  yield fn.call(this, this._arr[i], i, this);
+              }
+          });
+      }
+      filter(fn) {
+          return __awaiter(this, void 0, void 0, function* () {
+              const res = new InnerAsyncArray();
+              for (let i = 0, len = this._arr.length; i < len; i++) {
+                  if (yield fn.call(this, this._arr[i], i, this)) {
+                      res._arr.push(this._arr[i]);
+                  }
+              }
+              return res;
+          });
+      }
+      map(fn) {
+          return __awaiter(this, void 0, void 0, function* () {
+              const res = new InnerAsyncArray();
+              for (let i = 0, len = this._arr.length; i < len; i++) {
+                  res._arr.push(yield fn.call(this, this._arr[i], i, this));
+              }
+              return res;
+          });
+      }
+      flatMap(fn) {
+          return __awaiter(this, void 0, void 0, function* () {
+              const res = new InnerAsyncArray();
+              for (let i = 0, len = this._arr.length; i < len; i++) {
+                  res._arr.push(...(yield fn.call(this, this._arr[i], i, this)));
+              }
+              return res;
+          });
+      }
+      reduce(fn, res) {
+          return __awaiter(this, void 0, void 0, function* () {
+              for (let i = 0, len = this._arr.length; i < len; i++) {
+                  if (res) {
+                      res = yield fn.call(this, res, this._arr[i], i, this);
+                  }
+                  else {
+                      res = this._arr[i];
+                  }
+              }
+              return res;
+          });
+      }
+      reduceRight(fn, res) {
+          return __awaiter(this, void 0, void 0, function* () {
+              for (let i = this._arr.length - 1; i >= 0; i--) {
+                  if (res) {
+                      res = yield fn.apply(this, [res, this._arr[i], i, this]);
+                  }
+                  else {
+                      res = this._arr[i];
+                  }
+              }
+              return res;
+          });
+      }
+      findIndex(fn) {
+          return __awaiter(this, void 0, void 0, function* () {
+              for (let i = 0, len = this._arr.length; i < len; i++) {
+                  const res = yield fn.call(this, this._arr[i], i, this);
+                  if (res) {
+                      return i;
+                  }
+              }
+              return -1;
+          });
+      }
+  }
+  /**
+   * 并发的异步数组
+   */
+  class InnerAsyncArrayParallel extends InnerBaseAsyncArray {
+      constructor(args) {
+          super(args);
+      }
+      forEach(fn) {
+          return __awaiter(this, void 0, void 0, function* () {
+              yield this._all(fn);
+          });
+      }
+      filter(fn) {
+          return __awaiter(this, void 0, void 0, function* () {
+              const res = yield this._all(fn);
+              const result = new InnerAsyncArrayParallel();
+              for (let i = 0, len = res.length; i < len; i++) {
+                  if (res[i]) {
+                      result._arr.push(this._arr[i]);
+                  }
+              }
+              return result;
+          });
+      }
+      map(fn) {
+          return __awaiter(this, void 0, void 0, function* () {
+              return new InnerAsyncArrayParallel(yield this._all(fn));
+          });
+      }
+      flatMap(fn) {
+          return __awaiter(this, void 0, void 0, function* () {
+              const res = yield this._all(fn);
+              return new InnerAsyncArrayParallel(res.flat());
+          });
+      }
+      sort(fn) {
+          throw new Error('Method not implemented.');
+      }
+      reduce(fn, res) {
+          return __awaiter(this, void 0, void 0, function* () {
+              for (let i = 0, len = this._arr.length; i < len; i++) {
+                  if (res) {
+                      res = yield fn.call(this, res, this._arr[i], i, this);
+                  }
+                  else {
+                      res = this._arr[i];
+                  }
+              }
+              return res;
+          });
+      }
+      reduceRight(fn, res) {
+          return __awaiter(this, void 0, void 0, function* () {
+              for (let i = this._arr.length - 1; i >= 0; i--) {
+                  if (res) {
+                      res = yield fn.apply(this, [res, this._arr[i], i, this]);
+                  }
+                  else {
+                      res = this._arr[i];
+                  }
+              }
+              return res;
+          });
+      }
+      findIndex(fn) {
+          return __awaiter(this, void 0, void 0, function* () {
+              return (yield this._all(fn)).findIndex(returnItself);
+          });
+      }
+      _all(fn) {
+          return __awaiter(this, void 0, void 0, function* () {
+              return yield Promise.all(this._arr.map((v, i) => fn.apply(this, [v, i, this])));
+          });
+      }
+  }
+  /**
+   * 异步数组
+   */
+  class AsyncArray {
+      /**
+       * 构造函数
+       * @param args 任意个参数
+       */
+      constructor(...args) {
+          /**
+           * 内部数组的长度，用于让 {@link AsyncArray} 的实例能作为 {@link Array.from} 的参数
+           */
+          this.length = 0;
+          this._arr = Array.from(args);
+          /**
+           * @field 保存异步任务
+           * @type {Action[]}
+           */
+          this._tasks = [];
+      }
+      /**
+       * 为内置数组赋值
+       * 此处自动重新计算 length 属性
+       */
+      set _arr(arr) {
+          this.__arr = arr;
+          this.length = this.__arr.length;
+      }
+      get _arr() {
+          return this.__arr;
+      }
+      /**
+       * 提供一个函数方便根据已有的数组或类数组（Set/Map）创建 {@link AsyncArray}
+       * @param arr 一个可迭代元素
+       * @returns 创建一个新的异步数组包装
+       */
+      static from(arr) {
+          const result = new AsyncArray();
+          if (isNullOrUndefined(arr)) {
+              return result;
+          }
+          result._arr = Array.from(arr);
+          return result;
+      }
+      filter(fn) {
+          return this._addTask(new Action(Action.Type.filter, [fn]));
+      }
+      map(fn) {
+          return this._addTask(new Action(Action.Type.map, [fn]));
+      }
+      flatMap(fn) {
+          return this._addTask(new Action(Action.Type.flatMap, [fn]));
+      }
+      sort(fn) {
+          return this._addTask(new Action(Action.Type.sort, [fn]));
+      }
+      parallel() {
+          return this._addTask(new Action(Action.Type.parallel, []));
+      }
+      serial() {
+          return this._addTask(new Action(Action.Type.serial, []));
+      }
+      forEach(fn) {
+          return this._addTask(new Action(Action.Type.forEach, [fn])).then();
+      }
+      some(fn) {
+          return this._addTask(new Action(Action.Type.some, [fn])).then();
+      }
+      every(fn) {
+          return this._addTask(new Action(Action.Type.every, [fn])).then();
+      }
+      find(fn) {
+          return this._addTask(new Action(Action.Type.find, [fn])).then();
+      }
+      findIndex(fn) {
+          return this._addTask(new Action(Action.Type.findIndex, [fn])).then();
+      }
+      reduce(fn, res) {
+          return this._addTask(new Action(Action.Type.reduce, [fn, res])).then();
+      }
+      reduceRight(fn, res) {
+          return this._addTask(new Action(Action.Type.reduceRight, [fn, res])).then();
+      }
+      /**
+       * 终结整个链式操作并返回结果，可以使用 await 等待当前实例开始计算
+       */
+      then(onfulfilled, onrejected) {
+          return __awaiter(this, void 0, void 0, function* () {
+              try {
+                  let asyncArray = new InnerAsyncArray(this._arr);
+                  let result = this._arr;
+                  for (const task of this._tasks) {
+                      asyncArray = yield Reflect.apply(Reflect.get(asyncArray, task.type), asyncArray, task.args);
+                      if (asyncArray instanceof InnerBaseAsyncArray) {
+                          result = asyncArray.value();
+                      }
+                      else {
+                          if (!isNullOrUndefined(onfulfilled)) {
+                              onfulfilled(result);
+                          }
+                          return asyncArray;
+                      }
+                  }
+                  if (!isNullOrUndefined(onfulfilled)) {
+                      onfulfilled(result);
+                  }
+                  return result;
+              }
+              catch (err) {
+                  if (!isNullOrUndefined(onrejected)) {
+                      onrejected(err);
+                  }
+              }
+          });
+      }
+      /**
+       * @deprecated 已废弃，请直接使用 await 进行等待获取结果值即可
+       */
+      value() {
+          return this.then();
+      }
+      /**
+       * 允许使用 for-of 遍历内部的 _arr
+       */
+      *[Symbol.iterator]() {
+          for (const kv of this._arr) {
+              yield kv;
+          }
+      }
+      _addTask(task) {
+          const result = new AsyncArray(...this._arr);
+          result._tasks = [...this._tasks, task];
+          return result;
+      }
+  }
+
   function asyncFlatMap(arr, fn) {
       return __awaiter(this, void 0, void 0, function* () {
-          const res = [];
-          for (let i = 0; i < arr.length; i++) {
-              res.push(...(yield fn(arr[i], i, arr)));
-          }
-          return res;
+          return new AsyncArray(...arr).flatMap(fn);
       });
+  }
+
+  /**
+   * 校验变量的类型
+   */
+  class TypeValidator {
+      /**
+       * 判断是否为字符串
+       * @param val 需要判断的值
+       * @returns 是否为字符串
+       */
+      static isString(val) {
+          return typeof val === 'string';
+      }
+      /**
+       * 判断是否为数字
+       * @param val 需要判断的值
+       * @returns 是否为数字
+       */
+      static isNumber(val) {
+          return typeof val === 'number';
+      }
+      /**
+       * 判断是否为布尔值
+       * @param val 需要判断的值
+       * @returns 是否为布尔值
+       */
+      static isBoolean(val) {
+          return typeof val === 'boolean';
+      }
+      /**
+       * 判断是否为 undefined
+       * @param val 需要判断的值
+       * @returns 是否为 undefined
+       */
+      static isUndefined(val) {
+          return val === undefined;
+      }
+      /**
+       * 判断是否为 null
+       * @param val 需要判断的值
+       * @returns 是否为 null
+       */
+      static isNull(val) {
+          return val === null;
+      }
+      /**
+       * 判断是否为 Symbol
+       * @param val 需要判断的值
+       * @returns 是否为 Symbol
+       */
+      static isSymbol(val) {
+          return typeof val === 'symbol';
+      }
+      /**
+       * 判断是否可以作为对象的属性
+       * @param val 需要判断的值
+       * @returns 是否为对象属性
+       */
+      static isPropertyKey(val) {
+          return (TypeValidator.isString(val) ||
+              TypeValidator.isNumber(val) ||
+              TypeValidator.isSymbol(val));
+      }
+      /**
+       * 判断是否为对象
+       * 注: 函数（包括 ES6 箭头函数）将不被视为对象
+       * @param val 需要判断的值
+       * @returns 是否为对象
+       */
+      static isObject(val) {
+          return (!TypeValidator.isNull(val) &&
+              !TypeValidator.isUndefined(val) &&
+              typeof val === 'object');
+      }
+      /**
+       * 判断是否为数组
+       * @param val 需要判断的值
+       * @returns 是否为数组
+       */
+      static isArray(val) {
+          return Array.isArray(val);
+      }
+      /**
+       * 判断是否为数组
+       * @param val 需要判断的值
+       * @returns 是否为数组
+       */
+      static isFunction(val) {
+          return toString.call(val) === '[object Function]';
+      }
+      /**
+       * 判断是否为日期
+       * @param val 需要判断的值
+       * @returns 是否为日期
+       */
+      static isDate(val) {
+          return toString.call(val) === '[object Date]';
+      }
+      /**
+       * 判断是否为浏览器文件类型
+       * @param val 需要判断的值
+       * @returns 是否为浏览器文件类型
+       */
+      static isFile(val) {
+          return toString.call(val) === '[object File]';
+      }
+      /**
+       * 判断是否为浏览器二进制类型
+       * @param val 需要判断的值
+       * @returns 是否为浏览器二进制类型
+       */
+      static isBlob(val) {
+          return toString.call(val) === '[object Blob]';
+      }
+      /**
+       * 判断是否为浏览器流类型
+       * @param val 需要判断的值
+       * @returns 是否为浏览器流类型
+       */
+      static isStream(val) {
+          return TypeValidator.isObject(val) && TypeValidator.isFunction(val.pipe);
+      }
+      /**
+       * 判断是否为浏览器 ArrayBuffer 类型
+       * @param val 需要判断的值
+       * @returns 是否为浏览器 ArrayBuffer 类型
+       */
+      static isArrayBuffer(val) {
+          return toString.call(val) === '[object ArrayBuffer]';
+      }
+      /**
+       * 判断是否为浏览器 ArrayBufferView 类型
+       * @param val 需要判断的值
+       * @returns 是否为浏览器 ArrayBufferView 类型
+       */
+      static isArrayBufferView(val) {
+          return typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView
+              ? ArrayBuffer.isView(val)
+              : val && val.buffer && val.buffer instanceof ArrayBuffer;
+      }
+      /**
+       * 判断是否为浏览器 URLSearchParams 类型
+       * @param val 需要判断的值
+       * @returns 是否为浏览器 URLSearchParams 类型
+       */
+      static isURLSearchParams(val) {
+          return !TypeValidator.isUndefined(val) && val instanceof URLSearchParams;
+      }
+      /**
+       * 判断是否为浏览器 FormData 类型
+       * @param val 需要判断的值
+       * @returns 是否为浏览器 FormData 类型
+       */
+      static isFormData(val) {
+          return !TypeValidator.isUndefined(val) && val instanceof FormData;
+      }
+  }
+
+  /**
+   * 安全执行某个函数
+   * @param fn 需要执行的函数
+   * @param defaultVal 发生异常后的默认返回值，默认为 null
+   * @param args 可选的函数参数
+   * @returns 函数执行的结果，或者其默认值
+   */
+  function safeExec(fn, defaultVal = null, ...args) {
+      try {
+          return fn(...args);
+      }
+      catch (err) {
+          return defaultVal;
+      }
+  }
+
+  /**
+   * 提取对象中的字段并封装为函数
+   * @param k 提取的字段，深度获取使用 . 分割不同的字段
+   * @returns 获取对象中指定字段的函数
+   */
+  function extractField(k) {
+      const fields = TypeValidator.isString(k) ? k.split('.') : [k];
+      return fields.reduceRight((fn, field) => {
+          return function (obj) {
+              return safeExec(() => fn(Reflect.get(obj, field)));
+          };
+      }, returnItself);
+  }
+
+  /**
+   * 获取提取对象属性的函数
+   * @param k 提取对象属性的函数或者是属性名（允许使用 . 进行分割）
+   * @returns 提取对象属性的函数
+   */
+  function getKFn(k) {
+      return k instanceof Function ? k : extractField(k);
   }
 
   /**
    * 自行实现 flatMap，将数组压平一层
    * @param arr 数组
-   * @param fn 映射方法，将一个元素映射为一个数组
+   * @param k 映射方法，将一个元素映射为一个数组
    * @returns 压平一层的数组
    */
-  function flatMap(arr, fn = v => Array.from(v)) {
+  function flatMap(arr, k = v => Array.from(v)) {
+      const fn = getKFn(k);
       return arr.reduce((res, v, i, arr) => {
           res.push(...fn(v, i, arr));
           return res;
       }, new Array());
   }
 
-  function groupBy(arr, kFn, 
+  function groupBy(arr, k, 
   /**
    * 默认的值处理函数
    * @param res 最终 V 集合
@@ -529,6 +1245,7 @@
       res.push(item);
       return res;
   }), init = () => []) {
+      const kFn = getKFn(k);
       // 将元素按照分组条件进行分组得到一个 条件 -> 数组 的对象
       return arr.reduce((res, item, index, arr) => {
           const k = kFn(item, index, arr);
@@ -557,26 +1274,16 @@
   }
 
   /**
-   * 返回第一个参数的函数
-   * 注: 一般可以当作返回参数自身的函数，如果你只关注第一个参数的话
-   * @param obj 任何对象
-   * @typeparam T 传入参数的类型
-   * @typeparam R 返回结果的类型，默认为 T，只是为了兼容该函数当参数被传递时可能出现需要类型不一致的问题
-   * @returns 传入的第一个参数
-   */
-  function returnItself(obj) {
-      return obj;
-  }
-
-  /**
    * 将数组转化为一个 Object 对象
    * @deprecated 已废弃，请使用更好的 {@link arrayToMap} 替代
    * @param arr 需要进行转换的数组
-   * @param kFn 生成对象属性名的函数
-   * @param vFn 生成对象属性值的函数，默认为数组中的迭代元素
+   * @param k 生成对象属性名的函数
+   * @param v 生成对象属性值的函数，默认为数组中的迭代元素
    * @returns 转化得到的对象
    */
-  function toObject(arr, kFn, vFn = returnItself) {
+  function toObject(arr, k, v = returnItself) {
+      const kFn = getKFn(k);
+      const vFn = getKFn(v);
       return arr.reduce((res, item, i, arr) => {
           const k = kFn(item, i, arr);
           if (!Reflect.has(res, k)) {
@@ -589,10 +1296,11 @@
   /**
    * js 的数组去重方法
    * @param arr 要进行去重的数组
-   * @param kFn 唯一标识元素的方法，默认使用 {@link returnItself}
+   * @param k 唯一标识元素的方法，默认使用 {@link returnItself}
    * @returns 进行去重操作之后得到的新的数组 (原数组并未改变)
    */
-  function uniqueBy(arr, kFn = returnItself) {
+  function uniqueBy(arr, k = returnItself) {
+      const kFn = getKFn(k);
       const set = new Set();
       return arr.filter((v, ...args) => {
           const k = kFn(v, ...args);
@@ -612,8 +1320,8 @@
    * @returns 映射产生的 map 集合
    */
   function arrayToMap(arr, k, v = returnItself) {
-      const kFn = k instanceof Function ? k : (item) => Reflect.get(item, k);
-      const vFn = v instanceof Function ? v : (item) => Reflect.get(item, v);
+      const kFn = getKFn(k);
+      const vFn = getKFn(v);
       return arr.reduce((res, item, index, arr) => res.set(kFn(item, index, arr), vFn(item, index, arr)), new Map());
   }
 
@@ -816,16 +1524,6 @@
       const value = el.value;
       el.value = value.substr(0, start) + text + value.substr(start);
       setCursorPosition(el, start + text.length);
-  }
-
-  /**
-   * 判断一个对象是否是无效的
-   * 无效的值仅包含 null/undefined
-   * @param object 任何一个对象
-   * @returns 是否无效的值
-   */
-  function isNullOrUndefined(object) {
-      return object === undefined || object === null;
   }
 
   /**
@@ -1089,22 +1787,6 @@
   }
 
   /**
-   * 安全执行某个函数
-   * @param fn 需要执行的函数
-   * @param defaultVal 发生异常后的默认返回值，默认为 null
-   * @param args 可选的函数参数
-   * @returns 函数执行的结果，或者其默认值
-   */
-  function safeExec(fn, defaultVal = null, ...args) {
-      try {
-          return fn(...args);
-      }
-      catch (err) {
-          return defaultVal;
-      }
-  }
-
-  /**
    * 使用 Proxy 实现通用的单例模式
    * @param clazz 需要包装为单例的类型
    * @returns 包装后的单例模式类，使用 {@code new} 创建将只在第一次有效
@@ -1207,21 +1889,6 @@
               });
           },
       });
-  }
-
-  /**
-   * 兼容异步函数的返回值
-   * @param res 返回值
-   * @param callback 同步/异步结果的回调函数
-   * @typeparam T 处理参数的类型，如果是 Promise 类型，则取出其泛型类型
-   * @typeparam Param 处理参数具体的类型，如果是 Promise 类型，则指定为原类型
-   * @typeparam R 返回值具体的类型，如果是 Promise 类型，则指定为 Promise 类型，否则为原类型
-   * @returns 处理后的结果，如果是同步的，则返回结果是同步的，否则为异步的
-   */
-  function compatibleAsync(res, callback) {
-      return (res instanceof Promise
-          ? res.then(callback)
-          : callback(res));
   }
 
   /**
@@ -1893,9 +2560,10 @@
    * 注: 时间复杂度为 1~3On
    * @param arr 需要被过滤的数组
    * @param deleteItems 要过滤的元素数组
-   * @param kFn 每个元素的唯一键函数
+   * @param k 每个元素的唯一键函数
    */
-  function filterItems(arr, deleteItems, kFn = returnItself) {
+  function filterItems(arr, deleteItems, k = returnItself) {
+      const kFn = getKFn(k);
       const kSet = new Set(deleteItems.map(kFn));
       return arr.filter((v, i, arr) => !kSet.has(kFn(v, i, arr)));
   }
@@ -1904,10 +2572,11 @@
    * 比较两个数组的差异
    * @param left 第一个数组
    * @param right 第二个数组
-   * @param kFn 每个元素的唯一标识产生函数
+   * @param k 每个元素的唯一标识产生函数
    * @returns 比较的差异结果
    */
-  function diffBy(left, right, kFn = returnItself) {
+  function diffBy(left, right, k = returnItself) {
+      const kFn = getKFn(k);
       // 首先得到两个 kSet 集合用于过滤
       const kThanSet = new Set(left.map(kFn));
       const kThatSet = new Set(right.map(kFn));
@@ -2260,163 +2929,6 @@
   }
 
   /**
-   * 校验变量的类型
-   */
-  class TypeValidator {
-      /**
-       * 判断是否为字符串
-       * @param val 需要判断的值
-       * @returns 是否为字符串
-       */
-      static isString(val) {
-          return typeof val === 'string';
-      }
-      /**
-       * 判断是否为数字
-       * @param val 需要判断的值
-       * @returns 是否为数字
-       */
-      static isNumber(val) {
-          return typeof val === 'number';
-      }
-      /**
-       * 判断是否为布尔值
-       * @param val 需要判断的值
-       * @returns 是否为布尔值
-       */
-      static isBoolean(val) {
-          return typeof val === 'boolean';
-      }
-      /**
-       * 判断是否为 undefined
-       * @param val 需要判断的值
-       * @returns 是否为 undefined
-       */
-      static isUndefined(val) {
-          return val === undefined;
-      }
-      /**
-       * 判断是否为 null
-       * @param val 需要判断的值
-       * @returns 是否为 null
-       */
-      static isNull(val) {
-          return val === null;
-      }
-      /**
-       * 判断是否为 Symbol
-       * @param val 需要判断的值
-       * @returns 是否为 Symbol
-       */
-      static isSymbol(val) {
-          return typeof val === 'symbol';
-      }
-      /**
-       * 判断是否可以作为对象的属性
-       * @param val 需要判断的值
-       * @returns 是否为对象属性
-       */
-      static isPropertyKey(val) {
-          return (TypeValidator.isString(val) ||
-              TypeValidator.isNumber(val) ||
-              TypeValidator.isSymbol(val));
-      }
-      /**
-       * 判断是否为对象
-       * 注: 函数（包括 ES6 箭头函数）将不被视为对象
-       * @param val 需要判断的值
-       * @returns 是否为对象
-       */
-      static isObject(val) {
-          return (!TypeValidator.isNull(val) &&
-              !TypeValidator.isUndefined(val) &&
-              typeof val === 'object');
-      }
-      /**
-       * 判断是否为数组
-       * @param val 需要判断的值
-       * @returns 是否为数组
-       */
-      static isArray(val) {
-          return Array.isArray(val);
-      }
-      /**
-       * 判断是否为数组
-       * @param val 需要判断的值
-       * @returns 是否为数组
-       */
-      static isFunction(val) {
-          return toString.call(val) === '[object Function]';
-      }
-      /**
-       * 判断是否为日期
-       * @param val 需要判断的值
-       * @returns 是否为日期
-       */
-      static isDate(val) {
-          return toString.call(val) === '[object Date]';
-      }
-      /**
-       * 判断是否为浏览器文件类型
-       * @param val 需要判断的值
-       * @returns 是否为浏览器文件类型
-       */
-      static isFile(val) {
-          return toString.call(val) === '[object File]';
-      }
-      /**
-       * 判断是否为浏览器二进制类型
-       * @param val 需要判断的值
-       * @returns 是否为浏览器二进制类型
-       */
-      static isBlob(val) {
-          return toString.call(val) === '[object Blob]';
-      }
-      /**
-       * 判断是否为浏览器流类型
-       * @param val 需要判断的值
-       * @returns 是否为浏览器流类型
-       */
-      static isStream(val) {
-          return TypeValidator.isObject(val) && TypeValidator.isFunction(val.pipe);
-      }
-      /**
-       * 判断是否为浏览器 ArrayBuffer 类型
-       * @param val 需要判断的值
-       * @returns 是否为浏览器 ArrayBuffer 类型
-       */
-      static isArrayBuffer(val) {
-          return toString.call(val) === '[object ArrayBuffer]';
-      }
-      /**
-       * 判断是否为浏览器 ArrayBufferView 类型
-       * @param val 需要判断的值
-       * @returns 是否为浏览器 ArrayBufferView 类型
-       */
-      static isArrayBufferView(val) {
-          return typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView
-              ? ArrayBuffer.isView(val)
-              : val && val.buffer && val.buffer instanceof ArrayBuffer;
-      }
-      /**
-       * 判断是否为浏览器 URLSearchParams 类型
-       * @param val 需要判断的值
-       * @returns 是否为浏览器 URLSearchParams 类型
-       */
-      static isURLSearchParams(val) {
-          return !TypeValidator.isUndefined(val) && val instanceof URLSearchParams;
-      }
-      /**
-       * 判断是否为浏览器 FormData 类型
-       * @param val 需要判断的值
-       * @returns 是否为浏览器 FormData 类型
-       */
-      static isFormData(val) {
-          return !TypeValidator.isUndefined(val) && val instanceof FormData;
-      }
-  }
-
-  /**
    * 递归使对象不可变
    * @param obj 任何非空对象
    * @returns 新的不可变对象
@@ -2469,6 +2981,7 @@
    * @param fn 需要包装的函数
    * @param  {...any} args 应用的部分参数
    * @returns 包装后的函数
+   * @deprecated 由于之前的理解错误，该函数在下个大版本将会被废弃，请使用命名更合适的 {@link partial}
    */
   function curry(fn, ...args) {
       const realArgs = args.filter(arg => arg !== curry._);
@@ -2516,11 +3029,12 @@
    * 快速根据指定函数对数组进行排序
    * 注: 使用递归实现，对于超大数组（其实前端的数组不可能特别大吧？#笑）可能造成堆栈溢出
    * @param arr 需要排序的数组
-   * @param kFn 对数组中每个元素都产生可比较的值的函数，默认返回自身进行比较
+   * @param k 对数组中每个元素都产生可比较的值的函数，默认返回自身进行比较
    * @returns 排序后的新数组
    */
-  function sortBy(arr, kFn = returnItself) {
-      // TODO 此处为了让 typedoc 能生成文档而不得不加上类型
+  function sortBy(arr, k = returnItself) {
+      const kFn = getKFn(k);
+      //  此处为了让 typedoc 能生成文档而不得不加上类型
       const newArr = arr.map((v, i) => [v, i]);
       function _sort(arr, fn) {
           // 边界条件，如果传入数组的值
@@ -2712,70 +3226,6 @@
   const TimeoutInfinite = 'TimeoutInfinite';
 
   /**
-   * 内部使用的函数
-   * 注: 如果谓词中包含任意一个异步(返回 Promise)函数,则整个返回结果将变成异步的,否则默认为同步操作.
-   * @param fns 谓词数组
-   * @param args 谓词应用的参数列表
-   * @param condition 临界条件
-   * @returns 返回结果
-   */
-  function _inner(fns, args, condition) {
-      const fn = fns[0];
-      const res = fn(...args);
-      function _call(res) {
-          if (condition(res)) {
-              return res;
-          }
-          const others = fns.slice(1);
-          if (others.length === 0) {
-              return res;
-          }
-          return _inner(others, args, condition);
-      }
-      return compatibleAsync(res, _call);
-  }
-  /**
-   * 连接谓词函数
-   */
-  class CombinedPredicate {
-      /**
-       * 使用 && 进行连接
-       * @param fns 连接任意多个谓词
-       * @returns 连接后的新谓词
-       */
-      static and(...fns) {
-          return function (...args) {
-              return _inner(fns, args, res => !res);
-          };
-      }
-      /**
-       * 使用 || 进行连接
-       * @param fns 连接任意多个谓词
-       * @returns 连接后的新谓词
-       */
-      static or(...fns) {
-          return function (...args) {
-              return _inner(fns, args, res => res);
-          };
-      }
-      /**
-       * 对谓词进行取反
-       * @param fn 谓词
-       * @returns 取反后的谓词
-       */
-      static not(fn) {
-          return new Proxy(fn, {
-              apply(_, _this, args) {
-                  return compatibleAsync(Reflect.apply(_, this, args), res => !res);
-              },
-          });
-      }
-  }
-  const and = CombinedPredicate.and;
-  const or = CombinedPredicate.or;
-  const not = CombinedPredicate.not;
-
-  /**
    * 使用 LocalStorage 实现的缓存
    * 1. get: 根据 key 获取
    * 2. set: 根据 key value 设置，会覆盖
@@ -2823,8 +3273,12 @@
                   .map(key => safeExec(JSON.parse, null, local.getItem(key)))
                   .filter(cacheVal => !isNullOrUndefined(cacheVal) &&
                   isNullOrUndefined(cacheVal.cacheOption))
-                  .filter(({ cacheOption }) => {
+                  // TODO 这里暂时加个补丁，过滤掉 timeStart,timeEnd 为 undefined 的缓存
+                  .filter(({ cacheOption = {} }) => {
                   const { timeStart, timeout } = cacheOption;
+                  if (isNullOrUndefined(timeStart) || isNullOrUndefined(timeout)) {
+                      return false;
+                  }
                   return timeout !== TimeoutInfinite && Date.now() - timeStart > timeout;
               })
                   .forEach(({ key }) => local.removeItem(key));
@@ -3823,435 +4277,6 @@
   }
 
   /**
-   * 操作类型
-   */
-  var ActionType;
-  (function (ActionType) {
-      ActionType["forEach"] = "forEach";
-      ActionType["filter"] = "filter";
-      ActionType["map"] = "map";
-      ActionType["flatMap"] = "flatMap";
-      ActionType["sort"] = "sort";
-      ActionType["reduce"] = "reduce";
-      ActionType["reduceRight"] = "reduceRight";
-      ActionType["findIndex"] = "findIndex";
-      ActionType["find"] = "find";
-      ActionType["every"] = "every";
-      ActionType["some"] = "some";
-      ActionType["parallel"] = "parallel";
-      ActionType["serial"] = "serial";
-  })(ActionType || (ActionType = {}));
-  /**
-   * 保存高阶函数传入的异步操作
-   * @field 异步操作的类型
-   * @field 异步操作
-   */
-  class Action {
-      constructor(type, args) {
-          this.type = type;
-          this.args = args;
-          this.type = type;
-          this.args = args;
-      }
-  }
-  Action.Type = ActionType;
-  /**
-   * 抽象异步数组，实现了一些公共的函数
-   */
-  class InnerBaseAsyncArray {
-      /**
-       * 构造函数
-       * @param args 数组初始元素
-       */
-      constructor(args = []) {
-          this._arr = args;
-      }
-      /**
-       * 将整个数组排序
-       * @param fn 比较函数
-       * @returns 排序后的数组
-       */
-      sort(fn) {
-          return __awaiter(this, void 0, void 0, function* () {
-              if (fn === undefined) {
-                  return new InnerAsyncArray(this._arr.sort());
-              }
-              // TODO 此处为了让 type-doc 能生成文档而不得不加上类型
-              const arr = this._arr.map((v, i) => [v, i]);
-              function _sort(arr, fn) {
-                  return __awaiter(this, void 0, void 0, function* () {
-                      // 边界条件，如果传入数组的值
-                      if (arr.length <= 1) {
-                          return arr;
-                      }
-                      // 根据中间值对数组分治为两个数组
-                      const medianIndex = Math.floor(arr.length / 2);
-                      const medianValue = arr[medianIndex];
-                      const left = [];
-                      const right = [];
-                      for (let i = 0, len = arr.length; i < len; i++) {
-                          if (i === medianIndex) {
-                              continue;
-                          }
-                          const v = arr[i];
-                          if ((yield fn(v, medianValue)) <= 0) {
-                              left.push(v);
-                          }
-                          else {
-                              right.push(v);
-                          }
-                      }
-                      return (yield _sort(left, fn))
-                          .concat([medianValue])
-                          .concat(yield _sort(right, fn));
-                  });
-              }
-              return new InnerAsyncArray(yield (yield _sort(arr, ([t1], [t2]) => fn(t1, t2))).map(([_v, i]) => this._arr[i]));
-          });
-      }
-      /**
-       * 异步的 find
-       * @param fn 异步查询函数
-       * @returns 查询到的第一个值
-       */
-      find(fn) {
-          return __awaiter(this, void 0, void 0, function* () {
-              const i = yield this.findIndex(fn);
-              return i === -1 ? null : this._arr[i];
-          });
-      }
-      /**
-       * 异步的 every
-       * @param fn 异步匹配函数
-       * @returns 是否全部匹配
-       */
-      every(fn) {
-          return __awaiter(this, void 0, void 0, function* () {
-              return (yield this.findIndex(CombinedPredicate.not(fn))) === -1;
-          });
-      }
-      /**
-       * 异步的 some
-       * @param fn 异步匹配函数
-       * @returns 是否有任意一个匹配
-       */
-      some(fn) {
-          return __awaiter(this, void 0, void 0, function* () {
-              return (yield this.findIndex(fn)) !== -1;
-          });
-      }
-      /**
-       * 转换为并发异步数组
-       */
-      parallel() {
-          return new InnerAsyncArrayParallel(this._arr);
-      }
-      /**
-       * 转换为顺序异步数组
-       */
-      serial() {
-          return new InnerAsyncArray(this._arr);
-      }
-      /**
-       * 获取内部数组的值，将返回一个浅复制的数组
-       */
-      value() {
-          return this._arr.slice();
-      }
-  }
-  /**
-   * 串行的异步数组
-   */
-  class InnerAsyncArray extends InnerBaseAsyncArray {
-      constructor(args) {
-          super(args);
-      }
-      forEach(fn) {
-          return __awaiter(this, void 0, void 0, function* () {
-              for (let i = 0, len = this._arr.length; i < len; i++) {
-                  yield fn.call(this, this._arr[i], i, this);
-              }
-          });
-      }
-      filter(fn) {
-          return __awaiter(this, void 0, void 0, function* () {
-              const res = new InnerAsyncArray();
-              for (let i = 0, len = this._arr.length; i < len; i++) {
-                  if (yield fn.call(this, this._arr[i], i, this)) {
-                      res._arr.push(this._arr[i]);
-                  }
-              }
-              return res;
-          });
-      }
-      map(fn) {
-          return __awaiter(this, void 0, void 0, function* () {
-              const res = new InnerAsyncArray();
-              for (let i = 0, len = this._arr.length; i < len; i++) {
-                  res._arr.push(yield fn.call(this, this._arr[i], i, this));
-              }
-              return res;
-          });
-      }
-      flatMap(fn) {
-          return __awaiter(this, void 0, void 0, function* () {
-              const res = new InnerAsyncArray();
-              for (let i = 0, len = this._arr.length; i < len; i++) {
-                  res._arr.push(...(yield fn.call(this, this._arr[i], i, this)));
-              }
-              return res;
-          });
-      }
-      reduce(fn, res) {
-          return __awaiter(this, void 0, void 0, function* () {
-              for (let i = 0, len = this._arr.length; i < len; i++) {
-                  if (res) {
-                      res = yield fn.call(this, res, this._arr[i], i, this);
-                  }
-                  else {
-                      res = this._arr[i];
-                  }
-              }
-              return res;
-          });
-      }
-      reduceRight(fn, res) {
-          return __awaiter(this, void 0, void 0, function* () {
-              for (let i = this._arr.length - 1; i >= 0; i--) {
-                  if (res) {
-                      res = yield fn.apply(this, [res, this._arr[i], i, this]);
-                  }
-                  else {
-                      res = this._arr[i];
-                  }
-              }
-              return res;
-          });
-      }
-      findIndex(fn) {
-          return __awaiter(this, void 0, void 0, function* () {
-              for (let i = 0, len = this._arr.length; i < len; i++) {
-                  const res = yield fn.call(this, this._arr[i], i, this);
-                  if (res) {
-                      return i;
-                  }
-              }
-              return -1;
-          });
-      }
-  }
-  /**
-   * 并发的异步数组
-   */
-  class InnerAsyncArrayParallel extends InnerBaseAsyncArray {
-      constructor(args) {
-          super(args);
-      }
-      forEach(fn) {
-          return __awaiter(this, void 0, void 0, function* () {
-              yield this._all(fn);
-          });
-      }
-      filter(fn) {
-          return __awaiter(this, void 0, void 0, function* () {
-              const res = yield this._all(fn);
-              const result = new InnerAsyncArrayParallel();
-              for (let i = 0, len = res.length; i < len; i++) {
-                  if (res[i]) {
-                      result._arr.push(this._arr[i]);
-                  }
-              }
-              return result;
-          });
-      }
-      map(fn) {
-          return __awaiter(this, void 0, void 0, function* () {
-              return new InnerAsyncArrayParallel(yield this._all(fn));
-          });
-      }
-      flatMap(fn) {
-          return __awaiter(this, void 0, void 0, function* () {
-              const res = yield this._all(fn);
-              return new InnerAsyncArrayParallel(res.flat());
-          });
-      }
-      sort(fn) {
-          throw new Error('Method not implemented.');
-      }
-      reduce(fn, res) {
-          return __awaiter(this, void 0, void 0, function* () {
-              for (let i = 0, len = this._arr.length; i < len; i++) {
-                  if (res) {
-                      res = yield fn.call(this, res, this._arr[i], i, this);
-                  }
-                  else {
-                      res = this._arr[i];
-                  }
-              }
-              return res;
-          });
-      }
-      reduceRight(fn, res) {
-          return __awaiter(this, void 0, void 0, function* () {
-              for (let i = this._arr.length - 1; i >= 0; i--) {
-                  if (res) {
-                      res = yield fn.apply(this, [res, this._arr[i], i, this]);
-                  }
-                  else {
-                      res = this._arr[i];
-                  }
-              }
-              return res;
-          });
-      }
-      findIndex(fn) {
-          return __awaiter(this, void 0, void 0, function* () {
-              return (yield this._all(fn)).findIndex(returnItself);
-          });
-      }
-      _all(fn) {
-          return __awaiter(this, void 0, void 0, function* () {
-              return yield Promise.all(this._arr.map((v, i) => fn.apply(this, [v, i, this])));
-          });
-      }
-  }
-  /**
-   * 异步数组
-   */
-  class AsyncArray {
-      /**
-       * 构造函数
-       * @param args 任意个参数
-       */
-      constructor(...args) {
-          /**
-           * 内部数组的长度，用于让 {@link AsyncArray} 的实例能作为 {@link Array.from} 的参数
-           */
-          this.length = 0;
-          this._arr = Array.from(args);
-          /**
-           * @field 保存异步任务
-           * @type {Action[]}
-           */
-          this._tasks = [];
-      }
-      /**
-       * 为内置数组赋值
-       * 此处自动重新计算 length 属性
-       */
-      set _arr(arr) {
-          this.__arr = arr;
-          this.length = this.__arr.length;
-      }
-      get _arr() {
-          return this.__arr;
-      }
-      /**
-       * 提供一个函数方便根据已有的数组或类数组（Set/Map）创建 {@link AsyncArray}
-       * @param arr 一个可迭代元素
-       * @returns 创建一个新的异步数组包装
-       */
-      static from(arr) {
-          const result = new AsyncArray();
-          if (isNullOrUndefined(arr)) {
-              return result;
-          }
-          result._arr = Array.from(arr);
-          return result;
-      }
-      filter(fn) {
-          return this._addTask(new Action(Action.Type.filter, [fn]));
-      }
-      map(fn) {
-          return this._addTask(new Action(Action.Type.map, [fn]));
-      }
-      flatMap(fn) {
-          return this._addTask(new Action(Action.Type.flatMap, [fn]));
-      }
-      sort(fn) {
-          return this._addTask(new Action(Action.Type.sort, [fn]));
-      }
-      parallel() {
-          return this._addTask(new Action(Action.Type.parallel, []));
-      }
-      serial() {
-          return this._addTask(new Action(Action.Type.serial, []));
-      }
-      forEach(fn) {
-          return this._addTask(new Action(Action.Type.forEach, [fn])).then();
-      }
-      some(fn) {
-          return this._addTask(new Action(Action.Type.some, [fn])).then();
-      }
-      every(fn) {
-          return this._addTask(new Action(Action.Type.every, [fn])).then();
-      }
-      find(fn) {
-          return this._addTask(new Action(Action.Type.find, [fn])).then();
-      }
-      findIndex(fn) {
-          return this._addTask(new Action(Action.Type.findIndex, [fn])).then();
-      }
-      reduce(fn, res) {
-          return this._addTask(new Action(Action.Type.reduce, [fn, res])).then();
-      }
-      reduceRight(fn, res) {
-          return this._addTask(new Action(Action.Type.reduceRight, [fn, res])).then();
-      }
-      /**
-       * 终结整个链式操作并返回结果，可以使用 await 等待当前实例开始计算
-       */
-      then(onfulfilled, onrejected) {
-          return __awaiter(this, void 0, void 0, function* () {
-              try {
-                  let asyncArray = new InnerAsyncArray(this._arr);
-                  let result = this._arr;
-                  for (const task of this._tasks) {
-                      asyncArray = yield Reflect.apply(Reflect.get(asyncArray, task.type), asyncArray, task.args);
-                      if (asyncArray instanceof InnerBaseAsyncArray) {
-                          result = asyncArray.value();
-                      }
-                      else {
-                          if (!isNullOrUndefined(onfulfilled)) {
-                              onfulfilled(result);
-                          }
-                          return asyncArray;
-                      }
-                  }
-                  if (!isNullOrUndefined(onfulfilled)) {
-                      onfulfilled(result);
-                  }
-                  return result;
-              }
-              catch (err) {
-                  if (!isNullOrUndefined(onrejected)) {
-                      onrejected(err);
-                  }
-              }
-          });
-      }
-      /**
-       * @deprecated 已废弃，请直接使用 await 进行等待获取结果值即可
-       */
-      value() {
-          return this.then();
-      }
-      /**
-       * 允许使用 for-of 遍历内部的 _arr
-       */
-      *[Symbol.iterator]() {
-          for (const kv of this._arr) {
-              yield kv;
-          }
-      }
-      _addTask(task) {
-          const result = new AsyncArray(...this._arr);
-          result._tasks = [...this._tasks, task];
-          return result;
-      }
-  }
-
-  /**
    * 包装一个函数为异步函数
    * @param fn 任意一个函数
    * @typeparam R 原函数函数返回值类型
@@ -4489,6 +4514,55 @@
       };
   }
 
+  /**
+   * 将函数包装为偏函数
+   * 注: 该函数模仿了 underscore 的 partial 函数
+   * @param fn 需要包装的函数
+   * @param  {...any} args 应用的部分参数
+   * @returns 包装后的函数
+   */
+  function partial(fn, ...args) {
+      const realArgs = args.filter(arg => arg !== partial._);
+      // 如果函数参数足够则调用传入的函数
+      if (realArgs.length >= fn.length) {
+          return fn(...realArgs);
+      }
+      /**
+       * 最终返回的函数
+       * @param otherArgs 接受任意参数
+       * @returns 返回一个函数，或者函数调用完成返回结果
+       */
+      function innerFn(...otherArgs) {
+          // 记录需要移除补到前面的参数
+          const removeIndexSet = new Set();
+          let i = 0;
+          const newArgs = args.map(arg => {
+              if (arg !== partial._ ||
+                  otherArgs[i] === undefined ||
+                  otherArgs[i] === partial._) {
+                  return arg;
+              }
+              removeIndexSet.add(i);
+              // 每次补偿前面的 partial._ 参数计数器 +1
+              return otherArgs[i++];
+          });
+          const newOtherArgs = otherArgs.filter((_v, i) => !removeIndexSet.has(i));
+          return partial(fn, ...newArgs, ...newOtherArgs);
+      }
+      // 定义偏函数的剩余参数长度，便于在其他地方进行部分参数应用
+      // 注: 不使用 length 属性的原因是 length 属性
+      innerFn._length = fn.length - args.filter(arg => arg !== partial._).length;
+      // 自定义 toString 函数便于调试
+      innerFn.toString = () => `name: ${fn.name}, args: [${args.map(o => o.toString()).join(', ')}]`;
+      innerFn._partial = true;
+      return innerFn;
+  }
+  /**
+   * 偏的占位符，需要应用后面的参数时使用
+   * 例如 {@link partial(fn)(partial._, 1)} 意味着函数 fn 的第二个参数将被确定为 1
+   */
+  partial._ = Symbol('_');
+
   exports.AntiDebug = AntiDebug;
   exports.ArrayValidator = ArrayValidator;
   exports.AsyncArray = AsyncArray;
@@ -4587,6 +4661,7 @@
   exports.onceOfSameParam = onceOfSameParam;
   exports.or = or;
   exports.parseUrl = parseUrl;
+  exports.partial = partial;
   exports.pathUtil = pathUtil;
   exports.randomInt = randomInt;
   exports.range = range;

@@ -25,4 +25,30 @@ describe('test diffBy', () => {
       'Symbol(3)',
     ])
   })
+  it('custom diff type', () => {
+    interface IUser {
+      name: string
+      pwd: string
+    }
+    interface IPerson {
+      name: string
+      age: number
+    }
+    const userList: IUser[] = [
+      { name: 'rx', pwd: '123' },
+      { name: 'liuli', pwd: '123' },
+      { name: '灵梦', pwd: '123' },
+      { name: '伊凡', pwd: '123' },
+    ]
+    const personList: IPerson[] = [
+      { name: '女娲', age: 1000 },
+      { name: 'liuli', age: 17 },
+      { name: '灵梦', age: 15 },
+    ]
+    const { common } = diffBy(userList, personList, 'name')
+    expect(common).toIncludeAllMembers([
+      { name: 'liuli', pwd: '123' },
+      { name: '灵梦', pwd: '123' },
+    ])
+  })
 })

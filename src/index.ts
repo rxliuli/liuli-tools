@@ -134,6 +134,7 @@ import { getCursorPosition } from './module/dom/getCursorPosition'
 import { setCursorPosition } from './module/dom/setCursorPosition'
 import { segmentation } from './module/array/segmentation'
 import { toggleClass } from './module/dom/toggleClass'
+import { partial } from './module/function/partial'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -206,6 +207,7 @@ export {
   mergeMap,
   once,
   onceOfSameParam,
+  partial,
   PubSubMachine,
   repeatedCall,
   returnItself,

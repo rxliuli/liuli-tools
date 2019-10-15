@@ -135,6 +135,7 @@ import { setCursorPosition } from './module/dom/setCursorPosition'
 import { segmentation } from './module/array/segmentation'
 import { toggleClass } from './module/dom/toggleClass'
 import { partial } from './module/function/partial'
+import { compatibleAsync } from './module/async/compatibleAsync'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -227,6 +228,7 @@ export {
   watchObject,
   async,
   asyncLimiting,
+  compatibleAsync,
   concatMap,
   bridge,
   CombinedPredicate,

@@ -6,15 +6,15 @@
  */
 export function toggleClass<K extends Exclude<PropertyKey, symbol>>(
   el: Element,
-  obj: Record<K, any>,
+  obj: Record<K, string>,
 ) {
-  const arr = Object.entries(obj)
+  const arr = Array.from(Object.values(obj)) as string[]
   /**
    * 返回切换 class 的函数
    * @param state 切换的状态
    */
   return function toggle(state: K) {
-    arr.forEach(([, v]) => el.classList.remove(v))
+    arr.forEach(v => el.classList.remove(v))
     el.classList.add(obj[state])
   }
 }

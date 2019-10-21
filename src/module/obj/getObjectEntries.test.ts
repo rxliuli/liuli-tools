@@ -7,6 +7,12 @@ describe('test getObjectEntries', () => {
   it('simple example', () => {
     const symbol = Symbol('name')
     const name = 'name'
+    Array.from(
+      Object.entries({
+        [symbol]: name,
+        [name]: symbol,
+      }),
+    )
     expect(
       getObjectEntries({
         [symbol]: name,

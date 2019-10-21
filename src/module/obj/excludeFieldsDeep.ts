@@ -18,5 +18,5 @@ export function excludeFieldsDeep<T extends object>(
       return res
     },
     obj instanceof Array ? obj : excludeFields(obj, ...(fields as any)),
-  )
+  ) as any
 }

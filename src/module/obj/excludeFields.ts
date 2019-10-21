@@ -5,10 +5,10 @@
  * @param fields 要排除的多个字段
  * @returns 排除完指定字段得到的新的对象
  */
-export function excludeFields<T extends object>(
+export function excludeFields<T extends object, K extends keyof T>(
   obj: T,
-  ...fields: Array<keyof T>
-): T {
+  ...fields: K[]
+): Omit<T, K> {
   const set = new Set(fields)
   return Reflect.ownKeys(obj).reduce((res, k) => {
     if (!set.has(k as any)) {

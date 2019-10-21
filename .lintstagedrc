@@ -1,8 +1,8 @@
  {
   "linters": {
     "src/**/*.ts": [
-      "yarn fix",
-      "git add"
+      "prettier --write",
+      "git add",
     ]
   }
 }

@@ -52,16 +52,12 @@
     "rimraf": "^2.6.3",
     "rollup": "^1.12.3",
     "rollup-plugin-terser": "^4.0.4",
-    "rollup-plugin-tslint": "^0.2.2",
     "rollup-plugin-typescript2": "^0.21.1",
     "rollup-plugin-uglify": "^6.0.2",
     "rx-util": "latest",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.1.0",
     "tslib": "^1.9.3",
-    "tslint": "^5.16.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.0.1",
     "typedoc": "^0.14.2",
     "typescript": "^3.4.5"
   }

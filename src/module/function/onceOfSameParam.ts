@@ -1,4 +1,3 @@
-import { ReturnFunc } from '../interface/ReturnFunc'
 import { compatibleAsync } from '../async/compatibleAsync'
 
 /**
@@ -7,16 +6,15 @@ import { compatibleAsync } from '../async/compatibleAsync'
  * @param identity 参数转换的函数，参数为需要包装函数的参数
  * @returns 需要被包装的函数
  */
-export function onceOfSameParam<R>(
-  fn: ReturnFunc<R>,
-  identity = fn.toString(),
-): ReturnFunc<R> {
-  const generateKey = (args: any[]) =>
-    `onceOfSameParam-${identity}-${JSON.stringify(args)}`
+export function onceOfSameParam<Fn extends Function>(
+  fn: Fn,
+  identity = (args: any[]) =>
+    `onceOfSameParam-${fn.toString()}-${JSON.stringify(args)}`,
+): Fn & { origin: Fn; clear: (...keys: any[]) => void } {
   const cacheMap = new Map()
-  return new Proxy(fn, {
+  const res = new Proxy(fn, {
     apply(_, _this, args) {
-      const key = generateKey(args)
+      const key = identity(args)
       const old = cacheMap.get(key)
       if (old !== undefined) {
         return old
@@ -26,6 +24,16 @@ export function onceOfSameParam<R>(
         cacheMap.set(key, res)
         return res
       })
+    },
+  })
+  return Object.assign(res, {
+    origin: fn,
+    clear(...keys: any[]): void {
+      if (keys.length) {
+        cacheMap.clear()
+      } else {
+        keys.forEach(key => cacheMap.delete(key))
+      }
     },
   })
 }

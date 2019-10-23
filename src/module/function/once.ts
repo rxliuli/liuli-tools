@@ -6,10 +6,12 @@ import { compatibleAsync } from '../async/compatibleAsync'
  * @param fn 需要包装的函数
  * @returns 包装后的函数
  */
-export function once<R>(fn: ReturnFunc<R>): ReturnFunc<R> {
+export function once<R, Fn extends (...args: any[]) => R>(
+  fn: Fn,
+): Fn & { origin: Fn; clear: () => void } {
   let flag = true
   let cache: R
-  return new Proxy(fn, {
+  const res = new Proxy(fn, {
     apply(target, thisArg, args) {
       if (flag === false) {
         return cache
@@ -20,6 +22,12 @@ export function once<R>(fn: ReturnFunc<R>): ReturnFunc<R> {
         cache = res
         return cache
       })
+    },
+  })
+  return Object.assign(res, {
+    origin: fn,
+    clear() {
+      cache = null as any
     },
   })
 }

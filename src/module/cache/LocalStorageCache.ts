@@ -55,7 +55,7 @@ export class LocalStorageCache<T> implements ICache<T> {
     }
     getKeys()
       .filter(not(isNullOrUndefined))
-      .map(key => safeExec(JSON.parse, null, local.getItem(key!)))
+      .map(key => safeExec(() => JSON.parse(local.getItem(key!)!)))
       .filter(
         cacheVal =>
           !isNullOrUndefined(cacheVal) &&
@@ -129,7 +129,7 @@ export class LocalStorageCache<T> implements ICache<T> {
    */
   public get(key: string): T | null {
     const str = this.localStorage.getItem(key)
-    const cacheVal: CacheVal = safeExec(JSON.parse, null, str)
+    const cacheVal: CacheVal = safeExec(() => JSON.parse(str!))
     if (
       isNullOrUndefined(cacheVal) ||
       isNullOrUndefined(cacheVal.cacheOption)
@@ -165,7 +165,7 @@ export class LocalStorageCache<T> implements ICache<T> {
     /**
      * @type {CacheVal}
      */
-    const cacheVal: CacheVal = safeExec(JSON.parse, null, str)
+    const cacheVal: CacheVal = safeExec(() => JSON.parse(str!))
     if (
       isNullOrUndefined(cacheVal) ||
       isNullOrUndefined(cacheVal.cacheOption)

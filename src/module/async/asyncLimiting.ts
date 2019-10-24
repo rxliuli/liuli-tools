@@ -1,5 +1,5 @@
 import { wait } from './wait'
-import { ReturnFunc } from '../interface/ReturnFunc'
+import { AsyncFunc } from '../interface/AsyncFunc'
 
 /**
  * 异步限制并发队列的接口
@@ -19,10 +19,10 @@ interface IAsyncLimiting {
  * @param options.limit 并发限制数量，默认为 1
  * @returns 返回被包装后的限制并发功能的函数
  */
-export function asyncLimiting<R>(
-  fn: ReturnFunc<R>,
+export function asyncLimiting<Fn extends AsyncFunc>(
+  fn: Fn,
   { limit = 1 }: Partial<IAsyncLimiting> = {},
-): ReturnFunc<R> {
+): Fn {
   // 当前正在执行异步的数量
   let execCount = 0
   // waitArr 等待的队列

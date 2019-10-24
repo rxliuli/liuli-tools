@@ -1,5 +1,5 @@
-import { ReturnFunc } from '../interface/ReturnFunc'
-import { Nullable } from '../interface/Nullable'
+import { Func } from '../interface/Func'
+import { Async } from '../interface/Async'
 
 /**
  * 函数去抖
@@ -14,11 +14,11 @@ import { Nullable } from '../interface/Nullable'
  * @param init 初始的缓存值，不填默认为 {@see undefined}
  * @return 包装后有去抖功能的函数。该函数是异步的，与需要包装的函数 {@see action} 是否异步没有太大关联
  */
-export function debounce<R, Func extends Function = ReturnFunc<Nullable<R>>>(
+export function debounce<Fn extends Func>(
   delay: number,
-  action: Func,
+  action: Fn,
   init: any = null,
-): Func {
+): Async<Fn> {
   let flag: number
   let result = init
   return new Proxy(action, {

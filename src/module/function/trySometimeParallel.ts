@@ -1,5 +1,6 @@
 import { range } from '../array/range'
 import { ReturnFunc } from '../interface/ReturnFunc'
+import { PromiseDeconstruct } from '../interface/PromiseDeconstruct'
 
 /**
  * 包装一个函数为有错误重试功能的函数
@@ -9,11 +10,12 @@ import { ReturnFunc } from '../interface/ReturnFunc'
  * @param errorCheck 检查返回结果是否需要重试的函数。默认只要 resolve() 就返回 true
  * @returns 包装后的有错误重试功能的函数
  */
-export function trySometimeParallel<R, Func extends Function = ReturnFunc<R>>(
-  fn: Func,
+export function trySometimeParallel<Fn extends (...args: any[]) => any>(
+  fn: Fn,
   num = 1,
-  errorCheck: (res: R) => boolean = res => true,
-): Func {
+  errorCheck: (res: PromiseDeconstruct<ReturnType<Fn>>) => boolean = res =>
+    true,
+): Fn {
   return new Proxy(fn, {
     async apply(target, thisArg, args) {
       return new Promise(async (resolve, reject) => {

@@ -1,5 +1,6 @@
 import { range } from '../array/range'
 import { ReturnFunc } from '../interface/ReturnFunc'
+import { Func } from '../interface/Func'
 
 /**
  * 重复执行指定的函数
@@ -8,10 +9,10 @@ import { ReturnFunc } from '../interface/ReturnFunc'
  * @param  {...Object} args 参数
  * @returns 执行返回结果
  */
-export function repeatedCall<R>(
+export function repeatedCall<Fn extends Func>(
   num: number,
-  fn: ReturnFunc<R>,
-  ...args: any[]
-): R[] {
-  return range(0, num).map(() => fn(...args))
+  fn: Fn,
+  ...args: Parameters<Fn>
+): ReturnType<Fn>[] {
+  return range(0, num).map(() => fn(...(args as any)))
 }

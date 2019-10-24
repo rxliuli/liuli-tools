@@ -1,4 +1,7 @@
 import { ReturnFunc } from '../interface/ReturnFunc'
+import { Func } from '../interface/Func'
+import { Async } from '../interface/Async'
+import { PromiseDeconstruct } from '../interface/PromiseDeconstruct'
 
 /**
  * 函数节流
@@ -12,12 +15,12 @@ import { ReturnFunc } from '../interface/ReturnFunc'
  * @param action 真正需要执行的操作
  * @return {Function} 包装后有节流功能的函数。该函数是异步的，与需要包装的函数 {@link action} 是否异步没有太大关联
  */
-export function throttle<R>(
+export function throttle<Fn extends Func>(
   delay: number,
-  action: ReturnFunc<R>,
-): ReturnFunc<R> {
+  action: Fn,
+): Async<Fn> {
   let last = 0
-  let result: R
+  let result: PromiseDeconstruct<ReturnType<Fn>>
   return new Proxy(action, {
     apply(target, thisArg, args) {
       return new Promise(resolve => {

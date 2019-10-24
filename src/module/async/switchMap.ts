@@ -1,4 +1,5 @@
-import { ReturnFunc } from '../interface/ReturnFunc'
+import { AsyncFunc } from '../interface/AsyncFunc'
+import { PromiseDeconstruct } from '../interface/PromiseDeconstruct'
 
 /**
  * 将一个异步函数包装为具有时序的异步函数
@@ -6,15 +7,13 @@ import { ReturnFunc } from '../interface/ReturnFunc'
  * @param fn 一个普通的异步函数
  * @returns 包装后的函数
  */
-export function switchMap<R>(
-  fn: ReturnFunc<Promise<R>>,
-): ReturnFunc<Promise<R>> {
+export function switchMap<Fn extends AsyncFunc>(fn: Fn): Fn {
   // 当前执行的异步操作 id
   let id = 0
   // 最后一次异步操作的 id，小于这个的操作结果会被丢弃
   let last = 0
   // 缓存最后一次异步操作的结果
-  let cache: R
+  let cache: PromiseDeconstruct<ReturnType<Fn>>
   return new Proxy(fn, {
     async apply(_, _this, args) {
       const temp = id

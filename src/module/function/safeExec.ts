@@ -1,4 +1,6 @@
 import { ReturnFunc } from '../interface/ReturnFunc'
+import { Func } from '../interface/Func'
+import { Nullable } from '../interface/Nullable'
 
 /**
  * 安全执行某个函数
@@ -7,14 +9,16 @@ import { ReturnFunc } from '../interface/ReturnFunc'
  * @param args 可选的函数参数
  * @returns 函数执行的结果，或者其默认值
  */
-export function safeExec<R>(
-  fn: ReturnFunc<R>,
-  defaultVal: R | null = null,
-  ...args: any[]
-): R | null {
+export function safeExec<Fn extends Func, R extends Nullable<ReturnType<Fn>>>(
+  fn: Fn,
+  defaultVal?: R,
+  ...args: Parameters<Fn>
+): R extends Nullable<ReturnType<Fn>>
+  ? Nullable<ReturnType<Fn>>
+  : ReturnType<Fn> {
   try {
-    return fn(...args)
+    return fn(...(args as any))
   } catch (err) {
-    return defaultVal
+    return (defaultVal === undefined ? null : defaultVal) as any
   }
 }

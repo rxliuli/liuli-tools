@@ -1,5 +1,5 @@
-import { ReturnFunc } from '../interface/ReturnFunc'
 import { wait } from './wait'
+import { AsyncFunc } from '../interface/AsyncFunc'
 
 /**
  * 将一个异步函数包装为具有时序的异步函数
@@ -7,9 +7,7 @@ import { wait } from './wait'
  * @param fn 一个普通的异步函数
  * @returns 包装后的函数
  */
-export function mergeMap<R>(
-  fn: ReturnFunc<Promise<R>>,
-): ReturnFunc<Promise<R>> {
+export function mergeMap<Fn extends AsyncFunc>(fn: Fn): Fn {
   // 当前执行的异步操作 id
   let id = 0
   // 所执行的异步操作 id 列表

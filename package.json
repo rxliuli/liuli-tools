@@ -8,6 +8,8 @@
   "scripts": {
     "start": "yarn test",
     "build": "rollup -c build/rollup.config.js",
+    "pack:add": "yarn link && yarn link \"rx-util\"",
+    "pack:remove": "yarn unlink \"rx-util\" && yarn unlink",
     "lint": "tslint src/**/*.ts ",
     "format": "prettier --write src/**/*.ts src/**/*.js",
     "docs": "rimraf docs && typedoc --out docs src --exclude src/**/*.test.ts && cp CNAME docs/ && cp readme.md docs/ && cp .nojekyll docs/",
@@ -23,11 +25,7 @@
     "type": "git",
     "url": "git+ssh://git@github.com/rxliuli/rx-util.git"
   },
-  "keywords": [
-    "util",
-    "browser",
-    "rxliuli"
-  ],
+  "keywords": ["util", "browser", "rxliuli"],
   "author": "rxliuli",
   "license": "MIT",
   "bugs": {
@@ -54,7 +52,6 @@
     "rollup-plugin-terser": "^4.0.4",
     "rollup-plugin-typescript2": "^0.21.1",
     "rollup-plugin-uglify": "^6.0.2",
-    "rx-util": "latest",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.1.0",
     "tslib": "^1.9.3",

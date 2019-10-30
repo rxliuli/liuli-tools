@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: yarn
-      - run: yarn jest
+      - run: yarn test:all
 
       # 发布到 npm
       - name: Publish
@@ -39,4 +39,3 @@ jobs:
           BRANCH: gh-pages
           FOLDER: docs
           BUILD_SCRIPT: yarn && yarn docs
-

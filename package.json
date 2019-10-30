@@ -19,7 +19,7 @@
     "fix": "tslint --fix src/**/*.ts",
     "server": "yarn docs && yarn coverage && live-server docs/ --port=4000",
     "deploy": "yarn gh-pages -d docs -t true && rm -rf docs",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build && yarn coverage"
   },
   "repository": {
     "type": "git",

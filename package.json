@@ -15,7 +15,6 @@
     "docs": "typedoc --out docs src --exclude src/**/*.test.ts && cp CNAME docs/ && cp readme.md docs/ && cp .nojekyll docs/",
     "cloc": "cloc src/ --exclude-ext=test.ts",
     "test": "jest --watch",
-    "test:all": "yarn pack:add && jest",
     "coverage": "jest --coverage",
     "fix": "tslint --fix src/**/*.ts",
     "server": "yarn docs && yarn coverage && live-server docs/ --port=4000",

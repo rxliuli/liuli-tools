@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: yarn
-      - run: yarn test:all
+      - run: yarn jest src
 
       # 发布到 npm
       - name: Publish

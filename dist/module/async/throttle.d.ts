@@ -1,4 +1,5 @@
-import { ReturnFunc } from '../interface/ReturnFunc';
+import { Func } from '../interface/Func';
+import { Async } from '../interface/Async';
 /**
  * 函数节流
  * 节流 (throttle) 让一个函数不要执行的太频繁，减少执行过快的调用，叫节流
@@ -11,5 +12,5 @@ import { ReturnFunc } from '../interface/ReturnFunc';
  * @param action 真正需要执行的操作
  * @return {Function} 包装后有节流功能的函数。该函数是异步的，与需要包装的函数 {@link action} 是否异步没有太大关联
  */
-export declare function throttle<R>(delay: number, action: ReturnFunc<R>): ReturnFunc<R>;
+export declare function throttle<Fn extends Func>(delay: number, action: Fn): Async<Fn>;
 //# sourceMappingURL=throttle.d.ts.map

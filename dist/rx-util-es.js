@@ -125,6 +125,7 @@ const protocolPortMap = new Map()
  * 解析 url 字符串
  * @param url url 字符串，不能为空
  * @returns url 对象
+ * @deprecated 请使用原生 API URL 类，可以通过 new URL(url) 将 URL 字符串转换为 URL 对象，并获取指定的信息
  */
 function parseUrl(url) {
     if (!url) {
@@ -311,7 +312,7 @@ function dateFormat(date, fmt) {
  * 默认的日期格式
  * 不加 Z 为本地日期时间，避免出现时区的问题
  */
-const deteFormatter = 'yyyy-MM-ddThh:mm:ss.SSS';
+const dateFormatter = 'yyyy-MM-ddThh:mm:ss.SSS';
 /**
  * 将参数 key 与 value 进行 url 编码
  * @param k 参数的名字
@@ -330,11 +331,11 @@ function spliceParams(params = {}) {
             return res;
         }
         else if (v instanceof Date) {
-            res += encode(k, dateFormat(v, deteFormatter));
+            res += encode(k, dateFormat(v, dateFormatter));
         }
         else if (v instanceof Array) {
             res += v
-                .map(item => encode(k, item instanceof Date ? dateFormat(item, deteFormatter) : item))
+                .map(item => encode(k, item instanceof Date ? dateFormat(item, dateFormatter) : item))
                 .join('&');
         }
         else {
@@ -1182,12 +1183,12 @@ class TypeValidator {
  * @param args 可选的函数参数
  * @returns 函数执行的结果，或者其默认值
  */
-function safeExec(fn, defaultVal = null, ...args) {
+function safeExec(fn, defaultVal, ...args) {
     try {
         return fn(...args);
     }
     catch (err) {
-        return defaultVal;
+        return (defaultVal === undefined ? null : defaultVal);
     }
 }
 
@@ -1320,18 +1321,13 @@ function arrayToMap(arr, k, v = returnItself) {
 }
 
 /**
- * 填充字符串到指定长度
- * @param item 填充的字符串
- * @param len 填充的长度
- * @returns 填充完成的字符串
- * @deprecated 已废弃，请使用 ES6 {@link String.prototype.repeat} 函数
- * 具体请参考 MDN {@url(https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/repeat)}
+ * 判断数字是否在指定区间之中
+ * @param num 指定数字
+ * @param min 最小值
+ * @param max 最大值（不包含）
  */
-function fill(item, len) {
-    if (len <= 0) {
-        return '';
-    }
-    return item + fill(item, len - 1);
+function isRange(num, min, max) {
+    return num >= min && num < max;
 }
 
 /**
@@ -1374,6 +1370,22 @@ const defaultDateValues = new Map()
     .set('second', '00')
     .set('millieSecond', '000');
 /**
+ * 月份日期校验
+ */
+const monthDayValidate = {
+    1: 31,
+    3: 31,
+    5: 31,
+    7: 31,
+    10: 31,
+    12: 31,
+    4: 30,
+    6: 30,
+    8: 30,
+    11: 30,
+    2: 28,
+};
+/**
  * 解析字符串为 Date 对象
  * @param str 日期字符串
  * @param fmt 日期字符串的格式，目前仅支持使用 y(年),M(月),d(日),h(时),m(分),s(秒),S(毫秒)
@@ -1388,10 +1400,10 @@ function dateParse(str, fmt) {
         const regExp = new RegExp(regex);
         if (regExp.test(fmt)) {
             const matchStr = regExp.exec(fmt)[0];
-            const regexStr = fill('`', matchStr.length);
+            const regexStr = '`'.repeat(matchStr.length);
             const index = fmt.indexOf(matchStr);
             fmt = fmt.replace(matchStr, regexStr);
-            dateUnits.push(new DateFormat(fmtName, fill('\\d', matchStr.length), null, index));
+            dateUnits.push(new DateFormat(fmtName, '\\d'.repeat(matchStr.length), null, index));
         }
         else {
             dateUnits.push(new DateFormat(fmtName, null, defaultDateValues.get(fmtName), -1));
@@ -1436,8 +1448,29 @@ function dateParse(str, fmt) {
             .concat(map.get('year')));
     }
     // 注意：此处使用的是本地时间而非 UTC 时间
-    const date = `${map.get('year')}-${map.get('month')}-${map.get('day')}T${map.get('hour')}:${map.get('minute')}:${map.get('second')}.${map.get('millieSecond')}`;
-    return new Date(date);
+    const get = (unit) => parseInt(map.get(unit));
+    const year = get('year');
+    const month = get('month');
+    const day = get('day');
+    const hour = get('hour');
+    const minute = get('minute');
+    const second = get('second');
+    const millieSecond = get('millieSecond');
+    if (!isRange(month, 1, 12 + 1)) {
+        return null;
+    }
+    if (!isRange(day, 1, Reflect.get(monthDayValidate, month) +
+        (month === 2 && year % 4 === 0 ? 1 : 0) +
+        1)) {
+        return null;
+    }
+    if (!isRange(hour, 0, 24 + 1) ||
+        !isRange(minute, 0, 60 + 1) ||
+        !isRange(second, 0, 60 + 1) ||
+        !isRange(millieSecond, 0, 999 + 1)) {
+        return null;
+    }
+    return new Date(year, month - 1, day, hour, minute, second, millieSecond);
 }
 
 /**
@@ -1600,21 +1633,21 @@ function setCusorPostion(el, start, end = start) {
 }
 
 /**
- * 用来保存监听到的事件信息
- */
-class Event {
-    constructor(el, type, listener, options) {
-        this.el = el;
-        this.type = type;
-        this.listener = listener;
-        this.options = options;
-    }
-}
-/**
- * 监听 event 的添加
- * 注：必须及早添加
+ * 监听 event 的添加/删除，使 DOM 事件是可撤销的
+ * 注：必须及早运行，否则无法监听之前添加的事件
  */
 function watchEventListener() {
+    /**
+     * 用来保存监听到的事件信息
+     */
+    class Event {
+        constructor(el, type, listener, useCapture) {
+            this.el = el;
+            this.type = type;
+            this.listener = listener;
+            this.useCapture = useCapture;
+        }
+    }
     /**
      * 监听所有的 addEventListener, removeEventListener 事件
      */
@@ -1622,47 +1655,44 @@ function watchEventListener() {
     const eventTargetAddEventListener = EventTarget.prototype.addEventListener;
     const documentRemoveEventListener = document.removeEventListener;
     const eventTargetRemoveEventListener = EventTarget.prototype.removeEventListener;
-    let events = [];
+    const events = [];
     /**
      * 自定义的添加事件监听函数
      * @param type 事件类型
      * @param listener 事件监听函数
-     * @param useCapture 是否需要捕获事件冒泡，默认为 false
+     * @param [useCapture] 是否需要捕获事件冒泡，默认为 false
      */
-    function addEventListener(type, listener, useCapture) {
+    function addEventListener(type, listener, useCapture = false) {
+        const $addEventListener = 
         // @ts-ignore
-        const _this = this;
-        const $addEventListener = _this === document
-            ? documentAddEventListener
-            : eventTargetAddEventListener;
-        events.push(new Event(_this, type, listener, useCapture));
+        this === document ? documentAddEventListener : eventTargetAddEventListener;
         // @ts-ignore
-        $addEventListener.apply(this, type, listener, useCapture);
+        events.push(new Event(this, type, listener, useCapture));
+        // @ts-ignore
+        $addEventListener.apply(this, arguments);
     }
     /**
      * 自定义的根据类型删除事件函数
      * 该方法会删除这个类型下面全部的监听函数，不管数量
      * @param type 事件类型
      */
-    // @ts-ignore
     function removeEventListenerByType(type) {
+        const $removeEventListener = 
         // @ts-ignore
-        const _this = this;
-        const $removeEventListener = _this === document
+        this === document
             ? documentRemoveEventListener
             : eventTargetRemoveEventListener;
-        const map = groupBy(events, e => e.el === _this && e.type === type);
-        const removeArr = map.get(true);
-        removeArr.forEach(e => {
+        const removeIndexList = events
             // @ts-ignore
+            .map((e, i) => (e.el === this || e.type === arguments[0] ? i : -1))
+            .filter(i => i !== -1);
+        removeIndexList.forEach(i => {
+            const e = events[i];
             $removeEventListener.apply(e.el, [e.type, e.listener, e.useCapture]);
         });
-        // @ts-ignore
-        events = map.get(false);
+        removeIndexList.sort((a, b) => b - a).forEach(i => events.splice(i, 1));
     }
-    // @ts-ignore
     document.addEventListener = EventTarget.prototype.addEventListener = addEventListener;
-    // 此处是为了新增函数 removeEventListenerByType
     // @ts-ignore
     document.removeEventListenerByType = EventTarget.prototype.removeEventListenerByType = removeEventListenerByType;
 }
@@ -1967,6 +1997,21 @@ function watchObject(object, callback) {
 }
 
 /**
+ * 填充字符串到指定长度
+ * @param item 填充的字符串
+ * @param len 填充的长度
+ * @returns 填充完成的字符串
+ * @deprecated 已废弃，请使用 ES6 {@link String.prototype.repeat} 函数
+ * 具体请参考 MDN {@url(https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/repeat)}
+ */
+function fill(item, len) {
+    if (len <= 0) {
+        return '';
+    }
+    return item + fill(item, len - 1);
+}
+
+/**
  * 字符串格式化
  *
  * @param str 要进行格式化的值
@@ -1976,16 +2021,6 @@ function watchObject(object, callback) {
  */
 function format(str, args) {
     return Object.keys(args).reduce((res, k) => res.replace(new RegExp(`{${k}}`, 'g'), toString$1(args[k])), str);
-}
-
-/**
- * 判断数字是否在指定区间之中
- * @param num 指定数字
- * @param min 最小值
- * @param max 最大值（不包含）
- */
-function isRange(num, min, max) {
-    return num >= min && num < max;
 }
 
 /**
@@ -2853,12 +2888,11 @@ class StringStyleConverter {
  * @param identity 参数转换的函数，参数为需要包装函数的参数
  * @returns 需要被包装的函数
  */
-function onceOfSameParam(fn, identity = fn.toString()) {
-    const generateKey = (args) => `onceOfSameParam-${identity}-${JSON.stringify(args)}`;
+function onceOfSameParam(fn, identity = (args) => `onceOfSameParam-${fn.toString()}-${JSON.stringify(args)}`) {
     const cacheMap = new Map();
-    return new Proxy(fn, {
+    const res = new Proxy(fn, {
         apply(_, _this, args) {
-            const key = generateKey(args);
+            const key = identity(args);
             const old = cacheMap.get(key);
             if (old !== undefined) {
                 return old;
@@ -2868,6 +2902,17 @@ function onceOfSameParam(fn, identity = fn.toString()) {
                 cacheMap.set(key, res);
                 return res;
             });
+        },
+    });
+    return Object.assign(res, {
+        origin: fn,
+        clear(...keys) {
+            if (keys.length) {
+                cacheMap.clear();
+            }
+            else {
+                keys.forEach(key => cacheMap.delete(key));
+            }
         },
     });
 }
@@ -3265,9 +3310,10 @@ class LocalStorageCache {
             };
             getKeys()
                 .filter(not(isNullOrUndefined))
-                .map(key => safeExec(JSON.parse, null, local.getItem(key)))
+                .map(key => safeExec(() => JSON.parse(local.getItem(key))))
                 .filter(cacheVal => !isNullOrUndefined(cacheVal) &&
                 isNullOrUndefined(cacheVal.cacheOption))
+                // TODO 这里暂时加个补丁，过滤掉 timeStart,timeout 为 undefined 的缓存
                 .filter(({ cacheOption = {} }) => {
                 const { timeStart, timeout } = cacheOption;
                 if (isNullOrUndefined(timeStart) || isNullOrUndefined(timeout)) {
@@ -3331,7 +3377,7 @@ class LocalStorageCache {
      */
     get(key) {
         const str = this.localStorage.getItem(key);
-        const cacheVal = safeExec(JSON.parse, null, str);
+        const cacheVal = safeExec(() => JSON.parse(str));
         if (isNullOrUndefined(cacheVal) ||
             isNullOrUndefined(cacheVal.cacheOption)) {
             return null;
@@ -3366,7 +3412,7 @@ class LocalStorageCache {
         /**
          * @type {CacheVal}
          */
-        const cacheVal = safeExec(JSON.parse, null, str);
+        const cacheVal = safeExec(() => JSON.parse(str));
         if (isNullOrUndefined(cacheVal) ||
             isNullOrUndefined(cacheVal.cacheOption)) {
             return null;
@@ -3933,10 +3979,22 @@ function floatEquals(num1, num2) {
     return Math.abs(num1 - num2) < Number.EPSILON;
 }
 
+//TODO 暂时绕过类型错误，之后有时间再修
+// export function assign<T, A>(target: T, a: A): T & A
+// export function assign<T, A, B>(target: T, a: A, b: B): T & A & B
+// export function assign<T, A, B, C>(target: T, a: A, b: B, c: C): T & A & B & C
+// export function assign<T, A, B, C, D>(
+//   target: T,
+//   a: A,
+//   b: B,
+//   c: C,
+//   d: D,
+// ): T & A & B & C & D
 /**
  * 合并多个对象的属性
  * 1. 该合并的方式为浅层合并，只会合并一层的对象
  * 2. 默认忽略值为 undefined/null 的属性
+ * @param target 覆盖的对象上
  * @param  {...Object} sources 任意数量的对象
  * @returns 合并后的对象
  */
@@ -4130,7 +4188,7 @@ function trySometime(fn, num = 1, errorCheck = res => true) {
                         // 等待结果出来
                         const res = yield Reflect.apply(target, thisArg, args);
                         // 如果没问题就直接返回了
-                        if (errorCheck(res) === true) {
+                        if (errorCheck(res)) {
                             return res;
                         }
                         // 否则抛出异常以进行下一次重试
@@ -4272,9 +4330,10 @@ function sleep(time) {
 
 /**
  * 包装一个函数为异步函数
+ * 如果是一个异步函数，则直接返回，否则返回一部函数
  * @param fn 任意一个函数
- * @typeparam R 原函数函数返回值类型
  * @returns 返回的异步结果 Promise 对象
+ * @typeparam R 原函数函数返回值类型
  */
 function async(fn) {
     return new Proxy(fn, {
@@ -4350,7 +4409,7 @@ function switchMap(fn) {
 function once(fn) {
     let flag = true;
     let cache;
-    return new Proxy(fn, {
+    const res = new Proxy(fn, {
         apply(target, thisArg, args) {
             if (flag === false) {
                 return cache;
@@ -4361,6 +4420,12 @@ function once(fn) {
                 cache = res;
                 return cache;
             });
+        },
+    });
+    return Object.assign(res, {
+        origin: fn,
+        clear() {
+            cache = null;
         },
     });
 }
@@ -4497,13 +4562,13 @@ function segmentation(arr, num) {
  * @return 根据状态切换 class 的函数
  */
 function toggleClass(el, obj) {
-    const arr = Object.entries(obj);
+    const arr = Array.from(Object.values(obj));
     /**
      * 返回切换 class 的函数
      * @param state 切换的状态
      */
     return function toggle(state) {
-        arr.forEach(([, v]) => el.classList.remove(v));
+        arr.forEach(v => el.classList.remove(v));
         el.classList.add(obj[state]);
     };
 }
@@ -4557,5 +4622,5 @@ function partial(fn, ...args) {
  */
 partial._ = Symbol('_');
 
-export { AntiDebug, ArrayValidator, AsyncArray, CacheUtil, CombinedPredicate, DateConstants, DateFormatter, FetchLimiting, LocalStorageCache, Locker, Logger, NodeBridgeUtil, PathUtil, PubSubMachine, StateMachine, StringStyleType, StringStyleUtil, StringValidator, TypeValidator, aggregation, and, antiDebug, appends, arrayDiffBy, arrayToMap, arrayValidator, asIterator, assign, async, asyncFlatMap, asyncLimiting, autoIncrement, blankToNull, blankToNullField, bridge, cacheUtil, compare, compose, concatMap, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, deny, diffBy, download, downloadString, downloadUrl, emptyAllField, emptyFunc, excludeFields, excludeFieldsDeep, extractFieldMap, fetchTimeout, fill, filterItems, findIndex, flatMap, floatEquals, formDataToArray, format, getCookies, getCursorPosition, getCusorPostion, getObjectEntries, getObjectKeys, getYearWeek, groupBy, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, listToTree, loadResource, loadScript, logger, mapToObject, mergeMap, nodeBridgeUtil, not, objToFormData, objectToMap, once, onceOfSameParam, or, parseUrl, partial, pathUtil, randomInt, range, readLocal, removeEl, removeText, repeatedCall, returnItself, returnReasonableItself, safeExec, segmentation, setCursorPosition, setCusorPostion, sets, singleModel, sleep, sortBy, spliceParams, strToArrayBuffer, strToDate, stringValidator, switchMap, throttle, timing, toLowerCase, toObject, toString$1 as toString, toUpperCase, toggleClass, treeMapping, treeToList, trySometime, trySometimeParallel, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
+export { AntiDebug, ArrayValidator, AsyncArray, CacheUtil, CombinedPredicate, DateConstants, DateFormatter, FetchLimiting, LocalStorageCache, Locker, Logger, NodeBridgeUtil, PathUtil, PubSubMachine, StateMachine, StringStyleType, StringStyleUtil, StringValidator, TypeValidator, aggregation, and, antiDebug, appends, arrayDiffBy, arrayToMap, arrayValidator, asIterator, assign, async, asyncFlatMap, asyncLimiting, autoIncrement, blankToNull, blankToNullField, bridge, cacheUtil, compare, compatibleAsync, compose, concatMap, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepFreeze, deepProxy, deletes, deny, diffBy, download, downloadString, downloadUrl, emptyAllField, emptyFunc, excludeFields, excludeFieldsDeep, extractFieldMap, fetchTimeout, fill, filterItems, findIndex, flatMap, floatEquals, formDataToArray, format, getCookies, getCursorPosition, getCusorPostion, getObjectEntries, getObjectKeys, getYearWeek, groupBy, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, listToTree, loadResource, loadScript, logger, mapToObject, mergeMap, nodeBridgeUtil, not, objToFormData, objectToMap, once, onceOfSameParam, or, parseUrl, partial, pathUtil, randomInt, range, readLocal, removeEl, removeText, repeatedCall, returnItself, returnReasonableItself, safeExec, segmentation, setCursorPosition, setCusorPostion, sets, singleModel, sleep, sortBy, spliceParams, strToArrayBuffer, strToDate, stringValidator, switchMap, throttle, timing, toLowerCase, toObject, toString$1 as toString, toUpperCase, toggleClass, treeMapping, treeToList, trySometime, trySometimeParallel, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
 //# sourceMappingURL=rx-util-es.js.map

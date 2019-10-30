@@ -1,5 +1,5 @@
-import { ReturnFunc } from '../interface/ReturnFunc';
-import { Nullable } from '../interface/Nullable';
+import { Func } from '../interface/Func';
+import { Async } from '../interface/Async';
 /**
  * 函数去抖
  * 去抖 (debounce) 去抖就是对于一定时间段的连续的函数调用，只让其执行一次
@@ -13,5 +13,5 @@ import { Nullable } from '../interface/Nullable';
  * @param init 初始的缓存值，不填默认为 {@see undefined}
  * @return 包装后有去抖功能的函数。该函数是异步的，与需要包装的函数 {@see action} 是否异步没有太大关联
  */
-export declare function debounce<R, Func extends Function = ReturnFunc<Nullable<R>>>(delay: number, action: Func, init?: any): Func;
+export declare function debounce<Fn extends Func>(delay: number, action: Fn, init?: any): Async<Fn>;
 //# sourceMappingURL=debounce.d.ts.map

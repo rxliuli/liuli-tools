@@ -19,6 +19,6 @@ interface IWaitResourceOptions {
  * @param option 可配置项
  * @returns Promise 对象
  */
-export declare function waitResource(fn: ReturnFunc<boolean>, { interval, max }?: Partial<IWaitResourceOptions>): Promise<{}>;
+export declare function waitResource(fn: ReturnFunc<boolean>, { interval, max }?: Partial<IWaitResourceOptions>): Promise<unknown>;
 export {};
 //# sourceMappingURL=waitResource.d.ts.map

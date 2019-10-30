@@ -1,3 +1,6 @@
+/**
+ * FormData 构建器
+ */
 export declare class FormDataBuilder {
     static formDataToArray(fd: FormData): Array<[string, string | Blob]>;
     static objToFormData(data: Record<string, string | Blob | any>): FormData;

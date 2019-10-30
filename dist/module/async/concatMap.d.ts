@@ -1,4 +1,4 @@
-import { ReturnFunc } from '../interface/ReturnFunc';
+import { AsyncFunc } from '../interface/AsyncFunc';
 /**
  * 将一个异步函数包装为具有时序的异步函数
  * 注: 该函数会按照调用顺序依次返回结果，后面的执行的调用（不是调用结果）需要等待前面的，此函数适用于异步函数的内里执行也必须保证顺序时使用，否则请使用 {@link mergeMap} 函数
@@ -7,5 +7,5 @@ import { ReturnFunc } from '../interface/ReturnFunc';
  * @param fn 一个普通的异步函数
  * @returns 包装后的函数
  */
-export declare function concatMap<R>(fn: ReturnFunc<Promise<R>>): ReturnFunc<Promise<R>>;
+export declare function concatMap<Fn extends AsyncFunc>(fn: Fn): Fn;
 //# sourceMappingURL=concatMap.d.ts.map

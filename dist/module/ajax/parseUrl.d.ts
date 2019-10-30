@@ -39,6 +39,7 @@ interface IUrlObject {
  * 解析 url 字符串
  * @param url url 字符串，不能为空
  * @returns url 对象
+ * @deprecated 请使用原生 API URL 类，可以通过 new URL(url) 将 URL 字符串转换为 URL 对象，并获取指定的信息
  */
 export declare function parseUrl(url: string): IUrlObject | null;
 export {};

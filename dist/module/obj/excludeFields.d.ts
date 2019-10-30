@@ -5,5 +5,5 @@
  * @param fields 要排除的多个字段
  * @returns 排除完指定字段得到的新的对象
  */
-export declare function excludeFields<T extends object>(obj: T, ...fields: PropertyKey[]): T;
+export declare function excludeFields<T extends object, K extends keyof T>(obj: T, ...fields: K[]): Omit<T, K>;
 //# sourceMappingURL=excludeFields.d.ts.map

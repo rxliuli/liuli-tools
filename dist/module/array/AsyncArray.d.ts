@@ -183,7 +183,7 @@ export declare class AsyncArray<T> implements PromiseLike<any> {
     /**
      * 允许使用 for-of 遍历内部的 _arr
      */
-    [Symbol.iterator](): IterableIterator<T>;
+    [Symbol.iterator](): Generator<T, void, unknown>;
     private _addTask;
 }
 export {};

@@ -32,6 +32,6 @@ export declare class StateMachine<K = any, R = any> {
     /**
      * 允许使用 for-of 遍历整个状态机
      */
-    [Symbol.iterator](): IterableIterator<[K, Newable<R>]>;
+    [Symbol.iterator](): Generator<[K, Newable<R>], void, unknown>;
 }
 //# sourceMappingURL=StateMachine.d.ts.map

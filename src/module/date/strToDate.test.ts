@@ -26,6 +26,6 @@ describe('test strToDate', () => {
   })
   it('test error date for 13 month', () => {
     const date = strToDate('2019-13-11', 'yyyy-MM-dd')
-    expect(date!.getFullYear()).toBeNaN()
+    expect(date).toBeNull()
   })
 })

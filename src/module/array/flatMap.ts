@@ -9,7 +9,7 @@ import { getKFn } from './getKFn'
  */
 export function flatMap<T, V>(
   arr: T[],
-  k: ArrayKFn<T, V[]> = v => Array.from(v as any),
+  k: ArrayKFn<T, V[]> = (v: T) => Array.from(v as any),
 ): V[] {
   const fn = getKFn(k)
   return arr.reduce((res, v, i, arr) => {

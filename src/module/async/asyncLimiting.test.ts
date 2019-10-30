@@ -8,7 +8,7 @@ describe('test asyncLimiting', () => {
     const add = () => wait(100)
     // @ts-ignore
     const fn = asyncLimiting(add)
-    const time = await timing(() => Promise.all(range(0, 10).map(i => fn(i))))
+    const time = await timing(() => Promise.all(range(0, 10).map(() => fn())))
     expect(time).toBeGreaterThan(1000)
   })
   it('test order', async () => {

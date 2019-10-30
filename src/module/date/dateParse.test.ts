@@ -4,8 +4,8 @@ import { dateFormat } from './dateFormat'
 /**
  * @test {dateParse}
  */
-describe('test dateParse', () => {
-  it('test normal parse string to date', () => {
+describe('测试 dateParse', () => {
+  it('简单示例', () => {
     const date = dateParse('2019-12-11', 'yyyy-MM-dd')
     expect(dateFormat(date!, 'yyyy/MM/dd')).toBe('2019/12/11')
     expect(dateFormat(date!, 'hh/mm/ss')).toBe('00/00/00')
@@ -18,14 +18,15 @@ describe('test dateParse', () => {
     )
   })
 
-  it('test the wrong string format', () => {
+  it('测试错误的解析字符串', () => {
     expect(dateParse('2019-12-11', 'yyyy-MM')).toBeNull()
   })
-  it('test year for two numbers', () => {
+  it('测试简写的年份', () => {
     expect(dateParse('19-12-11', 'yy-MM-dd')!.getFullYear()).toEqual(2019)
   })
-  it('test error date for 13 month', () => {
-    const date = dateParse('2019-13-11', 'yyyy-MM-dd')
-    expect(date!.getFullYear()).toBeNaN()
+  it('测试错误日期', () => {
+    expect(dateParse('2019-13-11', 'yyyy-MM-dd')).toBeNull()
+    expect(dateParse('2019-11-31', 'yyyy-MM-dd')).toBeNull()
+    expect(dateParse('2019-11-31 25:11:11', 'yyyy-MM-dd hh:mm:ss')).toBeNull()
   })
 })

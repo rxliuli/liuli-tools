@@ -1,6 +1,6 @@
-import { fill } from '../string/fill'
 import { arrayToMap } from './../array/arrayToMap'
 import { Nullable } from '../interface/Nullable'
+import { isRange } from '../number/isRange'
 
 /**
  * 日期格式化类
@@ -42,6 +42,23 @@ const defaultDateValues = new Map()
   .set('minute', '00')
   .set('second', '00')
   .set('millieSecond', '000')
+
+/**
+ * 月份日期校验
+ */
+const monthDayValidate = {
+  1: 31,
+  3: 31,
+  5: 31,
+  7: 31,
+  10: 31,
+  12: 31,
+  4: 30,
+  6: 30,
+  8: 30,
+  11: 30,
+  2: 28,
+}
 /**
  * 解析字符串为 Date 对象
  * @param str 日期字符串
@@ -57,11 +74,11 @@ export function dateParse(str: string, fmt: string): Nullable<Date> {
     const regExp = new RegExp(regex)
     if (regExp.test(fmt)) {
       const matchStr = regExp.exec(fmt)![0]
-      const regexStr = fill('`', matchStr.length)
+      const regexStr = '`'.repeat(matchStr.length)
       const index = fmt.indexOf(matchStr)
       fmt = fmt.replace(matchStr, regexStr)
       dateUnits.push(
-        new DateFormat(fmtName, fill('\\d', matchStr.length), null!, index),
+        new DateFormat(fmtName, '\\d'.repeat(matchStr.length), null!, index),
       )
     } else {
       dateUnits.push(
@@ -111,10 +128,35 @@ export function dateParse(str: string, fmt: string): Nullable<Date> {
     )
   }
   // 注意：此处使用的是本地时间而非 UTC 时间
-  const date = `${map.get('year')}-${map.get('month')}-${map.get(
-    'day',
-  )}T${map.get('hour')}:${map.get('minute')}:${map.get('second')}.${map.get(
-    'millieSecond',
-  )}`
-  return new Date(date)
+  const get = (unit: string) => parseInt(map.get(unit)!)
+  const year = get('year')
+  const month = get('month')
+  const day = get('day')
+  const hour = get('hour')
+  const minute = get('minute')
+  const second = get('second')
+  const millieSecond = get('millieSecond')
+  if (!isRange(month, 1, 12 + 1)) {
+    return null
+  }
+  if (
+    !isRange(
+      day,
+      1,
+      Reflect.get(monthDayValidate, month) +
+        (month === 2 && year % 4 === 0 ? 1 : 0) +
+        1,
+    )
+  ) {
+    return null
+  }
+  if (
+    !isRange(hour, 0, 24 + 1) ||
+    !isRange(minute, 0, 60 + 1) ||
+    !isRange(second, 0, 60 + 1) ||
+    !isRange(millieSecond, 0, 999 + 1)
+  ) {
+    return null
+  }
+  return new Date(year, month - 1, day, hour, minute, second, millieSecond)
 }

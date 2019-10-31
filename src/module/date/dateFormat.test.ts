@@ -16,4 +16,8 @@ describe('test dateFormat', () => {
       '2019-12-11T11:11:10.100Z',
     )
   })
+  it('使用大写日期模式', () => {
+    const now = new Date()
+    expect(dateFormat(now, 'YYYY-MM-DD')).toBe(dateFormat(now, 'yyyy-MM-dd'))
+  })
 })

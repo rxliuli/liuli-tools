@@ -25,9 +25,9 @@ class DateFormat {
  * 日期时间的正则表达式
  */
 const dateFormats = new Map()
-  .set('year', 'y{4}|y{2}')
+  .set('year', 'Y{4}|Y{2}|y{4}|y{2}')
   .set('month', 'M{1,2}')
-  .set('day', 'd{1,2}')
+  .set('day', 'D{1,2}|d{1,2}')
   .set('hour', 'h{1,2}')
   .set('minute', 'm{1,2}')
   .set('second', 's{1,2}')

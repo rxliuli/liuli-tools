@@ -29,9 +29,9 @@ describe('测试 dateParse', () => {
     expect(dateParse('2019-11-31', 'yyyy-MM-dd')).toBeNull()
     expect(dateParse('2019-11-31 25:11:11', 'yyyy-MM-dd hh:mm:ss')).toBeNull()
   })
-  describe('实际问题', () => {
-    it('莫名返回 null', () => {
-      console.log(dateParse('2019-09-30 14:45:10', 'yyyy-MM-dd hh:mm:ss'))
-    })
+  it('使用大写日期模式', () => {
+    expect(dateParse('2019-13-11', 'YYYY-MM-DD')).toBe(
+      dateParse('2019-13-11', 'yyyy-MM-dd'),
+    )
   })
 })

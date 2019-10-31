@@ -284,30 +284,30 @@
    * @returns 格式化得到的结果
    */
   function dateFormat(date, fmt) {
-      const o = {
-          'y+': date.getFullYear(),
+      const timeFormatDefaults = {
+          'Y+|y+': date.getFullYear(),
           'M+': date.getMonth() + 1,
-          'd+': date.getDate(),
+          'D+|d+': date.getDate(),
           'h+': date.getHours(),
           'm+': date.getMinutes(),
           's+': date.getSeconds(),
           'q+': Math.floor((date.getMonth() + 3) / 3),
           'S+': date.getMilliseconds(),
       };
-      for (const k in o) {
+      for (const k in timeFormatDefaults) {
           if (!new RegExp('(' + k + ')').test(fmt)) {
               continue;
           }
-          if (k === 'y+') {
-              fmt = fmt.replace(RegExp.$1, ('' + o[k]).substr(4 - RegExp.$1.length));
+          if (k === 'Y+|y+') {
+              fmt = fmt.replace(RegExp.$1, ('' + timeFormatDefaults[k]).substr(4 - RegExp.$1.length));
           }
           else if (k === 'S+') {
               let lens = RegExp.$1.length;
               lens = lens === 1 ? 3 : lens;
-              fmt = fmt.replace(RegExp.$1, ('00' + o[k]).substr(('' + o[k]).length - 1, lens));
+              fmt = fmt.replace(RegExp.$1, ('00' + timeFormatDefaults[k]).substr(('' + timeFormatDefaults[k]).length - 1, lens));
           }
           else {
-              const v = Reflect.get(o, k);
+              const v = Reflect.get(timeFormatDefaults, k);
               fmt = fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? v : ('00' + v).substr(('' + v).length));
           }
       }
@@ -1227,7 +1227,7 @@
    * @param k 映射方法，将一个元素映射为一个数组
    * @returns 压平一层的数组
    */
-  function flatMap(arr, k = v => Array.from(v)) {
+  function flatMap(arr, k = (v) => Array.from(v)) {
       const fn = getKFn(k);
       return arr.reduce((res, v, i, arr) => {
           res.push(...fn(v, i, arr));
@@ -1358,9 +1358,9 @@
    * 日期时间的正则表达式
    */
   const dateFormats = new Map()
-      .set('year', 'y{4}|y{2}')
+      .set('year', 'Y{4}|Y{2}|y{4}|y{2}')
       .set('month', 'M{1,2}')
-      .set('day', 'd{1,2}')
+      .set('day', 'D{1,2}|d{1,2}')
       .set('hour', 'h{1,2}')
       .set('minute', 'm{1,2}')
       .set('second', 's{1,2}')

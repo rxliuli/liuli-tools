@@ -4,7 +4,7 @@
  * @returns 返回一个新的对象
  */
 export function emptyAllField<T extends object>(obj: T): T {
-  return Reflect.ownKeys(obj).reduce((res, k) => {
+  return Object.keys(obj).reduce((res, k) => {
     Reflect.set(res, k, null)
     return res
   }, {}) as any

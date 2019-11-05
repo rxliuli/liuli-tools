@@ -27,7 +27,7 @@ export function assign<T extends object>(
     if (isNullOrUndefined(source)) {
       return res
     }
-    return Reflect.ownKeys(source).reduce((res, k) => {
+    return Object.keys(source).reduce((res, k) => {
       const v = Reflect.get(source, k)
       if (isNullOrUndefined(v)) {
         return res

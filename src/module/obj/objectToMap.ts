@@ -6,7 +6,7 @@
 export function objectToMap(
   obj: Record<PropertyKey, any>,
 ): Map<PropertyKey, any> {
-  return Reflect.ownKeys(obj).reduce(
+  return Object.keys(obj).reduce(
     (map, k) => map.set(k, Reflect.get(obj, k)),
     new Map(),
   )

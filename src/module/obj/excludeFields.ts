@@ -10,7 +10,7 @@ export function excludeFields<T extends object, K extends keyof T>(
   ...fields: K[]
 ): Omit<T, K> {
   const set = new Set(fields)
-  return Reflect.ownKeys(obj).reduce((res, k) => {
+  return Object.keys(obj).reduce((res, k) => {
     if (!set.has(k as any)) {
       Reflect.set(res, k, Reflect.get(obj, k))
     }

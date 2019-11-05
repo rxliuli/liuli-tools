@@ -9,7 +9,7 @@ export function excludeFieldsDeep<T extends object>(
   obj: T,
   ...fields: PropertyKey[]
 ): T {
-  return Reflect.ownKeys(obj).reduce(
+  return Object.keys(obj).reduce(
     (res, k) => {
       const v = Reflect.get(res, k)
       if (v instanceof Object) {

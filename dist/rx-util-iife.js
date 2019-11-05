@@ -2215,7 +2215,7 @@ var rx = (function (exports) {
    * @returns 将所有的空白属性全部转换为 null 的新对象
    */
   function blankToNullField(obj) {
-      return Reflect.ownKeys(obj).reduce((res, k) => {
+      return Object.keys(obj).reduce((res, k) => {
           const v = Reflect.get(obj, k);
           Reflect.set(res, k, typeof v === 'string' ? blankToNull(v) : v);
           return res;
@@ -2228,7 +2228,7 @@ var rx = (function (exports) {
    * @returns 返回一个新的对象
    */
   function emptyAllField(obj) {
-      return Reflect.ownKeys(obj).reduce((res, k) => {
+      return Object.keys(obj).reduce((res, k) => {
           Reflect.set(res, k, null);
           return res;
       }, {});
@@ -2243,7 +2243,7 @@ var rx = (function (exports) {
    */
   function excludeFields(obj, ...fields) {
       const set = new Set(fields);
-      return Reflect.ownKeys(obj).reduce((res, k) => {
+      return Object.keys(obj).reduce((res, k) => {
           if (!set.has(k)) {
               Reflect.set(res, k, Reflect.get(obj, k));
           }
@@ -2969,6 +2969,7 @@ var rx = (function (exports) {
    * 获取对象中所有的属性值，包括 ES6 新增的 Symbol 类型的属性
    * @param obj 任何对象
    * @returns 属性值数组
+   * @deprecated 该函数将要被废弃，实质上应用场景很窄
    */
   function getObjectValues(obj) {
       return Reflect.ownKeys(obj).map(k => Reflect.get(obj, k));
@@ -3240,7 +3241,7 @@ var rx = (function (exports) {
    * @param  {...obj} fields 需要排除的字段
    */
   function excludeFieldsDeep(obj, ...fields) {
-      return Reflect.ownKeys(obj).reduce((res, k) => {
+      return Object.keys(obj).reduce((res, k) => {
           const v = Reflect.get(res, k);
           if (v instanceof Object) {
               Reflect.set(obj, k, excludeFieldsDeep(v, ...fields));
@@ -3756,7 +3757,7 @@ var rx = (function (exports) {
    * @returns 转换得到的 Map 键值表
    */
   function objectToMap(obj) {
-      return Reflect.ownKeys(obj).reduce((map, k) => map.set(k, Reflect.get(obj, k)), new Map());
+      return Object.keys(obj).reduce((map, k) => map.set(k, Reflect.get(obj, k)), new Map());
   }
 
   /**
@@ -3951,6 +3952,7 @@ var rx = (function (exports) {
    * 获取对象中所有的属性及对应的值，包括 ES6 新增的 Symbol 类型的属性
    * @param obj 任何对象
    * @returns 属性及其对应值的二维数组
+   * @deprecated 该函数将要被废弃，实质上应用场景很窄
    */
   function getObjectEntries(obj) {
       const mFn = k => [
@@ -4009,7 +4011,7 @@ var rx = (function (exports) {
           if (isNullOrUndefined(source)) {
               return res;
           }
-          return Reflect.ownKeys(source).reduce((res, k) => {
+          return Object.keys(source).reduce((res, k) => {
               const v = Reflect.get(source, k);
               if (isNullOrUndefined(v)) {
                   return res;
@@ -4301,13 +4303,13 @@ var rx = (function (exports) {
           return false;
       }
       // 比较 y 中的属性是否全部都在 x 中
-      for (const p of Reflect.ownKeys(y)) {
+      for (const p of Object.keys(y)) {
           if (!Reflect.has(x, p)) {
               return false;
           }
       }
       // 比较 x 中的属性是否全部都在 y 中
-      for (const p of Reflect.ownKeys(x)) {
+      for (const p of Object.keys(x)) {
           if (!Reflect.has(y, p)) {
               return false;
           }

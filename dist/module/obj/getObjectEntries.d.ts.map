@@ -1,1 +1,1 @@
-{"version":3,"file":"getObjectEntries.d.ts","sourceRoot":"","sources":["../../src/module/obj/getObjectEntries.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AACH,wBAAgB,gBAAgB,CAAC,GAAG,EAAE,MAAM,GAAG,KAAK,CAAC,CAAC,WAAW,EAAE,GAAG,CAAC,CAAC,CAMvE"}
+{"version":3,"file":"getObjectEntries.d.ts","sourceRoot":"","sources":["../../src/module/obj/getObjectEntries.ts"],"names":[],"mappings":"AAAA;;;;;GAKG;AACH,wBAAgB,gBAAgB,CAAC,GAAG,EAAE,MAAM,GAAG,KAAK,CAAC,CAAC,WAAW,EAAE,GAAG,CAAC,CAAC,CAMvE"}

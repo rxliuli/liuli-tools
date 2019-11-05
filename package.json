@@ -1,6 +1,6 @@
 {
   "name": "rx-util",
-  "version": "1.7.8",
+  "version": "1.7.9",
   "description": "rxliuli 个人使用的 js 工具库（仅适用于浏览器）",
   "main": "./dist/rx-util.js",
   "module": "./dist/rx-util-es.js",

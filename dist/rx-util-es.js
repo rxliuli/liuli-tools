@@ -1178,17 +1178,20 @@ class TypeValidator {
 
 /**
  * 安全执行某个函数
+ * 支持异步函数
  * @param fn 需要执行的函数
  * @param defaultVal 发生异常后的默认返回值，默认为 null
  * @param args 可选的函数参数
  * @returns 函数执行的结果，或者其默认值
  */
 function safeExec(fn, defaultVal, ...args) {
+    const defRes = (defaultVal === undefined ? null : defaultVal);
     try {
-        return fn(...args);
+        const res = fn(...args);
+        return res instanceof Promise ? res.catch(() => defRes) : res;
     }
     catch (err) {
-        return (defaultVal === undefined ? null : defaultVal);
+        return defRes;
     }
 }
 

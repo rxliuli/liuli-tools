@@ -1,7 +1,6 @@
 module.exports = {
   preset: 'ts-jest',
-  setupFilesAfterEnv: ['jest-extended'],
+  setupFilesAfterEnv: ['jest-extended', './test/jest-start.ts'],
   coverageDirectory: 'docs/coverage',
   moduleFileExtensions: ['ts', 'js'],
-  setupFilesAfterEnv: ['./test/jest-start.ts'],
 }

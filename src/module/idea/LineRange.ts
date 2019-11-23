@@ -1,7 +1,3 @@
-import { returnItself } from '../function/returnItself'
-import { doc } from 'prettier'
-import Line = doc.builders.Line
-
 export type Comparable = number | string | Date
 export type NoComparable = Exclude<any, Comparable>
 
@@ -9,7 +5,7 @@ export type NoComparable = Exclude<any, Comparable>
  * 比较两个区间的位置的结果
  * 有前后两个区间 `[a,b], [c,d], a<b, c<d`
  */
-enum LineRangeCompare {
+export enum LineRangeCompareEnum {
   //region `a < c`
 
   // 1. 前 不重叠 后: `b < c`
@@ -49,15 +45,18 @@ enum LineRangeCompare {
 }
 
 export class LineRange<T> {
+  static CompareEnum = LineRangeCompareEnum
+
   private _compare?: (t: T) => number
   private constructor(public readonly start: T, public readonly end: T) {}
 
-  public static create<T extends Comparable>(start: T, end: T): LineRange<T>
-  public static create<T extends NoComparable>(
-    start: T,
-    end: T,
-    kFn: (t: T) => number,
-  ): LineRange<T>
+  /**
+   * 创建一个区间
+   * 注意，默认是 [闭-开) 区间
+   * @param start
+   * @param end
+   * @param kFn
+   */
   public static create<T>(
     start: T,
     end: T,
@@ -78,100 +77,89 @@ export class LineRange<T> {
   }
 
   /**
-   * 比较两个区间的位置
-   * @param that
+   * 获取某个字段的可比较值
+   * @param field 字段名，目前只允许 start|end
+   * @returns 一个可比较的值，要么是 {@type Comparable}, 要么是经过 {@property _compare} 转换后的 {@type number}
    */
-  compare(that: LineRange<T>): LineRangeCompare {
-    const get = (lineRange: LineRange<T>, field: 'start' | 'end') =>
-      lineRange._compare === undefined
-        ? lineRange[field]
-        : lineRange._compare(lineRange[field])
-    const thisStart = get(this, 'start')
-    const thisEnd = get(this, 'end')
-    const thatStart = get(that, 'start')
-    const thatEnd = get(that, 'end')
+  public get(field: 'start' | 'end') {
+    return this._compare === undefined
+      ? this[field]
+      : this._compare(this[field])
+  }
+  /**
+   * 比较两个区间的位置
+   * @param that 另一个区间对象
+   * @returns 比较的结果
+   */
+  compare(that: LineRange<T>): LineRangeCompareEnum {
+    const thisStart = this.get('start')
+    const thisEnd = this.get('end')
+    const thatStart = that.get('start')
+    const thatEnd = that.get('end')
     if (thisStart < thatStart) {
-      if (thisEnd < thatStart) {
-        return LineRangeCompare.This_NotOverlap_That
+      if (thisEnd <= thatStart) {
+        return LineRangeCompareEnum.This_NotOverlap_That
       }
       if (thisEnd > thatStart && thisEnd < thatEnd) {
-        return LineRangeCompare.This_Overlap_That
+        return LineRangeCompareEnum.This_Overlap_That
       }
       if (thisEnd === thatEnd) {
-        return LineRangeCompare.This_JustIncluded_That
+        return LineRangeCompareEnum.This_JustIncluded_That
       }
       if (thisEnd > thatEnd) {
-        return LineRangeCompare.This_Included_That
+        return LineRangeCompareEnum.This_Included_That
       }
     } else if (thisStart === thatStart) {
       if (thisEnd < thatEnd) {
-        return LineRangeCompare.StartEqual_That_JustIncluded_This
+        return LineRangeCompareEnum.StartEqual_That_JustIncluded_This
       }
       if (thisEnd === thatEnd) {
-        return LineRangeCompare.This_Equal_That
+        return LineRangeCompareEnum.This_Equal_That
       }
       if (thisEnd > thatEnd) {
-        return LineRangeCompare.StartEqual_This_JustIncluded_That
+        return LineRangeCompareEnum.StartEqual_This_JustIncluded_That
       }
     } else {
       if (thisEnd < thatEnd) {
-        return LineRangeCompare.That_Included_This
+        return LineRangeCompareEnum.That_Included_This
       }
       if (thisEnd === thatEnd) {
-        return LineRangeCompare.That_JustIncluded_This
+        return LineRangeCompareEnum.That_JustIncluded_This
       }
       if (thisStart < thatEnd && thisEnd > thatEnd) {
-        return LineRangeCompare.That_Overlap_This
+        return LineRangeCompareEnum.That_Overlap_This
       }
-      if (thisStart > thatEnd) {
-        return LineRangeCompare.That_NotOverlap_This
+      if (thisStart >= thatEnd) {
+        return LineRangeCompareEnum.That_NotOverlap_This
       }
     }
     throw new Error('区间比较未知情况')
   }
-  overlap(that: LineRange<T>): LineRange<T> {
-    const res = this.compare(that)
-    if (
-      new Set([
-        LineRangeCompare.This_NotOverlap_That,
-        LineRangeCompare.That_NotOverlap_This,
-      ]).has(res)
-    ) {
-      throw new Error('两个区间并不重叠')
-    }
-    if (
-      new Set([
-        LineRangeCompare.This_NotOverlap_That,
-        LineRangeCompare.That_NotOverlap_This,
-      ]).has(res)
-    ) {
-    }
 
-    return null as any
-  }
-}
-
-/**
- * 线段区间工具类
- */
-export class LineRangeUtil {
   /**
-   * 判断一组集合中是否有重叠
-   * @param rangeList
-   * @param kFn
-   * @returns {boolean}
+   * 判断两者是否重叠
+   * @param that 另一个区间对象
+   * @returns 是否有重叠
    */
-  static isOverlapping<T>(rangeList: LineRange<T>[], kFn: (t: T) => number) {
-    if (rangeList.length <= 1) {
-      return false
+  isOverlap(that: LineRange<T>): boolean {
+    return !new Set([
+      LineRangeCompareEnum.This_NotOverlap_That,
+      LineRangeCompareEnum.That_NotOverlap_This,
+    ]).has(this.compare(that))
+  }
+  /**
+   * 获取两个区间的重叠位置
+   * @param that
+   * @returns 如果不重叠则抛出异常
+   */
+  overlap(that: LineRange<T>): LineRange<T> {
+    const [min, max]: [LineRange<T>, LineRange<T>] =
+      this.get('start') < that.get('start') ? [this, that] : [that, this]
+    //如果两者不重叠，则返回 null
+    if (!this.isOverlap(that)) {
+      throw new Error('两个区间不重叠')
     }
-    const sortList = rangeList.sort((a, b) => kFn(a.start) - kFn(b.start))
-    for (let i = 0, len = sortList.length; i < len - 1; i++) {
-      //如果有重叠就返回 true
-      if (kFn(sortList[i].end) > kFn(sortList[i + 1].start)) {
-        return true
-      }
-    }
-    return false
+    const end = min.get('end') < max.get('end') ? min.end : max.end
+    return new LineRange(max.start, end)
   }
 }

@@ -53,6 +53,7 @@ export class LineRange<T> {
   /**
    * 创建一个区间
    * 注意，默认是 [闭-开) 区间
+   * https://baike.baidu.com/item/%E5%8D%8A%E5%BC%80%E5%8D%8A%E9%97%AD%E5%8C%BA%E9%97%B4#1
    * @param start
    * @param end
    * @param kFn

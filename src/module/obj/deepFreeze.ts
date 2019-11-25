@@ -1,5 +1,4 @@
-import { getObjectValues } from './getObjectValues'
-import { TypeValidator } from './TypeValidator';
+import { TypeValidator } from './TypeValidator'
 
 /**
  * 递归使对象不可变
@@ -7,19 +6,18 @@ import { TypeValidator } from './TypeValidator';
  * @returns 新的不可变对象
  */
 export function deepFreeze<T extends object>(obj: T): T {
+  const freeze = (v: any) => {
+    if (TypeValidator.isObject(v)) {
+      deepFreeze(v)
+    }
+  }
   // 数组和对象分别处理
   if (TypeValidator.isArray(obj)) {
-    obj.forEach(v => {
-      if (typeof v === 'object') {
-        deepFreeze(v)
-      }
-    })
+    obj.forEach(freeze)
   } else if (TypeValidator.isObject(obj)) {
-    getObjectValues(obj).forEach(v => {
-      if (typeof v === 'object') {
-        deepFreeze(v)
-      }
-    })
+    Object.keys(obj)
+      .map(k => Reflect.get(obj, k))
+      .forEach(freeze)
   }
   return Object.freeze(obj)
 }

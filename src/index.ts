@@ -136,6 +136,7 @@ import { segmentation } from './module/array/segmentation'
 import { toggleClass } from './module/dom/toggleClass'
 import { partial } from './module/function/partial'
 import { compatibleAsync } from './module/async/compatibleAsync'
+import { deepExcludeFields } from './module/obj/deepExcludeFields'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -257,6 +258,7 @@ export {
   assign,
   blankToNullField,
   compare,
+  deepExcludeFields,
   deepFreeze,
   deepProxy,
   emptyAllField,

@@ -2971,35 +2971,24 @@
   }
 
   /**
-   * 获取对象中所有的属性值，包括 ES6 新增的 Symbol 类型的属性
-   * @param obj 任何对象
-   * @returns 属性值数组
-   * @deprecated 该函数将要被废弃，实质上应用场景很窄
-   */
-  function getObjectValues(obj) {
-      return Reflect.ownKeys(obj).map(k => Reflect.get(obj, k));
-  }
-
-  /**
    * 递归使对象不可变
    * @param obj 任何非空对象
    * @returns 新的不可变对象
    */
   function deepFreeze(obj) {
+      const freeze = (v) => {
+          if (TypeValidator.isObject(v)) {
+              deepFreeze(v);
+          }
+      };
       // 数组和对象分别处理
       if (TypeValidator.isArray(obj)) {
-          obj.forEach(v => {
-              if (typeof v === 'object') {
-                  deepFreeze(v);
-              }
-          });
+          obj.forEach(freeze);
       }
       else if (TypeValidator.isObject(obj)) {
-          getObjectValues(obj).forEach(v => {
-              if (typeof v === 'object') {
-                  deepFreeze(v);
-              }
-          });
+          Object.keys(obj)
+              .map(k => Reflect.get(obj, k))
+              .forEach(freeze);
       }
       return Object.freeze(obj);
   }
@@ -3245,14 +3234,34 @@
    * @param obj 需要排除的对象
    * @param  {...obj} fields 需要排除的字段
    */
+  function deepExcludeFields(obj, ...fields) {
+      if (TypeValidator.isArray(obj)) {
+          return obj.map(o => deepExcludeFields(o, ...fields));
+      }
+      else if (TypeValidator.isDate(obj)) {
+          return obj;
+      }
+      else if (TypeValidator.isObject(obj)) {
+          const temp = excludeFields(obj, ...fields);
+          return Object.keys(temp).reduce((res, k) => {
+              const v = Reflect.get(res, k);
+              Reflect.set(res, k, deepExcludeFields(v, ...fields));
+              return res;
+          }, temp);
+      }
+      else {
+          return obj;
+      }
+  }
+
+  /**
+   * 递归排除对象中的指定字段
+   * @param obj 需要排除的对象
+   * @param  {...obj} fields 需要排除的字段
+   * @deprecated 已废弃，请使用统一使用 `deep` 开头的 {@link deepExcludeFields} 函数
+   */
   function excludeFieldsDeep(obj, ...fields) {
-      return Object.keys(obj).reduce((res, k) => {
-          const v = Reflect.get(res, k);
-          if (v instanceof Object) {
-              Reflect.set(obj, k, excludeFieldsDeep(v, ...fields));
-          }
-          return res;
-      }, obj instanceof Array ? obj : excludeFields(obj, ...fields));
+      return deepExcludeFields(obj, ...fields);
   }
 
   /**
@@ -4415,7 +4424,13 @@
   }
 
   /**
-   * 将指定函数包装为只调用一次
+   * 将指定函数包装为只调用一次，其他的调用返回旧值
+   * 主要适用场景是只允许调用一次的地方，例如 Tab 的初始化
+   * * 示意图:
+   * a => b => c => d => e =>
+   * a ==|====|====|====|====>
+   *     |b   |c   |d   |e  (die)
+   *
    * @param fn 需要包装的函数
    * @returns 包装后的函数
    */
@@ -4424,7 +4439,7 @@
       let cache;
       const res = new Proxy(fn, {
           apply(target, thisArg, args) {
-              if (flag === false) {
+              if (!flag) {
                   return cache;
               }
               flag = false;
@@ -4635,6 +4650,44 @@
    */
   partial._ = Symbol('_');
 
+  /**
+   * 事件工具类
+   */
+  class EventUtil {
+      static add(dom, type, listener, options) {
+          if (!EventUtil.listenerMap.has(dom)) {
+              EventUtil.listenerMap.set(dom, []);
+          }
+          EventUtil.listenerMap.get(dom).push({
+              type,
+              listener,
+              options,
+          });
+          dom.addEventListener(type, listener, options);
+      }
+      static remove(dom, type, listener, options) {
+          dom.removeEventListener(type, listener, options);
+          EventUtil.listenerMap.set(dom, (EventUtil.listenerMap.get(dom) || []).filter(cacheListener => cacheListener.type !== type ||
+              cacheListener.listener !== listener ||
+              cacheListener.options !== options));
+      }
+      static removeByType(dom, type, options) {
+          const listenerList = EventUtil.listenerMap.get(dom);
+          if (listenerList === undefined) {
+              return;
+          }
+          const map = groupBy(listenerList, cacheListener => type === cacheListener.type && options === cacheListener.options);
+          const removeCacheListenerList = map.get(true) || [];
+          const retainCacheListenerList = map.get(true) || [];
+          EventUtil.listenerMap.set(dom, retainCacheListenerList);
+          removeCacheListenerList.forEach(cacheListener => dom.removeEventListener(cacheListener.type, cacheListener.listener, cacheListener.options));
+      }
+  }
+  /**
+   * 缓存的事件监听对象映射表
+   */
+  EventUtil.listenerMap = new Map();
+
   exports.AntiDebug = AntiDebug;
   exports.ArrayValidator = ArrayValidator;
   exports.AsyncArray = AsyncArray;
@@ -4642,6 +4695,7 @@
   exports.CombinedPredicate = CombinedPredicate;
   exports.DateConstants = DateConstants;
   exports.DateFormatter = DateFormatter;
+  exports.EventUtil = EventUtil;
   exports.FetchLimiting = FetchLimiting;
   exports.LocalStorageCache = LocalStorageCache;
   exports.Locker = Locker;
@@ -4683,6 +4737,7 @@
   exports.dateFormat = dateFormat;
   exports.dateParse = dateParse;
   exports.debounce = debounce;
+  exports.deepExcludeFields = deepExcludeFields;
   exports.deepFreeze = deepFreeze;
   exports.deepProxy = deepProxy;
   exports.deletes = deletes;

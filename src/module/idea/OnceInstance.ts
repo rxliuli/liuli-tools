@@ -5,6 +5,7 @@ interface BaseOnce {
   /**
    * 将指定函数包装为只调用一次，其他的调用返回旧值
    * 主要适用场景是只允许调用一次的地方，例如 Tab 的初始化
+   * 本质上 {@link limit} 的特化
    * * 示意图:
    * a => b => c => d => e =>
    * a ==|====|====|====|====>
@@ -15,6 +16,17 @@ interface BaseOnce {
    */
   once<R, Fn extends ReturnFunc<R>>(
     fn: Fn,
+  ): Fn & { origin: Fn; clear: () => void }
+
+  /**
+   * 包装一个函数为只执行指定次数的函数
+   * @param fn 需要包装的函数
+   * @param max 最大执行次数
+   * @returns 包装后的函数
+   */
+  limit<R, Fn extends ReturnFunc<R>>(
+    fn: Fn,
+    max: number,
   ): Fn & { origin: Fn; clear: () => void }
   /**
    * 包装一个函数为指定参数只执行一次的函数
@@ -55,12 +67,19 @@ interface BaseOnce {
 /**
  * 抽象的 once 类，用于让 JS Class 进行继承扩展
  */
-abstract class BasicOnce implements BaseOnce {
+export abstract class BasicOnce implements BaseOnce {
   private className = Reflect.getPrototypeOf(this).constructor.name
   once<R, Fn extends ReturnFunc<R>>(
     fn: Fn,
   ): Fn & { origin: Fn; clear: () => void } {
     throw new Error(`${this.className} 的 once 函数未实现`)
+  }
+
+  limit<R, Fn extends ReturnFunc<R>>(
+    fn: Fn,
+    max: number,
+  ): Fn & { origin: Fn; clear: () => void } {
+    throw new Error(`${this.className} 的 limit 函数未实现`)
   }
 
   onceOfCycle<R, Fn extends ReturnFunc<R>>(
@@ -87,18 +106,25 @@ abstract class BasicOnce implements BaseOnce {
 /**
  * 基于内存的 once 系列函数
  */
-class RamOnceClass implements BaseOnce {
+class RamOnceClass extends BasicOnce {
   once<R, Fn extends ReturnFunc<R>>(
     fn: Fn,
   ): Fn & { origin: Fn; clear: () => void } {
-    let flag = true
+    return this.limit(fn, 1)
+  }
+
+  limit<R, Fn extends ReturnFunc<R>>(
+    fn: Fn,
+    max: number,
+  ): Fn & { origin: Fn; clear: () => void } {
+    let flag = max
     let cache: R
     const res = new Proxy(fn, {
       apply(target, thisArg, args) {
-        if (!flag) {
+        if (flag <= 0) {
           return cache
         }
-        flag = false
+        flag--
         // 如果是异步函数则返回异步的结果
         return compatibleAsync(Reflect.apply(target, thisArg, args), res => {
           cache = res
@@ -171,6 +197,7 @@ class RamOnceClass implements BaseOnce {
       },
     })
   }
+
   onceOfCycle<R, Fn extends ReturnFunc<R>>(
     fn: Fn,
     time: number,
@@ -200,12 +227,86 @@ class RamOnceClass implements BaseOnce {
   }
 }
 
+abstract class StorageOnceClass extends BasicOnce {
+  protected constructor(private storage: Storage) {
+    super()
+  }
+
+  once<R, Fn extends ReturnFunc<R>>(
+    fn: Fn,
+  ): Fn & { origin: Fn; clear: () => void } {
+    return this.limit(fn, 1)
+  }
+
+  limit<R, Fn extends ReturnFunc<R>>(
+    fn: Fn,
+    max: number,
+  ): Fn & { origin: Fn; clear: () => void } {
+    const flagKey = `StorageOnceClass_Flag_${
+      Reflect.getPrototypeOf(this.storage).constructor.name
+    }_${fn.toString()}`
+    const cacheKey = `StorageOnceClass_Cache_${
+      Reflect.getPrototypeOf(this.storage).constructor.name
+    }_${fn.toString()}`
+    this.storage.setItem(flagKey, max.toString())
+    this.storage.setItem(cacheKey, JSON.stringify(null))
+    const _this = this
+    const res = new Proxy(fn, {
+      apply(target, thisArg, args) {
+        const flag = parseInt(_this.storage.getItem(flagKey)!)
+        if (flag <= 0) {
+          return JSON.parse(_this.storage.getItem(cacheKey)!)
+        }
+        _this.storage.setItem(flagKey, (flag - 1).toString())
+        // 如果是异步函数则返回异步的结果
+        return compatibleAsync(Reflect.apply(target, thisArg, args), res => {
+          _this.storage.setItem(cacheKey, JSON.stringify(res))
+          return res
+        })
+      },
+    })
+    return Object.assign(res, {
+      origin: fn,
+      clear() {
+        _this.storage.setItem(cacheKey, JSON.stringify(null))
+      },
+    })
+  }
+
+  onceOfCycle<R, Fn extends ReturnFunc<R>>(
+    fn: Fn,
+    time: number,
+  ): Fn & { origin: Fn; clear: () => void } {
+    return super.onceOfCycle(fn, time)
+  }
+
+  onceOfSameParam<Fn extends Function>(
+    fn: Fn,
+    identity?: (...args: any[]) => string,
+  ): Fn & { origin: Fn; clear: (...keys: any[]) => void } {
+    return super.onceOfSameParam(fn, identity)
+  }
+
+  onceOfSimultaneously<R, Fn extends ReturnFunc<R>>(
+    func: Fn,
+  ): Fn & { origin: Fn; clear: () => void } {
+    return super.onceOfSimultaneously(func)
+  }
+}
+
 /**
  * 基于 LocalStorage 的 once 系列函数
  */
-class LocalStorageOnceClass implements BaseOnce {
+class LocalStorageOnceClass extends BasicOnce {
   once<R, Fn extends ReturnFunc<R>>(
     fn: Fn,
+  ): Fn & { origin: Fn; clear: () => void } {
+    throw new Error()
+  }
+
+  limit<R, Fn extends ReturnFunc<R>>(
+    fn: Fn,
+    max: number,
   ): Fn & { origin: Fn; clear: () => void } {
     throw new Error()
   }
@@ -234,9 +335,16 @@ class LocalStorageOnceClass implements BaseOnce {
 /**
  * 基于 SessionStorage 的 once 系列函数
  */
-class SessionStorageOnceClass implements BaseOnce {
+class SessionStorageOnceClass extends BasicOnce {
   once<R, Fn extends ReturnFunc<R>>(
     fn: Fn,
+  ): Fn & { origin: Fn; clear: () => void } {
+    throw new Error()
+  }
+
+  limit<R, Fn extends ReturnFunc<R>>(
+    fn: Fn,
+    max: number,
   ): Fn & { origin: Fn; clear: () => void } {
     throw new Error()
   }
@@ -263,10 +371,25 @@ class SessionStorageOnceClass implements BaseOnce {
 }
 
 /**
+ * 绑定 this 便于使用者解构
+ */
+function bindObjectThis<T extends object>(obj: T): T {
+  const prototypeKeys = Reflect.ownKeys(Reflect.getPrototypeOf(obj))
+    //筛选掉构造函数
+    .filter(k => !new Set<any>(['constructor']).has(k)) as (keyof T)[]
+  prototypeKeys
+    .filter(k => obj[k] instanceof Function)
+    .forEach(k => {
+      obj[k] = (obj[k] as any).bind(obj)
+    })
+  return obj
+}
+
+/**
  * 导出的 OnceUtil 实体类
  */
-export const OnceUtil = {
-  RamOnce: new RamOnceClass(),
-  LocalStorageOnce: new LocalStorageOnceClass(),
-  SessionStorageOnce: new SessionStorageOnceClass(),
+export const OnceInstance = {
+  RamOnce: bindObjectThis(new RamOnceClass()),
+  LocalStorageOnce: bindObjectThis(new LocalStorageOnceClass()),
+  SessionStorageOnce: bindObjectThis(new SessionStorageOnceClass()),
 }

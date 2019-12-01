@@ -1,4 +1,4 @@
-import { ArrayCallback } from 'rx-util/dist/module/interface/ArrayCallback'
+import { ArrayCallback } from './ArrayCallback'
 
 /**
  * 数组遍历时的标准回调函数或者对象属性值的类型
@@ -6,4 +6,4 @@ import { ArrayCallback } from 'rx-util/dist/module/interface/ArrayCallback'
  * @typeparam T 数组元素的类型
  * @typeparam R 每项数组元素映射之后的类型
  */
-export type ArrayKFn<T, R> = PropertyKey | ArrayCallback<T, R>
+export type ArrayKFn<T, R> = keyof T | PropertyKey | ArrayCallback<T, R>

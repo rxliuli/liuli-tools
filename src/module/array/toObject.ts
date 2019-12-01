@@ -5,12 +5,12 @@ import { getKFn } from './getKFn'
 export function toObject<T, K extends PropertyKey>(
   arr: T[],
   kFn: ArrayKFn<T, K>,
-): Record<PropertyKey, T>
+): Record<K, T>
 export function toObject<T, K extends PropertyKey, V>(
   arr: T[],
   kFn: ArrayKFn<T, K>,
   vFn: ArrayKFn<T, V>,
-): Record<PropertyKey, V>
+): Record<K, V>
 /**
  * 将数组转化为一个 Object 对象
  * @deprecated 已废弃，请使用更好的 {@link arrayToMap} 替代

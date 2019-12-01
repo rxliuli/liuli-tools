@@ -8,18 +8,13 @@
   "scripts": {
     "start": "yarn test",
     "build": "rollup -c build/rollup.config.js",
-    "pack:add": "yarn link && yarn link \"rx-util\"",
-    "pack:remove": "yarn unlink \"rx-util\" && yarn unlink",
-    "lint": "tslint src/**/*.ts ",
     "format": "prettier --write src/**/*.ts src/**/*.js",
     "docs": "typedoc --out docs src --exclude src/**/*.test.ts && cp CNAME docs/ && cp readme.md docs/ && cp .nojekyll docs/",
     "cloc": "cloc src/ --exclude-ext=test.ts",
     "test": "jest --watch",
     "coverage": "jest --coverage",
-    "fix": "tslint --fix src/**/*.ts",
     "server": "yarn docs && yarn coverage && live-server docs/ --port=4000",
-    "deploy": "yarn gh-pages -d docs -t true && rm -rf docs",
-    "prepublishOnly": "yarn build && yarn coverage"
+    "deploy": "yarn gh-pages -d docs -t true && rm -rf docs"
   },
   "repository": {
     "type": "git",
@@ -38,15 +33,15 @@
   },
   "homepage": "https://rx-util.rxliuli.com/",
   "devDependencies": {
-    "@types/jest": "^24.0.13",
+    "@types/jest": "^24.0.23",
     "@types/prettier": "^1.16.4",
     "@types/rimraf": "^2.0.2",
     "@types/rollup": "^0.54.0",
     "cloc": "^2.5.0",
     "gh-pages": "^2.0.1",
     "husky": "^1.3.1",
-    "jest": "^24.8.0",
-    "jest-extended": "^0.11.1",
+    "jest": "^24.5.0",
+    "jest-extended": "^0.11.2",
     "lint-staged": "^8.1.5",
     "live-server": "^1.2.1",
     "prettier": "^1.17.1",

@@ -26,7 +26,6 @@ describe('测试 Peek', () => {
       reset(res)
       res.info.hobby.push('test')
       res.info.hobby.splice(0, 1)
-      console.log(compute(res))
       expect(compute(res).info.hobby).toIncludeAllMembers(['游戏', 'test'])
     })
   })

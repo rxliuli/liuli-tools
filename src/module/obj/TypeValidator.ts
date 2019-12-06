@@ -1,31 +1,137 @@
 /**
+ * 可能的类型
+ */
+enum Type {
+  String,
+  Number,
+  Boolean,
+  Undefined,
+  Null,
+  Symbol,
+  PropertyKey,
+  Object,
+  Array,
+  Function,
+  Date,
+  File,
+  Blob,
+  Stream,
+  ArrayBuffer,
+  ArrayBufferView,
+  URLSearchParams,
+  FormData,
+}
+/**
  * 校验变量的类型
  */
 export class TypeValidator {
+  /**
+   * 类型枚举类对象
+   */
+  public static Type = Type
+  /**
+   * 获取变量的类型
+   * @param val 变量
+   * @returns 类型
+   */
+  public static getType(val: any): Type {
+    if (TypeValidator.isString(val)) {
+      return Type.String
+    }
+    if (TypeValidator.isNumber(val)) {
+      return Type.Number
+    }
+    if (TypeValidator.isBoolean(val)) {
+      return Type.Boolean
+    }
+    if (TypeValidator.isUndefined(val)) {
+      return Type.Undefined
+    }
+    if (TypeValidator.isNull(val)) {
+      return Type.Null
+    }
+    if (TypeValidator.isSymbol(val)) {
+      return Type.Symbol
+    }
+    if (TypeValidator.isPropertyKey(val)) {
+      return Type.PropertyKey
+    }
+    if (TypeValidator.isObject(val)) {
+      return Type.Object
+    }
+    if (TypeValidator.isArray(val)) {
+      return Type.Array
+    }
+    if (TypeValidator.isFunction(val)) {
+      return Type.Function
+    }
+    if (TypeValidator.isDate(val)) {
+      return Type.Date
+    }
+    if (TypeValidator.isFile(val)) {
+      return Type.File
+    }
+    if (TypeValidator.isBlob(val)) {
+      return Type.Blob
+    }
+    if (TypeValidator.isStream(val)) {
+      return Type.Stream
+    }
+    if (TypeValidator.isArrayBuffer(val)) {
+      return Type.ArrayBuffer
+    }
+    if (TypeValidator.isArrayBufferView(val)) {
+      return Type.ArrayBufferView
+    }
+    if (TypeValidator.isURLSearchParams(val)) {
+      return Type.URLSearchParams
+    }
+    if (TypeValidator.isFormData(val)) {
+      return Type.FormData
+    }
+    throw new Error('无法识别的类型')
+  }
+  /**
+   * 判断是否为指定类型
+   * @param val 需要判断的值
+   * @param types 需要判断的类型
+   */
+  public static isType(val: any, ...types: Type[]): boolean {
+    return types.includes(TypeValidator.getType(val))
+  }
+  /**
+   * 内部使用的生成根据 typeof 判断的高阶函数
+   * @param type
+   */
+  private static typeof<T>(type: string) {
+    return function(val: any): val is T {
+      return typeof val === type
+    }
+  }
   /**
    * 判断是否为字符串
    * @param val 需要判断的值
    * @returns 是否为字符串
    */
-  public static isString(val: any): val is string {
-    return typeof val === 'string'
-  }
+  public static isString = TypeValidator.typeof<string>('string')
   /**
    * 判断是否为数字
    * @param val 需要判断的值
    * @returns 是否为数字
    */
-  public static isNumber(val: any): val is number {
-    return typeof val === 'number'
-  }
+  public static isNumber = TypeValidator.typeof<number>('number')
   /**
    * 判断是否为布尔值
    * @param val 需要判断的值
    * @returns 是否为布尔值
    */
-  public static isBoolean(val: any): val is boolean {
-    return typeof val === 'boolean'
-  }
+  public static isBoolean = TypeValidator.typeof<boolean>('boolean')
+  /**
+   * 判断是否为 Symbol
+   * @param val 需要判断的值
+   * @returns 是否为 Symbol
+   */
+  public static isSymbol = TypeValidator.typeof<symbol>('symbol')
   /**
    * 判断是否为 undefined
    * @param val 需要判断的值
@@ -41,14 +147,6 @@ export class TypeValidator {
    */
   public static isNull(val: any): val is null {
     return val === null
-  }
-  /**
-   * 判断是否为 Symbol
-   * @param val 需要判断的值
-   * @returns 是否为 Symbol
-   */
-  public static isSymbol(val: any): val is symbol {
-    return typeof val === 'symbol'
   }
   /**
    * 判断是否可以作为对象的属性
@@ -68,7 +166,7 @@ export class TypeValidator {
    * @param val 需要判断的值
    * @returns 是否为对象
    */
-  public static isObject(val: any): boolean {
+  public static isObject(val: any): val is Object {
     return (
       !TypeValidator.isNull(val) &&
       !TypeValidator.isUndefined(val) &&

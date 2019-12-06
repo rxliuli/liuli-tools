@@ -2,6 +2,9 @@ import { TypeValidator } from './TypeValidator'
 
 describe('test TypeValidator', () => {
   const {
+    Type,
+    getType,
+    isType,
     isString,
     isNumber,
     isBoolean,
@@ -90,5 +93,13 @@ describe('test TypeValidator', () => {
   })
   it('test isFormData', () => {
     expect(isFormData(new FormData())).toBeTrue()
+  })
+  it('测试 getType', () => {
+    expect(getType('string')).toBe(Type.String)
+    expect(getType(1)).toBe(Type.Number)
+  })
+  it('测试 isType', () => {
+    expect(isType('string', Type.String)).toBeTrue()
+    expect(isType(1, Type.Number)).toBeTrue()
   })
 })

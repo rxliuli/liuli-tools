@@ -11,4 +11,10 @@ describe('测试 style 函数', () => {
     expect($style.color()).toBe($body.style.color)
     expect($style.backgroundColor()).toBe($body.style.backgroundColor)
   })
+  it('找不到元素的时候', () => {
+    let selectors = '.style-test'
+    const $styleTestEl = document.querySelector(selectors)
+    expect(style($styleTestEl)).toBeNull()
+    expect(style(selectors)).toBeNull()
+  })
 })

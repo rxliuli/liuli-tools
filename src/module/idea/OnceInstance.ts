@@ -297,38 +297,9 @@ abstract class StorageOnceClass extends BasicOnce {
 /**
  * 基于 LocalStorage 的 once 系列函数
  */
-class LocalStorageOnceClass extends BasicOnce {
-  once<R, Fn extends ReturnFunc<R>>(
-    fn: Fn,
-  ): Fn & { origin: Fn; clear: () => void } {
-    throw new Error()
-  }
-
-  limit<R, Fn extends ReturnFunc<R>>(
-    fn: Fn,
-    max: number,
-  ): Fn & { origin: Fn; clear: () => void } {
-    throw new Error()
-  }
-
-  onceOfCycle<R, Fn extends ReturnFunc<R>>(
-    fn: Fn,
-    time: number,
-  ): Fn & { origin: Fn; clear: () => void } {
-    throw new Error()
-  }
-
-  onceOfSameParam<Fn extends Function>(
-    fn: Fn,
-    identity?: (...args: any[]) => string,
-  ): Fn & { origin: Fn; clear: (...keys: any[]) => void } {
-    throw new Error()
-  }
-
-  onceOfSimultaneously<R, Fn extends ReturnFunc<R>>(
-    func: Fn,
-  ): Fn & { origin: Fn; clear: () => void } {
-    throw new Error()
+class LocalStorageOnceClass extends StorageOnceClass {
+  constructor() {
+    super(window.localStorage)
   }
 }
 
@@ -376,7 +347,9 @@ class SessionStorageOnceClass extends BasicOnce {
 function bindObjectThis<T extends object>(obj: T): T {
   const prototypeKeys = Reflect.ownKeys(Reflect.getPrototypeOf(obj))
     //筛选掉构造函数
-    .filter(k => !new Set<any>(['constructor']).has(k)) as (keyof T)[]
+    .filter(
+      k => !new Set<any>(['constructor']).has(k),
+    ) as (keyof T)[]
   prototypeKeys
     .filter(k => obj[k] instanceof Function)
     .forEach(k => {

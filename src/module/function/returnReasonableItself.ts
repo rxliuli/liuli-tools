@@ -5,6 +5,7 @@
  * 3. 如果有两个以上的参数则返回参数列表
  * @param args 任何对象
  * @returns 传入的参数
+ * @deprecated 已废弃，貌似没有太多的使用场景
  */
 export function returnReasonableItself(...args: any[]): null | any | any[] {
   const len = args.length

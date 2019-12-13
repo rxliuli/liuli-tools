@@ -372,10 +372,10 @@
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@^24.0.23":
+"@types/jest@^24.0.13":
   version "24.0.23"
-  resolved "https://registry.npm.taobao.org/@types/jest/download/@types/jest-24.0.23.tgz#046f8e2ade026fe831623e361a36b6fb9a4463e4"
-  integrity sha1-BG+OKt4Cb+gxYj42Gja2+5pEY+Q=
+  resolved "https://registry.npmjs.org/@types/jest/-/jest-24.0.23.tgz#046f8e2ade026fe831623e361a36b6fb9a4463e4"
+  integrity sha512-L7MBvwfNpe7yVPTXLn32df/EK+AMBFAFvZrRuArGs7npEWnlziUXK+5GMIUTI4NIuwok3XibsjXCs5HxviYXjg==
   dependencies:
     jest-diff "^24.3.0"
 
@@ -1861,6 +1861,13 @@ has@^1.0.1, has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+highlight.js@^9.15.8:
+  version "9.17.1"
+  resolved "https://registry.npmjs.org/highlight.js/-/highlight.js-9.17.1.tgz#14a4eded23fd314b05886758bb906e39dd627f9a"
+  integrity sha512-TA2/doAur5Ol8+iM3Ov7qy3jYcr/QiJ2eDTdRF4dfbjG7AaaB99J5G+zSl11ljbl6cIcahgPY6SKb3sC3EJ0fw==
+  dependencies:
+    handlebars "^4.5.3"
+
 highlight.js@^9.16.2:
   version "9.16.2"
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.16.2.tgz#68368d039ffe1c6211bcc07e483daf95de3e403e"
@@ -2374,7 +2381,7 @@ jest-config@^24.9.0:
 
 jest-diff@^24.3.0, jest-diff@^24.9.0:
   version "24.9.0"
-  resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-24.9.0.tgz#931b7d0d5778a1baf7452cb816e325e3724055da"
+  resolved "https://registry.npmjs.org/jest-diff/-/jest-diff-24.9.0.tgz#931b7d0d5778a1baf7452cb816e325e3724055da"
   integrity sha512-qMfrTs8AdJE2iqrTp0hzh7kTd2PQWrsFyj9tORoKmu32xjPjeE4NyjVRDz8ybYwqS2ik8N4hsIpiVTyFeo2lBQ==
   dependencies:
     chalk "^2.0.1"
@@ -2423,10 +2430,10 @@ jest-environment-node@^24.9.0:
     jest-mock "^24.9.0"
     jest-util "^24.9.0"
 
-jest-extended@^0.11.2:
+jest-extended@^0.11.1:
   version "0.11.2"
-  resolved "https://registry.npm.taobao.org/jest-extended/download/jest-extended-0.11.2.tgz#924f4a6b4c946133faf9ec8fba865de9790f4116"
-  integrity sha1-kk9Ka0yUYTP6+eyPuoZd6XkPQRY=
+  resolved "https://registry.npmjs.org/jest-extended/-/jest-extended-0.11.2.tgz#924f4a6b4c946133faf9ec8fba865de9790f4116"
+  integrity sha512-gwNMXrAPN0IY5L7VXWfSlC2aGo0KHIsGGcW+lTHYpedt5SJksEvBgMxs29iNikiNOz+cqAZY1s/+kYK0jlj4Jw==
   dependencies:
     expect "^24.1.0"
     jest-get-type "^22.4.3"
@@ -2690,10 +2697,10 @@ jest-worker@^24.0.0, jest-worker@^24.6.0, jest-worker@^24.9.0:
     merge-stream "^2.0.0"
     supports-color "^6.1.0"
 
-jest@^24.9.0:
+jest@^24.8.0:
   version "24.9.0"
-  resolved "https://registry.npm.taobao.org/jest/download/jest-24.9.0.tgz#987d290c05a08b52c56188c1002e368edb007171"
-  integrity sha1-mH0pDAWgi1LFYYjBAC42jtsAcXE=
+  resolved "https://registry.npmjs.org/jest/-/jest-24.9.0.tgz#987d290c05a08b52c56188c1002e368edb007171"
+  integrity sha512-YvkBL1Zm7d2B1+h5fHEOdyjCG+sGMz4f8D86/0HiqJ6MB4MnDc8FgP5vdWsGnemOQro7lnYo8UakZ3+5A0jxGw==
   dependencies:
     import-local "^2.0.0"
     jest-cli "^24.9.0"
@@ -4647,10 +4654,10 @@ trim-repeated@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.2"
 
-ts-jest@^24.2.0:
+ts-jest@^24.0.2:
   version "24.2.0"
-  resolved "https://registry.npm.taobao.org/ts-jest/download/ts-jest-24.2.0.tgz#7abca28c2b4b0a1fdd715cd667d65d047ea4e768"
-  integrity sha1-eryijCtLCh/dcVzWZ9ZdBH6k52g=
+  resolved "https://registry.npmjs.org/ts-jest/-/ts-jest-24.2.0.tgz#7abca28c2b4b0a1fdd715cd667d65d047ea4e768"
+  integrity sha512-Yc+HLyldlIC9iIK8xEN7tV960Or56N49MDP7hubCZUeI7EbIOTsas6rXCMB4kQjLACJ7eDOF4xWEO5qumpKsag==
   dependencies:
     bs-logger "0.x"
     buffer-from "1.x"
@@ -4663,10 +4670,10 @@ ts-jest@^24.2.0:
     semver "^5.5"
     yargs-parser "10.x"
 
-ts-node@^8.5.4:
+ts-node@^8.1.0:
   version "8.5.4"
-  resolved "https://registry.npm.taobao.org/ts-node/download/ts-node-8.5.4.tgz#a152add11fa19c221d0b48962c210cf467262ab2"
-  integrity sha1-oVKt0R+hnCIdC0iWLCEM9GcmKrI=
+  resolved "https://registry.npmjs.org/ts-node/-/ts-node-8.5.4.tgz#a152add11fa19c221d0b48962c210cf467262ab2"
+  integrity sha512-izbVCRV68EasEPQ8MSIGBNK9dc/4sYJJKYA+IarMQct1RtEot6Xp0bXuClsbUSnKpg50ho+aOAx8en5c+y4OFw==
   dependencies:
     arg "^4.1.0"
     diff "^4.0.1"
@@ -4679,7 +4686,7 @@ tslib@1.9.3:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
   integrity sha512-4krF8scpejhaOgqzBEcGM7yDIEfi0/8+8zDRZhNZZ2kjmHJ4hv3zCbQWxoJGz1iw5U0Jl0nma13xzHXcncMavQ==
 
-tslib@^1.10.0, tslib@^1.9.0:
+tslib@^1.9.0, tslib@^1.9.3:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
@@ -4703,7 +4710,7 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
-typedoc-default-themes@^0.6.1:
+typedoc-default-themes@^0.6.0, typedoc-default-themes@^0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/typedoc-default-themes/-/typedoc-default-themes-0.6.1.tgz#e2e471188983df995f4f9df49f713044fced6802"
   integrity sha512-z5AWKqQDz7igl9WkUuafx8cEm4MPVQGMpbWE+3lwVOaq+U4UoLKBMnpFQWh/4fqQ3bGysXpOstMxy2OOzHezyw==
@@ -4712,6 +4719,30 @@ typedoc-default-themes@^0.6.1:
     jquery "^3.4.1"
     lunr "^2.3.8"
     underscore "^1.9.1"
+
+typedoc-neo-theme@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/typedoc-neo-theme/-/typedoc-neo-theme-1.0.4.tgz#e3d4efb29b064f8010a679beb1333b6203e3361a"
+  integrity sha512-rFY/MADGP+X45mrhHcmqBAZ1lQ0//goCaLiGnKK/PCZLB1+01YjQedsQHZp0r79ojm4LPNtiAm9SNG9/RHUjag==
+  dependencies:
+    typedoc "0.15.0"
+
+typedoc@0.15.0:
+  version "0.15.0"
+  resolved "https://registry.npmjs.org/typedoc/-/typedoc-0.15.0.tgz#21eaf4db41cf2797bad027a74f2a75cd08ae0c2d"
+  integrity sha512-NOtfq5Tis4EFt+J2ozhVq9RCeUnfEYMFKoU6nCXCXUULJz1UQynOM+yH3TkfZCPLzigbqB0tQYGVlktUWweKlw==
+  dependencies:
+    "@types/minimatch" "3.0.3"
+    fs-extra "^8.1.0"
+    handlebars "^4.1.2"
+    highlight.js "^9.15.8"
+    lodash "^4.17.15"
+    marked "^0.7.0"
+    minimatch "^3.0.0"
+    progress "^2.0.3"
+    shelljs "^0.8.3"
+    typedoc-default-themes "^0.6.0"
+    typescript "3.5.x"
 
 typedoc@^0.15.3:
   version "0.15.3"
@@ -4729,6 +4760,11 @@ typedoc@^0.15.3:
     shelljs "^0.8.3"
     typedoc-default-themes "^0.6.1"
     typescript "3.7.x"
+
+typescript@3.5.x:
+  version "3.5.3"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-3.5.3.tgz#c830f657f93f1ea846819e929092f5fe5983e977"
+  integrity sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
 
 typescript@3.7.x, typescript@^3.7.2:
   version "3.7.2"

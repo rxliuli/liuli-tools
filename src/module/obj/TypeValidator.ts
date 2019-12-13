@@ -1,3 +1,4 @@
+import { StringValidator } from '../string/StringValidator'
 /**
  * 可能的类型
  */
@@ -33,61 +34,16 @@ export class TypeValidator {
    * 获取变量的类型
    * @param val 变量
    * @returns 类型
+   * 注: 此函数依赖于 ts 的编译枚举原理与约定 {@link TypeValidator} 中所有判断函数都是以 `is` 开头并于 {@link Type} 中的保持一致
    */
   public static getType(val: any): Type {
-    if (TypeValidator.isString(val)) {
-      return Type.String
-    }
-    if (TypeValidator.isNumber(val)) {
-      return Type.Number
-    }
-    if (TypeValidator.isBoolean(val)) {
-      return Type.Boolean
-    }
-    if (TypeValidator.isUndefined(val)) {
-      return Type.Undefined
-    }
-    if (TypeValidator.isNull(val)) {
-      return Type.Null
-    }
-    if (TypeValidator.isSymbol(val)) {
-      return Type.Symbol
-    }
-    if (TypeValidator.isPropertyKey(val)) {
-      return Type.PropertyKey
-    }
-    if (TypeValidator.isObject(val)) {
-      return Type.Object
-    }
-    if (TypeValidator.isArray(val)) {
-      return Type.Array
-    }
-    if (TypeValidator.isFunction(val)) {
-      return Type.Function
-    }
-    if (TypeValidator.isDate(val)) {
-      return Type.Date
-    }
-    if (TypeValidator.isFile(val)) {
-      return Type.File
-    }
-    if (TypeValidator.isBlob(val)) {
-      return Type.Blob
-    }
-    if (TypeValidator.isStream(val)) {
-      return Type.Stream
-    }
-    if (TypeValidator.isArrayBuffer(val)) {
-      return Type.ArrayBuffer
-    }
-    if (TypeValidator.isArrayBufferView(val)) {
-      return Type.ArrayBufferView
-    }
-    if (TypeValidator.isURLSearchParams(val)) {
-      return Type.URLSearchParams
-    }
-    if (TypeValidator.isFormData(val)) {
-      return Type.FormData
+    for (const k of Object.keys(Type)) {
+      if (StringValidator.isInteger(k)) {
+        const type = Type[k as any]
+        if ((TypeValidator as any)['is' + type](val)) {
+          return Type[type as any] as any
+        }
+      }
     }
     throw new Error('无法识别的类型')
   }
@@ -100,38 +56,37 @@ export class TypeValidator {
     return types.includes(TypeValidator.getType(val))
   }
   /**
-   * 内部使用的生成根据 typeof 判断的高阶函数
-   * @param type
-   */
-  private static typeof<T>(type: string) {
-    return function(val: any): val is T {
-      return typeof val === type
-    }
-  }
-  /**
    * 判断是否为字符串
    * @param val 需要判断的值
    * @returns 是否为字符串
    */
-  public static isString = TypeValidator.typeof<string>('string')
+  public static isString(val: any): val is string {
+    return typeof val === 'string'
+  }
   /**
    * 判断是否为数字
    * @param val 需要判断的值
    * @returns 是否为数字
    */
-  public static isNumber = TypeValidator.typeof<number>('number')
+  public static isNumber(val: any): val is number {
+    return typeof val === 'number'
+  }
   /**
    * 判断是否为布尔值
    * @param val 需要判断的值
    * @returns 是否为布尔值
    */
-  public static isBoolean = TypeValidator.typeof<boolean>('boolean')
+  public static isBoolean(val: any): val is boolean {
+    return typeof val === 'boolean'
+  }
   /**
    * 判断是否为 Symbol
    * @param val 需要判断的值
    * @returns 是否为 Symbol
    */
-  public static isSymbol = TypeValidator.typeof<symbol>('symbol')
+  public static isSymbol(val: any): val is symbol {
+    return typeof val === 'symbol'
+  }
   /**
    * 判断是否为 undefined
    * @param val 需要判断的值

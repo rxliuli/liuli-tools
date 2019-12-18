@@ -135,7 +135,8 @@ export declare class AsyncArray<T> implements PromiseLike<any> {
      * 为内置数组赋值
      * 此处自动重新计算 length 属性
      */
-    _arr: T[];
+    set _arr(arr: T[]);
+    get _arr(): T[];
     /**
      * 提供一个函数方便根据已有的数组或类数组（Set/Map）创建 {@link AsyncArray}
      * @param arr 一个可迭代元素

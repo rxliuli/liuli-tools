@@ -1023,9 +1023,205 @@ var rx = (function (exports) {
   }
 
   /**
+   * 判断数字是否在指定区间之中
+   * @param num 指定数字
+   * @param min 最小值
+   * @param max 最大值（不包含）
+   */
+  function isRange(num, min, max) {
+      return num >= min && num < max;
+  }
+
+  /**
+   * 判断是否为小数的正则表达式
+   */
+  const FloatRule = /^(-?\d+)(.\d+)?$/;
+  /**
+   * 判断是否为整数的正则表达式
+   */
+  const IntegerRule = /^-?\d+$/;
+  /**
+   * 判断是否为邮箱的正则表达式
+   */
+  const EmailRule = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+  /**
+   * 判断是否为 ipv4 地址的正则表达式
+   */
+  const Ipv4Rule = /^((25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(25[0-5]|2[0-4]\d|1?\d?\d)$/;
+  /**
+   * 判断是否为固定电话的正则表达式
+   */
+  const TelephoneRule = /^0[1-9][0-9]{1,2}-[2-8][0-9]{6,7}$/;
+  /**
+   * 判断是否为移动电话的正则表达式
+   */
+  const MobileRule = /^(((13[0-9]{1})|15[0-9]{1}|18[0-9]{1}|)+\d{8})$/;
+  /**
+   * 判断是否为域名的正则表达式
+   */
+  const DomainRule = /^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$/;
+  /**
+   * 判断是否为邮政编码的正则表达式
+   */
+  const PostcodeRule = /^\d{6}$/;
+  /**
+   * 字符串校验
+   * TODO 使用 any 可能是个严重的错误。。。
+   */
+  class StringValidator {
+      /**
+       * 判断一个字符串是否为空字符串
+       * @param str 字符串
+       * @returns 是否为空字符串
+       */
+      static isEmpty(str) {
+          return isNullOrUndefined(str) || str === '';
+      }
+      /**
+       * 判断一个字符串是否为空白的字符串
+       * @param str 字符串
+       * @returns 是否为空字符串
+       */
+      static isBlank(str) {
+          return StringValidator.isEmpty(str) || str.trim() === '';
+      }
+      /**
+       * 判断字符串是否位小数
+       * @param str 需要进行判断的字符串
+       * @returns 是否为小数
+       */
+      static isFloat(str) {
+          if (isNullOrUndefined(str)) {
+              return false;
+          }
+          return FloatRule.test(str);
+      }
+      /**
+       * 判断字符串是否位整数
+       * @param str 需要进行判断的字符串
+       * @returns 是否为小数
+       */
+      static isInteger(str) {
+          return !isNullOrUndefined(str) && IntegerRule.test(str);
+      }
+      /**
+       * 判断邮箱的格式是否正确
+       * @param str 邮箱字符串
+       * @returns 是否是邮箱
+       */
+      static isEmail(str) {
+          return !isNullOrUndefined(str) && EmailRule.test(str);
+      }
+      /**
+       * 判断 ipv4 地址的格式是否正确
+       * @param str ipv4 字符串
+       * @returns 是否是 ipv4 地址
+       */
+      static isIpv4(str) {
+          return !isNullOrUndefined(str) && Ipv4Rule.test(str);
+      }
+      /**
+       * 判断字符串是否为正确的端口号
+       * 正确的端口号是 1-65535
+       * @param str 字符串
+       * @returns 是否为端口号
+       */
+      static isPort(str) {
+          // tslint:disable-next-line:radix
+          return StringValidator.isInteger(str) && isRange(parseInt(str), 1, 65535);
+      }
+      /**
+       * 判断是否为固定电话
+       * @param str 字符串
+       * @returns 是否为固定电话
+       */
+      static isTelephone(str) {
+          return !isNullOrUndefined(str) && TelephoneRule.test(str);
+      }
+      /**
+       * 判断是否为移动电话
+       * @param str 字符串
+       * @returns 是否为移动电话
+       */
+      static isMobile(str) {
+          return !isNullOrUndefined(str) && MobileRule.test(str);
+      }
+      /**
+       * 判断是否为域名
+       * @param str 字符串
+       * @returns 是否为域名
+       */
+      static isDomain(str) {
+          return !isNullOrUndefined(str) && DomainRule.test(str);
+      }
+      /**
+       * 判断是否为邮政编码
+       * @param str 字符串
+       * @returns 是否为邮政编码
+       */
+      static isPostcode(str) {
+          return !isNullOrUndefined(str) && PostcodeRule.test(str);
+      }
+  }
+  /**
+   * 导出一个字符串校验的对象
+   * @deprecated 已废弃，请直接使用类的静态函数
+   */
+  const stringValidator = StringValidator;
+
+  /**
+   * 可能的类型
+   */
+  var Type;
+  (function (Type) {
+      Type[Type["String"] = 0] = "String";
+      Type[Type["Number"] = 1] = "Number";
+      Type[Type["Boolean"] = 2] = "Boolean";
+      Type[Type["Undefined"] = 3] = "Undefined";
+      Type[Type["Null"] = 4] = "Null";
+      Type[Type["Symbol"] = 5] = "Symbol";
+      Type[Type["PropertyKey"] = 6] = "PropertyKey";
+      Type[Type["Object"] = 7] = "Object";
+      Type[Type["Array"] = 8] = "Array";
+      Type[Type["Function"] = 9] = "Function";
+      Type[Type["Date"] = 10] = "Date";
+      Type[Type["File"] = 11] = "File";
+      Type[Type["Blob"] = 12] = "Blob";
+      Type[Type["Stream"] = 13] = "Stream";
+      Type[Type["ArrayBuffer"] = 14] = "ArrayBuffer";
+      Type[Type["ArrayBufferView"] = 15] = "ArrayBufferView";
+      Type[Type["URLSearchParams"] = 16] = "URLSearchParams";
+      Type[Type["FormData"] = 17] = "FormData";
+  })(Type || (Type = {}));
+  /**
    * 校验变量的类型
    */
   class TypeValidator {
+      /**
+       * 获取变量的类型
+       * @param val 变量
+       * @returns 类型
+       * 注: 此函数依赖于 ts 的编译枚举原理与约定 {@link TypeValidator} 中所有判断函数都是以 `is` 开头并于 {@link Type} 中的保持一致
+       */
+      static getType(val) {
+          for (const k of Object.keys(Type)) {
+              if (StringValidator.isInteger(k)) {
+                  const type = Type[k];
+                  if (TypeValidator['is' + type](val)) {
+                      return Type[type];
+                  }
+              }
+          }
+          throw new Error('无法识别的类型');
+      }
+      /**
+       * 判断是否为指定类型
+       * @param val 需要判断的值
+       * @param types 需要判断的类型
+       */
+      static isType(val, ...types) {
+          return types.includes(TypeValidator.getType(val));
+      }
       /**
        * 判断是否为字符串
        * @param val 需要判断的值
@@ -1051,6 +1247,14 @@ var rx = (function (exports) {
           return typeof val === 'boolean';
       }
       /**
+       * 判断是否为 Symbol
+       * @param val 需要判断的值
+       * @returns 是否为 Symbol
+       */
+      static isSymbol(val) {
+          return typeof val === 'symbol';
+      }
+      /**
        * 判断是否为 undefined
        * @param val 需要判断的值
        * @returns 是否为 undefined
@@ -1065,14 +1269,6 @@ var rx = (function (exports) {
        */
       static isNull(val) {
           return val === null;
-      }
-      /**
-       * 判断是否为 Symbol
-       * @param val 需要判断的值
-       * @returns 是否为 Symbol
-       */
-      static isSymbol(val) {
-          return typeof val === 'symbol';
       }
       /**
        * 判断是否可以作为对象的属性
@@ -1178,6 +1374,10 @@ var rx = (function (exports) {
           return !TypeValidator.isUndefined(val) && val instanceof FormData;
       }
   }
+  /**
+   * 类型枚举类对象
+   */
+  TypeValidator.Type = Type;
 
   /**
    * 安全执行某个函数
@@ -1324,16 +1524,6 @@ var rx = (function (exports) {
       const kFn = getKFn(k);
       const vFn = getKFn(v);
       return arr.reduce((res, item, index, arr) => res.set(kFn(item, index, arr), vFn(item, index, arr)), new Map());
-  }
-
-  /**
-   * 判断数字是否在指定区间之中
-   * @param num 指定数字
-   * @param min 最小值
-   * @param max 最大值（不包含）
-   */
-  function isRange(num, min, max) {
-      return num >= min && num < max;
   }
 
   /**
@@ -2033,143 +2223,6 @@ var rx = (function (exports) {
   }
 
   /**
-   * 判断是否为小数的正则表达式
-   */
-  const FloatRule = /^(-?\d+)(.\d+)?$/;
-  /**
-   * 判断是否为整数的正则表达式
-   */
-  const IntegerRule = /^-?\d+$/;
-  /**
-   * 判断是否为邮箱的正则表达式
-   */
-  const EmailRule = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-  /**
-   * 判断是否为 ipv4 地址的正则表达式
-   */
-  const Ipv4Rule = /^((25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(25[0-5]|2[0-4]\d|1?\d?\d)$/;
-  /**
-   * 判断是否为固定电话的正则表达式
-   */
-  const TelephoneRule = /^0[1-9][0-9]{1,2}-[2-8][0-9]{6,7}$/;
-  /**
-   * 判断是否为移动电话的正则表达式
-   */
-  const MobileRule = /^(((13[0-9]{1})|15[0-9]{1}|18[0-9]{1}|)+\d{8})$/;
-  /**
-   * 判断是否为域名的正则表达式
-   */
-  const DomainRule = /^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$/;
-  /**
-   * 判断是否为邮政编码的正则表达式
-   */
-  const PostcodeRule = /^\d{6}$/;
-  /**
-   * 字符串校验
-   * TODO 使用 any 可能是个严重的错误。。。
-   */
-  class StringValidator {
-      /**
-       * 判断一个字符串是否为空字符串
-       * @param str 字符串
-       * @returns 是否为空字符串
-       */
-      static isEmpty(str) {
-          return isNullOrUndefined(str) || str === '';
-      }
-      /**
-       * 判断一个字符串是否为空白的字符串
-       * @param str 字符串
-       * @returns 是否为空字符串
-       */
-      static isBlank(str) {
-          return StringValidator.isEmpty(str) || str.trim() === '';
-      }
-      /**
-       * 判断字符串是否位小数
-       * @param str 需要进行判断的字符串
-       * @returns 是否为小数
-       */
-      static isFloat(str) {
-          if (isNullOrUndefined(str)) {
-              return false;
-          }
-          return FloatRule.test(str);
-      }
-      /**
-       * 判断字符串是否位整数
-       * @param str 需要进行判断的字符串
-       * @returns 是否为小数
-       */
-      static isInteger(str) {
-          return !isNullOrUndefined(str) && IntegerRule.test(str);
-      }
-      /**
-       * 判断邮箱的格式是否正确
-       * @param str 邮箱字符串
-       * @returns 是否是邮箱
-       */
-      static isEmail(str) {
-          return !isNullOrUndefined(str) && EmailRule.test(str);
-      }
-      /**
-       * 判断 ipv4 地址的格式是否正确
-       * @param str ipv4 字符串
-       * @returns 是否是 ipv4 地址
-       */
-      static isIpv4(str) {
-          return !isNullOrUndefined(str) && Ipv4Rule.test(str);
-      }
-      /**
-       * 判断字符串是否为正确的端口号
-       * 正确的端口号是 1-65535
-       * @param str 字符串
-       * @returns 是否为端口号
-       */
-      static isPort(str) {
-          // tslint:disable-next-line:radix
-          return StringValidator.isInteger(str) && isRange(parseInt(str), 1, 65535);
-      }
-      /**
-       * 判断是否为固定电话
-       * @param str 字符串
-       * @returns 是否为固定电话
-       */
-      static isTelephone(str) {
-          return !isNullOrUndefined(str) && TelephoneRule.test(str);
-      }
-      /**
-       * 判断是否为移动电话
-       * @param str 字符串
-       * @returns 是否为移动电话
-       */
-      static isMobile(str) {
-          return !isNullOrUndefined(str) && MobileRule.test(str);
-      }
-      /**
-       * 判断是否为域名
-       * @param str 字符串
-       * @returns 是否为域名
-       */
-      static isDomain(str) {
-          return !isNullOrUndefined(str) && DomainRule.test(str);
-      }
-      /**
-       * 判断是否为邮政编码
-       * @param str 字符串
-       * @returns 是否为邮政编码
-       */
-      static isPostcode(str) {
-          return !isNullOrUndefined(str) && PostcodeRule.test(str);
-      }
-  }
-  /**
-   * 导出一个字符串校验的对象
-   * @deprecated 已废弃，请直接使用类的静态函数
-   */
-  const stringValidator = StringValidator;
-
-  /**
    * 判断字符串是否位小数
    * @param str 需要进行判断的字符串
    * @returns 是否为小数
@@ -2581,6 +2634,7 @@ var rx = (function (exports) {
    * 3. 如果有两个以上的参数则返回参数列表
    * @param args 任何对象
    * @returns 传入的参数
+   * @deprecated 已废弃，貌似没有太多的使用场景
    */
   function returnReasonableItself(...args) {
       const len = args.length;

@@ -7,7 +7,7 @@ export declare class Logger {
      * 设置 enable 的 setter 属性，在改变时合并对应的子类对象实现
      * @param enable 是否开启
      */
-    enable: boolean;
+    set enable(enable: boolean);
     debug: (message?: any, ...optionalParams: any[]) => void;
     error: (message?: any, ...optionalParams: any[]) => void;
     info: (message?: any, ...optionalParams: any[]) => void;

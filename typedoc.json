@@ -3,8 +3,6 @@
   "include": "src",
   "exclude": "src/**/*.test.ts",
   "ignoreCompilerErrors": true,
-  "theme": ["./node_modules/typedoc-neo-theme/bin/default"],
-  "plugin": ["./node_modules/typedoc-neo-theme/bin/default/plugin.js"],
   "links": [
     {
       "label": "GitHub",

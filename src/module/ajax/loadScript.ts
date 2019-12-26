@@ -6,6 +6,7 @@
 export function loadScript(src: string): Promise<void> {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script')
+    script.async = false
     script.src = src
     script.addEventListener('load', () => resolve())
     script.addEventListener('error', reject)

@@ -1,4 +1,4 @@
-import { locationSerialize } from './locationSerialize'
+import { locationSerialize, queryUrlInit } from './locationSerialize'
 
 describe('测试 locationSerialize', () => {
   it('基本示例', function() {
@@ -11,7 +11,7 @@ describe('测试 locationSerialize', () => {
       JSON.stringify(serializeParam),
     )}`
     //测试自动初始化
-    const user = locationSerialize({})
+    const user = queryUrlInit({})
     expect(user).toEqual(serializeParam)
     //测试自动序列化
     const name = '琉璃'

@@ -142,6 +142,7 @@ import { loadStyle } from './module/ajax/loadStyle'
 import { locationSerialize } from './module/ajax/locationSerialize'
 import { get } from './module/idea/get'
 import { set } from './module/idea/set'
+import { Stopwatch } from './module/date/Stopwatch'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -191,6 +192,7 @@ export {
   dateBetween,
   strToDate,
   getYearWeek,
+  Stopwatch,
   copyText,
   createElByString,
   getCursorPosition,

@@ -140,6 +140,8 @@ import { deepExcludeFields } from './module/obj/deepExcludeFields'
 import { EventUtil } from './module/event/EventUtil'
 import { loadStyle } from './module/ajax/loadStyle'
 import { locationSerialize } from './module/ajax/locationSerialize'
+import { get } from './module/idea/get'
+import { set } from './module/idea/set'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -280,6 +282,8 @@ export {
   AntiDebug,
   Logger,
   logger,
+  get,
+  set,
   randomInt,
   isRange,
   autoIncrement,

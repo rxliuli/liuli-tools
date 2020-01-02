@@ -143,6 +143,7 @@ import { locationSerialize } from './module/ajax/locationSerialize'
 import { get } from './module/idea/get'
 import { set } from './module/idea/set'
 import { Stopwatch } from './module/date/Stopwatch'
+import { remindLeavePage } from './module/hack/remindLeavePage'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -284,6 +285,7 @@ export {
   AntiDebug,
   Logger,
   logger,
+  remindLeavePage,
   get,
   set,
   randomInt,

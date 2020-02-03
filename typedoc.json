@@ -1,10 +1,10 @@
 {
   "out": "docs",
-  "include": "src",
-  "exclude": "src/**/*.test.ts",
+  "includes": ["src"],
+  "exclude": ["src/**/*.test.ts"],
+  "logger": "console",
   "ignoreCompilerErrors": true,
-  "theme": ["./node_modules/typedoc-neo-theme/bin/default"],
-  "plugin": ["./node_modules/typedoc-neo-theme/bin/default/plugin.js"],
+  "plugin": ["typedoc-neo-theme"],
   "links": [
     {
       "label": "GitHub",

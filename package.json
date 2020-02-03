@@ -9,7 +9,7 @@
     "start": "yarn test",
     "build": "rollup -c build/rollup.config.js",
     "format": "prettier --write src/**/*.ts src/**/*.js",
-    "docs": "typedoc --options typedoc.json && cp CNAME docs/ && cp readme.md docs/ && cp .nojekyll docs/",
+    "docs": "typedoc --options typedoc.json --theme node_modules/typedoc-neo-theme/bin/default && cp CNAME docs/ && cp readme.md docs/ && cp .nojekyll docs/",
     "cloc": "cloc src/ --exclude-ext=test.ts",
     "test": "jest --watch",
     "coverage": "jest --coverage",
@@ -52,11 +52,12 @@
     "rollup": "^1.12.3",
     "rollup-plugin-terser": "^4.0.4",
     "rollup-plugin-typescript2": "^0.21.1",
+    "rollup-plugin-visualizer": "^3.3.1",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.1.0",
     "tslib": "^1.9.3",
-    "typedoc": "^0.15.3",
-    "typedoc-neo-theme": "^1.0.4",
+    "typedoc": "^0.16.0",
+    "typedoc-neo-theme": "^1.0.5",
     "typescript": "^3.7.2"
   }
 }

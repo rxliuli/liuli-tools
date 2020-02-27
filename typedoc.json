@@ -1,24 +1,7 @@
 {
   "out": "docs",
-  "includes": ["src"],
+  "includes": "src",
   "exclude": ["src/**/*.test.ts"],
   "logger": "console",
-  "ignoreCompilerErrors": true,
-  "plugin": ["typedoc-neo-theme"],
-  "links": [
-    {
-      "label": "GitHub",
-      "url": "https://github.com/rxliuli/rx-util"
-    },
-    {
-      "label": "Author",
-      "url": "https://rxliuli.com/"
-    }
-  ],
-  "source": [
-    {
-      "path": "https://github.com/rxliuli/rx-util/blob/dev/",
-      "line": "L"
-    }
-  ]
+  "ignoreCompilerErrors": true
 }

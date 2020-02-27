@@ -26,7 +26,7 @@ export class Locker {
   /**
    * 超时时间，默认为无限
    */
-  public timeout: number | Predicate
+  public timeout: number
 
   /**
    * @param options 可选项
@@ -35,7 +35,7 @@ export class Locker {
    */
   constructor({ limit = 1, timeout }: Partial<ILockerInit> = {}) {
     this.limit = limit
-    this.timeout = timeout || TimeoutInfinity
+    this.timeout = timeout || (TimeoutInfinity as any)
   }
   /**
    * 当前是否锁住了

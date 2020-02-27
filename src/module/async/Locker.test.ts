@@ -1,6 +1,7 @@
 import { wait } from './wait'
 import { Locker } from './Locker'
-import { range } from '../array/range'
+import { randomInt } from '../number/randomInt'
+import { repeatedCall } from '../function/repeatedCall'
 
 /**
  * @test {Locker}
@@ -17,7 +18,7 @@ describe('test Locker', () => {
       }
     }
     const start = Date.now()
-    await Promise.all(range(1, 10).map(fn))
+    await Promise.all(repeatedCall(10, fn))
     expect(Date.now() - start).toBeGreaterThan(1000)
   })
   it('test order', async () => {
@@ -25,16 +26,16 @@ describe('test Locker', () => {
     let sum = 0
     const add = async (i: number) => {
       try {
-        locker.lock()
-        await wait(100)
+        await locker.lock()
+        await wait(randomInt(100))
         sum += i
+        return sum
       } finally {
         locker.unlock()
       }
     }
-    add(1).then(() => expect(sum).toBe(1))
-    add(2).then(() => expect(sum).toBe(3))
-    add(3).then(() => expect(sum).toBe(6))
-    add(4).then(() => expect(sum).toBe(10))
+    await expect(
+      Promise.all([add(1), add(2), add(3), add(4)]),
+    ).resolves.toIncludeAllMembers([1, 3, 6, 10])
   })
 })

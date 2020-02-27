@@ -138,6 +138,12 @@ import { partial } from './module/function/partial'
 import { compatibleAsync } from './module/async/compatibleAsync'
 import { deepExcludeFields } from './module/obj/deepExcludeFields'
 import { EventUtil } from './module/event/EventUtil'
+import { loadStyle } from './module/ajax/loadStyle'
+import { locationSerialize } from './module/ajax/locationSerialize'
+import { get } from './module/idea/get'
+import { set } from './module/idea/set'
+import { Stopwatch } from './module/date/Stopwatch'
+import { remindLeavePage } from './module/hack/remindLeavePage'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -149,6 +155,8 @@ export {
   getCookies,
   loadResource,
   loadScript,
+  loadStyle,
+  locationSerialize,
   parseUrl,
   readLocal,
   spliceParams,
@@ -185,6 +193,7 @@ export {
   dateBetween,
   strToDate,
   getYearWeek,
+  Stopwatch,
   copyText,
   createElByString,
   getCursorPosition,
@@ -276,6 +285,9 @@ export {
   AntiDebug,
   Logger,
   logger,
+  remindLeavePage,
+  get,
+  set,
   randomInt,
   isRange,
   autoIncrement,

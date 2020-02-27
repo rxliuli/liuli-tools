@@ -18,6 +18,8 @@ interface CacheListener {
   options?: boolean | AddEventListenerOptions
 }
 
+type EventOriginType = Document | Element | Window
+
 /**
  * 事件工具类
  */
@@ -25,39 +27,36 @@ export class EventUtil {
   /**
    * 缓存的事件监听对象映射表
    */
-  private static listenerMap: Map<
-    Document | Window,
-    CacheListener[]
-  > = new Map()
+  private static listenerMap: Map<EventOriginType, CacheListener[]> = new Map()
 
   //region add
 
-  public static add<K extends keyof DocumentEventMap>(
-    dom: Document,
+  static add<K extends keyof DocumentEventMap, D extends Document | Element>(
+    dom: D,
     type: K,
-    listener: (this: Document, ev: DocumentEventMap[K]) => any,
+    listener: (this: D, ev: DocumentEventMap[K]) => any,
     options?: boolean | AddEventListenerOptions,
   ): void
-  public static add(
-    dom: Document,
+  static add<D extends Document | Element>(
+    dom: D,
     type: string,
     listener: EventListenerOrEventListenerObject,
     options?: boolean | AddEventListenerOptions,
   ): void
-  public static add<K extends keyof WindowEventMap>(
+  static add<K extends keyof WindowEventMap>(
     window: Window,
     type: K,
     listener: (this: Window, ev: WindowEventMap[K]) => any,
     options?: boolean | AddEventListenerOptions,
   ): void
-  public static add(
+  static add(
     window: Window,
     type: string,
     listener: EventListenerOrEventListenerObject,
     options?: boolean | AddEventListenerOptions,
   ): void
-  public static add(
-    dom: Document | Window,
+  static add(
+    dom: EventOriginType,
     type: any,
     listener: any,
     options?: boolean,
@@ -77,32 +76,32 @@ export class EventUtil {
 
   //region remove
 
-  public static remove<K extends keyof DocumentEventMap>(
-    dom: Document,
+  static remove<K extends keyof DocumentEventMap, D extends Document | Element>(
+    dom: D,
     type: K,
-    listener: (this: Document, ev: DocumentEventMap[K]) => any,
+    listener: (this: D, ev: DocumentEventMap[K]) => any,
     options?: boolean | EventListenerOptions,
   ): void
-  public static remove(
-    dom: Document,
+  static remove<D extends Document | Element>(
+    dom: D,
     type: string,
     listener: EventListenerOrEventListenerObject,
     options?: boolean | EventListenerOptions,
   ): void
-  public static remove<K extends keyof WindowEventMap>(
+  static remove<K extends keyof WindowEventMap>(
     dom: Window,
     type: K,
     listener: (this: Window, ev: WindowEventMap[K]) => any,
     options?: boolean | EventListenerOptions,
   ): void
-  public static remove(
+  static remove(
     dom: Window,
     type: string,
     listener: EventListenerOrEventListenerObject,
     options?: boolean | EventListenerOptions,
   ): void
-  public static remove(
-    dom: Document | Window,
+  static remove(
+    dom: EventOriginType,
     type: any,
     listener: any,
     options?: boolean,
@@ -123,34 +122,37 @@ export class EventUtil {
 
   //region removeByType
 
-  public static removeByType<K extends keyof DocumentEventMap>(
-    dom: Document,
+  static removeByType<
+    K extends keyof DocumentEventMap,
+    D extends Document | Element
+  >(
+    dom: D,
     type: K,
     options?: boolean | EventListenerOptions,
-  ): void
-  public static removeByType(
-    dom: Document,
+  ): (readonly [Function, boolean | AddEventListenerOptions | undefined])[]
+  static removeByType<D extends Document | Element>(
+    dom: D,
     type: string,
     options?: boolean | EventListenerOptions,
-  ): void
-  public static removeByType<K extends keyof WindowEventMap>(
+  ): (readonly [Function, boolean | AddEventListenerOptions | undefined])[]
+  static removeByType<K extends keyof WindowEventMap>(
     dom: Window,
     type: K,
     options?: boolean | EventListenerOptions,
-  ): void
-  public static removeByType(
+  ): (readonly [Function, boolean | AddEventListenerOptions | undefined])[]
+  static removeByType(
     dom: Window,
     type: string,
     options?: boolean | EventListenerOptions,
-  ): void
-  public static removeByType(
-    dom: Document | Window,
+  ): (readonly [Function, boolean | AddEventListenerOptions | undefined])[]
+  static removeByType(
+    dom: EventOriginType,
     type: any,
     options?: boolean,
-  ): void {
+  ): (readonly [Function, boolean | AddEventListenerOptions | undefined])[] {
     const listenerList = EventUtil.listenerMap.get(dom)
     if (listenerList === undefined) {
-      return
+      return []
     }
     const map = groupBy(
       listenerList,
@@ -160,13 +162,15 @@ export class EventUtil {
     const removeCacheListenerList = map.get(true) || []
     const retainCacheListenerList = map.get(true) || []
     EventUtil.listenerMap.set(dom, retainCacheListenerList)
-    removeCacheListenerList.forEach(cacheListener =>
+    return removeCacheListenerList.map(cacheListener => {
+      const res = [cacheListener.listener, cacheListener.options] as const
       dom.removeEventListener(
         cacheListener.type,
         cacheListener.listener as any,
         cacheListener.options,
-      ),
-    )
+      )
+      return res
+    })
   }
 
   //endregion

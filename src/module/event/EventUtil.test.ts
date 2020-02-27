@@ -14,13 +14,13 @@ describe('测试 EventUtil', () => {
   })
   it('基本示例', async () => {
     const mockFn = jest.fn()
-    EventUtil.add($btn as any, 'click', mockFn)
+    EventUtil.add($btn, 'click', mockFn)
     const num = 3
     repeatedCall(num, () => $btn.click())
     await wait(100)
     expect(mockFn.mock.calls.length).toBe(num)
 
-    EventUtil.remove($btn as any, 'click', mockFn)
+    EventUtil.remove($btn, 'click', mockFn)
     repeatedCall(num, () => $btn.click())
     await wait(100)
     expect(mockFn.mock.calls.length).toBe(num)
@@ -31,8 +31,8 @@ describe('测试 EventUtil', () => {
     ) as HTMLButtonElement
     const mockFn1 = jest.fn()
     const mockFn2 = jest.fn()
-    EventUtil.add($btn as any, 'click', mockFn1)
-    EventUtil.add($btn as any, 'click', mockFn2)
+    EventUtil.add($btn, 'click', mockFn1)
+    EventUtil.add($btn, 'click', mockFn2)
     await wait(100)
     const num = 3
     repeatedCall(num, () => $btn.click())
@@ -40,11 +40,21 @@ describe('测试 EventUtil', () => {
     expect(mockFn1.mock.calls.length).toBe(num)
     expect(mockFn2.mock.calls.length).toBe(num)
 
-    EventUtil.removeByType($btn as any, 'click')
+    const removeListenerList = EventUtil.removeByType($btn, 'click')
+    expect(removeListenerList.length).toBe(2)
     repeatedCall(num, () => $btn.click())
     await wait(100)
     //删除之后两个回调函数都不会再执行
     expect(mockFn1.mock.calls.length).toBe(num)
     expect(mockFn2.mock.calls.length).toBe(num)
+
+    //我们可以稍后将之再添加回来
+    removeListenerList.forEach(([listener, options]) =>
+      EventUtil.add($btn, 'click', listener as any, options),
+    )
+    repeatedCall(num, () => $btn.click())
+    await wait(100)
+    expect(mockFn1.mock.calls.length).toBe(num * 2)
+    expect(mockFn2.mock.calls.length).toBe(num * 2)
   })
 })

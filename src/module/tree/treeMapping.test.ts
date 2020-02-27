@@ -12,12 +12,18 @@ describe('test treeForeach', () => {
         {
           uid: 2,
           parent: 1,
-          childrens: [{ uid: 3, parent: 2 }, { uid: 4, parent: 2 }],
+          childrens: [
+            { uid: 3, parent: 2 },
+            { uid: 4, parent: 2 },
+          ],
         },
         {
           uid: 5,
           parent: 1,
-          childrens: [{ uid: 6, parent: 5 }, { uid: 7, parent: 5 }],
+          childrens: [
+            { uid: 6, parent: 5 },
+            { uid: 7, parent: 5 },
+          ],
         },
       ],
     }

@@ -5,5 +5,5 @@
  * @param [defaultValue] 默认值，默认为 {}
  * @returns 包装后的对象
  */
-export declare function deepProxy<T extends object>(obj: T, defaultValue?: any): any;
+export declare function deepProxy<T extends object = object>(obj?: T, defaultValue?: any): any;
 //# sourceMappingURL=deepProxy.d.ts.map

@@ -49,7 +49,7 @@ describe('测试 EventUtil', () => {
     expect(mockFn2.mock.calls.length).toBe(num)
 
     //我们可以稍后将之再添加回来
-    removeListenerList.forEach(([listener, options]) =>
+    removeListenerList.forEach(({ listener, options }) =>
       EventUtil.add($btn, 'click', listener as any, options),
     )
     repeatedCall(num, () => $btn.click())

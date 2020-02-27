@@ -118,7 +118,11 @@ export function dateParse(str: string, fmt: string): Nullable<Date> {
       }
     })
   // 将截取完成的信息封装成对象并格式化标准的日期字符串
-  const map = arrayToMap(dateUnits, item => item.name, item => item.value)
+  const map = arrayToMap(
+    dateUnits,
+    item => item.name,
+    item => item.value,
+  )
   if (map.get('year')!.length === 2) {
     map.set(
       'year',

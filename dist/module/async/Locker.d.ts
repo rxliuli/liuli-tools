@@ -1,4 +1,3 @@
-declare type Predicate = (...args: any[]) => boolean;
 /**
  * Locker 初始化对象接口
  */
@@ -17,7 +16,7 @@ export declare class Locker {
     /**
      * 超时时间，默认为无限
      */
-    timeout: number | Predicate;
+    timeout: number;
     /**
      * @param options 可选项
      * @param options.limit 限制并发数量，默认为 1
@@ -34,7 +33,7 @@ export declare class Locker {
      * @param timeout 超时时间，默认为全局 timeout
      * @returns 进行等待
      */
-    lock(timeout?: number | Predicate): Promise<void>;
+    lock(timeout?: number): Promise<void>;
     /**
      * 删除异步锁
      */

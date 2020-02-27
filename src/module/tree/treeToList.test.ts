@@ -46,12 +46,18 @@ describe('test treeToList', () => {
         {
           id: 2,
           parentId: 1,
-          child: [{ id: 3, parentId: 2 }, { id: 4, parentId: 2 }],
+          child: [
+            { id: 3, parentId: 2 },
+            { id: 4, parentId: 2 },
+          ],
         },
         {
           id: 5,
           parentId: 1,
-          child: [{ id: 6, parentId: 5 }, { id: 7, parentId: 5 }],
+          child: [
+            { id: 6, parentId: 5 },
+            { id: 7, parentId: 5 },
+          ],
         },
       ],
     }
@@ -76,12 +82,18 @@ describe('test treeToList', () => {
         {
           id: 2,
           parentId: 1,
-          child: [{ id: 3, parentId: 2 }, { id: 4, parentId: 2 }],
+          child: [
+            { id: 3, parentId: 2 },
+            { id: 4, parentId: 2 },
+          ],
         },
         {
           id: 5,
           parentId: 1,
-          child: [{ id: 6, parentId: 5 }, { id: 7, parentId: 5 }],
+          child: [
+            { id: 6, parentId: 5 },
+            { id: 7, parentId: 5 },
+          ],
         },
       ],
     }
@@ -105,12 +117,18 @@ describe('test treeToList', () => {
         {
           uid: 2,
           parent: 1,
-          childrens: [{ uid: 3, parent: 2 }, { uid: 4, parent: 2 }],
+          childrens: [
+            { uid: 3, parent: 2 },
+            { uid: 4, parent: 2 },
+          ],
         },
         {
           uid: 5,
           parent: 1,
-          childrens: [{ uid: 6, parent: 5 }, { uid: 7, parent: 5 }],
+          childrens: [
+            { uid: 6, parent: 5 },
+            { uid: 7, parent: 5 },
+          ],
         },
       ],
     }
@@ -144,13 +162,19 @@ describe('test treeToList', () => {
       id: 2,
       parentId: 1,
       // @ts-ignore
-      child: [{ id: 3, parentId: 2 }, { id: 4, parentId: 2 }],
+      child: [
+        { id: 3, parentId: 2 },
+        { id: 4, parentId: 2 },
+      ],
     }
     b = {
       id: 5,
       parentId: 1,
       // @ts-ignore
-      child: [{ id: 6, parentId: 5 }, { id: 7, parentId: 5 }],
+      child: [
+        { id: 6, parentId: 5 },
+        { id: 7, parentId: 5 },
+      ],
     }
     a.child.push(b)
     b.child.push(a)

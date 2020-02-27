@@ -139,7 +139,6 @@ import { compatibleAsync } from './module/async/compatibleAsync'
 import { deepExcludeFields } from './module/obj/deepExcludeFields'
 import { EventUtil } from './module/event/EventUtil'
 import { loadStyle } from './module/ajax/loadStyle'
-import { locationSerialize } from './module/ajax/locationSerialize'
 import { get } from './module/idea/get'
 import { set } from './module/idea/set'
 import { Stopwatch } from './module/date/Stopwatch'
@@ -156,7 +155,6 @@ export {
   loadResource,
   loadScript,
   loadStyle,
-  locationSerialize,
   parseUrl,
   readLocal,
   spliceParams,

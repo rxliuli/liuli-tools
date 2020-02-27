@@ -26,12 +26,18 @@ describe('test listToTree', () => {
         {
           id: 2,
           parentId: 1,
-          child: [{ id: 3, parentId: 2 }, { id: 4, parentId: 2 }],
+          child: [
+            { id: 3, parentId: 2 },
+            { id: 4, parentId: 2 },
+          ],
         },
         {
           id: 5,
           parentId: 1,
-          child: [{ id: 6, parentId: 5 }, { id: 7, parentId: 5 }],
+          child: [
+            { id: 6, parentId: 5 },
+            { id: 7, parentId: 5 },
+          ],
         },
       ],
     })
@@ -56,11 +62,17 @@ describe('test listToTree', () => {
       },
       {
         id: 2,
-        child: [{ id: 3, parentId: 2 }, { id: 4, parentId: 2 }],
+        child: [
+          { id: 3, parentId: 2 },
+          { id: 4, parentId: 2 },
+        ],
       },
       {
         id: 5,
-        child: [{ id: 6, parentId: 5 }, { id: 7, parentId: 5 }],
+        child: [
+          { id: 6, parentId: 5 },
+          { id: 7, parentId: 5 },
+        ],
       },
     ])
   })
@@ -88,12 +100,18 @@ describe('test listToTree', () => {
       {
         uid: 2,
         parent: 1,
-        child: [{ uid: 3, parent: 2 }, { uid: 4, parent: 2 }],
+        child: [
+          { uid: 3, parent: 2 },
+          { uid: 4, parent: 2 },
+        ],
       },
       {
         uid: 5,
         parent: 1,
-        child: [{ uid: 6, parent: 5 }, { uid: 7, parent: 5 }],
+        child: [
+          { uid: 6, parent: 5 },
+          { uid: 7, parent: 5 },
+        ],
       },
     ],
   }

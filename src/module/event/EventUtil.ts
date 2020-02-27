@@ -31,14 +31,26 @@ export class EventUtil {
 
   //region add
 
-  static add<K extends keyof DocumentEventMap, D extends Document | Element>(
-    dom: D,
+  static add<K extends keyof DocumentEventMap>(
+    dom: Document,
     type: K,
-    listener: (this: D, ev: DocumentEventMap[K]) => any,
+    listener: (this: Document, ev: DocumentEventMap[K]) => any,
     options?: boolean | AddEventListenerOptions,
   ): void
-  static add<D extends Document | Element>(
-    dom: D,
+  static add(
+    dom: Document,
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | AddEventListenerOptions,
+  ): void
+  static add<K extends keyof ElementEventMap>(
+    el: Element,
+    type: K,
+    listener: (this: Element, ev: ElementEventMap[K]) => any,
+    options?: boolean | AddEventListenerOptions,
+  ): void
+  static add(
+    el: Element,
     type: string,
     listener: EventListenerOrEventListenerObject,
     options?: boolean | AddEventListenerOptions,
@@ -69,21 +81,33 @@ export class EventUtil {
       listener,
       options,
     })
-    dom.addEventListener(type, listener as any, options)
+    dom.addEventListener(type, listener, options)
   }
 
   //endregion
 
   //region remove
 
-  static remove<K extends keyof DocumentEventMap, D extends Document | Element>(
-    dom: D,
+  static remove<K extends keyof DocumentEventMap>(
+    dom: Document,
     type: K,
-    listener: (this: D, ev: DocumentEventMap[K]) => any,
+    listener: (this: Document, ev: DocumentEventMap[K]) => any,
     options?: boolean | EventListenerOptions,
   ): void
-  static remove<D extends Document | Element>(
-    dom: D,
+  static remove(
+    dom: Document,
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | EventListenerOptions,
+  ): void
+  static remove<K extends keyof ElementEventMap>(
+    el: Element,
+    type: K,
+    listener: (this: Element, ev: ElementEventMap[K]) => any,
+    options?: boolean | EventListenerOptions,
+  ): void
+  static remove(
+    el: Element,
     type: string,
     listener: EventListenerOrEventListenerObject,
     options?: boolean | EventListenerOptions,
@@ -122,34 +146,41 @@ export class EventUtil {
 
   //region removeByType
 
-  static removeByType<
-    K extends keyof DocumentEventMap,
-    D extends Document | Element
-  >(
-    dom: D,
+  static removeByType<K extends keyof DocumentEventMap>(
+    dom: Document,
     type: K,
     options?: boolean | EventListenerOptions,
-  ): (readonly [Function, boolean | AddEventListenerOptions | undefined])[]
-  static removeByType<D extends Document | Element>(
-    dom: D,
+  ): CacheListener[]
+  static removeByType(
+    dom: Document,
     type: string,
     options?: boolean | EventListenerOptions,
-  ): (readonly [Function, boolean | AddEventListenerOptions | undefined])[]
+  ): CacheListener[]
+  static removeByType<K extends keyof ElementEventMap>(
+    el: Element,
+    type: K,
+    options?: boolean | EventListenerOptions,
+  ): void
+  static removeByType(
+    el: Element,
+    type: string,
+    options?: boolean | EventListenerOptions,
+  ): void
   static removeByType<K extends keyof WindowEventMap>(
     dom: Window,
     type: K,
     options?: boolean | EventListenerOptions,
-  ): (readonly [Function, boolean | AddEventListenerOptions | undefined])[]
+  ): CacheListener[]
   static removeByType(
     dom: Window,
     type: string,
     options?: boolean | EventListenerOptions,
-  ): (readonly [Function, boolean | AddEventListenerOptions | undefined])[]
+  ): CacheListener[]
   static removeByType(
     dom: EventOriginType,
     type: any,
     options?: boolean,
-  ): (readonly [Function, boolean | AddEventListenerOptions | undefined])[] {
+  ): CacheListener[] {
     const listenerList = EventUtil.listenerMap.get(dom)
     if (listenerList === undefined) {
       return []
@@ -163,13 +194,12 @@ export class EventUtil {
     const retainCacheListenerList = map.get(true) || []
     EventUtil.listenerMap.set(dom, retainCacheListenerList)
     return removeCacheListenerList.map(cacheListener => {
-      const res = [cacheListener.listener, cacheListener.options] as const
       dom.removeEventListener(
         cacheListener.type,
         cacheListener.listener as any,
         cacheListener.options,
       )
-      return res
+      return cacheListener
     })
   }
 

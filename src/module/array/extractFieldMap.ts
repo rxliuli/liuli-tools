@@ -11,10 +11,17 @@ export function extractFieldMap<T extends object>(
   arr: T[],
   fields: PropertyKey[],
 ) {
-  return arr.reduce((res: Map<PropertyKey, any[]>, v: T) => {
-    for (const [k, _arr] of res) {
-      _arr.push(Reflect.get(v, k))
-    }
-    return res
-  }, arrayToMap(fields, k => k, () => new Array<any>()))
+  return arr.reduce(
+    (res: Map<PropertyKey, any[]>, v: T) => {
+      for (const [k, _arr] of res) {
+        _arr.push(Reflect.get(v, k))
+      }
+      return res
+    },
+    arrayToMap(
+      fields,
+      k => k,
+      () => new Array<any>(),
+    ),
+  )
 }

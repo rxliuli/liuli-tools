@@ -17,10 +17,22 @@ describe('test extractFieldMap', () => {
     ]
     expect(extractFieldMap(arr, ['name', 'age', 'sex', 'address'])).toEqual(
       new Map()
-        .set('name', arr.map(({ name }) => name))
-        .set('age', arr.map(({ age }) => age))
-        .set('sex', arr.map(({ sex }) => sex))
-        .set('address', arr.map(user => Reflect.get(user, 'address'))),
+        .set(
+          'name',
+          arr.map(({ name }) => name),
+        )
+        .set(
+          'age',
+          arr.map(({ age }) => age),
+        )
+        .set(
+          'sex',
+          arr.map(({ sex }) => sex),
+        )
+        .set(
+          'address',
+          arr.map(user => Reflect.get(user, 'address')),
+        ),
     )
   })
 })

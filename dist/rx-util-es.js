@@ -282,7 +282,7 @@ function dateFormat(date, fmt) {
         'Y+|y+': date.getFullYear(),
         'M+': date.getMonth() + 1,
         'D+|d+': date.getDate(),
-        'h+': date.getHours(),
+        'H+|h+': date.getHours(),
         'm+': date.getMinutes(),
         's+': date.getSeconds(),
         'q+': Math.floor((date.getMonth() + 3) / 3),
@@ -1831,6 +1831,7 @@ function setCusorPostion(el, start, end = start) {
 /**
  * 监听 event 的添加/删除，使 DOM 事件是可撤销的
  * 注：必须及早运行，否则无法监听之前添加的事件
+ * @deprecated 实际上 {@link EventUtil} 已经更好的实现了这个功能，如果需要则直接修改原型即可，无需使用该函数
  */
 function watchEventListener() {
     /**
@@ -3042,6 +3043,7 @@ function deepFreeze(obj) {
     return Object.freeze(obj);
 }
 
+// noinspection JSPrimitiveTypeWrapperUsage
 /**
  * 包装对象，使其成为可以任意深度调用而不会出现 undefined 调用的问题
  * 注意: 该函数不能进行递归调用（{@link JSON.stringfy}），一定会造成堆栈溢出的问题（RangeError: Maximum call stack size exceeded）
@@ -3049,14 +3051,17 @@ function deepFreeze(obj) {
  * @param [defaultValue] 默认值，默认为 {}
  * @returns 包装后的对象
  */
-function deepProxy(obj, defaultValue = {}) {
+function deepProxy(obj = {}, defaultValue = new String()) {
     const handler = {
         get(target, k) {
             let v = Reflect.get(target, k);
             if (isNullOrUndefined(v)) {
                 v = defaultValue;
             }
-            if (typeof v !== 'object') {
+            if (TypeValidator.isFunction(v)) {
+                return v.bind(target);
+            }
+            if (!TypeValidator.isObject(v)) {
                 return v;
             }
             return new Proxy(v, handler);
@@ -3682,6 +3687,7 @@ function isEmpty(str) {
 function loadScript(src) {
     return new Promise((resolve, reject) => {
         const script = document.createElement('script');
+        script.async = false;
         script.src = src;
         script.addEventListener('load', () => resolve());
         script.addEventListener('error', reject);
@@ -3861,6 +3867,7 @@ function listToTree(list, { bridge = returnItself, isRoot = node => !node.parent
  * 桥接对象不存在的字段
  * @param map 代理的字段映射 Map
  * @returns 转换一个对象为代理对象
+ * @typeparam 类型解释：1. -readonly 是将使用者的 as const 修改为可变的字段，2. [P in keyof M] 从映射对象中取出所有的 key 作为字段，3. T[M[P] extends keyof T ? M[P] : never] 本质上只是 T[M[P]]]，只是 ts 不认为 M[P] 是 T 的字段，所以只能绕一下才能使用
  */
 function bridge(map) {
     /**
@@ -4723,13 +4730,16 @@ class EventUtil {
     static removeByType(dom, type, options) {
         const listenerList = EventUtil.listenerMap.get(dom);
         if (listenerList === undefined) {
-            return;
+            return [];
         }
         const map = groupBy(listenerList, cacheListener => type === cacheListener.type && options === cacheListener.options);
         const removeCacheListenerList = map.get(true) || [];
         const retainCacheListenerList = map.get(true) || [];
         EventUtil.listenerMap.set(dom, retainCacheListenerList);
-        removeCacheListenerList.forEach(cacheListener => dom.removeEventListener(cacheListener.type, cacheListener.listener, cacheListener.options));
+        return removeCacheListenerList.map(cacheListener => {
+            dom.removeEventListener(cacheListener.type, cacheListener.listener, cacheListener.options);
+            return cacheListener;
+        });
     }
 }
 /**
@@ -4737,5 +4747,144 @@ class EventUtil {
  */
 EventUtil.listenerMap = new Map();
 
-export { AntiDebug, ArrayValidator, AsyncArray, CacheUtil, CombinedPredicate, DateConstants, DateFormatter, EventUtil, FetchLimiting, LocalStorageCache, Locker, Logger, NodeBridgeUtil, PathUtil, PubSubMachine, StateMachine, StringStyleType, StringStyleUtil, StringValidator, TypeValidator, aggregation, and, antiDebug, appends, arrayDiffBy, arrayToMap, arrayValidator, asIterator, assign, async, asyncFlatMap, asyncLimiting, autoIncrement, blankToNull, blankToNullField, bridge, cacheUtil, compare, compatibleAsync, compose, concatMap, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepExcludeFields, deepFreeze, deepProxy, deletes, deny, diffBy, download, downloadString, downloadUrl, emptyAllField, emptyFunc, excludeFields, excludeFieldsDeep, extractFieldMap, fetchTimeout, fill, filterItems, findIndex, flatMap, floatEquals, formDataToArray, format, getCookies, getCursorPosition, getCusorPostion, getObjectEntries, getObjectKeys, getYearWeek, groupBy, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, listToTree, loadResource, loadScript, logger, mapToObject, mergeMap, nodeBridgeUtil, not, objToFormData, objectToMap, once, onceOfSameParam, or, parseUrl, partial, pathUtil, randomInt, range, readLocal, removeEl, removeText, repeatedCall, returnItself, returnReasonableItself, safeExec, segmentation, setCursorPosition, setCusorPostion, sets, singleModel, sleep, sortBy, spliceParams, strToArrayBuffer, strToDate, stringValidator, switchMap, throttle, timing, toLowerCase, toObject, toString$1 as toString, toUpperCase, toggleClass, treeMapping, treeToList, trySometime, trySometimeParallel, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
+/**
+ * 加载一个远程样式文件
+ * @param href 远程 CSS 样式路径
+ * @returns 等待异步加载样式完成
+ */
+function loadStyle(href) {
+    return new Promise((resolve, reject) => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        link.addEventListener('load', () => resolve());
+        link.addEventListener('error', reject);
+        document.body.appendChild(link);
+    });
+}
+
+/**
+ * 解析字段字符串为数组
+ * @param str 字段字符串
+ * @returns 字符串数组，数组的 `[]` 取法会被解析为数组的一个元素
+ */
+function parseFieldStr(str) {
+    return str
+        .split(/[\.\[]/)
+        .map(k => (/\]$/.test(k) ? k.slice(0, k.length - 1) : k));
+}
+
+/**
+ * 安全的深度获取对象的字段
+ * TODO 该函数尚处于早期测试阶段
+ * 注: 只要获取字段的值为 {@type null|undefined}，就会直接返回 {@param defVal}
+ * 类似于 ES2019 的可选调用链特性: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/%E5%8F%AF%E9%80%89%E9%93%BE
+ * @param obj 获取的对象
+ * @param fields 字段字符串或数组
+ * @param [defVal] 取不到值时的默认值，默认为 null
+ */
+function get(obj, fields, defVal = null) {
+    if (TypeValidator.isString(fields)) {
+        fields = parseFieldStr(fields);
+    }
+    let res = obj;
+    for (const field of fields) {
+        try {
+            res = Reflect.get(res, field);
+            if (isNullOrUndefined(res)) {
+                return defVal;
+            }
+        }
+        catch (e) {
+            return defVal;
+        }
+    }
+    return res;
+}
+
+/**
+ * 安全的深度设置对象的字段
+ * TODO 该函数尚处于早期测试阶段
+ * 注: 只要设置字段的值为 {@type null|undefined}，就会直接返回 {@param defVal}
+ * 类似于 ES2019 的可选调用链特性: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/%E5%8F%AF%E9%80%89%E9%93%BE
+ * @param obj 设置的对象
+ * @param fields 字段字符串或数组
+ * @param [val] 设置字段的值
+ */
+function set(obj, fields, val) {
+    if (TypeValidator.isString(fields)) {
+        fields = parseFieldStr(fields);
+    }
+    let res = obj;
+    for (let i = 0, len = fields.length; i < len; i++) {
+        const field = fields[i];
+        if (i === len - 1) {
+            res[field] = val;
+            return true;
+        }
+        res = res[field];
+        if (!TypeValidator.isObject(res)) {
+            return false;
+        }
+    }
+    return false;
+}
+
+/**
+ * 补 0 函数
+ * @param time 为时分秒补首位 0
+ * @returns 补零得到的字符串
+ */
+function zeroPadding(time) {
+    return (time >= 10 ? '' : '0') + time;
+}
+/**
+ * 秒表
+ * 标准格式 `HH:mm:ss`
+ * 主要适用场景是格式化/解析时间差值
+ */
+class Stopwatch {
+    /**
+     * 格式化一个以秒为单位的绝对时间为标准时间格式的字符串
+     * @param time 时间/s
+     * @returns 格式化后的字符串
+     */
+    static format(time) {
+        const seconds = time % 60;
+        const minutes = Math.floor(time / 60) % 60;
+        const hours = Math.floor(time / 60 / 60);
+        return `${zeroPadding(hours)}:${zeroPadding(minutes)}:${zeroPadding(seconds)}`;
+    }
+    /**
+     * 解析一个标准的时间字符串为秒为单位的绝对时间
+     * @param str 时间字符串
+     * @returns 解析得到的时间/s
+     */
+    static parse(str) {
+        const [, hours, minutes, seconds] = /(\d+):(\d+):(\d+)/.exec(str);
+        return (parseInt(hours) * 60 * 60 + parseInt(minutes) * 60 + parseInt(seconds));
+    }
+}
+
+/**
+ * 提醒用户当前页面有正在执行的操作，暂时不能离开
+ * 注：用户实际上可以不管该提醒
+ * @param fn 谓词，是否要提醒不要关闭
+ * @returns 返回删除这个事件监听的函数
+ */
+function remindLeavePage(fn = () => false) {
+    const listener = (e) => {
+        // @ts-ignore
+        if (fn.apply(this)) {
+            return false;
+        }
+        const confirmationMessage = '请不要关闭页面';
+        e.returnValue = confirmationMessage; //Gecko + IE
+        return confirmationMessage; //Webkit, Safari, Chrome etc.
+    };
+    window.addEventListener('beforeunload', listener);
+    return () => window.removeEventListener('beforeunload', listener);
+}
+
+export { AntiDebug, ArrayValidator, AsyncArray, CacheUtil, CombinedPredicate, DateConstants, DateFormatter, EventUtil, FetchLimiting, LocalStorageCache, Locker, Logger, NodeBridgeUtil, PathUtil, PubSubMachine, StateMachine, Stopwatch, StringStyleType, StringStyleUtil, StringValidator, TypeValidator, aggregation, and, antiDebug, appends, arrayDiffBy, arrayToMap, arrayValidator, asIterator, assign, async, asyncFlatMap, asyncLimiting, autoIncrement, blankToNull, blankToNullField, bridge, cacheUtil, compare, compatibleAsync, compose, concatMap, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepExcludeFields, deepFreeze, deepProxy, deletes, deny, diffBy, download, downloadString, downloadUrl, emptyAllField, emptyFunc, excludeFields, excludeFieldsDeep, extractFieldMap, fetchTimeout, fill, filterItems, findIndex, flatMap, floatEquals, formDataToArray, format, get, getCookies, getCursorPosition, getCusorPostion, getObjectEntries, getObjectKeys, getYearWeek, groupBy, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, listToTree, loadResource, loadScript, loadStyle, logger, mapToObject, mergeMap, nodeBridgeUtil, not, objToFormData, objectToMap, once, onceOfSameParam, or, parseUrl, partial, pathUtil, randomInt, range, readLocal, remindLeavePage, removeEl, removeText, repeatedCall, returnItself, returnReasonableItself, safeExec, segmentation, set, setCursorPosition, setCusorPostion, sets, singleModel, sleep, sortBy, spliceParams, strToArrayBuffer, strToDate, stringValidator, switchMap, throttle, timing, toLowerCase, toObject, toString$1 as toString, toUpperCase, toggleClass, treeMapping, treeToList, trySometime, trySometimeParallel, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
 //# sourceMappingURL=rx-util-es.js.map

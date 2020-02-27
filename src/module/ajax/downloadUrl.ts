@@ -1,5 +1,3 @@
-import { download } from './download'
-
 /**
  * 根据 url 下载二进制资源
  * @param url 下载请求信息

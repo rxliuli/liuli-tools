@@ -12,7 +12,7 @@ describe('test stringValidator', () => {
     isEmail,
     isIpv4,
     isTelephone,
-    isMobile: isMoblie,
+    isMobile,
     isDomain,
     isPostcode,
     isPort,
@@ -60,12 +60,11 @@ describe('test stringValidator', () => {
     expect(isTelephone('')).toBeFalse()
     expect(isTelephone(null)).toBeFalse()
   })
-  it('test isMoblie', () => {
-    expect(isMoblie('13532611510')).toBeTrue()
-    expect(isMoblie('12345678910')).toBeFalse()
-    expect(isMoblie('1234567891')).toBeFalse()
-    expect(isMoblie('')).toBeFalse()
-    expect(isMoblie(null)).toBeFalse()
+  it('test isMobile', () => {
+    expect(isMobile('13532611510')).toBeTrue()
+    expect(isMobile('22345678910')).toBeFalse()
+    expect(isMobile('')).toBeFalse()
+    expect(isMobile(null)).toBeFalse()
   })
   it('test isDomain', () => {
     expect(isDomain('rxliuli.com')).toBeTrue()

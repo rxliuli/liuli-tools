@@ -160,12 +160,12 @@ export class EventUtil {
     el: Element,
     type: K,
     options?: boolean | EventListenerOptions,
-  ): void
+  ): CacheListener[]
   static removeByType(
     el: Element,
     type: string,
     options?: boolean | EventListenerOptions,
-  ): void
+  ): CacheListener[]
   static removeByType<K extends keyof WindowEventMap>(
     dom: Window,
     type: K,

@@ -4,15 +4,15 @@ import { range } from '../array/range'
 /**
  * @test {randomInt}
  */
-describe('test randomInt', () => {
-  it('test for normal sepecify min and max', () => {
-    range(0, 100).forEach(v => {
+describe('测试 randomInt', () => {
+  it('基本示例', () => {
+    range(1, 100).forEach(v => {
       const num = randomInt(0, v)
       expect(num).toBeLessThanOrEqual(v)
       expect(num).toBeGreaterThanOrEqual(0)
     })
   })
-  it('test for single sepecify max', () => {
-    range(0, 100).forEach(v => expect(randomInt(v)).toBeLessThanOrEqual(v))
+  it('测试两个参数的', () => {
+    range(1, 100).forEach(v => expect(randomInt(v)).toBeLessThan(v))
   })
 })

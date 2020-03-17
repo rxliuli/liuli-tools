@@ -16,7 +16,7 @@ describe('测试 EventEmitter', () => {
     expect(fn.mock.calls.length).toBe(3)
 
     expect(em.listeners(EventTypeEnum.Hello).length).toBe(3)
-    em.delAll(EventTypeEnum.Hello)
+    em.removeByType(EventTypeEnum.Hello)
     expect(em.listeners(EventTypeEnum.Hello).length).toBe(0)
 
     em.emit(EventTypeEnum.Hello, 'liuli')

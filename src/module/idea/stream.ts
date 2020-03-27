@@ -43,7 +43,9 @@ class Stream<T> {
     }, [] as T[])
   }
 }
-
+/**
+ * 将一个数组变成一个流，所有关于流的操作都是延迟的
+ */
 export function stream<T>(arr: T[]) {
   return new Stream(arr)
 }

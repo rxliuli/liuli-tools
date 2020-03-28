@@ -37,8 +37,8 @@ export declare class EventUtil {
     static remove(dom: Window, type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     static removeByType<K extends keyof DocumentEventMap>(dom: Document, type: K, options?: boolean | EventListenerOptions): CacheListener[];
     static removeByType(dom: Document, type: string, options?: boolean | EventListenerOptions): CacheListener[];
-    static removeByType<K extends keyof ElementEventMap>(el: Element, type: K, options?: boolean | EventListenerOptions): void;
-    static removeByType(el: Element, type: string, options?: boolean | EventListenerOptions): void;
+    static removeByType<K extends keyof ElementEventMap>(el: Element, type: K, options?: boolean | EventListenerOptions): CacheListener[];
+    static removeByType(el: Element, type: string, options?: boolean | EventListenerOptions): CacheListener[];
     static removeByType<K extends keyof WindowEventMap>(dom: Window, type: K, options?: boolean | EventListenerOptions): CacheListener[];
     static removeByType(dom: Window, type: string, options?: boolean | EventListenerOptions): CacheListener[];
 }

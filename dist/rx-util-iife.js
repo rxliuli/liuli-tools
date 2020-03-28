@@ -1054,8 +1054,9 @@ var rx = (function (exports) {
   const TelephoneRule = /^0[1-9][0-9]{1,2}-[2-8][0-9]{6,7}$/;
   /**
    * 判断是否为移动电话的正则表达式
+   * 注：不在判断二三位的数字，具体参考：http://caibaojian.com/phone-regexp.html
    */
-  const MobileRule = /^(((13[0-9]{1})|15[0-9]{1}|18[0-9]{1}|)+\d{8})$/;
+  const MobileRule = /^1\d{10}$/;
   /**
    * 判断是否为域名的正则表达式
    */
@@ -2320,16 +2321,12 @@ var rx = (function (exports) {
       return res;
   }
 
-  /**
-   * 生成一个随机的数字
-   * 如果没有参数，则会抛出异常
-   * @param num1 第一个参数，如果只有一个参数，则认为是最大值，最小值为 0
-   * @param num2 第二个参数，如果该参数存在，则认为第二个是最大值，忽略剩余的参数
-   * @returns 生成的随机整数
-   */
   function randomInt(num1, num2) {
       const min = num2 ? num1 : 0;
       const max = num2 ? num2 : num1;
+      if (max <= 0) {
+          throw new Error('最大值不能为 0');
+      }
       return min + Math.floor(Math.random() * (max - min));
   }
 

@@ -1,10 +1,12 @@
 type EventType = string | number
 
 /**
- * 事件发射/处理器
+ * 事件总线
+ * 实际上就是发布订阅模式的一种简单实现
+ * 类型定义受到 {@link https://github.com/andywer/typed-emitter/blob/master/index.d.ts} 的启发，不过只需要声明参数就好了，而不需要返回值（应该是 {@code void}）
  */
-export class EventEmitter {
-  private readonly events = new Map<EventType, Function[]>()
+export class EventEmitter<Events extends Record<EventType, any[]>> {
+  private readonly events = new Map<keyof Events, Function[]>()
 
   /**
    * 添加一个事件监听程序
@@ -12,7 +14,7 @@ export class EventEmitter {
    * @param callback 处理回调
    * @returns {@code this}
    */
-  add(type: EventType, callback: Function) {
+  add<E extends keyof Events>(type: E, callback: (...args: Events[E]) => void) {
     const callbacks = this.events.get(type) || []
     callbacks.push(callback)
     this.events.set(type, callbacks)
@@ -24,7 +26,10 @@ export class EventEmitter {
    * @param callback 处理回调
    * @returns {@code this}
    */
-  remove(type: EventType, callback: Function) {
+  remove<E extends keyof Events>(
+    type: E,
+    callback: (...args: Events[E]) => void,
+  ) {
     const callbacks = this.events.get(type) || []
     this.events.set(
       type,
@@ -37,7 +42,7 @@ export class EventEmitter {
    * @param type 监听类型
    * @returns {@code this}
    */
-  removeByType(type: EventType) {
+  removeByType<E extends keyof Events>(type: E) {
     this.events.delete(type)
     return this
   }
@@ -47,7 +52,7 @@ export class EventEmitter {
    * @param args 处理回调需要的参数
    * @returns {@code this}
    */
-  emit(type: EventType, ...args: any[]) {
+  emit<E extends keyof Events>(type: E, ...args: Events[E]) {
     const callbacks = this.events.get(type) || []
     callbacks.forEach(fn => {
       fn(...args)
@@ -60,7 +65,7 @@ export class EventEmitter {
    * @param type 监听类型
    * @returns 一个只读的数组，如果找不到，则返回空数组 {@code []}
    */
-  listeners(type: EventType) {
+  listeners<E extends keyof Events>(type: E) {
     return Object.freeze(this.events.get(type) || [])
   }
 }

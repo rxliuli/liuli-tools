@@ -19,62 +19,82 @@ enum ReadType {
    */
   ArrayBuffer = 'readAsArrayBuffer',
 }
-interface IReadLocalInit {
-  type: ReadType
+interface IReadLocalInit<T extends ReadType> {
+  type: T
   encoding: string
 }
+type ReadResult<T extends ReadType> = T extends ReadType.DataURL | ReadType.Text
+  ? string
+  : ArrayBuffer
+
 /**
  * 读取本地浏览器选择的文件
  * @param file 选择的文件
- * @param option 可选项参数
- * @param option.type 读取的类型，默认按照二进制 url 读取
- * @param option.encoding 读取的编码格式，默认为 UTF-8
+ * @param options 读取的选项
  * @returns 返回了读取到的内容（异步）
  */
-export function readLocal(
+export function _readLocal<T extends ReadType>(
   file: File,
-  {
-    type = readLocal.DataURL,
-    encoding = 'UTF-8',
-  }: Partial<IReadLocalInit> = {},
-): Promise<string | ArrayBuffer | null> {
+  options: Partial<{
+    type: T
+    encoding: string
+  }> = {},
+): Promise<ReadResult<T> | null> {
+  const { type, encoding } = Object.assign(
+    {
+      type: ReadType.DataURL,
+      encoding: 'UTF-8',
+    },
+    options,
+  )
   return new Promise((resolve, reject) => {
     if (!file) {
       reject(new Error('file not exists'))
     }
     const fr = new FileReader()
     fr.onload = () => {
-      resolve(fr.result)
+      resolve(fr.result as ReadResult<T>)
     }
     fr.onerror = error => {
       reject(error)
     }
-    new Map()
-      .set(ReadType.DataURL, () => fr.readAsDataURL(file))
-      .set(ReadType.Text, () => fr.readAsText(file, encoding))
-      .set(ReadType.BinaryString, () => fr.readAsBinaryString(file))
-      .set(ReadType.ArrayBuffer, () => fr.readAsArrayBuffer(file))
-      .get(type)()
+    switch (type) {
+      case ReadType.DataURL:
+        fr.readAsDataURL(file)
+        break
+      case ReadType.Text:
+        fr.readAsText(file, encoding)
+        break
+      case ReadType.BinaryString:
+        fr.readAsBinaryString(file)
+        break
+      case ReadType.ArrayBuffer:
+        fr.readAsArrayBuffer(file)
+        break
+    }
   })
 }
 
-/**
- * 以 data url 读取
- * @deprecated 已废弃，请使用枚举类 ReadType
- */
-readLocal.DataURL = ReadType.DataURL
-/**
- * 以文本读取
- * @deprecated 已废弃，请使用枚举类 ReadType
- */
-readLocal.Text = ReadType.Text
-/**
- * 以二进制文件读取
- * @deprecated 已废弃，请使用枚举类 ReadType
- */
-readLocal.BinaryString = ReadType.BinaryString
-/**
- * 以 ArrayBuffer 读取
- * @deprecated 已废弃，请使用枚举类 ReadType
- */
-readLocal.ArrayBuffer = ReadType.ArrayBuffer
+export const readLocal = Object.assign(_readLocal, {
+  ReadType,
+  /**
+   * 以 data url 读取
+   * @deprecated 已废弃，请使用枚举类 ReadType
+   */
+  DataURL: ReadType.DataURL,
+  /**
+   * 以文本读取
+   * @deprecated 已废弃，请使用枚举类 ReadType
+   */
+  Text: ReadType.Text,
+  /**
+   * 以二进制文件读取
+   * @deprecated 已废弃，请使用枚举类 ReadType
+   */
+  BinaryString: ReadType.BinaryString,
+  /**
+   * 以 ArrayBuffer 读取
+   * @deprecated 已废弃，请使用枚举类 ReadType
+   */
+  ArrayBuffer: ReadType.ArrayBuffer,
+})

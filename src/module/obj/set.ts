@@ -1,5 +1,5 @@
 import { TypeValidator } from '../obj/TypeValidator'
-import { parseFieldStr } from './parseFieldStr'
+import { parseFieldStr } from '../idea/parseFieldStr'
 
 /**
  * 安全的深度设置对象的字段

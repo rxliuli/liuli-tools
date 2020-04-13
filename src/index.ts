@@ -139,10 +139,13 @@ import { compatibleAsync } from './module/async/compatibleAsync'
 import { deepExcludeFields } from './module/obj/deepExcludeFields'
 import { EventUtil } from './module/event/EventUtil'
 import { loadStyle } from './module/ajax/loadStyle'
-import { get } from './module/idea/get'
-import { set } from './module/idea/set'
 import { Stopwatch } from './module/date/Stopwatch'
 import { remindLeavePage } from './module/hack/remindLeavePage'
+import { EventEmitter } from './module/event/EventEmitter'
+import { MicrotaskQueue } from './module/async/MicrotaskQueue'
+import { randomStr } from './module/string/randomStr'
+import { get } from './module/obj/get'
+import { set } from './module/obj/set'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -296,4 +299,7 @@ export {
   nodeBridgeUtil,
   NodeBridgeUtil,
   treeToList,
+  EventEmitter,
+  MicrotaskQueue,
+  randomStr,
 }

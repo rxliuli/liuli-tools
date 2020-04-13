@@ -1,6 +1,6 @@
 import { TypeValidator } from '../obj/TypeValidator'
 import { isNullOrUndefined } from '../obj/isNullOrUndefined'
-import { parseFieldStr } from './parseFieldStr'
+import { parseFieldStr } from '../idea/parseFieldStr'
 
 /**
  * 安全的深度获取对象的字段

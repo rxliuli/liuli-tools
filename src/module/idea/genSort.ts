@@ -1,4 +1,4 @@
-import { get } from './get'
+import { get } from '../obj/get'
 
 /**
  * 根据比较的 key 和排序规则生成 sort 函数的函数参数

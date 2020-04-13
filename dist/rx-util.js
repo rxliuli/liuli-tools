@@ -231,12 +231,14 @@
   /**
    * 读取本地浏览器选择的文件
    * @param file 选择的文件
-   * @param option 可选项参数
-   * @param option.type 读取的类型，默认按照二进制 url 读取
-   * @param option.encoding 读取的编码格式，默认为 UTF-8
+   * @param options 读取的选项
    * @returns 返回了读取到的内容（异步）
    */
-  function readLocal(file, { type = readLocal.DataURL, encoding = 'UTF-8', } = {}) {
+  function _readLocal(file, options = {}) {
+      const { type, encoding } = Object.assign({
+          type: ReadType.DataURL,
+          encoding: 'UTF-8',
+      }, options);
       return new Promise((resolve, reject) => {
           if (!file) {
               reject(new Error('file not exists'));
@@ -248,34 +250,45 @@
           fr.onerror = error => {
               reject(error);
           };
-          new Map()
-              .set(ReadType.DataURL, () => fr.readAsDataURL(file))
-              .set(ReadType.Text, () => fr.readAsText(file, encoding))
-              .set(ReadType.BinaryString, () => fr.readAsBinaryString(file))
-              .set(ReadType.ArrayBuffer, () => fr.readAsArrayBuffer(file))
-              .get(type)();
+          switch (type) {
+              case ReadType.DataURL:
+                  fr.readAsDataURL(file);
+                  break;
+              case ReadType.Text:
+                  fr.readAsText(file, encoding);
+                  break;
+              case ReadType.BinaryString:
+                  fr.readAsBinaryString(file);
+                  break;
+              case ReadType.ArrayBuffer:
+                  fr.readAsArrayBuffer(file);
+                  break;
+          }
       });
   }
-  /**
-   * 以 data url 读取
-   * @deprecated 已废弃，请使用枚举类 ReadType
-   */
-  readLocal.DataURL = ReadType.DataURL;
-  /**
-   * 以文本读取
-   * @deprecated 已废弃，请使用枚举类 ReadType
-   */
-  readLocal.Text = ReadType.Text;
-  /**
-   * 以二进制文件读取
-   * @deprecated 已废弃，请使用枚举类 ReadType
-   */
-  readLocal.BinaryString = ReadType.BinaryString;
-  /**
-   * 以 ArrayBuffer 读取
-   * @deprecated 已废弃，请使用枚举类 ReadType
-   */
-  readLocal.ArrayBuffer = ReadType.ArrayBuffer;
+  const readLocal = Object.assign(_readLocal, {
+      ReadType,
+      /**
+       * 以 data url 读取
+       * @deprecated 已废弃，请使用枚举类 ReadType
+       */
+      DataURL: ReadType.DataURL,
+      /**
+       * 以文本读取
+       * @deprecated 已废弃，请使用枚举类 ReadType
+       */
+      Text: ReadType.Text,
+      /**
+       * 以二进制文件读取
+       * @deprecated 已废弃，请使用枚举类 ReadType
+       */
+      BinaryString: ReadType.BinaryString,
+      /**
+       * 以 ArrayBuffer 读取
+       * @deprecated 已废弃，请使用枚举类 ReadType
+       */
+      ArrayBuffer: ReadType.ArrayBuffer,
+  });
 
   /**
    * 为 js 中的 Date 对象原型添加 format 格式化方法
@@ -4766,6 +4779,195 @@
   }
 
   /**
+   * 补 0 函数
+   * @param time 为时分秒补首位 0
+   * @returns 补零得到的字符串
+   */
+  function zeroPadding(time) {
+      return (time >= 10 ? '' : '0') + time;
+  }
+  /**
+   * 秒表
+   * 标准格式 `HH:mm:ss`
+   * 主要适用场景是格式化/解析时间差值
+   */
+  class Stopwatch {
+      /**
+       * 格式化一个以秒为单位的绝对时间为标准时间格式的字符串
+       * @param time 时间/s
+       * @returns 格式化后的字符串
+       */
+      static format(time) {
+          const seconds = time % 60;
+          const minutes = Math.floor(time / 60) % 60;
+          const hours = Math.floor(time / 60 / 60);
+          return `${zeroPadding(hours)}:${zeroPadding(minutes)}:${zeroPadding(seconds)}`;
+      }
+      /**
+       * 解析一个标准的时间字符串为秒为单位的绝对时间
+       * @param str 时间字符串
+       * @returns 解析得到的时间/s
+       */
+      static parse(str) {
+          const [, hours, minutes, seconds] = /(\d+):(\d+):(\d+)/.exec(str);
+          return (parseInt(hours) * 60 * 60 + parseInt(minutes) * 60 + parseInt(seconds));
+      }
+  }
+
+  /**
+   * 提醒用户当前页面有正在执行的操作，暂时不能离开
+   * 注：用户实际上可以不管该提醒
+   * @param fn 谓词，是否要提醒不要关闭
+   * @returns 返回删除这个事件监听的函数
+   */
+  function remindLeavePage(fn = () => false) {
+      const listener = (e) => {
+          // @ts-ignore
+          if (fn.apply(this)) {
+              return false;
+          }
+          const confirmationMessage = '请不要关闭页面';
+          e.returnValue = confirmationMessage; //Gecko + IE
+          return confirmationMessage; //Webkit, Safari, Chrome etc.
+      };
+      window.addEventListener('beforeunload', listener);
+      return () => window.removeEventListener('beforeunload', listener);
+  }
+
+  /**
+   * 事件总线
+   * 实际上就是发布订阅模式的一种简单实现
+   * 类型定义受到 {@link https://github.com/andywer/typed-emitter/blob/master/index.d.ts} 的启发，不过只需要声明参数就好了，而不需要返回值（应该是 {@code void}）
+   */
+  class EventEmitter {
+      constructor() {
+          this.events = new Map();
+      }
+      /**
+       * 添加一个事件监听程序
+       * @param type 监听类型
+       * @param callback 处理回调
+       * @returns {@code this}
+       */
+      add(type, callback) {
+          const callbacks = this.events.get(type) || [];
+          callbacks.push(callback);
+          this.events.set(type, callbacks);
+          return this;
+      }
+      /**
+       * 移除一个事件监听程序
+       * @param type 监听类型
+       * @param callback 处理回调
+       * @returns {@code this}
+       */
+      remove(type, callback) {
+          const callbacks = this.events.get(type) || [];
+          this.events.set(type, callbacks.filter((fn) => fn !== callback));
+          return this;
+      }
+      /**
+       * 移除一类事件监听程序
+       * @param type 监听类型
+       * @returns {@code this}
+       */
+      removeByType(type) {
+          this.events.delete(type);
+          return this;
+      }
+      /**
+       * 触发一类事件监听程序
+       * @param type 监听类型
+       * @param args 处理回调需要的参数
+       * @returns {@code this}
+       */
+      emit(type, ...args) {
+          const callbacks = this.events.get(type) || [];
+          callbacks.forEach(fn => {
+              fn(...args);
+          });
+          return this;
+      }
+      /**
+       * 获取一类事件监听程序
+       * @param type 监听类型
+       * @returns 一个只读的数组，如果找不到，则返回空数组 {@code []}
+       */
+      listeners(type) {
+          return Object.freeze(this.events.get(type) || []);
+      }
+  }
+
+  /**
+   * 在数组指定位置插入元素
+   * @param arr 需要插入的数组
+   * @param index 插入的下标，负值从末尾开始计算，超过数组最大长度则追加在最后
+   * @param values 插入的值
+   */
+  function insert(arr, index, ...values) {
+      const res = index < 0 ? arr.length + index : index >= arr.length ? arr.length : index;
+      const delArr = arr.splice(index);
+      arr.push(...values, ...delArr);
+      return res;
+  }
+
+  /**
+   * 一个简单的微任务队列辅助类
+   * 注：该 class 是为了解决问题 https://segmentfault.com/q/1010000019115775
+   */
+  class MicrotaskQueue {
+      constructor() {
+          this.tasks = [];
+          this.isRunning = false;
+      }
+      add(func, index) {
+          if (index !== undefined) {
+              insert(this.tasks, index, func);
+          }
+          else {
+              this.tasks.push(func);
+          }
+          this.start();
+          return this;
+      }
+      start() {
+          if (this.isRunning) {
+              return;
+          }
+          this.isRunning = true;
+          const goNext = () => {
+              if (this.tasks.length) {
+                  const task = this.tasks.shift();
+                  compatibleAsync(task(), () => goNext());
+              }
+              else {
+                  this.isRunning = false;
+              }
+          };
+          Promise.resolve().then(() => {
+              goNext();
+          });
+      }
+  }
+
+  /**
+   * 取值的字符串
+   */
+  const rangeStr = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const rangeLen = rangeStr.length;
+  /**
+   * 生成一个随机字符串
+   * @param len
+   */
+  function randomStr(len) {
+      let res = '';
+      for (let i = 0; i < len; i++) {
+          res += rangeStr.charAt(Math.floor(Math.random() * rangeLen));
+      }
+      return res;
+  }
+
+  /**
    * 解析字段字符串为数组
    * @param str 字段字符串
    * @returns 字符串数组，数组的 `[]` 取法会被解析为数组的一个元素
@@ -4832,62 +5034,6 @@
       return false;
   }
 
-  /**
-   * 补 0 函数
-   * @param time 为时分秒补首位 0
-   * @returns 补零得到的字符串
-   */
-  function zeroPadding(time) {
-      return (time >= 10 ? '' : '0') + time;
-  }
-  /**
-   * 秒表
-   * 标准格式 `HH:mm:ss`
-   * 主要适用场景是格式化/解析时间差值
-   */
-  class Stopwatch {
-      /**
-       * 格式化一个以秒为单位的绝对时间为标准时间格式的字符串
-       * @param time 时间/s
-       * @returns 格式化后的字符串
-       */
-      static format(time) {
-          const seconds = time % 60;
-          const minutes = Math.floor(time / 60) % 60;
-          const hours = Math.floor(time / 60 / 60);
-          return `${zeroPadding(hours)}:${zeroPadding(minutes)}:${zeroPadding(seconds)}`;
-      }
-      /**
-       * 解析一个标准的时间字符串为秒为单位的绝对时间
-       * @param str 时间字符串
-       * @returns 解析得到的时间/s
-       */
-      static parse(str) {
-          const [, hours, minutes, seconds] = /(\d+):(\d+):(\d+)/.exec(str);
-          return (parseInt(hours) * 60 * 60 + parseInt(minutes) * 60 + parseInt(seconds));
-      }
-  }
-
-  /**
-   * 提醒用户当前页面有正在执行的操作，暂时不能离开
-   * 注：用户实际上可以不管该提醒
-   * @param fn 谓词，是否要提醒不要关闭
-   * @returns 返回删除这个事件监听的函数
-   */
-  function remindLeavePage(fn = () => false) {
-      const listener = (e) => {
-          // @ts-ignore
-          if (fn.apply(this)) {
-              return false;
-          }
-          const confirmationMessage = '请不要关闭页面';
-          e.returnValue = confirmationMessage; //Gecko + IE
-          return confirmationMessage; //Webkit, Safari, Chrome etc.
-      };
-      window.addEventListener('beforeunload', listener);
-      return () => window.removeEventListener('beforeunload', listener);
-  }
-
   exports.AntiDebug = AntiDebug;
   exports.ArrayValidator = ArrayValidator;
   exports.AsyncArray = AsyncArray;
@@ -4895,11 +5041,13 @@
   exports.CombinedPredicate = CombinedPredicate;
   exports.DateConstants = DateConstants;
   exports.DateFormatter = DateFormatter;
+  exports.EventEmitter = EventEmitter;
   exports.EventUtil = EventUtil;
   exports.FetchLimiting = FetchLimiting;
   exports.LocalStorageCache = LocalStorageCache;
   exports.Locker = Locker;
   exports.Logger = Logger;
+  exports.MicrotaskQueue = MicrotaskQueue;
   exports.NodeBridgeUtil = NodeBridgeUtil;
   exports.PathUtil = PathUtil;
   exports.PubSubMachine = PubSubMachine;
@@ -4995,6 +5143,7 @@
   exports.partial = partial;
   exports.pathUtil = pathUtil;
   exports.randomInt = randomInt;
+  exports.randomStr = randomStr;
   exports.range = range;
   exports.readLocal = readLocal;
   exports.remindLeavePage = remindLeavePage;

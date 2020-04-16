@@ -50,11 +50,28 @@ export class Logger {
         ),
       )
   }
+
+  /**
+   * 开发日志：业务强相关调试日志，希望其他人开发时默认隐藏起来的日志（例如第三方服务的回调日志很多，但对于服务接入层的使用者并不关心）
+   */
   debug = console.debug
-  error = console.error
-  info = console.info
+  /**
+   * 开发日志：业务相关调试日志，希望其他开发时也能看到的日志
+   */
   log = console.log
+  /**
+   * 生产日志：开发环境也会打印的日志，希望在生产环境打印并且方便调试的日志
+   */
+  info = console.info
+  /**
+   * 警告日志：一些危险的操作可以在这里打印出来，同时会显示在生产环境（例如警告用户不要在控制台输入不了解的代码以避免账号安全）
+   */
   warn = console.warn
+  /**
+   * 错误日志：发生错误时使用的日志，发生影响到用户的错误时必须使用该日志
+   */
+  error = console.error
+
   dir = console.dir
   dirxml = console.dirxml
   table = console.table

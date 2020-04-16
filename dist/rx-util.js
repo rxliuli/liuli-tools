@@ -3782,6 +3782,21 @@
    */
   const pathUtil = PathUtil;
 
+  var LoggerLevelEnum;
+  (function (LoggerLevelEnum) {
+      LoggerLevelEnum[LoggerLevelEnum["Debug"] = 0] = "Debug";
+      LoggerLevelEnum[LoggerLevelEnum["Log"] = 1] = "Log";
+      LoggerLevelEnum[LoggerLevelEnum["Info"] = 2] = "Info";
+      LoggerLevelEnum[LoggerLevelEnum["Warn"] = 3] = "Warn";
+      LoggerLevelEnum[LoggerLevelEnum["Error"] = 4] = "Error";
+  })(LoggerLevelEnum || (LoggerLevelEnum = {}));
+  const enumMap = {
+      debug: LoggerLevelEnum.Debug,
+      log: LoggerLevelEnum.Log,
+      info: LoggerLevelEnum.Info,
+      warn: LoggerLevelEnum.Warn,
+      error: LoggerLevelEnum.Error,
+  };
   /**
    * 自定义的日志类
    * 主要便于在开发环境下正常显示调试信息，在生产环境则默认关闭它
@@ -3792,12 +3807,27 @@
        * @param options 可选项
        * @param options.enable 是否开启日志
        */
-      constructor({ enable = true } = {}) {
+      constructor({ enable = true, level = LoggerLevelEnum.Log, } = {}) {
+          /**
+           * 开发日志：业务强相关调试日志，希望其他人开发时默认隐藏起来的日志（例如第三方服务的回调日志很多，但对于服务接入层的使用者并不关心）
+           */
           this.debug = console.debug;
-          this.error = console.error;
-          this.info = console.info;
+          /**
+           * 开发日志：业务相关调试日志，希望其他开发时也能看到的日志
+           */
           this.log = console.log;
+          /**
+           * 生产日志：开发环境也会打印的日志，希望在生产环境打印并且方便调试的日志
+           */
+          this.info = console.info;
+          /**
+           * 警告日志：一些危险的操作可以在这里打印出来，同时会显示在生产环境（例如警告用户不要在控制台输入不了解的代码以避免账号安全）
+           */
           this.warn = console.warn;
+          /**
+           * 错误日志：发生错误时使用的日志，发生影响到用户的错误时必须使用该日志
+           */
+          this.error = console.error;
           this.dir = console.dir;
           this.dirxml = console.dirxml;
           this.table = console.table;
@@ -3813,22 +3843,27 @@
           this.time = console.time;
           this.timeEnd = console.timeEnd;
           this.timeStamp = console.timeStamp;
-          this._enable = enable;
+          this.enable = enable;
+          this.level = level;
       }
       /**
        * 设置 enable 的 setter 属性，在改变时合并对应的子类对象实现
        * @param enable 是否开启
        */
       set enable(enable) {
-          /**
-           * @field 是否开启全局控制台，该属性只写
-           */
-          this._enable = enable;
-          Object.keys(console).forEach(
-          // @ts-ignore
-          k => (this[k] = enable ? console[k] : emptyFunc));
+          Object.keys(console).forEach(k => Reflect.set(this, k, enable ? console[k] : emptyFunc));
+      }
+      /**
+       * 设置日志的级别
+       * @param level
+       */
+      set level(level) {
+          Object.keys(console)
+              .filter(k => Reflect.has(enumMap, k))
+              .forEach(k => Reflect.set(this, k, Reflect.get(enumMap, k) >= level ? console[k] : emptyFunc));
       }
   }
+  Logger.Level = LoggerLevelEnum;
   /**
    * 导出一个全局可用的 Logger 对象
    * 使用 enable 属性控制是否开启日志输出，默认为 true

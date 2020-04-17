@@ -7,9 +7,8 @@ import { ReturnFunc } from '../interface/ReturnFunc'
  * @returns 返回删除这个事件监听的函数
  */
 export function remindLeavePage(fn: ReturnFunc<boolean> = () => false) {
-  const listener = (e: any) => {
-    // @ts-ignore
-    if (fn.apply(this)) {
+  const listener = (e: BeforeUnloadEvent) => {
+    if (fn()) {
       return false
     }
     const confirmationMessage = '请不要关闭页面'

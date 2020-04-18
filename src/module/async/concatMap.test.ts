@@ -39,6 +39,6 @@ describe('test concatMap', () => {
       expect(last).toBe(10)
       // 实际上确实执行了 3 次，结果也确实为 3 次调用参数之和
       expect(sum).toBe(60)
-    })
+    }, 100000)
   })
 })

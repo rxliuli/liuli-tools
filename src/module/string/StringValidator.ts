@@ -39,7 +39,7 @@ type IString = string | null | undefined
 
 /**
  * 字符串校验
- * TODO 使用 any 可能是个严重的错误。。。
+ * @suppress 之后将会对类型定义进行不兼容修改，避免一直出现的两难问题
  */
 export class StringValidator {
   /**
@@ -136,6 +136,105 @@ export class StringValidator {
    */
   public static isPostcode(str: IString): str is string {
     return !isNullOrUndefined(str) && PostcodeRule.test(str)
+  }
+}
+
+/**
+ * 字符串校验
+ */
+export class StringValidator2 {
+  /**
+   * 判断一个字符串是否为空字符串
+   * @param str 字符串
+   * @returns 是否为空字符串
+   */
+  public static isEmpty(str: string): boolean {
+    return isNullOrUndefined(str) || str === ''
+  }
+  /**
+   * 判断一个字符串是否为空白的字符串
+   * @param str 字符串
+   * @returns 是否为空字符串
+   * 注：这里的类型仍然有点问题，因为空白字符串很难通过静态类型系统判断。。。
+   */
+  public static isBlank(str: string): boolean {
+    return StringValidator.isEmpty(str) || str!.trim() === ''
+  }
+
+  /**
+   * 判断字符串是否位小数
+   * @param str 需要进行判断的字符串
+   * @returns 是否为小数
+   */
+  public static isFloat(str: string): boolean {
+    return FloatRule.test(str)
+  }
+
+  /**
+   * 判断字符串是否位整数
+   * @param str 需要进行判断的字符串
+   * @returns 是否为小数
+   */
+  public static isInteger(str: string): boolean {
+    return IntegerRule.test(str)
+  }
+  /**
+   * 判断邮箱的格式是否正确
+   * @param str 邮箱字符串
+   * @returns 是否是邮箱
+   */
+  public static isEmail(str: string): boolean {
+    return EmailRule.test(str)
+  }
+  /**
+   * 判断 ipv4 地址的格式是否正确
+   * @param str ipv4 字符串
+   * @returns 是否是 ipv4 地址
+   */
+  public static isIpv4(str: string): boolean {
+    return Ipv4Rule.test(str)
+  }
+  /**
+   * 判断字符串是否为正确的端口号
+   * 正确的端口号是 1-65535
+   * @param str 字符串
+   * @returns 是否为端口号
+   */
+  public static isPort(str: string): boolean {
+    // tslint:disable-next-line:radix
+    return StringValidator.isInteger(str) && isRange(parseInt(str), 1, 65535)
+  }
+  /**
+   * 判断是否为固定电话
+   * @param str 字符串
+   * @returns 是否为固定电话
+   */
+  public static isTelephone(str: string): boolean {
+    return TelephoneRule.test(str)
+  }
+  /**
+   * 判断是否为移动电话
+   * @param str 字符串
+   * @returns 是否为移动电话
+   */
+  public static isMobile(str: string): boolean {
+    return MobileRule.test(str)
+  }
+  /**
+   * 判断是否为域名
+   * @param str 字符串
+   * @returns 是否为域名
+   */
+  public static isDomain(str: string): boolean {
+    return DomainRule.test(str)
+  }
+  /**
+   * 判断是否为邮政编码
+   * @param str 字符串
+   * @returns 是否为邮政编码
+   */
+  public static isPostcode(str: string): boolean {
+    return PostcodeRule.test(str)
   }
 }
 

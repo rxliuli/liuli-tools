@@ -20,9 +20,9 @@ export function concatMap<Fn extends AsyncFunc>(fn: Fn): Fn {
       ids.add(temp)
       id++
       await wait(() => !ids.has(temp - 1))
-      const prom = Reflect.apply(_, _this, args)
+      const res = await Reflect.apply(_, _this, args)
       ids.delete(temp)
-      return await prom
+      return res
     },
   })
 }

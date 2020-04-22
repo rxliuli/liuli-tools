@@ -2,16 +2,15 @@
  * 压缩两个数组为一个数组
  * @param arr1
  * @param arr2
- * @param operation
+ * @param [operation]
  */
 export function zip<T, R>(
   arr1: T[],
   arr2: T[],
-  operation: (v1: T, v2: T, index: number) => R,
+  operation: (v1: T, v2: T, index: number) => R = (x, y) => [x, y] as any,
 ): R[] {
-  const len = arr1.length > arr2.length ? arr1.length : arr2.length
   const arr = []
-  for (let i = 0; i < len; i++) {
+  for (let i = 0, len = Math.min(arr1.length, arr2.length); i < len; i++) {
     const v1 = arr1[i]
     const v2 = arr2[i]
     const v = operation(v1, v2, i)

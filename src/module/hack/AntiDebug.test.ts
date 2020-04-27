@@ -1,16 +1,15 @@
-import { antiDebug } from './AntiDebug'
+import { AntiDebug } from './AntiDebug'
 import { wait } from '../async/wait'
 
 /**
  * @test {antiDebug}
  */
 describe('test antiDebug', () => {
-  const { cyclingDebugger, checkDebug, disableConsoleOutput } = antiDebug
   it('test cyclingDebugger', () => {
-    cyclingDebugger()
+    AntiDebug.cyclingDebugger()
   })
   it.skip('test checkDebug', async () => {
-    checkDebug(() => console.log('正在 debug?'))
+    AntiDebug.checkDebug(() => console.log('正在 debug?'))
     await wait(1000)
     function sleep(milliSeconds: number) {
       const end = Date.now() + milliSeconds
@@ -21,7 +20,7 @@ describe('test antiDebug', () => {
   it('test disableConsoleOutput', () => {
     // 未禁用之前应该可以在控制台打印了 abc
     console.log('abc')
-    disableConsoleOutput()
+    AntiDebug.disableConsoleOutput()
     // 仅用了之后就看不到了
     console.log('abc')
   })

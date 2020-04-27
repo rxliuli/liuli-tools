@@ -2,6 +2,7 @@ import { timing } from '../function/timing'
 import { emptyFunc } from '../function/emptyFunc'
 import { returnItself } from '../function/returnItself'
 import { arrayToMap } from '../array/arrayToMap'
+import { EmptyFunc } from '../interface/EmptyFunc'
 
 /**
  * 禁止他人调试网站相关方法的集合对象
@@ -11,7 +12,7 @@ export class AntiDebug {
    * 不停循环 debugger 防止有人调试代码
    * @returns 取消函数
    */
-  public static cyclingDebugger(): Function {
+  public static cyclingDebugger(): EmptyFunc {
     const res = setInterval(() => {
       debugger
     }, 100)
@@ -25,13 +26,10 @@ export class AntiDebug {
    */
   public static checkDebug(
     fn: Function = () => window.location.reload(),
-  ): Function {
+  ): EmptyFunc {
     const res = setInterval(() => {
       const diff = timing(() => {
-        for (let i = 0; i < 1000; i++) {
-          console.log(i)
-          console.clear()
-        }
+        debugger
       })
       if (diff > 500) {
         console.log(diff)
@@ -45,7 +43,7 @@ export class AntiDebug {
    * 禁用控制台调试输出
    * @returns 取消函数
    */
-  public static disableConsoleOutput(): Function {
+  public static disableConsoleOutput(): EmptyFunc {
     if (!window.console) {
       return emptyFunc
     }

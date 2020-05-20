@@ -1,6 +1,7 @@
 /**
  * 发布订阅模式
  * @typeparam T 订阅主题的类型，虽然可以为 any，但这里是刻意进行限制以避免 “全局” 的发布订阅中心对象
+ * @deprecated 已废弃，请使用语义更好、类型安全且 API 更强大的 {@see EventEmitter} 进行事件总线处理
  */
 export declare class PubSubMachine<T> {
     /**

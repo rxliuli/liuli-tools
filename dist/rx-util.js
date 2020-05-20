@@ -293,7 +293,7 @@
   /**
    * 为 js 中的 Date 对象原型添加 format 格式化方法
    * @param date 要进行格式化的日期
-   * @param fmt 日期的格式
+   * @param fmt 日期的格式，格式 {@code '[Y+|y+][M+][D+|d+][H+|h+][m+][s+][S+][q+]'}
    * @returns 格式化得到的结果
    */
   function dateFormat(date, fmt) {
@@ -1083,7 +1083,7 @@
   const PostcodeRule = /^\d{6}$/;
   /**
    * 字符串校验
-   * TODO 使用 any 可能是个严重的错误。。。
+   * @suppress 之后将会对类型定义进行不兼容修改，避免一直出现的两难问题
    */
   class StringValidator {
       /**
@@ -3633,10 +3633,7 @@
       static checkDebug(fn = () => window.location.reload()) {
           const res = setInterval(() => {
               const diff = timing(() => {
-                  for (let i = 0; i < 1000; i++) {
-                      console.log(i);
-                      console.clear();
-                  }
+                  debugger;
               });
               if (diff > 500) {
                   console.log(diff);
@@ -4584,9 +4581,9 @@
                   ids.add(temp);
                   id++;
                   yield wait(() => !ids.has(temp - 1));
-                  const prom = Reflect.apply(_, _this, args);
+                  const res = yield Reflect.apply(_, _this, args);
                   ids.delete(temp);
-                  return yield prom;
+                  return res;
               });
           },
       });
@@ -4606,6 +4603,7 @@
   /**
    * 发布订阅模式
    * @typeparam T 订阅主题的类型，虽然可以为 any，但这里是刻意进行限制以避免 “全局” 的发布订阅中心对象
+   * @deprecated 已废弃，请使用语义更好、类型安全且 API 更强大的 {@see EventEmitter} 进行事件总线处理
    */
   class PubSubMachine {
       constructor() {
@@ -4857,8 +4855,7 @@
    */
   function remindLeavePage(fn = () => false) {
       const listener = (e) => {
-          // @ts-ignore
-          if (fn.apply(this)) {
+          if (fn()) {
               return false;
           }
           const confirmationMessage = '请不要关闭页面';
@@ -5069,6 +5066,47 @@
       return false;
   }
 
+  /**
+   * 获取当前选中的文本
+   * @returns 当前选中的文本
+   */
+  function getSelectText() {
+      return getSelection().toString();
+  }
+
+  /**
+   * 获取图片的尺寸
+   * @param url
+   */
+  function imageSize(url) {
+      return new Promise((resolve, reject) => {
+          const image = new Image();
+          image.addEventListener('load', function () {
+              resolve({
+                  width: this.width,
+                  height: this.height,
+              });
+          });
+          image.addEventListener('error', ev => {
+              reject(ev.error);
+          });
+          image.src = url;
+      });
+  }
+
+  /**
+   * 获取鼠标的位置
+   * @param e 触发的鼠标事件对象
+   * @returns 鼠标的坐标
+   */
+  function getMousePos(e) {
+      const scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+      const scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+      const x = e.pageX || e.clientX + scrollX;
+      const y = e.pageY || e.clientY + scrollY;
+      return { x, y };
+  }
+
   exports.AntiDebug = AntiDebug;
   exports.ArrayValidator = ArrayValidator;
   exports.AsyncArray = AsyncArray;
@@ -5147,10 +5185,13 @@
   exports.getCookies = getCookies;
   exports.getCursorPosition = getCursorPosition;
   exports.getCusorPostion = getCusorPostion;
+  exports.getMousePos = getMousePos;
   exports.getObjectEntries = getObjectEntries;
   exports.getObjectKeys = getObjectKeys;
+  exports.getSelectText = getSelectText;
   exports.getYearWeek = getYearWeek;
   exports.groupBy = groupBy;
+  exports.imageSize = imageSize;
   exports.insertText = insertText;
   exports.isBlank = isBlank;
   exports.isEditable = isEditable;

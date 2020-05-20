@@ -287,7 +287,7 @@ const readLocal = Object.assign(_readLocal, {
 /**
  * 为 js 中的 Date 对象原型添加 format 格式化方法
  * @param date 要进行格式化的日期
- * @param fmt 日期的格式
+ * @param fmt 日期的格式，格式 {@code '[Y+|y+][M+][D+|d+][H+|h+][m+][s+][S+][q+]'}
  * @returns 格式化得到的结果
  */
 function dateFormat(date, fmt) {
@@ -1077,7 +1077,7 @@ const DomainRule = /^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-
 const PostcodeRule = /^\d{6}$/;
 /**
  * 字符串校验
- * TODO 使用 any 可能是个严重的错误。。。
+ * @suppress 之后将会对类型定义进行不兼容修改，避免一直出现的两难问题
  */
 class StringValidator {
     /**
@@ -3628,10 +3628,7 @@ class AntiDebug {
     static checkDebug(fn = () => window.location.reload()) {
         const res = setInterval(() => {
             const diff = timing(() => {
-                for (let i = 0; i < 1000; i++) {
-                    console.log(i);
-                    console.clear();
-                }
+                debugger;
             });
             if (diff > 500) {
                 console.log(diff);
@@ -4579,9 +4576,9 @@ function concatMap(fn) {
                 ids.add(temp);
                 id++;
                 yield wait(() => !ids.has(temp - 1));
-                const prom = Reflect.apply(_, _this, args);
+                const res = yield Reflect.apply(_, _this, args);
                 ids.delete(temp);
-                return yield prom;
+                return res;
             });
         },
     });
@@ -4601,6 +4598,7 @@ function repeatedCall(num, fn, ...args) {
 /**
  * 发布订阅模式
  * @typeparam T 订阅主题的类型，虽然可以为 any，但这里是刻意进行限制以避免 “全局” 的发布订阅中心对象
+ * @deprecated 已废弃，请使用语义更好、类型安全且 API 更强大的 {@see EventEmitter} 进行事件总线处理
  */
 class PubSubMachine {
     constructor() {
@@ -4852,8 +4850,7 @@ class Stopwatch {
  */
 function remindLeavePage(fn = () => false) {
     const listener = (e) => {
-        // @ts-ignore
-        if (fn.apply(this)) {
+        if (fn()) {
             return false;
         }
         const confirmationMessage = '请不要关闭页面';
@@ -5064,5 +5061,46 @@ function set(obj, fields, val) {
     return false;
 }
 
-export { AntiDebug, ArrayValidator, AsyncArray, CacheUtil, CombinedPredicate, DateConstants, DateFormatter, EventEmitter, EventUtil, FetchLimiting, LocalStorageCache, Locker, Logger, MicrotaskQueue, NodeBridgeUtil, PathUtil, PubSubMachine, StateMachine, Stopwatch, StringStyleType, StringStyleUtil, StringValidator, TypeValidator, aggregation, and, antiDebug, appends, arrayDiffBy, arrayToMap, arrayValidator, asIterator, assign, async, asyncFlatMap, asyncLimiting, autoIncrement, blankToNull, blankToNullField, bridge, cacheUtil, compare, compatibleAsync, compose, concatMap, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepExcludeFields, deepFreeze, deepProxy, deletes, deny, diffBy, download, downloadString, downloadUrl, emptyAllField, emptyFunc, excludeFields, excludeFieldsDeep, extractFieldMap, fetchTimeout, fill, filterItems, findIndex, flatMap, floatEquals, formDataToArray, format, get, getCookies, getCursorPosition, getCusorPostion, getObjectEntries, getObjectKeys, getYearWeek, groupBy, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, listToTree, loadResource, loadScript, loadStyle, logger, mapToObject, mergeMap, nodeBridgeUtil, not, objToFormData, objectToMap, once, onceOfSameParam, or, parseUrl, partial, pathUtil, randomInt, randomStr, range, readLocal, remindLeavePage, removeEl, removeText, repeatedCall, returnItself, returnReasonableItself, safeExec, segmentation, set, setCursorPosition, setCusorPostion, sets, singleModel, sleep, sortBy, spliceParams, strToArrayBuffer, strToDate, stringValidator, switchMap, throttle, timing, toLowerCase, toObject, toString$1 as toString, toUpperCase, toggleClass, treeMapping, treeToList, trySometime, trySometimeParallel, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
+/**
+ * 获取当前选中的文本
+ * @returns 当前选中的文本
+ */
+function getSelectText() {
+    return getSelection().toString();
+}
+
+/**
+ * 获取图片的尺寸
+ * @param url
+ */
+function imageSize(url) {
+    return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.addEventListener('load', function () {
+            resolve({
+                width: this.width,
+                height: this.height,
+            });
+        });
+        image.addEventListener('error', ev => {
+            reject(ev.error);
+        });
+        image.src = url;
+    });
+}
+
+/**
+ * 获取鼠标的位置
+ * @param e 触发的鼠标事件对象
+ * @returns 鼠标的坐标
+ */
+function getMousePos(e) {
+    const scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+    const scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+    const x = e.pageX || e.clientX + scrollX;
+    const y = e.pageY || e.clientY + scrollY;
+    return { x, y };
+}
+
+export { AntiDebug, ArrayValidator, AsyncArray, CacheUtil, CombinedPredicate, DateConstants, DateFormatter, EventEmitter, EventUtil, FetchLimiting, LocalStorageCache, Locker, Logger, MicrotaskQueue, NodeBridgeUtil, PathUtil, PubSubMachine, StateMachine, Stopwatch, StringStyleType, StringStyleUtil, StringValidator, TypeValidator, aggregation, and, antiDebug, appends, arrayDiffBy, arrayToMap, arrayValidator, asIterator, assign, async, asyncFlatMap, asyncLimiting, autoIncrement, blankToNull, blankToNullField, bridge, cacheUtil, compare, compatibleAsync, compose, concatMap, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepExcludeFields, deepFreeze, deepProxy, deletes, deny, diffBy, download, downloadString, downloadUrl, emptyAllField, emptyFunc, excludeFields, excludeFieldsDeep, extractFieldMap, fetchTimeout, fill, filterItems, findIndex, flatMap, floatEquals, formDataToArray, format, get, getCookies, getCursorPosition, getCusorPostion, getMousePos, getObjectEntries, getObjectKeys, getSelectText, getYearWeek, groupBy, imageSize, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, listToTree, loadResource, loadScript, loadStyle, logger, mapToObject, mergeMap, nodeBridgeUtil, not, objToFormData, objectToMap, once, onceOfSameParam, or, parseUrl, partial, pathUtil, randomInt, randomStr, range, readLocal, remindLeavePage, removeEl, removeText, repeatedCall, returnItself, returnReasonableItself, safeExec, segmentation, set, setCursorPosition, setCusorPostion, sets, singleModel, sleep, sortBy, spliceParams, strToArrayBuffer, strToDate, stringValidator, switchMap, throttle, timing, toLowerCase, toObject, toString$1 as toString, toUpperCase, toggleClass, treeMapping, treeToList, trySometime, trySometimeParallel, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
 //# sourceMappingURL=rx-util-es.js.map

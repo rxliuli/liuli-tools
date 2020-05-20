@@ -146,6 +146,9 @@ import { MicrotaskQueue } from './module/async/MicrotaskQueue'
 import { randomStr } from './module/string/randomStr'
 import { get } from './module/obj/get'
 import { set } from './module/obj/set'
+import { getSelectText } from './module/dom/getSelectText'
+import { imageSize } from './module/dom/imageSize'
+import { getMousePos } from './module/dom/getMousePos'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -199,6 +202,9 @@ export {
   createElByString,
   getCursorPosition,
   getCusorPostion,
+  getMousePos,
+  getSelectText,
+  imageSize,
   insertText,
   isEditable,
   lastFocus,

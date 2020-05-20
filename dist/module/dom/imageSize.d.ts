@@ -1,7 +1,7 @@
 /**
  * 矩形大小
  */
-export interface RectSize {
+interface RectSize {
     width: number;
     height: number;
 }
@@ -10,4 +10,5 @@ export interface RectSize {
  * @param url
  */
 export declare function imageSize(url: string): Promise<RectSize>;
+export {};
 //# sourceMappingURL=imageSize.d.ts.map

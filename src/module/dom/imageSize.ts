@@ -1,7 +1,7 @@
 /**
  * 矩形大小
  */
-export interface RectSize {
+interface RectSize {
   width: number
   height: number
 }

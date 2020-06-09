@@ -1,6 +1,6 @@
 {
   "name": "rx-util",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "rxliuli 个人使用的 js 工具库（仅适用于浏览器）",
   "main": "./dist/rx-util.js",
   "module": "./dist/rx-util-es.js",
@@ -15,7 +15,7 @@
     "coverage": "jest --coverage",
     "server": "yarn docs && yarn coverage && live-server docs/ --port=4000",
     "deploy": "yarn gh-pages -d docs -t true && rm -rf docs",
-    "prepublishOnly": "yarn format && yarn build && yarn rimraf docs && yarn docs && yarn coverage && yarn deploy"
+    "publishReady": "yarn format && yarn build && yarn rimraf docs && yarn docs && yarn coverage && yarn deploy"
   },
   "repository": {
     "type": "git",

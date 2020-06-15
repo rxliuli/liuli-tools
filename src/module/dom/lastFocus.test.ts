@@ -10,6 +10,9 @@ describe('test lastFocus', () => {
       <a href="https://blog.rxliuli.com" id="link" />
     </main>
     `
+  beforeAll(() => {
+    lastFocus.init()
+  })
   it('test lastFocus for input focus', () => {
     // @ts-ignore
     const $name: HTMLFormElement = document.querySelector('#name')

@@ -3002,6 +3002,11 @@ listr@^0.14.2:
     p-map "^2.0.0"
     rxjs "^6.3.3"
 
+liuli-types@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/liuli-types/-/liuli-types-0.1.1.tgz#957d3dcda2e35cdc1d792335d1d0c2143c9b3cff"
+  integrity sha512-lL1oFwrwnAOzHAUbe2TMyTccgr2N6Ix2rm99RKeMQvzPTI9/SBhO4Nok8xqzZn9Li4pop84Laks5woyEQURICQ==
+
 live-server@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/live-server/-/live-server-1.2.1.tgz#670630dd409d22fe9c513ab1c1894686c757153e"

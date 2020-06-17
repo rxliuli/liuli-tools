@@ -1,7 +1,11 @@
 import { wait } from '../async/wait'
 import { Func, DeconstructionPromise } from 'liuli-types'
-import { Err } from 'typedoc/dist/lib/utils/result'
 
+/**
+ * 将多个并发异步调用合并为一次批处理
+ * @param fn 需要包装的函数
+ * @param handle 批处理的函数
+ */
 export function batch<
   T extends Func,
   P extends Parameters<T>,
@@ -13,17 +17,16 @@ export function batch<
   return new Proxy(fn, {
     async apply(target: T, thisArg: any, argArray: P): Promise<R> {
       paramSet.add(argArray)
-      // console.log('apply wait begin: ', lock, resultMap.get(argArray))
-      await wait(() => resultMap.get(argArray) !== undefined || !lock)
-      // console.log('apply wait end: ', lock, resultMap.get(argArray), resultMap)
+      // console.log('apply wait begin: ', argArray, lock)
+      await wait(() => resultMap.has(argArray) || !lock)
+      // console.log('apply wait end: ', argArray, lock, resultMap)
       lock = true
       try {
         if (!resultMap.has(argArray)) {
-          Array.from((await handle(Array.from(paramSet))).entries()).forEach(
-            ([k, v]) => {
-              resultMap.set(k, v)
-            },
-          )
+          // console.log('handle end: ', argArray, map)
+          Array.from(await handle(Array.from(paramSet))).forEach(([k, v]) => {
+            resultMap.set(k, v)
+          })
         }
         const value = resultMap.get(argArray)
         paramSet.delete(argArray)

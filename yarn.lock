@@ -4841,6 +4841,11 @@ ts-node@^8.1.0:
     source-map-support "^0.5.6"
     yn "^3.0.0"
 
+ts-toolbelt@^6.9.4:
+  version "6.9.4"
+  resolved "https://registry.npm.taobao.org/ts-toolbelt/download/ts-toolbelt-6.9.4.tgz#cc3a070d99c557c552b4f69e36f13d430c47a760"
+  integrity sha1-zDoHDZnFV8VStPaeNvE9QwxHp2A=
+
 tslib@1.9.3:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"

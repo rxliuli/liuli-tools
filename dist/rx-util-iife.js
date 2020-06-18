@@ -5108,6 +5108,47 @@ var rx = (function (exports) {
       return { x, y };
   }
 
+  /**
+   * 将多个并发异步调用合并为一次批处理
+   * @param fn 需要包装的函数
+   * @param handle 批处理的函数
+   */
+  function batch(fn, handle) {
+      const resultMap = new Map();
+      const paramSet = new Set();
+      let lock = false;
+      return new Proxy(fn, {
+          apply(target, thisArg, argArray) {
+              return __awaiter(this, void 0, void 0, function* () {
+                  paramSet.add(argArray);
+                  // console.log('apply wait begin: ', argArray, lock)
+                  yield wait(() => resultMap.has(argArray) || !lock);
+                  // console.log('apply wait end: ', argArray, lock, resultMap)
+                  lock = true;
+                  try {
+                      if (!resultMap.has(argArray)) {
+                          // console.log('handle end: ', argArray, map)
+                          Array.from(yield handle(Array.from(paramSet))).forEach(([k, v]) => {
+                              resultMap.set(k, v);
+                          });
+                      }
+                      const value = resultMap.get(argArray);
+                      paramSet.delete(argArray);
+                      resultMap.delete(argArray);
+                      // console.log('delete: ', resultMap)
+                      if (value instanceof Error) {
+                          throw value;
+                      }
+                      return value;
+                  }
+                  finally {
+                      lock = false;
+                  }
+              });
+          },
+      });
+  }
+
   exports.AntiDebug = AntiDebug;
   exports.ArrayValidator = ArrayValidator;
   exports.AsyncArray = AsyncArray;
@@ -5143,6 +5184,7 @@ var rx = (function (exports) {
   exports.asyncFlatMap = asyncFlatMap;
   exports.asyncLimiting = asyncLimiting;
   exports.autoIncrement = autoIncrement;
+  exports.batch = batch;
   exports.blankToNull = blankToNull;
   exports.blankToNullField = blankToNullField;
   exports.bridge = bridge;

@@ -150,6 +150,7 @@ import { getSelectText } from './module/dom/getSelectText'
 import { imageSize } from './module/dom/imageSize'
 import { getMousePos } from './module/dom/getMousePos'
 import { batch } from './module/function/batch'
+import { getKFn } from './module/array/getKFn'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -180,6 +181,7 @@ export {
   filterItems,
   findIndex,
   flatMap,
+  getKFn,
   groupBy,
   range,
   segmentation,

@@ -1,5 +1,11 @@
 type EventType = string | number
 
+type CallbackFunc<Args extends any[]> = Args extends [infer P1]
+  ? (p1: P1) => void
+  : Args extends [infer P1, infer P2]
+  ? (p1: P1, p2: P2) => void
+  : (...args: Args) => void
+
 /**
  * 事件总线
  * 实际上就是发布订阅模式的一种简单实现
@@ -14,7 +20,7 @@ export class EventEmitter<Events extends Record<EventType, any[]>> {
    * @param callback 处理回调
    * @returns {@code this}
    */
-  add<E extends keyof Events>(type: E, callback: (...args: Events[E]) => void) {
+  add<E extends keyof Events>(type: E, callback: CallbackFunc<Events[E]>) {
     const callbacks = this.events.get(type) || []
     callbacks.push(callback)
     this.events.set(type, callbacks)
@@ -26,10 +32,7 @@ export class EventEmitter<Events extends Record<EventType, any[]>> {
    * @param callback 处理回调
    * @returns {@code this}
    */
-  remove<E extends keyof Events>(
-    type: E,
-    callback: (...args: Events[E]) => void,
-  ) {
+  remove<E extends keyof Events>(type: E, callback: CallbackFunc<Events[E]>) {
     const callbacks = this.events.get(type) || []
     this.events.set(
       type,

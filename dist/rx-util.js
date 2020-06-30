@@ -5231,6 +5231,7 @@
   exports.getCookies = getCookies;
   exports.getCursorPosition = getCursorPosition;
   exports.getCusorPostion = getCusorPostion;
+  exports.getKFn = getKFn;
   exports.getMousePos = getMousePos;
   exports.getObjectEntries = getObjectEntries;
   exports.getObjectKeys = getObjectKeys;

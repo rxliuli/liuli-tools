@@ -1,39 +1,34 @@
-import { insert } from '../array/insert'
-import { compatibleAsync } from '../async/compatibleAsync'
+import { compatibleAsync } from './compatibleAsync'
 
 type NoParamVoidFunc = () => void | PromiseLike<void>
 
 /**
- * 一个简单的微任务队列辅助类
+ * 一个简单的微任务队列辅助类，使用（宏）命令模式实现
  * 注：该 class 是为了解决问题 https://segmentfault.com/q/1010000019115775
  */
 export class MicrotaskQueue {
+  // task 列表
   public tasks: NoParamVoidFunc[] = []
-  private isRunning = false
-  add(func: NoParamVoidFunc, index?: number) {
-    if (index !== undefined) {
-      insert(this.tasks, index, func)
-    } else {
-      this.tasks.push(func)
-    }
-    this.start()
+  // 当前是否存在正在执行的 task
+  private lock = false
+  add(func: NoParamVoidFunc) {
+    this.tasks.push(func)
+    this.execute()
     return this
   }
-  private start() {
-    if (this.isRunning) {
+  execute() {
+    if (this.lock) {
       return
     }
-    this.isRunning = true
+    this.lock = true
     const goNext = () => {
       if (this.tasks.length) {
         const task = this.tasks.shift()!
         compatibleAsync(task(), () => goNext())
       } else {
-        this.isRunning = false
+        this.lock = false
       }
     }
-    Promise.resolve().then(() => {
-      goNext()
-    })
+    Promise.resolve().then(goNext)
   }
 }

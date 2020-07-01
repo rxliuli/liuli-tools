@@ -1,16 +1,20 @@
 import { batch } from './batch'
 import { arrayToMap } from '../array/arrayToMap'
+import { dateFormat, wait } from '../..'
 
 describe('测试 batch', () => {
-  it.skip('基本示例', async () => {
-    const handle = jest.fn(async (idList: [number][]) => {
-      console.log('batch.handle', idList)
-      return arrayToMap(
-        idList,
-        params => params,
-        ([id]) => id * 2,
-      )
-    })
+  const handle = jest.fn(async (idList: [number][]) => {
+    console.log('batch.handle', idList, dateFormat(new Date(), 'ss.SSS'))
+    return arrayToMap(
+      idList,
+      params => params,
+      ([id]) => id * 2,
+    )
+  })
+
+  beforeEach(handle.mockClear)
+
+  it('基本示例', async () => {
     const fn = batch(handle)
     const numbers = await Promise.all([fn(1), fn(2)])
     expect(numbers).toEqual([2, 4])
@@ -44,5 +48,31 @@ describe('测试 batch', () => {
     ])
     expect(await fn(1)).toBe(2)
     await expect(fn(0)).rejects.toThrowError()
+  })
+  it('测试等待间隔几十毫秒的调用（微任务）', async () => {
+    const fn = batch(handle)
+    await Promise.all([
+      fn(1).then(() => {
+        expect(handle.mock.calls.length).toBe(1)
+      }),
+      wait(150)
+        .then(() => fn(2))
+        .then(() => {
+          expect(handle.mock.calls.length).toBe(2)
+        }),
+    ])
+  })
+  it('测试等待间隔几十毫秒的调用（最小延迟）', async () => {
+    const fn = batch(handle, 200)
+    await Promise.all([
+      fn(1).then(() => {
+        expect(handle.mock.calls.length).toBe(1)
+      }),
+      wait(150)
+        .then(() => fn(2))
+        .then(() => {
+          expect(handle.mock.calls.length).toBe(1)
+        }),
+    ])
   })
 })

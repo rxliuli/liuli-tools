@@ -4930,54 +4930,36 @@ class EventEmitter {
 }
 
 /**
- * 在数组指定位置插入元素
- * @param arr 需要插入的数组
- * @param index 插入的下标，负值从末尾开始计算，超过数组最大长度则追加在最后
- * @param values 插入的值
- */
-function insert(arr, index, ...values) {
-    const res = index < 0 ? arr.length + index : index >= arr.length ? arr.length : index;
-    const delArr = arr.splice(index);
-    arr.push(...values, ...delArr);
-    return res;
-}
-
-/**
- * 一个简单的微任务队列辅助类
+ * 一个简单的微任务队列辅助类，使用（宏）命令模式实现
  * 注：该 class 是为了解决问题 https://segmentfault.com/q/1010000019115775
  */
 class MicrotaskQueue {
     constructor() {
+        // task 列表
         this.tasks = [];
-        this.isRunning = false;
+        // 当前是否存在正在执行的 task
+        this.lock = false;
     }
-    add(func, index) {
-        if (index !== undefined) {
-            insert(this.tasks, index, func);
-        }
-        else {
-            this.tasks.push(func);
-        }
-        this.start();
+    add(func) {
+        this.tasks.push(func);
+        this.execute();
         return this;
     }
-    start() {
-        if (this.isRunning) {
+    execute() {
+        if (this.lock) {
             return;
         }
-        this.isRunning = true;
+        this.lock = true;
         const goNext = () => {
             if (this.tasks.length) {
                 const task = this.tasks.shift();
                 compatibleAsync(task(), () => goNext());
             }
             else {
-                this.isRunning = false;
+                this.lock = false;
             }
         };
-        Promise.resolve().then(() => {
-            goNext();
-        });
+        Promise.resolve().then(goNext);
     }
 }
 
@@ -5108,43 +5090,41 @@ function getMousePos(e) {
 
 /**
  * 将多个并发异步调用合并为一次批处理
- * @param fn 需要包装的函数
  * @param handle 批处理的函数
+ * @param ms 等待的时长（时间越长则可能合并的调用越多，否则将使用微任务只合并一次同步执行的所有调用）
  */
-function batch(fn, handle) {
+function batch(handle, ms = 0) {
+    //参数 => 结果 映射
     const resultMap = new Map();
+    //参数列表
     const paramSet = new Set();
+    //当前是否被锁定
     let lock = false;
-    return new Proxy(fn, {
-        apply(target, thisArg, argArray) {
-            return __awaiter(this, void 0, void 0, function* () {
-                paramSet.add(argArray);
-                // console.log('apply wait begin: ', argArray, lock)
-                yield wait(() => resultMap.has(argArray) || !lock);
-                // console.log('apply wait end: ', argArray, lock, resultMap)
-                lock = true;
+    return function (...argArray) {
+        return __awaiter(this, void 0, void 0, function* () {
+            paramSet.add(argArray);
+            yield Promise.all([wait(() => resultMap.has(argArray) || !lock), wait(ms)]);
+            if (!resultMap.has(argArray)) {
                 try {
-                    if (!resultMap.has(argArray)) {
-                        // console.log('handle end: ', argArray, map)
-                        Array.from(yield handle(Array.from(paramSet))).forEach(([k, v]) => {
-                            resultMap.set(k, v);
-                        });
-                    }
-                    const value = resultMap.get(argArray);
-                    paramSet.delete(argArray);
-                    resultMap.delete(argArray);
-                    // console.log('delete: ', resultMap)
-                    if (value instanceof Error) {
-                        throw value;
-                    }
-                    return value;
+                    lock = true;
+                    Array.from(yield handle(Array.from(paramSet))).forEach(([k, v]) => {
+                        resultMap.set(k, v);
+                    });
                 }
                 finally {
                     lock = false;
                 }
-            });
-        },
-    });
+            }
+            const value = resultMap.get(argArray);
+            paramSet.delete(argArray);
+            resultMap.delete(argArray);
+            // noinspection SuspiciousTypeOfGuard
+            if (value instanceof Error) {
+                throw value;
+            }
+            return value;
+        });
+    };
 }
 
 export { AntiDebug, ArrayValidator, AsyncArray, CacheUtil, CombinedPredicate, DateConstants, DateFormatter, EventEmitter, EventUtil, FetchLimiting, LocalStorageCache, Locker, Logger, MicrotaskQueue, NodeBridgeUtil, PathUtil, PubSubMachine, StateMachine, Stopwatch, StringStyleType, StringStyleUtil, StringValidator, TypeValidator, aggregation, and, antiDebug, appends, arrayDiffBy, arrayToMap, arrayValidator, asIterator, assign, async, asyncFlatMap, asyncLimiting, autoIncrement, batch, blankToNull, blankToNullField, bridge, cacheUtil, compare, compatibleAsync, compose, concatMap, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepExcludeFields, deepFreeze, deepProxy, deletes, deny, diffBy, download, downloadString, downloadUrl, emptyAllField, emptyFunc, excludeFields, excludeFieldsDeep, extractFieldMap, fetchTimeout, fill, filterItems, findIndex, flatMap, floatEquals, formDataToArray, format, get, getCookies, getCursorPosition, getCusorPostion, getKFn, getMousePos, getObjectEntries, getObjectKeys, getSelectText, getYearWeek, groupBy, imageSize, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, listToTree, loadResource, loadScript, loadStyle, logger, mapToObject, mergeMap, nodeBridgeUtil, not, objToFormData, objectToMap, once, onceOfSameParam, or, parseUrl, partial, pathUtil, randomInt, randomStr, range, readLocal, remindLeavePage, removeEl, removeText, repeatedCall, returnItself, returnReasonableItself, safeExec, segmentation, set, setCursorPosition, setCusorPostion, sets, singleModel, sleep, sortBy, spliceParams, strToArrayBuffer, strToDate, stringValidator, switchMap, throttle, timing, toLowerCase, toObject, toString$1 as toString, toUpperCase, toggleClass, treeMapping, treeToList, trySometime, trySometimeParallel, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };

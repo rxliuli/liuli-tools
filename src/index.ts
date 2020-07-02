@@ -151,6 +151,7 @@ import { imageSize } from './module/dom/imageSize'
 import { getMousePos } from './module/dom/getMousePos'
 import { batch } from './module/function/batch'
 import { getKFn } from './module/array/getKFn'
+import { MemoryCacheFactory, MemoryCacheEnum } from './module/cache/MemoryCache'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -191,6 +192,8 @@ export {
   LocalStorageCache,
   cacheUtil,
   CacheUtil,
+  MemoryCacheEnum,
+  MemoryCacheFactory,
   dateFormat,
   dateParse,
   dateConstants,

@@ -3136,6 +3136,7 @@ curry._ = Symbol('_');
 
 /**
  * 快速根据指定函数对数组进行排序
+ * TODO 此处有 bug，会改变原数组的顺序（在计算的 key 值相同的情况下）
  * 注: 使用递归实现，对于超大数组（其实前端的数组不可能特别大吧？#笑）可能造成堆栈溢出
  * @param arr 需要排序的数组
  * @param k 对数组中每个元素都产生可比较的值的函数，默认返回自身进行比较
@@ -5127,5 +5128,135 @@ function batch(handle, ms = 0) {
     };
 }
 
-export { AntiDebug, ArrayValidator, AsyncArray, CacheUtil, CombinedPredicate, DateConstants, DateFormatter, EventEmitter, EventUtil, FetchLimiting, LocalStorageCache, Locker, Logger, MicrotaskQueue, NodeBridgeUtil, PathUtil, PubSubMachine, StateMachine, Stopwatch, StringStyleType, StringStyleUtil, StringValidator, TypeValidator, aggregation, and, antiDebug, appends, arrayDiffBy, arrayToMap, arrayValidator, asIterator, assign, async, asyncFlatMap, asyncLimiting, autoIncrement, batch, blankToNull, blankToNullField, bridge, cacheUtil, compare, compatibleAsync, compose, concatMap, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepExcludeFields, deepFreeze, deepProxy, deletes, deny, diffBy, download, downloadString, downloadUrl, emptyAllField, emptyFunc, excludeFields, excludeFieldsDeep, extractFieldMap, fetchTimeout, fill, filterItems, findIndex, flatMap, floatEquals, formDataToArray, format, get, getCookies, getCursorPosition, getCusorPostion, getKFn, getMousePos, getObjectEntries, getObjectKeys, getSelectText, getYearWeek, groupBy, imageSize, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, listToTree, loadResource, loadScript, loadStyle, logger, mapToObject, mergeMap, nodeBridgeUtil, not, objToFormData, objectToMap, once, onceOfSameParam, or, parseUrl, partial, pathUtil, randomInt, randomStr, range, readLocal, remindLeavePage, removeEl, removeText, repeatedCall, returnItself, returnReasonableItself, safeExec, segmentation, set, setCursorPosition, setCusorPostion, sets, singleModel, sleep, sortBy, spliceParams, strToArrayBuffer, strToDate, stringValidator, switchMap, throttle, timing, toLowerCase, toObject, toString$1 as toString, toUpperCase, toggleClass, treeMapping, treeToList, trySometime, trySometimeParallel, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
+/**
+ * 基本缓存实现
+ * 主要封装通用的 delete/size 函数
+ */
+class BasicMemoryCache {
+    constructor({ limit = Infinity } = {}) {
+        this.cache = new Map();
+        if (limit <= 0) {
+            throw new Error('缓存的最大容量至少为 1');
+        }
+        this.limit = limit;
+    }
+    delete(key) {
+        this.cache.delete(key);
+    }
+    get size() {
+        return this.cache.size;
+    }
+}
+/**
+ * FIFO 算法
+ */
+class MemoryCacheFIFO extends BasicMemoryCache {
+    add(key, val) {
+        const diff = this.cache.size + 1 - this.limit;
+        if (diff > 0) {
+            const keys = [...this.cache.keys()].slice(0, diff);
+            keys.forEach(k => this.delete(k));
+        }
+        this.cache.set(key, val);
+    }
+    delete(key) {
+        this.cache.delete(key);
+    }
+    get(key) {
+        return this.cache.get(key);
+    }
+    get size() {
+        return this.cache.size;
+    }
+    has(key) {
+        return this.cache.has(key);
+    }
+}
+/**
+ * IFU 算法
+ */
+class MemoryCacheLFU extends BasicMemoryCache {
+    constructor() {
+        super(...arguments);
+        this.lfuMap = new Map();
+    }
+    add(key, val) {
+        const diff = this.cache.size + 1 - this.limit;
+        if (diff > 0) {
+            const keys = [...this.cache.keys()]
+                .sort((k1, k2) => this.lfuMap.get(k1) - this.lfuMap.get(k2))
+                .slice(0, diff);
+            keys.forEach(k => this.delete(k));
+        }
+        this.cache.set(key, val);
+        this.lfuMap.set(key, 0);
+    }
+    get(key) {
+        this.lfuMap.set(key, this.lfuMap.get(key) + 1);
+        return this.cache.get(key);
+    }
+    has(key) {
+        this.lfuMap.set(key, this.lfuMap.get(key) + 1);
+        return this.cache.has(key);
+    }
+}
+/**
+ * LRU 算法
+ */
+class MemoryCacheLRU extends BasicMemoryCache {
+    constructor() {
+        super(...arguments);
+        this.i = 0;
+        this.lruMap = new Map();
+    }
+    get idx() {
+        return this.i++;
+    }
+    add(key, val) {
+        const diff = this.cache.size + 1 - this.limit;
+        if (diff > 0) {
+            const keys = [...this.cache.keys()]
+                .sort((k1, k2) => this.lruMap.get(k1) - this.lruMap.get(k2))
+                .slice(0, diff);
+            console.log(keys, this.lruMap);
+            keys.forEach(k => this.delete(k));
+        }
+        this.cache.set(key, val);
+        this.lruMap.set(key, this.idx);
+    }
+    get(key) {
+        this.lruMap.set(key, this.idx);
+        return this.cache.get(key);
+    }
+    has(key) {
+        this.lruMap.set(key, this.idx);
+        return this.cache.has(key);
+    }
+}
+var MemoryCacheEnum;
+(function (MemoryCacheEnum) {
+    //先进先出
+    MemoryCacheEnum[MemoryCacheEnum["Fifo"] = 0] = "Fifo";
+    //最少使用
+    MemoryCacheEnum[MemoryCacheEnum["Lfu"] = 1] = "Lfu";
+    //最近使用
+    MemoryCacheEnum[MemoryCacheEnum["Lru"] = 2] = "Lru";
+})(MemoryCacheEnum || (MemoryCacheEnum = {}));
+/**
+ * 缓存工厂类
+ */
+class MemoryCacheFactory {
+    static create(type, config) {
+        switch (type) {
+            case MemoryCacheEnum.Fifo:
+                return new MemoryCacheFIFO(config);
+            case MemoryCacheEnum.Lfu:
+                return new MemoryCacheLFU(config);
+            case MemoryCacheEnum.Lru:
+                return new MemoryCacheLRU(config);
+        }
+    }
+}
+
+export { AntiDebug, ArrayValidator, AsyncArray, CacheUtil, CombinedPredicate, DateConstants, DateFormatter, EventEmitter, EventUtil, FetchLimiting, LocalStorageCache, Locker, Logger, MemoryCacheEnum, MemoryCacheFactory, MicrotaskQueue, NodeBridgeUtil, PathUtil, PubSubMachine, StateMachine, Stopwatch, StringStyleType, StringStyleUtil, StringValidator, TypeValidator, aggregation, and, antiDebug, appends, arrayDiffBy, arrayToMap, arrayValidator, asIterator, assign, async, asyncFlatMap, asyncLimiting, autoIncrement, batch, blankToNull, blankToNullField, bridge, cacheUtil, compare, compatibleAsync, compose, concatMap, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepExcludeFields, deepFreeze, deepProxy, deletes, deny, diffBy, download, downloadString, downloadUrl, emptyAllField, emptyFunc, excludeFields, excludeFieldsDeep, extractFieldMap, fetchTimeout, fill, filterItems, findIndex, flatMap, floatEquals, formDataToArray, format, get, getCookies, getCursorPosition, getCusorPostion, getKFn, getMousePos, getObjectEntries, getObjectKeys, getSelectText, getYearWeek, groupBy, imageSize, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, listToTree, loadResource, loadScript, loadStyle, logger, mapToObject, mergeMap, nodeBridgeUtil, not, objToFormData, objectToMap, once, onceOfSameParam, or, parseUrl, partial, pathUtil, randomInt, randomStr, range, readLocal, remindLeavePage, removeEl, removeText, repeatedCall, returnItself, returnReasonableItself, safeExec, segmentation, set, setCursorPosition, setCusorPostion, sets, singleModel, sleep, sortBy, spliceParams, strToArrayBuffer, strToDate, stringValidator, switchMap, throttle, timing, toLowerCase, toObject, toString$1 as toString, toUpperCase, toggleClass, treeMapping, treeToList, trySometime, trySometimeParallel, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
 //# sourceMappingURL=rx-util-es.js.map

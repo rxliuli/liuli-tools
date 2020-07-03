@@ -40,8 +40,15 @@ describe('测试内存缓存', () => {
         MemoryCacheFactory.create(MemoryCacheEnum.Fifo, { limit: -1 }),
       ).toThrowError()
     })
+    it('测试清空', () => {
+      const cache = MemoryCacheFactory.create(MemoryCacheEnum.Fifo)
+      cache.add(1, 1)
+      cache.add(2, 2)
+      expect(cache.size).toBe(2)
+      cache.clear()
+      expect(cache.size).toBe(0)
+    })
   })
-
   describe('测试 LFU', () => {
     it('基本示例', () => {
       const cache = MemoryCacheFactory.create(MemoryCacheEnum.Lfu, {

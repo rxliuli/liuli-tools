@@ -27,6 +27,10 @@ export interface BaseMemoryCache<K, V> {
    * 当前缓存数量
    */
   readonly size: number
+  /**
+   * 清空当前所有缓存
+   */
+  clear(): void
 }
 
 interface MemoryCacheConfig {
@@ -52,6 +56,10 @@ abstract class BasicMemoryCache<K, V> implements BaseMemoryCache<K, V> {
 
   delete(key: K): void {
     this.cache.delete(key)
+  }
+
+  clear(): void {
+    this.cache.clear()
   }
 
   get size() {
@@ -120,6 +128,16 @@ export class MemoryCacheLFU<K = any, V = any> extends BasicMemoryCache<K, V> {
     this.lfuMap.set(key, this.lfuMap.get(key)! + 1)
     return this.cache.has(key)
   }
+
+  delete(key: K): void {
+    super.delete(key)
+    this.lfuMap.delete(key)
+  }
+
+  clear(): void {
+    super.clear()
+    this.lfuMap.clear()
+  }
 }
 
 /**
@@ -153,6 +171,16 @@ export class MemoryCacheLRU<K = any, V = any> extends BasicMemoryCache<K, V> {
   has(key: K): boolean {
     this.lruMap.set(key, this.idx)
     return this.cache.has(key)
+  }
+
+  delete(key: K): void {
+    super.delete(key)
+    this.lruMap.delete(key)
+  }
+
+  clear(): void {
+    super.clear()
+    this.lruMap.clear()
   }
 }
 

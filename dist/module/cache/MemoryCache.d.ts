@@ -27,6 +27,10 @@ export interface BaseMemoryCache<K, V> {
      * 当前缓存数量
      */
     readonly size: number;
+    /**
+     * 清空当前所有缓存
+     */
+    clear(): void;
 }
 interface MemoryCacheConfig {
     /**
@@ -43,6 +47,7 @@ declare abstract class BasicMemoryCache<K, V> implements BaseMemoryCache<K, V> {
     protected readonly limit: number;
     constructor({ limit }?: MemoryCacheConfig);
     delete(key: K): void;
+    clear(): void;
     get size(): number;
     abstract add(key: K, val: V): void;
     abstract get(key: K): V | undefined;
@@ -66,6 +71,8 @@ export declare class MemoryCacheLFU<K = any, V = any> extends BasicMemoryCache<K
     add(key: K, val: V): void;
     get(key: K): V | undefined;
     has(key: K): boolean;
+    delete(key: K): void;
+    clear(): void;
 }
 /**
  * LRU 算法
@@ -77,6 +84,8 @@ export declare class MemoryCacheLRU<K = any, V = any> extends BasicMemoryCache<K
     add(key: K, val: V): void;
     get(key: K): V | undefined;
     has(key: K): boolean;
+    delete(key: K): void;
+    clear(): void;
 }
 export declare enum MemoryCacheEnum {
     Fifo = 0,

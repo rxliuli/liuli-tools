@@ -2960,23 +2960,172 @@ var rx = (function (exports) {
   }
 
   /**
+   * 基本缓存实现
+   * 主要封装通用的 delete/size 函数
+   */
+  class BasicMemoryCache {
+      constructor({ limit = Infinity } = {}) {
+          this.cache = new Map();
+          if (limit <= 0) {
+              throw new Error('缓存的最大容量至少为 1');
+          }
+          this.limit = limit;
+      }
+      delete(key) {
+          this.cache.delete(key);
+      }
+      clear() {
+          this.cache.clear();
+      }
+      get size() {
+          return this.cache.size;
+      }
+  }
+  /**
+   * FIFO 算法
+   */
+  class MemoryCacheFIFO extends BasicMemoryCache {
+      add(key, val) {
+          const diff = this.cache.size + 1 - this.limit;
+          if (diff > 0) {
+              const keys = [...this.cache.keys()].slice(0, diff);
+              keys.forEach(k => this.delete(k));
+          }
+          this.cache.set(key, val);
+      }
+      delete(key) {
+          this.cache.delete(key);
+      }
+      get(key) {
+          return this.cache.get(key);
+      }
+      get size() {
+          return this.cache.size;
+      }
+      has(key) {
+          return this.cache.has(key);
+      }
+  }
+  /**
+   * IFU 算法
+   */
+  class MemoryCacheLFU extends BasicMemoryCache {
+      constructor() {
+          super(...arguments);
+          this.lfuMap = new Map();
+      }
+      add(key, val) {
+          const diff = this.cache.size + 1 - this.limit;
+          if (diff > 0) {
+              const keys = [...this.cache.keys()]
+                  .sort((k1, k2) => this.lfuMap.get(k1) - this.lfuMap.get(k2))
+                  .slice(0, diff);
+              keys.forEach(k => this.delete(k));
+          }
+          this.cache.set(key, val);
+          this.lfuMap.set(key, 0);
+      }
+      get(key) {
+          this.lfuMap.set(key, this.lfuMap.get(key) + 1);
+          return this.cache.get(key);
+      }
+      has(key) {
+          this.lfuMap.set(key, this.lfuMap.get(key) + 1);
+          return this.cache.has(key);
+      }
+      delete(key) {
+          super.delete(key);
+          this.lfuMap.delete(key);
+      }
+      clear() {
+          super.clear();
+          this.lfuMap.clear();
+      }
+  }
+  /**
+   * LRU 算法
+   */
+  class MemoryCacheLRU extends BasicMemoryCache {
+      constructor() {
+          super(...arguments);
+          this.i = 0;
+          this.lruMap = new Map();
+      }
+      get idx() {
+          return this.i++;
+      }
+      add(key, val) {
+          const diff = this.cache.size + 1 - this.limit;
+          if (diff > 0) {
+              const keys = [...this.cache.keys()]
+                  .sort((k1, k2) => this.lruMap.get(k1) - this.lruMap.get(k2))
+                  .slice(0, diff);
+              console.log(keys, this.lruMap);
+              keys.forEach(k => this.delete(k));
+          }
+          this.cache.set(key, val);
+          this.lruMap.set(key, this.idx);
+      }
+      get(key) {
+          this.lruMap.set(key, this.idx);
+          return this.cache.get(key);
+      }
+      has(key) {
+          this.lruMap.set(key, this.idx);
+          return this.cache.has(key);
+      }
+      delete(key) {
+          super.delete(key);
+          this.lruMap.delete(key);
+      }
+      clear() {
+          super.clear();
+          this.lruMap.clear();
+      }
+  }
+  (function (MemoryCacheEnum) {
+      //先进先出
+      MemoryCacheEnum[MemoryCacheEnum["Fifo"] = 0] = "Fifo";
+      //最少使用
+      MemoryCacheEnum[MemoryCacheEnum["Lfu"] = 1] = "Lfu";
+      //最近使用
+      MemoryCacheEnum[MemoryCacheEnum["Lru"] = 2] = "Lru";
+  })(exports.MemoryCacheEnum || (exports.MemoryCacheEnum = {}));
+  /**
+   * 缓存工厂类
+   */
+  class MemoryCacheFactory {
+      static create(type, config) {
+          switch (type) {
+              case exports.MemoryCacheEnum.Fifo:
+                  return new MemoryCacheFIFO(config);
+              case exports.MemoryCacheEnum.Lfu:
+                  return new MemoryCacheLFU(config);
+              case exports.MemoryCacheEnum.Lru:
+                  return new MemoryCacheLRU(config);
+          }
+      }
+  }
+
+  const onceOfSameParamIdentity = (fn, args) => `onceOfSameParam-${fn.toString()}-${JSON.stringify(args)}`;
+  /**
    * 包装一个函数为指定参数只执行一次的函数
    * @param fn 需要包装的函数
    * @param identity 参数转换的函数，参数为需要包装函数的参数
+   * @param memoryCache
    * @returns 需要被包装的函数
    */
-  function onceOfSameParam(fn, identity = (args) => `onceOfSameParam-${fn.toString()}-${JSON.stringify(args)}`) {
-      const cacheMap = new Map();
+  function _onceOfSameParam(fn, identity = onceOfSameParamIdentity, memoryCache = MemoryCacheFactory.create(exports.MemoryCacheEnum.Fifo)) {
       const res = new Proxy(fn, {
           apply(_, _this, args) {
-              const key = identity(args);
-              const old = cacheMap.get(key);
+              const key = identity(fn, args);
+              const old = memoryCache.get(key);
               if (old !== undefined) {
                   return old;
               }
               const res = Reflect.apply(_, _this, args);
               return compatibleAsync(res, res => {
-                  cacheMap.set(key, res);
+                  memoryCache.add(key, res);
                   return res;
               });
           },
@@ -2985,14 +3134,17 @@ var rx = (function (exports) {
           origin: fn,
           clear(...keys) {
               if (keys.length) {
-                  cacheMap.clear();
+                  memoryCache.clear();
               }
               else {
-                  keys.forEach(key => cacheMap.delete(key));
+                  keys.forEach(key => memoryCache.delete(key));
               }
           },
       });
   }
+  const onceOfSameParam = Object.assign(_onceOfSameParam, {
+      identity: onceOfSameParamIdentity,
+  });
 
   /**
    * 包装获取字符串风格转换器
@@ -5128,135 +5280,6 @@ var rx = (function (exports) {
               return value;
           });
       };
-  }
-
-  /**
-   * 基本缓存实现
-   * 主要封装通用的 delete/size 函数
-   */
-  class BasicMemoryCache {
-      constructor({ limit = Infinity } = {}) {
-          this.cache = new Map();
-          if (limit <= 0) {
-              throw new Error('缓存的最大容量至少为 1');
-          }
-          this.limit = limit;
-      }
-      delete(key) {
-          this.cache.delete(key);
-      }
-      get size() {
-          return this.cache.size;
-      }
-  }
-  /**
-   * FIFO 算法
-   */
-  class MemoryCacheFIFO extends BasicMemoryCache {
-      add(key, val) {
-          const diff = this.cache.size + 1 - this.limit;
-          if (diff > 0) {
-              const keys = [...this.cache.keys()].slice(0, diff);
-              keys.forEach(k => this.delete(k));
-          }
-          this.cache.set(key, val);
-      }
-      delete(key) {
-          this.cache.delete(key);
-      }
-      get(key) {
-          return this.cache.get(key);
-      }
-      get size() {
-          return this.cache.size;
-      }
-      has(key) {
-          return this.cache.has(key);
-      }
-  }
-  /**
-   * IFU 算法
-   */
-  class MemoryCacheLFU extends BasicMemoryCache {
-      constructor() {
-          super(...arguments);
-          this.lfuMap = new Map();
-      }
-      add(key, val) {
-          const diff = this.cache.size + 1 - this.limit;
-          if (diff > 0) {
-              const keys = [...this.cache.keys()]
-                  .sort((k1, k2) => this.lfuMap.get(k1) - this.lfuMap.get(k2))
-                  .slice(0, diff);
-              keys.forEach(k => this.delete(k));
-          }
-          this.cache.set(key, val);
-          this.lfuMap.set(key, 0);
-      }
-      get(key) {
-          this.lfuMap.set(key, this.lfuMap.get(key) + 1);
-          return this.cache.get(key);
-      }
-      has(key) {
-          this.lfuMap.set(key, this.lfuMap.get(key) + 1);
-          return this.cache.has(key);
-      }
-  }
-  /**
-   * LRU 算法
-   */
-  class MemoryCacheLRU extends BasicMemoryCache {
-      constructor() {
-          super(...arguments);
-          this.i = 0;
-          this.lruMap = new Map();
-      }
-      get idx() {
-          return this.i++;
-      }
-      add(key, val) {
-          const diff = this.cache.size + 1 - this.limit;
-          if (diff > 0) {
-              const keys = [...this.cache.keys()]
-                  .sort((k1, k2) => this.lruMap.get(k1) - this.lruMap.get(k2))
-                  .slice(0, diff);
-              console.log(keys, this.lruMap);
-              keys.forEach(k => this.delete(k));
-          }
-          this.cache.set(key, val);
-          this.lruMap.set(key, this.idx);
-      }
-      get(key) {
-          this.lruMap.set(key, this.idx);
-          return this.cache.get(key);
-      }
-      has(key) {
-          this.lruMap.set(key, this.idx);
-          return this.cache.has(key);
-      }
-  }
-  (function (MemoryCacheEnum) {
-      //先进先出
-      MemoryCacheEnum[MemoryCacheEnum["Fifo"] = 0] = "Fifo";
-      //最少使用
-      MemoryCacheEnum[MemoryCacheEnum["Lfu"] = 1] = "Lfu";
-      //最近使用
-      MemoryCacheEnum[MemoryCacheEnum["Lru"] = 2] = "Lru";
-  })(exports.MemoryCacheEnum || (exports.MemoryCacheEnum = {}));
-  /**
-   * 缓存工厂类
-   */
-  class MemoryCacheFactory {
-      static create(type, config) {
-          switch (type) {
-              case exports.MemoryCacheEnum.Fifo:
-                  return new MemoryCacheFIFO(config);
-              case exports.MemoryCacheEnum.Lfu:
-                  return new MemoryCacheLFU(config);
-              case exports.MemoryCacheEnum.Lru:
-                  return new MemoryCacheLRU(config);
-          }
-      }
   }
 
   exports.AntiDebug = AntiDebug;

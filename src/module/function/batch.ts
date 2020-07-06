@@ -10,36 +10,36 @@ export function batch<P extends any[], R extends any>(
   ms: number = 0,
 ): (...args: P) => Promise<R> {
   //参数 => 结果 映射
-  const cache = new Map<string, R | Error>()
+  const resultCache = new Map<string, R | Error>()
   //参数 => 次数的映射
-  const paramSet = new Map<string, number>()
+  const paramCache = new Map<string, number>()
   //当前是否被锁定
   let lock = false
   return async function(...args: P) {
     const key = JSON.stringify(args)
-    paramSet.set(key, (paramSet.get(key) || 0) + 1)
-    await Promise.all([wait(() => cache.has(key) || !lock), wait(ms)])
-    if (!cache.has(key)) {
+    paramCache.set(key, (paramCache.get(key) || 0) + 1)
+    await Promise.all([wait(() => resultCache.has(key) || !lock), wait(ms)])
+    if (!resultCache.has(key)) {
       try {
         lock = true
         Array.from(
-          await handle(Array.from(paramSet.keys()).map(v => JSON.parse(v))),
+          await handle(Array.from(paramCache.keys()).map(v => JSON.parse(v))),
         ).forEach(([k, v]) => {
-          cache.set(JSON.stringify(k), v)
+          resultCache.set(JSON.stringify(k), v)
         })
       } finally {
         lock = false
       }
     }
-    const value = cache.get(key)
-    paramSet.delete(key)
-    paramSet.set(key, (paramSet.get(key) || 0) - 1)
-    if ((paramSet.get(key) || 0) <= 0) {
-      paramSet.delete(key)
+    const value = resultCache.get(key)
+    paramCache.delete(key)
+    paramCache.set(key, (paramCache.get(key) || 0) - 1)
+    if ((paramCache.get(key) || 0) <= 0) {
+      paramCache.delete(key)
     }
     // noinspection SuspiciousTypeOfGuard
     if (value instanceof Error) {
-      cache.delete(key)
+      resultCache.delete(key)
       throw value
     }
     return value as R

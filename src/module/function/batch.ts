@@ -31,13 +31,12 @@ export function batch<P extends any[], R extends any>(
         lock = false
       }
     }
-    const value = resultCache.get(key)
-    paramCache.delete(key)
-    paramCache.set(key, (paramCache.get(key) || 0) - 1)
+    const value = resultCache.get(key)!
+    paramCache.set(key, paramCache.get(key)! - 1)
     if ((paramCache.get(key) || 0) <= 0) {
       paramCache.delete(key)
+      resultCache.delete(key)
     }
-    // noinspection SuspiciousTypeOfGuard
     if (value instanceof Error) {
       resultCache.delete(key)
       throw value

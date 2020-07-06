@@ -5,10 +5,10 @@ import { Func } from 'liuli-types'
  * @param fn
  * @param handle
  */
-export function before<F extends Func>(
+export function before<F extends Func, R>(
   fn: F,
-  handle: (origin: F, ...args: Parameters<F>) => void,
-) {
+  handle: (origin: F, ...args: Parameters<F>) => R,
+): (...args: Parameters<F>) => R {
   return function(...args: Parameters<F>) {
     return handle(fn, ...args)
   }

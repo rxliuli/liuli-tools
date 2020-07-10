@@ -41,42 +41,49 @@ export class BarcodeScanner {
   }
 
   private listener = (e: KeyboardEvent) => {
+    console.log('keydown: ', e.key)
     this.nextTime = Date.now()
 
     //如果是数组中的元素
+    const isScanner = !(
+      this.nextTime &&
+      this.lastTime &&
+      this.nextTime - this.lastTime > (this.config.interval || 20)
+    )
     if (this.config.validate(e.key)) {
       this.nextTime = Date.now()
 
-      // 第二次输入延迟1秒，删除之前的数据重新计算220000001
-
-      if (
-        this.nextTime &&
-        this.lastTime &&
-        this.nextTime - this.lastTime > (this.config.interval || 20)
-      ) {
-        this.code = e.key
-      } else {
+      // 第二次输入延迟1秒，删除之前的数据重新计算
+      if (isScanner) {
         this.code = this.code + e.key
+      } else {
+        this.code = e.key
       }
     }
 
-    this.lastTime = this.nextTime
-
     // 键入Enter
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && isScanner) {
+      console.log('Enter: ', this.nextTime - this.lastTime!)
       this.code = this.code.replace(/\s*/g, '')
       this.em.emit('scan', this.code)
       //键入回车务必清空 code 值
       this.code = ''
-      return false
     }
+    this.lastTime = this.nextTime
   }
 
+  private num = 0
   private init() {
-    document.addEventListener('keydown', this.listener)
+    if (this.num === 0) {
+      document.addEventListener('keydown', this.listener)
+    }
+    this.num++
   }
 
   private destroy() {
-    return document.removeEventListener('keydown', this.listener)
+    this.num--
+    if (this.num === 0) {
+      document.removeEventListener('keydown', this.listener)
+    }
   }
 }

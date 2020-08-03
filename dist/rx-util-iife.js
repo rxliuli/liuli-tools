@@ -5250,36 +5250,56 @@ var rx = (function (exports) {
    */
   function batch(handle, ms = 0) {
       //参数 => 结果 映射
-      const resultMap = new Map();
-      //参数列表
-      const paramSet = new Set();
+      const resultCache = new Map();
+      //参数 => 次数的映射
+      const paramCache = new Map();
       //当前是否被锁定
       let lock = false;
-      return function (...argArray) {
+      return function (...args) {
           return __awaiter(this, void 0, void 0, function* () {
-              paramSet.add(argArray);
-              yield Promise.all([wait(() => resultMap.has(argArray) || !lock), wait(ms)]);
-              if (!resultMap.has(argArray)) {
+              const key = JSON.stringify(args);
+              paramCache.set(key, (paramCache.get(key) || 0) + 1);
+              yield Promise.all([wait(() => resultCache.has(key) || !lock), wait(ms)]);
+              if (!resultCache.has(key)) {
                   try {
                       lock = true;
-                      Array.from(yield handle(Array.from(paramSet))).forEach(([k, v]) => {
-                          resultMap.set(k, v);
+                      Array.from(yield handle(Array.from(paramCache.keys()).map(v => JSON.parse(v)))).forEach(([k, v]) => {
+                          resultCache.set(JSON.stringify(k), v);
                       });
                   }
                   finally {
                       lock = false;
                   }
               }
-              const value = resultMap.get(argArray);
-              paramSet.delete(argArray);
-              resultMap.delete(argArray);
-              // noinspection SuspiciousTypeOfGuard
+              const value = resultCache.get(key);
+              paramCache.set(key, paramCache.get(key) - 1);
+              if ((paramCache.get(key) || 0) <= 0) {
+                  paramCache.delete(key);
+                  resultCache.delete(key);
+              }
               if (value instanceof Error) {
+                  resultCache.delete(key);
                   throw value;
               }
               return value;
           });
       };
+  }
+
+  /**
+   * 从一个对象中挑选出来几个指定的字段
+   * @param obj 指定对象
+   * @param fieldList 指定对象字段列表
+   * @returns 返回挑选字段组成的新对象
+   */
+  function pick(obj, ...fieldList) {
+      const set = new Set(fieldList);
+      return Object.entries(obj).reduce((res, [k, v]) => {
+          if (set.has(k)) {
+              Reflect.set(res, k, v);
+          }
+          return res;
+      }, {});
   }
 
   exports.AntiDebug = AntiDebug;
@@ -5396,6 +5416,7 @@ var rx = (function (exports) {
   exports.parseUrl = parseUrl;
   exports.partial = partial;
   exports.pathUtil = pathUtil;
+  exports.pick = pick;
   exports.randomInt = randomInt;
   exports.randomStr = randomStr;
   exports.range = range;

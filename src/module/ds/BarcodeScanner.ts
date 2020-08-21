@@ -40,6 +40,8 @@ export class BarcodeScanner {
     this.em.remove('scan', listener)
   }
 
+  private interval = 0
+
   private listener = (e: KeyboardEvent) => {
     console.log('keydown: ', e.key)
     this.nextTime = Date.now()
@@ -56,6 +58,10 @@ export class BarcodeScanner {
       // 第二次输入延迟1秒，删除之前的数据重新计算
       if (isScanner) {
         this.code = this.code + e.key
+        clearTimeout(this.interval)
+        this.interval = setTimeout(() => {
+          this.em.emit('scan', this.code)
+        }, 100)
       } else {
         this.code = e.key
       }
@@ -68,6 +74,7 @@ export class BarcodeScanner {
       this.em.emit('scan', this.code)
       //键入回车务必清空 code 值
       this.code = ''
+      clearTimeout(this.interval)
     }
     this.lastTime = this.nextTime
   }

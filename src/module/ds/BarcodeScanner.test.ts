@@ -2,10 +2,13 @@ import { BarcodeScanner } from './BarcodeScanner'
 import { wait } from '../async/wait'
 
 describe('测试 BarcodeScanner', () => {
-  const barcodeScanner = new BarcodeScanner({
-    validate(key) {
-      return /^\w$/.test(key)
-    },
+  let barcodeScanner: BarcodeScanner
+  beforeEach(() => {
+    barcodeScanner = new BarcodeScanner({
+      validate(key) {
+        return /^\w$/.test(key)
+      },
+    })
   })
   const dispatch = (key: string) =>
     document.dispatchEvent(
@@ -57,6 +60,22 @@ describe('测试 BarcodeScanner', () => {
     await wait(100)
     dispatch('Enter')
     //将不会触发监听函数
-    expect(listener.mock.calls.length).toBe(0)
+    expect(listener.mock.calls[0][0]).toBe('abc')
+  })
+  it('测试扫码枪没有输入回车时是否自动回调', async () => {
+    const listener = jest.fn((code: string) => {
+      console.log('code: ', code)
+    })
+    barcodeScanner.on(listener)
+    dispatch('a')
+    dispatch('b')
+    dispatch('c')
+    await wait(100)
+    expect(listener.mock.calls[0][0]).toBe('abc')
+    dispatch('a')
+    dispatch('b')
+    dispatch('c')
+    dispatch('Enter')
+    expect(listener.mock.calls[1][0]).toBe('abc')
   })
 })

@@ -1,5 +1,6 @@
 /**
  * 扫码配置
+ * @deprecated 已废弃，请使用 js-scanner-detection
  */
 export interface ScannerConfig {
     /**
@@ -11,6 +12,7 @@ export interface ScannerConfig {
 }
 /**
  * 条形码扫描
+ * @deprecated 已废弃，请使用 js-scanner-detection
  */
 export declare class BarcodeScanner {
     private config;
@@ -29,6 +31,7 @@ export declare class BarcodeScanner {
      * @param listener
      */
     off(listener: (code: string) => void): void;
+    private interval;
     private listener;
     private num;
     private init;

@@ -2,6 +2,7 @@ import { EventEmitter } from '../event/EventEmitter'
 
 /**
  * 扫码配置
+ * @deprecated 已废弃，请使用 js-scanner-detection
  */
 export interface ScannerConfig {
   /**
@@ -14,6 +15,7 @@ export interface ScannerConfig {
 
 /**
  * 条形码扫描
+ * @deprecated 已废弃，请使用 js-scanner-detection
  */
 export class BarcodeScanner {
   constructor(private config: ScannerConfig) {}

@@ -153,6 +153,7 @@ import { batch } from './module/function/batch'
 import { getKFn } from './module/array/getKFn'
 import { MemoryCacheFactory, MemoryCacheEnum } from './module/cache/MemoryCache'
 import { pick } from './module/obj/pick'
+import { proxyStorage } from './module/cache/proxyStorage'
 
 /**
  * 全局导出的对象，用于浏览器中使用的全局变量 rx
@@ -195,6 +196,7 @@ export {
   CacheUtil,
   MemoryCacheEnum,
   MemoryCacheFactory,
+  proxyStorage,
   dateFormat,
   dateParse,
   dateConstants,

@@ -5305,6 +5305,56 @@
       }, {});
   }
 
+  class WebStorage {
+      constructor(storage) {
+          this.storage = storage;
+          this.clear = () => {
+              this.storage.clear();
+          };
+          this.getItem = (key) => this.storage.getItem(key);
+          this.key = (index) => this.storage.key(index);
+          this.removeItem = (key) => {
+              this.storage.removeItem(key);
+          };
+          this.setItem = (key, value) => {
+              this.storage.setItem(key, value);
+          };
+      }
+      get length() {
+          return this.storage.length;
+      }
+  }
+  /**
+   * 代理 Storage 使之更简单易用
+   * @param storage
+   */
+  function proxyStorage(storage) {
+      const kSet = new Set([
+          'storage',
+          'length',
+          'clear',
+          'getItem',
+          'setItem',
+          'removeItem',
+          'key',
+      ]);
+      return new Proxy(new WebStorage(storage), {
+          get(target, p, receiver) {
+              if (kSet.has(p)) {
+                  return Reflect.get(target, p, receiver);
+              }
+              return safeExec(() => JSON.parse(target.getItem(p.toString())), null);
+          },
+          set(target, p, value, receiver) {
+              if (kSet.has(p)) {
+                  return Reflect.set(target, p, receiver);
+              }
+              target.setItem(p.toString(), value !== undefined && value !== null ? JSON.stringify(value) : value);
+              return true;
+          },
+      });
+  }
+
   exports.AntiDebug = AntiDebug;
   exports.ArrayValidator = ArrayValidator;
   exports.AsyncArray = AsyncArray;
@@ -5420,6 +5470,7 @@
   exports.partial = partial;
   exports.pathUtil = pathUtil;
   exports.pick = pick;
+  exports.proxyStorage = proxyStorage;
   exports.randomInt = randomInt;
   exports.randomStr = randomStr;
   exports.range = range;

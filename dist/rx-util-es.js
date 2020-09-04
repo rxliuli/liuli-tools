@@ -5301,5 +5301,55 @@ function pick(obj, ...fieldList) {
     }, {});
 }
 
-export { AntiDebug, ArrayValidator, AsyncArray, CacheUtil, CombinedPredicate, DateConstants, DateFormatter, EventEmitter, EventUtil, FetchLimiting, LocalStorageCache, Locker, Logger, MemoryCacheEnum, MemoryCacheFactory, MicrotaskQueue, NodeBridgeUtil, PathUtil, PubSubMachine, StateMachine, Stopwatch, StringStyleType, StringStyleUtil, StringValidator, TypeValidator, aggregation, and, antiDebug, appends, arrayDiffBy, arrayToMap, arrayValidator, asIterator, assign, async, asyncFlatMap, asyncLimiting, autoIncrement, batch, blankToNull, blankToNullField, bridge, cacheUtil, compare, compatibleAsync, compose, concatMap, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepExcludeFields, deepFreeze, deepProxy, deletes, deny, diffBy, download, downloadString, downloadUrl, emptyAllField, emptyFunc, excludeFields, excludeFieldsDeep, extractFieldMap, fetchTimeout, fill, filterItems, findIndex, flatMap, floatEquals, formDataToArray, format, get, getCookies, getCursorPosition, getCusorPostion, getKFn, getMousePos, getObjectEntries, getObjectKeys, getSelectText, getYearWeek, groupBy, imageSize, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, listToTree, loadResource, loadScript, loadStyle, logger, mapToObject, mergeMap, nodeBridgeUtil, not, objToFormData, objectToMap, once, onceOfSameParam, or, parseUrl, partial, pathUtil, pick, randomInt, randomStr, range, readLocal, remindLeavePage, removeEl, removeText, repeatedCall, returnItself, returnReasonableItself, safeExec, segmentation, set, setCursorPosition, setCusorPostion, sets, singleModel, sleep, sortBy, spliceParams, strToArrayBuffer, strToDate, stringValidator, switchMap, throttle, timing, toLowerCase, toObject, toString$1 as toString, toUpperCase, toggleClass, treeMapping, treeToList, trySometime, trySometimeParallel, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
+class WebStorage {
+    constructor(storage) {
+        this.storage = storage;
+        this.clear = () => {
+            this.storage.clear();
+        };
+        this.getItem = (key) => this.storage.getItem(key);
+        this.key = (index) => this.storage.key(index);
+        this.removeItem = (key) => {
+            this.storage.removeItem(key);
+        };
+        this.setItem = (key, value) => {
+            this.storage.setItem(key, value);
+        };
+    }
+    get length() {
+        return this.storage.length;
+    }
+}
+/**
+ * 代理 Storage 使之更简单易用
+ * @param storage
+ */
+function proxyStorage(storage) {
+    const kSet = new Set([
+        'storage',
+        'length',
+        'clear',
+        'getItem',
+        'setItem',
+        'removeItem',
+        'key',
+    ]);
+    return new Proxy(new WebStorage(storage), {
+        get(target, p, receiver) {
+            if (kSet.has(p)) {
+                return Reflect.get(target, p, receiver);
+            }
+            return safeExec(() => JSON.parse(target.getItem(p.toString())), null);
+        },
+        set(target, p, value, receiver) {
+            if (kSet.has(p)) {
+                return Reflect.set(target, p, receiver);
+            }
+            target.setItem(p.toString(), value !== undefined && value !== null ? JSON.stringify(value) : value);
+            return true;
+        },
+    });
+}
+
+export { AntiDebug, ArrayValidator, AsyncArray, CacheUtil, CombinedPredicate, DateConstants, DateFormatter, EventEmitter, EventUtil, FetchLimiting, LocalStorageCache, Locker, Logger, MemoryCacheEnum, MemoryCacheFactory, MicrotaskQueue, NodeBridgeUtil, PathUtil, PubSubMachine, StateMachine, Stopwatch, StringStyleType, StringStyleUtil, StringValidator, TypeValidator, aggregation, and, antiDebug, appends, arrayDiffBy, arrayToMap, arrayValidator, asIterator, assign, async, asyncFlatMap, asyncLimiting, autoIncrement, batch, blankToNull, blankToNullField, bridge, cacheUtil, compare, compatibleAsync, compose, concatMap, copyText, createElByString, curry, dateBetween, dateConstants, dateEnhance, dateFormat, dateParse, debounce, deepExcludeFields, deepFreeze, deepProxy, deletes, deny, diffBy, download, downloadString, downloadUrl, emptyAllField, emptyFunc, excludeFields, excludeFieldsDeep, extractFieldMap, fetchTimeout, fill, filterItems, findIndex, flatMap, floatEquals, formDataToArray, format, get, getCookies, getCursorPosition, getCusorPostion, getKFn, getMousePos, getObjectEntries, getObjectKeys, getSelectText, getYearWeek, groupBy, imageSize, insertText, isBlank, isEditable, isEmpty, isFloat, isNullOrUndefined, isNumber, isRange, lastFocus, listToTree, loadResource, loadScript, loadStyle, logger, mapToObject, mergeMap, nodeBridgeUtil, not, objToFormData, objectToMap, once, onceOfSameParam, or, parseUrl, partial, pathUtil, pick, proxyStorage, randomInt, randomStr, range, readLocal, remindLeavePage, removeEl, removeText, repeatedCall, returnItself, returnReasonableItself, safeExec, segmentation, set, setCursorPosition, setCusorPostion, sets, singleModel, sleep, sortBy, spliceParams, strToArrayBuffer, strToDate, stringValidator, switchMap, throttle, timing, toLowerCase, toObject, toString$1 as toString, toUpperCase, toggleClass, treeMapping, treeToList, trySometime, trySometimeParallel, uniqueBy, wait, waitResource, watch, watchEventListener, watchObject };
 //# sourceMappingURL=rx-util-es.js.map

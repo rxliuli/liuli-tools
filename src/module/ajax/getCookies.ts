@@ -1,11 +1,10 @@
+import { splitHttpHeader } from './splitHttpHeader'
+
 /**
  * 获取 cookie 键值映射 Map
  * @returns cookie 键值映射 Map
+ * @deprecated 请使用更通用的 {@link splitHttpHeader} 函数
  */
 export function getCookies() {
-  return document.cookie.split(';').reduce((res, str) => {
-    const [k, v] = str.split('=')
-    res.set(k, v)
-    return res
-  }, new Map())
+  return splitHttpHeader(document.cookie)
 }

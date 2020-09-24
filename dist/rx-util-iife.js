@@ -88,15 +88,28 @@ var rx = (function (exports) {
   }
 
   /**
-   * 获取 cookie 键值映射 Map
-   * @returns cookie 键值映射 Map
+   * 分割 http 请求中 header 的内容为一个 map
+   * 分隔符参考 {@link https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Type}
+   * @param header
    */
-  function getCookies() {
-      return document.cookie.split(';').reduce((res, str) => {
-          const [k, v] = str.split('=');
-          res.set(k, v);
+  function splitHttpHeader(header) {
+      return header.split(';').reduce((res, str) => {
+          let [k, v] = str.split('=');
+          if (v !== undefined) {
+              v = decodeURIComponent(v);
+          }
+          res.set(k.trim(), v);
           return res;
       }, new Map());
+  }
+
+  /**
+   * 获取 cookie 键值映射 Map
+   * @returns cookie 键值映射 Map
+   * @deprecated 请使用更通用的 {@link splitHttpHeader} 函数
+   */
+  function getCookies() {
+      return splitHttpHeader(document.cookie);
   }
 
   /**
@@ -5352,6 +5365,19 @@ var rx = (function (exports) {
       });
   }
 
+  /**
+   * 将对象的键和值进行映射
+   * @param obj
+   * @param func
+   */
+  function mapObject(obj, func) {
+      return Object.entries(obj).reduce((res, kv) => {
+          const [k, v] = func(kv);
+          res[k] = v;
+          return res;
+      }, {});
+  }
+
   exports.AntiDebug = AntiDebug;
   exports.ArrayValidator = ArrayValidator;
   exports.AsyncArray = AsyncArray;
@@ -5454,6 +5480,7 @@ var rx = (function (exports) {
   exports.loadScript = loadScript;
   exports.loadStyle = loadStyle;
   exports.logger = logger;
+  exports.mapObject = mapObject;
   exports.mapToObject = mapToObject;
   exports.mergeMap = mergeMap;
   exports.nodeBridgeUtil = nodeBridgeUtil;
@@ -5488,6 +5515,7 @@ var rx = (function (exports) {
   exports.sleep = sleep;
   exports.sortBy = sortBy;
   exports.spliceParams = spliceParams;
+  exports.splitHttpHeader = splitHttpHeader;
   exports.strToArrayBuffer = strToArrayBuffer;
   exports.strToDate = strToDate;
   exports.stringValidator = stringValidator;

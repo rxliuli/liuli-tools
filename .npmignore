@@ -48,3 +48,9 @@ readme.md
 readme-zh-cn.md
 typedoc.json
 tsconfig.json
+tsconfig.build.json
+rollup.config.js
+wallaby.js
+README.ZH_CN.md
+LICENSE
+.yarnrc.yml

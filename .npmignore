@@ -11,10 +11,6 @@ docs
 src
 .npmignore
 .yarn/*
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
 .pnp.*
 
 # Editor directories and files

@@ -9,7 +9,7 @@
     "start": "yarn test",
     "build": "shx rm -rf dist/ && tsc -b tsconfig.build.json && rollup -c",
     "format": "prettier --write src/**/*.ts",
-    "docs": "typedoc && shx cp CNAME docs/ && shx cp readme.md docs/ && shx cp .nojekyll docs/",
+    "docs": "typedoc && shx cp CNAME docs/ && shx cp README.md docs/ && shx cp .nojekyll docs/",
     "cloc": "cloc src/ --exclude-ext=test.ts",
     "test": "jest --watch",
     "coverage": "jest --coverage",

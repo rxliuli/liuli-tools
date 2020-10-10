@@ -1,5 +1,5 @@
-import * as rx from '..'
-import { dateFormat } from '..'
+import * as rx from '.'
+import { dateFormat } from '.'
 
 /**
  * @test {main}

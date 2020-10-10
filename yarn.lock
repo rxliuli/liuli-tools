@@ -798,7 +798,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/pluginutils@npm:^3.0.1, @rollup/pluginutils@npm:^3.1.0":
+"@rollup/pluginutils@npm:^3.0.1":
   version: 3.1.0
   resolution: "@rollup/pluginutils@npm:3.1.0"
   dependencies:
@@ -1875,7 +1875,7 @@ colors@latest:
   languageName: node
   linkType: hard
 
-"commander@npm:^2.18.0, commander@npm:^2.20.0":
+"commander@npm:^2.18.0":
   version: 2.20.3
   resolution: "commander@npm:2.20.3"
   checksum: b73428e97de7624323f81ba13f8ed9271de487017432d18b4da3f07cfc528ad754bbd199004bd5d14e0ccd67d1fdfe0ec8dbbd4c438b401df3c4cc387bfd1daa
@@ -2265,13 +2265,6 @@ cors@latest:
   languageName: node
   linkType: hard
 
-"eledoc@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "eledoc@npm:0.2.1"
-  checksum: 12d53223faad282bed4eb1a986c5a2ec49fdfbf8c367c74e94dff2648af6c2cc4529240d5a20bc14fe7e6189f7db328fc860463e01d2abc8c40d060d232122ff
-  languageName: node
-  linkType: hard
-
 "email-addresses@npm:^3.0.1":
   version: 3.1.0
   resolution: "email-addresses@npm:3.1.0"
@@ -2331,6 +2324,13 @@ cors@latest:
   dependencies:
     is-arrayish: ^0.2.1
   checksum: 6c6c9187429ae867d145bc64c682c7c137b1f8373a406dc3b605c0d92f15b85bfcea02b461dc55ae11b10d013377e1eaf3d469d2861b2f94703c743620a9c08c
+  languageName: node
+  linkType: hard
+
+"es6-object-assign@npm:^1.0.3":
+  version: 1.1.0
+  resolution: "es6-object-assign@npm:1.1.0"
+  checksum: 18f01190b46b15a5fd6275dfc37c1c10bb331be4e392362785f63a141aa33edd0d8fbd2d5150c4b0a524aa14b8c4f825a559274cbc765bce59331e015923b4d8
   languageName: node
   linkType: hard
 
@@ -2769,7 +2769,7 @@ cors@latest:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:8.1.0, fs-extra@npm:^8.1.0":
+"fs-extra@npm:^8.1.0":
   version: 8.1.0
   resolution: "fs-extra@npm:8.1.0"
   dependencies:
@@ -4208,7 +4208,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"jest-worker@npm:^26.2.1, jest-worker@npm:^26.5.0":
+"jest-worker@npm:^26.5.0":
   version: 26.5.0
   resolution: "jest-worker@npm:26.5.0"
   dependencies:
@@ -5647,15 +5647,6 @@ proxy-middleware@latest:
   languageName: node
   linkType: hard
 
-"randombytes@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "randombytes@npm:2.1.0"
-  dependencies:
-    safe-buffer: ^5.1.0
-  checksum: ede2693af09732ceab1c273dd70db787f34a7b8d95bab13f1aca763483c0113452a78e53d61ff18d393dcea586d388e01f198a5132a4a85cebba31ec54164b75
-  languageName: node
-  linkType: hard
-
 "range-parser@npm:~1.2.1":
   version: 1.2.1
   resolution: "range-parser@npm:1.2.1"
@@ -5876,15 +5867,6 @@ proxy-middleware@latest:
   languageName: node
   linkType: hard
 
-"resolve@1.17.0, resolve@^1.17.0":
-  version: 1.17.0
-  resolution: "resolve@npm:1.17.0"
-  dependencies:
-    path-parse: ^1.0.6
-  checksum: 5e3cdb8cf68c20b0c5edeb6505e7fab20c6776af0cae4b978836e557420aef7bb50acd25339bbb143b7f80533aa1988c7e827a0061aee9c237926a7d2c41f8d0
-  languageName: node
-  linkType: hard
-
 "resolve@^1.1.6, resolve@^1.10.0, resolve@^1.3.2":
   version: 1.13.1
   resolution: "resolve@npm:1.13.1"
@@ -5894,12 +5876,12 @@ proxy-middleware@latest:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@1.17.0#builtin<compat/resolve>, resolve@patch:resolve@^1.17.0#builtin<compat/resolve>":
+resolve@^1.17.0:
   version: 1.17.0
-  resolution: "resolve@patch:resolve@npm%3A1.17.0#builtin<compat/resolve>::version=1.17.0&hash=3388aa"
+  resolution: "resolve@npm:1.17.0"
   dependencies:
     path-parse: ^1.0.6
-  checksum: 4bcfb568860d0c361fd16c26b6fce429711138ff0de7dd353bdd73fcb5c7eede2f4602d40ccfa08ff45ec7ef9830845eab2021a46036af0a6e5b58bab1ff6399
+  checksum: 5e3cdb8cf68c20b0c5edeb6505e7fab20c6776af0cae4b978836e557420aef7bb50acd25339bbb143b7f80533aa1988c7e827a0061aee9c237926a7d2c41f8d0
   languageName: node
   linkType: hard
 
@@ -5909,6 +5891,15 @@ proxy-middleware@latest:
   dependencies:
     path-parse: ^1.0.6
   checksum: d0bd5b8e55a5876480b4313cda7179652ff72f95af2678e8267ff4e0590b6bce18d763c28b45e6db80ec7a14384c1c2a8861d7797099410e8e181e888a4d1cfc
+  languageName: node
+  linkType: hard
+
+"resolve@patch:resolve@^1.17.0#builtin<compat/resolve>":
+  version: 1.17.0
+  resolution: "resolve@patch:resolve@npm%3A1.17.0#builtin<compat/resolve>::version=1.17.0&hash=3388aa"
+  dependencies:
+    path-parse: ^1.0.6
+  checksum: 4bcfb568860d0c361fd16c26b6fce429711138ff0de7dd353bdd73fcb5c7eede2f4602d40ccfa08ff45ec7ef9830845eab2021a46036af0a6e5b58bab1ff6399
   languageName: node
   linkType: hard
 
@@ -5948,36 +5939,6 @@ proxy-middleware@latest:
   bin:
     rimraf: bin.js
   checksum: f0de3e445581e64a8a077af476cc30708e659f5779ec2ca2a161556d0792aa318a685923798ae22055b4ecd02b9aff444ef619578f7af53cf8e0e248031e3dee
-  languageName: node
-  linkType: hard
-
-"rollup-plugin-terser@npm:^7.0.2":
-  version: 7.0.2
-  resolution: "rollup-plugin-terser@npm:7.0.2"
-  dependencies:
-    "@babel/code-frame": ^7.10.4
-    jest-worker: ^26.2.1
-    serialize-javascript: ^4.0.0
-    terser: ^5.0.0
-  peerDependencies:
-    rollup: ^2.0.0
-  checksum: 553cc21efcea3e4d46c61fbd41cb4a82a3ab8e02ae4ce7c03f9248dea93e5a91c3624e2271490ee05b2bb481568305733b496d968d3ac9c99b777a588a336f01
-  languageName: node
-  linkType: hard
-
-"rollup-plugin-typescript2@npm:^0.27.3":
-  version: 0.27.3
-  resolution: "rollup-plugin-typescript2@npm:0.27.3"
-  dependencies:
-    "@rollup/pluginutils": ^3.1.0
-    find-cache-dir: ^3.3.1
-    fs-extra: 8.1.0
-    resolve: 1.17.0
-    tslib: 2.0.1
-  peerDependencies:
-    rollup: ">=1.26.3"
-    typescript: ">=2.4.0"
-  checksum: 96a4bcc01659dadb0a2863c565050a5c71e843095d7335aaf7aa7bf3c7659b68c9bc41681fb2a94b836b6ea4d4472d52041268a7ad9d5d55395173c893851c38
   languageName: node
   linkType: hard
 
@@ -6027,7 +5988,6 @@ proxy-middleware@latest:
     "@types/jest": ^26.0.14
     "@types/rimraf": ^3.0.0
     cloc: ^2.7.0
-    eledoc: ^0.2.1
     gh-pages: ^3.1.0
     husky: ^4.3.0
     jest: ^26.5.2
@@ -6038,9 +5998,8 @@ proxy-middleware@latest:
     prettier: ^2.1.2
     rimraf: ^3.0.2
     rollup: ^2.29.0
-    rollup-plugin-terser: ^7.0.2
-    rollup-plugin-typescript2: ^0.27.3
     rollup-plugin-visualizer: ^4.1.1
+    shx: ^0.3.2
     ts-jest: ^26.4.1
     ts-node: ^9.0.0
     ts-toolbelt: ^8.0.7
@@ -6070,13 +6029,6 @@ proxy-middleware@latest:
   version: 5.2.0
   resolution: "safe-buffer@npm:5.2.0"
   checksum: e513079353a235749e64dc3b1ade741caf651c09d1291ee826e68d42c08913dcd2c76b291dd23979b0fd0bd551d99f4a3d8cc05aef4e9c75bebf6cbbd310b129
-  languageName: node
-  linkType: hard
-
-"safe-buffer@npm:^5.1.0":
-  version: 5.2.1
-  resolution: "safe-buffer@npm:5.2.1"
-  checksum: 0bb57f0d8f9d1fa4fe35ad8a2db1f83a027d48f2822d59ede88fd5cd4ddad83c0b497213feb7a70fbf90597a70c5217f735b0eb1850df40ce9b4ae81dd22b3f9
   languageName: node
   linkType: hard
 
@@ -6193,15 +6145,6 @@ send@latest:
   languageName: node
   linkType: hard
 
-"serialize-javascript@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "serialize-javascript@npm:4.0.0"
-  dependencies:
-    randombytes: ^2.1.0
-  checksum: f17305aaabab9ae443505d1bf477c13b09adb7031c397d18400bec16f43f788febdd3311ca6043fdebd1d446cfa70a5804ef7268da54351dec51080f56d52fa9
-  languageName: node
-  linkType: hard
-
 "serve-index@npm:^1.9.1":
   version: 1.9.1
   resolution: "serve-index@npm:1.9.1"
@@ -6282,7 +6225,7 @@ send@latest:
   languageName: node
   linkType: hard
 
-"shelljs@npm:^0.8.4":
+"shelljs@npm:^0.8.1, shelljs@npm:^0.8.4":
   version: 0.8.4
   resolution: "shelljs@npm:0.8.4"
   dependencies:
@@ -6299,6 +6242,19 @@ send@latest:
   version: 0.1.1
   resolution: "shellwords@npm:0.1.1"
   checksum: 3559ff550917ece921d252edf42eb54827540e9676e537137ace236df8f9b78e48c542ae0b3f8876fea0faf5826c97629d5b8cb9ac7dee287260e9804fb8132c
+  languageName: node
+  linkType: hard
+
+"shx@npm:^0.3.2":
+  version: 0.3.2
+  resolution: "shx@npm:0.3.2"
+  dependencies:
+    es6-object-assign: ^1.0.3
+    minimist: ^1.2.0
+    shelljs: ^0.8.1
+  bin:
+    shx: lib/cli.js
+  checksum: 75224dd939476d1d318e4b216095f794743bb982b677578c06e875e973241022077cf87823db1370577c3993b3a10c7cb771405016d575743810d7a09b0f228f
   languageName: node
   linkType: hard
 
@@ -6410,7 +6366,7 @@ send@latest:
   languageName: node
   linkType: hard
 
-"source-map-support@npm:^0.5.17, source-map-support@npm:~0.5.19":
+"source-map-support@npm:^0.5.17":
   version: 0.5.19
   resolution: "source-map-support@npm:0.5.19"
   dependencies:
@@ -6451,7 +6407,7 @@ send@latest:
   languageName: node
   linkType: hard
 
-"source-map@npm:^0.7.3, source-map@npm:~0.7.2":
+"source-map@npm:^0.7.3":
   version: 0.7.3
   resolution: "source-map@npm:0.7.3"
   checksum: 351ce26ffa1ebf203660c0d70d7566c81e65d2d994d1c2d94da140808e02da34961673ce12ecea9b40797b96fbeb8c70bf71a4ad9f779f1a4fdbba75530bb386
@@ -6825,19 +6781,6 @@ send@latest:
   languageName: node
   linkType: hard
 
-"terser@npm:^5.0.0":
-  version: 5.3.4
-  resolution: "terser@npm:5.3.4"
-  dependencies:
-    commander: ^2.20.0
-    source-map: ~0.7.2
-    source-map-support: ~0.5.19
-  bin:
-    terser: bin/terser
-  checksum: e7d1faca1148542fdaa222d8fc62a12ac02e80d9d4d866473216a71cb438b01706ae0cc4b3e21cfc9ab77181a0d8dc905cc297c9eff2882243320d0113b0da3e
-  languageName: node
-  linkType: hard
-
 "test-exclude@npm:^6.0.0":
   version: 6.0.0
   resolution: "test-exclude@npm:6.0.0"
@@ -7036,13 +6979,6 @@ send@latest:
   version: 8.4.0
   resolution: "ts-toolbelt@npm:8.4.0"
   checksum: dbc3ad2626b3ec3d0d23f800b6097deeb1895b6f07a1bc6b8c8933054255c93182d208f1b4b5a9a0a7dbb97516c5b828f4e0f1849b4b42145ba26864f49b57f9
-  languageName: node
-  linkType: hard
-
-"tslib@npm:2.0.1":
-  version: 2.0.1
-  resolution: "tslib@npm:2.0.1"
-  checksum: 7b42337a07f536c9650c72471cdf51317f07eb981692e91b8979fee3f6e20136a8f047e6ecdc5f2f3201132a6cc4e0096fa3c58655eba3803bf7fe739ccd088e
   languageName: node
   linkType: hard
 

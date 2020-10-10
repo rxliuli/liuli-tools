@@ -1,16 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["es2017", "esnext.array", "dom", "es2015.iterable"],
+    "target": "ES6",
+    "lib": ["ESNext", "esnext.array", "dom", "es2015.iterable"],
     "types": ["typescript", "jest", "jest-extended"],
-    "module": "es2015",
+    "module": "ESNext",
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",
     "strict": true,
     "noImplicitAny": true,
     "baseUrl": "./",
-    //定义类型定义文件的根目录
+    // 定义类型定义文件的根目录
     "esModuleInterop": true,
     // 引入辅助函数集
     "importHelpers": true,

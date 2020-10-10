@@ -44,7 +44,7 @@ export function treeMapping<T>(
     const _node = before!(node, ...args)
     const _child = _node.child
     if (!arrayValidator.isEmpty(_child)) {
-      _node.child = _child.map(v =>
+      _node.child = _child.map((v) =>
         // 产生一个参数
         _treeMapping(v, ...paramFn(_node, ...args)),
       )

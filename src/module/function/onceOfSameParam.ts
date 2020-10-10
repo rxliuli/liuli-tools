@@ -29,7 +29,7 @@ function _onceOfSameParam<Fn extends Func>(
         return old
       }
       const res = Reflect.apply(_, _this, args)
-      return compatibleAsync(res, res => {
+      return compatibleAsync(res, (res) => {
         memoryCache.add(key, res)
         return res
       })
@@ -41,7 +41,7 @@ function _onceOfSameParam<Fn extends Func>(
       if (keys.length) {
         memoryCache.clear()
       } else {
-        keys.forEach(key => memoryCache.delete(key))
+        keys.forEach((key) => memoryCache.delete(key))
       }
     },
   })

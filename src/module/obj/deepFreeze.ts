@@ -16,7 +16,7 @@ export function deepFreeze<T extends object>(obj: T): T {
     obj.forEach(freeze)
   } else if (TypeValidator.isObject(obj)) {
     Object.keys(obj)
-      .map(k => Reflect.get(obj, k))
+      .map((k) => Reflect.get(obj, k))
       .forEach(freeze)
   }
   return Object.freeze(obj)

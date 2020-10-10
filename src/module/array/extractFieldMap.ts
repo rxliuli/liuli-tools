@@ -20,7 +20,7 @@ export function extractFieldMap<T extends object>(
     },
     arrayToMap(
       fields,
-      k => k,
+      (k) => k,
       () => new Array<any>(),
     ),
   )

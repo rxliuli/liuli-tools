@@ -1,4 +1,5 @@
 import { StringValidator } from '../string/StringValidator'
+
 /**
  * 可能的类型
  */

@@ -26,7 +26,7 @@ describe('测试 once', () => {
       return --this.i
     }
   }
-  it('测试 this', async function() {
+  it('测试 this', async function () {
     const model = new Model()
     const mockFn = jest.fn(model.add)
     const fn = once(mockFn.bind(model))
@@ -34,7 +34,7 @@ describe('测试 once', () => {
     expect(await fn()).toBe(2)
     expect(model.i).toBe(2)
   })
-  it('测试手动 bind this', async function() {
+  it('测试手动 bind this', async function () {
     const obj = {
       i: 3,
     }

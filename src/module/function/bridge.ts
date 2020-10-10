@@ -17,7 +17,7 @@ export function bridge<M extends object>(
    * @param obj 任何对象
    * @returns 代理后的对象
    */
-  return function(obj: any): any {
+  return function (obj: any): any {
     return new Proxy(obj as any, {
       get(_, k) {
         if (Reflect.has(map, k)) {

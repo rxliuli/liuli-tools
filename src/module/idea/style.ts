@@ -26,7 +26,7 @@ type StyleMapping = {
  */
 const handler: ProxyHandler<CSSStyleDeclaration> = {
   get(_: CSSStyleDeclaration, k: PropertyKey): any {
-    return function(v: any) {
+    return function (v: any) {
       if (v === undefined) {
         return _[k as any]
       }

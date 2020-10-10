@@ -9,10 +9,10 @@ import { findIndex } from '../array/findIndex'
  * @returns 连接后的函数
  */
 const _compose = (fn1: Function, fn2: Function): Function => {
-  return function(...args: any[]) {
+  return function (...args: any[]) {
     const i = findIndex(
       args,
-      v => v !== curry._,
+      (v) => v !== curry._,
       (fn1 as any)._length || fn1.length,
     )
     const res = curry(fn1, ...args)

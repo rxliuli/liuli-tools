@@ -12,7 +12,7 @@ export function extractField<T extends object>(
 ): (obj: T) => any {
   const fields: PropertyKey[] = TypeValidator.isString(k) ? k.split('.') : [k]
   return fields.reduceRight((fn: (obj: T) => any, field: PropertyKey) => {
-    return function(obj: T) {
+    return function (obj: T) {
       return safeExec(() => fn(Reflect.get(obj as any, field)))
     }
   }, returnItself)

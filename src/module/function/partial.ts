@@ -24,7 +24,7 @@ interface IRFunc extends Function {
  * @returns 包装后的函数
  */
 export function partial(fn: Function, ...args: any[]): IRFunc {
-  const realArgs = args.filter(arg => arg !== partial._)
+  const realArgs = args.filter((arg) => arg !== partial._)
   // 如果函数参数足够则调用传入的函数
   if (realArgs.length >= fn.length) {
     return fn(...realArgs)
@@ -39,7 +39,7 @@ export function partial(fn: Function, ...args: any[]): IRFunc {
     // 记录需要移除补到前面的参数
     const removeIndexSet = new Set()
     let i = 0
-    const newArgs = args.map(arg => {
+    const newArgs = args.map((arg) => {
       if (
         arg !== partial._ ||
         otherArgs[i] === undefined ||
@@ -56,10 +56,10 @@ export function partial(fn: Function, ...args: any[]): IRFunc {
   }
   // 定义偏函数的剩余参数长度，便于在其他地方进行部分参数应用
   // 注: 不使用 length 属性的原因是 length 属性
-  innerFn._length = fn.length - args.filter(arg => arg !== partial._).length
+  innerFn._length = fn.length - args.filter((arg) => arg !== partial._).length
   // 自定义 toString 函数便于调试
   innerFn.toString = () =>
-    `name: ${fn.name}, args: [${args.map(o => o.toString()).join(', ')}]`
+    `name: ${fn.name}, args: [${args.map((o) => o.toString()).join(', ')}]`
   innerFn._partial = true
   return innerFn
 }

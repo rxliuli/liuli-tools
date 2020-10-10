@@ -7,7 +7,7 @@
 export function kFnToCompare<T, K = any>(
   kFn: (v: T) => K,
 ): (v1: T, v2: T) => number {
-  return function(item1: T, item2: T): number {
+  return function (item1: T, item2: T): number {
     const k1 = kFn(item1)
     const k2 = kFn(item2)
     if (k1 === k2) {

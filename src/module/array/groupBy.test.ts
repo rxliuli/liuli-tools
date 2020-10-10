@@ -7,7 +7,7 @@ import { range } from './range'
 describe('test groupBy', () => {
   it('groupBy [1, 2, 3] to equals Map({true => [1, 2], false => 2})', () => {
     const arr = [1, 2, 3]
-    expect(groupBy(arr, i => i % 2 === 0)).toEqual(
+    expect(groupBy(arr, (i) => i % 2 === 0)).toEqual(
       new Map().set(true, [2]).set(false, [1, 3]),
     )
   })
@@ -17,7 +17,7 @@ describe('test groupBy', () => {
       // 注意: 由于 ts 类型推断的限制，此处的 res: string[] 是必不可少的！
       groupBy(
         arr,
-        i => i % 2 === 0,
+        (i) => i % 2 === 0,
         (res: string[], i) => [...res, i + ''],
       ),
     ).toEqual(new Map().set(true, ['2']).set(false, ['1', '3']))
@@ -28,7 +28,7 @@ describe('test groupBy', () => {
     expect(
       groupBy(
         arr,
-        i => i % 2 === 0,
+        (i) => i % 2 === 0,
         (res: number, i: number) => res + i,
         () => 0,
       ),

@@ -46,7 +46,7 @@ describe('test trySometime', () => {
     // 模拟前两次调用都挂掉了
     const get = async (i: number) => i
     // 调用3次
-    const fn = trySometime(get, 3, i => i > 0)
+    const fn = trySometime(get, 3, (i) => i > 0)
     expect(fn(1)).resolves.toBe(1)
     expect(fn(0)).rejects.toBe(0)
   })

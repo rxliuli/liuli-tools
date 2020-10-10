@@ -53,7 +53,7 @@ export function treeToList2<T>(
       res.push(node)
       return node
     },
-    paramFn: node => (calcPath ? [node.path] : []),
+    paramFn: (node) => (calcPath ? [node.path] : []),
   })
   return res
 }
@@ -97,12 +97,12 @@ export function treeToList<T>(
       continue
     }
     const childNonIllegal = child.filter(
-      v => !isNullOrUndefined(v) || filterSet.has(v),
+      (v) => !isNullOrUndefined(v) || filterSet.has(v),
     )
     // TODO 这里和上面的代码明显重复，待优化。。。
     queue.push(
       ...(calcPath
-        ? childNonIllegal.map(v => {
+        ? childNonIllegal.map((v) => {
             const _v = bridge(v as any)
             // 如果最后一个的 id 等于自身，说明已经被添加过了
             if (lastIdMap.get(_v.id) === _v.id) {

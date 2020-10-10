@@ -30,7 +30,7 @@ export class Logger {
     /**
      * @field 是否开启全局控制台，该属性只写
      */
-    ;(Object.keys(console) as (keyof typeof console)[]).forEach(k =>
+    ;(Object.keys(console) as (keyof typeof console)[]).forEach((k) =>
       Reflect.set(this, k, enable ? console[k] : emptyFunc),
     )
   }
@@ -41,8 +41,8 @@ export class Logger {
    */
   set level(level: LoggerLevelEnum) {
     ;(Object.keys(console) as (keyof typeof console)[])
-      .filter(k => Reflect.has(enumMap, k))
-      .forEach(k =>
+      .filter((k) => Reflect.has(enumMap, k))
+      .forEach((k) =>
         Reflect.set(
           this,
           k,
@@ -82,8 +82,6 @@ export class Logger {
   clear = console.clear
   count = console.count
   assert = console.assert
-  profile = console.profile
-  profileEnd = console.profileEnd
   time = console.time
   timeEnd = console.timeEnd
   timeStamp = console.timeStamp

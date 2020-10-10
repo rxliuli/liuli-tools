@@ -5,6 +5,6 @@
  * @returns 返回删除后的 FormData 对象
  */
 export function deletes(fd: FormData, keys: string[]): FormData {
-  keys.forEach(key => fd.delete(key))
+  keys.forEach((key) => fd.delete(key))
   return fd
 }

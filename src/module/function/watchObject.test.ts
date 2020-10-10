@@ -10,7 +10,7 @@ describe('test watchObject', () => {
       age: 17,
     }
     let temp: { name: string; age: number }
-    watchObject(user, user => {
+    watchObject(user, (user) => {
       expect(user).not.toEqual(temp)
       temp = user
       console.log(temp)

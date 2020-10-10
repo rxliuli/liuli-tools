@@ -8,7 +8,7 @@ describe('测试 sortBy', () => {
   it('基本示例', () => {
     const arr = [5, 1, 2, 4, 3]
     expect(sortBy(arr)).toIncludeSameMembers([1, 2, 3, 4, 5])
-    expect(sortBy(arr, i => -i)).toIncludeSameMembers([5, 4, 3, 2, 1])
+    expect(sortBy(arr, (i) => -i)).toIncludeSameMembers([5, 4, 3, 2, 1])
   })
   it('测试对象数组', () => {
     class User {
@@ -44,6 +44,6 @@ describe('测试 sortBy', () => {
       3: 1,
     }
     const arr: (keyof typeof map)[] = [1, 2, 3]
-    expect(sortBy(arr, k => map[k])).toEqual([2, 3, 1])
+    expect(sortBy(arr, (k) => map[k])).toEqual([2, 3, 1])
   })
 })

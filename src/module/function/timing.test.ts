@@ -14,7 +14,7 @@ describe('test timing', () => {
     const res: Promise<number> = timing(async () => wait(100))
     expect(await res).toBeGreaterThan(95)
   })
-  it('test this', async function() {
+  it('test this', async function () {
     // @ts-ignore
     this.num = 100
     // @ts-ignore

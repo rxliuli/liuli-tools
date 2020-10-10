@@ -10,7 +10,7 @@ import { PromiseDeconstruct } from '../interface/PromiseDeconstruct'
 export function trySometime<Fn extends (...args: any[]) => any>(
   fn: Fn,
   num = 1,
-  errorCheck: (res: PromiseDeconstruct<ReturnType<Fn>>) => boolean = res =>
+  errorCheck: (res: PromiseDeconstruct<ReturnType<Fn>>) => boolean = (res) =>
     true,
 ): Fn {
   return new Proxy(fn, {

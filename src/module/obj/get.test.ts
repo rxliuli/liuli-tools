@@ -19,7 +19,7 @@ describe('测试 get', () => {
       },
     ],
   }
-  it('简单示例', function() {
+  it('简单示例', function () {
     expect(get(obj, 'id')).toBe(1)
     expect(get(obj, 'info.address')).toEqual({ city: '广州' })
     expect(get(obj, 'info.address.city')).toBe('广州')

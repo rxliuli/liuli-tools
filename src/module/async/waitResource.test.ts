@@ -20,7 +20,7 @@ describe('test waitResource', () => {
     expect(Date.now() - now).toBeGreaterThanOrEqual(1000)
     expect(num).toBeLessThanOrEqual(10)
   })
-  it('test this', async function() {
+  it('test this', async function () {
     // @ts-ignore
     this.num = 0
     const now = Date.now()

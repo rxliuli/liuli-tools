@@ -12,13 +12,13 @@ type NextChain = Func & {
  */
 export function next(fn: NextFunc): NextChain {
   //保存起始节点与终结节点
-  const first: any = function(...args: any[]) {
+  const first: any = function (...args: any[]) {
     fn(first.nextFn, ...args)
   }
   //终结节点默认为起始节点
   let last = first
 
-  first.next = function(fn: NextFunc) {
+  first.next = function (fn: NextFunc) {
     const nextFn = next(fn)
     last.nextFn = nextFn
     last = nextFn

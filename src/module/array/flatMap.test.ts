@@ -6,7 +6,7 @@ import { range } from './range'
  */
 describe('test flatMap', () => {
   it('test simple example', () => {
-    expect(flatMap(range(1, 4), i => range(1, i + 1))).toIncludeAllMembers([
+    expect(flatMap(range(1, 4), (i) => range(1, i + 1))).toIncludeAllMembers([
       1,
       1,
       2,

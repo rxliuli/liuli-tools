@@ -6,5 +6,5 @@
 export function parseFieldStr(str: string): string[] {
   return str
     .split(/[\.\[]/)
-    .map(k => (/\]$/.test(k) ? k.slice(0, k.length - 1) : k))
+    .map((k) => (/\]$/.test(k) ? k.slice(0, k.length - 1) : k))
 }

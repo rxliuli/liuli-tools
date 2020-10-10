@@ -11,7 +11,7 @@ export function deepExcludeFields<T extends object>(
   ...fields: PropertyKey[]
 ): T {
   if (TypeValidator.isArray(obj)) {
-    return obj.map(o => deepExcludeFields(o, ...fields)) as any
+    return obj.map((o) => deepExcludeFields(o, ...fields)) as any
   } else if (TypeValidator.isDate(obj)) {
     return obj
   } else if (TypeValidator.isObject(obj)) {

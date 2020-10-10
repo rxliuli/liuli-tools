@@ -26,7 +26,7 @@ describe('test wait', () => {
     await wait()
     expect(Date.now() - start).toBeLessThan(100)
   })
-  it('test this', async function() {
+  it('test this', async function () {
     // @ts-ignore
     this.time = time
     const start = Date.now()

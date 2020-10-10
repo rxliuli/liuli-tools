@@ -10,7 +10,7 @@ describe.skip('test curry', () => {
     expect(fn).toBeFunction()
     expect(fn(2)).toBe(3)
   })
-  it('test this', function() {
+  it('test this', function () {
     // @ts-ignore
     this.value = 'value: '
     // @ts-ignore
@@ -22,7 +22,7 @@ describe.skip('test curry', () => {
     this.value = 'v: '
     expect(fn(2)).toBe('v: 3')
   })
-  it('test curry._', function() {
+  it('test curry._', function () {
     // @ts-ignore
     this.value = 'value: '
     // @ts-ignore

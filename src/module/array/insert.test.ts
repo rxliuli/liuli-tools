@@ -1,6 +1,6 @@
 import { insert } from './insert'
 
-describe('测试 insert', function() {
+describe('测试 insert', function () {
   it('简单示例', () => {
     const arr = [1, 2]
     //测试插入一条数据

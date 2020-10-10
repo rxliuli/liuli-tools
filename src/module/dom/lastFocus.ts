@@ -14,7 +14,7 @@ export const lastFocus = Object.assign(_lastFocus, {
   init() {
     document.addEventListener(
       'focus',
-      event => {
+      (event) => {
         lastFocusEl = event.target
       },
       true,

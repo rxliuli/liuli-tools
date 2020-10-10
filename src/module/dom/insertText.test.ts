@@ -13,7 +13,7 @@ describe('test insertText', () => {
     $name = document.querySelector('#name')
     $name.value = 'text'
   })
-  it('test not specify start insert index', () => {
+  it.skip('test not specify start insert index', () => {
     insertText($name, 'insert ')
     expect($name.value).toEqual('insert text')
   })

@@ -57,7 +57,7 @@ export class EventEmitter<Events extends Record<EventType, any[]>> {
    */
   emit<E extends keyof Events>(type: E, ...args: Events[E]) {
     const callbacks = this.events.get(type) || []
-    callbacks.forEach(fn => {
+    callbacks.forEach((fn) => {
       fn(...args)
     })
     return this

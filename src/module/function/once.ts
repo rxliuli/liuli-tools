@@ -24,7 +24,7 @@ export function once<R, Fn extends ReturnFunc<R>>(
       }
       flag = false
       // 如果是异步函数则返回异步的结果
-      return compatibleAsync(Reflect.apply(target, thisArg, args), res => {
+      return compatibleAsync(Reflect.apply(target, thisArg, args), (res) => {
         cache = res
         return cache
       })

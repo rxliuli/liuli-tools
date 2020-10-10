@@ -8,7 +8,7 @@ import { ReturnFunc } from '../interface/ReturnFunc'
  * @returns Promise 对象
  */
 export function wait(param?: number | ReturnFunc<boolean>): Promise<void> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     if (typeof param === 'number') {
       setTimeout(resolve, param)
     } else if (typeof param === 'function') {

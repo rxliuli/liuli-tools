@@ -61,7 +61,7 @@ export class CacheUtil {
         if (val !== null) {
           return val
         }
-        return compatibleAsync(Reflect.apply(_, _this, args), res => {
+        return compatibleAsync(Reflect.apply(_, _this, args), (res) => {
           cache.set(key, res, timeout)
           return res
         })
@@ -95,7 +95,7 @@ export class CacheUtil {
         if (val !== null) {
           return val
         }
-        return compatibleAsync(Reflect.apply(_, _this, args), res => {
+        return compatibleAsync(Reflect.apply(_, _this, args), (res) => {
           cache.set(key, res, timeout)
           return res
         })

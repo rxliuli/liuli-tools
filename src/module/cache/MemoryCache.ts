@@ -79,7 +79,7 @@ export class MemoryCacheFIFO<K = any, V = any> extends BasicMemoryCache<K, V> {
     const diff = this.cache.size + 1 - this.limit
     if (diff > 0) {
       const keys = [...this.cache.keys()].slice(0, diff)
-      keys.forEach(k => this.delete(k))
+      keys.forEach((k) => this.delete(k))
     }
     this.cache.set(key, val)
   }
@@ -113,7 +113,7 @@ export class MemoryCacheLFU<K = any, V = any> extends BasicMemoryCache<K, V> {
       const keys = [...this.cache.keys()]
         .sort((k1, k2) => this.lfuMap.get(k1)! - this.lfuMap.get(k2)!)
         .slice(0, diff)
-      keys.forEach(k => this.delete(k))
+      keys.forEach((k) => this.delete(k))
     }
     this.cache.set(key, val)
     this.lfuMap.set(key, 0)
@@ -157,7 +157,7 @@ export class MemoryCacheLRU<K = any, V = any> extends BasicMemoryCache<K, V> {
         .sort((k1, k2) => this.lruMap.get(k1)! - this.lruMap.get(k2)!)
         .slice(0, diff)
       console.log(keys, this.lruMap)
-      keys.forEach(k => this.delete(k))
+      keys.forEach((k) => this.delete(k))
     }
     this.cache.set(key, val)
     this.lruMap.set(key, this.idx)

@@ -14,7 +14,7 @@ describe('测试 safeExec', () => {
     expect(safeExec(fn)).toBeNull()
     expect(safeExec(fn, 10)).toBe(10)
   })
-  it('测试异步函数', function() {
+  it('测试异步函数', function () {
     async function fn(i: number) {
       if (i > 0) {
         return i

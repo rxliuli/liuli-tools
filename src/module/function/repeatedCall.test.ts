@@ -15,11 +15,11 @@ describe('test repeatedCall', () => {
   it('async function', async () => {
     const mockFn = jest.fn(async(emptyFunc))
     const arr = repeatedCall(len, mockFn)
-    expect(arr).toSatisfyAll(res => res instanceof Promise)
+    expect(arr).toSatisfyAll((res) => res instanceof Promise)
     await Promise.all(arr)
     expect(mockFn.mock.calls.length).toBe(len)
   })
-  it('test this', function() {
+  it('test this', function () {
     // @ts-ignore
     this.i = 1
     // @ts-ignore
@@ -33,12 +33,12 @@ describe('test repeatedCall', () => {
     // @ts-ignore
     expect(this.i).toBe(6)
   })
-  it('test bind this', function() {
+  it('test bind this', function () {
     const obj = { i: 1 }
     expect(
       repeatedCall(
         len,
-        function() {
+        function () {
           // @ts-ignore
           return this.i++
         }.bind(obj),

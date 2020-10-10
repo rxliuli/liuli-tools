@@ -15,7 +15,7 @@ export function batch<P extends any[], R extends any>(
   const paramCache = new Map<string, number>()
   //当前是否被锁定
   let lock = false
-  return async function(...args: P) {
+  return async function (...args: P) {
     const key = JSON.stringify(args)
     paramCache.set(key, (paramCache.get(key) || 0) + 1)
     await Promise.all([wait(() => resultCache.has(key) || !lock), wait(ms)])
@@ -23,7 +23,7 @@ export function batch<P extends any[], R extends any>(
       try {
         lock = true
         Array.from(
-          await handle(Array.from(paramCache.keys()).map(v => JSON.parse(v))),
+          await handle(Array.from(paramCache.keys()).map((v) => JSON.parse(v))),
         ).forEach(([k, v]) => {
           resultCache.set(JSON.stringify(k), v)
         })

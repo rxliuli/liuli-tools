@@ -23,7 +23,7 @@ export function onceOfSimultaneously<R, Fn extends ReturnFunc<R>>(
         return cache
       }
       flag = true
-      return compatibleAsync(Reflect.apply(_, _this, args), res => {
+      return compatibleAsync(Reflect.apply(_, _this, args), (res) => {
         cache = res
         flag = false
         return res

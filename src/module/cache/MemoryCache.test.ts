@@ -32,7 +32,7 @@ describe('测试内存缓存', () => {
     it('使用无限容量的缓存', () => {
       const cache = MemoryCacheFactory.create(MemoryCacheEnum.Fifo)
 
-      range(0, 100).forEach(i => cache.add(i, i))
+      range(0, 100).forEach((i) => cache.add(i, i))
       expect(cache.size).toBe(100)
     })
     it('测试使用负值', () => {

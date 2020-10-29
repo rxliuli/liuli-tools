@@ -24,8 +24,8 @@ class WebStorage implements Storage {
   }
 }
 
-type Null<T> = {
-  [P in keyof T]: T[P] | null
+type StorageObject<T> = {
+  [P in keyof T]: T[P] extends object ? Readonly<T[P]> : T[P] | null
 }
 
 /**
@@ -34,7 +34,7 @@ type Null<T> = {
  */
 export function proxyStorage<T extends object>(
   storage: Storage,
-): Storage & Null<T> {
+): Storage & StorageObject<T> {
   const kSet = new Set([
     'storage',
     'length',

@@ -23,4 +23,23 @@ describe('测试 proxyStorage', () => {
     store.hobby = ['game', 'movie']
     expect(store.hobby).toEqual(['game', 'movie'])
   })
+  it('测试深层属性', () => {
+    type User = { username: string; password: string }
+    const storage = proxyStorage<{
+      user: User
+    }>(localStorage)
+    expect(storage.user).toBeNull()
+    const user = {
+      username: 'li',
+      password: '',
+    }
+    storage.user = user
+    expect(storage.user).toEqual(user)
+    expect(storage.user.password).toEqual('')
+    storage.user = {
+      ...storage.user,
+      password: '123456',
+    }
+    expect(storage.user.password).toEqual('123456')
+  })
 })

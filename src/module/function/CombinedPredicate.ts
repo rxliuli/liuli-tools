@@ -48,8 +48,8 @@ export class CombinedPredicate {
    * @returns 连接后的新谓词
    */
   public static and(...fns: PredicateFunc[]) {
-    return function(...args: any[]) {
-      return _inner(fns, args, res => !res)
+    return function (...args: any[]) {
+      return _inner(fns, args, (res) => !res)
     }
   }
   /**
@@ -58,8 +58,8 @@ export class CombinedPredicate {
    * @returns 连接后的新谓词
    */
   public static or(...fns: PredicateFunc[]) {
-    return function(...args: any[]) {
-      return _inner(fns, args, res => res)
+    return function (...args: any[]) {
+      return _inner(fns, args, (res) => res)
     }
   }
   /**
@@ -70,7 +70,7 @@ export class CombinedPredicate {
   public static not(fn: PredicateFunc) {
     return new Proxy(fn, {
       apply(_, _this, args) {
-        return compatibleAsync(Reflect.apply(_, this, args), res => !res)
+        return compatibleAsync(Reflect.apply(_, this, args), (res) => !res)
       },
     })
   }

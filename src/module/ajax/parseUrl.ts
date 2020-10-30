@@ -94,8 +94,8 @@ export function parseUrl(url: string): IUrlObject | null {
   const params = temp
     .substr(markIndex + 1)
     .split('&')
-    .map(str => str.split('='))
-    .filter(arr => arr[0] !== '')
+    .map((str) => str.split('='))
+    .filter((arr) => arr[0] !== '')
     .reduce((params, arr: string[]) => {
       const k = decodeURIComponent(arr[0])
       const v = decodeURIComponent(arr.length === 1 ? '' : arr[1])

@@ -1,1 +1,1 @@
-{"version":3,"file":"setCursorPosition.d.ts","sourceRoot":"","sources":["../../src/module/dom/setCursorPosition.ts"],"names":[],"mappings":"AAAA;;;;;GAKG;AACH,wBAAgB,iBAAiB,CAC/B,EAAE,EAAE,eAAe,EACnB,KAAK,EAAE,MAAM,EACb,GAAG,GAAE,MAAc,QAIpB"}
+{"version":3,"file":"setCursorPosition.d.ts","sourceRoot":"","sources":["../../../src/module/dom/setCursorPosition.ts"],"names":[],"mappings":"AAAA;;;;;GAKG;AACH,wBAAgB,iBAAiB,CAC/B,EAAE,EAAE,eAAe,EACnB,KAAK,EAAE,MAAM,EACb,GAAG,GAAE,MAAc,QAIpB"}

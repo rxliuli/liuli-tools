@@ -61,7 +61,7 @@ describe('test NodeBridgeUtil', () => {
     // @ts-ignore
     const newList = nodeBridgeUtil.bridgeList(list, bridgeNode)
     // @ts-ignore
-    newList.forEach(item => {
+    newList.forEach((item) => {
       // @ts-ignore
       expect(item.id).toBe(item.uid)
       // @ts-ignore

@@ -134,7 +134,7 @@ export class EventUtil {
     EventUtil.listenerMap.set(
       dom,
       (EventUtil.listenerMap.get(dom) || []).filter(
-        cacheListener =>
+        (cacheListener) =>
           cacheListener.type !== type ||
           cacheListener.listener !== listener ||
           cacheListener.options !== options,
@@ -187,13 +187,13 @@ export class EventUtil {
     }
     const map = groupBy(
       listenerList,
-      cacheListener =>
+      (cacheListener) =>
         type === cacheListener.type && options === cacheListener.options,
     )
     const removeCacheListenerList = map.get(true) || []
     const retainCacheListenerList = map.get(true) || []
     EventUtil.listenerMap.set(dom, retainCacheListenerList)
-    return removeCacheListenerList.map(cacheListener => {
+    return removeCacheListenerList.map((cacheListener) => {
       dom.removeEventListener(
         cacheListener.type,
         cacheListener.listener as any,

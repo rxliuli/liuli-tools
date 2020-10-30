@@ -1,1 +1,1 @@
-{"version":3,"file":"switchMap.d.ts","sourceRoot":"","sources":["../../src/module/async/switchMap.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAA;AAGlD;;;;;GAKG;AACH,wBAAgB,SAAS,CAAC,EAAE,SAAS,SAAS,EAAE,EAAE,EAAE,EAAE,GAAG,EAAE,CAoB1D"}
+{"version":3,"file":"switchMap.d.ts","sourceRoot":"","sources":["../../../src/module/async/switchMap.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAA;AAGlD;;;;;GAKG;AACH,wBAAgB,SAAS,CAAC,EAAE,SAAS,SAAS,EAAE,EAAE,EAAE,EAAE,GAAG,EAAE,CAoB1D"}

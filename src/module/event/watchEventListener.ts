@@ -59,12 +59,12 @@ export function watchEventListener() {
     const removeIndexList = events
       // @ts-ignore
       .map((e, i) => (e.el === this || e.type === arguments[0] ? i : -1))
-      .filter(i => i !== -1)
-    removeIndexList.forEach(i => {
+      .filter((i) => i !== -1)
+    removeIndexList.forEach((i) => {
       const e = events[i]
       $removeEventListener.apply(e.el, [e.type, e.listener, e.useCapture])
     })
-    removeIndexList.sort((a, b) => b - a).forEach(i => events.splice(i, 1))
+    removeIndexList.sort((a, b) => b - a).forEach((i) => events.splice(i, 1))
   }
 
   document.addEventListener = EventTarget.prototype.addEventListener = addEventListener

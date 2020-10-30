@@ -4,12 +4,12 @@ describe('测试 pipe', () => {
   it('使用普通的高阶函数', () => {
     const res = pipe(
       Array(10),
-      arr => arr.fill(0) as number[],
-      arr => arr.map((_, i) => i),
-      arr => arr.filter(i => i % 2 === 0),
-      arr => arr.map(i => i.toString()),
-      arr => arr.reduce((res, s) => res.concat(s.split('')), [] as string[]),
-      arr => arr.join(','),
+      (arr) => arr.fill(0) as number[],
+      (arr) => arr.map((_, i) => i),
+      (arr) => arr.filter((i) => i % 2 === 0),
+      (arr) => arr.map((i) => i.toString()),
+      (arr) => arr.reduce((res, s) => res.concat(s.split('')), [] as string[]),
+      (arr) => arr.join(','),
     )
     expect(res).toBe('0,2,4,6,8')
   })
@@ -27,8 +27,8 @@ describe('测试 pipe', () => {
       Array(10),
       fill(0),
       map((_, i) => i),
-      filter(i => i % 2 === 0),
-      map(i => i.toString()),
+      filter((i) => i % 2 === 0),
+      map((i) => i.toString()),
       reduce((res, s) => res.concat(s.split('')), [] as string[]),
       join(','),
     )

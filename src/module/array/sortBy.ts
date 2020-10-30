@@ -35,9 +35,7 @@ export function sortBy<T, K>(arr: T[], k: ArrayKFn<T, K> = returnItself): T[] {
         right.push(v)
       }
     }
-    return _sort(left, fn)
-      .concat([medianValue])
-      .concat(_sort(right, fn))
+    return _sort(left, fn).concat([medianValue]).concat(_sort(right, fn))
   }
   return _sort(newArr, ([t1, i1], [t2, i2]) => {
     const k1 = kFn(t1, i1, arr)

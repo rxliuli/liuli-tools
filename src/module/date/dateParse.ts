@@ -97,11 +97,11 @@ export function dateParse(str: string, fmt: string): Nullable<Date> {
     // 过滤掉没有得到格式化的对象
     .filter(({ format }) => format)
     // 按照字符串中日期片段的索引进行排序
-    .sort(function(a, b) {
+    .sort(function (a, b) {
       return a.index - b.index
     })
     // 获取到匹配的日期片段的值
-    .map(format => {
+    .map((format) => {
       const matchDateUnit = new RegExp(format.format).exec(str)
       if (matchDateUnit !== null && matchDateUnit.length > 0) {
         str = str.replace(matchDateUnit[0], '')
@@ -120,16 +120,13 @@ export function dateParse(str: string, fmt: string): Nullable<Date> {
   // 将截取完成的信息封装成对象并格式化标准的日期字符串
   const map = arrayToMap(
     dateUnits,
-    item => item.name,
-    item => item.value,
+    (item) => item.name,
+    (item) => item.value,
   )
   if (map.get('year')!.length === 2) {
     map.set(
       'year',
-      defaultDateValues
-        .get('year')
-        .substr(0, 2)
-        .concat(map.get('year')),
+      defaultDateValues.get('year').substr(0, 2).concat(map.get('year')),
     )
   }
   // 注意：此处使用的是本地时间而非 UTC 时间

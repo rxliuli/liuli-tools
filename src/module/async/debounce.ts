@@ -23,7 +23,7 @@ export function debounce<Fn extends Func>(
   let result = init
   return new Proxy(action, {
     apply(_: Func, _this: any, args: ArrayLike<any>) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         if (flag) clearTimeout(flag)
         flag = setTimeout(
           () => resolve((result = Reflect.apply(_, _this, args))),

@@ -5,5 +5,5 @@
  * @deprecated 该函数将要被废弃，实质上应用场景很窄
  */
 export function getObjectValues(obj: Record<PropertyKey, any>): any[] {
-  return Reflect.ownKeys(obj).map(k => Reflect.get(obj, k))
+  return Reflect.ownKeys(obj).map((k) => Reflect.get(obj, k))
 }

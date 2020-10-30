@@ -19,10 +19,7 @@ describe('测试 AsyncChain', () => {
       console.log(i + 3)
       next && next()
     }
-    const fn = next(fn0)
-      .next(fn1)
-      .next(fn2)
-      .next(fn3)
+    const fn = next(fn0).next(fn1).next(fn2).next(fn3)
     fn(1)
   })
 })

@@ -11,9 +11,9 @@ describe('test concatMap', () => {
     it('no use concatMap', async () => {
       let result = 0
       await Promise.all([
-        get(30).then(res => (result = res)),
-        get(20).then(res => (result = res)),
-        get(10).then(res => (result = res)),
+        get(30).then((res) => (result = res)),
+        get(20).then((res) => (result = res)),
+        get(10).then((res) => (result = res)),
       ])
       expect(result).toBe(30)
     })
@@ -23,15 +23,15 @@ describe('test concatMap', () => {
       let last = 0
       let sum = 0
       await Promise.all([
-        fn(30).then(res => {
+        fn(30).then((res) => {
           last = res
           sum += res
         }),
-        fn(20).then(res => {
+        fn(20).then((res) => {
           last = res
           sum += res
         }),
-        fn(10).then(res => {
+        fn(10).then((res) => {
           last = res
           sum += res
         }),

@@ -55,7 +55,7 @@ export function _readLocal<T extends ReadType>(
     fr.onload = () => {
       resolve(fr.result as ReadResult<T>)
     }
-    fr.onerror = error => {
+    fr.onerror = (error) => {
       reject(error)
     }
     switch (type) {

@@ -62,7 +62,7 @@ describe('test TypeValidator', () => {
   it('test isFunction', () => {
     expect(isFunction(() => console.log('lambda'))).toBeTrue()
     expect(
-      isFunction(function() {
+      isFunction(function () {
         console.log('function')
       }),
     ).toBeTrue()

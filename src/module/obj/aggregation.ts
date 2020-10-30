@@ -21,7 +21,7 @@ function getInnerFieldRule(source: any): RegExp {
  */
 function _copyProps<T extends object>(target: T, source: T): T {
   const innerField = getInnerFieldRule(source)
-  Reflect.ownKeys(source).forEach(prop => {
+  Reflect.ownKeys(source).forEach((prop) => {
     if (typeof prop === 'string' && innerField.test(prop)) {
       return
     }

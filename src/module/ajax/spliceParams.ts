@@ -27,7 +27,7 @@ export function spliceParams(params: object = {}): string {
       res += encode(k, dateFormat(v, dateFormatter))
     } else if (v instanceof Array) {
       res += v
-        .map(item =>
+        .map((item) =>
           encode(
             k,
             item instanceof Date ? dateFormat(item, dateFormatter) : item,

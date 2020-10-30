@@ -10,7 +10,7 @@ describe('测试 EventEmitter', () => {
     [EventTypeEnum.CorrectType]: [number, string]
   }>()
   it('基本示例', () => {
-    const fn = jest.fn(name => console.log('hello ', name))
+    const fn = jest.fn((name) => console.log('hello ', name))
     em.add(EventTypeEnum.Hello, fn)
       .add(EventTypeEnum.Hello, fn)
       .add(EventTypeEnum.Hello, fn)

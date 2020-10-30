@@ -18,7 +18,7 @@ export class PubSubMachine<T> {
     if (fns === undefined) {
       return
     }
-    fns.forEach(fn => fn(...args))
+    fns.forEach((fn) => fn(...args))
   }
   /**
    * 订阅一个主题

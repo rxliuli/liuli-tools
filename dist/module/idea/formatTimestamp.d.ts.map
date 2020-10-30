@@ -1,1 +1,1 @@
-{"version":3,"file":"formatTimestamp.d.ts","sourceRoot":"","sources":["../../src/module/idea/formatTimestamp.ts"],"names":[],"mappings":"AAGA;;;;GAIG;AACH,wBAAgB,eAAe,CAAC,OAAO,EAAE,MAAM,GAAG,MAAM,CAKvD"}
+{"version":3,"file":"formatTimestamp.d.ts","sourceRoot":"","sources":["../../../src/module/idea/formatTimestamp.ts"],"names":[],"mappings":"AAGA;;;;GAIG;AACH,wBAAgB,eAAe,CAAC,OAAO,EAAE,MAAM,GAAG,MAAM,CAKvD"}

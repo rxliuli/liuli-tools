@@ -126,7 +126,7 @@ class RamOnceClass extends BasicOnce {
         }
         flag--
         // 如果是异步函数则返回异步的结果
-        return compatibleAsync(Reflect.apply(target, thisArg, args), res => {
+        return compatibleAsync(Reflect.apply(target, thisArg, args), (res) => {
           cache = res
           return cache
         })
@@ -154,7 +154,7 @@ class RamOnceClass extends BasicOnce {
           return old
         }
         const res = Reflect.apply(_, _this, args)
-        return compatibleAsync(res, res => {
+        return compatibleAsync(res, (res) => {
           cacheMap.set(key, res)
           return res
         })
@@ -166,7 +166,7 @@ class RamOnceClass extends BasicOnce {
         if (keys.length) {
           cacheMap.clear()
         } else {
-          keys.forEach(key => cacheMap.delete(key))
+          keys.forEach((key) => cacheMap.delete(key))
         }
       },
     })
@@ -183,7 +183,7 @@ class RamOnceClass extends BasicOnce {
           return cache
         }
         flag = true
-        return compatibleAsync(Reflect.apply(_, _this, args), res => {
+        return compatibleAsync(Reflect.apply(_, _this, args), (res) => {
           cache = res
           flag = false
           return res
@@ -210,7 +210,7 @@ class RamOnceClass extends BasicOnce {
         if (lastUpdate && now - lastUpdate < time) {
           return lastValue
         }
-        return compatibleAsync(Reflect.apply(_, _this, args), res => {
+        return compatibleAsync(Reflect.apply(_, _this, args), (res) => {
           lastUpdate = now
           lastValue = res
           return res
@@ -259,7 +259,7 @@ abstract class StorageOnceClass extends BasicOnce {
         }
         _this.storage.setItem(flagKey, (flag - 1).toString())
         // 如果是异步函数则返回异步的结果
-        return compatibleAsync(Reflect.apply(target, thisArg, args), res => {
+        return compatibleAsync(Reflect.apply(target, thisArg, args), (res) => {
           _this.storage.setItem(cacheKey, JSON.stringify(res))
           return res
         })
@@ -348,11 +348,11 @@ function bindObjectThis<T extends object>(obj: T): T {
   const prototypeKeys = Reflect.ownKeys(Reflect.getPrototypeOf(obj))
     //筛选掉构造函数
     .filter(
-      k => !new Set<any>(['constructor']).has(k),
+      (k) => !new Set<any>(['constructor']).has(k),
     ) as (keyof T)[]
   prototypeKeys
-    .filter(k => obj[k] instanceof Function)
-    .forEach(k => {
+    .filter((k) => obj[k] instanceof Function)
+    .forEach((k) => {
       obj[k] = (obj[k] as any).bind(obj)
     })
   return obj

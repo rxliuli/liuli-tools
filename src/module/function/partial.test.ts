@@ -10,7 +10,7 @@ describe('test partial', () => {
     expect(fn).toBeFunction()
     expect(fn(2)).toBe(3)
   })
-  it('test this', function() {
+  it('test this', function () {
     // @ts-ignore
     this.value = 'value: '
     // @ts-ignore
@@ -22,7 +22,7 @@ describe('test partial', () => {
     this.value = 'v: '
     expect(fn(2)).toBe('v: 3')
   })
-  it('test partial._', function() {
+  it('test partial._', function () {
     // @ts-ignore
     this.value = 'value: '
     // @ts-ignore

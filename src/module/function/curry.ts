@@ -25,7 +25,7 @@ interface IRFunc extends Function {
  * @deprecated 由于之前的理解错误，该函数在下个大版本将会被废弃，请使用命名更合适的 {@link partial}
  */
 export function curry(fn: Function, ...args: any[]): IRFunc {
-  const realArgs = args.filter(arg => arg !== curry._)
+  const realArgs = args.filter((arg) => arg !== curry._)
   // 如果函数参数足够则调用传入的函数
   if (realArgs.length >= fn.length) {
     return fn(...realArgs)
@@ -40,7 +40,7 @@ export function curry(fn: Function, ...args: any[]): IRFunc {
     // 记录需要移除补到前面的参数
     const removeIndexSet = new Set()
     let i = 0
-    const newArgs = args.map(arg => {
+    const newArgs = args.map((arg) => {
       if (
         arg !== curry._ ||
         otherArgs[i] === undefined ||
@@ -57,10 +57,10 @@ export function curry(fn: Function, ...args: any[]): IRFunc {
   }
   // 定义柯里化函数的剩余参数长度，便于在其他地方进行部分参数应用
   // 注: 不使用 length 属性的原因是 length 属性
-  innerFn._length = fn.length - args.filter(arg => arg !== curry._).length
+  innerFn._length = fn.length - args.filter((arg) => arg !== curry._).length
   // 自定义 toString 函数便于调试
   innerFn.toString = () =>
-    `name: ${fn.name}, args: [${args.map(o => o.toString()).join(', ')}]`
+    `name: ${fn.name}, args: [${args.map((o) => o.toString()).join(', ')}]`
   innerFn._curry = true
   return innerFn
 }

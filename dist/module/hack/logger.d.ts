@@ -24,35 +24,33 @@ export declare class Logger {
     /**
      * 开发日志：业务强相关调试日志，希望其他人开发时默认隐藏起来的日志（例如第三方服务的回调日志很多，但对于服务接入层的使用者并不关心）
      */
-    debug: (message?: any, ...optionalParams: any[]) => void;
+    debug: (...data: any[]) => void;
     /**
      * 开发日志：业务相关调试日志，希望其他开发时也能看到的日志
      */
-    log: (message?: any, ...optionalParams: any[]) => void;
+    log: (...data: any[]) => void;
     /**
      * 生产日志：开发环境也会打印的日志，希望在生产环境打印并且方便调试的日志
      */
-    info: (message?: any, ...optionalParams: any[]) => void;
+    info: (...data: any[]) => void;
     /**
      * 警告日志：一些危险的操作可以在这里打印出来，同时会显示在生产环境（例如警告用户不要在控制台输入不了解的代码以避免账号安全）
      */
-    warn: (message?: any, ...optionalParams: any[]) => void;
+    warn: (...data: any[]) => void;
     /**
      * 错误日志：发生错误时使用的日志，发生影响到用户的错误时必须使用该日志
      */
-    error: (message?: any, ...optionalParams: any[]) => void;
-    dir: (value?: any, ...optionalParams: any[]) => void;
-    dirxml: (value: any) => void;
-    table: (...tabularData: any[]) => void;
-    trace: (message?: any, ...optionalParams: any[]) => void;
-    group: (groupTitle?: string | undefined, ...optionalParams: any[]) => void;
-    groupCollapsed: (groupTitle?: string | undefined, ...optionalParams: any[]) => void;
+    error: (...data: any[]) => void;
+    dir: (item?: any, options?: any) => void;
+    dirxml: (...data: any[]) => void;
+    table: (tabularData?: any, properties?: string[] | undefined) => void;
+    trace: (...data: any[]) => void;
+    group: (...data: any[]) => void;
+    groupCollapsed: (...data: any[]) => void;
     groupEnd: () => void;
     clear: () => void;
     count: (label?: string | undefined) => void;
-    assert: (condition?: boolean | undefined, message?: string | undefined, ...data: any[]) => void;
-    profile: (reportName?: string | undefined) => void;
-    profileEnd: (reportName?: string | undefined) => void;
+    assert: (condition?: boolean | undefined, ...data: any[]) => void;
     time: (label?: string | undefined) => void;
     timeEnd: (label?: string | undefined) => void;
     timeStamp: (label?: string | undefined) => void;

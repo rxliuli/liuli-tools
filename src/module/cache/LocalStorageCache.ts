@@ -55,9 +55,9 @@ export class LocalStorageCache<T> implements ICache<T> {
     }
     getKeys()
       .filter(not(isNullOrUndefined))
-      .map(key => safeExec(() => JSON.parse(local.getItem(key!)!)))
+      .map((key) => safeExec(() => JSON.parse(local.getItem(key!)!)))
       .filter(
-        cacheVal =>
+        (cacheVal) =>
           !isNullOrUndefined(cacheVal) &&
           isNullOrUndefined(cacheVal.cacheOption),
       )

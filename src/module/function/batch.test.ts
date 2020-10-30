@@ -7,7 +7,7 @@ describe('测试 batch', () => {
     console.log('batch.handle', idList, dateFormat(new Date(), 'ss.SSS'))
     return arrayToMap(
       idList,
-      params => params,
+      (params) => params,
       ([id]) => id * 2,
     )
   })
@@ -32,13 +32,13 @@ describe('测试 batch', () => {
       if (idList.some(([id]) => id === 0)) {
         return arrayToMap(
           idList,
-          params => params,
+          (params) => params,
           () => new Error('id not equals 0'),
         )
       }
       return arrayToMap(
         idList,
-        params => params,
+        (params) => params,
         ([id]) => id * 2,
       )
     })

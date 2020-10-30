@@ -1,21 +1,21 @@
 {
   "name": "rx-util",
-  "version": "1.8.12",
+  "version": "1.9.2",
   "description": "rxliuli 个人使用的 js 工具库（仅适用于浏览器）",
-  "main": "./dist/rx-util.js",
-  "module": "./dist/rx-util-es.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "start": "yarn test",
-    "build": "rollup -c build/rollup.config.js",
-    "format": "prettier --write src/**/*.ts src/**/*.js",
-    "docs": "typedoc --options typedoc.json && cp CNAME docs/ && cp readme.md docs/ && cp .nojekyll docs/",
+    "build": "shx rm -rf dist/ && tsc -b tsconfig.build.json && rollup -c",
+    "format": "prettier --write src/**/*.ts",
+    "docs": "typedoc && shx cp CNAME docs/ && shx cp README.md docs/ && shx cp .nojekyll docs/",
     "cloc": "cloc src/ --exclude-ext=test.ts",
     "test": "jest --watch",
     "coverage": "jest --coverage",
-    "server": "yarn docs && yarn coverage && live-server docs/ --port=4000",
-    "deploy": "yarn gh-pages -d docs -t true && rm -rf docs",
-    "publishReady": "yarn format && yarn build && yarn rimraf docs && yarn docs && yarn coverage && yarn deploy"
+    "server": "yarn docs && yarn coverage && rollup -c && live-server docs/ --port=4000",
+    "deploy": "yarn gh-pages -d docs -t true && shx rm -rf docs",
+    "publishReady": "yarn format && yarn build && shx rm -rf docs && yarn docs && yarn coverage && yarn deploy"
   },
   "repository": {
     "type": "git",
@@ -36,31 +36,39 @@
     "email": "rxliuli@gmail.com"
   },
   "homepage": "https://rx-util.rxliuli.com/",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "devDependencies": {
-    "@types/jest": "^24.0.13",
-    "@types/prettier": "^1.16.4",
-    "@types/rimraf": "^2.0.2",
-    "@types/rollup": "^0.54.0",
-    "cloc": "^2.5.0",
-    "eledoc": "^0.2.1",
-    "gh-pages": "^2.0.1",
-    "husky": "^1.3.1",
-    "jest": "^24.8.0",
-    "jest-extended": "^0.11.1",
-    "lint-staged": "^8.1.5",
+    "@rollup/plugin-sucrase": "^3.1.0",
+    "@types/jest": "^26.0.14",
+    "@types/rimraf": "^3.0.0",
+    "cloc": "^2.7.0",
+    "gh-pages": "^3.1.0",
+    "husky": "^4.3.0",
+    "jest": "^26.5.2",
+    "jest-extended": "^0.11.5",
+    "lint-staged": "^10.4.0",
     "liuli-types": "^0.1.1",
     "live-server": "^1.2.1",
-    "prettier": "^1.17.1",
-    "rimraf": "^2.6.3",
-    "rollup": "^1.12.3",
-    "rollup-plugin-terser": "^4.0.4",
-    "rollup-plugin-typescript2": "^0.21.1",
-    "rollup-plugin-visualizer": "^3.3.1",
-    "ts-jest": "^24.0.2",
-    "ts-node": "^8.1.0",
-    "ts-toolbelt": "^6.9.4",
-    "tslib": "^1.9.3",
-    "typedoc": "^0.16.10",
-    "typescript": "^3.7.2"
+    "prettier": "^2.1.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.29.0",
+    "rollup-plugin-visualizer": "^4.1.1",
+    "shx": "^0.3.2",
+    "ts-jest": "^26.4.1",
+    "ts-node": "^9.0.0",
+    "ts-toolbelt": "^8.0.7",
+    "tslib": "^2.0.3",
+    "typedoc": "^0.19.2",
+    "typescript": "^4.0.3"
   }
 }

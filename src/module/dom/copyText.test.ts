@@ -9,7 +9,7 @@ describe.skip('test copyText', () => {
     const result = copyText('test')
     expect(result).toBeTrue()
   })
-  it('复制换行文本', function() {
+  it('复制换行文本', function () {
     expect(
       copyText(
         JSON.stringify({

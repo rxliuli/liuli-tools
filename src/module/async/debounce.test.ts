@@ -16,7 +16,7 @@ describe('test debounce', () => {
     await wait(20)
     expect(num).toBe(2)
   })
-  it('test this', async function() {
+  it('test this', async function () {
     // @ts-ignore
     this.num = 0
     // @ts-ignore
@@ -30,9 +30,9 @@ describe('test debounce', () => {
     // @ts-ignore
     expect(this.num).toBe(2)
   })
-  it('test for bind this', async function() {
+  it('test for bind this', async function () {
     const obj = { num: 0 }
-    const fn = debounce(10, function() {
+    const fn = debounce(10, function () {
       // @ts-ignore
       return this.num++
     }).bind(obj)
@@ -47,13 +47,13 @@ describe('test debounce', () => {
     const add = async (a: number, b: number) => a + b
     const fn = debounce(10, add, 0)
     // 这里没有使用 await 的原因是因为会造成顺序执行
-    fn(1, 2).then(res => expect(res).toBe(0))
-    fn(1, 3).then(res => expect(res).toBe(0))
-    fn(1, 4).then(res => expect(res).toBe(0))
-    fn(1, 5).then(res => expect(res).toBe(0))
-    fn(1, 4).then(res => expect(res).toBe(5))
+    fn(1, 2).then((res) => expect(res).toBe(0))
+    fn(1, 3).then((res) => expect(res).toBe(0))
+    fn(1, 4).then((res) => expect(res).toBe(0))
+    fn(1, 5).then((res) => expect(res).toBe(0))
+    fn(1, 4).then((res) => expect(res).toBe(5))
 
     await wait(200)
-    fn(1, 3).then(res => expect(res).toBe(4))
+    fn(1, 3).then((res) => expect(res).toBe(4))
   })
 })

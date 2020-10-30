@@ -10,6 +10,8 @@ yarn-error.log*
 docs
 src
 .npmignore
+.yarn/*
+.pnp.*
 
 # Editor directories and files
 .idea
@@ -37,7 +39,7 @@ test/
 .huskyrc.js
 .lintstagedrc
 .nojekyll
-.prettierrc.js
+.prettierrc
 CNAME
 CONTRIBUTING.md
 jest.config.js
@@ -46,3 +48,9 @@ readme.md
 readme-zh-cn.md
 typedoc.json
 tsconfig.json
+tsconfig.build.json
+rollup.config.js
+wallaby.js
+README.ZH_CN.md
+LICENSE
+.yarnrc.yml

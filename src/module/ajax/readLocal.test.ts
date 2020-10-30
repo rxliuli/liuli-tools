@@ -1,5 +1,4 @@
 import { readLocal } from './readLocal'
-import mock = jest.mock
 import { strToBlob } from './strToBlob'
 
 describe('测试 readLocal', () => {

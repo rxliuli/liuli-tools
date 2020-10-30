@@ -53,7 +53,7 @@ describe('test watch', () => {
       },
     )
   })
-  it('test this', function() {
+  it('test this', function () {
     // @ts-ignore
     this.now = 0
     watch(

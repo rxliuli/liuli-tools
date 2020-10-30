@@ -10,7 +10,7 @@ export function genSort<T extends object>(
   field: keyof T,
   rule: 'asc' | 'desc' = 'desc',
 ) {
-  return function(a: T, b: T) {
+  return function (a: T, b: T) {
     return (
       (rule === 'asc' ? 1 : -1) * (get(a, field as any) - get(b, field as any))
     )

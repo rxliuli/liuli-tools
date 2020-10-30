@@ -47,7 +47,7 @@ export class AntiDebug {
     if (!window.console) {
       return emptyFunc
     }
-    const map = arrayToMap(Object.keys(console), returnItself, k => {
+    const map = arrayToMap(Object.keys(console), returnItself, (k) => {
       // @ts-ignore
       const temp = console[k]
       // @ts-ignore

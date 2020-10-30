@@ -103,7 +103,7 @@ describe('测试 Rect', () => {
         rect3,
         rect4,
       ])
-      expect(uniqueBy(flatMap(intersectsRects, arr => arr))).toEqual([
+      expect(uniqueBy(flatMap(intersectsRects, (arr) => arr))).toEqual([
         rect1,
         rect2,
         rect3,

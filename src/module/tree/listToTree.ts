@@ -26,7 +26,7 @@ export function listToTree<T>(
   list: T[],
   {
     bridge = returnItself,
-    isRoot = node => !node.parentId,
+    isRoot = (node) => !node.parentId,
   }: Partial<IListToTreeOptoins<T>> = {},
 ): INode | INode[] | object {
   const arr: INode[] = []

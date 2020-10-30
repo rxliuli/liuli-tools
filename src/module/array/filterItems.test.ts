@@ -16,7 +16,7 @@ describe('test filterItems', () => {
     const deleteArr = [Symbol(1), Symbol(2)]
     expect(filterItems(arr, deleteArr)).toIncludeSameMembers(arr)
     expect(
-      filterItems(arr, deleteArr, symbol =>
+      filterItems(arr, deleteArr, (symbol) =>
         symbol.toString(),
       ).map((symbol: { toString: () => void }) => symbol.toString()),
     ).toIncludeSameMembers(['Symbol(3)', 'Symbol(4)'])

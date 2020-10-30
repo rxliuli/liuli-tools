@@ -14,7 +14,7 @@ describe('test singleModel', () => {
     expect(demo1).toBe(demo2)
     expect(demo1 === demo2).toBe(true)
   })
-  it('test this', function() {
+  it('test this', function () {
     // @ts-ignore
     this.name = 'rx'
     // @ts-ignore

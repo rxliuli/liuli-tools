@@ -31,7 +31,7 @@ describe('test extractFieldMap', () => {
         )
         .set(
           'address',
-          arr.map(user => Reflect.get(user, 'address')),
+          arr.map((user) => Reflect.get(user, 'address')),
         ),
     )
   })

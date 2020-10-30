@@ -26,7 +26,7 @@ describe('测试 OnceInstance', () => {
         return --this.i
       }
     }
-    it('测试 this', async function() {
+    it('测试 this', async function () {
       const model = new Model()
       const mockFn = jest.fn(model.add)
       const fn = once(mockFn.bind(model))
@@ -34,7 +34,7 @@ describe('测试 OnceInstance', () => {
       expect(await fn()).toBe(2)
       expect(model.i).toBe(2)
     })
-    it('测试手动 bind this', async function() {
+    it('测试手动 bind this', async function () {
       const obj = {
         i: 3,
       }
@@ -68,7 +68,7 @@ describe('测试 OnceInstance', () => {
         return --this.i
       }
     }
-    it('测试 this', async function() {
+    it('测试 this', async function () {
       const model = new Model()
       const mockFn = jest.fn(model.add)
       const fn = limit(mockFn.bind(model), 1)
@@ -76,7 +76,7 @@ describe('测试 OnceInstance', () => {
       expect(await fn()).toBe(2)
       expect(model.i).toBe(2)
     })
-    it('测试手动 bind this', async function() {
+    it('测试手动 bind this', async function () {
       const obj = {
         i: 3,
       }
@@ -93,9 +93,9 @@ describe('测试 OnceInstance', () => {
       let res = 0
       const mockFn = jest.fn((i: number) => res + i)
       const fn = onceOfSameParam(mockFn)
-      expect(repeatedCall(3, fn, 0)).toSatisfyAll(i => i === 0)
-      expect(repeatedCall(3, fn, 1)).toSatisfyAll(i => i === 1)
-      expect(repeatedCall(3, fn, 3)).toSatisfyAll(i => i === 3)
+      expect(repeatedCall(3, fn, 0)).toSatisfyAll((i) => i === 0)
+      expect(repeatedCall(3, fn, 1)).toSatisfyAll((i) => i === 1)
+      expect(repeatedCall(3, fn, 3)).toSatisfyAll((i) => i === 3)
       expect(mockFn.mock.calls.length).toBe(3)
     })
     it('测试异步函数', async () => {

@@ -23,7 +23,7 @@ export function throttle<Fn extends Func>(
   let result: PromiseDeconstruct<ReturnType<Fn>>
   return new Proxy(action, {
     apply(target, thisArg, args) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         const curr = Date.now()
         if (curr - last > delay) {
           result = Reflect.apply(target, thisArg, args)

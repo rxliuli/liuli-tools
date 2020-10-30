@@ -16,7 +16,7 @@ describe('test throttle', () => {
     })
     expect(num).toBeLessThanOrEqual(10)
   })
-  it('test this', async function() {
+  it('test this', async function () {
     // @ts-ignore
     this.num = 0
     // @ts-ignore
@@ -31,7 +31,7 @@ describe('test throttle', () => {
   })
   it('test bind this', async () => {
     const obj = { num: 0 }
-    const fn = throttle(10, function() {
+    const fn = throttle(10, function () {
       // @ts-ignore
       this.num++
     }).bind(obj)
@@ -45,12 +45,12 @@ describe('test throttle', () => {
   it('async and return result', async () => {
     const add = async (a: number, b: number) => a + b
     const fn = throttle(10, add)
-    fn(1, 2).then(res => expect(res).toBe(3))
-    fn(1, 3).then(res => expect(res).toBe(3))
-    fn(1, 4).then(res => expect(res).toBe(3))
+    fn(1, 2).then((res) => expect(res).toBe(3))
+    fn(1, 3).then((res) => expect(res).toBe(3))
+    fn(1, 4).then((res) => expect(res).toBe(3))
     await wait(20)
-    fn(1, 5).then(res => expect(res).toBe(6))
+    fn(1, 5).then((res) => expect(res).toBe(6))
     await wait(20)
-    fn(1, 3).then(res => expect(res).toBe(4))
+    fn(1, 3).then((res) => expect(res).toBe(4))
   })
 })

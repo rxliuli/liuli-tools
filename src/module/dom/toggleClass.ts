@@ -14,7 +14,7 @@ export function toggleClass<K extends Exclude<PropertyKey, symbol>>(
    * @param state 切换的状态
    */
   return function toggle(state: K) {
-    arr.forEach(v => el.classList.remove(v))
+    arr.forEach((v) => el.classList.remove(v))
     el.classList.add(obj[state])
   }
 }

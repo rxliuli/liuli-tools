@@ -5,7 +5,7 @@
  * @deprecated 该函数将要被废弃，实质上应用场景很窄
  */
 export function getObjectEntries(obj: object): Array<[PropertyKey, any]> {
-  const mFn: (k: PropertyKey) => [PropertyKey, any] = k => [
+  const mFn: (k: PropertyKey) => [PropertyKey, any] = (k) => [
     k,
     Reflect.get(obj, k),
   ]

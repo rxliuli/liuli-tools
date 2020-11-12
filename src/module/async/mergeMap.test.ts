@@ -8,6 +8,7 @@ describe('test mergeMap', () => {
       await wait(ms)
       return ms
     }
+
     it('no use mergeMap', async () => {
       let result = 0
       await Promise.all([

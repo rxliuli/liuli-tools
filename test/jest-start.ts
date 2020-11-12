@@ -1,4 +1,3 @@
-import 'jest-extended'
 
 /**
  * 重写 console 的部分函数，以测试 console 的输出

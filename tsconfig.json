@@ -1,8 +1,12 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "lib": ["ESNext", "esnext.array", "dom", "es2015.iterable"],
-    "types": ["typescript", "jest", "jest-extended"],
+    "lib": [
+      "ESNext",
+      "esnext.array",
+      "dom",
+      "es2015.iterable"
+    ],
     "module": "ESNext",
     "declaration": true,
     "declarationMap": true,
@@ -16,6 +20,11 @@
     "importHelpers": true,
     "moduleResolution": "node"
   },
-  "include": ["./src/**/*.ts"],
-  "exclude": ["./dist", "./node_modules"]
+  "include": [
+    "./src/**/*.ts"
+  ],
+  "exclude": [
+    "./dist",
+    "./node_modules"
+  ]
 }

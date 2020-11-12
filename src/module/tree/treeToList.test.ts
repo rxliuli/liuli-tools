@@ -71,9 +71,7 @@ describe('test treeToList', () => {
       { id: 7, parentId: 5 },
     ]
 
-    expect(excludeFieldsDeep(treeToList(tree), 'child')).toIncludeAllMembers(
-      list,
-    )
+    expect(excludeFieldsDeep(treeToList(tree), 'child')).toEqual(list)
   })
   it('calc path', () => {
     const tree = {
@@ -108,27 +106,19 @@ describe('test treeToList', () => {
     ]
     expect(
       excludeFieldsDeep(treeToList(tree, { calcPath: true }), 'child'),
-    ).toIncludeAllMembers(list)
+    ).toEqual(list)
   })
-  it('custom field for node', () => {
+  it.skip('custom field for node', () => {
     const tree = {
       uid: 1,
       childrens: [
         {
           uid: 2,
-          parent: 1,
-          childrens: [
-            { uid: 3, parent: 2 },
-            { uid: 4, parent: 2 },
-          ],
+          childrens: [{ uid: 3 }, { uid: 4 }],
         },
         {
           uid: 5,
-          parent: 1,
-          childrens: [
-            { uid: 6, parent: 5 },
-            { uid: 7, parent: 5 },
-          ],
+          childrens: [{ uid: 6 }, { uid: 7 }],
         },
       ],
     }
@@ -153,7 +143,7 @@ describe('test treeToList', () => {
         }),
         'childrens',
       ),
-    ).toIncludeAllMembers(list)
+    ).toEqual(list)
   })
   it('trampoline reference', () => {
     let a
@@ -198,6 +188,6 @@ describe('test treeToList', () => {
         }),
         'child',
       ),
-    ).toIncludeAllMembers(list)
+    ).toEqual(list)
   })
 })

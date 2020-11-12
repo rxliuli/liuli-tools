@@ -1,6 +1,6 @@
-import { isNullOrUndefined } from '../obj/isNullOrUndefined'
-import { returnItself } from '../function/returnItself'
-import { CombinedPredicate } from '../function/CombinedPredicate'
+function isNullOrUndefined(object: any): object is null | undefined {
+  return object === undefined || object === null
+}
 
 /**
  * 操作类型
@@ -20,6 +20,7 @@ enum ActionType {
   parallel = 'parallel',
   serial = 'serial',
 }
+
 /**
  * 保存高阶函数传入的异步操作
  * @field 异步操作的类型
@@ -27,6 +28,7 @@ enum ActionType {
  */
 class Action {
   public static Type = ActionType
+
   constructor(public readonly type: ActionType, public readonly args: any[]) {
     this.type = type
     this.args = args
@@ -59,6 +61,7 @@ abstract class InnerBaseAsyncArray<T> {
    * 内部的数组
    */
   protected _arr: T[]
+
   /**
    * 构造函数
    * @param args 数组初始元素
@@ -66,6 +69,7 @@ abstract class InnerBaseAsyncArray<T> {
   constructor(args: T[] = []) {
     this._arr = args
   }
+
   /**
    * 异步的 forEach
    * @param fn 异步迭代函数
@@ -73,6 +77,7 @@ abstract class InnerBaseAsyncArray<T> {
   public abstract async forEach(
     fn: AsyncArrayCallback<T, void, any>,
   ): Promise<void>
+
   /**
    * 异步的 filter
    * @param fn 异步过滤函数
@@ -81,12 +86,14 @@ abstract class InnerBaseAsyncArray<T> {
   public abstract async filter(
     fn: AsyncArrayCallback<T, boolean, any>,
   ): Promise<any>
+
   /**
    * 异步的 map
    * @param fn 异步映射函数
    * @returns 经过映射产生的新的异步数组
    */
   public abstract async map<R>(fn: AsyncArrayCallback<T, R, any>): Promise<any>
+
   /**
    * 异步的 flatMap
    * @param fn 异步映射函数，产生一个新的数组
@@ -95,6 +102,7 @@ abstract class InnerBaseAsyncArray<T> {
   public abstract async flatMap<R>(
     fn: AsyncArrayCallback<T, R[], any>,
   ): Promise<any>
+
   /**
    * 将整个数组排序
    * @param fn 比较函数
@@ -106,10 +114,10 @@ abstract class InnerBaseAsyncArray<T> {
     if (fn === undefined) {
       return new InnerAsyncArray(this._arr.sort())
     }
-    // TODO 此处为了让 type-doc 能生成文档而不得不加上类型
     const arr: Array<[T, number]> = this._arr.map(
       (v, i) => [v, i] as [T, number],
     )
+
     async function _sort<V>(
       arr: V[],
       fn: (v1: V, v2: V) => Promise<number>,
@@ -138,12 +146,14 @@ abstract class InnerBaseAsyncArray<T> {
         .concat([medianValue])
         .concat(await _sort(right, fn))
     }
+
     return new InnerAsyncArray<T>(
       await (await _sort(arr, ([t1], [t2]) => fn(t1, t2))).map(
         ([_v, i]) => this._arr[i],
       ),
     )
   }
+
   /**
    * 异步的 reduce
    * @param fn 归纳函数
@@ -154,6 +164,7 @@ abstract class InnerBaseAsyncArray<T> {
     fn: AsyncArrayReduceCallback<T, R, any>,
     res?: R,
   ): Promise<R>
+
   /**
    * 异步的 reduceRight
    * @param fn 归纳函数
@@ -164,6 +175,7 @@ abstract class InnerBaseAsyncArray<T> {
     fn: AsyncArrayReduceCallback<T, R, any>,
     res?: R,
   ): Promise<R>
+
   /**
    * 异步 findIndex
    * @param fn 异步查询函数
@@ -172,6 +184,7 @@ abstract class InnerBaseAsyncArray<T> {
   public abstract async findIndex(
     fn: AsyncArrayCallback<T, boolean, any>,
   ): Promise<number>
+
   /**
    * 异步的 find
    * @param fn 异步查询函数
@@ -183,6 +196,7 @@ abstract class InnerBaseAsyncArray<T> {
     const i = await this.findIndex(fn)
     return i === -1 ? null : this._arr[i]
   }
+
   /**
    * 异步的 every
    * @param fn 异步匹配函数
@@ -191,8 +205,11 @@ abstract class InnerBaseAsyncArray<T> {
   public async every(
     fn: AsyncArrayCallback<T, boolean, any>,
   ): Promise<boolean> {
-    return (await this.findIndex(CombinedPredicate.not(fn) as any)) === -1
+    return (
+      (await this.findIndex(async (...args) => !(await fn(...args)))) === -1
+    )
   }
+
   /**
    * 异步的 some
    * @param fn 异步匹配函数
@@ -201,18 +218,21 @@ abstract class InnerBaseAsyncArray<T> {
   public async some(fn: AsyncArrayCallback<T, boolean, any>): Promise<boolean> {
     return (await this.findIndex(fn)) !== -1
   }
+
   /**
    * 转换为并发异步数组
    */
   public parallel(): any {
     return new InnerAsyncArrayParallel(this._arr)
   }
+
   /**
    * 转换为顺序异步数组
    */
   public serial(): any {
     return new InnerAsyncArray(this._arr)
   }
+
   /**
    * 获取内部数组的值，将返回一个浅复制的数组
    */
@@ -228,6 +248,7 @@ class InnerAsyncArray<T> extends InnerBaseAsyncArray<T> {
   constructor(args?: T[]) {
     super(args)
   }
+
   public async forEach(
     fn: AsyncArrayCallback<T, void, InnerAsyncArray<T>>,
   ): Promise<void> {
@@ -235,6 +256,7 @@ class InnerAsyncArray<T> extends InnerBaseAsyncArray<T> {
       await fn.call(this, this._arr[i], i, this)
     }
   }
+
   public async filter(
     fn: AsyncArrayCallback<T, boolean, InnerAsyncArray<T>>,
   ): Promise<InnerAsyncArray<T>> {
@@ -246,6 +268,7 @@ class InnerAsyncArray<T> extends InnerBaseAsyncArray<T> {
     }
     return res
   }
+
   public async map<R>(
     fn: AsyncArrayCallback<T, R, InnerAsyncArray<T>>,
   ): Promise<InnerAsyncArray<R>> {
@@ -255,6 +278,7 @@ class InnerAsyncArray<T> extends InnerBaseAsyncArray<T> {
     }
     return res
   }
+
   public async flatMap<R>(
     fn: AsyncArrayCallback<T, R[], InnerAsyncArray<T>>,
   ): Promise<InnerAsyncArray<R>> {
@@ -264,6 +288,7 @@ class InnerAsyncArray<T> extends InnerBaseAsyncArray<T> {
     }
     return res
   }
+
   public async reduce<R = T>(
     fn: AsyncArrayReduceCallback<T, R, InnerAsyncArray<T>>,
     res?: R,
@@ -277,6 +302,7 @@ class InnerAsyncArray<T> extends InnerBaseAsyncArray<T> {
     }
     return res as any
   }
+
   public async reduceRight<R = T>(
     fn: AsyncArrayReduceCallback<T, R, InnerAsyncArray<T>>,
     res?: R,
@@ -290,6 +316,7 @@ class InnerAsyncArray<T> extends InnerBaseAsyncArray<T> {
     }
     return res as any
   }
+
   public async findIndex(
     fn: AsyncArrayCallback<T, boolean, InnerAsyncArray<T>>,
   ): Promise<number> {
@@ -310,11 +337,13 @@ class InnerAsyncArrayParallel<T> extends InnerBaseAsyncArray<T> {
   constructor(args?: T[]) {
     super(args)
   }
+
   public async forEach(
     fn: AsyncArrayCallback<T, void, InnerAsyncArrayParallel<T>>,
   ): Promise<void> {
     await this._all(fn)
   }
+
   public async filter(
     fn: AsyncArrayCallback<T, boolean, InnerAsyncArrayParallel<T>>,
   ): Promise<InnerAsyncArrayParallel<T>> {
@@ -327,22 +356,26 @@ class InnerAsyncArrayParallel<T> extends InnerBaseAsyncArray<T> {
     }
     return result
   }
+
   public async map<R>(
     fn: AsyncArrayCallback<T, R, InnerAsyncArrayParallel<T>>,
   ): Promise<InnerAsyncArrayParallel<R>> {
     return new InnerAsyncArrayParallel(await this._all(fn))
   }
+
   public async flatMap<R>(
     fn: AsyncArrayCallback<T, R[], InnerAsyncArrayParallel<T>>,
   ): Promise<InnerAsyncArrayParallel<R>> {
     const res = await this._all(fn)
     return new InnerAsyncArrayParallel(res.flat())
   }
+
   public sort(
     fn: (t1: T, t2: T) => Promise<number>,
   ): Promise<InnerAsyncArray<T>> {
     throw new Error('Method not implemented.')
   }
+
   public async reduce<R = T>(
     fn: AsyncArrayReduceCallback<T, R, InnerAsyncArrayParallel<T>>,
     res?: R,
@@ -356,6 +389,7 @@ class InnerAsyncArrayParallel<T> extends InnerBaseAsyncArray<T> {
     }
     return res as any
   }
+
   public async reduceRight<R = T>(
     fn: AsyncArrayReduceCallback<T, R, InnerAsyncArrayParallel<T>>,
     res?: R,
@@ -369,11 +403,13 @@ class InnerAsyncArrayParallel<T> extends InnerBaseAsyncArray<T> {
     }
     return res as any
   }
+
   public async findIndex(
     fn: AsyncArrayCallback<T, boolean, InnerAsyncArrayParallel<T>>,
   ): Promise<number> {
-    return (await this._all(fn)).findIndex(returnItself)
+    return (await this._all(fn)).findIndex((v) => v)
   }
+
   private async _all<R>(
     fn: AsyncArrayCallback<T, R, InnerAsyncArrayParallel<T>>,
   ): Promise<R[]> {
@@ -382,6 +418,7 @@ class InnerAsyncArrayParallel<T> extends InnerBaseAsyncArray<T> {
     )
   }
 }
+
 /**
  * 异步数组
  */
@@ -394,9 +431,11 @@ export class AsyncArray<T> implements PromiseLike<any> {
     this.__arr = arr
     this.length = this.__arr.length
   }
+
   public get _arr() {
     return this.__arr
   }
+
   /**
    * 提供一个函数方便根据已有的数组或类数组（Set/Map）创建 {@link AsyncArray}
    * @param arr 一个可迭代元素
@@ -405,13 +444,14 @@ export class AsyncArray<T> implements PromiseLike<any> {
   public static from<T>(
     arr: Iterable<T> | ArrayLike<T> | null | undefined,
   ): AsyncArray<T> {
-    const result = new AsyncArray<T>()
+    const result = new AsyncArray<T>([])
     if (isNullOrUndefined(arr)) {
-      return result
+      throw new Error('arr not is null')
     }
     result._arr = Array.from(arr)
     return result
   }
+
   /**
    * 内部数组的长度，用于让 {@link AsyncArray} 的实例能作为 {@link Array.from} 的参数
    */
@@ -420,15 +460,17 @@ export class AsyncArray<T> implements PromiseLike<any> {
    * 内部的数组
    */
   private __arr!: T[]
+  // noinspection TypeScriptFieldCanBeMadeReadonly
   /**
    * 保存的任务数组
    */
   private _tasks: Action[]
+
   /**
    * 构造函数
    * @param args 任意个参数
    */
-  constructor(...args: T[]) {
+  constructor(args: T[]) {
     this._arr = Array.from(args)
     /**
      * @field 保存异步任务
@@ -436,6 +478,7 @@ export class AsyncArray<T> implements PromiseLike<any> {
      */
     this._tasks = []
   }
+
   public filter(
     fn: AsyncArrayCallback<
       T,
@@ -445,6 +488,7 @@ export class AsyncArray<T> implements PromiseLike<any> {
   ): AsyncArray<T> {
     return this._addTask(new Action(Action.Type.filter, [fn]))
   }
+
   public map<R>(
     fn: AsyncArrayCallback<
       T,
@@ -454,6 +498,7 @@ export class AsyncArray<T> implements PromiseLike<any> {
   ): AsyncArray<R> {
     return this._addTask(new Action(Action.Type.map, [fn])) as any
   }
+
   public flatMap<R>(
     fn: AsyncArrayCallback<
       T,
@@ -463,15 +508,19 @@ export class AsyncArray<T> implements PromiseLike<any> {
   ): AsyncArray<R> {
     return this._addTask(new Action(Action.Type.flatMap, [fn])) as any
   }
+
   public sort(fn?: (a: T, b: T) => number): AsyncArray<T> {
     return this._addTask(new Action(Action.Type.sort, [fn]))
   }
+
   public parallel(): AsyncArray<T> {
     return this._addTask(new Action(Action.Type.parallel, []))
   }
+
   public serial(): AsyncArray<T> {
     return this._addTask(new Action(Action.Type.serial, []))
   }
+
   public forEach(
     fn: AsyncArrayCallback<
       T,
@@ -481,6 +530,7 @@ export class AsyncArray<T> implements PromiseLike<any> {
   ): Promise<void> {
     return this._addTask(new Action(Action.Type.forEach, [fn])).then()
   }
+
   public some(
     fn: AsyncArrayCallback<
       T,
@@ -490,6 +540,7 @@ export class AsyncArray<T> implements PromiseLike<any> {
   ): Promise<boolean> {
     return this._addTask(new Action(Action.Type.some, [fn])).then()
   }
+
   public every(
     fn: AsyncArrayCallback<
       T,
@@ -499,6 +550,7 @@ export class AsyncArray<T> implements PromiseLike<any> {
   ): Promise<boolean> {
     return this._addTask(new Action(Action.Type.every, [fn])).then()
   }
+
   public find(
     fn: AsyncArrayCallback<
       T,
@@ -508,6 +560,7 @@ export class AsyncArray<T> implements PromiseLike<any> {
   ): Promise<T | null> {
     return this._addTask(new Action(Action.Type.find, [fn])).then()
   }
+
   public findIndex(
     fn: AsyncArrayCallback<
       T,
@@ -517,18 +570,21 @@ export class AsyncArray<T> implements PromiseLike<any> {
   ): Promise<number> {
     return this._addTask(new Action(Action.Type.findIndex, [fn])).then()
   }
+
   public reduce<R = T>(
     fn: AsyncArrayReduceCallback<T, R, InnerAsyncArray<T>>,
     res?: R,
   ): Promise<R> {
     return this._addTask(new Action(Action.Type.reduce, [fn, res])).then()
   }
+
   public reduceRight<R = T>(
     fn: AsyncArrayReduceCallback<T, R, InnerAsyncArray<T>>,
     res?: R,
   ): Promise<R> {
     return this._addTask(new Action(Action.Type.reduceRight, [fn, res])).then()
   }
+
   /**
    * 终结整个链式操作并返回结果，可以使用 await 等待当前实例开始计算
    */
@@ -570,12 +626,14 @@ export class AsyncArray<T> implements PromiseLike<any> {
       }
     }
   }
+
   /**
    * @deprecated 已废弃，请直接使用 await 进行等待获取结果值即可
    */
   public value(): Promise<any> {
     return this.then()
   }
+
   /**
    * 允许使用 for-of 遍历内部的 _arr
    */
@@ -584,8 +642,9 @@ export class AsyncArray<T> implements PromiseLike<any> {
       yield kv
     }
   }
+
   private _addTask(task: Action): AsyncArray<T> {
-    const result = new AsyncArray(...this._arr)
+    const result = new AsyncArray(this._arr)
     result._tasks = [...this._tasks, task]
     return result
   }

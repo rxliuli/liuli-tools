@@ -25,60 +25,60 @@ describe('test TypeValidator', () => {
     isFormData,
   } = TypeValidator
   it('test isString', () => {
-    expect(isString('str')).toBeTrue()
+    expect(isString('str')).toBeTruthy()
   })
   it('test isNumber', () => {
-    expect(isNumber(1)).toBeTrue()
+    expect(isNumber(1)).toBeTruthy()
   })
   it('test isBoolean', () => {
-    expect(isBoolean(false)).toBeTrue()
+    expect(isBoolean(false)).toBeTruthy()
   })
   it('test isUndefined', () => {
-    expect(isUndefined(undefined)).toBeTrue()
+    expect(isUndefined(undefined)).toBeTruthy()
   })
   it('test isNull', () => {
-    expect(isNull(null)).toBeTrue()
+    expect(isNull(null)).toBeTruthy()
   })
   it('test isSymbol', () => {
-    expect(isSymbol(Symbol('symbol'))).toBeTrue()
+    expect(isSymbol(Symbol('symbol'))).toBeTruthy()
   })
   it('test isPropertyKey', () => {
-    expect(isPropertyKey(Symbol())).toBeTrue()
-    expect(isPropertyKey('name')).toBeTrue()
-    expect(isPropertyKey(1)).toBeTrue()
-    expect(isPropertyKey(undefined)).toBeFalse()
-    expect(isPropertyKey(Object.create(null))).toBeFalse()
+    expect(isPropertyKey(Symbol())).toBeTruthy()
+    expect(isPropertyKey('name')).toBeTruthy()
+    expect(isPropertyKey(1)).toBeTruthy()
+    expect(isPropertyKey(undefined)).toBeFalsy()
+    expect(isPropertyKey(Object.create(null))).toBeFalsy()
   })
   it('test isObject', () => {
-    expect(isObject({})).toBeTrue()
-    expect(isObject(Object.create(null))).toBeTrue()
-    expect(isObject(() => 1)).toBeFalse()
+    expect(isObject({})).toBeTruthy()
+    expect(isObject(Object.create(null))).toBeTruthy()
+    expect(isObject(() => 1)).toBeFalsy()
   })
   it('test isArray', () => {
-    expect(isArray([1, 2, 3])).toBeTrue()
-    expect(isArray(new Array(10))).toBeTrue()
-    expect(isArray(Array.from([1, 2, 3]))).toBeTrue()
+    expect(isArray([1, 2, 3])).toBeTruthy()
+    expect(isArray(new Array(10))).toBeTruthy()
+    expect(isArray(Array.from([1, 2, 3]))).toBeTruthy()
   })
   it('test isFunction', () => {
-    expect(isFunction(() => console.log('lambda'))).toBeTrue()
+    expect(isFunction(() => console.log('lambda'))).toBeTruthy()
     expect(
       isFunction(function () {
         console.log('function')
       }),
-    ).toBeTrue()
+    ).toBeTruthy()
   })
   it('test isDate', () => {
-    expect(isDate(new Date())).toBeTrue()
+    expect(isDate(new Date())).toBeTruthy()
   })
   it('test isFile', () => {
-    expect(isFile(new File([new Blob()], 'file'))).toBeTrue()
+    expect(isFile(new File([new Blob()], 'file'))).toBeTruthy()
   })
   it('test isBlob', () => {
-    expect(isBlob(new Blob())).toBeTrue()
+    expect(isBlob(new Blob())).toBeTruthy()
   })
   it.skip('test isStream', () => {})
   it('test isArrayBuffer', () => {
-    expect(isArrayBuffer(new ArrayBuffer(100))).toBeTrue()
+    expect(isArrayBuffer(new ArrayBuffer(100))).toBeTruthy()
   })
   it.skip('test isArrayBufferView', () => {})
   it('test isURLSearchParams', () => {
@@ -89,17 +89,17 @@ describe('test TypeValidator', () => {
           age: '17',
         }),
       ),
-    ).toBeTrue()
+    ).toBeTruthy()
   })
   it('test isFormData', () => {
-    expect(isFormData(new FormData())).toBeTrue()
+    expect(isFormData(new FormData())).toBeTruthy()
   })
   it('测试 getType', () => {
     expect(getType('string')).toBe(Type.String)
     expect(getType(1)).toBe(Type.Number)
   })
   it('测试 isType', () => {
-    expect(isType('string', Type.String)).toBeTrue()
-    expect(isType(1, Type.Number)).toBeTrue()
+    expect(isType('string', Type.String)).toBeTruthy()
+    expect(isType(1, Type.Number)).toBeTruthy()
   })
 })

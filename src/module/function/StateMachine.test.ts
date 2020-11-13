@@ -39,8 +39,8 @@ describe('test StateMachine', () => {
     stateMachine.register('C', C)
 
     for (const [state, clazz] of stateMachine) {
-      expect(['A', 'B', 'C'].includes(state)).toBeTrue()
-      expect([A, B, C].includes(clazz)).toBeTrue()
+      expect(['A', 'B', 'C'].includes(state)).toBeTruthy()
+      expect([A, B, C].includes(clazz)).toBeTruthy()
     }
   })
 })

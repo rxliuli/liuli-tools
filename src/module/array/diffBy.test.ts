@@ -9,21 +9,18 @@ describe('test diffBy', () => {
     const thanArr = [1, 2, 3, 4]
     const thatArr = [2, 3, 5]
     const { left, right, common } = diffBy(thanArr, thatArr)
-    expect(left).toIncludeSameMembers([1, 4])
-    expect(right).toIncludeSameMembers([5])
-    expect(common).toIncludeSameMembers([2, 3])
+    expect(left).toEqual([1, 4])
+    expect(right).toEqual([5])
+    expect(common).toEqual([2, 3])
   })
 
   it('custom kFn', () => {
     const thanArr = [Symbol(1), Symbol(2), Symbol(3), Symbol(4)]
     const thatArr = [Symbol(2), Symbol(3), Symbol(5)]
     const { left, right, common } = diffBy(thanArr, thatArr, toString)
-    expect(left.map(toString)).toIncludeSameMembers(['Symbol(1)', 'Symbol(4)'])
-    expect(right.map(toString)).toIncludeSameMembers(['Symbol(5)'])
-    expect(common.map(toString)).toIncludeSameMembers([
-      'Symbol(2)',
-      'Symbol(3)',
-    ])
+    expect(left.map(toString)).toEqual(['Symbol(1)', 'Symbol(4)'])
+    expect(right.map(toString)).toEqual(['Symbol(5)'])
+    expect(common.map(toString)).toEqual(['Symbol(2)', 'Symbol(3)'])
   })
   it('custom diff type', () => {
     interface IUser {
@@ -46,7 +43,7 @@ describe('test diffBy', () => {
       { name: '灵梦', age: 15 },
     ]
     const { common } = diffBy(userList, personList, 'name')
-    expect(common).toIncludeAllMembers([
+    expect(common).toEqual([
       { name: 'liuli', pwd: '123' },
       { name: '灵梦', pwd: '123' },
     ])

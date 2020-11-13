@@ -12,15 +12,15 @@ describe('test isEditable', () => {
   </main>
 `
   it('test input', () => {
-    expect(isEditable(document.querySelector('#name')!)).toBeTrue()
+    expect(isEditable(document.querySelector('#name')!)).toBeTruthy()
   })
   it('test an not editable element', () => {
-    expect(isEditable(document.querySelector('#not-editable')!)).toBeFalse()
+    expect(isEditable(document.querySelector('#not-editable')!)).toBeFalsy()
   })
 })
 
 describe.skip('Currently jsdom does not support the isContentEditable property', () => {
   it('test an editable element', () => {
-    expect(isEditable(document.querySelector('#editable')!)).toBeTrue()
+    expect(isEditable(document.querySelector('#editable')!)).toBeTruthy()
   })
 })

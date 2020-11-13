@@ -18,7 +18,7 @@ describe('test NodeBridgeUtil', () => {
     const newTree = nodeBridgeUtil.bridge(bridgeNode)(tree)
     expect(newTree.id).toBe(tree.uid)
     expect(newTree.parentId).toBe(tree.parent)
-    expect(newTree.child).toIncludeAllMembers(tree.childrens)
+    expect(newTree.child).toEqual(tree.childrens)
   })
   it('test bridgeTree', () => {
     const tree = {

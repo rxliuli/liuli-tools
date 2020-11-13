@@ -8,7 +8,7 @@ describe('test DateFormatter', () => {
     const str = '2019-12-11'
     const dateFormatter = new DateFormatter('yyyy-MM-dd')
     const date = dateFormatter.parse(str)
-    expect(date).toBeValidDate()
+    expect(date).toBeInstanceOf(Date)
     expect(dateFormatter.format(date)).toBe(str)
   })
   it('test string to string', () => {
@@ -30,7 +30,7 @@ describe('test DateFormatter', () => {
   it('test error parameter', () => {
     const df = DateFormatter.dateFormatter
     expect(df.parse(null)).toBeNull()
-    expect(df.format(null)).toBeEmpty()
-    expect(df.strFormat(null)).toBeEmpty()
+    expect(df.format(null)).toBe('')
+    expect(df.strFormat(null)).toBe('')
   })
 })

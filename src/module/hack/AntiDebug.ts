@@ -1,8 +1,9 @@
 import { timing } from '../function/timing'
-import { emptyFunc } from '../function/emptyFunc'
 import { returnItself } from '../function/returnItself'
 import { arrayToMap } from '../array/arrayToMap'
 import { EmptyFunc } from '../interface/EmptyFunc'
+
+function emptyFunc(...args: any[]) {}
 
 /**
  * 禁止他人调试网站相关方法的集合对象
@@ -62,6 +63,7 @@ export class AntiDebug {
     }
   }
 }
+
 /**
  * 禁止他人调试网站相关方法的集合对象
  * @deprecated 已废弃，请直接使用类的静态函数

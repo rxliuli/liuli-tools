@@ -4,9 +4,6 @@ import { Nullable } from '../interface/Nullable'
 /**
  * 状态机
  * 用于避免使用 if-else 的一种方式
- * @typeparam K 状态的类型，默认为 any
- * @typeparam V 构造函数返回值的类型，一般为实现子类的基类，默认为 any
- * @deprecated 该类将在下个大版本进行重构，使用函数而非类作为基本单元
  */
 export class StateMachine<K = any, R = any> {
   /**
@@ -20,7 +17,9 @@ export class StateMachine<K = any, R = any> {
      */
     return new StateMachine<K>()
   }
+
   private classMap = new Map<K, Newable<R>>()
+
   /**
    * 注册一个 class，创建子类时调用，用于记录每一个 [状态 => 子类] 对应
    * 注: 此处不再默认使用单例模式，如果需要，请自行对 class 进行包装
@@ -47,6 +46,7 @@ export class StateMachine<K = any, R = any> {
     // 构造函数的参数
     return new Class(...args)
   }
+
   /**
    * 允许使用 for-of 遍历整个状态机
    */

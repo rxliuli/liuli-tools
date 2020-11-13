@@ -5,7 +5,7 @@ import { flatMap } from './flatMap'
 
 describe('test AsyncArray', () => {
   const arr = [1, 2, 3, 4, 5]
-  const asyncArr = new AsyncArray(...arr)
+  const asyncArr = new AsyncArray(arr)
 
   it('test forEach', async () => {
     const res: number[] = []
@@ -13,20 +13,16 @@ describe('test AsyncArray', () => {
     arr.forEach(fn)
     const arr1 = res.slice()
     res.length = 0
-    await new AsyncArray(...arr).forEach(async(fn) as any)
-    expect(arr1).toIncludeAllMembers(res)
+    await new AsyncArray(arr).forEach(async(fn) as any)
+    expect(arr1).toEqual(res)
   })
   it('test filter', async () => {
     const fn = (i: number) => i % 2 === 0
-    expect(arr.filter(fn)).toIncludeAllMembers(
-      await asyncArr.filter(async(fn)).value(),
-    )
+    expect(arr.filter(fn)).toEqual(await asyncArr.filter(async(fn)).value())
   })
   it('test map', async () => {
     const fn = (i: number) => i * 2
-    expect(arr.map(fn)).toIncludeAllMembers(
-      await asyncArr.map(async(fn)).value(),
-    )
+    expect(arr.map(fn)).toEqual(await asyncArr.map(async(fn)).value())
   })
   it('test every', async () => {
     const fn = (i: number) => i % 2 === 0
@@ -42,9 +38,7 @@ describe('test AsyncArray', () => {
   })
   it('test flatMap', async () => {
     const fn = (i: number) => range(0, i)
-    expect(flatMap(arr, fn)).toIncludeAllMembers(
-      await asyncArr.flatMap(async(fn)).value(),
-    )
+    expect(flatMap(arr, fn)).toEqual(await asyncArr.flatMap(async(fn)).value())
   })
   it('test reduce', async () => {
     const fn = (res: number, i: number) => res - i
@@ -55,18 +49,18 @@ describe('test AsyncArray', () => {
     expect(arr.reduceRight(fn)).toBe(await asyncArr.reduceRight(async(fn)))
   })
   it('test value', async () => {
-    expect(arr).toIncludeAllMembers(await asyncArr.value())
-    expect(arr).toIncludeAllMembers(await Array.from(asyncArr))
+    expect(arr).toEqual(await asyncArr.value())
+    expect(arr).toEqual(await Array.from(asyncArr))
   })
   it('test for-of', () => {
     for (const item of asyncArr) {
-      expect(arr.includes(item)).toBeTrue()
+      expect(arr.includes(item)).toBeTruthy()
     }
   })
   it('test from', async () => {
-    expect(await AsyncArray.from(undefined)).toIncludeAllMembers([])
-    expect(await AsyncArray.from(arr)).toIncludeAllMembers(arr)
-    expect(await AsyncArray.from(new Set(arr))).toIncludeAllMembers(arr)
+    await expect(() => AsyncArray.from(undefined)).toThrowError()
+    expect(await AsyncArray.from(arr)).toEqual(arr)
+    expect(await AsyncArray.from(new Set(arr))).toEqual(arr)
   })
   it('test parallel and serial', async () => {
     const filterOddNumber = (i: number) => i % 2 === 1
@@ -79,20 +73,21 @@ describe('test AsyncArray', () => {
         .map(async(mapDouble))
         .serial()
         .map(async(mapDeleteOne)),
-    ).toIncludeAllMembers(
-      arr.filter(filterOddNumber).map(mapDouble).map(mapDeleteOne),
-    )
+    ).toEqual(arr.filter(filterOddNumber).map(mapDouble).map(mapDeleteOne))
   })
   it('test cache operation', async () => {
     const result = asyncArr.filter(async (i) => i % 2 === 0)
-    expect(await result.map(async (i) => i * 2)).toIncludeAllMembers([4, 8])
-    expect(await result).toIncludeAllMembers([2, 4])
-    expect(await result).toIncludeAllMembers([2, 4])
+    expect(await result.map(async (i) => i * 2)).toEqual([4, 8])
+    expect(await result).toEqual([2, 4])
+    expect(await result).toEqual([2, 4])
   })
   it('test parallel async', async () => {
-    expect(
-      asyncArr.filter(async (i) => i % 2 === 0),
-    ).resolves.toIncludeAllMembers([2, 4])
-    expect(asyncArr).resolves.toIncludeAllMembers(arr)
+    await Promise.all([
+      expect(asyncArr.filter(async (i) => i % 2 === 0)).resolves.toEqual([
+        2,
+        4,
+      ]),
+      expect(asyncArr).resolves.toEqual(arr),
+    ])
   })
 })

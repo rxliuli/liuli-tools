@@ -4,7 +4,7 @@ describe('测试 ArrayUtil', () => {
   it('测试 swap', () => {
     const arr = [1, 2, 3]
     const res = ArrayUtil.swap(arr, 0, 2)
-    expect(res).toIncludeAllMembers([3, 2, 1])
+    expect(res).toEqual([3, 2, 1])
   })
   describe('测试 equalsByDisorder', () => {
     it('基本示例', () => {

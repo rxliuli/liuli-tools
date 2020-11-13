@@ -1,15 +1,15 @@
-import { toObject } from './toObject'
+import { arrayToObject } from './arrayToObject'
 
 /**
  * @test {toObject}
  */
 describe('test toObject', () => {
   it('simple example', () => {
-    const res = toObject([1, 2, 3], (i) => i)
+    const res = arrayToObject([1, 2, 3], (i) => i)
     expect(res).toEqual({ 1: 1, 2: 2, 3: 3 })
   })
   it('use vFn', () => {
-    const res = toObject(
+    const res = arrayToObject(
       [1, 2, 3],
       (i) => i,
       (i) => i * 2 + '',

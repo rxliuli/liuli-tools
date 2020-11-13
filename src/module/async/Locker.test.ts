@@ -36,6 +36,6 @@ describe('test Locker', () => {
     }
     await expect(
       Promise.all([add(1), add(2), add(3), add(4)]),
-    ).resolves.toIncludeAllMembers([1, 3, 6, 10])
+    ).resolves.toEqual([1, 3, 6, 10])
   })
 })

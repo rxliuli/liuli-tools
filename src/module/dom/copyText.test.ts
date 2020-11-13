@@ -7,7 +7,7 @@ import { copyText } from './copyText'
 describe.skip('test copyText', () => {
   it('test simple copy text', () => {
     const result = copyText('test')
-    expect(result).toBeTrue()
+    expect(result).toBeTruthy()
   })
   it('复制换行文本', function () {
     expect(
@@ -17,6 +17,6 @@ describe.skip('test copyText', () => {
           age: 11,
         }),
       ),
-    ).toBeTrue()
+    ).toBeTruthy()
   })
 })

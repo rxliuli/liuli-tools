@@ -6,9 +6,9 @@ import { ArrayValidator } from './ArrayValidator'
 describe('test ArrayValidator', () => {
   const { isEmpty } = ArrayValidator
   it('test isEmpty', () => {
-    expect(isEmpty(undefined)).toBeTrue()
-    expect(isEmpty(null)).toBeTrue()
-    expect(isEmpty([])).toBeTrue()
-    expect(isEmpty(['a'])).toBeFalse()
+    expect(isEmpty(undefined)).toBeTruthy()
+    expect(isEmpty(null)).toBeTruthy()
+    expect(isEmpty([])).toBeTruthy()
+    expect(isEmpty(['a'])).toBeFalsy()
   })
 })

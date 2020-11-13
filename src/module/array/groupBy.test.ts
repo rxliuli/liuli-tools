@@ -64,7 +64,7 @@ describe('test groupBy', () => {
     const arr = range(1, 10, 1)
     expect(
       Array.from(groupBy(arr, (_v, i) => Math.floor(i / 3)).values()),
-    ).toIncludeAllMembers([
+    ).toEqual([
       [1, 2, 3],
       [4, 5, 6],
       [7, 8, 9],

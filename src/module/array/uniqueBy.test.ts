@@ -29,7 +29,7 @@ describe('test uniqueBy', () => {
       new User(5, '琉璃', 17),
     ]
 
-    expect(uniqueBy(users, ({ name }) => name)).toIncludeSameMembers([
+    expect(uniqueBy(users, ({ name }) => name)).toEqual([
       new User(1, 'rx', 18),
       new User(2, '琉璃', 17),
       new User(3, '灵梦', 15),

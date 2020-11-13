@@ -1,6 +1,9 @@
 import { arrayToMap } from './../array/arrayToMap'
 import { Nullable } from '../interface/Nullable'
-import { isRange } from '../number/isRange'
+
+function isRange(num: number, min: number, max: number): boolean {
+  return num >= min && num < max
+}
 
 /**
  * 日期格式化类
@@ -60,6 +63,7 @@ const monthDayValidate = {
   11: 30,
   2: 28,
 }
+
 /**
  * 解析字符串为 Date 对象
  * @param str 日期字符串

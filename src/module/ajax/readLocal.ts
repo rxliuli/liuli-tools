@@ -1,7 +1,7 @@
 /**
  * 读取文件类型
  */
-enum ReadType {
+export enum ReadLocalTypeEnum {
   /**
    * 以 data url 读取
    */
@@ -19,11 +19,10 @@ enum ReadType {
    */
   ArrayBuffer = 'readAsArrayBuffer',
 }
-interface IReadLocalInit<T extends ReadType> {
-  type: T
-  encoding: string
-}
-type ReadResult<T extends ReadType> = T extends ReadType.DataURL | ReadType.Text
+
+type ReadResult<T extends ReadLocalTypeEnum> = T extends
+  | ReadLocalTypeEnum.DataURL
+  | ReadLocalTypeEnum.Text
   ? string
   : ArrayBuffer
 
@@ -33,7 +32,7 @@ type ReadResult<T extends ReadType> = T extends ReadType.DataURL | ReadType.Text
  * @param options 读取的选项
  * @returns 返回了读取到的内容（异步）
  */
-export function _readLocal<T extends ReadType>(
+export function readLocal<T extends ReadLocalTypeEnum>(
   file: File,
   options: Partial<{
     type: T
@@ -42,7 +41,7 @@ export function _readLocal<T extends ReadType>(
 ): Promise<ReadResult<T> | null> {
   const { type, encoding } = Object.assign(
     {
-      type: ReadType.DataURL,
+      type: ReadLocalTypeEnum.DataURL,
       encoding: 'UTF-8',
     },
     options,
@@ -59,42 +58,18 @@ export function _readLocal<T extends ReadType>(
       reject(error)
     }
     switch (type) {
-      case ReadType.DataURL:
+      case ReadLocalTypeEnum.DataURL:
         fr.readAsDataURL(file)
         break
-      case ReadType.Text:
+      case ReadLocalTypeEnum.Text:
         fr.readAsText(file, encoding)
         break
-      case ReadType.BinaryString:
+      case ReadLocalTypeEnum.BinaryString:
         fr.readAsBinaryString(file)
         break
-      case ReadType.ArrayBuffer:
+      case ReadLocalTypeEnum.ArrayBuffer:
         fr.readAsArrayBuffer(file)
         break
     }
   })
 }
-
-export const readLocal = Object.assign(_readLocal, {
-  ReadType,
-  /**
-   * 以 data url 读取
-   * @deprecated 已废弃，请使用枚举类 ReadType
-   */
-  DataURL: ReadType.DataURL,
-  /**
-   * 以文本读取
-   * @deprecated 已废弃，请使用枚举类 ReadType
-   */
-  Text: ReadType.Text,
-  /**
-   * 以二进制文件读取
-   * @deprecated 已废弃，请使用枚举类 ReadType
-   */
-  BinaryString: ReadType.BinaryString,
-  /**
-   * 以 ArrayBuffer 读取
-   * @deprecated 已废弃，请使用枚举类 ReadType
-   */
-  ArrayBuffer: ReadType.ArrayBuffer,
-})

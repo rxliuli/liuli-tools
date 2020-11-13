@@ -1,5 +1,3 @@
-import { sortBy } from './sortBy'
-
 /**
  * 数组相关工具类
  */
@@ -24,6 +22,6 @@ export class ArrayUtil {
    * @returns 是否相同
    */
   static equalsByDisorder<T>(arr1: T[], arr2: T[]): boolean {
-    return JSON.stringify(sortBy(arr1)) === JSON.stringify(sortBy(arr2))
+    return JSON.stringify([...arr1].sort()) === JSON.stringify([...arr2].sort())
   }
 }

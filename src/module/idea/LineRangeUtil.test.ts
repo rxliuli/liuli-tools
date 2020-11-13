@@ -15,6 +15,6 @@ describe('测试 LineRangeUtil', function () {
           return LineRange.create(begin, end)
         }),
       ),
-    ).toBeFalse()
+    ).toBeFalsy()
   })
 })

@@ -15,7 +15,7 @@ describe('test removeText', () => {
   })
   it('test normal situation', () => {
     removeText($name, 0, $name.value.length)
-    expect($name.value).toBeEmpty()
+    expect($name.value).toBe('')
   })
   it('test remove text for not specify start index', () => {
     removeText($name)

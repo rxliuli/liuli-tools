@@ -19,7 +19,7 @@ describe('test extractField', () => {
     const fn3 = extractField('info2.address')
     expect(fn3(user)).toBeNull()
     const fn4 = extractField(SEX_KEY)
-    expect(fn4(user)).toBeFalse()
+    expect(fn4(user)).toBeFalsy()
   })
   it('deep get field', () => {
     const user2 = { ...user, age: 18 }

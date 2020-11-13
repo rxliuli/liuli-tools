@@ -7,7 +7,7 @@ describe('test partial', () => {
   it('simple example', () => {
     const add = (i: number, k: number) => i + k
     const fn = partial(add, 1)
-    expect(fn).toBeFunction()
+    expect(fn).toBeInstanceOf(Function)
     expect(fn(2)).toBe(3)
   })
   it('test this', function () {
@@ -16,7 +16,7 @@ describe('test partial', () => {
     // @ts-ignore
     const add = (i, k) => this.value + (i + k)
     const fn = partial(add, 1)
-    expect(fn).toBeFunction()
+    expect(fn).toBeInstanceOf(Function)
     expect(fn(2)).toBe('value: 3')
     // @ts-ignore
     this.value = 'v: '
@@ -28,7 +28,7 @@ describe('test partial', () => {
     // @ts-ignore
     const add = (i: number, k: number) => this.value + (i + k)
     const fn = partial(add, partial._, 1)
-    expect(fn).toBeFunction()
+    expect(fn).toBeInstanceOf(Function)
     expect(fn(2)).toBe('value: 3')
     // @ts-ignore
     this.value = 'v: '

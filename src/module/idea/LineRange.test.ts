@@ -4,7 +4,7 @@ describe('测试 LineRange', () => {
   it('基本示例', function () {
     const lr1 = LineRange.create(1, 3)
     const lr2 = LineRange.create(2, 4)
-    expect(lr1.isOverlap(lr2)).toBeTrue()
+    expect(lr1.isOverlap(lr2)).toBeTruthy()
     expect(lr1.overlap(lr2)).toEqual(LineRange.create(2, 3))
   })
   it('测试非基本类型', () => {
@@ -19,7 +19,7 @@ describe('测试 LineRange', () => {
       new Date(2018, 12, 19),
       kFn,
     )
-    expect(lr1.isOverlap(lr2)).toBeTrue()
+    expect(lr1.isOverlap(lr2)).toBeTruthy()
     expect(lr1.overlap(lr2)).toEqual(
       LineRange.create(new Date(2018, 12, 13), new Date(2018, 12, 15)),
     )
@@ -29,7 +29,7 @@ describe('测试 LineRange', () => {
       const [lr1, lr2] = arr.map(([begin, end]) =>
         LineRange.create(begin, end, (str) => new Date(str).getTime()),
       )
-      expect(lr1.isOverlap(lr2)).toBeFalse()
+      expect(lr1.isOverlap(lr2)).toBeFalsy()
       expect(() => lr1.overlap(lr2)).toThrowError()
     }
 

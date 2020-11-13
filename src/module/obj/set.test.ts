@@ -12,12 +12,12 @@ describe('测试 set', function () {
     const code = '100000'
     const res = set(obj, 'info.city.code', code)
     expect(obj.info.city.code).toBe(code)
-    expect(res).toBeTrue()
+    expect(res).toBeTruthy()
   })
   it('设置不存在的字段', function () {
     const obj: any = {}
     const code = '100000'
     const res = set(obj, 'info.city.code', code)
-    expect(res).toBeFalse()
+    expect(res).toBeFalsy()
   })
 })

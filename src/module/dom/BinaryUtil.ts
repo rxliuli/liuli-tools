@@ -148,4 +148,19 @@ export class BinaryUtil {
 
     return arraybuffer
   }
+
+  /**
+   * arrayBuffer 转 JSON
+   */
+  static arrayBufferToString(ArrayBuffer: ArrayBuffer): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const blob = new Blob([ArrayBuffer as any])
+      const fileReader = new FileReader()
+      fileReader.addEventListener('load', () =>
+        resolve(fileReader.result as string),
+      )
+      fileReader.addEventListener('error', reject)
+      fileReader.readAsText(blob, 'utf-8')
+    })
+  }
 }

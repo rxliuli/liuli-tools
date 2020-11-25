@@ -1,6 +1,6 @@
-import { Func } from '../interface/Func'
-import { Nullable } from '../interface/Nullable'
-import { PromiseDeconstruct } from '../interface/PromiseDeconstruct'
+type PromiseType<T extends Promise<any>> = T extends Promise<infer U>
+  ? U
+  : never
 
 /**
  * 安全执行某个函数
@@ -10,11 +10,11 @@ import { PromiseDeconstruct } from '../interface/PromiseDeconstruct'
  * @param args 可选的函数参数
  * @returns 函数执行的结果，或者其默认值
  */
-export function safeExec<Fn extends Func>(
+export function safeExec<Fn extends (...args: any[]) => any>(
   fn: Fn,
   defaultVal?: ReturnType<Fn>,
   ...args: Parameters<Fn>
-): Nullable<PromiseDeconstruct<ReturnType<Fn>>> {
+): PromiseType<ReturnType<Fn>> | null {
   const defRes = (defaultVal === undefined ? null : defaultVal) as any
   try {
     const res = fn(...(args as any))

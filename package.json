@@ -1,73 +1,34 @@
 {
-  "name": "rx-util",
-  "version": "1.9.2",
-  "description": "rxliuli 个人使用的 js 工具库（仅适用于浏览器）",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "name": "@liuli-util/all",
+  "private": true,
   "scripts": {
-    "start": "yarn test",
-    "build": "shx rm -rf dist/ && tsc -b tsconfig.build.json && rollup -c",
-    "format": "prettier --write src/**/*.ts",
-    "docs": "typedoc && shx cp CNAME docs/ && shx cp README.md docs/ && shx cp .nojekyll docs/",
-    "cloc": "cloc src/ --exclude-ext=test.ts",
-    "test": "jest --watch",
-    "coverage": "jest --coverage",
-    "server": "yarn docs && yarn coverage && rollup -c && live-server docs/ --port=4000",
-    "deploy": "yarn gh-pages -d docs -t true && shx rm -rf docs",
-    "publishReady": "yarn format && yarn build && shx rm -rf docs && yarn docs && yarn coverage && yarn deploy"
+    "setup": "npx lerna bootstrap && yarn pub",
+    "fix:version": "syncpack fix-mismatches",
+    "clean": "npx lerna clean",
+    "pub": "npx lerna run pub",
+    "clean:pkg": "npx lerna bootstrap && yarn clean"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/rxliuli/rx-util.git"
+  "workspaces": {
+    "packages": [
+      "libs/*"
+    ]
   },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+  "version": "0.0.1",
+  "devDependencies": {
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.3",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.5.1"
   },
-  "keywords": [
-    "util",
-    "browser",
-    "rxliuli"
-  ],
-  "author": "rxliuli",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/rxliuli/rx-util/issues",
-    "email": "rxliuli@gmail.com"
-  },
-  "homepage": "https://rx-util.rxliuli.com/",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "src/**/*.ts": [
-      "prettier --write",
+    "*.{ts,tsx,css,md,json}": [
+      "prettier --ignore-path .eslintignore --write",
       "git add"
     ]
-  },
-  "devDependencies": {
-    "@rollup/plugin-sucrase": "^3.1.0",
-    "@types/jest": "^26.0.14",
-    "@types/rimraf": "^3.0.0",
-    "cloc": "^2.7.0",
-    "gh-pages": "^3.1.0",
-    "husky": "^4.3.0",
-    "jest": "^26.6.3",
-    "lint-staged": "^10.4.0",
-    "liuli-types": "^0.1.1",
-    "live-server": "^1.2.1",
-    "prettier": "^2.1.2",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.29.0",
-    "rollup-plugin-visualizer": "^4.1.1",
-    "shx": "^0.3.2",
-    "ts-jest": "^26.4.4",
-    "ts-node": "^9.0.0",
-    "ts-toolbelt": "^8.0.7",
-    "tslib": "^2.0.3",
-    "typedoc": "^0.19.2",
-    "typescript": "^4.0.3"
   }
 }

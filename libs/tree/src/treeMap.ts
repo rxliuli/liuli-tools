@@ -12,10 +12,10 @@ export function treeMap<
   C extends TreeOption<T>,
   R extends object
 >(
-  node: T,
+  node: T[],
   fn: (t: Overwrite<T, { [P in C['children']]: R[] }>, path: T[C['id']][]) => R,
   options: C,
-): R {
+): R[] {
   function inner(node: T, parentPath: T[C['id']][]): R {
     const path = [...parentPath, node[options.id]]
     const children = (node[options.children] as any) as T[]
@@ -34,5 +34,5 @@ export function treeMap<
     )
   }
 
-  return inner(node, [])
+  return node.map((item) => inner(item, []))
 }

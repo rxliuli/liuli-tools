@@ -1,0 +1,21 @@
+{
+  "name": "@liuli-util/dom",
+  "version": "2.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "yarn clean && rollup -c rollup.config.js",
+    "clean": "rimraf -rf ./dist"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "devDependencies": {
+    "rollup": "^2.36.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.29.0",
+    "utility-types": "^3.10.0",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.4.4"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@liuli-util/test",
+  "version": "2.1.1",
+  "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "yarn clean && rollup -c rollup.config.js",
+    "clean": "rimraf -rf ./dist"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f"
+}

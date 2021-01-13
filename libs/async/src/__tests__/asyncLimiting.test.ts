@@ -1,18 +1,12 @@
 import { asyncLimiting } from '../asyncLimiting'
 import { wait } from '../wait'
-import { timing } from './timing'
+import { countTime } from '@liuli-util/test'
 
 describe('test asyncLimiting', () => {
   it('simple example', async () => {
     const add = () => wait(100)
     const fn = asyncLimiting(add, 1)
-    const time = await timing(() =>
-      Promise.all(
-        Array(10)
-          .fill(0)
-          .map(() => fn()),
-      ),
-    )
+    const time = await countTime(() => Promise.all(Array(10).fill(0).map(fn)))
     expect(time).toBeGreaterThan(1000)
   })
   it('test order', async () => {

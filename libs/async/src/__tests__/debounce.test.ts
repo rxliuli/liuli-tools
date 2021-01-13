@@ -1,15 +1,6 @@
 import { wait } from '../wait'
 import { debounce } from '../debounce'
-
-function repeatedCall<T extends (...args: any[]) => any>(
-  num: number,
-  fn: T,
-  ...args: Parameters<T>
-): ReturnType<T>[] {
-  return Array(num)
-    .fill(0)
-    .map(() => fn(...(args as any)))
-}
+import { repeatedCall } from '@liuli-util/test'
 
 /**
  * @test {debounce}
@@ -18,26 +9,12 @@ describe('test debounce', () => {
   it('simple example', async () => {
     let num = 0
     const fn = debounce(() => num++, 10)
-    repeatedCall(3, fn)
+    repeatedCall(fn, 3).then()
     await wait(20)
     expect(num).toBe(1)
-    fn()
+    fn().then()
     await wait(20)
     expect(num).toBe(2)
-  })
-  it('test this', async function () {
-    // @ts-ignore
-    this.num = 0
-    // @ts-ignore
-    const fn = debounce(() => this.num++, 10)
-    repeatedCall(3, fn)
-    await wait(20)
-    // @ts-ignore
-    expect(this.num).toBe(1)
-    fn()
-    await wait(20)
-    // @ts-ignore
-    expect(this.num).toBe(2)
   })
   it('async and return result', async () => {
     const add = async (a: number, b: number) => a + b

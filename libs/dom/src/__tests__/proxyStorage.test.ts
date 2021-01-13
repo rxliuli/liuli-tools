@@ -44,8 +44,8 @@ describe('测试 proxyStorage', () => {
   })
   it('测试类型', () => {
     const store = proxyStorage<{ a: { b: { c: string } } }>(localStorage)
-    const data = store.a!.b.c
-    type S = typeof data // string
+    const data = store.a?.b.c
+    type S = typeof data // string | undefined
     // 下面这行会有类型错误 TS2540: Cannot assign to 'c' because it is a read-only property
     // store.a!.b.c = 'str'
   })

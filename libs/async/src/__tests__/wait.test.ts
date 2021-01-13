@@ -1,5 +1,5 @@
 import { wait } from '../wait'
-import { timing } from './timing'
+import { countTime } from '@liuli-util/test'
 
 /**
  * @test {wait}
@@ -44,7 +44,7 @@ describe('test wait', () => {
       }
     }
 
-    const time = await timing(() => Promise.all(Array(10).fill(0).map(add)))
+    const time = await countTime(() => Promise.all(Array(10).fill(0).map(add)))
     expect(time).toBeGreaterThan(1000)
   })
 })

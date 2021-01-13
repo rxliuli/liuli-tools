@@ -1,7 +1,0 @@
-{
-  "out": "docs",
-  "includes": "src",
-  "exclude": ["src/**/*.test.ts"],
-  "logger": "console",
-  "ignoreCompilerErrors": true
-}

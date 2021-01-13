@@ -23,14 +23,22 @@ describe('测试 treeToList', () => {
     ).toBe(6)
   })
   it('测试列表中是否依然保持了引用关系', () => {
-    const nodeList = treeToList(nodeTreeList, {
+    const res = treeToList(nodeTreeList, {
       id: 'id',
       children: 'children',
       path: 'path' as const,
     })
-    const nodeTreeListRes = nodeList
-      .filter((node) => node.path.length === 1)
-      .map(({ path, ...others }) => others)
-    console.log(JSON.stringify(nodeTreeListRes, null, 2))
+    expect(res).toEqual([
+      { id: '1-1', path: ['1', '1-1'] },
+      { id: '1-2', path: ['1', '1-2'] },
+      { id: '1', children: [{ id: '1-1' }, { id: '1-2' }], path: ['1'] },
+      { id: '2-1-1', path: ['2', '2-1', '2-1-1'] },
+      { id: '2-1', children: [{ id: '2-1-1' }], path: ['2', '2-1'] },
+      {
+        id: '2',
+        children: [{ id: '2-1', children: [{ id: '2-1-1' }] }],
+        path: ['2'],
+      },
+    ])
   })
 })

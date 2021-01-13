@@ -2,6 +2,7 @@
   "name": "@liuli-util/tree",
   "version": "2.0.0",
   "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "yarn clean && rollup -c rollup.config.js",

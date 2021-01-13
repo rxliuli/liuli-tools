@@ -8,7 +8,7 @@ import { wait } from './wait'
  */
 export function asyncLimiting<T extends (...args: any[]) => Promise<any>>(
   fn: T,
-  limit,
+  limit: number,
 ): T {
   // 当前正在执行异步的数量
   let execCount = 0
@@ -22,7 +22,7 @@ export function asyncLimiting<T extends (...args: any[]) => Promise<any>>(
         execCount++
         flag = false
       }
-      const tempArgs = takeQueue.shift()
+      const tempArgs = takeQueue.shift()!
       try {
         return await fn(...tempArgs)
       } finally {

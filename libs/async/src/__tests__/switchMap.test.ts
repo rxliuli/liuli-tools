@@ -8,6 +8,7 @@ describe('tes switchMap', () => {
       await wait(ms)
       return ms
     }
+
     it('no use switchMap', async () => {
       let result = 0
       await Promise.all([

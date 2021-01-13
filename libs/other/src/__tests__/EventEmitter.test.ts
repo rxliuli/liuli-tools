@@ -5,6 +5,7 @@ describe('测试 EventEmitter', () => {
     Hello,
     CorrectType,
   }
+
   const em = new EventEmitter<{
     [EventTypeEnum.Hello]: [string]
     [EventTypeEnum.CorrectType]: [number, string]

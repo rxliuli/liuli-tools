@@ -8,6 +8,7 @@ describe('test concatMap', () => {
       await wait(ms)
       return ms
     }
+
     it('no use concatMap', async () => {
       let result = 0
       await Promise.all([

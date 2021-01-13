@@ -26,6 +26,7 @@ export class EventEmitter<Events extends Record<EventType, any[]>> {
     this.events.set(type, callbacks)
     return this
   }
+
   /**
    * 移除一个事件监听程序
    * @param type 监听类型
@@ -40,6 +41,7 @@ export class EventEmitter<Events extends Record<EventType, any[]>> {
     )
     return this
   }
+
   /**
    * 移除一类事件监听程序
    * @param type 监听类型
@@ -49,6 +51,7 @@ export class EventEmitter<Events extends Record<EventType, any[]>> {
     this.events.delete(type)
     return this
   }
+
   /**
    * 触发一类事件监听程序
    * @param type 监听类型

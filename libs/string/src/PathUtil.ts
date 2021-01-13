@@ -11,10 +11,12 @@ export class PathUtil {
   public static join(...paths: string[]): string {
     return paths.reduce(PathUtil._join)
   }
+
   /**
    * 路径分隔符
    */
   private static Separator = '/'
+
   /**
    * 拼接两个路径
    *

@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/dom",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -12,7 +12,7 @@
     "preset": "ts-jest"
   },
   "dependencies": {
-    "@liuli-util/array": "^2.2.0"
+    "@liuli-util/array": "^2.2.1"
   },
   "devDependencies": {
     "@liuli-util/async": "^2.1.2"

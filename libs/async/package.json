@@ -1,5 +1,5 @@
 {
-  "name": "@liuli-util/tree",
+  "name": "@liuli-util/async",
   "version": "2.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

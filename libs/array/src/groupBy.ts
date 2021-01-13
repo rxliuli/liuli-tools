@@ -15,11 +15,11 @@ export function groupBy<T, K>(
  * @param vFn 元素分组的值处理的函数。第一个参数是累计值，第二个参数是当前正在迭代的元素，如果你使用过 {@link Array#reduce} 函数的话应该对此很熟悉
  * @returns 元素标识 => 数组映射 Map
  */
-export function groupBy<T, K, R>(
+export function groupBy<T, K, R extends any[]>(
   arr: T[],
   kFn: (item: T, index: number, arr: T[]) => K,
-  vFn: (res: R[], item: T, index: number, arr: T[]) => R[],
-): Map<K, T[]>
+  vFn: (res: R, item: T, index: number, arr: T[]) => R,
+): Map<K, R>
 export function groupBy<T, K, R>(
   arr: T[],
   kFn: (item: T, index: number, arr: T[]) => K,

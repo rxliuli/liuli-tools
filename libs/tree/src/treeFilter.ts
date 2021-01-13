@@ -15,10 +15,12 @@ export function treeFilter<T extends object, C extends TreeOption<T>>(
     return nodeList
       .filter((node) => {
         const path = [...parentPath, node[options.id]]
+        //筛选节点
         return fn(node, path)
       })
       .map((node) => {
         const children = (node[options.children] as any) as T[] | undefined
+        //不筛选枝干节点
         if (!children) {
           return node
         }
@@ -35,6 +37,7 @@ export function treeFilter<T extends object, C extends TreeOption<T>>(
         if (!children) {
           return true
         }
+        //筛选掉空的枝干节点
         return children.length > 0
       })
   }

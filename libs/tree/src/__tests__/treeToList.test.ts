@@ -1,4 +1,5 @@
 import { treeToList } from '../treeToList'
+import { Expect } from '@liuli-util/test'
 
 describe('测试 treeToList', () => {
   interface Node {
@@ -12,13 +13,14 @@ describe('测试 treeToList', () => {
   ]
 
   it('基本示例', () => {
-    const nodeList = treeToList(nodeTreeList, {
+    const res = treeToList(nodeTreeList, {
       id: 'id',
       children: 'children',
       path: 'path' as const,
     })
-    console.log(nodeList, nodeList[0].path)
-    expect(nodeList.length).toBe(6)
+    expect(
+      (res as Expect<typeof res, (Node & { path: string[] })[]>).length,
+    ).toBe(6)
   })
   it('测试列表中是否依然保持了引用关系', () => {
     const nodeList = treeToList(nodeTreeList, {

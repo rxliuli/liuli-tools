@@ -1,6 +1,7 @@
 {
   "name": "@liuli-util/all",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "setup": "yarn && lerna run build && yarn",
     "fix:version": "syncpack fix-mismatches",

@@ -8,7 +8,8 @@
     "gen:readme": "gulp generateReadmes",
     "docs:build": "fliegdoc build",
     "docs:serve": "fliegdoc serve",
-    "deploy": "yarn docs:build && gh-pages -d docs -t true"
+    "deploy": "yarn docs:build && gh-pages -d docs -t true",
+    "prepublishOnly": "lerna run build && yarn"
   },
   "workspaces": {
     "packages": [

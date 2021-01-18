@@ -1,4 +1,4 @@
-import { readdir, readJson, writeFile } from 'fs-extra'
+import { copyFile, readdir, readJson, writeFile } from 'fs-extra'
 import * as path from 'path'
 
 export function generateReadme({
@@ -60,4 +60,11 @@ export async function generateReadmes() {
     const text = generateReadme(item)
     writeReadme(item.name, text)
   })
+}
+
+/**
+ * 复制一些在线文档需要的内容
+ */
+export async function copyDocsFile() {
+  await copyFile('./CNAME', './docs/CNAME')
 }

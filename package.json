@@ -6,7 +6,7 @@
     "setup": "yarn && lerna run build && yarn",
     "fix:version": "syncpack fix-mismatches",
     "gen:readme": "gulp generateReadmes",
-    "docs:build": "fliegdoc build",
+    "docs:build": "fliegdoc build && gulp copyDocsFile",
     "docs:serve": "fliegdoc serve",
     "deploy": "yarn docs:build && gh-pages -d docs -t true",
     "prepublishOnly": "lerna run build && yarn"
@@ -28,14 +28,14 @@
     "rollup-plugin-typescript2": "^0.29.0",
     "jest": "^26.6.3",
     "ts-jest": "^26.4.4",
-    "fliegdoc": "^0.4.2",
     "syncpack": "^5.6.10",
     "@types/fs-extra": "^9.0.6",
     "fs-extra": "^9.0.1",
     "gh-pages": "^3.1.0",
     "@types/gulp": "^4.0.8",
     "gulp": "^4.0.2",
-    "ts-node": "^9.1.1"
+    "ts-node": "^9.1.1",
+    "@types/node": "^12.19.14"
   },
   "repository": {
     "type": "git",

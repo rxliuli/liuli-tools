@@ -32,7 +32,7 @@
     "@types/fs-extra": "^9.0.6",
     "fs-extra": "^9.0.1",
     "gh-pages": "^3.1.0",
-    "fliegdoc": "^0.4.2",
+    "fliegdoc": "^0.4.3",
     "@types/gulp": "^4.0.8",
     "gulp": "^4.0.2",
     "ts-node": "^9.1.1",

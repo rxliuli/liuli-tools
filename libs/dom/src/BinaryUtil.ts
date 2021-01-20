@@ -152,7 +152,7 @@ export class BinaryUtil {
   /**
    * arrayBuffer 转 JSON
    */
-  static ArrayBufferToJson(ArrayBuffer: ArrayBuffer): Promise<Object> {
+  static arrayBufferToJson(ArrayBuffer: ArrayBuffer): Promise<Object> {
     return new Promise((resolve) => {
       const blob = new Blob([ArrayBuffer as any])
       const reader = new FileReader()
@@ -162,4 +162,9 @@ export class BinaryUtil {
       }
     })
   }
+
+  /**
+   * @deprecated 已废弃，请使用小谢驼峰的 arrayBufferToJson
+   */
+  static ArrayBufferToJson = BinaryUtil.arrayBufferToJson
 }

@@ -2360,10 +2360,10 @@ flagged-respawn@^1.0.0:
   resolved "https://registry.npmjs.org/flagged-respawn/-/flagged-respawn-1.0.1.tgz#e7de6f1279ddd9ca9aac8a5971d618606b3aab41"
   integrity sha512-lNaHNVymajmk0OJMBn8fVUAU1BtDeKIqKoVhk4xAALB57aALg6b4W0MfJ/cUE0g9YBXy5XhSlPIpYIJ7HaY/3Q==
 
-fliegdoc@^0.4.3:
-  version "0.4.3"
-  resolved "http://203.195.129.179:4875/fliegdoc/-/fliegdoc-0.4.3.tgz#baa9fba6f56b91c5af64750c916b5da1c2b0b68b"
-  integrity sha512-IOouD7igvvfdZDlLQgghKjDPx/w1XpB6PluHJjrD9aRVwY21rPd32mPc7dPbYq8vNH/FZXKxjFLjgj8ElGf/zw==
+fliegdoc@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/fliegdoc/-/fliegdoc-0.4.4.tgz#36c63ffccad6cf8b88716f7218e070a6639a351d"
+  integrity sha512-Pz2uLMKtapZEJ35Z8THEDkMklq3oPQBNK8hiZQo3zaMW4Gd1+gCyHOrydOdMY2n/k3uuc7IvfBjCUYX8fVgMKg==
   dependencies:
     colorette "^1.2.1"
     cosmiconfig "^7.0.0"

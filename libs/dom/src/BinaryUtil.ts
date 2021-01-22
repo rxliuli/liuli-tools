@@ -150,17 +150,25 @@ export class BinaryUtil {
   }
 
   /**
+   * arrayBuffer 转 string
+   */
+  static arrayBufferToString(ArrayBuffer: ArrayBuffer): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const blob = new Blob([ArrayBuffer as any])
+      const fileReader = new FileReader()
+      fileReader.addEventListener('load', () =>
+        resolve(fileReader.result as string),
+      )
+      fileReader.addEventListener('error', reject)
+      fileReader.readAsText(blob, 'utf-8')
+    })
+  }
+
+  /**
    * arrayBuffer 转 JSON
    */
-  static arrayBufferToJson(ArrayBuffer: ArrayBuffer): Promise<Object> {
-    return new Promise((resolve) => {
-      const blob = new Blob([ArrayBuffer as any])
-      const reader = new FileReader()
-      reader.readAsText(blob, 'utf-8')
-      reader.onload = function () {
-        resolve(JSON.parse(reader.result as any))
-      }
-    })
+  static async arrayBufferToJson<T>(arraybuffer: ArrayBuffer): Promise<T> {
+    return JSON.parse(await this.arrayBufferToString(arraybuffer))
   }
 
   /**

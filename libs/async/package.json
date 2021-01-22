@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/async",
-  "version": "2.5.0",
+  "version": "2.5.2",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -13,7 +13,7 @@
     "preset": "ts-jest"
   },
   "devDependencies": {
-    "@liuli-util/test": "*"
+    "@liuli-util/test": "^2.5.2"
   },
   "publishConfig": {
     "access": "public",

@@ -13,9 +13,7 @@ describe('测试 exhaustMap', () => {
   })
   it('测试类型', async () => {
     const res = await exhaustMap(async () => 1)()
-    expect(res as Expect<typeof res, number | null>).toBe(1)
-    type S = Expect<typeof res, number>
-    expect(res as S).toBe(1)
+    expect(res as Expect<typeof res, number | void>).toBe(1)
   })
   it('测试只有第一次调用会返回结果', async () => {
     const fn = jest.fn(exhaustMap(async () => 1))

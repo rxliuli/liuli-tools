@@ -7,7 +7,8 @@
   "description": "辅助其他模块测试的工具函数库",
   "scripts": {
     "build": "yarn clean && rollup -c rollup.config.js",
-    "clean": "rimraf -rf ./dist"
+    "clean": "rimraf -rf ./dist",
+    "test": "jest --all"
   },
   "jest": {
     "preset": "ts-jest"

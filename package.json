@@ -3,13 +3,14 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "setup": "yarn && lerna run build && yarn",
+    "setup": "yarn && lerna run build --parallel && yarn",
     "fix:version": "syncpack fix-mismatches",
     "gen:readme": "gulp generateReadmes",
     "docs:build": "fliegdoc build && gulp copyDocsFile",
     "docs:serve": "fliegdoc serve",
     "deploy": "yarn docs:build && gh-pages -d docs -t true",
-    "prepublishOnly": "lerna run build && yarn"
+    "prepublishOnly": "lerna run build && yarn",
+    "test": "lerna run test --parallel"
   },
   "workspaces": {
     "packages": [

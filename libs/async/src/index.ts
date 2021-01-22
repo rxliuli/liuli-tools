@@ -1,6 +1,7 @@
 export * from './asyncLimiting'
 export * from './concatMap'
 export * from './debounce'
+export * from './exhaustMap'
 export * from './mergeMap'
 export * from './switchMap'
 export * from './throttle'

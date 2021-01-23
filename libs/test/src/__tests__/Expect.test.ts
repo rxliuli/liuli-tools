@@ -1,8 +1,8 @@
-import { BaseExpect, Expect, ExtractError } from '../Expect'
+import { BaseExpect, Expect } from '../Expect'
 
 describe('测试 Expect', () => {
   it('基本示例', () => {
-    type E4<T, R extends T> = ExtractError<BaseExpect<T, R>> extends Error
+    type E4<T, R extends T> = Extract<BaseExpect<T, R>, Error> extends Error
       ? Error
       : R
 

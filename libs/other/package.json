@@ -6,8 +6,8 @@
   "types": "dist/index.d.ts",
   "description": "其它类型功能的函数库",
   "scripts": {
-    "build": "yarn clean && rollup -c rollup.config.js",
-    "clean": "rimraf -rf ./dist",
+    "build": "liuli-cli clean && liuli-cli build",
+    "clean": "liuli-cli clean",
     "test": "jest --all"
   },
   "jest": {

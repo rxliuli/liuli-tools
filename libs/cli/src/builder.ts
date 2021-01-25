@@ -1,28 +1,31 @@
 import { Command } from 'commander'
-import { rollup } from 'rollup'
+import { OutputOptions, rollup } from 'rollup'
 import typescript from 'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser'
 import { readJson } from 'fs-extra'
+import * as path from 'path'
 
 const builder = new Command('build')
 builder.description('打包').action(async () => {
-  await rollup({
+  const output: OutputOptions[] = [
+    {
+      // 打包名称
+      file: path.resolve('./dist/index.js'),
+      format: 'cjs',
+    },
+    {
+      // 打包名称
+      file: path.resolve('./dist/index.esm.js'),
+      format: 'esm',
+    },
+  ]
+  const bundle = await rollup({
     // 入口文件
-    input: './src/bin.ts',
-    output: [
-      {
-        // 打包名称
-        file: './dist/index.js',
-        format: 'cjs',
-      },
-      {
-        // 打包名称
-        file: './dist/index.esm.js',
-        format: 'esm',
-      },
-    ],
+    input: path.resolve('./src/index.ts'),
     external: [
-      ...Object.keys((await readJson('package.json')).dependencies || {}),
+      ...Object.keys(
+        (await readJson(path.resolve('./package.json'))).dependencies || {},
+      ),
     ],
     plugins: [
       typescript({
@@ -31,6 +34,13 @@ builder.description('打包').action(async () => {
       terser(), // minifies generated bundles
     ],
   })
+  await Promise.all(
+    output.map(async (config) => {
+      await bundle.write(config)
+    }),
+  )
+
+  await bundle.close()
 })
 
 export { builder }

@@ -1,0 +1,32 @@
+{
+  "name": "@liuli-util/cli",
+  "version": "2.5.3",
+  "description": "liuli-util 内部使用的 cli",
+  "scripts": {
+    "build": "yarn clean && tsc && gulp addCliBanner",
+    "clean": "rimraf -rf ./dist",
+    "test": "jest --all",
+    "start": "ts-node src/bin.ts -h"
+  },
+  "bin": {
+    "liuli-cli": "dist/bin.js"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f",
+  "devDependencies": {
+    "@liuli-util/cli": "*"
+  },
+  "dependencies": {
+    "commander": "^7.0.0",
+    "rollup": "^2.36.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.29.0",
+    "typescript": "^4.1.3"
+  }
+}

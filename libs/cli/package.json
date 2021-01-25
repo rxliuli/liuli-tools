@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/cli",
-  "version": "2.5.3",
+  "version": "2.5.5",
   "description": "liuli-util 内部使用的 cli",
   "scripts": {
     "build": "yarn clean && tsc && gulp addCliBanner",
@@ -20,7 +20,7 @@
   },
   "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f",
   "devDependencies": {
-    "@liuli-util/cli": "*"
+    "@liuli-util/cli": "^2.5.5"
   },
   "dependencies": {
     "commander": "^7.0.0",

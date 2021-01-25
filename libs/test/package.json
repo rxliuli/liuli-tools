@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/test",
-  "version": "2.5.5",
+  "version": "2.6.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",

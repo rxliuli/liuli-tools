@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/tree",
-  "version": "2.5.3",
+  "version": "2.6.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",

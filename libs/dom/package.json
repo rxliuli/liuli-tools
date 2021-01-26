@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/dom",
-  "version": "3.0.0",
+  "version": "2.6.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -14,10 +14,10 @@
     "preset": "ts-jest"
   },
   "dependencies": {
-    "@liuli-util/array": "^3.0.0"
+    "@liuli-util/array": "^2.6.0"
   },
   "devDependencies": {
-    "@liuli-util/async": "^3.0.0"
+    "@liuli-util/async": "^2.6.0"
   },
   "publishConfig": {
     "access": "public",

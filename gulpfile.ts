@@ -40,11 +40,15 @@ async function writeReadme(name: string, text: string) {
   await writeFile(src, text)
 }
 
+const excludeLib = ['cli']
+
 /**
  * 生成所有子模块的 README 文件
  */
 export async function generateReadmes() {
-  const dirNameList = await readdir('./libs')
+  const dirNameList = (await readdir('./libs')).filter(
+    (name) => !excludeLib.includes(name),
+  )
   const pkgJsonList = await Promise.all(
     dirNameList.map((name) =>
       readJson(path.resolve(__dirname, 'libs', name, 'package.json')),

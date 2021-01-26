@@ -1,44 +1,36 @@
-import {
-  AsyncArray,
-  BaseAsyncArray,
-  parallelAsyncArray,
-  serialAsyncArray,
-} from '../AsyncArray'
+import { AsyncArray } from '../AsyncArray'
 import { wait } from '../wait'
 import { countTime, Expect } from '@liuli-util/test'
 
 describe('测试 AsyncArray', () => {
-  async function testReduce(reduce: BaseAsyncArray['reduce']) {
-    const res = await reduce([1, 2, 3, 4], async (res, item) => res + item, 0)
+  async function testReduce(reduce: Function) {
+    const res = await reduce(
+      [1, 2, 3, 4],
+      async (res: any, item: number) => res + item,
+      0,
+    )
     expect(res).toBe(10)
   }
 
-  async function testMap(map: BaseAsyncArray['map']) {
-    const res = await map([1, 2, 3, 4, 5], async (item) => item * 2)
+  async function testMap(map: Function) {
+    const res = await map([1, 2, 3, 4, 5], async (item: number) => item * 2)
     expect(res).toEqual([2, 4, 6, 8, 10])
   }
 
-  async function testFilter(filter: BaseAsyncArray['filter']) {
-    const res = await filter([1, 2, 3, 4, 5], async (item) => item % 2 === 0)
+  async function testFilter(filter: Function) {
+    const res = await filter(
+      [1, 2, 3, 4, 5],
+      async (item: number) => item % 2 === 0,
+    )
     expect(res).toEqual([2, 4])
   }
 
-  async function testForEach(forEach: BaseAsyncArray['forEach']) {
+  async function testForEach(forEach: Function) {
     const fn = jest.fn(async (item: number) => {
       console.log(item)
     })
     await forEach([1, 2, 3, 4, 5], fn)
     expect(fn.mock.calls.length).toBe(5)
-  }
-
-  async function testSerialTime(
-    fn: (arr: any[], fn: (...args: any[]) => Promise<any>) => Promise<any>,
-  ) {
-    const num = 5
-    const time = 100
-    expect(
-      await countTime(() => fn(Array(num).fill(0), () => wait(time))),
-    ).toBeGreaterThanOrEqual(num * time)
   }
 
   async function testParallelTime(
@@ -51,40 +43,21 @@ describe('测试 AsyncArray', () => {
     ).toBeLessThanOrEqual(num * time)
   }
 
-  describe('测试 SerialAsyncArray', () => {
-    const arr = serialAsyncArray
+  describe('测试 AsyncArray', () => {
     it('测试 reduce', async () => {
-      await testReduce(arr.reduce)
+      await testReduce(AsyncArray.reduce)
     })
     it('测试 map', async () => {
-      await testMap(arr.map)
-      await testSerialTime(arr.map)
+      await testMap(AsyncArray.map)
+      await testParallelTime(AsyncArray.map)
     })
     it('测试 filter', async () => {
-      await testFilter(arr.filter)
-      await testSerialTime(arr.filter)
+      await testFilter(AsyncArray.filter)
+      await testParallelTime(AsyncArray.filter)
     })
     it('测试 forEach', async () => {
-      await testForEach(arr.forEach)
-      await testSerialTime(arr.forEach)
-    })
-  })
-  describe('测试 ParallelAsyncArray', () => {
-    const arr = parallelAsyncArray
-    it('测试 reduce', async () => {
-      await testReduce(arr.reduce)
-    })
-    it('测试 map', async () => {
-      await testMap(arr.map)
-      await testParallelTime(arr.map)
-    })
-    it('测试 filter', async () => {
-      await testFilter(arr.filter)
-      await testParallelTime(arr.filter)
-    })
-    it('测试 forEach', async () => {
-      await testForEach(arr.forEach)
-      await testParallelTime(arr.forEach)
+      await testForEach(AsyncArray.forEach)
+      await testParallelTime(AsyncArray.forEach)
     })
   })
   describe('测试 AsyncArray', () => {
@@ -103,9 +76,7 @@ describe('测试 AsyncArray', () => {
         return i % 2 === 0
       })
       const res = await new AsyncArray(Array(10).fill(0))
-        .parallel()
         .map(async (_, i) => i)
-        .serial()
         .filter(fn)
       expect(res.every((i) => i % 2 === 0)).toBe(true)
     })

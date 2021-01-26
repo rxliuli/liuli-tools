@@ -9,7 +9,6 @@
     "docs:build": "fliegdoc build && gulp copyDocsFile",
     "docs:serve": "fliegdoc serve",
     "deploy": "yarn docs:build && gh-pages -d docs -t true",
-    "prepublishOnly": "yarn setup",
     "test": "lerna run test --parallel"
   },
   "workspaces": {

@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/cli",
-  "version": "2.6.0",
+  "version": "3.0.0",
   "description": "liuli-util 内部使用的 cli",
   "scripts": {
     "build": "npx @liuli-util/cli clean && tsc && npx @liuli-util/cli addCliBanner",

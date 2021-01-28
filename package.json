@@ -3,7 +3,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "setup": "yarn && lerna run build --scope @liuli-util/cli && lerna run build --ignore @liuli-util/cli --parallel && yarn",
+    "setup": "yarn && lerna run build --include-dependencies --stream && yarn",
     "fix:version": "syncpack fix-mismatches",
     "gen:readme": "gulp generateReadmes",
     "docs:build": "fliegdoc build && gulp copyDocsFile",

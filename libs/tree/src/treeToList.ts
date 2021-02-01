@@ -1,5 +1,5 @@
 import { TreeOption } from './treeOption'
-import { treeMap } from './treeMap'
+import { treeEach } from './treeEach'
 
 /**
  * 将一个树节点列表压平
@@ -12,11 +12,10 @@ export function treeToList<
   R extends T & { [K in C['path']]: NonNullable<T[C['id']]>[] }
 >(nodeList: T[], options: C): R[] {
   const res: R[] = []
-  treeMap(
+  treeEach(
     nodeList,
     (node, path) => {
       res.push({ ...node, [options.path]: path } as R)
-      return node
     },
     options,
   )

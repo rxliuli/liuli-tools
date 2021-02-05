@@ -5,7 +5,6 @@
   "scripts": {
     "build": "npx @liuli-util/cli clean && tsc && npx @liuli-util/cli addCliBanner",
     "clean": "npx @liuli-util/cli clean",
-    "test": "jest --all",
     "start": "ts-node src/bin.ts -h"
   },
   "bin": {

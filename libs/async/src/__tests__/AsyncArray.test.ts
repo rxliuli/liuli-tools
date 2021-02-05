@@ -17,6 +17,12 @@ describe('测试 AsyncArray', () => {
     expect(res).toEqual([2, 4, 6, 8, 10])
   }
 
+  async function testFlatMap(flatMap: Function) {
+    const arr = [1, 2, 3, 4, 5]
+    const res = await flatMap(arr, async (i: number) => Array(i).fill(0))
+    expect(res).toEqual(Array(arr.reduce((a, b) => a + b)).fill(0))
+  }
+
   async function testFilter(filter: Function) {
     const res = await filter(
       [1, 2, 3, 4, 5],
@@ -51,6 +57,10 @@ describe('测试 AsyncArray', () => {
       await testMap(AsyncArray.map)
       await testParallelTime(AsyncArray.map)
     })
+    it('测试 flatMap', async () => {
+      await testFlatMap(AsyncArray.flatMap)
+      await testParallelTime(AsyncArray.flatMap)
+    })
     it('测试 filter', async () => {
       await testFilter(AsyncArray.filter)
       await testParallelTime(AsyncArray.filter)
@@ -60,25 +70,13 @@ describe('测试 AsyncArray', () => {
       await testParallelTime(AsyncArray.forEach)
     })
   })
-  describe('测试 AsyncArray', () => {
+  describe('测试 AsyncArray 测试链式调用', () => {
     it('基本示例', async () => {
       const res = await new AsyncArray([1, 2, 3, 4, 5])
         .filter(async (i) => i % 2 === 0)
-        .map(async (i) => i * 2)
+        .flatMap(async (i) => Array(i).fill(0))
         .map(async (i) => i.toString())
-      expect(res as Expect<typeof res, string[]>).toEqual(['4', '8'])
-    })
-    it('测试串行并行转换', async () => {
-      const fn = jest.fn(async (i: number) => {
-        //模拟不同的异步操作时间不同
-        const num = Math.floor(Math.random() * 100)
-        await wait(num)
-        return i % 2 === 0
-      })
-      const res = await new AsyncArray(Array(10).fill(0))
-        .map(async (_, i) => i)
-        .filter(fn)
-      expect(res.every((i) => i % 2 === 0)).toBe(true)
+      expect(res as Expect<typeof res, string[]>).toEqual(Array(6).fill('0'))
     })
   })
 })

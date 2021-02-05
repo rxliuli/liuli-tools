@@ -5,6 +5,7 @@ enum ActionTypeEnum {
   Map = 'map',
   ForEach = 'forEach',
   Reduce = 'reduce',
+  FlatMap = 'flatMap',
 }
 
 class Action {
@@ -55,6 +56,15 @@ export class AsyncArray<T> implements PromiseLike<T[]> {
     return res
   }
 
+  static async flatMap<T, R>(
+    arr: T[],
+    fn: (item: T, index: number) => Promise<R[]>,
+  ): Promise<R[]> {
+    return (
+      await Promise.all(arr.map((item, index) => fn(item, index)))
+    ).flatMap((r) => r)
+  }
+
   static async forEach<T extends any[]>(
     arr: T,
     fn: (item: ValuesType<T>, index: number) => Promise<void>,
@@ -68,6 +78,11 @@ export class AsyncArray<T> implements PromiseLike<T[]> {
 
   map<R>(fn: (item: T, index: number) => Promise<R>): AsyncArray<R> {
     this.tasks.push(new Action(ActionTypeEnum.Map, [fn]))
+    return this as any
+  }
+
+  flatMap<R>(fn: (item: T, index: number) => Promise<R[]>): AsyncArray<R> {
+    this.tasks.push(new Action(ActionTypeEnum.FlatMap, [fn]))
     return this as any
   }
 
@@ -108,6 +123,9 @@ export class AsyncArray<T> implements PromiseLike<T[]> {
           break
         case ActionTypeEnum.Map:
           res = await AsyncArray.map(res, task.args[0])
+          break
+        case ActionTypeEnum.FlatMap:
+          res = await AsyncArray.flatMap(res, task.args[0])
           break
         case ActionTypeEnum.ForEach:
           await AsyncArray.forEach(res, task.args[0])

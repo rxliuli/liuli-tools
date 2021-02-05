@@ -1,10 +1,10 @@
-import { copyFile, readdir, readJson, writeFile } from 'fs-extra'
+import { copyFile, readdir, readJson, writeFile, writeJson } from 'fs-extra'
 import * as path from 'path'
 
 export function generateReadme({
-  name,
-  description,
-}: {
+                                 name,
+                                 description,
+                               }: {
   name: string
   description: string
 }) {
@@ -42,28 +42,43 @@ async function writeReadme(name: string, text: string) {
 
 const excludeLib = ['cli']
 
+async function scanAllSubPackage() {
+  const dirNameList = (await readdir('./libs')).filter(
+    (name) => !excludeLib.includes(name),
+  )
+  return await Promise.all(
+    dirNameList.map(async (name) => {
+      const file = path.resolve(__dirname, 'libs', name, 'package.json')
+      return [file, await readJson(file)] as const
+    }),
+  )
+}
+
 /**
  * 生成所有子模块的 README 文件
  */
 export async function generateReadmes() {
-  const dirNameList = (await readdir('./libs')).filter(
-    (name) => !excludeLib.includes(name),
-  )
-  const pkgJsonList = await Promise.all(
-    dirNameList.map((name) =>
-      readJson(path.resolve(__dirname, 'libs', name, 'package.json')),
-    ),
-  )
-  console.log(
-    pkgJsonList.map((item) => ({
-      name: item.name,
-      description: item.description,
-    })),
-  )
-  pkgJsonList.map((item) => {
+  const pkgJsonList = await scanAllSubPackage()
+  pkgJsonList.forEach(([, item]) => {
     const text = generateReadme(item)
     writeReadme(item.name, text)
   })
+}
+
+/**
+ * 给所有子模块写入 license 字段
+ */
+export async function writeLicense() {
+  const pkgJsonList = await scanAllSubPackage()
+  const rootPkg = await readJson('./package.json')
+  await Promise.all(pkgJsonList.map(async ([file, item]) => {
+      item.license = rootPkg.license
+      await writeJson(file, item, {
+        encoding: 'utf-8',
+        spaces: 2
+      })
+    })
+  )
 }
 
 /**

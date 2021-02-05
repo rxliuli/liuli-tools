@@ -91,6 +91,11 @@ export class AsyncArray<T> implements PromiseLike<T[]> {
     return this
   }
 
+  async forEach<R>(fn: (item: T, index: number) => Promise<R>): Promise<void> {
+    this.tasks.push(new Action(ActionTypeEnum.Map, [fn]))
+    await this
+  }
+
   then<TResult1 = T[], TResult2 = never>(
     resolve?:
       | ((value: T[]) => PromiseLike<TResult1> | TResult1)

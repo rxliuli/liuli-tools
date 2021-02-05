@@ -1,6 +1,7 @@
 import { AsyncArray } from '../AsyncArray'
 import { wait } from '../wait'
 import { countTime, Expect } from '@liuli-util/test'
+import * as console from 'console'
 
 describe('测试 AsyncArray', () => {
   async function testReduce(reduce: Function) {
@@ -77,6 +78,13 @@ describe('测试 AsyncArray', () => {
         .flatMap(async (i) => Array(i).fill(0))
         .map(async (i) => i.toString())
       expect(res as Expect<typeof res, string[]>).toEqual(Array(6).fill('0'))
+    })
+    it('测试 forEach', async () => {
+      const fn = jest.fn()
+      const arr = [1, 2, 3, 4, 5]
+      await new AsyncArray(arr).forEach(fn)
+      console.log(fn.mock.calls[0][0])
+      expect(fn.mock.calls.map((v) => v[0])).toEqual(arr)
     })
   })
 })

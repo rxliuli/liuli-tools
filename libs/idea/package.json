@@ -1,0 +1,23 @@
+{
+  "name": "@liuli-util/idea",
+  "version": "3.0.2",
+  "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "description": "一些 idea 想法",
+  "scripts": {
+    "build": "liuli-cli clean && liuli-cli build",
+    "clean": "liuli-cli clean",
+    "test": "jest --all"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f",
+  "license": "MIT"
+}

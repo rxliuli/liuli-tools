@@ -1,4 +1,4 @@
-import { ValuesType } from 'utility-types'
+import { IterableElement } from 'type-fest'
 
 enum ActionTypeEnum {
   Filter = 'filter',
@@ -26,11 +26,11 @@ class Action {
 export class AsyncArray<T> implements PromiseLike<T[]> {
   static reduce<T extends any[], R>(
     arr: T,
-    fn: (res: R, item: ValuesType<T>, index: number) => Promise<R>,
+    fn: (res: R, item: IterableElement<T>, index: number) => Promise<R>,
     res: R,
   ): Promise<R> {
     return arr.reduce(
-      (res: Promise<R>, item: ValuesType<T>, index: number) =>
+      (res: Promise<R>, item: IterableElement<T>, index: number) =>
         res.then((r) => fn(r, item, index)),
       Promise.resolve(res),
     )
@@ -67,7 +67,7 @@ export class AsyncArray<T> implements PromiseLike<T[]> {
 
   static async forEach<T extends any[]>(
     arr: T,
-    fn: (item: ValuesType<T>, index: number) => Promise<void>,
+    fn: (item: IterableElement<T>, index: number) => Promise<void>,
   ): Promise<void> {
     await AsyncArray.map(arr, fn)
   }

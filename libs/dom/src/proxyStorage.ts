@@ -1,4 +1,4 @@
-import { DeepReadonly } from 'utility-types'
+import { ReadonlyDeep } from 'type-fest'
 
 /**
  * 这个 class 存在的意义是为了屏蔽不同 storage 之间实现的差异，例如某些 Storage 可能有额外的属性
@@ -28,7 +28,7 @@ class WebStorage implements Storage {
 }
 
 type StorageObject<T> = {
-  [P in keyof T]: DeepReadonly<T[P]> | null
+  [P in keyof T]: ReadonlyDeep<T[P]> | null
 }
 
 /**

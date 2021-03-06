@@ -21,6 +21,6 @@ describe('测试 enhanceProxy', () => {
     }
     const res = enhanceProxy<U>({} as any, handler)
     expect(res.info.address.city).toBe('广州')
-    expect(() => console.log(res.info)).toThrowError()
+    expect(() => console.log(res.info.toString())).toThrowError()
   })
 })

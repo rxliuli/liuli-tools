@@ -1,4 +1,4 @@
-import { PromiseType } from 'utility-types'
+import { PromiseValue } from 'type-fest'
 
 /**
  * 将一个异步函数包装为具有时序的异步函数
@@ -8,7 +8,7 @@ import { PromiseType } from 'utility-types'
  */
 export function exhaustMap<T extends (...args: any[]) => Promise<any>>(
   fn: T,
-): (...args: Parameters<T>) => Promise<PromiseType<ReturnType<T>> | void> {
+): (...args: Parameters<T>) => Promise<PromiseValue<ReturnType<T>> | void> {
   let lock = false
   return async function (...args: any[]) {
     if (lock) {

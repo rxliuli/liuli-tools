@@ -1,4 +1,4 @@
-import { PromiseType } from 'utility-types'
+import { PromiseValue } from 'type-fest'
 
 /**
  * 重复执行指定的函数
@@ -9,7 +9,7 @@ import { PromiseType } from 'utility-types'
 export function repeatedCall<T extends (i: number) => Promise<any>>(
   fn: T,
   num: number,
-): Promise<PromiseType<ReturnType<T>>[]>
+): Promise<PromiseValue<ReturnType<T>>[]>
 export function repeatedCall<T extends (i: number) => any>(
   fn: T,
   num: number,

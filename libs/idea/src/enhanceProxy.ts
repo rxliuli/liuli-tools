@@ -1,6 +1,6 @@
-import { Overwrite } from 'utility-types'
+import { Merge } from 'type-fest'
 
-export type EnhanceProxyHandler<T extends object> = Overwrite<
+export type EnhanceProxyHandler<T extends object> = Merge<
   ProxyHandler<T>,
   {
     get?(target: T, path: PropertyKey[], receiver: any): any

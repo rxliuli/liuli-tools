@@ -9,13 +9,22 @@ function installDeps(deps: string[]) {
   })
 }
 
+async function mergeJson(json: object) {
+  const pkgJsonFilePath = path.resolve('./package.json')
+  await writeJson(
+    pkgJsonFilePath,
+    merge(await readJson(pkgJsonFilePath), json),
+    {
+      spaces: 2,
+    },
+  )
+}
+
 export async function addHusky() {
   installDeps(['husky@4.3.8', 'lint-staged'])
-  const pkgJsonFilePath = path.resolve('./package.json')
-  let json = await readJson(pkgJsonFilePath)
   //安装 prettier
   installDeps(['prettier'])
-  json = merge(json, {
+  await mergeJson({
     husky: {
       hooks: {
         'pre-commit': 'lint-staged',
@@ -35,7 +44,7 @@ export async function addHusky() {
   })
   //安装 commitlint
   installDeps(['@commitlint/cli', '@commitlint/config-conventional'])
-  json = merge(json, {
+  await mergeJson({
     husky: {
       hooks: {
         'commit-msg': 'yarn commitlint --edit $1',
@@ -44,8 +53,5 @@ export async function addHusky() {
     commitlint: {
       extends: ['@commitlint/config-conventional'],
     },
-  })
-  await writeJson(pkgJsonFilePath, json, {
-    spaces: 2,
   })
 }

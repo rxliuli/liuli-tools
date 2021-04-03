@@ -1,0 +1,12 @@
+{
+  "name": "@liuli-util/prettier-config-standard",
+  "version": "3.1.1",
+  "main": ".prettierrc.json",
+  "description": "个人项目通用的 prettier 配置",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "gitHead": "6ea18c1f87914ed06e689566195e07888367a4d7",
+  "license": "MIT"
+}

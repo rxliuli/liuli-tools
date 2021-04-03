@@ -1,12 +1,10 @@
-import { Command } from 'commander'
 import { OutputOptions, rollup } from 'rollup'
 import typescript from 'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser'
 import { readJson } from 'fs-extra'
 import * as path from 'path'
 
-const builder = new Command('build')
-builder.description('打包').action(async () => {
+export async function build() {
   const output: OutputOptions[] = [
     {
       // 打包名称
@@ -41,6 +39,4 @@ builder.description('打包').action(async () => {
   )
 
   await bundle.close()
-})
-
-export { builder }
+}

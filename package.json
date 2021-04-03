@@ -11,6 +11,15 @@
     "deploy": "yarn docs:build && gh-pages -d docs -t true",
     "test": "lerna run test --parallel"
   },
+  "prettier": {
+    "tabWidth": 2,
+    "printWidth": 80,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "arrowParens": "always",
+    "endOfLine": "crlf"
+  },
   "workspaces": {
     "packages": [
       "libs/*"

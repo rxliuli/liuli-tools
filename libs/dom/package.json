@@ -17,7 +17,8 @@
     "@liuli-util/array": "^3.2.0"
   },
   "devDependencies": {
-    "@liuli-util/async": "^3.2.0"
+    "@liuli-util/async": "^3.2.0",
+    "@liuli-util/cli": "*"
   },
   "publishConfig": {
     "access": "public",

@@ -5,8 +5,7 @@
   "main": "dist/index",
   "license": "MIT",
   "scripts": {
-    "build": "rollup -c",
-    "clean": "rimraf dist",
+    "build": "rimraf dist && rollup -c",
     "start": "ts-node src/bin.ts -h"
   },
   "bin": {

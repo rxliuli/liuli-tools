@@ -10,6 +10,9 @@
     "clean": "liuli-cli clean",
     "test": "jest --all"
   },
+  "devDependencies": {
+    "@liuli-util/cli": "*"
+  },
   "jest": {
     "preset": "ts-jest"
   },

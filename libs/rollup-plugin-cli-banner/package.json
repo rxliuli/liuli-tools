@@ -11,7 +11,8 @@
     "test": "jest --all"
   },
   "devDependencies": {
-    "rollup": "^2.47.0"
+    "rollup": "^2.47.0",
+    "@liuli-util/cli": "*"
   },
   "jest": {
     "preset": "ts-jest"

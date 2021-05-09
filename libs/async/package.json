@@ -14,7 +14,8 @@
     "preset": "ts-jest"
   },
   "devDependencies": {
-    "@liuli-util/test": "^3.2.0"
+    "@liuli-util/test": "^3.2.0",
+    "@liuli-util/cli": "*"
   },
   "publishConfig": {
     "access": "public",

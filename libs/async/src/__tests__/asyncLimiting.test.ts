@@ -1,6 +1,7 @@
 import { asyncLimiting } from '../asyncLimiting'
 import { wait } from '../wait'
 import { countTime } from '@liuli-util/test'
+import { AsyncArray } from '../AsyncArray'
 
 describe('test asyncLimiting', () => {
   it('simple example', async () => {
@@ -21,4 +22,17 @@ describe('test asyncLimiting', () => {
     fn(3).then(() => expect(sum).toBe(6))
     fn(4).then(() => expect(sum).toBe(10))
   })
+  it('测试并发数量不会超出限制', async () => {
+    let len = 0
+    await AsyncArray.map(
+      Array(10).fill(0),
+      asyncLimiting(async (_, i) => {
+        len++
+        await wait(Math.random() * 100)
+        console.log(i, len)
+        expect(len <= 2).toBeTruthy()
+        len--
+      }, 2),
+    )
+  }, 1_000)
 })

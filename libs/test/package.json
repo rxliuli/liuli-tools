@@ -11,7 +11,8 @@
     "test": "jest --all"
   },
   "devDependencies": {
-    "@liuli-util/cli": "*"
+    "@liuli-util/cli": "*",
+    "type-fest": "^1.1.1"
   },
   "jest": {
     "preset": "ts-jest"

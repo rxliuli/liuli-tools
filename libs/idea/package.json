@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/idea",
-  "version": "3.2.0",
+  "version": "3.2.2",
   "private": true,
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -15,7 +15,7 @@
     "preset": "ts-jest"
   },
   "devDependencies": {
-    "@liuli-util/cli": "*",
+    "@liuli-util/cli": "^3.2.2",
     "type-fest": "^1.1.1"
   },
   "publishConfig": {

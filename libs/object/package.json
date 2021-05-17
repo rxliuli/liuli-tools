@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/object",
-  "version": "3.2.0",
+  "version": "3.2.2",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -14,7 +14,7 @@
     "preset": "ts-jest"
   },
   "devDependencies": {
-    "@liuli-util/cli": "*"
+    "@liuli-util/cli": "^3.2.2"
   },
   "publishConfig": {
     "access": "public",

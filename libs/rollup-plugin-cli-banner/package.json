@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/rollup-plugin-cli-banner",
-  "version": "3.2.0",
+  "version": "3.2.2",
   "private": true,
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -12,8 +12,8 @@
     "test": "jest --all"
   },
   "devDependencies": {
-    "rollup": "^2.47.0",
-    "@liuli-util/cli": "*"
+    "@liuli-util/cli": "^3.2.2",
+    "rollup": "^2.47.0"
   },
   "jest": {
     "preset": "ts-jest"

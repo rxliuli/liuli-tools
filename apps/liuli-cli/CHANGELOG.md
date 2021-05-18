@@ -1,5 +1,9 @@
 # 更新日志
 
+## 3.3.1
+
+- 修复依赖 rollup-plugin-add-shebang 放在 dev 的错误
+
 ## 3.3.0
 
 - 将代码移至新的仓库：https://github.com/rxliuli/web-project-tools

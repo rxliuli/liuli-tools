@@ -6,7 +6,6 @@ import path from 'path'
 const buildProgram = new BuildProgram()
 export const buildCommand = new Command('build')
   .description('使用 rollup 将 ts lib 打包到 dist 目录，格式为 esm/cjs')
-  .option('-w --watch', '监视模式')
   .option('-c --config [config]', '使用自定义配置文件')
   .action(async (option: { watch?: boolean; config?: true | string }) => {
     if (!!option.config) {
@@ -34,7 +33,7 @@ export const buildCommand = new Command('build')
   .addCommand(
     new Command('cli')
       .description('使用 rollup 将 ts cli 打包到 dist 目录，格式为 esm/cjs')
-      .option('-w --watch', '监视模式')
+      .option('-w, --watch', '监视模式')
       .action(async (option: { watch?: boolean }) => {
         await buildProgram.buildCli(!!option.watch)
       }),

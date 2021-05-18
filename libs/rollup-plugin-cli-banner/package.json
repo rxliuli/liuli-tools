@@ -13,7 +13,8 @@
   },
   "devDependencies": {
     "rollup": "^2.47.0",
-    "@liuli-util/cli": "*"
+    "@liuli-util/cli": "*",
+    "typescript": "^4.2.4"
   },
   "jest": {
     "preset": "ts-jest"

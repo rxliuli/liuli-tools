@@ -1,7 +1,0 @@
-export * from './diffBy'
-export * from './groupBy'
-export * from './segmentation'
-export * from './swap'
-export * from './uniqueBy'
-export * from './arrayToMap'
-export * from './sortBy'

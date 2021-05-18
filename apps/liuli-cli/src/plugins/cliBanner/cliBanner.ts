@@ -1,9 +1,15 @@
-import type { NormalizedOutputOptions, OutputBundle, OutputChunk } from 'rollup'
+import type {
+  NormalizedOutputOptions,
+  OutputBundle,
+  OutputChunk,
+  Plugin,
+} from 'rollup'
 
-export function cliBanner() {
+export function cliBanner(): Plugin {
   const hashbang = '#!/usr/bin/env node'
 
   return {
+    name: '@liuli-util/rollup-plugin-cli-banner',
     generateBundle(
       options: NormalizedOutputOptions,
       bundle: OutputBundle,

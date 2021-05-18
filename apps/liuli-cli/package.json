@@ -5,8 +5,9 @@
   "main": "dist/index",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist && rollup -c",
-    "start": "ts-node src/bin.ts -h"
+    "build": "yarn dev clean && yarn dev build cli",
+    "watch": "yarn dev build cli -w",
+    "dev": "ts-node src/bin.ts"
   },
   "bin": {
     "liuli-cli": "dist/bin.js"
@@ -20,18 +21,21 @@
   },
   "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f",
   "dependencies": {
+    "@liuli-util/async": "^3.2.2",
     "commander": "^7.0.0",
+    "fs-extra": "^10.0.0",
     "lodash": "^4.17.21",
     "rollup": "^2.36.1",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.29.0",
-    "typescript": "^4.1.3",
-    "fs-extra": "^10.0.0"
+    "typescript": "^4.1.3"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.11",
-    "rimraf": "^3.0.2",
     "@types/lodash": "^4.14.168",
-    "@types/node": "^12.20.6"
+    "@types/node": "^12.20.6",
+    "rimraf": "^3.0.2",
+    "ts-node": "^9.1.1",
+    "type-fest": "^1.1.1"
   }
 }

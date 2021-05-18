@@ -1,17 +1,13 @@
 import { Command } from 'commander'
-import { build } from './build'
 import { test } from './test'
 import { addCliBanner } from './addCliBanner'
 import { clean } from './clean'
 import { addHusky } from './addHusky'
+import { buildCommand } from './commands/build'
 
 const main = new Command('liuli-cli')
 main
-  .addCommand(
-    new Command('build')
-      .description('使用 rollup 将 ts lib 打包到 dist 目录，格式为 esm/cjs')
-      .action(build),
-  )
+  .addCommand(buildCommand)
   .addCommand(new Command('clean').description('清理 dist 目录').action(clean))
   .addCommand(
     new Command('test:unit')

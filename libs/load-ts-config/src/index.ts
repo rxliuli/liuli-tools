@@ -1,1 +1,0 @@
-export { loadTSConfig } from './loadTSConfig'

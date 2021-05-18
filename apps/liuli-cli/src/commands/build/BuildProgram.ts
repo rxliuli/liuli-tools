@@ -3,7 +3,7 @@ import { AsyncArray } from '@liuli-util/async'
 import { readJson } from 'fs-extra'
 import typescript from 'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser'
-import { cliBanner } from '../../plugins/cliBanner'
+import shebang from 'rollup-plugin-add-shebang'
 
 export class BuildProgram {
   async build(options: RollupOptions[], isWatch: boolean) {
@@ -58,7 +58,13 @@ export class BuildProgram {
         {
           input: './src/bin.ts',
           external: external,
-          plugins: [typescript(), terser(), cliBanner()],
+          plugins: [
+            typescript(),
+            terser(),
+            shebang({
+              include: ['./dist/bin.js'],
+            }),
+          ],
           output: {
             file: './dist/bin.js',
             format: 'cjs',

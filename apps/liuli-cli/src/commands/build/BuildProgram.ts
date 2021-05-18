@@ -1,5 +1,4 @@
 import { OutputOptions, rollup, RollupOptions, watch } from 'rollup'
-import { AsyncArray } from '@liuli-util/async'
 import { readJson } from 'fs-extra'
 import typescript from 'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser'
@@ -11,18 +10,21 @@ export class BuildProgram {
       watch(options)
       return
     }
-    await AsyncArray.forEach(options, async (option) => {
-      const bundle = await rollup(option)
-      await AsyncArray.forEach(
-        (Array.isArray(option.output)
-          ? option.output
-          : [option.output]) as OutputOptions[],
-        async (output) => {
-          await bundle.write(output)
-        },
-      )
-      await bundle.close()
-    })
+    await Promise.all(
+      options.map(async (option) => {
+        const bundle = await rollup(option)
+        await Promise.all(
+          (
+            (Array.isArray(option.output)
+              ? option.output
+              : [option.output]) as OutputOptions[]
+          ).map(async (output) => {
+            await bundle.write(output)
+          }),
+        )
+        await bundle.close()
+      }),
+    )
   }
 
   async buildPkg(isWatch: boolean) {

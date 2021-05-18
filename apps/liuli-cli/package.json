@@ -2,7 +2,9 @@
   "name": "@liuli-util/cli",
   "version": "3.3.1",
   "description": "一个针对于库和 CLI 应用程序打包的零配置 CLI",
-  "main": "dist/index",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "build": "yarn dev clean && yarn dev build cli",
@@ -22,7 +24,6 @@
   },
   "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f",
   "dependencies": {
-    "@liuli-util/async": "^3.2.2",
     "commander": "^7.0.0",
     "fs-extra": "^10.0.0",
     "lodash": "^4.17.21",

@@ -1,5 +1,9 @@
 # 更新日志
 
+## 3.3.2
+
+- 删除 @liuli-util/async 依赖，避免麻烦的循环依赖问题
+
 ## 3.3.1
 
 - 修复依赖 rollup-plugin-add-shebang 放在 dev 的错误

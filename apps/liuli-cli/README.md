@@ -40,3 +40,8 @@ liuli-cli build cli # 打包 cli 引用程序
 | rollup   | 3.65s |
 
 > 现在 [vscode 插件打包官方推荐使用 esbuild](https://code.visualstudio.com/api/working-with-extensions/bundling-extension) ，吾辈在生产项目中也有过实践，长期而言吾辈比较看好这类更高性能的打包工具。
+
+### 为什么不能包含 @liuli-util 工具包
+
+这在 monorepo 项目中会导致循环依赖，即 `@liuli-util/cli` 依赖于 @liuli-util/async，在打包 @liuli-util/async 时，由于 monorepo 会替换 node_modules
+中的同名包，进而导致 `@liuli-util/async => @liuli-util/cli => @liuli-util/async` 的依赖查找失败的问题。

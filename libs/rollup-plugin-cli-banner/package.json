@@ -1,0 +1,27 @@
+{
+  "name": "@liuli-util/rollup-plugin-cli-banner",
+  "version": "3.2.0",
+  "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "description": "为 cli 添加顶部的 banner",
+  "scripts": {
+    "build": "liuli-cli clean && liuli-cli build",
+    "clean": "liuli-cli clean",
+    "test": "jest --all"
+  },
+  "devDependencies": {
+    "rollup": "^2.47.0",
+    "@liuli-util/cli": "*"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f",
+  "license": "MIT"
+}

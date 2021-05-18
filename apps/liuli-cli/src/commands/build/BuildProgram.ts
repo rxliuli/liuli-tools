@@ -3,6 +3,8 @@ import { readJson } from 'fs-extra'
 import typescript from 'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser'
 import shebang from 'rollup-plugin-add-shebang'
+import json from '@rollup/plugin-json'
+import externals from 'rollup-plugin-node-externals'
 
 export class BuildProgram {
   async build(options: RollupOptions[], isWatch: boolean) {
@@ -46,7 +48,7 @@ export class BuildProgram {
         ({
           input: './src/index.ts',
           external: external,
-          plugins: [typescript(), terser()],
+          plugins: [typescript(), externals(), json(), terser()],
           output,
         } as RollupOptions),
     )
@@ -62,6 +64,8 @@ export class BuildProgram {
           external: external,
           plugins: [
             typescript(),
+            externals(),
+            json(),
             terser(),
             shebang({
               include: ['./dist/bin.js'],

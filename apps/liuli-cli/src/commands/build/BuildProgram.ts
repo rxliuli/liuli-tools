@@ -63,7 +63,14 @@ export class BuildProgram {
           input: './src/bin.ts',
           external: external,
           plugins: [
-            typescript(),
+            typescript({
+              tsconfigOverride: {
+                compilerOptions: {
+                  declaration: false,
+                  declarationMap: false,
+                },
+              },
+            }),
             externals(),
             json(),
             terser(),

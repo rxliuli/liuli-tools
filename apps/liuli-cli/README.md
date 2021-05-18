@@ -18,6 +18,12 @@ liuli-cli build pkg # 打包库
 liuli-cli build cli # 打包 cli 引用程序
 ```
 
+## 其它命令
+
+- `clean`: 删除 `dist` 目录，废弃预定，吾辈在考虑打包之前是否自动清理目录
+- `addHusky`: 为项目添加一些必须的钩子，包括代码格式、git 提交信息规范化。可能有更好的形式，例如 vue 的可插拔的分别添加或者生成模板项目
+- `addCliBanner`: 为 nodejs cli 最终生成的 js 文件顶部添加 `#!/usr/bin/env node`，已废弃，被更方便的 `build cli` 替代
+
 ## 设计理念
 
 - 约定大于配置，如果可能应该不提供配置。VitePress 也是这样做的，参考：https://vitepress.vuejs.org/#lighter-page-weight

@@ -1,5 +1,9 @@
 # 更新日志
 
+## 3.3.3
+
+- feat(@liuli-util/cli): 默认包含 rollup 插件 @rollup/plugin-json 和 rollup-plugin-node-externals
+
 ## 3.3.2
 
 - 删除 @liuli-util/async 依赖，避免麻烦的循环依赖问题

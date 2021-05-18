@@ -1,0 +1,44 @@
+{
+  "name": "web-project-tools",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "clean": "lerna run clean --parallel && lerna clean -y && rimraf node_modules",
+    "runstream": "lerna run --include-dependencies --stream",
+    "setup": "yarn && yarn runstream setup && yarn",
+    "build": "yarn runstream build"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "printWidth": 80,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "arrowParens": "always",
+    "endOfLine": "crlf"
+  },
+  "workspaces": {
+    "packages": [
+      "libs/*",
+      "apps/*",
+      "examples/*"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "yarn commitlint --edit $1"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.{ts,tsx,css,md,json}": [
+      "prettier --ignore-path .eslintignore --write",
+      "git add"
+    ]
+  }
+}

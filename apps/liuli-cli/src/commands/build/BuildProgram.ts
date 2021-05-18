@@ -72,8 +72,10 @@ export class BuildProgram {
   }
 
   private static async scanExternal() {
+    const json = await readJson('./package.json')
     return [
-      ...Object.keys((await readJson('./package.json')).dependencies || {}),
+      ...Object.keys(json.dependencies || {}),
+      ...Object.keys(json.devDependencies || {}),
     ]
   }
 }

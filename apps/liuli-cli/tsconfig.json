@@ -11,7 +11,6 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "pretty": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -21,12 +20,8 @@
     "allowJs": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "src/__tests__"
-  ],
+  "include": ["src"],
+  "exclude": ["src/__tests__"],
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"

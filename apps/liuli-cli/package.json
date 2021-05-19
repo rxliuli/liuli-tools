@@ -9,7 +9,6 @@
   "scripts": {
     "build": "yarn dev clean && yarn dev build cli",
     "watch": "yarn dev build cli --watch",
-    "test": "yarn dev build -c",
     "dev": "ts-node src/bin.ts"
   },
   "bin": {

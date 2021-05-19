@@ -11,7 +11,7 @@ yarn add -D @liuli-util/cli # 局部安装
 npm i -g @liuli-util/cli # 全局安装
 ```
 
-打包库
+打包
 
 ```sh
 liuli-cli build pkg # 打包库

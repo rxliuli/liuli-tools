@@ -2,7 +2,13 @@
 
 # Changelog
 
-## [0.1.0]
+## [0.1.2]
+
+### Fixed
+
+- Fix the error that README and CHANGELOG are not read
+
+## [0.1.1]
 
 ### Added
 

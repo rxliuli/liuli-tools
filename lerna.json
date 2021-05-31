@@ -1,5 +1,10 @@
 {
-  "packages": ["libs/*", "apps/*", "examples/*"],
+  "packages": [
+    "libs/*",
+    "apps/*",
+    "examples/*",
+    "templates/*"
+  ],
   "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true

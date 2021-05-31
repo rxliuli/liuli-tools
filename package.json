@@ -21,7 +21,8 @@
     "packages": [
       "libs/*",
       "apps/*",
-      "examples/*"
+      "examples/*",
+      "templates/*"
     ]
   },
   "husky": {

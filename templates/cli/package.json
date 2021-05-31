@@ -1,0 +1,39 @@
+{
+  "name": "@liuli-util/cli-template",
+  "private": true,
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "liuli-cli clean && liuli-cli build cli",
+    "watch": "liuli-cli build cli --watch",
+    "dev": "ts-node src/bin.ts"
+  },
+  "bin": {
+    "cli-name": "dist/bin.js"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "dependencies": {
+    "commander": "^7.0.0",
+    "inquirer": "^8.1.0",
+    "fs-extra": "^10.0.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^7.3.1",
+    "@liuli-util/cli": "^3.4.0",
+    "@types/fs-extra": "^9.0.11",
+    "@types/jest": "^26.0.23",
+    "@types/lodash": "^4.14.168",
+    "@types/node": "^12.20.6",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.6",
+    "ts-node": "^9.1.1",
+    "type-fest": "^1.1.1",
+    "typescript": "^4.1.3"
+  }
+}

@@ -2,6 +2,16 @@
 
 # Changelog
 
+## [0.1.3]
+
+### Changed
+
+- docs: Screenshots are no longer included in the introduction
+
+### Fixed
+
+- fix: Fix an issue with using the outdated API IconLoader.getIcon
+
 ## [0.1.2]
 
 ### Fixed

@@ -2,9 +2,9 @@
 
 <!-- Plugin description -->
 The integration of Vite scaffolding in JetBrains IDE is mainly responsible for creating a project directly using the IDE's boot panel.
+<!-- Plugin description end -->
 
 ![image](https://user-images.githubusercontent.com/24560368/119949505-85906b00-bfcc-11eb-9cee-d1082f4923d0.png)
-<!-- Plugin description end -->
 
 ## Roadmap
 

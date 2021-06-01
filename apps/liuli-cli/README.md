@@ -30,6 +30,7 @@ liuli-cli build cli # 打包 cli 引用程序
   这会导致一些约束，包括以下内容
   - 打包库时入口文件必须是 `src/index.ts`，出口文件则是 `dist/index.esm.js` 与 `dist/index.js`
   - 打包 CLI 时入口文件必须是 `src/bin.ts`，出口文件则是 `dist/bin.js`
+  - 会将所有的依赖作为外部依赖处理
 
 ## FAQ
 

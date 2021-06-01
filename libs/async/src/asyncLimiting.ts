@@ -16,7 +16,6 @@ export function asyncLimiting<T extends (...args: any[]) => Promise<any>>(
       const res = execCount < limit
       // 如果等待结束则必须立刻增加 execCount，避免微任务与宏任务调度可能产生错误
       if (res) {
-        console.log(args[1], execCount)
         execCount++
       }
       return res
@@ -24,7 +23,6 @@ export function asyncLimiting<T extends (...args: any[]) => Promise<any>>(
     try {
       return await fn(...args)
     } finally {
-      console.log(args[1], execCount)
       execCount--
     }
   } as T

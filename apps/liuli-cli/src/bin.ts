@@ -4,10 +4,12 @@ import { addCliBanner } from './addCliBanner'
 import { clean } from './clean'
 import { addHusky } from './addHusky'
 import { buildCommand } from './commands/build'
+import { initCommand } from './commands/init'
 
 const main = new Command('liuli-cli')
 main
   .addCommand(buildCommand)
+  .addCommand(initCommand)
   .addCommand(new Command('clean').description('清理 dist 目录').action(clean))
   .addCommand(
     new Command('test:unit')

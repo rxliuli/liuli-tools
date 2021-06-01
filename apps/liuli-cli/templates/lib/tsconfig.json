@@ -1,9 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     "outDir": "./dist",
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -22,12 +20,8 @@
     "allowJs": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "src/__tests__"
-  ],
+  "include": ["src"],
+  "exclude": ["src/__tests__"],
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"

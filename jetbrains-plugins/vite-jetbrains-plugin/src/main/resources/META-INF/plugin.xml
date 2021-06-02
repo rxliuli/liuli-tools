@@ -1,0 +1,21 @@
+<idea-plugin>
+    <id>com.rxliuli.vite-jetbrains-plugin</id>
+    <name>Vite Integrated</name>
+    <vendor email="rxliuli@gmail.com" url="https://github.com/rxliuli/vite-jetbrains-plugin">rxliuli</vendor>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>JavaScript</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <directoryProjectGenerator
+                implementation="com.rxliuli.vite.cli.ViteCliProjectGenerator"/>  <!-- works in WebStorm and other SmallIDEs -->
+        <projectTemplatesFactory
+                implementation="com.rxliuli.vite.cli.ViteProjectTemplateFactory"/> <!-- works in IntelliJ IDEA -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>

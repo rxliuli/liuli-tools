@@ -2,6 +2,12 @@
 
 # Changelog
 
+## [0.1.4]
+
+### Changed
+
+- Migrate to <https://github.com/rxliuli/web-project-tools/tree/master/jetbrains-plugins/vite-jetbrains-plugin>
+
 ## [0.1.3]
 
 ### Changed

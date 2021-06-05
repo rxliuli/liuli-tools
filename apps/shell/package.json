@@ -1,0 +1,45 @@
+{
+  "name": "@liuli-util/shell",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "setup": "yarn build",
+    "build": "yarn dev rm dist && rollup -c",
+    "watch": "rollup -cw",
+    "dev": "ts-node src/bin.ts",
+    "test": "rm dist"
+  },
+  "bin": {
+    "shell": "dist/bin.js",
+    "rm": "dist/rm.js",
+    "cp": "dist/cp.js",
+    "mv": "dist/mv.js",
+    "mkdir": "dist/mkdir.js"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "dependencies": {
+    "commander": "^7.0.0",
+    "inquirer": "^8.1.0",
+    "fs-extra": "^10.0.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "rollup": "^2.50.6",
+    "@types/inquirer": "^7.3.1",
+    "@liuli-util/cli": "^3.4.0",
+    "@types/fs-extra": "^9.0.11",
+    "@types/jest": "^26.0.23",
+    "@types/lodash": "^4.14.168",
+    "@types/node": "^12.20.6",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.6",
+    "ts-node": "^9.1.1",
+    "type-fest": "^1.1.1",
+    "typescript": "^4.1.3"
+  }
+}

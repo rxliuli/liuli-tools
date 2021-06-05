@@ -9,7 +9,16 @@ import externals from 'rollup-plugin-node-externals'
 export class BuildProgram {
   async build(options: RollupOptions[], isWatch: boolean) {
     if (isWatch) {
-      watch(options)
+      watch(
+        options.map((option) => {
+          return {
+            ...option,
+            plugins: option.plugins?.filter(
+              (plugin) => plugin.name !== 'terser',
+            ),
+          }
+        }),
+      )
       return
     }
     await Promise.all(

@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/async",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@liuli-util/cli": "^3.3.2",
-    "@liuli-util/test": "^3.2.2",
+    "@liuli-util/test": "^3.2.3",
     "type-fest": "^1.1.1"
   },
   "publishConfig": {

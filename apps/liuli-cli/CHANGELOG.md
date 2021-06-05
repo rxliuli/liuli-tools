@@ -1,6 +1,17 @@
 # 更新日志
 
-## 3.3.3
+## 3.4.1
+
+- fix(@liuli-util/cli): 修复在监视模式下仍然使用 terser 插件的错误
+- feat(@liuli-util/cli): 实现基本的模板项目生成命令（支持 cli/lib）
+- refactor(root): 将 templates/ 目录移至 apps/liuli-cli 下便于直接复制模板项目
+- docs(@liuli-util/cli): 更新 README，更新设计理念
+- build(@liuli-util/cli): 添加 setup 初始化脚本，将 typescript 作为开发时依赖
+- docs(@liuli-util/cli): 更新 README **打包库 => 打包**
+- feat(@liuli-util/cli): 删除根据配置打包的功能
+- feat(@liuli-util/cli): 生成 cli 的时候默认不生成类型定义
+
+## 3.4.0
 
 - feat(@liuli-util/cli): 默认包含 rollup 插件 @rollup/plugin-json 和 rollup-plugin-node-externals
 

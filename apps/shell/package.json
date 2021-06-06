@@ -24,9 +24,7 @@
   },
   "dependencies": {
     "commander": "^7.0.0",
-    "inquirer": "^8.1.0",
-    "fs-extra": "^10.0.0",
-    "lodash": "^4.17.21"
+    "fs-extra": "^10.0.0"
   },
   "devDependencies": {
     "rollup": "^2.50.6",

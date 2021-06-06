@@ -1,5 +1,10 @@
 # 更新日志
 
+## 3.4.2
+
+- feat(@liuli-util/cli): 添加 define 定义 rollup 配置的辅助函数
+- feat(@liuli-util/cli): 使用 shell rm 代替 liuli-cli clean
+
 ## 3.4.1
 
 - fix(@liuli-util/cli): 修复在监视模式下仍然使用 terser 插件的错误

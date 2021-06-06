@@ -1,0 +1,9 @@
+{
+  "name": "@types/rollup-plugin-auto-external",
+  "version": "2.0.0",
+  "types": "./index.d.ts",
+  "private": true,
+  "devDependencies": {
+    "rollup": "^2.51.0"
+  }
+}

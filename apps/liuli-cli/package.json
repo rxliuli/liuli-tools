@@ -7,9 +7,9 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "setup": "yarn build",
-    "build": "rm dist && yarn dev build cli",
-    "watch": "yarn dev build cli --watch",
+    "setup": "yarn build && lerna clean -y && yarn",
+    "build": "rimraf dist && yarn dev build cli",
+    "watch": "yarn dev build cli -w",
     "dev": "ts-node src/bin.ts"
   },
   "bin": {
@@ -30,8 +30,9 @@
     "fs-extra": "^10.0.0",
     "inquirer": "^8.1.0",
     "lodash": "^4.17.21",
-    "rollup": "^2.36.1",
+    "rollup": "^2.51.0",
     "rollup-plugin-add-shebang": "^0.3.1",
+    "rollup-plugin-auto-external": "^2.0.0",
     "rollup-plugin-node-externals": "^2.2.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.29.0"
@@ -40,7 +41,6 @@
     "@types/rollup-plugin-auto-external": "^2.0.0",
     "@types/fs-extra": "^9.0.11",
     "@types/inquirer": "^7.3.1",
-    "@types/fs-extra": "^9.0.11",
     "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.168",
     "@types/node": "^12.20.6",

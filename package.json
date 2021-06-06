@@ -9,7 +9,7 @@
     "gen:readme": "gulp generateReadmes",
     "docs:build": "fliegdoc build && gulp copyDocsFile",
     "docs:serve": "fliegdoc serve",
-    "deploy": "yarn docs:build && gh-pages -d docs -t true",
+    "docs:deploy": "yarn docs:build && gh-pages -d docs -t true",
     "test": "lerna run test --parallel"
   },
   "prettier": {

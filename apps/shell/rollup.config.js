@@ -3,10 +3,13 @@ import externals from 'rollup-plugin-node-externals'
 import { terser } from 'rollup-plugin-terser'
 import shebang from 'rollup-plugin-add-shebang'
 
+const external = ['commander', 'fs-extra']
+
 export default [
   {
     input: './src/index.ts',
     plugins: [typescript(), externals(), terser()],
+    external: external,
     output: [
       {
         file: 'dist/index.js',
@@ -22,6 +25,7 @@ export default [
   },
   ...['bin', 'mv', 'rm', 'mkdir', 'cp'].map((cmd) => ({
     input: `src/${cmd}.ts`,
+    external: external,
     output: {
       file: `dist/${cmd}.js`,
       format: 'cjs',

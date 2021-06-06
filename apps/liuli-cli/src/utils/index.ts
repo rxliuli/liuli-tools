@@ -1,1 +1,1 @@
-export * from './TypeScriptConfigFile'
+export * from './loadTypeScriptConfig'

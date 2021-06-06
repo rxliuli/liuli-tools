@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
     "setup": "yarn build && lerna clean -y && yarn",
-    "build": "yarn dev rm dist && rollup -c",
-    "watch": "rollup -cw",
+    "build": "yarn dev rm dist && liuli-cli build config",
+    "watch": "liuli-cli build config -w",
     "dev": "ts-node src/bin.ts",
     "test": "rm dist"
   },
@@ -35,6 +35,7 @@
     "fs-extra": "^10.0.0"
   },
   "devDependencies": {
+    "@liuli-util/cli": "*",
     "rollup": "^2.50.6",
     "@types/inquirer": "^7.3.1",
     "@types/fs-extra": "^9.0.11",

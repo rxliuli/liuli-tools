@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "setup": "yarn build",
+    "setup": "yarn build && lerna clean -y && yarn",
     "build": "yarn dev rm dist && rollup -c",
     "watch": "rollup -cw",
     "dev": "ts-node src/bin.ts",
@@ -33,7 +33,6 @@
   "devDependencies": {
     "rollup": "^2.50.6",
     "@types/inquirer": "^7.3.1",
-    "@liuli-util/cli": "^3.4.0",
     "@types/fs-extra": "^9.0.11",
     "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.168",

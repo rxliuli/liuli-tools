@@ -1,2 +1,2 @@
 export * from './commands/build/BuildProgram'
-export * from './utils/define'
+export * from './utils/defineConfig'

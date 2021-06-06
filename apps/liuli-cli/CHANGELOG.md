@@ -1,5 +1,10 @@
 # 更新日志
 
+## 3.4.3
+
+- feat(@liuli-util/cli): 修改名字 define => defineConfig，与 vite 保持一致
+- feat(@liuli-util/cli): define 辅助函数支持 RollupOptions | RollupOptions[]
+
 ## 3.4.2
 
 - feat(@liuli-util/cli): 添加 define 定义 rollup 配置的辅助函数

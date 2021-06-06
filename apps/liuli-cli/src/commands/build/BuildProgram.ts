@@ -1,10 +1,10 @@
 import { OutputOptions, rollup, RollupOptions, watch } from 'rollup'
-import { readJson } from 'fs-extra'
 import typescript from 'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser'
 import shebang from 'rollup-plugin-add-shebang'
 import json from '@rollup/plugin-json'
 import externals from 'rollup-plugin-node-externals'
+import autoExternal from 'rollup-plugin-auto-external'
 
 export class BuildProgram {
   async build(options: RollupOptions[], isWatch: boolean) {
@@ -51,13 +51,17 @@ export class BuildProgram {
         sourcemap: true,
       },
     ]
-    const external = await BuildProgram.scanExternal()
     const rollupOptions = outputOptions.map(
       (output) =>
         ({
           input: './src/index.ts',
-          external: external,
-          plugins: [typescript(), externals(), json(), terser()],
+          plugins: [
+            typescript(),
+            autoExternal(),
+            externals(),
+            json(),
+            terser(),
+          ],
           output,
         } as RollupOptions),
     )
@@ -65,12 +69,10 @@ export class BuildProgram {
   }
 
   async buildCli(isWatch: boolean) {
-    const external = await BuildProgram.scanExternal()
     await this.build(
       [
         {
           input: './src/bin.ts',
-          external: external,
           plugins: [
             typescript({
               tsconfigOverride: {
@@ -80,6 +82,7 @@ export class BuildProgram {
                 },
               },
             }),
+            autoExternal(),
             externals(),
             json(),
             terser(),
@@ -97,13 +100,5 @@ export class BuildProgram {
       isWatch,
     )
     await this.buildPkg(isWatch)
-  }
-
-  private static async scanExternal() {
-    const json = await readJson('./package.json')
-    return [
-      ...Object.keys(json.dependencies || {}),
-      ...Object.keys(json.devDependencies || {}),
-    ]
   }
 }

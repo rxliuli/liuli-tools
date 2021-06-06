@@ -1,5 +1,17 @@
 # 更新日志
 
+## 3.5.0
+
+- feat(@types/rollup-plugin-auto-external): 在给 DefinitelyTyped 提的 PR 没有通过前的一个临时模块
+- chore(@liuli-util/cli): 使用 liuli-cli build config 提到 rollup，以使用 ts 配置文件
+- refactor(@liuli-util/cli): 将默认导出 utils/ 下的工具类
+- feat(@liuli-util/cli): 支持使用 liuli-cli build config 命令，默认读取 rollup.config.ts 配置文件
+- chore(@liuli-util/cli): 删除 @liuli-util/shell 的依赖，升级 rollup 版本
+- feat(@liuli-util/cli): 使用 rollup-plugin-auto-external 插件替代 scanExternal 函数
+- fix(@liuli-util/cli): 修复使用 ts-node 运行代码时仍然注册 ts-node 的错误
+- docs(root): 使用 ts-node 替代 rollup 编译配置文件的做法
+- docs(root): 更新 repository.url 为 github 上子模块的 url
+
 ## 3.4.3
 
 - feat(@liuli-util/cli): 修改名字 define => defineConfig，与 vite 保持一致

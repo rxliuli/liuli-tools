@@ -7,8 +7,8 @@
   "types": "dist/index.d.ts",
   "description": "一些 idea 想法",
   "scripts": {
-    "build": "liuli-cli clean && liuli-cli build",
-    "clean": "liuli-cli clean",
+    "build": "rm dist && liuli-cli build",
+    "clean": "rm dist",
     "test": "jest --all"
   },
   "jest": {
@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@liuli-util/cli": "^3.3.2",
+    "@liuli-util/shell": "^0.1.0",
     "type-fest": "^1.1.1"
   },
   "publishConfig": {

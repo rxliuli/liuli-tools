@@ -6,12 +6,13 @@
   "types": "dist/index.d.ts",
   "description": "辅助其他模块测试的工具函数库",
   "scripts": {
-    "build": "liuli-cli clean && liuli-cli build",
-    "clean": "liuli-cli clean",
+    "build": "rm dist && liuli-cli build",
+    "clean": "rm dist",
     "test": "jest --all"
   },
   "devDependencies": {
     "@liuli-util/cli": "^3.3.2",
+    "@liuli-util/shell": "^0.1.0",
     "type-fest": "^1.1.1"
   },
   "jest": {

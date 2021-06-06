@@ -8,8 +8,6 @@
 
 ```shell
 yarn add -D @liuli-util/shell
-# 或全局安装
-npm i -g @liuli-util/shell
 ```
 
 命令
@@ -47,3 +45,7 @@ mv images/ dist/
 | 是否覆盖系统命令 | 是                | 否      |
 | 是否增强命令     | 是                | 否      |
 | 底层依赖         | fs-extra          | shelljs |
+
+### 为什么全局安装没有覆盖系统命令？
+
+由于环境变量的加载顺序导致无法覆盖，你应该在项目级别使用它。

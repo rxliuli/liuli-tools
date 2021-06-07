@@ -1,9 +1,11 @@
 package com.rxliuli.vite.cli
 
 import com.intellij.execution.filters.Filter
+import com.intellij.ide.util.PropertiesComponent
 import com.intellij.ide.util.projectWizard.SettingsStep
 import com.intellij.lang.javascript.boilerplate.NpmPackageProjectGenerator
 import com.intellij.lang.javascript.boilerplate.NpxPackageDescriptor
+import com.intellij.openapi.module.Module
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ContentEntry
 import com.intellij.openapi.util.Key
@@ -50,6 +52,7 @@ class ViteCliProjectGenerator : NpmPackageProjectGenerator() {
     }
 
     val settingsTemplateKey = Key.create<String>("template")
+    val globalSettings: PropertiesComponent = PropertiesComponent.getInstance()
 
     override fun createPeer(): ProjectGeneratorPeer<Settings> {
         val pluginNameTextField = JBList(
@@ -70,7 +73,12 @@ class ViteCliProjectGenerator : NpmPackageProjectGenerator() {
         return object : NpmPackageGeneratorPeer() {
             override fun buildUI(settingsStep: SettingsStep) {
                 super.buildUI(settingsStep)
-                pluginNameTextField.setSelectedValue("react-ts", true)
+                if (pluginNameTextField.isSelectionEmpty) {
+                    pluginNameTextField.setSelectedValue(
+                        globalSettings.getValue(ViteSettingsConstants.template, "react-ts"),
+                        true
+                    )
+                }
                 settingsStep.addSettingsField(
                     UIUtil.replaceMnemonicAmpersand(
                         ViteMessage.msg("vite.project.generator.settings.template")
@@ -91,7 +99,8 @@ class ViteCliProjectGenerator : NpmPackageProjectGenerator() {
     }
 
     override fun generatorArgs(project: Project, baseDir: VirtualFile, settings: Settings): Array<String> {
-        val template = settings.getUserData<String>(settingsTemplateKey)
+        val template = settings.getUserData(settingsTemplateKey)
+        globalSettings.setValue(ViteSettingsConstants.template, template)
         return arrayOf(" ${baseDir.name} --template $template")
     }
 

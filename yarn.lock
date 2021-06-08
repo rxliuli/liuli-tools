@@ -771,6 +771,13 @@
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.2.3.tgz#ef65165aea2924c9359205bf748865b8881753c0"
   integrity sha512-PijRCG/K3s3w1We6ynUKdxEc5AcuuH3NBmMDP8uvKVp6X43UY7NQlTzczakXP3DJR0F4dfNQIGjU2cUeRYs2AA==
 
+"@types/rollup-plugin-auto-external@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/rollup-plugin-auto-external/-/rollup-plugin-auto-external-2.0.0.tgz#58457e754accdcda249417c22e4e122c36ddd839"
+  integrity sha512-Q5Af4DxspsynVxU6FTWnh/Y3pRAuNufneaQJG5puafPGYkTB/ZgzfTQ/2iYG2Ki6oJoLmUYgLi79z3f5wK1j8w==
+  dependencies:
+    rollup "^2.0.0"
+
 "@types/stack-utils@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.0.tgz#7036640b4e21cc2f259ae826ce843d277dad8cff"
@@ -4019,7 +4026,7 @@ rollup-pluginutils@^2.8.1:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^2.51.0:
+rollup@^2.0.0, rollup@^2.51.0:
   version "2.51.0"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.51.0.tgz#ffd847882283998fc8611cd57af917f173b4ab5c"
   integrity sha512-ITLt9sScNCBVspSHauw/W49lEZ0vjN8LyCzSNsNaqT67vTss2lYEfOyxltX8hjrhr1l/rQwmZ2wazzEqhZ/fUg==

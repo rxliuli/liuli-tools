@@ -1,22 +1,23 @@
 package com.rxliuli.vite.cli
 
 import com.intellij.execution.filters.Filter
-import com.intellij.ide.util.PropertiesComponent
 import com.intellij.ide.util.projectWizard.SettingsStep
 import com.intellij.lang.javascript.boilerplate.NpmPackageProjectGenerator
 import com.intellij.lang.javascript.boilerplate.NpxPackageDescriptor
-import com.intellij.openapi.module.Module
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ContentEntry
+import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.platform.ProjectGeneratorPeer
-import com.intellij.ui.components.JBList
 import com.intellij.util.ui.UIUtil
 import com.rxliuli.vite.ViteIcons
 import com.rxliuli.vite.ViteMessage
+import com.rxliuli.vite.settings.AppSettingsState
+import org.jetbrains.annotations.Nullable
 import java.io.File
-import javax.swing.*
+import javax.swing.DefaultComboBoxModel
+import javax.swing.Icon
 
 class ViteCliProjectGenerator : NpmPackageProjectGenerator() {
     private val packageName = "@vitejs/create-app"
@@ -52,38 +53,23 @@ class ViteCliProjectGenerator : NpmPackageProjectGenerator() {
     }
 
     val settingsTemplateKey = Key.create<String>("template")
-    val globalSettings: PropertiesComponent = PropertiesComponent.getInstance()
+    private val globalSettings: AppSettingsState = AppSettingsState.instance
 
     override fun createPeer(): ProjectGeneratorPeer<Settings> {
-        val pluginNameTextField = JBList(
-            "vanilla",
-            "vanilla-ts",
-            "vue",
-            "vue-ts",
-            "react",
-            "react-ts",
-            "preact",
-            "preact-ts",
-            "lit-element",
-            "lit-element-ts",
-            "svelte",
-            "svelte-ts",
-        )
+        val templateComponent = ComboBox(DefaultComboBoxModel(globalSettings.templates))
 
         return object : NpmPackageGeneratorPeer() {
+            init {
+                templateComponent.selectedItem = globalSettings.template
+            }
+
             override fun buildUI(settingsStep: SettingsStep) {
                 super.buildUI(settingsStep)
-                if (pluginNameTextField.isSelectionEmpty) {
-                    pluginNameTextField.setSelectedValue(
-                        globalSettings.getValue(ViteSettingsConstants.template, "react-ts"),
-                        true
-                    )
-                }
                 settingsStep.addSettingsField(
                     UIUtil.replaceMnemonicAmpersand(
                         ViteMessage.msg("vite.project.generator.settings.template")
                     ),
-                    pluginNameTextField
+                    templateComponent
                 )
             }
 
@@ -91,7 +77,7 @@ class ViteCliProjectGenerator : NpmPackageProjectGenerator() {
                 val settings = super.getSettings()
                 settings.putUserData(
                     settingsTemplateKey,
-                    pluginNameTextField.selectedValue
+                    templateComponent.selectedItem as @Nullable String
                 )
                 return settings
             }
@@ -100,7 +86,7 @@ class ViteCliProjectGenerator : NpmPackageProjectGenerator() {
 
     override fun generatorArgs(project: Project, baseDir: VirtualFile, settings: Settings): Array<String> {
         val template = settings.getUserData(settingsTemplateKey)
-        globalSettings.setValue(ViteSettingsConstants.template, template)
+        globalSettings.template = template!!
         return arrayOf(" ${baseDir.name} --template $template")
     }
 

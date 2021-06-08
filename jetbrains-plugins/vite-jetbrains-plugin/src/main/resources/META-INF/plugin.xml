@@ -17,7 +17,7 @@
         <applicationService serviceImplementation="com.rxliuli.vite.settings.AppSettingsState"/>
         <applicationConfigurable parentId="tools" instance="com.rxliuli.vite.settings.AppSettingsConfigurable"
                                  id="com.rxliuli.vite.settings.AppSettingsConfigurable"
-                                 displayName="SDK: Application Settings Example"/>
+                                 displayName="Vite Settings"/>
     </extensions>
 
     <actions>

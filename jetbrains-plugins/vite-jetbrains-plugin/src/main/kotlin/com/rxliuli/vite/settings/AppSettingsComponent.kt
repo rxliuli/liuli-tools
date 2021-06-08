@@ -1,17 +1,30 @@
 package com.rxliuli.vite.settings
 
 import com.intellij.openapi.ui.DialogPanel
+import com.intellij.ui.CollectionListModel
+import com.intellij.ui.ToolbarDecorator
+import com.intellij.ui.components.JBList
 import com.intellij.ui.layout.panel
+import javax.swing.DefaultComboBoxModel
 
 class AppSettingsComponent {
-    private val settings: AppSettingsState = AppSettingsState.instance
+    private val globalSettings: AppSettingsState = AppSettingsState.instance
 
     val panel: DialogPanel = panel {
-        row("Enter user name: ") {
-            textField({ settings.userId }, { settings.userId = it }).focused()
+        row("Default template:") {
+            comboBox(DefaultComboBoxModel(globalSettings.templates),
+                { globalSettings.template },
+                { globalSettings.template = it!! })
         }
-        row {
-            checkBox("Do you use IntelliJ IDEA? ", { settings.ideaStatus }, { settings.ideaStatus = it })
+        row("Templates:", true) {
+            ToolbarDecorator.createDecorator(
+                JBList(*globalSettings.templates),
+                CollectionListModel(globalSettings.templates)
+            ).setAddAction {
+                println("add: $it")
+            }.setRemoveAction {
+                println("remove: $it")
+            }.createPanel()()
         }
     }
 }

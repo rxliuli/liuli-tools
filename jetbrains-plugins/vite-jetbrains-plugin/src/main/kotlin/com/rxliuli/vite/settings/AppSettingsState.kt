@@ -8,8 +8,22 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 
 @State(name = "org.intellij.sdk.settings.AppSettingsState", storages = [Storage("SdkSettingsPlugin.xml")])
 class AppSettingsState : PersistentStateComponent<AppSettingsState?> {
-    var userId = "John Q. Public"
-    var ideaStatus = false
+    var template = "react-ts"
+    val templates = arrayOf(
+        "vanilla",
+        "vanilla-ts",
+        "vue",
+        "vue-ts",
+        "react",
+        "react-ts",
+        "preact",
+        "preact-ts",
+        "lit-element",
+        "lit-element-ts",
+        "svelte",
+        "svelte-ts",
+    )
+
     override fun getState(): AppSettingsState {
         return this
     }

@@ -2,6 +2,12 @@
 
 # Changelog
 
+## [0.1.5]
+
+### Fixed
+
+- feat(vite-jetbrains-plugin): Persistent the selected template, the last selected template is selected by default
+
 ## [0.1.4]
 
 ### Changed

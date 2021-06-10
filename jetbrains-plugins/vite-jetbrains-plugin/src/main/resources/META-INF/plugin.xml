@@ -15,9 +15,9 @@
                 implementation="com.rxliuli.vite.cli.ViteProjectTemplateFactory"/> <!-- works in IntelliJ IDEA -->
 
         <applicationService serviceImplementation="com.rxliuli.vite.settings.AppSettingsState"/>
-        <applicationConfigurable parentId="tools" instance="com.rxliuli.vite.settings.AppSettingsConfigurable"
-                                 id="com.rxliuli.vite.settings.AppSettingsConfigurable"
-                                 displayName="Vite Settings"/>
+<!--        <applicationConfigurable parentId="tools" instance="com.rxliuli.vite.settings.AppSettingsConfigurable"-->
+<!--                                 id="com.rxliuli.vite.settings.AppSettingsConfigurable"-->
+<!--                                 displayName="Vite Settings"/>-->
     </extensions>
 
     <actions>

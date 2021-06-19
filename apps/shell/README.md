@@ -49,3 +49,10 @@ mv images/ dist/
 ### 为什么全局安装没有覆盖系统命令？
 
 由于环境变量的加载顺序导致无法覆盖，你应该在项目级别使用它。
+
+### cp/mv 命令的行为似乎有点奇怪？
+
+1. 源文件只有一个
+   1. 目标位置存在，则复制文件到目录下。例如 `cp public dist/` 则会将 public 复制到 dist/public
+   2. 目标位置不存在，则将之复制并重命名到指定位置。例如 `cp public dist/static` 则会将 public 复制到 dist/static
+2. 源文件有多个，则复制文件到目录下（如果不存在则自动创建）。例如 `cp public package.json dist/` 则会将 public,package.json 复制到 dist/ 目录

@@ -2,14 +2,13 @@ import typescript from 'rollup-plugin-typescript2'
 import externals from 'rollup-plugin-node-externals'
 import { terser } from 'rollup-plugin-terser'
 import shebang from 'rollup-plugin-add-shebang'
-
-const external = ['commander', 'fs-extra']
+import autoExternal = require('rollup-plugin-auto-external')
+import { RollupOptions } from 'rollup'
 
 export default [
   {
     input: './src/index.ts',
-    plugins: [typescript(), externals(), terser()],
-    external: external,
+    plugins: [typescript(), autoExternal(), externals(), terser()],
     output: [
       {
         file: 'dist/index.js',
@@ -25,7 +24,6 @@ export default [
   },
   ...['bin', 'mv', 'rm', 'mkdir', 'cp'].map((cmd) => ({
     input: `src/${cmd}.ts`,
-    external: external,
     output: {
       file: `dist/${cmd}.js`,
       format: 'cjs',
@@ -40,6 +38,7 @@ export default [
           },
         },
       }),
+      autoExternal(),
       externals(),
       terser(),
       shebang({
@@ -47,4 +46,4 @@ export default [
       }),
     ],
   })),
-]
+] as RollupOptions[]

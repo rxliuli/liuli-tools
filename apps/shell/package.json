@@ -8,8 +8,8 @@
   "scripts": {
     "setup": "yarn build && lerna clean -y && yarn",
     "build": "yarn dev rm dist && liuli-cli build config",
-    "watch": "liuli-cli build config -w",
-    "dev": "ts-node src/bin.ts",
+    "dev": "liuli-cli build config -w",
+    "start": "ts-node src/bin.ts",
     "test": "rm dist"
   },
   "bin": {
@@ -37,7 +37,13 @@
   },
   "devDependencies": {
     "@liuli-util/cli": "*",
-    "rollup": "^2.51.0",
+    "rollup": "^2.52.1",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-node-externals": "^2.2.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-add-shebang": "^0.3.1",
+    "rollup-plugin-auto-external": "^2.0.0",
+    "@types/rollup-plugin-auto-external": "^2.0.0",
     "@types/inquirer": "^7.3.1",
     "@types/fs-extra": "^9.0.11",
     "@types/jest": "^26.0.23",

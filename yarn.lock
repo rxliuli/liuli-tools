@@ -1457,6 +1457,11 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
+"@liuli-util/async@^3.2.3":
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@liuli-util/async/-/async-3.2.3.tgz#322fe7122bbcdf1743ad373277b3e14c2de8e9df"
+  integrity sha512-yE5pNScslAWktGyFUOlzY9U4n0LCyeBLUrDKQs/FKGQJXv+lEug7+U16LWyZEwF5hvVV9NrusgRN1w0VZOey7A==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"

@@ -1,13 +1,13 @@
 {
   "name": "@liuli-util/shell",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "setup": "yarn build && lerna clean -y && yarn",
-    "build": "yarn dev rm dist && liuli-cli build config",
+    "build": "yarn start rm dist && liuli-cli build config",
     "dev": "liuli-cli build config -w",
     "start": "ts-node src/bin.ts",
     "test": "rm dist"

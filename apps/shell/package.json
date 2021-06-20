@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rxliuli/web-project-tools/tree/master/apps/shell"
+    "url": "https://github.com/rxliuli/liuli-tools/tree/master/apps/shell"
   },
   "dependencies": {
     "commander": "^7.0.0",

@@ -53,6 +53,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rxliuli/web-project-tools/tree/master/apps/liuli-cli"
+    "url": "https://github.com/rxliuli/liuli-tools/tree/master/apps/liuli-cli"
   }
 }

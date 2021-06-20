@@ -2,7 +2,7 @@
 
 <!-- Plugin description -->
 
-> [GitHub](https://github.com/rxliuli/web-project-tools/tree/master/jetbrains-plugins/vite-jetbrains-plugin)
+> [GitHub](https://github.com/rxliuli/liuli-tools/tree/master/jetbrains-plugins/vite-jetbrains-plugin)
 
 The integration of Vite scaffolding in JetBrains IDE is mainly responsible for creating a project directly using the IDE's boot panel.
 

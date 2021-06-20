@@ -1,6 +1,6 @@
 # vite-jetbrains-plugin
 
-> [GitHub](https://github.com/rxliuli/web-project-tools/tree/master/jetbrains-plugins/vite-jetbrains-plugin)
+> [GitHub](https://github.com/rxliuli/liuli-tools/tree/master/jetbrains-plugins/vite-jetbrains-plugin)
 
 Vite 脚手架在 JetBrains IDE 中的集成，主要负责直接使用 IDE 的引导面板创建一个项目。
 

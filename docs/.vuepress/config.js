@@ -5,7 +5,7 @@ module.exports = {
       { text: '指南', link: '/guide/' },
       {
         text: 'GitHub',
-        link: 'https://github.com/rxliuli/web-project-tools',
+        link: 'https://github.com/rxliuli/liuli-tools',
       },
     ],
     sidebar: {

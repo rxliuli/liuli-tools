@@ -6,9 +6,9 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "setup": "yarn pub",
+    "setup": "yarn start && yarn pub",
     "build": "rm dist && liuli-cli build cli",
-    "start": "ts-node src/bin.ts --input src/i18n -w",
+    "start": "ts-node src/bin.ts --input src/i18n",
     "pub": "yarn build && lerna clean -y && yarn"
   },
   "bin": {
@@ -26,7 +26,7 @@
     "luxon": "^1.25.0",
     "os-locale": "^5.0.0",
     "commander": "^7.2.0",
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.0.0",
     "ts-morph": "^11.0.0",
     "chokidar": "^3.5.2"
   },
@@ -34,12 +34,14 @@
     "@types/luxon": "^1.25.0",
     "@liuli-util/test": "^3.2.3",
     "@liuli-util/cli": "^3.5.0",
-    "@liuli-util/shell": "^0.1.1",
+    "@liuli-util/shell": "^0.2.0",
     "@types/fs-extra": "^9.0.11",
     "@types/node": "^12.20.7",
     "@types/prettier": "^2.3.0",
     "dts-minify": "^0.2.3",
     "prettier": "^2.3.1",
-    "typescript": "^4.2.4"
+    "typescript": "^4.2.4",
+    "type-fest": "^1.2.1",
+    "ts-node": "^10.0.0"
   }
 }

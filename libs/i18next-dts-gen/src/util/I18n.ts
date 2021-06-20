@@ -1,6 +1,7 @@
 import zhCN from '../i18n/zhCN.json'
 import en from '../i18n/en.json'
 import i18next from 'i18next'
+// @ts-ignore
 import { TranslateParams } from '../i18n'
 import osLocale from 'os-locale'
 

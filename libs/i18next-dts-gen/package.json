@@ -17,6 +17,14 @@
   "jest": {
     "preset": "ts-jest"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rxliuli/liuli-tools/tree/master/libs/i18next-dts-gen"
+  },
   "dependencies": {
     "i18next": "^19.8.4",
     "@liuli-util/tree": "^3.2.3",

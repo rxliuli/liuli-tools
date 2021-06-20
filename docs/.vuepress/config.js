@@ -18,26 +18,24 @@ module.exports = {
       '/': {
         nav: [
           { text: 'Home', link: '/' },
-          {
-            text: 'GitHub',
-            link: 'https://github.com/rxliuli/liuli-tools',
-          },
+          { text: 'Tools', link: '/tools/' },
+          { text: 'GitHub', link: 'https://github.com/rxliuli/liuli-tools' },
         ],
         sidebar: {
-          '/guide/': [''],
+          '/tools/': ['', 'i18next-dts-gen/'],
         },
       },
       '/zh/': {
         nav: [
           { text: '首页', link: '/zh/' },
-          { text: '指南', link: '/zh/guide/' },
+          { text: '工具', link: '/zh/tools/' },
           {
             text: 'GitHub',
             link: 'https://github.com/rxliuli/liuli-tools',
           },
         ],
         sidebar: {
-          '/zh/guide/': [''],
+          '/zh/tools/': ['', 'i18next-dts-gen/'],
         },
       },
     },

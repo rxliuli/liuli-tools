@@ -6,4 +6,5 @@ node_modules/
 
 # build dist
 dist/
+docs/
 **/__tests__/temp

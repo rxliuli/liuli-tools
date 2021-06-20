@@ -22,6 +22,12 @@
   },
   "include": ["src"],
   "exclude": ["src/__tests__"],
+  "typedocOptions": {
+    "entryPoints": ["src/index.ts"],
+    "out": "docs",
+    "readme": "README.md",
+    "gitRemote": "origin"
+  },
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"

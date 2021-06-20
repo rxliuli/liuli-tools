@@ -1,4 +1,6 @@
-# i18next-typescript-generator
+# @liuli-util/i18next-dts-gen
+
+> [English](https://liuli-tools.rxliuli.com/tools/i18next-dts-gen/), [简体中文](https://liuli-tools.rxliuli.com/zh/tools/i18next-dts-gen/)
 
 ## 简介
 
@@ -9,7 +11,7 @@ i18next 的 typescript 类型定义生成器，可以从多个语言翻译 json 
 > 这个 cli 本身国际化配置的类型定义生成也是由 cli 完成的（自举）
 
 ```shell
-i18next-dts-gen gen --input src/__tests__/i18n # 扫描这个目录下的 json 文件并生成 index.d.ts 类型定义
+i18next-dts-gen gen --input src/i18n # 扫描这个目录下的 json 文件并生成 index.d.ts 类型定义
 ```
 
 详情
@@ -45,8 +47,8 @@ Options:
 
 ## 设计
 
-![架构图](./docs/images/架构图.drawio.svg)
-![流程图](./docs/images/流程图.drawio.svg)
+![架构图](https://github.com/rxliuli/liuli-tools/raw/dev/docs/zh/tools/i18next-dts-gen/images/schema.drawio.svg)
+![流程图](https://github.com/rxliuli/liuli-tools/raw/dev/docs/zh/tools/i18next-dts-gen/images/schema.drawio.svg)
 
 ## FAQ
 

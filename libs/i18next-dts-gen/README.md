@@ -1,4 +1,6 @@
-# i18next-typescript-generator
+# @liuli-util/i18next-dts-gen
+
+> [English](https://liuli-tools.rxliuli.com/tools/i18next-dts-gen/), [简体中文](https://liuli-tools.rxliuli.com/zh/tools/i18next-dts-gen/)
 
 ## Introduction
 
@@ -45,8 +47,9 @@ Also, as far as I'm concerned, I think it's easier and more reasonable to use ge
 
 ## Design
 
-![schema](./docs/images/架构图.drawio.svg)
-![flowchart](./docs/images/流程图.drawio.svg)
+![schema](https://github.com/rxliuli/liuli-tools/raw/dev/docs/tools/i18next-dts-gen/images/schema.drawio.svg)
+
+![flowchart](https://github.com/rxliuli/liuli-tools/raw/dev/docs/tools/i18next-dts-gen/images/flowchart.drawio.svg)
 
 ## FAQ
 

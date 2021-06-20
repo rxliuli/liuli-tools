@@ -45,8 +45,8 @@ Also, as far as I'm concerned, I think it's easier and more reasonable to use ge
 
 ## Design
 
-![schema](. /docs/images/architecture-diagram.drawio.svg)
-![flowchart](. /docs/images/flowchart.drawio.svg)
+![schema](./docs/images/架构图.drawio.svg)
+![flowchart](./docs/images/流程图.drawio.svg)
 
 ## FAQ
 

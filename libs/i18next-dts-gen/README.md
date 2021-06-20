@@ -6,22 +6,24 @@ i18next's typescript type definition generator can generate type definitions fro
 
 ## Use
 
+> The type definition generation of the international configuration of cli itself is also done by cli (bootstrapping)
+
 ```shell
-$ i18next-dts-gen -h
-Usage: bin [options] [command]
-
-Options:
-  -h, --help display help for command
-
-Commands:
-  gen [options] Generate .d.ts type definition from json
-  help [command] display help for command
+i18next-dts-gen gen --input src/i18n # Scan this directory for json files and generate index.d.ts type definitions
 ```
 
-Example
+Detail
 
 ```shell
-i18next-dts-gen gen --input src/__tests__/i18n # Scan this directory for json files and generate index.d.ts type definitions
+$ ts-node src/bin.ts -h
+Usage: bin [options]
+
+Generate .d.ts type definitions from json
+
+Options:
+  -i, --input <input...>  Directory containing one or more translation files
+  -w, --watch             Whether to use watch mode
+  -h, --help              display help for command
 ```
 
 ## Motivation

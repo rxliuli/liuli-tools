@@ -6,22 +6,24 @@ i18next 的 typescript 类型定义生成器，可以从多个语言翻译 json 
 
 ## 使用
 
-```shell
-$ i18next-dts-gen -h
-Usage: bin [options] [command]
-
-Options:
-  -h, --help      display help for command
-
-Commands:
-  gen [options]   根据 json 生成 .d.ts 类型定义
-  help [command]  display help for command
-```
-
-示例
+> 这个 cli 本身国际化配置的类型定义生成也是由 cli 完成的（自举）
 
 ```shell
 i18next-dts-gen gen --input src/__tests__/i18n # 扫描这个目录下的 json 文件并生成 index.d.ts 类型定义
+```
+
+详情
+
+```shell
+$ ts-node src/bin.ts -h
+Usage: bin [options]
+
+根据 json 生成 .d.ts 类型定义
+
+Options:
+  -i, --input <input...>  包含一或多个翻译文件的目录
+  -w, --watch             是否使用监视模式
+  -h, --help              display help for command
 ```
 
 ## 动机

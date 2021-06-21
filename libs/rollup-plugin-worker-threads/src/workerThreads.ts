@@ -1,14 +1,4 @@
-import {
-  CustomPluginOptions,
-  LoadResult,
-  NormalizedOutputOptions,
-  OutputBundle,
-  Plugin,
-  PreRenderedChunk,
-  RenderedChunk,
-  SourceMapInput,
-  TransformResult,
-} from 'rollup'
+import { Plugin, RenderedChunk } from 'rollup'
 import path from 'path'
 import { createFilter, FilterPattern } from '@rollup/pluginutils'
 import { pathExists } from 'fs-extra'
@@ -27,35 +17,20 @@ export function workerThreads(options?: WorkerThreadsOptions): Plugin {
 
   return {
     name: 'rollup-plugin-worker-threads',
-    load(id: string): LoadResult {
+    load(id: string) {
       if (!id.endsWith('?worker')) {
         return
       }
       // console.log('load: ', id.substr(0, id.length - 7))
       return id
     },
-    resolveId(
-      id: string,
-      importer: string,
-      options: { custom?: CustomPluginOptions },
-    ) {
+    resolveId(id: string, importer: string) {
       if (!id.endsWith('?worker')) {
         return
       }
-      const fullPath = path.resolve(path.dirname(importer), id)
-      // console.log('fullPath: ', fullPath)
-      return fullPath
+      return path.resolve(path.dirname(importer), id)
     },
-    renderChunk(
-      code: string,
-      chunk: RenderedChunk,
-      options: NormalizedOutputOptions,
-    ):
-      | Promise<{ code: string; map?: SourceMapInput } | null>
-      | { code: string; map?: SourceMapInput }
-      | string
-      | null
-      | undefined {
+    renderChunk(code: string, chunk: RenderedChunk) {
       let workerChunkName = chunkMap.get(chunk.facadeModuleId!)
       if (workerChunkName) {
         if (workerChunkName.endsWith('.ts')) {
@@ -67,10 +42,9 @@ export function workerThreads(options?: WorkerThreadsOptions): Plugin {
       return
     },
 
-    async transform(code: string, id: string): Promise<TransformResult> {
-      // if (filter(id)) return null
-      if (!id.endsWith('?worker')) {
-        return null
+    async transform(code: string, id: string) {
+      if (!filter(id) || !id.endsWith('?worker')) {
+        return
       }
       const filePath = id.substr(0, id.length - 7)
       const ext = (await pathExists(filePath + '.ts')) ? '.ts' : '.js'

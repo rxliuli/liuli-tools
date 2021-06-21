@@ -61,5 +61,3 @@ No, only a subset of i18next is supported here.
 - [ ] does not support configuration namespaces, nested split strings, and we consider conventions over configuration
 - [ ] Configuration files other than json are not supported, we believe json files are more friendly to non-developers and easier for developers to handle when needed
 - [ ] i18next namespaces are not supported, i.e. translation file splitting
-
-Translated with www.DeepL.com/Translator (free version)

@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "build": "liuli-cli clean && liuli-cli build pkg",
+    "build": "rm dist && liuli-cli build pkg",
     "dev": "liuli-cli build pkg -w",
     "docs:server": "live-server docs",
     "docs:dev": "typedoc --watch",
@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@liuli-util/cli": "^3.4.0",
+    "@liuli-util/shell": "^0.2.0",
     "@types/jest": "^26.0.23",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.6",

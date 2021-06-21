@@ -55,8 +55,9 @@ export function workerThreads(options?: WorkerThreadsOptions): Plugin {
       chunkMap.set(filePath + ext, chunk)
 
       return `import { Worker } from 'worker_threads'
+      import path from 'path'
       export default function WorkerWrapper() {
-        return new Worker(${JSON.stringify(chunk)})
+        return new Worker(path.resolve(__dirname, ${JSON.stringify(chunk)}))
       }`
     },
   } as Plugin

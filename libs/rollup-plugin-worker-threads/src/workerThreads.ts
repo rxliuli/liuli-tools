@@ -2,6 +2,7 @@ import { Plugin, RenderedChunk } from 'rollup'
 import path from 'path'
 import { createFilter, FilterPattern } from '@rollup/pluginutils'
 import { pathExists } from 'fs-extra'
+import { pluginName } from './constants'
 
 type WorkerThreadsOptions = {
   include?: FilterPattern
@@ -16,7 +17,7 @@ export function workerThreads(options?: WorkerThreadsOptions): Plugin {
   const chunkMap = new Map<string, string>()
 
   return {
-    name: 'rollup-plugin-worker-threads',
+    name: pluginName,
     load(id: string) {
       if (!id.endsWith('?worker')) {
         return

@@ -1,2 +1,2 @@
-export * from './mixingThreadHello'
-// export * from './mixingThreadWait'
+export * from './mixingThreadHello.worker'
+// export * from './mixingThreadWait.worker'

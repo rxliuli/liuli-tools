@@ -1,1 +1,2 @@
-export * from './workerThreads'
+export { workerThreads } from './workerThreads'
+export { workerThreadsSuffix } from './workerThreadsSuffix'

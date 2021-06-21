@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.1
+
+- Fixed many documentation issues
+
 ## 0.2.0
 
 - Rename package `i18next-typescript-generator` => `@liuli-util/i18next-dts-gen`

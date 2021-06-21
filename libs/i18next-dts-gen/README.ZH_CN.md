@@ -11,13 +11,13 @@ i18next 的 typescript 类型定义生成器，可以从多个语言翻译 json 
 > 这个 cli 本身国际化配置的类型定义生成也是由 cli 完成的（自举）
 
 ```shell
-i18next-dts-gen gen --input src/i18n # 扫描这个目录下的 json 文件并生成 index.d.ts 类型定义
+i18next-dts-gen --input src/i18n # 扫描这个目录下的 json 文件并生成 index.d.ts 类型定义
 ```
 
 详情
 
 ```shell
-$ ts-node src/bin.ts -h
+$ i18next-dts-gen -h
 Usage: bin [options]
 
 根据 json 生成 .d.ts 类型定义

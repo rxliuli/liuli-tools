@@ -9,7 +9,7 @@
     "build": "yarn runstream build",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "docs:deploy": "gh-pages -d docs/.vuepress/dist -a"
+    "docs:deploy": "yarn docs:build && gh-pages -d docs/.vuepress/dist -a"
   },
   "prettier": {
     "tabWidth": 2,

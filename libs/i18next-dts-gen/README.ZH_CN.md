@@ -48,7 +48,7 @@ Options:
 ## 设计
 
 ![架构图](https://github.com/rxliuli/liuli-tools/raw/dev/docs/zh/tools/i18next-dts-gen/images/schema.drawio.svg)
-![流程图](https://github.com/rxliuli/liuli-tools/raw/dev/docs/zh/tools/i18next-dts-gen/images/schema.drawio.svg)
+![流程图](https://github.com/rxliuli/liuli-tools/raw/dev/docs/zh/tools/i18next-dts-gen/images/flowchart.drawio.svg)
 
 ## FAQ
 

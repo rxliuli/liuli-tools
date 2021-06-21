@@ -60,7 +60,7 @@ No, only a subset of i18next is supported here.
 - [x] Generate type definitions for multiple localized json profiles
 - [x] Include parameters are supported
   - [ ] Object parameters are not supported
-- [ x] Nested keys are supported
+- [x] Nested keys are supported
 - [ ] does not support configuration namespaces, nested split strings, and we consider conventions over configuration
 - [ ] Configuration files other than json are not supported, we believe json files are more friendly to non-developers and easier for developers to handle when needed
 - [ ] i18next namespaces are not supported, i.e. translation file splitting

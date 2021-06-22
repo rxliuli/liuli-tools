@@ -1,19 +1,19 @@
 # rollup-plugin-worker-threads
 
-## Introduction
+## 简介
 
-Provides a better developer experience for `worker_threads` by automatically splitting the worker threads' code into separate files when packaging.
+为 `worker_threads` 提供更好开发者体验，打包时自动分割 worker 线程的代码到单独的文件。
 
-- ts is the first priority supported
-- Instead of using the worker, run the function directly when the test is run
+- ts 是第一支持优先级
+- 在测试运行时不会使用 worker 而是直接运行函数
 
-## Use
+## 使用
 
 ```shell
-yarn add -D rollup-plugin-worker-threads # Install dependencies
+yarn add -D rollup-plugin-worker-threads # 安装依赖
 ```
 
-### The first way
+### 第一种方式
 
 ```js
 //rollup.config.js
@@ -33,7 +33,7 @@ export default defineConfig([
 ])
 ```
 
-Specific code
+具体代码
 
 ```ts
 // src/util/wrapWorkerFunc.ts
@@ -43,11 +43,11 @@ import { isMainThread, parentPort, Worker } from 'worker_threads'
 import nodeEndpoint from 'comlink/dist/umd/node-adapter'
 
 /**
- * Wrapping functions to be executed in the worker
- * 1. return the function directly when it checks that the current file is not a js file
- * 2. when it is checked that it is executed in the main thread, use worker to wrap it and execute it
- * 3. use expose to wrap it and execute it when it is checked to be in the worker thread
- * Note: Currently a new worker is created each time, maybe consider supporting reuse of workers
+ * 包装需要放到 worker 中执行的函数
+ * 1. 当检查到当前文件不是 js 文件时会直接返回函数
+ * 2. 当检查到在主线程时执行时，使用 Worker 包装并执行它
+ * 3. 当检查到在 Worker 线程时，使用 expose 包装它然后执行
+ * 注：目前是每次都创建新的 Worker，也许可以考虑支持复用 Worker
  * @param ep
  */
 export function wrapWorkerFunc<T extends (...args: any[]) => any>(
@@ -86,7 +86,7 @@ export const hello = wrapWorkerFunc(_hello)
 export * from './hello.worker'
 ```
 
-### The second way
+### 第二种方式
 
 ```js
 //rollup.config.js
@@ -106,7 +106,7 @@ export default defineConfig([
 ])
 ```
 
-Specific code
+具体代码
 
 ```ts
 // index.ts
@@ -143,21 +143,21 @@ expose(worker, nodeEndpoint(parentPort!))
 
 ## FAQ
 
-### Why are there two ways to use it?
+### 为什么会有两种使用方式？
 
-This project was originally inspired by vite's [Import Script as Worker](https://cn.vitejs.dev/guide/assets.html#importing-script-as-a-worker), but then I realized that nodejs itself provides the ability to write the main thread and worker thread in one But then I realized that nodejs itself provides a convenient way to write code for the main thread and worker thread in one file, so I tried both. At the moment I prefer the first way, and I will probably delete the second way of using it later.
+这个项目最初的灵感来源于 vite 的 [导入脚本作为 Worker](https://cn.vitejs.dev/guide/assets.html#importing-script-as-a-worker)，但后来发现其实 nodejs 本身提供的在一个文件中编写主线程、worker 线程的代码也挺方便的，所以便同时尝试了两者。目前吾辈更倾向于第一种方式，后面可能会删掉第二种使用方式。
 
-### Why not use existing plugins?
+### 为什么不使用现有的插件？
 
-Well, I can list some of the plugins I have researched and their issues.
+好吧，我可以列举一些我调研过的插件及其问题。
 
 - rollup-plugin-web-worker-loader
-  - Does not handle ts files by default
-  - worker does not package dependencies when they are included in the worker
+  - 默认不会处理 ts 文件
+  - worker 中包含依赖时不会打包
 - rollup-plugin-worker-factory
-  - No example of ts in sight
-  - The default is to modify the worker
+  - 没有看到 ts 的示例
+  - 默认会修改 Worker
 - @surma/rollup-plugin-off-main-thread
-  - Don't see the ts example
+  - 没有看到 ts 的示例
 
-No satisfactory plugins have been found so far, so I may have to write a rollup plugin afterwards. As I said, no comparison is no harm, if there is no good support for ts+worker from vite, maybe I can still tolerate this bad development experience.
+目前没有找到满意的插件，后续可能不得不写一个 rollup 插件。还是那句话，没有对比就没有伤害，如果没有 vite 对 ts+worker 的良好支持，或许吾辈还能忍受这种糟糕的开发体验。

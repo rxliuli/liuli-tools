@@ -13,6 +13,7 @@
     "declarationMap": true
   },
   "include": ["src"],
+  "exclude": ["**/__tests__"],
   "typedocOptions": {
     "entryPoints": ["src/index.ts"],
     "out": "docs",

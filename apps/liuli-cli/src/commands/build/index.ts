@@ -12,7 +12,9 @@ export const buildCommand = new Command('build')
   .addCommand(
     new Command()
       .command('config')
-      .description('根据 rollup.config.ts 配置打包')
+      .description(
+        '根据 rollup.config.ts 配置打包（将废弃，请使用 rollup.defineConfig）',
+      )
       .option('-w --watch', '监视模式')
       .action(async (option: { watch?: boolean }) => {
         const options = loadTypeScriptConfig(

@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "setup": "yarn build && lerna clean -y && yarn",
-    "build": "rimraf dist && yarn dev build cli",
+    "build": "rm dist && yarn dev build cli",
     "watch": "yarn dev build cli -w",
     "dev": "ts-node src/bin.ts"
   },
@@ -30,7 +30,7 @@
     "fs-extra": "^10.0.0",
     "inquirer": "^8.1.0",
     "lodash": "^4.17.21",
-    "rollup": "^2.51.0",
+    "rollup": "^2.51.2",
     "rollup-plugin-add-shebang": "^0.3.1",
     "rollup-plugin-auto-external": "^2.0.0",
     "rollup-plugin-node-externals": "^2.2.0",
@@ -38,6 +38,7 @@
     "rollup-plugin-typescript2": "^0.30.0"
   },
   "devDependencies": {
+    "@liuli-util/shell": "*",
     "@types/rollup-plugin-auto-external": "^2.0.0",
     "@types/fs-extra": "^9.0.11",
     "@types/inquirer": "^7.3.1",
@@ -45,7 +46,6 @@
     "@types/lodash": "^4.14.168",
     "@types/node": "^12.20.6",
     "jest": "^26.6.3",
-    "rimraf": "^3.0.2",
     "ts-jest": "^26.5.6",
     "ts-node": "^10.0.0",
     "type-fest": "^1.1.1",

@@ -13,7 +13,7 @@
     "preset": "ts-jest"
   },
   "devDependencies": {
-    "@liuli-util/shell": "^0.2.0",
+    "@liuli-util/shell": "*",
     "@liuli-util/test": "^3.2.3",
     "@types/jest": "^26.0.23",
     "@types/node": "14",

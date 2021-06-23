@@ -20,8 +20,8 @@
     "rollup": "^2.52.2"
   },
   "devDependencies": {
-    "@liuli-util/cli": "^3.4.0",
-    "@liuli-util/shell": "^0.2.0",
+    "@liuli-util/cli": "*",
+    "@liuli-util/shell": "*",
     "@types/fs-extra": "^9.0.11",
     "@types/jest": "^26.0.23",
     "@types/node": "14",

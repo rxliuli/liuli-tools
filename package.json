@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "setup": "yarn && yarn runstream setup && yarn",
-    "clean": "lerna run clean --parallel && lerna clean -y && rm node_modules",
+    "clean": "lerna run clean --parallel && lerna clean -y && rimraf node_modules",
     "runstream": "lerna run --include-dependencies --stream",
     "build": "yarn runstream build",
     "docs:dev": "vuepress dev docs",
@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "rimraf": "^3.0.2",
     "@commitlint/cli": "^12.0.1",
     "@commitlint/config-conventional": "^12.0.1",
     "gh-pages": "^3.2.0",

@@ -2,10 +2,10 @@ import typescript from 'rollup-plugin-typescript2'
 import externals from 'rollup-plugin-node-externals'
 import { terser } from 'rollup-plugin-terser'
 import shebang from 'rollup-plugin-add-shebang'
-import autoExternal = require('rollup-plugin-auto-external')
-import { RollupOptions } from 'rollup'
+import autoExternal from 'rollup-plugin-auto-external'
+import { defineConfig } from 'rollup'
 
-export default [
+export default defineConfig([
   {
     input: './src/index.ts',
     plugins: [typescript(), autoExternal(), externals(), terser()],
@@ -46,4 +46,4 @@ export default [
       }),
     ],
   })),
-] as RollupOptions[]
+])

@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
     "setup": "yarn build && lerna clean -y && yarn",
-    "build": "yarn start rm dist && liuli-cli build config",
-    "dev": "liuli-cli build config -w",
+    "build": "yarn start rm dist && rollup -c",
+    "dev": "rollup -cw",
     "start": "ts-node src/bin.ts",
     "test": "rm dist"
   },
@@ -36,7 +36,6 @@
     "@liuli-util/async": "^3.2.3"
   },
   "devDependencies": {
-    "@liuli-util/cli": "*",
     "rollup": "^2.52.1",
     "rollup-plugin-typescript2": "^0.30.0",
     "rollup-plugin-node-externals": "^2.2.0",

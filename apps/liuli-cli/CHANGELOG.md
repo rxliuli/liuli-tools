@@ -1,5 +1,14 @@
 # 更新日志
 
+## 3.6.0
+
+- chore(@liuli-util/cli): 更新 @types/rollup-plugin-auto-external，修复类型定义的错误
+- refactor(@liuli-util/cli): 标记 build config 和 defineConfig 将被废弃，使用 rm 替代 rimraf
+- chore(@liuli-util/cli): 为模板添加 CHANGELOG
+- feat(@liuli-util/cli): 更新模板项目，使用 @liuli-util/shell 替换 liuli-cli clean 命令
+- chore(@liuli-util/cli): 删除 tsconfig.json 中冗余的各种配置
+- fix(@liuli-util/cli): 删除不小心提交的 test 目录
+
 ## 3.5.0
 
 - feat(@types/rollup-plugin-auto-external): 在给 DefinitelyTyped 提的 PR 没有通过前的一个临时模块

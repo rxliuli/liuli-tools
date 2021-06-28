@@ -3,6 +3,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "prepublishOnly": "yarn setup",
     "clean": "lerna run clean --parallel && lerna clean -y && rimraf node_modules",
     "setup": "yarn && lerna run build --include-dependencies --stream && yarn",
     "fix:version": "syncpack fix-mismatches",

@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/array",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -12,9 +12,9 @@
   },
   "devDependencies": {
     "@liuli-util/cli": "^3.3.2",
-    "mockjs": "^1.1.0",
+    "@liuli-util/shell": "^0.1.0",
     "@types/mockjs": "^1.0.3",
-    "@liuli-util/shell": "^0.1.0"
+    "mockjs": "^1.1.0"
   },
   "jest": {
     "preset": "ts-jest"

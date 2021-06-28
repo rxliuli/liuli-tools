@@ -2,7 +2,7 @@
 
 > 一些 idea 想法
 
-查看文档网站 [@liuli-util/idea](https://util.liuli.moe/@liuli-util/idea)
+查看文档网站 [@liuli-util/idea](https://liuli-utils.rxliuli.com/@liuli-util/idea)
 
 ## 安装
 

@@ -2,7 +2,7 @@
 
 > 对象相关功能的函数库
 
-查看文档网站 [@liuli-util/object](https://util.liuli.moe/@liuli-util/object)
+查看文档网站 [@liuli-util/object](https://liuli-utils.rxliuli.com/@liuli-util/object)
 
 ## 安装
 

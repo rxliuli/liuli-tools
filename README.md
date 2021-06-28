@@ -1,6 +1,6 @@
 # 日常使用的 TypeScript 工具库
 
-[![npm](https://img.shields.io/npm/v/@liuli-util/async.svg?color=red&label=npm)](https://www.npmjs.com/org/liuli-util) [![doc](https://img.shields.io/badge/document-98%25-brightgreen.svg)](https://util.liuli.moe/) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![npm](https://img.shields.io/npm/v/@liuli-util/async.svg?color=red&label=npm)](https://www.npmjs.com/org/liuli-util) [![doc](https://img.shields.io/badge/document-98%25-brightgreen.svg)](https://liuli-utils.rxliuli.com/) [![license-MIT-blue](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## 简介
 

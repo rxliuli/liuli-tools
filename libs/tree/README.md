@@ -2,7 +2,7 @@
 
 > 树结构相关功能的函数库
 
-查看文档网站 [@liuli-util/tree](https://util.liuli.moe/@liuli-util/tree)
+查看文档网站 [@liuli-util/tree](https://liuli-utils.rxliuli.com/@liuli-util/tree)
 
 ## 安装
 

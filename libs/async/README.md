@@ -2,7 +2,7 @@
 
 > 异步相关功能的函数库
 
-查看文档网站 [@liuli-util/async](https://util.liuli.moe/@liuli-util/async)
+查看文档网站 [@liuli-util/async](https://liuli-utils.rxliuli.com/@liuli-util/async)
 
 ## 安装
 

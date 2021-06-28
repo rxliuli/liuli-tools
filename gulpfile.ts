@@ -2,9 +2,9 @@ import { copyFile, readdir, readJson, writeFile, writeJson } from 'fs-extra'
 import * as path from 'path'
 
 export function generateReadme({
-                                 name,
-                                 description,
-                               }: {
+  name,
+  description,
+}: {
   name: string
   description: string
 }) {
@@ -12,7 +12,7 @@ export function generateReadme({
 
 > ${description}
 
-查看文档网站 [${name}](https://util.liuli.moe/${name})
+查看文档网站 [${name}](https://liuli-utils.rxliuli.com/${name})
 
 ## 安装
 
@@ -71,13 +71,14 @@ export async function generateReadmes() {
 export async function writeLicense() {
   const pkgJsonList = await scanAllSubPackage()
   const rootPkg = await readJson('./package.json')
-  await Promise.all(pkgJsonList.map(async ([file, item]) => {
+  await Promise.all(
+    pkgJsonList.map(async ([file, item]) => {
       item.license = rootPkg.license
       await writeJson(file, item, {
         encoding: 'utf-8',
-        spaces: 2
+        spaces: 2,
       })
-    })
+    }),
   )
 }
 

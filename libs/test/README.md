@@ -2,7 +2,7 @@
 
 > 辅助其他模块测试的工具函数库
 
-查看文档网站 [@liuli-util/test](https://util.liuli.moe/@liuli-util/test)
+查看文档网站 [@liuli-util/test](https://liuli-utils.rxliuli.com/@liuli-util/test)
 
 ## 安装
 

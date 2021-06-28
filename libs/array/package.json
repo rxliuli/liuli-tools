@@ -11,7 +11,9 @@
     "test": "jest --all"
   },
   "devDependencies": {
-    "@liuli-util/cli": "^3.3.2"
+    "@liuli-util/cli": "^3.3.2",
+    "mockjs": "^1.1.0",
+    "@types/mockjs": "^1.0.3"
   },
   "jest": {
     "preset": "ts-jest"

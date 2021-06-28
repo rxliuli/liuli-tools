@@ -2,11 +2,11 @@ type CompareType = number | string | BigInt
 
 export function sortBy<T extends CompareType>(
   i: T[],
-  kFn?: (item: T, index: number, arr: T[]) => CompareType,
+  kFn?: (item: T) => CompareType,
 ): T[]
 export function sortBy<T extends Exclude<any, CompareType>>(
   i: T[],
-  kFn: (item: T, index: number, arr: T[]) => CompareType,
+  kFn: (item: T) => CompareType,
 ): T[]
 /**
  * 对数组进行排序
@@ -15,28 +15,17 @@ export function sortBy<T extends Exclude<any, CompareType>>(
  */
 export function sortBy<T>(
   arr: T[],
-  kFn: (item: T, index: number, arr: T[]) => CompareType = (v) =>
-    (v as unknown) as CompareType,
+  kFn: (item: T) => CompareType = (v) => (v as unknown) as CompareType,
 ): T[] {
-  // 边界条件，如果传入数组的值
-  if (arr.length <= 1) {
-    return arr
-  }
-  // 根据中间值对数组分治为两个数组
-  const medianIndex = Math.floor(arr.length / 2)
-  const medianValue = arr[medianIndex]
-  const left = []
-  const right = []
-  for (let i = 0, len = arr.length; i < len; i++) {
-    if (i === medianIndex) {
-      continue
+  return [...arr].sort((a, b) => {
+    const ak = kFn(a)
+    const bk = kFn(b)
+    if (ak === bk) {
+      return 0
     }
-    const v = arr[i]
-    if (kFn(v, i, arr) <= kFn(medianValue, i, arr)) {
-      left.push(v)
-    } else {
-      right.push(v)
+    if (ak > bk) {
+      return 1
     }
-  }
-  return sortBy(left, kFn).concat([medianValue]).concat(sortBy(right, kFn))
+    return -1
+  })
 }

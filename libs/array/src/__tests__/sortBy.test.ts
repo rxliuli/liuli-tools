@@ -1,4 +1,6 @@
 import { sortBy } from '../sortBy'
+import { Random } from 'mockjs'
+import { groupBy } from '../groupBy'
 
 /**
  * @test {sortBy}
@@ -34,5 +36,16 @@ describe('测试 sortBy', () => {
       .fill(0)
       .map((v, i) => [Math.random(), i])
     expect(sortBy(arr, ([v]) => v)).toEqual([...arr].sort(([a], [b]) => a - b))
+  })
+  it('测试排序是稳定的', () => {
+    const arr = new Array(100).fill(0).map((_, key) => ({
+      key,
+      value: Random.integer(1, 10),
+    }))
+    const res = sortBy(arr, (item) => item.value)
+    const map = groupBy(res, (item) => item.value)
+    ;[...map.values()].forEach((arr) => {
+      expect(arr).toEqual(sortBy(arr, (item) => item.key))
+    })
   })
 })

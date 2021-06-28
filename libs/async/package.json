@@ -6,8 +6,8 @@
   "types": "dist/index.d.ts",
   "description": "异步相关功能的函数库",
   "scripts": {
-    "build": "liuli-cli clean && liuli-cli build",
-    "clean": "liuli-cli clean",
+    "build": "rm dist && liuli-cli build",
+    "clean": "rm dist",
     "test": "jest --all"
   },
   "jest": {
@@ -16,6 +16,7 @@
   "devDependencies": {
     "@liuli-util/cli": "^3.3.2",
     "@liuli-util/test": "^3.2.3",
+    "@liuli-util/shell": "^0.1.0",
     "type-fest": "^1.1.1"
   },
   "publishConfig": {

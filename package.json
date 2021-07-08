@@ -11,15 +11,7 @@
     "docs:build": "vuepress build docs",
     "docs:deploy": "yarn docs:build && gh-pages -d docs/.vuepress/dist -a"
   },
-  "prettier": {
-    "tabWidth": 2,
-    "printWidth": 80,
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "arrowParens": "always",
-    "endOfLine": "crlf"
-  },
+  "prettier": "@liuli-util/prettier-standard-config",
   "workspaces": {
     "packages": [
       "libs/*",
@@ -46,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "@liuli-util/prettier-standard-config": "*",
     "rimraf": "^3.0.2",
     "@commitlint/cli": "^12.0.1",
     "@commitlint/config-conventional": "^12.0.1",

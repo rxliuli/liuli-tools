@@ -1763,12 +1763,12 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
   integrity sha512-1HcDas8SEj4z1Wc696tH56G8OlRaH/sqZOynNNB+HF0WOeXPaxTtbYzJY2oEfiUxjSKjhCKr+MvR7dCHcEelug==
 
-"@types/rollup-plugin-auto-external@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@types/rollup-plugin-auto-external/-/rollup-plugin-auto-external-2.0.0.tgz#58457e754accdcda249417c22e4e122c36ddd839"
-  integrity sha512-Q5Af4DxspsynVxU6FTWnh/Y3pRAuNufneaQJG5puafPGYkTB/ZgzfTQ/2iYG2Ki6oJoLmUYgLi79z3f5wK1j8w==
+"@types/rollup-plugin-auto-external@^2.0.0", "@types/rollup-plugin-auto-external@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/rollup-plugin-auto-external/-/rollup-plugin-auto-external-2.0.1.tgz#d1cedb10fce24684d22eb887064d3baac5a807dd"
+  integrity sha512-dPttUMi6gkKpB625E5ZBoXuY80SQ8HhifLfn1giFVvbyd+BUucrmVA4H4pDFY6DTosZdQO+/hhal/TsuVE5Nuw==
   dependencies:
-    rollup "^2.0.0"
+    rollup ">=2.0.0"
 
 "@types/stack-utils@^2.0.0":
   version "2.0.0"
@@ -9444,14 +9444,7 @@ rollup-pluginutils@^2.8.1:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^2.0.0:
-  version "2.51.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.51.0.tgz#ffd847882283998fc8611cd57af917f173b4ab5c"
-  integrity sha512-ITLt9sScNCBVspSHauw/W49lEZ0vjN8LyCzSNsNaqT67vTss2lYEfOyxltX8hjrhr1l/rQwmZ2wazzEqhZ/fUg==
-  optionalDependencies:
-    fsevents "~2.3.1"
-
-rollup@^2.51.2, rollup@^2.52.2:
+rollup@>=2.0.0, rollup@^2.51.2, rollup@^2.52.2:
   version "2.52.2"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.52.2.tgz#a7e90d10ddae3e8472c2857bd9f44b09ef34a47a"
   integrity sha512-4RlFC3k2BIHlUsJ9mGd8OO+9Lm2eDF5P7+6DNQOp5sx+7N/1tFM01kELfbxlMX3MxT6owvLB1ln4S3QvvQlbUA==

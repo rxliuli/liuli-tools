@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/cli",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "一个针对于库和 CLI 应用程序打包的零配置 CLI",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@liuli-util/shell": "*",
-    "@types/rollup-plugin-auto-external": "^2.0.0",
+    "@types/rollup-plugin-auto-external": "^2.0.1",
     "@types/fs-extra": "^9.0.11",
     "@types/inquirer": "^7.3.1",
     "@types/jest": "^26.0.23",

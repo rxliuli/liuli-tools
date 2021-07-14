@@ -1,5 +1,9 @@
 # 更新日志
 
+## 3.7.1
+
+- fix(@liuli-util/cli): 修复模板中的依赖没有更新的问题（后面应该使用自动化的方案）
+
 ## 3.7.0
 
 - feat(@liuli-util/prettier-standard-config): 更新 husky 的配置，使用 simple-git-hooks 替代 husky

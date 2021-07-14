@@ -21,34 +21,30 @@ async function mergeJson(json: object) {
 }
 
 export async function addHusky() {
-  installDeps(['husky@4.3.8', 'lint-staged'])
+  installDeps([
+    'simple-git-hooks',
+    'lint-staged',
+    '@liuli-util/prettier-standard-config',
+  ])
   //安装 prettier
   installDeps(['prettier'])
   await mergeJson({
-    husky: {
-      hooks: {
-        'pre-commit': 'lint-staged',
-      },
+    scripts: {
+      postinstall: 'npx simple-git-hooks',
+    },
+    'simple-git-hooks': {
+      'pre-commit': 'yarn lint-staged',
     },
     'lint-staged': {
       '*.{ts,tsx,js,jsx,css,md,json}': ['prettier --write', 'git add'],
     },
-    prettier: {
-      tabWidth: 2,
-      printWidth: 80,
-      semi: false,
-      singleQuote: true,
-      trailingComma: 'all',
-      endOfLine: 'lf',
-    },
+    prettier: '@liuli-util/prettier-standard-config',
   })
   //安装 commitlint
   installDeps(['@commitlint/cli', '@commitlint/config-conventional'])
   await mergeJson({
-    husky: {
-      hooks: {
-        'commit-msg': 'yarn commitlint --edit $1',
-      },
+    'simple-git-hooks': {
+      'commit-msg': 'yarn commitlint --edit $1',
     },
     commitlint: {
       extends: ['@commitlint/config-conventional'],

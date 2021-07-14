@@ -60,3 +60,11 @@ liuli-cli generate <name> --template cli # 生成 cli 项目
 
 这在 monorepo 项目中会导致循环依赖，即 `@liuli-util/cli` 依赖于 @liuli-util/async，在打包 @liuli-util/async 时，由于 monorepo 会替换 node_modules
 中的同名包，进而导致 `@liuli-util/async => @liuli-util/cli => @liuli-util/async` 的依赖查找失败的问题。
+
+### 为什么不捆绑外部依赖项
+
+主要原因是希望将捆绑的工作交由最终应用完成，避免重复捆绑相同的依赖，而且还可以避免处理 nodejs 中直接基于文件系统使用 `worker_threads` 的问题。
+
+### 为什么不再使用 husky 了
+
+参考 [simple-git-hooks (opens new window): 为项目配置简单的 git 钩子](https://wiki.rxliuli.com/p/664f86d038744a01894699e368cc2708.html#simple-git-hooks-%E4%B8%BA%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E7%AE%80%E5%8D%95%E7%9A%84-git-%E9%92%A9%E5%AD%90)

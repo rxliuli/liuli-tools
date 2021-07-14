@@ -6,7 +6,6 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "setup": "yarn gen-i18n",
     "build": "rm dist && liuli-cli build pkg",
     "dev": "liuli-cli build pkg -w",
     "docs:server": "live-server docs",

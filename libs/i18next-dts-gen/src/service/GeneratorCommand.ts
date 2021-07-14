@@ -6,8 +6,8 @@ import path from 'path'
 import { AsyncArray } from '@liuli-util/async'
 import { Watcher } from './Watcher'
 import ora from 'ora'
-import { i18n } from '../util/I18n'
 import { DateTime } from 'luxon'
+import { i18n } from '../constants/I18n'
 
 export class GeneratorCommandProgram {
   /**

@@ -1,5 +1,10 @@
 # 更新日志
 
+## 3.7.0
+
+- feat(@liuli-util/prettier-standard-config): 更新 husky 的配置，使用 simple-git-hooks 替代 husky
+- feat(@liuli-util/prettier-standard-config): 统一 prettier 配置
+
 ## 3.6.0
 
 - chore(@liuli-util/cli): 更新 @types/rollup-plugin-auto-external，修复类型定义的错误

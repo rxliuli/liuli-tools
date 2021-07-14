@@ -1,4 +1,4 @@
-# i18next-typescript-generator
+# @liuli-util/i18next-dts-gen
 
 ## Introduction
 

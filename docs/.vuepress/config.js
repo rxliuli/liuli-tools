@@ -54,8 +54,28 @@ module.exports = {
                 link: '/zh/tools/',
               },
               {
+                text: '@liuli-util/cli',
+                link: '/zh/tools/cli/',
+              },
+              {
+                text: '@liuli-util/shell',
+                link: '/zh/tools/shell/',
+              },
+              {
+                text: 'vite-jetbrains-plugin',
+                link: '/zh/tools/vite-jetbrains-plugin/',
+              },
+              {
                 text: 'i18next-dts-gen',
                 link: '/zh/tools/i18next-dts-gen',
+              },
+              {
+                text: 'i18next-util',
+                link: '/zh/tools/i18next-util',
+              },
+              {
+                text: 'prettier-standard-config',
+                link: '/zh/tools/prettier-standard-config',
               },
             ],
           },

@@ -2,6 +2,9 @@
 home: true
 heroText: Web Project Tools
 tagline: A collection of project-level tools, mainly to try to improve efficiency in R&D. Feel free to come to the GitHub discussion forum to exchange ideas.
+actions:
+  - link: /tools/
+    text: Tools →
 features:
   - title: '@liuli-util/cli'
     details: A zero-configuration CLI for packaging libraries and CLI applications

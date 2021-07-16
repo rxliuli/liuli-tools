@@ -2,8 +2,9 @@
 home: true
 heroText: Web Project Tools
 tagline: 一些项目级别的工具集，主要尝试研发提效，欢迎来 GitHub 讨论区交流想法。
-actionLink: /guide/
-actionText: 快速上手 →
+actions:
+  - link: /zh/tools/
+    text: 工具 →
 features:
   - title: '@liuli-util/cli'
     details: 一个针对于库和 CLI 应用程序打包的零配置 CLI

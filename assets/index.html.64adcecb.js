@@ -1,0 +1,1 @@
+const e={key:"v-37b32358",path:"/zh/tools/vite-jetbrains-plugin/",title:"vite-jetbrains-plugin",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[{level:2,title:"路线图",slug:"路线图",children:[]},{level:2,title:"尚未解决的问题",slug:"尚未解决的问题",children:[]}],filePathRelative:"zh/tools/vite-jetbrains-plugin/README.md",git:{updatedTime:null,contributors:[]}};export{e as data};

@@ -8,6 +8,9 @@
     "postinstall": "goreleaser-npm install",
     "preuninstall": "goreleaser-npm uninstall"
   },
+  "files": [
+    "cli.js"
+  ],
   "goBin": {
     "name": "ebook-batch-converter",
     "version": "0.4.1",
@@ -16,7 +19,7 @@
   "bin": {
     "ebook-batch-converter": "cli.js"
   },
-  "devDependencies": {
+  "dependencies": {
     "@liuli-util/goreleaser-npm": "*"
   }
 }

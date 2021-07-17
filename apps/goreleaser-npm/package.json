@@ -1,0 +1,49 @@
+{
+  "name": "@liuli-util/goreleaser-npm",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm dist && liuli-cli build cli",
+    "dev": "liuli-cli build cli -w",
+    "start": "ts-node src/bin.ts install",
+    "docs:server": "live-server docs",
+    "docs:dev": "typedoc --watch",
+    "docs:build": "rm docs && typedoc",
+    "docs:deploy": "yarn build && gh-pages -d docs/ -e / -a"
+  },
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "goreleaser-npm": "dist/bin.js"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "dependencies": {
+    "commander": "^7.0.0",
+    "fs-extra": "^10.0.0",
+    "node-fetch": "^2.6.1",
+    "tar": "^6.1.0"
+  },
+  "devDependencies": {
+    "@liuli-util/cli": "^3.7.0",
+    "@liuli-util/shell": "^0.2.0",
+    "@types/fs-extra": "^9.0.11",
+    "@types/jest": "^26.0.23",
+    "@types/lodash": "^4.14.168",
+    "@types/node": "^12.20.6",
+    "@types/node-fetch": "^2.5.11",
+    "@types/tar": "^4.0.5",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.6",
+    "ts-node": "^10.0.0",
+    "tslib": "^2.3.0",
+    "type-fest": "^1.2.1",
+    "typedoc": "^0.21.0",
+    "typescript": "^4.3.4"
+  }
+}

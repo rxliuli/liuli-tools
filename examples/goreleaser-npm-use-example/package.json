@@ -1,0 +1,12 @@
+{
+  "name": "goreleaser-npm-use-example",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "ebook-batch-converter -h"
+  },
+  "dependencies": {
+    "a": "*"
+  }
+}

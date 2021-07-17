@@ -1,0 +1,22 @@
+{
+  "name": "goreleaser-npm-cli-example",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node cli.js -h",
+    "postinstall": "goreleaser-npm install",
+    "preuninstall": "goreleaser-npm uninstall"
+  },
+  "goBin": {
+    "name": "ebook-batch-converter",
+    "version": "0.4.1",
+    "url": "https://github.com/rxliuli/ebook-batch-converter/releases/download/v{{version}}/ebook-batch-converter_{{version}}_{{platform}}_{{arch}}.tar.gz"
+  },
+  "bin": {
+    "ebook-batch-converter": "cli.js"
+  },
+  "devDependencies": {
+    "@liuli-util/goreleaser-npm": "*"
+  }
+}

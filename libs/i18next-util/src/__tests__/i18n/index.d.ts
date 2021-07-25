@@ -1,6 +1,11 @@
-export type TranslateParams = [
-  key: 'hello',
-  params: {
-    name: string | number
-  },
-]
+export type TranslateType = {
+  hello: {
+    value: 'string'
+    params: [
+      key: 'hello',
+      params: {
+        name: string | number
+      },
+    ]
+  }
+}

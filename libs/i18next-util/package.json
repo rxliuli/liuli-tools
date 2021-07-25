@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/i18next-util",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -12,7 +12,7 @@
     "docs:dev": "typedoc --watch",
     "docs:build": "rm docs && typedoc",
     "docs:deploy": "yarn build && gh-pages -d docs/ -e / -a",
-    "gen-i18n": "i18next-dts-gen --input src/__tests__/i18n"
+    "gen-i18n": "i18next-dts-gen --dirs src/__tests__/i18n"
   },
   "jest": {
     "preset": "ts-jest"

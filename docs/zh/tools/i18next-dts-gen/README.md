@@ -16,7 +16,7 @@ i18next 的 typescript 类型定义生成器，可以从多个语言翻译 json 
 
 ```shell
 yarn add -D @liuli-util/i18next-dts-gen
-i18next-dts-gen --input src/i18n # 扫描这个目录下的 json 文件并生成 index.d.ts 类型定义
+i18next-dts-gen --dirs src/i18n # 扫描这个目录下的 json 文件并生成 index.d.ts 类型定义
 ```
 
 详情

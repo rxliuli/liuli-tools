@@ -5,7 +5,15 @@ export enum LanguageEnum {
   ZhCN = 'zhCN',
 }
 
-export class I18n<T extends any[]> {
+export class I18nextUtil<
+  T extends Record<
+    string,
+    {
+      params: [key: string] | [key: string, params: object]
+      value: string
+    }
+  >,
+> {
   constructor() {}
 
   async changeLang(lang: LanguageEnum) {
@@ -24,6 +32,7 @@ export class I18n<T extends any[]> {
         })
         return res
       }, {}),
+      keySeparator: false,
     })
   }
 
@@ -31,7 +40,7 @@ export class I18n<T extends any[]> {
    * 根据 key 获取翻译的文本
    * @param args
    */
-  t(...args: T): string {
+  t<K extends keyof T>(...args: T[K]['params']): T[K]['value'] {
     // @ts-ignore
     return i18next.t(args[0], args[1])
   }

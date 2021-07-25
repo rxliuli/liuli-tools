@@ -147,4 +147,19 @@ describe('使用 ts-morph', () => {
     })
     console.log('code: ', sourceFile.print())
   })
+  it('构建一个包含非常规键的对象', () => {
+    const sourceFile = project.createSourceFile('', {
+      statements: [
+        {
+          kind: StructureKind.TypeAlias,
+          name: 'I18nextTranslateParams',
+          isExported: true,
+          type: Writers.object({
+            "'hello world'": WriterFunctionUtil.literal('string'),
+          }),
+        },
+      ],
+    })
+    console.log(sourceFile.print())
+  })
 })

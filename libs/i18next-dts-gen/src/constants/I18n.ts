@@ -1,6 +1,6 @@
-import { TranslateParams } from '../i18n'
+import { TranslateType } from '../i18n'
 import osLocale from 'os-locale'
-import { I18n, LanguageEnum } from '@liuli-util/i18next-util'
+import { I18nextUtil, LanguageEnum } from '../util/I18nextUtil'
 
 export async function getLanguage(): Promise<LanguageEnum> {
   const language = await osLocale()
@@ -14,4 +14,4 @@ export async function getLanguage(): Promise<LanguageEnum> {
   return map[language] || LanguageEnum.En
 }
 
-export const i18n = new I18n<TranslateParams>()
+export const i18n = new I18nextUtil<TranslateType>()

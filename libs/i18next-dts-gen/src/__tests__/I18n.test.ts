@@ -23,6 +23,7 @@ class I18n {
           translation: zhCN,
         },
       },
+      keySeparator: false,
     })
   }
 
@@ -54,7 +55,7 @@ describe('测试 loadI18n', () => {
   })
   it('测试特殊字符', () => {
     const res = i18n.t('test.special.characters')
-    expect(res).not.toBe('特殊字符')
+    expect(res).toBe('特殊字符')
   })
   /**
    * 由于我禁用了这种情况下生成类型定义，所以无法测试（会引起类型错误）

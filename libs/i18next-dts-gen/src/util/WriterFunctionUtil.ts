@@ -1,9 +1,4 @@
-import {
-  UnionTypeNode,
-  WriterFunction,
-  WriterFunctionOrValue,
-  Writers,
-} from 'ts-morph'
+import { WriterFunction, WriterFunctionOrValue, Writers } from 'ts-morph'
 
 type NativeTypeLiteral = 'string' | 'number' | 'boolean'
 
@@ -48,6 +43,10 @@ export class WriterFunctionUtil {
       writer.write(type.replace(new RegExp("'", 'g'), "\\'"))
       writer.write("'")
     }
+  }
+
+  static key(key: string): string {
+    return `'${key.replace(new RegExp("'", 'g'), "\\'")}'`
   }
 
   /**

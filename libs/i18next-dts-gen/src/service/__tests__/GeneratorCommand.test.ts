@@ -6,6 +6,10 @@ it('测试 GeneratorCommand', async () => {
   const command = new GeneratorCommandProgram()
   const dtsPath = path.resolve(__dirname, 'i18n/index.d.ts')
   await remove(dtsPath)
-  await command.main({ dirs: [path.resolve(__dirname, 'i18n')], watch: false })
+  await command.main({
+    dirs: [path.resolve(__dirname, 'i18n')],
+    watch: false,
+    language: 'zh',
+  })
   expect(await pathExists(dtsPath)).toBeTruthy()
 })

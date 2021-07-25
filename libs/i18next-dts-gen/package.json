@@ -8,7 +8,7 @@
   "scripts": {
     "setup": "yarn start && yarn pub",
     "build": "rm dist && liuli-cli build cli",
-    "start": "ts-node src/bin.ts --input src/i18n",
+    "start": "ts-node src/bin.ts --dirs src/i18n",
     "pub": "yarn build && lerna clean -y && yarn",
     "docs:server": "live-server docs",
     "docs:dev": "typedoc --watch",
@@ -30,7 +30,6 @@
     "url": "https://github.com/rxliuli/liuli-tools/tree/master/libs/i18next-dts-gen"
   },
   "dependencies": {
-    "@liuli-util/i18next-util": "0.1.0",
     "@liuli-util/array": "^3.2.3",
     "@liuli-util/async": "^3.2.3",
     "@liuli-util/tree": "^3.2.3",

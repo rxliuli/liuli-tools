@@ -1,19 +1,13 @@
 {
-  "test": {
-    "hello": "你好",
-    "params": "是的, {{what}} 是 {{how}}",
-    "footer": {
-      "copyright": "一些版权"
-    },
-    "special": "特殊字符",
-    "I'm liuli": "我是琉璃",
-    "Contains a colon:": "包含冒号:"
-  },
+  "test.hello": "你好",
+  "test.params": "是的, {{what}} 是 {{how}}",
+  "test.footer.copyright": "一些版权",
+  "test.special.characters": "特殊字符",
+  "test.I'm liuli": "我是琉璃",
+  "test.Contains a colon:": "包含冒号:",
   "hello": "你好",
   "key": "是的, {{what}} 是 {{how}}",
-  "footer": {
-    "copyright": "一些版权"
-  },
+  "footer.copyright": "一些版权",
   "notFoundConfig": "找不到配置文件 .joplin-blog.json",
   "writeNote": "正在写入笔记",
   "convertNote": "正在转换笔记",

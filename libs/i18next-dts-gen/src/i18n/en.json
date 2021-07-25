@@ -1,13 +1,9 @@
 {
-  "cli": {
-    "option": {
-      "input": "Directory containing one or more translation files",
-      "watch": "Whether to use watch mode"
-    },
-    "description": "Generate .d.ts type definitions from json"
-  },
-  "generator": {
-    "begin": "[{{time}}] Start generating type definition: {{dtsPath}}",
-    "end": "[{{time}}] Ends generating type definition: {{dtsPath}}"
-  }
+  "cli.option.dirs": "Directory containing one or more translation files",
+  "cli.option.watch": "Whether to use watch mode",
+  "cli.option.language": "Default language",
+  "cli.description": "Generate .d.ts type definitions from json",
+  "generator.begin": "[{{time}}] Start generating type definition: {{dtsPath}}",
+  "generator.end": "[{{time}}] Ends generating type definition: {{dtsPath}}",
+  "generator.error.nestKey": "Does not support nested keys"
 }

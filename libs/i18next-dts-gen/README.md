@@ -28,6 +28,20 @@ Options:
   -h, --help              display help for command
 ```
 
+## Skills
+
+Prompt
+
+![prompt](./assets/prompt.gif)
+
+Navigation
+
+![navigation](./assets/navigation.gif)
+
+Search and replace
+
+![searchAndReplace](assets/searchAndReplace.gif)
+
 ## Motivation
 
 Why should I write this when there are already many third-party type definition generators, and even the latest version of i18next has an official typescript solution?
@@ -60,7 +74,7 @@ No, only a subset of i18next is supported here.
 - [x] Generate type definitions for multiple localized json profiles
 - [x] Include parameters are supported
   - [ ] Object parameters are not supported
-- [x] Nested keys are supported
+- [ ] Does not support nested keys - we think that using. Segmentation is sufficient, and it is easier to find and replace globally
 - [ ] does not support configuration namespaces, nested split strings, and we consider conventions over configuration
 - [ ] Configuration files other than json are not supported, we believe json files are more friendly to non-developers and easier for developers to handle when needed
 - [ ] i18next namespaces are not supported, i.e. translation file splitting

@@ -28,6 +28,20 @@ Options:
   -h, --help              display help for command
 ```
 
+## 使用技巧
+
+提示
+
+![prompt](./assets/prompt.gif)
+
+导航
+
+![navigation](./assets/navigation.gif)
+
+搜索和替换
+
+![searchAndReplace](assets/searchAndReplace.gif)
+
 ## 动机
 
 为什么已经有了很多第三方的类型定义生成器，甚至最新版 i18next 官方已经推出了 typescript 解决方案，吾辈还要写这个呢？
@@ -58,8 +72,8 @@ Options:
 
 - [x] 为多个本地化 json 配置文件生成类型定义
 - [x] 支持包含参数
-  - [ ] 不支持对象参数
-- [x] 支持嵌套的 key
+  - [ ] 不支持嵌套参数
+- [ ] 不支持嵌套的 key -- 我们认为使用 . 分割就足够了，而且这样也更容易全局查找和替换
 - [ ] 不支持配置命名空间、嵌套的分割字符串，我们认为约定大于配置
 - [ ] 不支持 json 之外的配置文件，我们认为 json 文件对于非开发者都更友好，而且在需要时开发者更容易处理
 - [ ] 不支持 i18next 命名空间，即将翻译文件分割

@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.3.0
+
+- feat: Support generating return value types based on default language
+- feat: change --input to --dir
+- feat: no longer support nested keys
+
 ## 0.2.1
 
 - Fixed many documentation issues

@@ -4,22 +4,14 @@
   "license": "MIT",
   "scripts": {
     "setup": "yarn && yarn runstream setup && yarn",
-    "clean": "lerna run clean --parallel && lerna clean -y && rm node_modules",
+    "clean": "lerna run clean --parallel && lerna clean -y && rimraf node_modules",
     "runstream": "lerna run --include-dependencies --stream",
     "build": "yarn runstream build",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "docs:deploy": "gh-pages -d docs/.vuepress/dist -a"
+    "docs:deploy": "yarn docs:build && gh-pages -d docs/.vuepress/dist -a"
   },
-  "prettier": {
-    "tabWidth": 2,
-    "printWidth": 80,
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "arrowParens": "always",
-    "endOfLine": "crlf"
-  },
+  "prettier": "@liuli-util/prettier-standard-config",
   "workspaces": {
     "packages": [
       "libs/*",
@@ -46,12 +38,15 @@
     ]
   },
   "devDependencies": {
+    "@liuli-util/prettier-standard-config": "*",
+    "rimraf": "^3.0.2",
     "@commitlint/cli": "^12.0.1",
     "@commitlint/config-conventional": "^12.0.1",
     "gh-pages": "^3.2.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.5.1",
     "prettier": "^2.2.1",
-    "vuepress": "^1.8.2"
+    "vuepress": "^1.8.2",
+    "typescript": "^4.3.4"
   }
 }

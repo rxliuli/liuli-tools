@@ -1,0 +1,10 @@
+{
+  "name": "@liuli-util/prettier-standard-config",
+  "version": "0.1.0",
+  "main": ".prettierrc.json",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

@@ -5,23 +5,20 @@
     "outDir": "./dist",
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "pretty": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "sourceMap": true,
     "declaration": true,
-    "declarationMap": true,
-    "allowJs": true,
-    "noFallthroughCasesInSwitch": true
+    "declarationMap": true
   },
   "include": ["src"],
-  "exclude": ["src/__tests__"],
+  "typedocOptions": {
+    "entryPoints": ["src/index.ts"],
+    "out": "docs",
+    "readme": "README.md",
+    "gitRemote": "origin"
+  },
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"

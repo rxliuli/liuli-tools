@@ -1,5 +1,9 @@
 import { RollupOptions } from 'rollup'
 
+/**
+ * 废弃，已添加到 rollup 官方项目中
+ * @param options
+ */
 export function defineConfig(options: RollupOptions): RollupOptions
 export function defineConfig(options: RollupOptions[]): RollupOptions[]
 /**

@@ -1,4 +1,4 @@
-import { OutputOptions, rollup, RollupOptions, watch } from 'rollup'
+import { OutputOptions, Plugin, rollup, RollupOptions, watch } from 'rollup'
 import typescript from 'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser'
 import shebang from 'rollup-plugin-add-shebang'
@@ -14,7 +14,7 @@ export class BuildProgram {
           return {
             ...option,
             plugins: option.plugins?.filter(
-              (plugin) => plugin.name !== 'terser',
+              (plugin) => (plugin as Plugin)?.name !== 'terser',
             ),
           }
         }),

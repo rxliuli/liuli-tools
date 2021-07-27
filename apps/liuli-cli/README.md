@@ -16,10 +16,8 @@ npm i -g @liuli-util/cli # 全局安装
 ```sh
 liuli-cli build pkg # 打包库
 liuli-cli build cli # 打包 cli 引用程序
-liuli-cli build config # 根据 rollup.config.ts 打包
 ```
 
-> `build config` 命令主要是为了支持 ts 配置文件，但之后 rollup 默认支持了的话，就可能会被废弃，参考：<https://github.com/rollup/rollup/pull/3835>
 > 添加 `-w` 选项则启动 rollup 的监视模式，打包出来的 dist/ 不会压缩
 
 ### 生成
@@ -33,7 +31,6 @@ liuli-cli generate <name> --template cli # 生成 cli 项目
 
 - `clean`: 删除 `dist` 目录，废弃，应该使用 `@liuli-util/shell` 的 `rm` 命令
 - `addHusky`: 为项目添加一些必须的钩子，包括代码格式、git 提交信息规范化。可能有更好的形式，例如 vue 的可插拔的分别添加或者生成模板项目
-- `addCliBanner`: 为 nodejs cli 最终生成的 js 文件顶部添加 `#!/usr/bin/env node`，已废弃，被更方便的 `build cli` 替代
 
 ## 设计理念
 

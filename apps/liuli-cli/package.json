@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "setup": "yarn build && lerna clean -y && yarn",
+    "setup": "yarn build && yarn",
     "build": "rm dist && yarn dev build cli",
     "watch": "yarn dev build cli -w",
     "dev": "ts-node src/bin.ts"
@@ -39,12 +39,12 @@
   },
   "devDependencies": {
     "@liuli-util/shell": "*",
-    "@types/rollup-plugin-auto-external": "^2.0.1",
     "@types/fs-extra": "^9.0.11",
     "@types/inquirer": "^7.3.1",
     "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.168",
     "@types/node": "^12.20.6",
+    "@types/rollup-plugin-auto-external": "^2.0.1",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.6",
     "ts-node": "^10.0.0",

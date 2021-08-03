@@ -6,18 +6,18 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "setup": "yarn build && lerna clean -y && yarn",
+    "setup": "yarn build && yarn",
     "build": "yarn start rm dist && rollup -c",
     "dev": "rollup -cw",
     "start": "ts-node src/bin.ts",
     "test": "rm dist"
   },
   "bin": {
-    "shell": "dist/bin.js",
-    "rm": "dist/rm.js",
     "cp": "dist/cp.js",
+    "mkdir": "dist/mkdir.js",
     "mv": "dist/mv.js",
-    "mkdir": "dist/mkdir.js"
+    "rm": "dist/rm.js",
+    "shell": "dist/bin.js"
   },
   "jest": {
     "preset": "ts-jest"
@@ -31,24 +31,23 @@
     "url": "https://github.com/rxliuli/liuli-tools/tree/master/apps/shell"
   },
   "dependencies": {
+    "@liuli-util/async": "^3.2.3",
     "commander": "^7.0.0",
-    "fs-extra": "^10.0.0",
-    "@liuli-util/async": "^3.2.3"
+    "fs-extra": "^10.0.0"
   },
   "devDependencies": {
-    "rollup": "^2.52.2",
-    "rollup-plugin-typescript2": "^0.30.0",
-    "rollup-plugin-node-externals": "^2.2.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-add-shebang": "^0.3.1",
-    "rollup-plugin-auto-external": "^2.0.0",
-    "@types/rollup-plugin-auto-external": "^2.0.0",
-    "@types/inquirer": "^7.3.1",
     "@types/fs-extra": "^9.0.11",
     "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.168",
     "@types/node": "^12.20.6",
+    "@types/rollup-plugin-auto-external": "^2.0.0",
     "jest": "^26.6.3",
+    "rollup": "^2.52.2",
+    "rollup-plugin-add-shebang": "^0.3.1",
+    "rollup-plugin-auto-external": "^2.0.0",
+    "rollup-plugin-node-externals": "^2.2.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.30.0",
     "ts-jest": "^26.5.6",
     "ts-node": "^10.0.0",
     "type-fest": "^1.1.1",

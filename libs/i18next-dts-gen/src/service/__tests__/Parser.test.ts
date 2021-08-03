@@ -1,11 +1,11 @@
-import { TranslateKeyConfig } from '../Generator'
+import { TranslateTypeConfig } from '../Generator'
 import { LocaleJSON, Parser } from '../Parser'
 
 describe('测试 Parser', () => {
   const parser = new (class extends Parser {
     _parseLocale = this.parseLocale
     _parseVal = this.parseVal
-  })()
+  })('zh')
   function wrap(data: object): LocaleJSON {
     return {
       data,
@@ -18,7 +18,7 @@ describe('测试 Parser', () => {
       expect(res).toEqual([
         { key: 'name' },
         { key: 'age' },
-      ] as TranslateKeyConfig[])
+      ] as TranslateTypeConfig[])
     })
     it('测试 key 对应的翻译不同的情况', () => {
       const res = parser.parse(
@@ -29,7 +29,7 @@ describe('测试 Parser', () => {
       )
       expect(res).toEqual([
         { key: 'hello {{name}}', params: ['name'] },
-      ] as TranslateKeyConfig[])
+      ] as TranslateTypeConfig[])
     })
   })
 
@@ -38,21 +38,16 @@ describe('测试 Parser', () => {
       const res = parser._parseLocale({
         'hello world': '你好世界',
       })
-      expect(res).toEqual([{ key: 'hello world' }] as TranslateKeyConfig[])
+      expect(res).toEqual([{ key: 'hello world' }] as TranslateTypeConfig[])
     })
     it('测试嵌套', () => {
-      const res = parser._parseLocale({
-        greetings: {
-          morning: 'Good morning',
-          evening: 'Good evening',
-          welcome: 'Welcome',
-        },
-      })
-      expect(res).toEqual([
-        { key: 'greetings.morning' },
-        { key: 'greetings.evening' },
-        { key: 'greetings.welcome' },
-      ])
+      expect(() =>
+        parser._parseLocale({
+          greetings: {
+            morning: 'Good morning',
+          },
+        }),
+      ).toThrowError()
     })
     it('测试带参数的翻译字符串', () => {
       const res = parser._parseVal('你好{{name}}，我 {{age}} 岁')
@@ -67,7 +62,18 @@ describe('测试 Parser', () => {
           key: 'hello {{name}}',
           params: ['name'],
         },
-      ] as TranslateKeyConfig[])
+      ] as TranslateTypeConfig[])
+    })
+    it('测试指定语言', () => {
+      const res = parser._parseLocale(
+        {
+          'hello world': '你好世界',
+        },
+        true,
+      )
+      expect(res).toEqual([
+        { key: 'hello world', value: '你好世界' },
+      ] as TranslateTypeConfig[])
     })
   })
 })

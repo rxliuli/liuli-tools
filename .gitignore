@@ -11,6 +11,8 @@ yarn-error.log
 *.tgz
 dist/
 **/__tests__/temp
+.temp/
+.cache/
 .yarn/*
 !.yarn/patches
 !.yarn/releases

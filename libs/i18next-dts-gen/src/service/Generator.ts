@@ -5,9 +5,10 @@ import { RandomUtil } from '../util/RandomUtil'
 /**
  * 翻译的字符串
  */
-export interface TranslateKeyConfig {
+export interface TranslateTypeConfig {
   key: string
   params?: string[]
+  value?: string
 }
 
 /**
@@ -16,33 +17,43 @@ export interface TranslateKeyConfig {
 export class Generator {
   private project = new Project()
 
-  convert(configs: TranslateKeyConfig[]): WriterFunction[] {
-    return configs.map(({ key, params }) => {
-      const tokens = [{ name: 'key', type: WriterFunctionUtil.literal(key) }]
-      if (params) {
+  convert(configs: TranslateTypeConfig[]) {
+    return configs.reduce((res, config) => {
+      const obj: {
+        params?: WriterFunction
+        value: WriterFunction
+      } = {
+        value: WriterFunctionUtil.literal(config.value ?? 'string'),
+      }
+      const tokens = [
+        { name: 'key', type: WriterFunctionUtil.literal(config.key) },
+      ]
+      if (config.params) {
         tokens.push({
           name: 'params',
           type: Writers.object(
-            params.reduce((res, p) => {
+            config.params.reduce((res, p) => {
               res[p] = Writers.unionType('string', 'number')
               return res
             }, {} as Record<string, WriterFunction>),
           ),
         })
       }
-      return WriterFunctionUtil.tuple(tokens)
-    })
+      obj.params = WriterFunctionUtil.tuple(tokens)
+      res[WriterFunctionUtil.key(config.key)] = Writers.object(obj)
+      return res
+    }, {} as Record<string, WriterFunction>)
   }
 
-  generate(configs: TranslateKeyConfig[]) {
+  generate(configs: TranslateTypeConfig[]) {
     const types = this.convert(configs)
     const sourceFile = this.project.createSourceFile(RandomUtil.string(), {
       statements: [
         {
           kind: StructureKind.TypeAlias,
-          name: 'TranslateParams',
+          name: 'TranslateType',
           isExported: true,
-          type: WriterFunctionUtil.union(types),
+          type: Writers.object(types),
         },
       ],
     })

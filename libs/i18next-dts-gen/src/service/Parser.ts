@@ -1,5 +1,7 @@
-import { TranslateKeyConfig } from './Generator'
-import { uniqueBy } from '@liuli-util/array'
+import { TranslateTypeConfig } from './Generator'
+import { sortBy, uniqueBy } from '@liuli-util/array'
+import path from 'path'
+import { i18n } from '../constants/I18n'
 
 export interface LocaleJSON {
   path: string
@@ -10,6 +12,8 @@ export interface LocaleJSON {
  * 解析每个 json 文件得到生成类型定义所需的结构
  */
 export class Parser {
+  constructor(private readonly language: string) {}
+
   /**
    * 解析带参数的翻译字符串
    * @param str
@@ -26,30 +30,39 @@ export class Parser {
 
   /**
    * 解析单个配置文件，压平所有的 key
-   * @param locale
+   * @param data
+   * @param isDefaultLanguage
    */
-  protected parseLocale(locale: object): TranslateKeyConfig[] {
-    const f = (
-      key: string,
-      val: string | object,
-      parents: string[],
-    ): TranslateKeyConfig[] => {
-      if (typeof val === 'string') {
-        return [
-          {
-            key: [...parents, key].join('.'),
-            params: this.parseVal(val) || undefined,
-          },
-        ]
+  protected parseLocale(
+    data: object,
+    isDefaultLanguage = false,
+  ): TranslateTypeConfig[] {
+    return Object.entries(data).flatMap(([k, v]) => {
+      if (typeof v !== 'string') {
+        throw new Error(i18n.t('generator.error.nestKey'))
       }
-      return Object.entries(val).flatMap(([k, v]) => f(k, v, [...parents, key]))
-    }
-
-    return Object.entries(locale).flatMap(([k, v]) => f(k, v, []))
+      return [
+        {
+          key: k,
+          params: this.parseVal(v) || undefined,
+          value: isDefaultLanguage ? v : undefined,
+        },
+      ]
+    })
   }
 
-  parse(locales: LocaleJSON[]): TranslateKeyConfig[] {
-    const arr = locales.flatMap((value) => this.parseLocale(value.data))
-    return uniqueBy(arr, (config) => config.key)
+  parse(locales: LocaleJSON[]): TranslateTypeConfig[] {
+    const arr = locales.flatMap((value) =>
+      this.parseLocale(
+        value.data,
+        path.basename(value.path).includes(this.language),
+      ),
+    )
+    return uniqueBy(
+      sortBy(arr, (config) =>
+        config.value === 'string' || config.value === undefined ? 1 : 0,
+      ),
+      (config) => config.key,
+    )
   }
 }

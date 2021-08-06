@@ -874,10 +874,11 @@ __metadata:
     simple-git-hooks: ^2.5.1
     ts-node: ^10.1.0
     type-fest: ^2.0.0
+    typescript: ^4.3.5
   languageName: unknown
   linkType: soft
 
-"@liuli-util/array@^3.2.5, @liuli-util/array@workspace:libs/array":
+"@liuli-util/array@^3.2.6, @liuli-util/array@workspace:libs/array":
   version: 0.0.0-use.local
   resolution: "@liuli-util/array@workspace:libs/array"
   dependencies:
@@ -901,7 +902,7 @@ __metadata:
   dependencies:
     "@liuli-util/cli": ^3.7.1
     "@liuli-util/shell": ^0.2.0
-    "@liuli-util/test": ^3.2.5
+    "@liuli-util/test": ^3.2.6
     "@types/jest": ^26.0.24
     "@types/rimraf": ^3.0.1
     jest: ^27.0.6
@@ -938,7 +939,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@liuli-util/dom@workspace:libs/dom"
   dependencies:
-    "@liuli-util/array": ^3.2.5
+    "@liuli-util/array": ^3.2.6
     "@liuli-util/async": "*"
     "@liuli-util/cli": ^3.7.1
     "@liuli-util/shell": ^0.2.0
@@ -1031,7 +1032,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/test@*, @liuli-util/test@^3.2.5, @liuli-util/test@workspace:libs/test":
+"@liuli-util/test@*, @liuli-util/test@^3.2.6, @liuli-util/test@workspace:libs/test":
   version: 0.0.0-use.local
   resolution: "@liuli-util/test@workspace:libs/test"
   dependencies:

@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/dom",
-  "version": "3.2.5",
+  "version": "3.2.6",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -15,7 +15,7 @@
     "testEnvironment": "jsdom"
   },
   "dependencies": {
-    "@liuli-util/array": "^3.2.5"
+    "@liuli-util/array": "^3.2.6"
   },
   "devDependencies": {
     "@liuli-util/async": "*",

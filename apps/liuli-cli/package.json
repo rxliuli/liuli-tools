@@ -8,9 +8,9 @@
   "license": "MIT",
   "scripts": {
     "setup": "yarn build && yarn",
-    "build": "rm dist && yarn dev build cli",
-    "watch": "yarn dev build cli -w",
-    "dev": "ts-node src/bin.ts"
+    "start": "ts-node src/bin.ts",
+    "build": "rimraf dist && yarn start build cli",
+    "dev": "yarn start build cli -w"
   },
   "bin": {
     "liuli-cli": "dist/bin.js"
@@ -38,7 +38,6 @@
     "rollup-plugin-typescript2": "^0.30.0"
   },
   "devDependencies": {
-    "@liuli-util/shell": "*",
     "@types/fs-extra": "^9.0.11",
     "@types/inquirer": "^7.3.1",
     "@types/jest": "^26.0.23",
@@ -46,6 +45,7 @@
     "@types/node": "^12.20.6",
     "@types/rollup-plugin-auto-external": "^2.0.1",
     "jest": "^26.6.3",
+    "rimraf": "^3.0.2",
     "ts-jest": "^26.5.6",
     "ts-node": "^10.0.0",
     "type-fest": "^1.1.1",

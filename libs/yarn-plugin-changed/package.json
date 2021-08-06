@@ -1,0 +1,33 @@
+{
+  "name": "@liuli-util/yarn-plugin-changed",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "builder build plugin",
+    "dev": "chokidar src/ -c \"yarn build\""
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "dependencies": {
+    "clipanion": "^2.4.4",
+    "lodash": "^4.17.21",
+    "md5-file": "^5.0.0",
+    "simple-git": "^2.42.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "@types/lodash": "^4.14.172",
+    "@types/md5-file": "^5.0.0",
+    "@yarnpkg/builder": "^2.1.3",
+    "@yarnpkg/cli": "^2.4.1",
+    "@yarnpkg/core": "^2.4.0",
+    "@yarnpkg/fslib": "^2.4.0",
+    "@yarnpkg/plugin-essentials": "^2.4.0",
+    "@yarnpkg/shell": "^2.4.1",
+    "chokidar-cli": "^3.0.0",
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.4",
+    "typescript": "^4.0.2"
+  }
+}

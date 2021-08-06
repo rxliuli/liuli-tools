@@ -8,12 +8,11 @@ yarn-error.log*
 .history
 docs
 .yarn/*
+!.yarn/patches
 !.yarn/releases
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
-.pnp.*
-
 # Editor directories and files
 .idea
 .vscode

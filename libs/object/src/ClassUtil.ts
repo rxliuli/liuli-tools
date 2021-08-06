@@ -6,7 +6,7 @@ export class ClassUtil {
    */
   static scan<T extends object>(instance: T): (keyof T)[] {
     const excludeFieldSet = new Set<PropertyKey>(['constructor'])
-    return Reflect.ownKeys(Reflect.getPrototypeOf(instance)).filter(
+    return Reflect.ownKeys(Reflect.getPrototypeOf(instance)!).filter(
       (field) =>
         !excludeFieldSet.has(field) &&
         instance[field as keyof T] instanceof Function,

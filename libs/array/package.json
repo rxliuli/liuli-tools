@@ -6,15 +6,22 @@
   "types": "dist/index.d.ts",
   "description": "数组相关功能的函数库",
   "scripts": {
-    "build": "rm dist && liuli-cli build",
-    "clean": "rm dist",
+    "build": "rimraf dist && liuli-cli build",
+    "clean": "rimraf dist",
     "test": "jest --all"
   },
   "devDependencies": {
-    "@liuli-util/cli": "^3.3.2",
-    "@liuli-util/shell": "^0.1.0",
-    "@types/mockjs": "^1.0.3",
-    "mockjs": "^1.1.0"
+    "@liuli-util/cli": "^3.7.1",
+    "@liuli-util/shell": "^0.2.0",
+    "@liuli-util/test": "*",
+    "@types/jest": "^26.0.24",
+    "@types/mockjs": "^1.0.4",
+    "@types/rimraf": "^3.0.1",
+    "jest": "^27.0.6",
+    "mockjs": "^1.1.0",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.4",
+    "typescript": "^4.3.5"
   },
   "jest": {
     "preset": "ts-jest"

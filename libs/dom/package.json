@@ -6,21 +6,29 @@
   "types": "dist/index.d.ts",
   "description": "仅在浏览器端使用的相关功能的函数库",
   "scripts": {
-    "build": "rm dist && liuli-cli build",
-    "clean": "rm dist",
+    "build": "rimraf dist && liuli-cli build",
+    "clean": "rimraf dist",
     "test": "jest --all"
   },
   "jest": {
-    "preset": "ts-jest"
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom"
   },
   "dependencies": {
     "@liuli-util/array": "^3.2.5"
   },
   "devDependencies": {
-    "@liuli-util/async": "^3.2.5",
-    "@liuli-util/cli": "^3.3.2",
-    "@liuli-util/shell": "^0.1.0",
-    "type-fest": "^1.1.1"
+    "@liuli-util/async": "*",
+    "@liuli-util/cli": "^3.7.1",
+    "@liuli-util/shell": "^0.2.0",
+    "@liuli-util/test": "*",
+    "@types/jest": "^26.0.24",
+    "@types/rimraf": "^3.0.1",
+    "jest": "^27.0.6",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.4",
+    "type-fest": "^2.0.0",
+    "typescript": "^4.3.5"
   },
   "publishConfig": {
     "access": "public",

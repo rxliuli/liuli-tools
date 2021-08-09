@@ -3,19 +3,22 @@
   "version": "0.1.0",
   "main": "src/index.ts",
   "scripts": {
+    "setup": "npm run build",
     "build": "builder build plugin",
-    "dev": "chokidar src/ -i '*.test.ts' -c \"yarn build --no-minify\""
+    "dev": "chokidar src/ -i '*.test.ts' -c \"npm run build --no-minify\""
   },
   "jest": {
     "preset": "ts-jest"
   },
   "dependencies": {
     "clipanion": "^2.4.4",
+    "fs-extra": "^10.0.0",
     "lodash": "^4.17.21",
     "md5-file": "^5.0.0",
     "simple-git": "^2.42.0"
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.12",
     "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.172",
     "@types/md5-file": "^5.0.0",

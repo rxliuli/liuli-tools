@@ -1473,6 +1473,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@liuli-util/yarn-plugin-changed@workspace:libs/yarn-plugin-changed"
   dependencies:
+    "@types/fs-extra": ^9.0.12
     "@types/jest": ^26.0.24
     "@types/lodash": ^4.14.172
     "@types/md5-file": ^5.0.0
@@ -1484,6 +1485,7 @@ __metadata:
     "@yarnpkg/shell": ^2.4.1
     chokidar-cli: ^3.0.0
     clipanion: ^2.4.4
+    fs-extra: ^10.0.0
     jest: ^27.0.6
     lodash: ^4.17.21
     md5-file: ^5.0.0

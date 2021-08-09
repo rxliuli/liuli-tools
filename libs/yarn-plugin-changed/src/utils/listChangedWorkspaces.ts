@@ -1,36 +1,26 @@
 import { Project, Workspace } from '@yarnpkg/core'
 import getWorkspaceDependents from './getWorkspaceDependents'
-import * as path from 'path'
-import { calcModuleHash, ModuleHash } from './calcModuleHash'
-import { pathExists, readJson, writeJson } from 'fs-extra'
+import { calcModuleHash } from './calcModuleHash'
 import { differenceBy } from 'lodash'
 import { NativePath, npath } from '@yarnpkg/fslib'
-
-type WorkspaceCacheInfo = ModuleHash & Pick<Workspace, 'cwd'>
-
-type CacheInfo = {
-  last: WorkspaceCacheInfo[]
-}
+import { BuildCache, WorkspaceCacheInfo } from './BuildCache'
 
 export type CacheWorkspace = {
   updateCache(): Promise<void>
   workspaces: Workspace[]
 }
 
+/**
+ * 获取所有改变的模块
+ * @param project
+ * @param cmd
+ */
 export async function listChangedWorkspaces(
   project: Project,
+  cmd: string,
 ): Promise<CacheWorkspace> {
-  const cachePath = path.resolve(
-    npath.fromPortablePath(project.cwd),
-    '.yarn-cache.json',
-  )
-  if (!(await pathExists(cachePath))) {
-    await writeJson(cachePath, {
-      last: [] as WorkspaceCacheInfo[],
-    })
-  }
-  const cacheInfo = (await readJson(cachePath)) as CacheInfo
-  const last = cacheInfo.last
+  const buildCache = new BuildCache(npath.fromPortablePath(project.cwd))
+  const last = await buildCache.get(cmd)
   const current = await Promise.all(
     project.workspaces.map(async (item) => {
       return {
@@ -73,9 +63,7 @@ export async function listChangedWorkspaces(
   return {
     workspaces: [...workspaces],
     async updateCache() {
-      await writeJson(cachePath, {
-        last: current,
-      } as CacheInfo)
+      await buildCache.set(cmd, current)
     },
   }
 }

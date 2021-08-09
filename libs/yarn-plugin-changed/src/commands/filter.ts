@@ -14,7 +14,7 @@ export abstract class FilterCommand extends BaseCommand {
   public exclude?: string[]
 
   protected async listWorkspaces(project: Project): Promise<CacheWorkspace> {
-    const res = await listChangedWorkspaces(project)
+    const res = await listChangedWorkspaces(project, process.argv.join(' '))
     // console.log('changed.workspaces: ', res.workspaces)
     const include = this.include || []
     const exclude = this.exclude || []

@@ -4,7 +4,7 @@ import * as path from 'path'
 import { calcModuleHash, ModuleHash } from './calcModuleHash'
 import { pathExists, readJson, writeJson } from 'fs-extra'
 import { differenceBy } from 'lodash'
-import { npath } from '@yarnpkg/fslib'
+import { NativePath, npath } from '@yarnpkg/fslib'
 
 type WorkspaceCacheInfo = ModuleHash & Pick<Workspace, 'cwd'>
 
@@ -49,19 +49,17 @@ export async function listChangedWorkspaces(
   // console.log('cacheInfo: ', cacheInfo, current)
   const addOrUpdateWorkspaceCwdSet = new Set(
     differenceBy(current, last, (item) => JSON.stringify(item)).map(
-      (item) => item.cwd,
+      (item) => item.cwd as NativePath,
     ),
   )
 
   // console.log('addOrUpdateWorkspaceCwdSet: ', addOrUpdateWorkspaceCwdSet)
-  const workspaces = new Set(
-    project.workspaces.filter((item) =>
-      addOrUpdateWorkspaceCwdSet.has(item.cwd),
-    ),
-  )
+  const workspaces = new Set<Workspace>()
 
   for (const item of project.workspaces) {
-    const changed = addOrUpdateWorkspaceCwdSet.has(item.cwd)
+    const changed = addOrUpdateWorkspaceCwdSet.has(
+      npath.fromPortablePath(item.cwd),
+    )
 
     if (changed && !workspaces.has(item)) {
       workspaces.add(item)

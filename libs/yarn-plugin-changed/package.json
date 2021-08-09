@@ -4,7 +4,7 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "builder build plugin",
-    "dev": "chokidar src/ -c \"yarn build\""
+    "dev": "chokidar src/ -i '*.test.ts' -c \"yarn build --no-minify\""
   },
   "jest": {
     "preset": "ts-jest"

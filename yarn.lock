@@ -1409,6 +1409,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@liuli-util/eslint-config-react-ts@workspace:libs/eslint-config-react-ts":
+  version: 0.0.0-use.local
+  resolution: "@liuli-util/eslint-config-react-ts@workspace:libs/eslint-config-react-ts"
+  dependencies:
+    "@types/eslint": ^7
+    "@typescript-eslint/eslint-plugin": ^4.29.1
+    "@typescript-eslint/parser": ^4.29.1
+    eslint: ^7.32.0
+    eslint-config-prettier: ^8.3.0
+    eslint-plugin-react-hooks: ^4.2.0
+  peerDependencies:
+    typescript: ">=4"
+  languageName: unknown
+  linkType: soft
+
 "@liuli-util/eslint-config-ts@*, @liuli-util/eslint-config-ts@workspace:libs/eslint-config-ts":
   version: 0.0.0-use.local
   resolution: "@liuli-util/eslint-config-ts@workspace:libs/eslint-config-ts"
@@ -1417,6 +1432,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^4.29.1
     "@typescript-eslint/parser": ^4.29.1
     eslint: ^7.32.0
+    eslint-config-prettier: ^8.3.0
   peerDependencies:
     typescript: ">=4"
   languageName: unknown
@@ -1433,6 +1449,7 @@ __metadata:
     "@liuli-util/test": ^3.2.3
     "@liuli-util/tree": ^3.2.3
     "@types/fs-extra": ^9.0.11
+    "@types/jest": ^26.0.24
     "@types/luxon": ^1.25.0
     "@types/node": ^12.20.7
     "@types/prettier": ^2.3.0
@@ -1442,10 +1459,12 @@ __metadata:
     fs-extra: ^10.0.0
     gh-pages: ^3.2.2
     i18next: ^19.8.4
+    jest: ^27.0.6
     luxon: ^1.25.0
     ora: ^5.4.0
     os-locale: ^5.0.0
     prettier: ^2.3.1
+    ts-jest: ^27.0.4
     ts-morph: ^11.0.0
     ts-node: ^10.0.0
     type-fest: ^1.2.1
@@ -5254,6 +5273,26 @@ __metadata:
     escodegen: bin/escodegen.js
     esgenerate: bin/esgenerate.js
   checksum: 5aa6b2966fafe0545e4e77936300cc94ad57cfe4dc4ebff9950492eaba83eef634503f12d7e3cbd644ecc1bab388ad0e92b06fd32222c9281a75d1cf02ec6cef
+  languageName: node
+  linkType: hard
+
+"eslint-config-prettier@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "eslint-config-prettier@npm:8.3.0"
+  peerDependencies:
+    eslint: ">=7.0.0"
+  bin:
+    eslint-config-prettier: bin/cli.js
+  checksum: df4cea3032671995bb5ab07e016169072f7fa59f44a53251664d9ca60951b66cdc872683b5c6a3729c91497c11490ca44a79654b395dd6756beb0c3903a37196
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-react-hooks@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "eslint-plugin-react-hooks@npm:4.2.0"
+  peerDependencies:
+    eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
+  checksum: ead5c5be3ded82a0cf295b064376adb1998a43e2262b605eecc0efc88283dec4e159ca39307fafb3d8e661dd08e5a4c8cdfed97eea78f923954f72bad6e20397
   languageName: node
   linkType: hard
 

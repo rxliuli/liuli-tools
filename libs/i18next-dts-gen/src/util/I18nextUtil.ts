@@ -9,21 +9,24 @@ export class I18nextUtil<
   T extends Record<
     string,
     {
-      params: [key: string] | [key: string, params: object]
+      params:
+        | [key: string]
+        | [key: string, params: Record<string, string | number>]
       value: string
     }
   >,
 > {
-  constructor() {}
-
-  async changeLang(lang: LanguageEnum) {
+  async changeLang(lang: LanguageEnum): Promise<void> {
     await i18next.changeLanguage(lang)
   }
 
   /**
    * 加载国际化
    */
-  async init(resources: Record<LanguageEnum, object>, language: LanguageEnum) {
+  async init(
+    resources: Record<LanguageEnum, Record<string, string>>,
+    language: LanguageEnum,
+  ): Promise<void> {
     await i18next.init({
       lng: language,
       resources: Object.entries(resources).reduce((res, [k, v]) => {
@@ -41,7 +44,6 @@ export class I18nextUtil<
    * @param args
    */
   t<K extends keyof T>(...args: T[K]['params']): T[K]['value'] {
-    // @ts-ignore
     return i18next.t(args[0], args[1])
   }
 }

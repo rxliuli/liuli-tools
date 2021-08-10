@@ -17,7 +17,7 @@ export interface TranslateTypeConfig {
 export class Generator {
   private project = new Project()
 
-  convert(configs: TranslateTypeConfig[]) {
+  convert(configs: TranslateTypeConfig[]): Record<string, WriterFunction> {
     return configs.reduce((res, config) => {
       const obj: {
         params?: WriterFunction
@@ -45,7 +45,7 @@ export class Generator {
     }, {} as Record<string, WriterFunction>)
   }
 
-  generate(configs: TranslateTypeConfig[]) {
+  generate(configs: TranslateTypeConfig[]): string {
     const types = this.convert(configs)
     const sourceFile = this.project.createSourceFile(RandomUtil.string(), {
       statements: [

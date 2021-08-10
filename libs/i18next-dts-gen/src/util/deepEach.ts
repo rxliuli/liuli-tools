@@ -4,9 +4,12 @@
  * @param map 映射函数，如果希望继续递归则返回一个数组（注意：顶层对象是没有 path 的，如果可以从对象中取出，则自行 pop&push）
  */
 export function deepEach(
+  // eslint-disable-next-line
   value: any,
+  // eslint-disable-next-line
   map: (value: any, paths: string[]) => [k: string, v: any][] | void,
-) {
+): void {
+  // eslint-disable-next-line
   function f(value: any, paths: string[]) {
     const res = map(value, paths)
     if (!Array.isArray(res)) {

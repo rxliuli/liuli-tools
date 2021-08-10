@@ -9,31 +9,34 @@ import { format } from 'prettier'
  * @param text1
  * @param text2
  */
-export function areSame(text1: string, text2: string) {
+export function areSame(text1: string, text2: string): boolean {
   if (formatCode(text1) === formatCode(text2)) {
     return true
   }
   const tokens1 = getTokens(text1)
   const tokens2 = getTokens(text2)
 
-  while (true) {
-    const token1 = tokens1.next()
-    const token2 = tokens2.next()
+  let token1 = tokens1.next()
+  let token2 = tokens2.next()
+  while (!token1.done || !token2.done) {
+    token1 = tokens1.next()
+    token2 = tokens2.next()
 
     if (token1.done && token2.done) return true
     if (token1.done || token2.done) return false
     if (token1.value !== token2.value) return false
   }
+  return false
 }
 
-const minifier = createMinifier(ts)
-export function formatCode(text: string) {
+const minifier = createMinifier(ts as typeof import('typescript'))
+export function formatCode(text: string): string {
   return format(minifier.minify(text), {
     parser: 'typescript',
   })
 }
 
-function* getTokens(text: string) {
+function* getTokens(text: string): Generator<string, void, unknown> {
   const scanner = ts.createScanner(ts.ScriptTarget.Latest, true)
   scanner.setText(formatCode(text))
   scanner.setOnError((message) => console.error(message))

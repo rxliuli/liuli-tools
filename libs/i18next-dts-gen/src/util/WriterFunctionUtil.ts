@@ -15,7 +15,7 @@ export class WriterFunctionUtil {
   ): WriterFunction {
     return (writer) => {
       writer.write('[')
-      for (let token of types) {
+      for (const token of types) {
         writer.write(token.name)
         writer.write(': ')
         if (typeof token.type === 'function') {
@@ -66,6 +66,7 @@ export class WriterFunctionUtil {
       const type = types[0]
       return typeof type === 'function' ? type : type.toString()
     }
-    return (Writers.unionType as any)(...types)
+    const [first, second, ...others] = types
+    return Writers.unionType(first, second, ...others)
   }
 }

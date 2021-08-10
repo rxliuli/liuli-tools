@@ -5,7 +5,7 @@ import { i18n } from '../constants/I18n'
 
 export interface LocaleJSON {
   path: string
-  data: object
+  data: Record<string, string>
 }
 
 /**
@@ -34,7 +34,7 @@ export class Parser {
    * @param isDefaultLanguage
    */
   protected parseLocale(
-    data: object,
+    data: Record<string, string>,
     isDefaultLanguage = false,
   ): TranslateTypeConfig[] {
     return Object.entries(data).flatMap(([k, v]) => {

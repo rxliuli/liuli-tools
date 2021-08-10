@@ -28,7 +28,7 @@ class I18n {
   }
 
   t(...args: TranslateParams): string {
-    return i18next.t(args[0], args[1] as any)
+    return i18next.t(args[0], args[1] as never)
   }
 }
 
@@ -75,7 +75,10 @@ describe('测试 loadI18n', () => {
   it('测试包含 :', () => {
     expect(i18n.t('test.Contains a colon:')).toBe('')
     expect(
-      i18n.t('test.Contains a colon:' as any, { nsSeparator: false } as any),
+      i18n.t(
+        'test.Contains a colon:' as never,
+        { nsSeparator: false } as never,
+      ),
     ).toBe('包含冒号:')
   })
 })

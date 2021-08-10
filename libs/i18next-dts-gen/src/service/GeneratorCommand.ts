@@ -14,7 +14,11 @@ export class GeneratorCommandProgram {
    * 生成类型定义的主程序
    * @param options
    */
-  async main(options: { dirs: string[]; watch: boolean; language: string }) {
+  async main(options: {
+    dirs: string[]
+    watch: boolean
+    language: string
+  }): Promise<void> {
     if (options.watch) {
       new Promise((resolve, reject) => {
         new Watcher()

@@ -54,7 +54,6 @@ describe('测试 typescript ast', () => {
     )
     console.log(outputFile)
   })
-  it('将 ts 代码解析为 ast', () => {})
 })
 
 describe('使用 ts-morph', () => {

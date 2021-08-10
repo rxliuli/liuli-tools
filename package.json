@@ -37,16 +37,22 @@
       "git add"
     ]
   },
+  "eslintConfig": {
+    "extends": [
+      "@liuli-util/eslint-config-ts"
+    ]
+  },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
-    "@liuli-util/prettier-standard-config": "^0.1.0",
+    "@liuli-util/eslint-config-ts": "*",
+    "@liuli-util/prettier-standard-config": "*",
     "gh-pages": "^3.2.0",
     "lint-staged": "^11.0.1",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
     "simple-git-hooks": "^2.5.1",
-    "typescript": "^4.3.4",
+    "typescript": "^4.3.5",
     "vuepress-vite": "^2.0.0-beta.22"
   }
 }

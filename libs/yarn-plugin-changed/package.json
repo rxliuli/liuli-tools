@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "main": "src/index.ts",
   "scripts": {
-    "setup": "npm run build",
+    "setup": "yarn build",
     "build": "builder build plugin",
-    "dev": "chokidar src/ -i '*.test.ts' -c \"npm run build --no-minify\""
+    "dev": "chokidar src/ -i '*.test.ts' -c \"yarn build --no-minify\""
   },
   "jest": {
     "preset": "ts-jest"

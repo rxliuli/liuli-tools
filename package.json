@@ -4,8 +4,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "clean": "yarn workspaces foreach -p exec rimraf dist release",
-    "build": "yarn workspaces foreach -p --topological-dev run build",
+    "clean": "yarn workspaces foreach -p exec yarn dlx rimraf dist release node_modules",
+    "build": "yarn workspaces foreach -p run build",
     "test": "yarn workspaces foreach exec yarn jest --all",
     "gen:readme": "gulp generateReadmes",
     "docs:build": "fliegdoc build && gulp copyDocsFile",
@@ -13,20 +13,10 @@
     "docs:deploy": "yarn docs:build && gh-pages -d docs -t true",
     "postinstall": "yarn dlx simple-git-hooks"
   },
-  "prettier": {
-    "tabWidth": 2,
-    "printWidth": 80,
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "arrowParens": "always",
-    "endOfLine": "crlf"
-  },
-  "workspaces": {
-    "packages": [
-      "libs/*"
-    ]
-  },
+  "prettier": "@liuli-util/prettier-standard-config",
+  "workspaces": [
+    "libs/*"
+  ],
   "simple-git-hooks": {
     "pre-commit": "yarn lint-staged",
     "commit-msg": "yarn commitlint --edit $1"
@@ -47,6 +37,7 @@
     "@commitlint/config-conventional": "^13.1.0",
     "@liuli-util/async": "workspace:libs/async",
     "@liuli-util/cli": "^3.7.1",
+    "@liuli-util/prettier-standard-config": "^0.1.0",
     "@types/fs-extra": "^9.0.12",
     "@types/gulp": "^4.0.9",
     "@types/node": "^16.4.13",

@@ -861,6 +861,7 @@ __metadata:
     "@commitlint/config-conventional": ^13.1.0
     "@liuli-util/async": "workspace:libs/async"
     "@liuli-util/cli": ^3.7.1
+    "@liuli-util/prettier-standard-config": ^0.1.0
     "@types/fs-extra": ^9.0.12
     "@types/gulp": ^4.0.9
     "@types/node": ^16.4.13
@@ -999,6 +1000,13 @@ __metadata:
     typescript: ^4.3.5
   languageName: unknown
   linkType: soft
+
+"@liuli-util/prettier-standard-config@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@liuli-util/prettier-standard-config@npm:0.1.0"
+  checksum: 22b550086a8f9654cc24140ad69264dcd39d6a1b18e7da1c1f708b3cc8b4e07830ba5b89ce353e3ea25bfb04b6204c4e0b13cdefc9820577fd010a4cd2a8a5c3
+  languageName: node
+  linkType: hard
 
 "@liuli-util/shell@npm:^0.2.0":
   version: 0.2.0

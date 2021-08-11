@@ -6,9 +6,7 @@
   "types": "dist/index.d.ts",
   "description": "辅助其他模块测试的工具函数库",
   "scripts": {
-    "build": "rimraf dist && liuli-cli build",
-    "clean": "rimraf dist",
-    "test": "jest --all"
+    "build": "rimraf dist && liuli-cli build pkg"
   },
   "devDependencies": {
     "@liuli-util/async": "*",

@@ -1,5 +1,5 @@
-import { FilterCommand } from './filter'
-import { Command } from 'clipanion'
+import { FilterCommand } from './FilterCommand'
+import { Command, Option } from 'clipanion'
 import {
   Configuration,
   Project,
@@ -8,31 +8,24 @@ import {
 } from '@yarnpkg/core'
 import { WorkspaceRequiredError } from '@yarnpkg/cli'
 
-export default class ChangedForeachCommand extends FilterCommand {
-  @Command.String()
-  commandName!: string
+export class ChangedForeachCommand extends FilterCommand {
+  commandName: string = Option.String()
 
-  @Command.Proxy()
-  args: string[] = []
+  args: string[] = Option.Proxy()
 
-  @Command.Boolean('-v,--verbose')
-  verbose = false
+  verbose = Option.Boolean('-v,--verbose', false)
 
-  @Command.Boolean('-p,--parallel')
-  parallel = false
+  parallel = Option.Boolean('-p,--parallel', false)
 
-  @Command.Boolean('-i,--interlaced')
-  interlaced = false
+  interlaced = Option.Boolean('-i,--interlaced', false)
 
-  @Command.Boolean('-t,--topological')
-  topological = false
-  @Command.Boolean('--topological-dev')
-  topologicalDev = false
+  topological = Option.Boolean('-t,--topological', false)
 
-  @Command.String('-j,--jobs')
-  jobs?: number
+  topologicalDev = Option.Boolean('--topological-dev', false)
 
-  public static usage = Command.Usage({
+  jobs?: number = Option.String('-j,--jobs')
+
+  static usage = Command.Usage({
     description: 'Run a command on changed workspaces and their dependents',
     details: `
       This command will run a given sub-command on changed workspaces and workspaces depends on them.
@@ -51,8 +44,9 @@ export default class ChangedForeachCommand extends FilterCommand {
     ],
   })
 
-  @Command.Path('changed', 'foreach')
-  public async execute(): Promise<number> {
+  static paths = [['changed', 'foreach']]
+
+  async execute(): Promise<number> {
     const configuration = await Configuration.find(
       this.context.cwd,
       this.context.plugins,

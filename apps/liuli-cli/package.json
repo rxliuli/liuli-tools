@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "setup": "yarn build && yarn",
+    "setup": "yarn build",
     "start": "ts-node src/bin.ts",
     "build": "rimraf dist && yarn start build cli",
     "dev": "yarn start build cli -w"

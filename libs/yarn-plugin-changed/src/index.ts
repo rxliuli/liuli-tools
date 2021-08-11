@@ -1,9 +1,10 @@
 import { Plugin } from '@yarnpkg/core'
-import { ChangedListCommand } from './commands/ChangedListCommand'
-import { ChangedForeachCommand } from './commands/ChangedForeachCommand'
+
+import list from './commands/list'
+import foreach from './commands/foreach'
 
 const plugin: Plugin = {
-  commands: [ChangedListCommand, ChangedForeachCommand],
+  commands: [list, foreach],
 }
 
 export default plugin

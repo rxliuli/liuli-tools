@@ -1,5 +1,5 @@
-import { FilterCommand } from './FilterCommand'
-import { Command, Option } from 'clipanion'
+import { FilterCommand } from './filter'
+import { Command } from 'clipanion'
 import {
   Configuration,
   Project,
@@ -8,10 +8,11 @@ import {
 } from '@yarnpkg/core'
 import { WorkspaceRequiredError } from '@yarnpkg/cli'
 
-export class ChangedListCommand extends FilterCommand {
-  json = Option.Boolean('--json', false)
+export default class ChangedListCommand extends FilterCommand {
+  @Command.Boolean('--json')
+  public json = false
 
-  static usage = Command.Usage({
+  public static usage = Command.Usage({
     description: 'List changed workspaces and their dependents',
     details: `
       If the \`--json\` flag is set the output will follow a JSON-stream output also known as NDJSON (https://github.com/ndjson/ndjson-spec).
@@ -28,8 +29,8 @@ export class ChangedListCommand extends FilterCommand {
     ],
   })
 
-  static paths = [['changed', 'list']]
-  async execute(): Promise<number> {
+  @Command.Path('changed', 'list')
+  public async execute(): Promise<number> {
     const configuration = await Configuration.find(
       this.context.cwd,
       this.context.plugins,

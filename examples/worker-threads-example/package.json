@@ -6,18 +6,18 @@
   "types": "dist/esm/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "build": "rm dist && rollup -c",
+    "build": "rimraf dist && rollup -c",
     "dev": "rollup -cw"
   },
   "jest": {
     "preset": "ts-jest"
   },
   "devDependencies": {
-    "@liuli-util/shell": "*",
     "@liuli-util/test": "^3.2.3",
     "@types/jest": "^26.0.23",
     "@types/node": "14",
     "jest": "^26.6.3",
+    "rimraf": "^3.0.2",
     "rollup": "^2.52.2",
     "rollup-plugin-typescript2": "^0.29.0",
     "rollup-plugin-worker-threads": "*",

@@ -6,12 +6,12 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "build": "rm dist && liuli-cli build cli",
+    "build": "rimraf dist && liuli-cli build cli",
     "dev": "liuli-cli build cli -w",
     "start": "ts-node src/bin.ts",
     "docs:server": "live-server docs",
     "docs:dev": "typedoc --watch",
-    "docs:build": "rm docs && typedoc",
+    "docs:build": "rimraf docs && typedoc",
     "docs:deploy": "yarn build && gh-pages -d docs/ -e / -a"
   },
   "bin": {
@@ -26,9 +26,9 @@
     "fs-extra": "^10.0.0"
   },
   "devDependencies": {
+    "rimraf": "^3.0.2",
     "@types/inquirer": "^7.3.1",
     "@liuli-util/cli": "^3.7.0",
-    "@liuli-util/shell": "^0.2.0",
     "@types/fs-extra": "^9.0.11",
     "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.168",

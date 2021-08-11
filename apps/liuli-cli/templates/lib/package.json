@@ -7,19 +7,19 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "build": "rm dist && liuli-cli build pkg",
+    "build": "rimraf dist && liuli-cli build pkg",
     "dev": "liuli-cli build pkg -w",
     "docs:server": "live-server docs",
     "docs:dev": "typedoc --watch",
-    "docs:build": "rm docs && typedoc",
+    "docs:build": "rimraf docs && typedoc",
     "docs:deploy": "yarn build && gh-pages -d docs/ -e / -a"
   },
   "jest": {
     "preset": "ts-jest"
   },
   "devDependencies": {
+    "rimraf": "^3.0.2",
     "@liuli-util/cli": "^3.7.0",
-    "@liuli-util/shell": "^0.2.0",
     "@types/jest": "^26.0.23",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.6",

@@ -1,5 +1,5 @@
 import { BaseCommand } from '@yarnpkg/cli'
-import { Option } from 'clipanion'
+import { Command } from 'clipanion'
 import { Project, structUtils } from '@yarnpkg/core'
 import {
   CacheWorkspace,
@@ -7,9 +7,11 @@ import {
 } from '../utils/listChangedWorkspaces'
 
 export abstract class FilterCommand extends BaseCommand {
-  include?: string[] = Option.Array('--include')
+  @Command.Array('--include')
+  public include?: string[]
 
-  exclude?: string[] = Option.Array('--exclude')
+  @Command.Array('--exclude')
+  public exclude?: string[]
 
   protected async listWorkspaces(project: Project): Promise<CacheWorkspace> {
     const res = await listChangedWorkspaces(project, process.argv.join(' '))

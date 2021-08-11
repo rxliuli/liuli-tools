@@ -6,13 +6,11 @@ import { PromiseValue } from 'type-fest'
  * @param fn 一个普通的异步函数
  * @returns 包装后的函数
  */
-export function exhaustMapByParam<
-  T extends (...args: unknown[]) => Promise<unknown>,
->(
+export function exhaustMapByParam<T extends (...args: any[]) => Promise<any>>(
   fn: T,
 ): (...args: Parameters<T>) => Promise<PromiseValue<ReturnType<T>> | void> {
   const set = new Set<string>()
-  return async function (...args: unknown[]) {
+  return async function (...args: any[]) {
     const key = JSON.stringify(args)
     if (set.has(key)) {
       return

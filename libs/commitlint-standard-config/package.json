@@ -1,0 +1,12 @@
+{
+  "name": "@liuli-util/commitlint-standard-config",
+  "version": "0.1.6",
+  "main": ".commitlintrc.json",
+  "license": "MIT",
+  "dependencies": {
+    "@commitlint/config-conventional": "^12.1.4"
+  },
+  "peerDependencies": {
+    "@commitlint/cli": "^12.1.4"
+  }
+}

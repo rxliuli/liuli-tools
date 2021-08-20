@@ -17,7 +17,11 @@ export abstract class FilterCommand extends BaseCommand {
     const res = await listChangedWorkspaces(project, process.argv.join(' '))
     // console.log('changed.workspaces: ', res.workspaces)
     const include = this.include || []
-    const exclude = this.exclude || []
+    const exclude = this.exclude || [
+      structUtils.stringifyIdent(
+        project.getWorkspaceByCwd(project.cwd).locator,
+      ),
+    ]
 
     res.workspaces = res.workspaces.filter((ws) => {
       const name = structUtils.stringifyIdent(ws.locator)

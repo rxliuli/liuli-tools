@@ -5,6 +5,7 @@ import { differenceBy } from 'lodash'
 import { NativePath, npath } from '@yarnpkg/fslib'
 import { BuildCache, WorkspaceCacheInfo } from './BuildCache'
 import simpleGit from 'simple-git'
+import { asyncLimiting } from './asyncLimiting'
 
 export type CacheWorkspace = {
   updateCache(): Promise<void>
@@ -23,13 +24,15 @@ export async function listChangedWorkspaces(
   const buildCache = new BuildCache(npath.fromPortablePath(project.cwd))
   const last = await buildCache.get(cmd)
   const current = await Promise.all(
-    project.workspaces.map(async (item) => {
-      const git = simpleGit()
-      return {
-        ...(await calcModuleHash(npath.fromPortablePath(item.cwd), git)),
-        cwd: npath.fromPortablePath(item.cwd),
-      } as WorkspaceCacheInfo
-    }),
+    project.workspaces.map(
+      asyncLimiting(async (item) => {
+        const git = simpleGit()
+        return {
+          ...(await calcModuleHash(npath.fromPortablePath(item.cwd), git)),
+          cwd: npath.fromPortablePath(item.cwd),
+        } as WorkspaceCacheInfo
+      }, 1),
+    ),
   )
   // await writeJson(
   //   path.resolve(npath.fromPortablePath(project.cwd), '.yarn-cache-debug.json'),

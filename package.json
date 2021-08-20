@@ -3,7 +3,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "setup": "yarn workspaces foreach -p --topological-dev run setup",
+    "setup": "yarn changed foreach -p --topological-dev run setup",
     "clean": "yarn workspaces foreach -p exec \"yarn dlx rimraf dist node_modules\"",
     "build": "yarn workspaces foreach -p --topological-dev run build",
     "build:cache": "yarn changed foreach -p --topological-dev run setup",

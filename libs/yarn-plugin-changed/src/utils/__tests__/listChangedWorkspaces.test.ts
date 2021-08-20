@@ -18,7 +18,7 @@ describe('测试 listChangedWorkspaces', () => {
     beforeEach(() => writeFile(testFilePath, ''))
     afterEach(() => remove(testFilePath))
     it('测试 build', async () => {
-      const { workspaces } = await listChangedWorkspaces(project, 'build')
+      const { workspaces } = await listChangedWorkspaces(project, 'initialize')
       expect(workspaces.length).toBeGreaterThan(1)
     })
   })

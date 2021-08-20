@@ -11,10 +11,12 @@
     "preset": "ts-jest"
   },
   "dependencies": {
+    "chalk": "^4.1.2",
     "clipanion": "^2.4.4",
     "fs-extra": "^10.0.0",
     "lodash": "^4.17.21",
     "md5-file": "^5.0.0",
+    "ora": "^5.4.1",
     "simple-git": "^2.42.0"
   },
   "devDependencies": {

@@ -1,12 +1,8 @@
 import { FilterCommand } from './filter'
 import { Command } from 'clipanion'
-import {
-  Configuration,
-  Project,
-  StreamReport,
-  structUtils,
-} from '@yarnpkg/core'
+import { Configuration, Project, structUtils } from '@yarnpkg/core'
 import { WorkspaceRequiredError } from '@yarnpkg/cli'
+import ora from 'ora'
 
 export default class ChangedForeachCommand extends FilterCommand {
   @Command.String()
@@ -66,20 +62,27 @@ export default class ChangedForeachCommand extends FilterCommand {
       throw new WorkspaceRequiredError(project.cwd, this.context.cwd)
     }
 
+    const spinner = ora({
+      color: 'blue',
+    })
+    spinner.start('开始计算变更的模块')
     const changed = await this.listWorkspaces(project)
     if (!changed.workspaces.length) {
-      const report = await StreamReport.start(
-        {
-          configuration,
-          stdout: this.context.stdout,
-        },
-        async (report) => {
-          report.reportInfo(null, 'No workspaces changed')
-        },
-      )
-
-      return report.exitCode()
+      spinner.stopAndPersist({
+        text: '没有变更的模块',
+      })
+      return 0
     }
+    spinner.stopAndPersist({
+      text:
+        '计算得到变更的模块: \n' +
+        changed.workspaces
+          .map((item) => {
+            const name = item.manifest.name!
+            return '- ' + (name.scope ? '@' + name.scope + '/' : '') + name.name
+          })
+          .join('\n'),
+    })
 
     const res = await this.cli.run(
       [

@@ -28,6 +28,7 @@ export async function getStatus(
   _git: SimpleGit = git,
 ): Promise<string[]> {
   const gitRootPath = await findGitRoot(git, dir)
+  // console.log('getStatus: ', dir, gitRootPath)
   let status: StatusResult
   try {
     status = await _git.status([dir])
@@ -66,7 +67,7 @@ export async function calcModuleHash(
       changed,
     }
   } catch {
-    console.error('计算 hash 值失败')
+    console.error('计算 hash 值失败', dir)
     throw new Error()
   }
 }

@@ -4,6 +4,7 @@ import { calcModuleHash } from './calcModuleHash'
 import { differenceBy } from 'lodash'
 import { NativePath, npath } from '@yarnpkg/fslib'
 import { BuildCache, WorkspaceCacheInfo } from './BuildCache'
+import simpleGit from 'simple-git'
 
 export type CacheWorkspace = {
   updateCache(): Promise<void>
@@ -23,8 +24,9 @@ export async function listChangedWorkspaces(
   const last = await buildCache.get(cmd)
   const current = await Promise.all(
     project.workspaces.map(async (item) => {
+      const git = simpleGit()
       return {
-        ...(await calcModuleHash(npath.fromPortablePath(item.cwd))),
+        ...(await calcModuleHash(npath.fromPortablePath(item.cwd), git)),
         cwd: npath.fromPortablePath(item.cwd),
       } as WorkspaceCacheInfo
     }),

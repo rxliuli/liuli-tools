@@ -68,7 +68,7 @@ describe('测试获取模块的变更', () => {
   })
   it('测试真实模块', async () => {
     const realModulePath = path.resolve(
-      'C:/Users/rxliuli/Code/Pkg/liuli-tools/apps/shell',
+      'C:\\Users\\rxliuli\\Code\\company\\matrix\\apps\\spacetop',
     )
     await git.cwd(realModulePath)
     const res = await calcModuleHash(realModulePath)

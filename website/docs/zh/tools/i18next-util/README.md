@@ -10,7 +10,7 @@
 
 ```ts
 // constants/i18n.ts
-import { I18n } from '@liuli-util/i18next-util'
+import { I18n } from 'libs/i18next-util/dist/index'
 import { TranslateParams } from '../i18n'
 
 export const i18n = new I18n<TranslateParams>()

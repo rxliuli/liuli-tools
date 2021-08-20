@@ -1,0 +1,24 @@
+node_modules/
+.rpt2_cache/
+yarn-error.log
+
+# Editor directories and files
+.idea
+.vscode
+.history
+
+# build dist
+*.tgz
+dist/
+**/__tests__/temp
+.temp/
+.cache/
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+.yarn-cache.json
+.yarn-cache-debug.json

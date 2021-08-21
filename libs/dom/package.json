@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/dom",
-  "version": "3.2.6",
+  "version": "3.2.7",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -13,13 +13,13 @@
     "testEnvironment": "jsdom"
   },
   "dependencies": {
-    "@liuli-util/array": "^3.2.6"
+    "@liuli-util/array": "^3.2.7"
   },
   "devDependencies": {
-    "@liuli-util/async": "*",
+    "@liuli-util/async": "^3.2.7",
     "@liuli-util/cli": "^3.7.1",
     "@liuli-util/shell": "^0.2.0",
-    "@liuli-util/test": "*",
+    "@liuli-util/test": "^3.2.7",
     "@types/jest": "^26.0.24",
     "@types/rimraf": "^3.0.1",
     "jest": "^27.0.6",

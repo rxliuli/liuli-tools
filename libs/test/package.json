@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/test",
-  "version": "3.2.6",
+  "version": "3.2.7",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -9,7 +9,7 @@
     "build": "rimraf dist && liuli-cli build pkg"
   },
   "devDependencies": {
-    "@liuli-util/async": "*",
+    "@liuli-util/async": "^3.2.7",
     "@liuli-util/cli": "^3.7.1",
     "@liuli-util/shell": "^0.2.0",
     "@types/jest": "^26.0.24",

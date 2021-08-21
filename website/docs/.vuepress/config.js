@@ -70,11 +70,11 @@ module.exports = {
                   },
                   {
                     text: 'i18next-dts-gen',
-                    link: '/zh/tools/i18next-dts-gen',
+                    link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/i18next-dts-gen/README.ZH_CN.md',
                   },
                   {
                     text: 'rollup-plugin-worker-threads',
-                    link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/rollup-plugin-worker-threads',
+                    link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/rollup-plugin-worker-threads/README.ZH_CN.md',
                   },
                   {
                     text: 'yarn-plugin-changed',

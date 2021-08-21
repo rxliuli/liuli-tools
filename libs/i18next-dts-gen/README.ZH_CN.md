@@ -23,7 +23,7 @@ Usage: bin [options]
 根据 json 生成 .d.ts 类型定义
 
 Options:
-  -i, --input <input...>  包含一或多个翻译文件的目录
+  -i, --dirs <dirs...>  包含一或多个翻译文件的目录
   -w, --watch             是否使用监视模式
   -h, --help              display help for command
 ```
@@ -61,8 +61,9 @@ Options:
 
 ## 设计
 
-![架构图](https://github.com/rxliuli/liuli-tools/raw/dev/docs/zh/tools/i18next-dts-gen/images/schema.drawio.svg)
-![流程图](https://github.com/rxliuli/liuli-tools/raw/dev/docs/zh/tools/i18next-dts-gen/images/flowchart.drawio.svg)
+![架构图](./assets/schema.drawio.svg)
+
+![流程图](./assets/flowchart.drawio.svg)
 
 ## FAQ
 

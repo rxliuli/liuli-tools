@@ -23,7 +23,7 @@ Usage: bin [options]
 Generate .d.ts type definitions from json
 
 Options:
-  -i, --input <input...>  Directory containing one or more translation files
+  -i, --dirs <dirs...>  Directory containing one or more translation files
   -w, --watch             Whether to use watch mode
   -h, --help              display help for command
 ```
@@ -32,15 +32,15 @@ Options:
 
 Prompt
 
-![prompt](./assets/prompt.gif)
+![prompt](https://github.com/rxliuli/liuli-tools/raw/master/libs/i18next-dts-gen/assets/prompt.gif)
 
 Navigation
 
-![navigation](./assets/navigation.gif)
+![navigation](https://github.com/rxliuli/liuli-tools/raw/master/libs/i18next-dts-gen/assets/navigation.gif)
 
 Search and replace
 
-![searchAndReplace](assets/searchAndReplace.gif)
+![searchAndReplace](https://github.com/rxliuli/liuli-tools/raw/master/libs/i18next-dts-gen/assets/searchAndReplace.gif)
 
 ## Motivation
 
@@ -61,9 +61,9 @@ Also, as far as I'm concerned, I think it's easier and more reasonable to use ge
 
 ## Design
 
-![schema](https://github.com/rxliuli/liuli-tools/raw/dev/docs/tools/i18next-dts-gen/images/schema.drawio.svg)
+![schema](https://github.com/rxliuli/liuli-tools/raw/master/libs/i18next-dts-gen/assets/schema.drawio.svg)
 
-![flowchart](https://github.com/rxliuli/liuli-tools/raw/dev/docs/tools/i18next-dts-gen/images/flowchart.drawio.svg)
+![flowchart](https://github.com/rxliuli/liuli-tools/raw/master/libs/i18next-dts-gen/assets/flowchart.drawio.svg)
 
 ## FAQ
 

@@ -54,28 +54,63 @@ module.exports = {
                 link: '/zh/tools/',
               },
               {
-                text: '@liuli-util/cli',
-                link: '/zh/tools/cli/',
+                text: '工程工具',
+                children: [
+                  {
+                    text: '@liuli-util/cli',
+                    link: 'https://github.com/rxliuli/liuli-tools/tree/master/apps/liuli-cli',
+                  },
+                  {
+                    text: '@liuli-util/shell',
+                    link: 'https://github.com/rxliuli/liuli-tools/tree/master/apps/shell',
+                  },
+                  {
+                    text: 'vite-jetbrains-plugin',
+                    link: 'https://github.com/rxliuli/liuli-tools/tree/master/jetbrains-plugins/vite-jetbrains-plugin',
+                  },
+                  {
+                    text: 'i18next-dts-gen',
+                    link: '/zh/tools/i18next-dts-gen',
+                  },
+                  {
+                    text: 'rollup-plugin-worker-threads',
+                    link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/rollup-plugin-worker-threads',
+                  },
+                  {
+                    text: 'yarn-plugin-changed',
+                    link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/yarn-plugin-changed',
+                  },
+                ],
               },
               {
-                text: '@liuli-util/shell',
-                link: '/zh/tools/shell/',
+                text: '函数依赖库',
+                children: [
+                  {
+                    text: '@liuli-util/i18next-util',
+                    link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/i18next-util',
+                  },
+                ],
               },
               {
-                text: 'vite-jetbrains-plugin',
-                link: '/zh/tools/vite-jetbrains-plugin/',
-              },
-              {
-                text: 'i18next-dts-gen',
-                link: '/zh/tools/i18next-dts-gen',
-              },
-              {
-                text: 'i18next-util',
-                link: '/zh/tools/i18next-util',
-              },
-              {
-                text: 'prettier-standard-config',
-                link: '/zh/tools/prettier-standard-config',
+                text: '统一配置包',
+                children: [
+                  {
+                    text: '@liuli-util/prettier-standard-config',
+                    link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/prettier',
+                  },
+                  {
+                    text: '@liuli-util/commitlint-standard-config',
+                    link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/commitlint-standard-config',
+                  },
+                  {
+                    text: '@liuli-util/eslint-config-react-ts',
+                    link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/eslint-config-react-ts',
+                  },
+                  {
+                    text: '@liuli-util/eslint-config-ts',
+                    link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/eslint-config-ts',
+                  },
+                ],
               },
             ],
           },

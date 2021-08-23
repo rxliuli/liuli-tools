@@ -1,10 +1,10 @@
-import { FilterCommand } from './filter'
+import { FilterCommand } from './FilterCommand'
 import { Command } from 'clipanion'
 import { Configuration, Project, structUtils } from '@yarnpkg/core'
 import { WorkspaceRequiredError } from '@yarnpkg/cli'
 import ora from 'ora'
 
-export default class ChangedForeachCommand extends FilterCommand {
+export class ChangedForeachCommand extends FilterCommand {
   @Command.String()
   commandName!: string
 
@@ -74,14 +74,10 @@ export default class ChangedForeachCommand extends FilterCommand {
       return 0
     }
     spinner.stopAndPersist({
-      text:
-        '计算得到变更的模块: \n' +
-        changed.workspaces
-          .map((item) => {
-            const name = item.manifest.name!
-            return '- ' + (name.scope ? '@' + name.scope + '/' : '') + name.name
-          })
-          .join('\n'),
+      text: `计算得到变更的模块: 
+${changed.workspaces
+  .map((item) => structUtils.stringifyIdent(item.locator))
+  .join('\n')}`,
     })
 
     const res = await this.cli.run(

@@ -1,4 +1,4 @@
-import { FilterCommand } from './filter'
+import { FilterCommand } from './FilterCommand'
 import { Command } from 'clipanion'
 import {
   Configuration,
@@ -8,7 +8,7 @@ import {
 } from '@yarnpkg/core'
 import { WorkspaceRequiredError } from '@yarnpkg/cli'
 
-export default class ChangedListCommand extends FilterCommand {
+export class ChangedListCommand extends FilterCommand {
   @Command.Boolean('--json')
   public json = false
 

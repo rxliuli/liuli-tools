@@ -23,7 +23,9 @@ export class BuildCache {
   async set(cmd: string, workspaces: WorkspaceCacheInfo[]) {
     const json = await this.readCache()
     json[cmd] = workspaces
-    await writeJson(this.cachePath, json)
+    await writeJson(this.cachePath, json, {
+      spaces: 2,
+    })
   }
 
   private async readCache() {

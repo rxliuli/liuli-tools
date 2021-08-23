@@ -4,8 +4,7 @@ import { calcModuleHash } from './calcModuleHash'
 import { differenceBy } from 'lodash'
 import { NativePath, npath } from '@yarnpkg/fslib'
 import { BuildCache, WorkspaceCacheInfo } from './BuildCache'
-import simpleGit from 'simple-git'
-import { asyncLimiting } from './asyncLimiting'
+import { FilterOptions, filterWorkspaces } from './filterWorkspaces'
 
 export type CacheWorkspace = {
   updateCache(): Promise<void>
@@ -16,41 +15,40 @@ export type CacheWorkspace = {
  * 获取所有改变的模块
  * @param project
  * @param cmd
+ * @param include
+ * @param exclude
  */
-export async function listChangedWorkspaces(
-  project: Project,
-  cmd: string,
-): Promise<CacheWorkspace> {
-  const buildCache = new BuildCache(npath.fromPortablePath(project.cwd))
+export async function listChangedWorkspaces({
+  project,
+  cmd,
+  include,
+  exclude,
+}: {
+  project: Project
+  cmd: string
+} & FilterOptions): Promise<CacheWorkspace> {
+  const rootPath = npath.fromPortablePath(project.cwd)
+  const buildCache = new BuildCache(rootPath)
   const last = await buildCache.get(cmd)
   const current = await Promise.all(
-    project.workspaces.map(
-      asyncLimiting(async (item) => {
-        const git = simpleGit()
-        return {
-          ...(await calcModuleHash(npath.fromPortablePath(item.cwd), git)),
-          cwd: npath.fromPortablePath(item.cwd),
-        } as WorkspaceCacheInfo
-      }, 1),
-    ),
+    filterWorkspaces({
+      workspaces: project.workspaces,
+      include,
+      exclude,
+    }).map(async (item) => {
+      return {
+        ...(await calcModuleHash(rootPath, npath.fromPortablePath(item.cwd))),
+        cwd: npath.fromPortablePath(item.cwd),
+      } as WorkspaceCacheInfo
+    }),
   )
-  // await writeJson(
-  //   path.resolve(npath.fromPortablePath(project.cwd), '.yarn-cache-debug.json'),
-  //   {
-  //     cacheInfo,
-  //     current,
-  //   },
-  // )
-  // console.log('cacheInfo: ', cacheInfo, current)
   const addOrUpdateWorkspaceCwdSet = new Set(
     differenceBy(current, last, (item) => JSON.stringify(item)).map(
       (item) => item.cwd as NativePath,
     ),
   )
 
-  // console.log('addOrUpdateWorkspaceCwdSet: ', addOrUpdateWorkspaceCwdSet)
   const workspaces = new Set<Workspace>()
-
   for (const item of project.workspaces) {
     const changed = addOrUpdateWorkspaceCwdSet.has(
       npath.fromPortablePath(item.cwd),

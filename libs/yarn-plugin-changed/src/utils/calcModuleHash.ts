@@ -1,9 +1,8 @@
 import { ListLogLine } from 'simple-git/typings/response'
-import simpleGit, { DefaultLogFields, SimpleGit } from 'simple-git'
+import simpleGit, { DefaultLogFields } from 'simple-git'
 import path from 'path'
 import { pathExists } from 'fs-extra'
 import md5File from 'md5-file'
-import { findGitRoot } from './GitUtil'
 import { StatusResult } from 'simple-git/promise'
 
 export interface ModuleHash {
@@ -24,14 +23,13 @@ export async function getLastCommit(
 }
 
 export async function getStatus(
+  gitRootPath: string,
   dir: string,
-  _git: SimpleGit = git,
 ): Promise<string[]> {
-  const gitRootPath = await findGitRoot(git, dir)
   // console.log('getStatus: ', dir, gitRootPath)
   let status: StatusResult
   try {
-    status = await _git.status([dir])
+    status = await git.status([dir])
   } catch {
     console.error('git.status 失败', dir)
     throw new Error()
@@ -51,17 +49,16 @@ export async function getStatus(
  * 计算模块的 hash 值
  */
 export async function calcModuleHash(
+  gitRootPath: string,
   dir: string,
-  _git: SimpleGit = git,
 ): Promise<ModuleHash> {
-  _git.cwd(dir)
   const lastCommit = (
-    await _git.log({
+    await git.log({
       file: dir,
     })
   ).latest
   try {
-    const changed = await getStatus(dir, _git)
+    const changed = await getStatus(gitRootPath, dir)
     return {
       lastCommit,
       changed,

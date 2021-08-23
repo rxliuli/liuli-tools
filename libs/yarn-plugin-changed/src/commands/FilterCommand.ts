@@ -5,16 +5,23 @@ import {
   CacheWorkspace,
   listChangedWorkspaces,
 } from '../utils/listChangedWorkspaces'
+import { FilterOptions, filterWorkspaces } from '../utils/filterWorkspaces'
 
-export abstract class FilterCommand extends BaseCommand {
+export abstract class FilterCommand
+  extends BaseCommand
+  implements FilterOptions
+{
   @Command.Array('--include')
-  public include?: string[]
+  include?: string[]
 
   @Command.Array('--exclude')
-  public exclude?: string[]
+  exclude?: string[]
 
   protected async listWorkspaces(project: Project): Promise<CacheWorkspace> {
-    const res = await listChangedWorkspaces(project, process.argv.join(' '))
+    const res = await listChangedWorkspaces({
+      project: project,
+      cmd: process.argv.join(' '),
+    })
     // console.log('changed.workspaces: ', res.workspaces)
     const include = this.include || []
     const exclude = this.exclude || [
@@ -22,21 +29,10 @@ export abstract class FilterCommand extends BaseCommand {
         project.getWorkspaceByCwd(project.cwd).locator,
       ),
     ]
-
-    res.workspaces = res.workspaces.filter((ws) => {
-      const name = structUtils.stringifyIdent(ws.locator)
-
-      if (name) {
-        if (include.length && !include.includes(name)) {
-          return false
-        }
-
-        if (exclude.length && exclude.includes(name)) {
-          return false
-        }
-      }
-
-      return true
+    res.workspaces = filterWorkspaces({
+      workspaces: res.workspaces,
+      include,
+      exclude,
     })
     return res
   }

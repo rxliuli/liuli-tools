@@ -7,6 +7,7 @@
     "docs:deploy": "yarn docs:build && gh-pages -d docs/.vuepress/dist -a"
   },
   "devDependencies": {
-    "vuepress-vite": "^2.0.0-beta.24"
+    "gh-pages": "^3.2.3",
+    "vuepress-vite": "^2.0.0-beta.6"
   }
 }

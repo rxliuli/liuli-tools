@@ -2,6 +2,17 @@
 
 # Changelog
 
+## [0.1.6]
+
+### Changed
+
+- feat(vite-jetbrains-plugin): Remove jetbrains ide version restriction
+
+### Fixed
+
+- refactor(vite-jetbrains-plugin): Use more streamlined kotlin ui dsl getter/setter code
+- fix(vite-jetbrains-plugin): Delete settings.gradle.kts under jetbrains-plugins.vite-jetbrains-plugin to solve the error
+
 ## [0.1.5]
 
 ### Fixed

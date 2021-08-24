@@ -3,6 +3,10 @@
   "version": "0.1.6",
   "main": ".commitlintrc.json",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
     "@commitlint/config-conventional": "^12.1.4"
   },

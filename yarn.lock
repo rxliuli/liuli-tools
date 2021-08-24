@@ -886,6 +886,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cspotcode/source-map-consumer@npm:0.8.0":
+  version: 0.8.0
+  resolution: "@cspotcode/source-map-consumer@npm:0.8.0"
+  checksum: 44428e50f896df065c3a22d6bddeac344f3e31af57cbc2ddf753a95addcabbe685d92e534f4dcde0cabbbcfbc122d1cb957785b36344d54c422b781a8d1a2a01
+  languageName: node
+  linkType: hard
+
+"@cspotcode/source-map-support@npm:0.6.1":
+  version: 0.6.1
+  resolution: "@cspotcode/source-map-support@npm:0.6.1"
+  dependencies:
+    "@cspotcode/source-map-consumer": 0.8.0
+  checksum: f5432af7de60ed490a3222e1ff97ef351084e65d71aa4eb40677cf055ed38cd4b28fb465e33efd8ad60518c2bb3779f9539886b1f303cd1fc5e91c0de5b1f2e6
+  languageName: node
+  linkType: hard
+
 "@eslint/eslintrc@npm:^0.4.3":
   version: 0.4.3
   resolution: "@eslint/eslintrc@npm:0.4.3"
@@ -1571,6 +1587,7 @@ __metadata:
     ora: ^5.4.1
     simple-git: ^2.42.0
     ts-jest: ^27.0.4
+    ts-node: ^10.2.1
     typescript: ^4.0.2
   languageName: unknown
   linkType: soft
@@ -1735,6 +1752,13 @@ __metadata:
   version: 1.0.1
   resolution: "@tsconfig/node16@npm:1.0.1"
   checksum: 58b4d92a46837c7eea76562c502eb1926cd20da5d06093880f9fb977f80e5aebbe07635d4644cb77aa0a27e722fb9632223ec55d8200d604d9a67f906ef4c6b5
+  languageName: node
+  linkType: hard
+
+"@tsconfig/node16@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@tsconfig/node16@npm:1.0.2"
+  checksum: d402706562444a173d48810d13fdf866c78f1b876ed8962eeac6c7cddf4e29e8aaa06dc28093219e3e9eb6316799cf4d9a7acba62c6a4e215ee0c94d83f9081f
   languageName: node
   linkType: hard
 
@@ -2908,6 +2932,13 @@ __metadata:
   version: 7.2.0
   resolution: "acorn-walk@npm:7.2.0"
   checksum: ff99f3406ed8826f7d6ef6ac76b7608f099d45a1ff53229fa267125da1924188dbacf02e7903dfcfd2ae4af46f7be8847dc7d564c73c4e230dfb69c8ea8e6b4c
+  languageName: node
+  linkType: hard
+
+"acorn-walk@npm:^8.1.1":
+  version: 8.1.1
+  resolution: "acorn-walk@npm:8.1.1"
+  checksum: 42b218c6196dbda1a33090caa7f28690ca8bff3f1759b35aff0cd5999161e3d31ba327fe3374b7e20074ead5e0f29ae2a4867c3b7f24cd70cd08a2b4741fd175
   languageName: node
   linkType: hard
 
@@ -11268,6 +11299,42 @@ resolve@1.17.0:
     ts-node-transpile-only: dist/bin-transpile.js
     ts-script: dist/bin-script-deprecated.js
   checksum: 592caed5408443fe5d3040fe28acfc4e5350f3b4bd24f0c2e2b7b99fd1d89a59c9821242f691bcf73e87d737130ab39bb6cc2e4e003aa258b266703098626938
+  languageName: node
+  linkType: hard
+
+"ts-node@npm:^10.2.1":
+  version: 10.2.1
+  resolution: "ts-node@npm:10.2.1"
+  dependencies:
+    "@cspotcode/source-map-support": 0.6.1
+    "@tsconfig/node10": ^1.0.7
+    "@tsconfig/node12": ^1.0.7
+    "@tsconfig/node14": ^1.0.0
+    "@tsconfig/node16": ^1.0.2
+    acorn: ^8.4.1
+    acorn-walk: ^8.1.1
+    arg: ^4.1.0
+    create-require: ^1.1.0
+    diff: ^4.0.1
+    make-error: ^1.1.1
+    yn: 3.1.1
+  peerDependencies:
+    "@swc/core": ">=1.2.50"
+    "@swc/wasm": ">=1.2.50"
+    "@types/node": "*"
+    typescript: ">=2.7"
+  peerDependenciesMeta:
+    "@swc/core":
+      optional: true
+    "@swc/wasm":
+      optional: true
+  bin:
+    ts-node: dist/bin.js
+    ts-node-cwd: dist/bin-cwd.js
+    ts-node-script: dist/bin-script.js
+    ts-node-transpile-only: dist/bin-transpile.js
+    ts-script: dist/bin-script-deprecated.js
+  checksum: 15755a09a97797036aed3672a9551a441958271c3e77a99714b41db3fcfc5829ae22aac3365d48bcf94f88a78c5cc8e3e2cd13240d948d19b7aa1a47f210bfe3
   languageName: node
   linkType: hard
 

@@ -1,85 +1,34 @@
 import { FilterCommand } from './FilterCommand'
-import { Command } from 'clipanion'
+import { Command, Option } from 'clipanion'
 import { Configuration, Project, structUtils } from '@yarnpkg/core'
 import { WorkspaceRequiredError } from '@yarnpkg/cli'
 import ora from 'ora'
 
 export class ChangedForeachCommand extends FilterCommand {
-  @Command.String()
-  commandName!: string
-
-  @Command.Proxy()
-  args: string[] = []
-
-  @Command.Boolean('-v,--verbose')
-  verbose = false
-
-  @Command.Boolean('-p,--parallel')
-  parallel = false
-
-  @Command.Boolean('-i,--interlaced')
-  interlaced = false
-
-  @Command.Boolean('-t,--topological')
-  topological = false
-  @Command.Boolean('--topological-dev')
-  topologicalDev = false
-
-  @Command.String('-j,--jobs')
-  jobs?: number
+  verbose = Option.Boolean('-v,--verbose', false)
+  parallel = Option.Boolean('-p,--parallel', false)
+  interlaced = Option.Boolean('-i,--interlaced', false)
+  topological = Option.Boolean('-t,--topological', false)
+  topologicalDev = Option.Boolean('--topological-dev', false)
+  jobs?: number = Option.String('-j,--jobs')
 
   public static usage = Command.Usage({
-    description: 'Run a command on changed workspaces and their dependents',
-    details: `
-      This command will run a given sub-command on changed workspaces and workspaces depends on them.
-
-      Check the documentation for \`yarn workspace foreach\` for more details.
-    `,
+    description: '基于 git 计算变更的模块，然后仅运行变更的模块',
     examples: [
       [
-        'Run build scripts on changed workspaces',
-        'yarn changed foreach run build',
-      ],
-      [
-        'Find changed files within a Git range',
-        'yarn changed foreach --git-range 93a9ed8..4ef2c61 run build',
+        '按照依赖图在所有模块中运行 initialize 初始化命令',
+        'yarn changed foreach -p --topological-dev run initialize',
       ],
     ],
   })
 
-  @Command.Path('changed', 'foreach')
-  public async execute(): Promise<number> {
-    const configuration = await Configuration.find(
-      this.context.cwd,
-      this.context.plugins,
-    )
-    const { project, workspace } = await Project.find(
-      configuration,
-      this.context.cwd,
-    )
+  static paths = [['changed', 'foreach']]
 
-    if (!workspace) {
-      throw new WorkspaceRequiredError(project.cwd, this.context.cwd)
+  public async execute() {
+    const changed = await this.main()
+    if (changed === null) {
+      return
     }
-
-    const spinner = ora({
-      color: 'blue',
-    })
-    spinner.start('开始计算变更的模块')
-    const changed = await this.listWorkspaces(project)
-    if (!changed.workspaces.length) {
-      spinner.stopAndPersist({
-        text: '没有变更的模块',
-      })
-      return 0
-    }
-    spinner.stopAndPersist({
-      text: `计算得到变更的模块: 
-${changed.workspaces
-  .map((item) => structUtils.stringifyIdent(item.locator))
-  .join('\n')}`,
-    })
-
     const res = await this.cli.run(
       [
         'workspaces',
@@ -101,9 +50,7 @@ ${changed.workspaces
         this.commandName,
         ...this.args,
       ],
-      {
-        cwd: project.cwd,
-      },
+      this.context,
     )
     await changed.updateCache()
     return res

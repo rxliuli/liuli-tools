@@ -1,70 +1,20 @@
 import { FilterCommand } from './FilterCommand'
 import { Command } from 'clipanion'
-import {
-  Configuration,
-  Project,
-  StreamReport,
-  structUtils,
-} from '@yarnpkg/core'
-import { WorkspaceRequiredError } from '@yarnpkg/cli'
 
 export class ChangedListCommand extends FilterCommand {
-  @Command.Boolean('--json')
-  public json = false
-
   public static usage = Command.Usage({
-    description: 'List changed workspaces and their dependents',
-    details: `
-      If the \`--json\` flag is set the output will follow a JSON-stream output also known as NDJSON (https://github.com/ndjson/ndjson-spec).
-    `,
+    description: '基于 git 计算变更的模块，然后列出变更的模块',
     examples: [
       [
-        'Find changed files within a Git range',
-        'yarn changed list --git-range 93a9ed8..4ef2c61',
-      ],
-      [
-        'Include or exclude workspaces',
-        'yarn changed list --include @foo/a --exclude @foo/b',
+        '列出 initialize 命令自上次运行后变更的模块',
+        'yarn changed list run initialize',
       ],
     ],
   })
 
-  @Command.Path('changed', 'list')
-  public async execute(): Promise<number> {
-    const configuration = await Configuration.find(
-      this.context.cwd,
-      this.context.plugins,
-    )
-    const { project, workspace } = await Project.find(
-      configuration,
-      this.context.cwd,
-    )
+  static paths = [['changed', 'list']]
 
-    if (!workspace) {
-      throw new WorkspaceRequiredError(project.cwd, this.context.cwd)
-    }
-
-    const report = await StreamReport.start(
-      {
-        configuration,
-        json: this.json,
-        stdout: this.context.stdout,
-      },
-      async (report) => {
-        const changed = await this.listWorkspaces(project)
-
-        for (const ws of changed.workspaces) {
-          report.reportInfo(null, ws.relativeCwd)
-          report.reportJson({
-            name: ws.manifest.name
-              ? structUtils.stringifyIdent(ws.manifest.name)
-              : null,
-            location: ws.relativeCwd,
-          })
-        }
-      },
-    )
-
-    return report.exitCode()
+  async execute() {
+    await this.main()
   }
 }

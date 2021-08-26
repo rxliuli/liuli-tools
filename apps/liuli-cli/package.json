@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/cli",
-  "version": "3.7.1",
+  "version": "3.8.0",
   "description": "一个针对于库和 CLI 应用程序打包的零配置 CLI",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -26,6 +26,7 @@
   "dependencies": {
     "@rollup/plugin-json": "^4.1.0",
     "builtin-modules": "^3.2.0",
+    "chalk": "^4.1.2",
     "commander": "^7.0.0",
     "fs-extra": "^10.0.0",
     "inquirer": "^8.1.0",
@@ -38,6 +39,9 @@
     "rollup-plugin-typescript2": "^0.30.0"
   },
   "devDependencies": {
+    "@liuli-util/commitlint-standard-config": "*",
+    "@liuli-util/eslint-config-ts": "*",
+    "@liuli-util/prettier-standard-config": "*",
     "@types/fs-extra": "^9.0.11",
     "@types/inquirer": "^7.3.1",
     "@types/jest": "^26.0.23",

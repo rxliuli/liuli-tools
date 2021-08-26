@@ -1,5 +1,20 @@
 # 更新日志
 
+## 3.8.0
+
+- chore: 在项目本身使用 eslint 通用配置并同步
+- feat: 实现同步 eslint 配置，支持交互式创建模板项目
+- feat: 删除不需要的工具函数，删除 build config 命令
+- feat: 再模板中添加 initialize 命令以在 monorepo 中初始化
+- chore: 将生成的 i18n/index.d.ts 添加到 git 忽略文件中，并在根项目同步
+- feat: 支持同步 gitignore
+- feat: 实现同步配置的命令
+- feat: 当目录已经存在时，在命令行中交互式的提示是否覆盖它
+- feat: 生成模板项目默认不再删除目标目录
+- fix: 修复最终发布没有包含 .gitignore 的问题
+- feat: 生成的项目默认使用通用 .gitignore 配置
+- feat: 同步 yarn workspaces 和 lerna packages（以后升级 yarn2 有望干掉这个同步）, 删除 monorepo-cli 模块
+
 ## 3.7.1
 
 - fix(@liuli-util/cli): 修复模板中的依赖没有更新的问题（后面应该使用自动化的方案）

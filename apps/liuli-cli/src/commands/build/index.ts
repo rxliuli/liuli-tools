@@ -1,7 +1,5 @@
 import { Command } from 'commander'
 import { BuildProgram } from './BuildProgram'
-import { loadTypeScriptConfig } from '../../utils'
-import path from 'path'
 
 const buildProgram = new BuildProgram()
 export const buildCommand = new Command('build')
@@ -9,23 +7,6 @@ export const buildCommand = new Command('build')
   .action(async (option: { watch?: boolean; config?: true | string }) => {
     await buildProgram.buildPkg(!!option.watch)
   })
-  .addCommand(
-    new Command()
-      .command('config')
-      .description(
-        '根据 rollup.config.ts 配置打包（将废弃，请使用 rollup.defineConfig）',
-      )
-      .option('-w --watch', '监视模式')
-      .action(async (option: { watch?: boolean }) => {
-        const options = loadTypeScriptConfig(
-          path.resolve('rollup.config.ts'),
-        ).default
-        await buildProgram.build(
-          Array.isArray(options) ? options : [options],
-          !!option.watch,
-        )
-      }),
-  )
   .addCommand(
     new Command('pkg')
       .description('使用 rollup 将 ts lib 打包到 dist 目录，格式为 esm/cjs')

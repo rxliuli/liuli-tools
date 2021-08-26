@@ -1,11 +1,18 @@
-# 使用 yarn 2 api 编写类似于 ultra-runner 的插件
+# @liuli-util/yarn-plugin-changed
 
-## 动机
+## 简介
 
-- 放弃使用 lerna 和其他第三方工具，专注于增强 yarn
-- 减少无关的依赖
+基于 git 和文件 hash 计算缓存，确保每次运行相同的命令仅会在变更的模块中实际运行。
+
+## 功能
+
+- `yarn changed foreach <args>`: 根据缓存执行命令
+- `yarn changed list <args>`: 查询指定命令的缓存情况
 
 ## 基本思路
+
+- 根据依赖尽可能地并发运行命令
+- 对命令进行缓存，下次运行相同命令根据缓存决定跳过哪些模块
 
 1. 获取所有模块
 2. 从缓存文件中获取上次构建的结果
@@ -17,23 +24,13 @@
 - 构建模块列表
 - 模块的 git 记录（如果存在未提交的文件，则额外计算 git 提交文件记录的哈希值）
 
-## 需求
+## 开发
 
-- 根据依赖尽可能地并发运行命令
-- 对命令进行缓存，下次运行相同命令根据缓存决定跳过哪些模块
-- 针对单个模块及依赖的子模块执行自定义命令
-- [ ] 区分静态依赖和动态依赖，静态依赖会被捆绑所以每次依赖变化都必须重新构建上层模块，但动态依赖则不需要
-- [ ] 支持配置变更的影响文件、目录，仅在这些变化时才重新构建 -- 待定，不同命令所需要的配置可能不同，而且 git 处理也更复杂
+1. 启动开发环境 `cd packages/common/yarn-plugin-changed && yarn dev`
+2. 安装打包后的插件 `yarn plugin import ./bundles/\@liuli-util/plugin-changed.js`
 
-## 进度
-
-目前已调研的现有工具
+## 参考
 
 - [ultra-runner](https://github.com/folke/ultra-runner): 不绑定 git 使用文件哈希的方式对比差异，但不支持忽略 node_modules 的变更（git 忽略的文件应该都要被忽略才对）导致缓存几乎不可能生效
 - [yarn.build](https://yarn.build/): 不支持自定义运行的命令，而且缓存方面也存在问题
 - [yarn plugin changed](https://github.com/Dcard/yarn-plugins/tree/master/packages/changed): 不支持按照开发时依赖并行构建，而且 cli 存在一些问题
-
-## 问题
-
-- [ ] 当不在 monorepo 根目录运行代码时，会出现路径拼接错误
-- [x] 有奇怪的变更模块 -- 原因是用重复用 `npath.resolve` 导致，已修复仅使用一次

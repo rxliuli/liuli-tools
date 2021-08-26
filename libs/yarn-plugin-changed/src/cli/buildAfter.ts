@@ -7,11 +7,11 @@ async function buildAfter() {
     pluginPath,
     (
       await readFile(pluginPath, 'utf-8')
-    ).replace('@yarnpkg/plugin-changed', '@pinefield/plugin-changed'),
+    ).replace('@yarnpkg/plugin-changed', '@liuli-util/plugin-changed'),
   )
   await move(
     path.resolve('./bundles/@yarnpkg'),
-    path.resolve('./bundles/@pinefield'),
+    path.resolve('./bundles/@liuli-util'),
     {
       overwrite: true,
     },

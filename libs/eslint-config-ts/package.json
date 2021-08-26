@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/eslint-config-ts",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": ".eslintrc.json",
   "license": "MIT",
   "publishConfig": {

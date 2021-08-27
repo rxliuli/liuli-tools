@@ -1383,7 +1383,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@liuli-util/cli@*, @liuli-util/cli@^3.4.0, @liuli-util/cli@workspace:apps/liuli-cli":
+"@liuli-util/async@npm:^3.2.7":
+  version: 3.2.7
+  resolution: "@liuli-util/async@npm:3.2.7"
+  checksum: 94a867f0a001969c83c2474d4f9c189fc95c4c57b4ea71ad545eaaeb082bd0ff63da8a2c241bae55c1a474dc3accbb1b4888c77946df2ef16bb0c5cad9fb0cb8
+  languageName: node
+  linkType: hard
+
+"@liuli-util/cli@*, @liuli-util/cli@^3.4.0, @liuli-util/cli@^3.7.0, @liuli-util/cli@workspace:apps/liuli-cli":
   version: 0.0.0-use.local
   resolution: "@liuli-util/cli@workspace:apps/liuli-cli"
   dependencies:
@@ -1446,7 +1453,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/eslint-config-ts@*, @liuli-util/eslint-config-ts@workspace:libs/eslint-config-ts":
+"@liuli-util/eslint-config-ts@*, @liuli-util/eslint-config-ts@^0.2.0, @liuli-util/eslint-config-ts@workspace:libs/eslint-config-ts":
   version: 0.0.0-use.local
   resolution: "@liuli-util/eslint-config-ts@workspace:libs/eslint-config-ts"
   dependencies:
@@ -1565,6 +1572,34 @@ __metadata:
     mv: dist/mv.js
     rm: dist/rm.js
     shell: dist/bin.js
+  languageName: unknown
+  linkType: soft
+
+"@liuli-util/simple-ci@workspace:apps/simple-ci":
+  version: 0.0.0-use.local
+  resolution: "@liuli-util/simple-ci@workspace:apps/simple-ci"
+  dependencies:
+    "@liuli-util/async": ^3.2.7
+    "@liuli-util/cli": ^3.7.0
+    "@liuli-util/eslint-config-ts": ^0.2.0
+    "@types/fs-extra": ^9.0.11
+    "@types/inquirer": ^7.3.1
+    "@types/jest": ^26.0.23
+    "@types/lodash": ^4.14.168
+    "@types/node": ^12.20.6
+    commander: ^7.0.0
+    fs-extra: ^10.0.0
+    inquirer: ^8.1.0
+    jest: ^26.6.3
+    open: ^8.2.1
+    rimraf: ^3.0.2
+    ts-jest: ^26.5.6
+    ts-node: ^10.0.0
+    type-fest: ^2.1.0
+    typedoc: ^0.21.0
+    typescript: ^4.3.4
+  bin:
+    simple-ci: dist/bin.js
   languageName: unknown
   linkType: soft
 
@@ -4466,6 +4501,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"define-lazy-prop@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "define-lazy-prop@npm:2.0.0"
+  checksum: db6c63864a9d3b7dc9def55d52764968a5af296de87c1b2cc71d8be8142e445208071953649e0386a8cc37cfcf9a2067a47207f1eb9ff250c2a269658fdae422
+  languageName: node
+  linkType: hard
+
 "define-properties@npm:^1.1.3":
   version: 1.1.3
   resolution: "define-properties@npm:1.1.3"
@@ -6356,7 +6398,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-docker@npm:^2.0.0":
+"is-docker@npm:^2.0.0, is-docker@npm:^2.1.1":
   version: 2.2.1
   resolution: "is-docker@npm:2.2.1"
   bin:
@@ -8901,6 +8943,17 @@ __metadata:
   dependencies:
     lru-cache: ^5.1.1
   checksum: 79eeefa07f196239a9007f504983066212aea2c8b080aeae1f1df92d215d5165f3c9bfdbc35b12c5581ac1eec54f1b98720b6f0c39f7a4433e2e16aca2a8c97c
+  languageName: node
+  linkType: hard
+
+"open@npm:^8.2.1":
+  version: 8.2.1
+  resolution: "open@npm:8.2.1"
+  dependencies:
+    define-lazy-prop: ^2.0.0
+    is-docker: ^2.1.1
+    is-wsl: ^2.2.0
+  checksum: 341f89950df8868ee957fe2370121f6ff1e4359b4cec84a48ed38153d16cb7abb8770102a80fd25c8f5dd10c40eae4ad107c396026c7d7ba4582ec7ecb1e9f8e
   languageName: node
   linkType: hard
 
@@ -11512,6 +11565,13 @@ resolve@1.17.0:
   version: 1.2.1
   resolution: "type-fest@npm:1.2.1"
   checksum: c80bc4ac755dd68c8894efa3f9a8413c7f30a52d9987da00090c6298bfe35a8b29e037082f69176eff7d9d2318eff49215b24de7dcb52601dc46b450fbc6807f
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "type-fest@npm:2.1.0"
+  checksum: 2e58ec99c873aa5eb78db6ef247db2eebc8938204242ce2f74a6163fef5eb30226d5c6f9d40eaa83064cb116e0eceada0173732425aab068f62165c7a2492a91
   languageName: node
   linkType: hard
 

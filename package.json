@@ -9,7 +9,7 @@
     "build:cache": "yarn changed foreach -p --topological-dev run setup",
     "list:cache": "yarn changed list",
     "postinstall": "npx simple-git-hooks",
-    "pub": "is-ci && echo is-ci publish"
+    "pub": "is-ci && esno scripts/readEnvs.ts"
   },
   "prettier": "@liuli-util/prettier-standard-config",
   "workspaces": [
@@ -46,6 +46,7 @@
     "@liuli-util/eslint-config-ts": "*",
     "@liuli-util/prettier-standard-config": "*",
     "@types/is-ci": "^3",
+    "esno": "^0.9.1",
     "gh-pages": "^3.2.0",
     "is-ci": "^3.0.0",
     "lint-staged": "^11.0.1",

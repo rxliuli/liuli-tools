@@ -4383,6 +4383,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"esbuild-node-loader@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "esbuild-node-loader@npm:0.3.1"
+  dependencies:
+    esbuild: ^0.12.6
+  checksum: e46f9e107c461609d0c91a7590a628e4695e14dcfe78e8b73b725a442b70e97007648956e667d6b6b306fd1f9b66d88685a0fb5009403defec47caf0b4f8ed9e
+  languageName: node
+  linkType: hard
+
+"esbuild-register@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "esbuild-register@npm:3.0.0"
+  dependencies:
+    jsonc-parser: ^3.0.0
+  peerDependencies:
+    esbuild: ">=0.12 <1"
+  checksum: 7c58b5e33055a71f93ab199170ece46838001b99925dbc8296dbea6675178d5bc51afe9bafe1e01e381fb448fda0cbb1dea1731559c7a3aefa8a3761a94d6d18
+  languageName: node
+  linkType: hard
+
+"esbuild@npm:^0.12.20, esbuild@npm:^0.12.6":
+  version: 0.12.24
+  resolution: "esbuild@npm:0.12.24"
+  bin:
+    esbuild: bin/esbuild
+  checksum: f689847f4d798866b4ab95e7920ea8131680310cbaec584b2c3538cd14d9f646ed6e25663518de402178713b487f52b1ffef1b06dd9b8d23e229110f5632ef5c
+  languageName: node
+  linkType: hard
+
 "escalade@npm:^3.1.1":
   version: 3.1.1
   resolution: "escalade@npm:3.1.1"
@@ -4541,6 +4570,21 @@ __metadata:
   bin:
     eslint: bin/eslint.js
   checksum: 84409f7767556179cb11529f1215f335c7dfccf90419df6147f949f14c347a960c7b569e80ed84011a0b6d10da1ef5046edbbb9b11c3e59aa6696d5217092e93
+  languageName: node
+  linkType: hard
+
+"esno@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "esno@npm:0.9.1"
+  dependencies:
+    cross-spawn: ^7.0.3
+    esbuild: ^0.12.20
+    esbuild-node-loader: ^0.3.1
+    esbuild-register: ^3.0.0
+  bin:
+    esmo: esmo.mjs
+    esno: esno.js
+  checksum: 390d9738f80be82b7413335cf6277103b4d8ee042240541a8885a546691e4333ac572ac8af842450e926b8f233bb464d499979fc429ba274faa29583c20ee572
   languageName: node
   linkType: hard
 
@@ -7229,6 +7273,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jsonc-parser@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "jsonc-parser@npm:3.0.0"
+  checksum: 373632ab71f773ce6081dd70297c40fbb05aacde07ab8a5852c78c0a13d1fadb7ad886202e87bfc0168dd78568cda2d4eb36e785dac330f93e5e772d7a67f33f
+  languageName: node
+  linkType: hard
+
 "jsonfile@npm:^4.0.0":
   version: 4.0.0
   resolution: "jsonfile@npm:4.0.0"
@@ -7402,6 +7453,7 @@ __metadata:
     "@liuli-util/eslint-config-ts": "*"
     "@liuli-util/prettier-standard-config": "*"
     "@types/is-ci": ^3
+    esno: ^0.9.1
     gh-pages: ^3.2.0
     is-ci: ^3.0.0
     lint-staged: ^11.0.1

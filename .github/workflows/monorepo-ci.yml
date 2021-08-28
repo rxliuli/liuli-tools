@@ -1,0 +1,24 @@
+# This workflow will triage pull requests and apply a label based on the
+# paths that are modified in the pull request.
+#
+# To use this workflow, you will need to set up a .github/labeler.yml
+# file with configuration.  For more information, see:
+# https://github.com/actions/labeler
+
+name: monoepo-ci
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+      - run: npm install -g yarn
+      - run: yarn -v

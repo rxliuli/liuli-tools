@@ -23,9 +23,6 @@ jobs:
         with:
           node-version: 14
           cache: yarn
-          cache-dependency-path: './'
-      - uses: actions-ecosystem/action-get-latest-tag@v1
-        id: get-latest-tag
       - run: |
           npm install -g yarn
           yarn

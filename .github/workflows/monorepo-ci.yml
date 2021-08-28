@@ -23,6 +23,7 @@ jobs:
         run: |
           git config --global user.email ${{ secrets.MY_EMAIL }}
           git config --global user.name ${{ secrets.MY_NAME }}
+          echo  ${{ secrets.MY_NAME }}
       - uses: actions/setup-node@v2
         with:
           node-version: '14'

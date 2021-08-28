@@ -19,10 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: initial ssh
-        run: |
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-          less ~/.ssh/id_rsa
       - name: initial git
         run: |
           git config --global user.email ${{ secrets.MY_EMAIL }}

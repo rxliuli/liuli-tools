@@ -1125,6 +1125,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@liuli-util/ci-release-last@*, @liuli-util/ci-release-last@workspace:libs/ci-release-last":
+  version: 0.0.0-use.local
+  resolution: "@liuli-util/ci-release-last@workspace:libs/ci-release-last"
+  dependencies:
+    "@liuli-util/cli": ^3.7.0
+    "@types/fs-extra": ^9.0.11
+    "@types/inquirer": ^7.3.1
+    "@types/jest": ^26.0.23
+    "@types/lodash": ^4.14.168
+    "@types/node": ^12.20.6
+    commander: ^7.0.0
+    fs-extra: ^10.0.0
+    jest: ^26.6.3
+    rimraf: ^3.0.2
+    simple-git: ^2.45.0
+    ts-jest: ^26.5.6
+    ts-node: ^10.0.0
+    type-fest: ^1.2.1
+    typedoc: ^0.21.0
+    typescript: ^4.3.4
+  bin:
+    release-last: dist/bin.js
+  languageName: unknown
+  linkType: soft
+
 "@liuli-util/cli@*, @liuli-util/cli@^3.4.0, @liuli-util/cli@^3.7.0, @liuli-util/cli@workspace:apps/liuli-cli":
   version: 0.0.0-use.local
   resolution: "@liuli-util/cli@workspace:apps/liuli-cli"
@@ -7450,6 +7475,7 @@ __metadata:
   resolution: "liuli-tools@workspace:."
   dependencies:
     "@commitlint/cli": ^12.1.4
+    "@liuli-util/ci-release-last": "*"
     "@liuli-util/commitlint-standard-config": "*"
     "@liuli-util/eslint-config-ts": "*"
     "@liuli-util/prettier-standard-config": "*"
@@ -9661,7 +9687,7 @@ resolve@1.17.0:
   languageName: node
   linkType: hard
 
-"simple-git@npm:^2.42.0":
+"simple-git@npm:^2.42.0, simple-git@npm:^2.45.0":
   version: 2.45.0
   resolution: "simple-git@npm:2.45.0"
   dependencies:

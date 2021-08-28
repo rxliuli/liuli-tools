@@ -8,7 +8,8 @@
     "build": "yarn workspaces foreach -p --topological-dev run build",
     "build:cache": "yarn changed foreach -p --topological-dev run setup",
     "list:cache": "yarn changed list",
-    "postinstall": "npx simple-git-hooks"
+    "postinstall": "npx simple-git-hooks",
+    "pub": "is-ci && echo is-ci publish"
   },
   "prettier": "@liuli-util/prettier-standard-config",
   "workspaces": [
@@ -44,7 +45,9 @@
     "@liuli-util/commitlint-standard-config": "*",
     "@liuli-util/eslint-config-ts": "*",
     "@liuli-util/prettier-standard-config": "*",
+    "@types/is-ci": "^3",
     "gh-pages": "^3.2.0",
+    "is-ci": "^3.0.0",
     "lint-staged": "^11.0.1",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",

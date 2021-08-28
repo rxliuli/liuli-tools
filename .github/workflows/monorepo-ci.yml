@@ -18,9 +18,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache: yarn
+          cache-dependency-path: './'
       - uses: actions-ecosystem/action-get-latest-tag@v1
         id: get-latest-tag
       - run: |
           npm install -g yarn
           yarn
-          yarn -v
+          yarn setup

@@ -27,7 +27,7 @@ jobs:
         with:
           path: |
             .yarn-cache.json
-          key: ${{ runner.os }}-
+          key: ${{ runner.os }}-yarn-changed-cache
       - name: setup
         run: |
           yarn setup

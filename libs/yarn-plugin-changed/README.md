@@ -1,12 +1,18 @@
 # @liuli-util/yarn-plugin-changed
 
-> [安装](https://liuli-tools.rxliuli.com/yarn-plugin-changed/%40liuli-util/plugin-changed.js)
-
 ## 简介
 
 基于 git 和文件 hash 计算缓存，确保每次运行相同的命令仅会在变更的模块中实际运行。
 
-## 功能
+## 使用
+
+安装
+
+```shell
+yarn plugin import https://liuli-tools.rxliuli.com/yarn-plugin-changed/%40liuli-util/plugin-changed.js
+```
+
+功能
 
 - `yarn changed foreach <args>`: 根据缓存执行命令
 - `yarn changed list <args>`: 查询指定命令的缓存情况

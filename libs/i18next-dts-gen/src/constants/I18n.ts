@@ -1,3 +1,4 @@
+// @ts-ignore
 import { TranslateType } from '../i18n'
 import osLocale from 'os-locale'
 import { I18nextUtil, LanguageEnum } from '../util/I18nextUtil'

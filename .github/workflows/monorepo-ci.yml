@@ -29,6 +29,8 @@ jobs:
             .yarn-cache.json
           key: yarn-changed-cache
       - name: setup
-        run: |
-          yarn setup
-          yarn pub
+        run: yarn setup
+      - name: publish
+        run: yarn pub
+        env: |
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

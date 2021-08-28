@@ -40,4 +40,4 @@ jobs:
       - name: publish
         run: yarn pub
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

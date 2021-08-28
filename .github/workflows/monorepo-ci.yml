@@ -27,6 +27,7 @@ jobs:
         with:
           path: |
             .yarn-cache.json
+          key: yarn-changed-cache
       - name: setup
         run: |
           yarn setup

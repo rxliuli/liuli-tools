@@ -19,6 +19,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: initial git
+        run: |
+          git config --global user.email $MY_EMAIL
+          git config --global user.name $MY_NAME
+          git remote set-url origin https://$MY_NAME:${{ secrets.GITHUB_TOKEN }}@github.com/rxliuli/liuli-tools.git
       - uses: actions/setup-node@v2
         with:
           node-version: '14'

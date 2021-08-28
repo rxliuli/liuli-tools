@@ -11,6 +11,8 @@ on:
   push:
     branches:
       - master
+    tags: 
+      - '*'
 
 jobs:
   release:

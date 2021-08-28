@@ -19,16 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: initial git
-        run: |
-          git config --global user.email ${MY_EMAIL}
-          git config --global user.name ${MY_NAME}
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/rxliuli/liuli-tools.git
-          git push origin master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MY_EMAIL: ${{ secrets.MY_EMAIL }}
-          MY_NAME: ${{ secrets.MY_NAME }}
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
@@ -40,10 +30,12 @@ jobs:
           path: |
             .yarn-cache.json
           key: yarn-changed-cache
-      - name: check yarn changed cache
-        run: less .yarn-cache.json
+#      - name: setup
+#        run: yarn setup
       - name: publish
         run: yarn pub
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_EMAIL: ${{ secrets.MY_EMAIL }}
+          GIT_NAME: ${{ secrets.MY_NAME }}

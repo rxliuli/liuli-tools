@@ -6,7 +6,7 @@
     "build": "builder build plugin --no-minify && ts-node src/cli/buildAfter.ts",
     "dev": "chokidar src/ -i '*.test.ts' -c \"yarn build --no-minify && ts-node src/cli/buildAfter.ts\"",
     "deploy": "yarn build && gh-pages -d bundles/ -e /yarn-plugin-changed -a",
-    "pub": "yarn deploy"
+    "pub": "yarn build && esno src/scripts/deploy.ts"
   },
   "jest": {
     "preset": "ts-jest"
@@ -21,6 +21,7 @@
     "simple-git": "^2.42.0"
   },
   "devDependencies": {
+    "esno": "^0.9.1",
     "@types/fs-extra": "^9.0.12",
     "@types/gh-pages": "^3",
     "@types/jest": "^26.0.24",

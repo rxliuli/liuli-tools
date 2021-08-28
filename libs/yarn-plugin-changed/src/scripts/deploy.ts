@@ -15,7 +15,7 @@ async function publishPromise(basePath: string, config: PublishOptions) {
 async function deploy() {
   console.log('开始部署')
   await publishPromise(path.resolve('bundles'), {
-    repo: `https://${process.env.GH_TOKEN}@github.com/${process.env.GIT_NAME}/liuli-tools.git`,
+    repo: `https://${process.env.GITHUB_TOKEN}@github.com/${process.env.GIT_NAME}/liuli-tools.git`,
     dest: '/yarn-plugin-changed',
     add: true,
     user: {

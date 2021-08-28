@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: initial ssh
         run: |
-          echo ${{ secrets.SSH_KEY }} > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           less ~/.ssh/id_rsa
       - name: initial git
         run: |

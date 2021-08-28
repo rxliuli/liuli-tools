@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
       - uses: actions-ecosystem/action-get-latest-tag@v1
         id: get-latest-tag
       - run: |

@@ -6,7 +6,7 @@
     "build": "builder build plugin --no-minify && ts-node src/cli/buildAfter.ts",
     "dev": "chokidar src/ -i '*.test.ts' -c \"yarn build --no-minify && ts-node src/cli/buildAfter.ts\"",
     "deploy": "yarn build && gh-pages -d bundles/ -e /yarn-plugin-changed -a",
-    "pub": "yarn build && esno src/scripts/deploy.ts"
+    "pub": "yarn build && gh-pages -d bundles/ -e /yarn-plugin-changed -a -- -u \"github-actions-bot <support+actions@github.com>\""
   },
   "jest": {
     "preset": "ts-jest"

@@ -39,8 +39,8 @@ jobs:
           path: |
             .yarn-cache.json
           key: yarn-changed-cache
-#       - name: setup
-#         run: yarn setup
+      - name: setup
+        run: yarn setup
       - name: publish
         run: yarn pub
         env:

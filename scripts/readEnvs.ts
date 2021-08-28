@@ -1,2 +1,3 @@
+console.log(process.env)
 const token = process.env.NPM_TOKEN
-console.log(token.slice(0, token.length - 1))
+console.log(token?.slice(0, token.length - 1))

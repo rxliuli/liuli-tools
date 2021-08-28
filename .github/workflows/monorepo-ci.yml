@@ -31,3 +31,4 @@ jobs:
       - name: setup
         run: |
           yarn setup
+          yarn pub

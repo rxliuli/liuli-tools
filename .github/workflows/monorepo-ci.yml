@@ -24,6 +24,7 @@ jobs:
           git config --global user.email ${MY_EMAIL}
           git config --global user.name ${MY_NAME}
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/rxliuli/liuli-tools.git
+          git push origin master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MY_EMAIL: ${{ secrets.MY_EMAIL }}

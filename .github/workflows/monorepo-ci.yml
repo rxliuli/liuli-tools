@@ -28,9 +28,11 @@ jobs:
           path: |
             .yarn-cache.json
           key: yarn-changed-cache
+      - name: check yarn changed cache
+        run: less .yarn-cache.json
       - name: setup
         run: yarn setup
       - name: publish
         run: yarn pub
-        env: |
+        env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -9,7 +9,7 @@
     "build:cache": "yarn changed foreach -p --topological-dev run setup",
     "list:cache": "yarn changed list",
     "postinstall": "npx simple-git-hooks",
-    "pub": "is-ci && esno scripts/readEnvs.ts"
+    "pub": "is-ci && esno scripts/readEnvs.ts && yarn workspaces foreach run pub"
   },
   "prettier": "@liuli-util/prettier-standard-config",
   "workspaces": [

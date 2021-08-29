@@ -2,7 +2,6 @@ import { pathExists, readFile, readJson, writeFile } from 'fs-extra'
 import path from 'path'
 import { BaseProgram } from '../service/BaseProgram'
 import { PackageJson } from 'type-fest'
-import { ChangelogParser } from '../service/ChangelogParser'
 import { Scanner } from '../service/Scanner'
 import { Generator } from '../service/Generator'
 
@@ -16,12 +15,11 @@ export class ChangelogProgram extends BaseProgram {
     const json = (await readJson(
       path.resolve(this.cwd, 'package.json'),
     )) as PackageJson
-    const changelogParser = new ChangelogParser()
     const changelog = await readFile(
       path.resolve(this.cwd, 'CHANGELOG.md'),
       'utf-8',
     )
-    const changeLogDataList = changelogParser.parse(changelog)
+    const changeLogDataList = Generator.parseChangeLog(changelog)
     const scanner = new Scanner(this.cwd)
 
     //初始

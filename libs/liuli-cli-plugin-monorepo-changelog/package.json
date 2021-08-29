@@ -15,7 +15,7 @@
     "docs:deploy": "yarn build && gh-pages -d docs/ -e / -a"
   },
   "bin": {
-    "cli-name": "dist/bin.js"
+    "changelog": "dist/bin.js"
   },
   "jest": {
     "preset": "ts-jest",
@@ -24,11 +24,8 @@
     ]
   },
   "dependencies": {
-    "@liuli-util/commitlint-standard-config": "^0.1.6",
     "commander": "^7.0.0",
-    "conventional-changelog": "^3.1.24",
     "fs-extra": "^10.0.0",
-    "inquirer": "^8.1.0",
     "simple-git": "^2.45.0"
   },
   "devDependencies": {

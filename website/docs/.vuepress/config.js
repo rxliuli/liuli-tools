@@ -18,8 +18,12 @@ module.exports = {
                 link: 'https://github.com/rxliuli/liuli-tools/tree/master/apps/liuli-cli',
               },
               {
-                text: '@liuli-util/shell',
-                link: 'https://github.com/rxliuli/liuli-tools/tree/master/apps/shell',
+                text: 'yarn-plugin-changed',
+                link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/yarn-plugin-changed',
+              },
+              {
+                text: '@liuli-util/monorepo-changelog',
+                link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/monorepo-changelog',
               },
               {
                 text: 'vite-jetbrains-plugin',
@@ -34,8 +38,8 @@ module.exports = {
                 link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/rollup-plugin-worker-threads/README.ZH_CN.md',
               },
               {
-                text: 'yarn-plugin-changed',
-                link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/yarn-plugin-changed',
+                text: '@liuli-util/shell',
+                link: 'https://github.com/rxliuli/liuli-tools/tree/master/apps/shell',
               },
             ],
           },

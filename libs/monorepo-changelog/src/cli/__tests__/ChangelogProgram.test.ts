@@ -10,5 +10,5 @@ describe('测试 ChangelogProgram', () => {
     )
     const changelogProgram = new ChangelogProgram(cwd!)
     await changelogProgram.generate()
-  }, 100_000)
+  })
 })

@@ -9,8 +9,7 @@ export class ChangelogProgram extends BaseProgram {
   async generate() {
     const changelogPath = path.resolve(this.cwd, 'CHANGELOG.md')
     if (!(await pathExists(changelogPath))) {
-      console.log('CHANGELOG.md 文件不存在')
-      return
+      await writeFile(changelogPath, '# CHANGELOG\n')
     }
     const json = (await readJson(
       path.resolve(this.cwd, 'package.json'),

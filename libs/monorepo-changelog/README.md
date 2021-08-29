@@ -1,8 +1,8 @@
-# @liuli-util/liuli-cli-plugin-changelog
+# @liuli-util/monorepo-changelog
 
 ## 简介
 
-一个自动根据当前模块提交生成 changelog 的 cli 工具，同时默认集成到 liuli-cli 中。
+一个自动根据当前模块提交生成 changelog 的 cli 工具。
 
 ## 动机
 

@@ -1271,9 +1271,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/liuli-cli-plugin-monorepo-changelog@workspace:libs/liuli-cli-plugin-monorepo-changelog":
+"@liuli-util/monorepo-changelog@workspace:libs/monorepo-changelog":
   version: 0.0.0-use.local
-  resolution: "@liuli-util/liuli-cli-plugin-monorepo-changelog@workspace:libs/liuli-cli-plugin-monorepo-changelog"
+  resolution: "@liuli-util/monorepo-changelog@workspace:libs/monorepo-changelog"
   dependencies:
     "@liuli-util/cli": ^3.7.0
     "@types/conventional-changelog": ^3

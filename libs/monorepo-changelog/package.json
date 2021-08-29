@@ -1,5 +1,5 @@
 {
-  "name": "@liuli-util/liuli-cli-plugin-monorepo-changelog",
+  "name": "@liuli-util/monorepo-changelog",
   "version": "0.1.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

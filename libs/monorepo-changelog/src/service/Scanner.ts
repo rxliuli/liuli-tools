@@ -45,6 +45,6 @@ export class Scanner extends BaseProgram {
             scope: json.name,
           } as CommitLog),
       )
-      .filter((log) => log.type === 'build')
+      .filter((log) => log.type !== 'build')
   }
 }

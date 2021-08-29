@@ -1,10 +1,18 @@
 # CHANGELOG
 
+## 0.2.0
+
+<!--hash:ca27f54052240ac3a68ff3dbbe171107b8c4dc37-->
+
+- chore: 不再将 Command 实例导出，而仅导出逻辑部分
+- chore: 由于 @liuli-util/monorepo-changelog 与 cli 循环依赖，所以不能作为插件直接依赖
+- fix: 修复生成多个版本时 changelog 有问题
+- feat: 当 CHANGELOG 文件不存在时就创建它而非退出
+- docs: 在 README 中添加基本的使用方法
+
 ## 0.1.0
 
-<!--hash:5faf50d8ca11379d9458de467468ddd5407d28fb-->
+<!--hash:d9066392dcd06626aad7c326ab08a0b57d073a80-->
 
-- fix: 修复 lodash 依赖未显式声明的问题
-- chore: 删除不需要的依赖和代码，修正 bin 为正确的名称
-- feat: 基本实现生成的功能
-- feat: 初始化 @liuli-util/liuli-cli-plugin-monorepo-changelog 模块
+- docs: 在 README 中添加基本的使用方法
+- chore: 由于 @liuli-util/monorepo-changelog 与 cli 循环依赖，所以不能作为插件直接依赖

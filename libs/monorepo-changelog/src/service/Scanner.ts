@@ -36,13 +36,15 @@ export class Scanner extends BaseProgram {
     const json = (await readJson(
       path.resolve(this.cwd, 'package.json'),
     )) as PackageJson
-    return res.all.map(
-      (commit) =>
-        ({
-          ...Scanner.parseMessage(commit.message),
-          hash: commit.hash,
-          scope: json.name,
-        } as CommitLog),
-    )
+    return res.all
+      .map(
+        (commit) =>
+          ({
+            ...Scanner.parseMessage(commit.message),
+            hash: commit.hash,
+            scope: json.name,
+          } as CommitLog),
+      )
+      .filter((log) => log.type === 'build')
   }
 }

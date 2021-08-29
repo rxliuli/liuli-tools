@@ -1,15 +1,13 @@
-import { BaseProgram } from './BaseProgram'
-
-interface Changelog {
-  version: string
-  content: string
-}
+import { ChangeLogData, Generator } from './Generator'
 
 /**
  * 解析现有的 changelog 以便能够根据版本写入到指定位置
  */
-export class ChangelogParser extends BaseProgram {
-  async parse(): Promise<Changelog[]> {
-    throw new Error('no impl')
+export class ChangelogParser {
+  parse(changelog: string): ChangeLogData[] {
+    return changelog
+      .split('##')
+      .slice(1)
+      .map((item) => Generator.parse('##' + item))
   }
 }

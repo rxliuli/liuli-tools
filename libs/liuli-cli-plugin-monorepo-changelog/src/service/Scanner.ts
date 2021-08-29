@@ -1,40 +1,47 @@
 import simpleGit from 'simple-git'
 import { BaseProgram } from './BaseProgram'
+import { readJson } from 'fs-extra'
+import path from 'path'
+import { PackageJson } from 'type-fest'
 
 export interface CommitLog {
   type: string
   scope?: string
   title: string
-  body?: string
+  hash: string
 }
 /**
  * 扫描当前模块所有的 git 记录
  */
 export class Scanner extends BaseProgram {
-  static parseMessage(message: string): Omit<CommitLog, 'body'> {
-    const regex = /(\w+)(\((.+)\))?: (.*)/
+  static parseMessage(message: string): Pick<CommitLog, 'type' | 'title'> {
+    const regex = /(\w+)(\(.+\))?: (.*)/
     if (!regex.test(message)) {
       return {
         type: 'other',
         title: message,
       }
     }
-    const [, type, , scope, title] = regex.exec(message)!
-    return { type, scope, title }
+    const [, type, , title] = regex.exec(message)!
+    return { type, title }
   }
 
-  async scan(fromTag: string): Promise<CommitLog[]> {
+  async scan(from?: string): Promise<CommitLog[]> {
     const git = simpleGit()
     await git.cwd(this.cwd)
     const res = await git.log({
       file: this.cwd,
-      from: fromTag,
+      from: from,
     })
+    const json = (await readJson(
+      path.resolve(this.cwd, 'package.json'),
+    )) as PackageJson
     return res.all.map(
-      (tag) =>
+      (commit) =>
         ({
-          ...Scanner.parseMessage(tag.message),
-          body: tag.body,
+          ...Scanner.parseMessage(commit.message),
+          hash: commit.hash,
+          scope: json.name,
         } as CommitLog),
     )
   }

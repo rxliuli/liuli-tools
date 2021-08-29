@@ -38,9 +38,9 @@ export class ChangelogProgram extends BaseProgram {
       const commitLogs = await scanner.scan(changeLogDataList[1]?.hash)
       changeLogDataList[0] = Generator.convert(commitLogs, json.version!)
     }
-    const txt =
-      '# CHANGELOG\n\n' +
-      changeLogDataList.map((item) => Generator.generate(item))
-    await writeFile(changelogPath, txt)
+    await writeFile(
+      changelogPath,
+      Generator.stringifyChangeLog(changeLogDataList),
+    )
   }
 }

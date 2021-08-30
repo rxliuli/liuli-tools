@@ -1,8 +1,6 @@
 import { FilterCommand } from './FilterCommand'
 import { Command, Option } from 'clipanion'
-import { Configuration, Project, structUtils } from '@yarnpkg/core'
-import { WorkspaceRequiredError } from '@yarnpkg/cli'
-import ora from 'ora'
+import { structUtils } from '@yarnpkg/core'
 
 export class ChangedForeachCommand extends FilterCommand {
   verbose = Option.Boolean('-v,--verbose', false)
@@ -24,35 +22,37 @@ export class ChangedForeachCommand extends FilterCommand {
 
   static paths = [['changed', 'foreach']]
 
-  public async execute() {
+  async execute(): Promise<number | void> {
     const changed = await this.main()
     if (changed === null) {
       return
     }
-    const res = await this.cli.run(
-      [
-        'workspaces',
-        'foreach',
-        ...changed.workspaces.reduce(
-          (acc, ws) => [
-            ...acc,
-            '--include',
-            structUtils.stringifyIdent(ws.locator),
-          ],
-          [] as string[],
-        ),
-        ...(this.verbose ? ['--verbose'] : []),
-        ...(this.parallel ? ['--parallel'] : []),
-        ...(this.interlaced ? ['--interlaced'] : []),
-        ...(this.topological ? ['--topological'] : []),
-        ...(this.topologicalDev ? ['--topological-dev'] : []),
-        ...(this.jobs ? ['--jobs', `${this.jobs}`] : []),
-        this.commandName,
-        ...this.args,
-      ],
-      this.context,
-    )
-    await changed.updateCache()
+    const strings = [
+      'workspaces',
+      'foreach',
+      ...changed.workspaces.reduce(
+        (acc, ws) => [
+          ...acc,
+          '--include',
+          structUtils.stringifyIdent(ws.locator),
+        ],
+        [] as string[],
+      ),
+      ...(this.verbose ? ['--verbose'] : []),
+      ...(this.parallel ? ['--parallel'] : []),
+      ...(this.interlaced ? ['--interlaced'] : []),
+      ...(this.topological ? ['--topological'] : []),
+      ...(this.topologicalDev ? ['--topological-dev'] : []),
+      ...(this.jobs ? ['--jobs', `${this.jobs}`] : []),
+      this.commandName,
+      ...this.args,
+    ]
+    console.log('execute before: ', strings.join(' '))
+    const res = await this.cli.run(strings, this.context)
+    console.log('execute after: ', res)
+    if (res === 0) {
+      await changed.updateCache()
+    }
     return res
   }
 }

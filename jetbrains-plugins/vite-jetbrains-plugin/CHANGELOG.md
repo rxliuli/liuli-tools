@@ -2,6 +2,13 @@
 
 # Changelog
 
+## [0.2.0]
+
+### Changed
+
+- chore: 修改插件在创建面板显示的名字为 Vite 
+- feat: 使用 create-vite 替代废弃的 @vitejs/create-app 
+
 ## [0.1.6]
 
 ### Changed

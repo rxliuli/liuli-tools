@@ -12,6 +12,15 @@
     "build": "rimraf dist && yarn start build cli",
     "dev": "yarn start build cli -w"
   },
+  "files": [
+    "dist",
+    "src",
+    "templates",
+    ".gitignore",
+    "CHANGELOG.md",
+    "package.json",
+    "tsconfig.json"
+  ],
   "bin": {
     "liuli-cli": "dist/bin.js"
   },

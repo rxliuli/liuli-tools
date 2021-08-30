@@ -20,7 +20,8 @@ import javax.swing.DefaultComboBoxModel
 import javax.swing.Icon
 
 class ViteCliProjectGenerator : NpmPackageProjectGenerator() {
-    private val packageName = "@vitejs/create-app"
+    private val packageName = "create-vite"
+    private val executeCmd = "create-vite"
 
     override fun getName(): String {
         return ViteMessage.msg("vite.project.generator.name")
@@ -49,7 +50,7 @@ class ViteCliProjectGenerator : NpmPackageProjectGenerator() {
     }
 
     override fun getNpxCommands(): List<NpxPackageDescriptor.NpxCommand> {
-        return listOf(NpxPackageDescriptor.NpxCommand(packageName, "create-app"))
+        return listOf(NpxPackageDescriptor.NpxCommand(packageName, executeCmd))
     }
 
     val settingsTemplateKey = Key.create<String>("template")
@@ -87,7 +88,7 @@ class ViteCliProjectGenerator : NpmPackageProjectGenerator() {
     override fun generatorArgs(project: Project, baseDir: VirtualFile, settings: Settings): Array<String> {
         val template = settings.getUserData(settingsTemplateKey)
         globalSettings.template = template!!
-        return arrayOf(" ${baseDir.name} --template $template")
+        return arrayOf(baseDir.name, "--template", template)
     }
 
     override fun generateInTemp(): Boolean {

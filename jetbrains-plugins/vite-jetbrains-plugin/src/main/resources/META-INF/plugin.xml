@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.rxliuli.vite-jetbrains-plugin</id>
     <name>Vite Integrated</name>
-    <vendor email="rxliuli@gmail.com" url="https://github.com/rxliuli/vite-jetbrains-plugin">rxliuli</vendor>
+    <vendor email="rxliuli@gmail.com" url="https://github.com/rxliuli/liuli-tools/tree/master/jetbrains-plugins/vite-jetbrains-plugin">rxliuli</vendor>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->

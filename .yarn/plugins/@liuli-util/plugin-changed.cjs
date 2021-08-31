@@ -34,6 +34,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var clipanion__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(clipanion__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _yarnpkg_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
 /* harmony import */ var _yarnpkg_core__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_yarnpkg_core__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var chalk__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(159);
+/* harmony import */ var chalk__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(chalk__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
@@ -57,13 +60,15 @@ class ChangedForeachCommand extends _FilterCommand__WEBPACK_IMPORTED_MODULE_0__.
       return;
     }
 
-    const strings = ['workspaces', 'foreach', ...changed.workspaces.reduce((acc, ws) => [...acc, '--include', _yarnpkg_core__WEBPACK_IMPORTED_MODULE_2__.structUtils.stringifyIdent(ws.locator)], []), ...(this.verbose ? ['--verbose'] : []), ...(this.parallel ? ['--parallel'] : []), ...(this.interlaced ? ['--interlaced'] : []), ...(this.topological ? ['--topological'] : []), ...(this.topologicalDev ? ['--topological-dev'] : []), ...(this.jobs ? ['--jobs', `${this.jobs}`] : []), this.commandName, ...this.args];
-    console.log('execute before: ', strings.join(' '));
-    const res = await this.cli.run(strings, this.context);
-    console.log('execute after: ', res);
+    const strings = ['workspaces', 'foreach', ...changed.workspaces.reduce((acc, ws) => [...acc, '--include', _yarnpkg_core__WEBPACK_IMPORTED_MODULE_2__.structUtils.stringifyIdent(ws.locator)], []), ...(this.verbose ? ['--verbose'] : []), ...(this.parallel ? ['--parallel'] : []), ...(this.interlaced ? ['--interlaced'] : []), ...(this.topological ? ['--topological'] : []), ...(this.topologicalDev ? ['--topological-dev'] : []), ...(this.jobs ? ['--jobs', `${this.jobs}`] : []), this.commandName, ...this.args]; // console.log('execute before: ', strings.join(' '))
+
+    const res = await this.cli.run(strings, this.context); // console.log('execute after: ', res)
 
     if (res === 0) {
       await changed.updateCache();
+      console.log(chalk__WEBPACK_IMPORTED_MODULE_3___default().green('运行完成'));
+    } else {
+      console.log(chalk__WEBPACK_IMPORTED_MODULE_3___default().red('运行失败'));
     }
 
     return res;
@@ -243,7 +248,7 @@ async function listChangedWorkspaces({
     workspaces: [...workspaces],
 
     async updateCache() {
-      await buildCache.set(cmd, current);
+      await buildCache.set(cmd, (0,lodash__WEBPACK_IMPORTED_MODULE_2__.uniqBy)([...current, ...last], item => item.cwd));
     }
 
   };

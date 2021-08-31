@@ -1,6 +1,7 @@
 import { FilterCommand } from './FilterCommand'
 import { Command, Option } from 'clipanion'
 import { structUtils } from '@yarnpkg/core'
+import chalk from 'chalk'
 
 export class ChangedForeachCommand extends FilterCommand {
   verbose = Option.Boolean('-v,--verbose', false)
@@ -47,11 +48,14 @@ export class ChangedForeachCommand extends FilterCommand {
       this.commandName,
       ...this.args,
     ]
-    console.log('execute before: ', strings.join(' '))
+    // console.log('execute before: ', strings.join(' '))
     const res = await this.cli.run(strings, this.context)
-    console.log('execute after: ', res)
+    // console.log('execute after: ', res)
     if (res === 0) {
       await changed.updateCache()
+      console.log(chalk.green('运行完成'))
+    } else {
+      console.log(chalk.red('运行失败'))
     }
     return res
   }

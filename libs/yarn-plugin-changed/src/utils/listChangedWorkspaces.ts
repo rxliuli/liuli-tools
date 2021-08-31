@@ -1,7 +1,7 @@
 import { Project, Workspace } from '@yarnpkg/core'
 import getWorkspaceDependents from './getWorkspaceDependents'
 import { calcModuleHash } from './calcModuleHash'
-import { differenceBy } from 'lodash'
+import { differenceBy, uniqBy } from 'lodash'
 import { NativePath, npath } from '@yarnpkg/fslib'
 import { BuildCache, WorkspaceCacheInfo } from './BuildCache'
 import { FilterOptions, filterWorkspaces } from './filterWorkspaces'
@@ -66,7 +66,10 @@ export async function listChangedWorkspaces({
   return {
     workspaces: [...workspaces],
     async updateCache() {
-      await buildCache.set(cmd, current)
+      await buildCache.set(
+        cmd,
+        uniqBy([...current, ...last], (item) => item.cwd),
+      )
     },
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/yarn-plugin-changed",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "src/index.ts",
   "scripts": {
     "build": "builder build plugin --no-minify && ts-node src/cli/buildAfter.ts",

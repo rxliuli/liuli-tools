@@ -2,6 +2,8 @@ import { Scanner } from '../Scanner'
 import * as path from 'path'
 import { findParent } from '../../util/findParent'
 import { pathExists } from 'fs-extra'
+import simpleGit from 'simple-git'
+import * as console from 'console'
 
 describe('测试 Scanner', () => {
   let scanner: Scanner
@@ -38,5 +40,22 @@ describe('测试 Scanner', () => {
       '4e77fbd3fb4e3ddc12808c2160337751c86958ba',
     )
     console.log(commitLogs)
+  })
+
+  it('测试 simpleGit', async () => {
+    const git = simpleGit()
+    const modulePath = path.resolve(
+      'C:/Users/rxliuli/Code/Pkg/liuli-tools/libs/yarn-plugin-changed',
+    )
+    git.cwd(modulePath)
+    const last = (await git.log({ file: modulePath, maxCount: 1 })).latest
+
+    const res = await git.log({
+      file: modulePath,
+      //from to 必须同时设置
+      from: '586446ad046b3d5a4b3ad79c53777869131f5d4d',
+      to: last!.hash,
+    })
+    console.log(res.all)
   })
 })

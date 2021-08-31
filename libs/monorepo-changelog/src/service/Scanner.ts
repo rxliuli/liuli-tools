@@ -27,11 +27,14 @@ export class Scanner extends BaseProgram {
   }
 
   async scan(from?: string): Promise<CommitLog[]> {
+    // console.log('scan: ', from, this.cwd)
     const git = simpleGit()
     await git.cwd(this.cwd)
+    const to = (await git.log({ file: this.cwd, maxCount: 1 })).latest!.hash
     const res = await git.log({
       file: this.cwd,
       from: from,
+      to: to,
     })
     const json = (await readJson(
       path.resolve(this.cwd, 'package.json'),

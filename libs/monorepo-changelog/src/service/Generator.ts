@@ -3,7 +3,7 @@ import { groupBy } from 'lodash'
 
 export interface ChangeLogData {
   version: string
-  hash: string
+  hash?: string
   contents: string[]
 }
 
@@ -14,7 +14,7 @@ export class Generator {
   static generate(changelog: ChangeLogData): string {
     return [
       `## ${changelog.version}`,
-      `<!--hash:${changelog.hash}-->`,
+      ...(changelog.hash ? [`<!--hash:${changelog.hash}-->`] : []),
       changelog.contents.map((item) => '- ' + item).join('\n'),
     ].join('\n\n')
   }
@@ -23,13 +23,13 @@ export class Generator {
     const lines = str.split('\n')
     const version = lines.find((line) => line.startsWith('## '))!.slice(3)
     const regex = /<!--hash:(\w+)-->/
-    const [, hash] = regex.exec(
+    const hashRes = regex.exec(
       lines.find((line) => line.startsWith('<!--hash:'))!,
     )!
     const contents = lines
       .filter((line) => line.startsWith('- '))
       .map((item) => item.slice(2))
-    return { version, hash, contents }
+    return { version, hash: hashRes?.[1], contents }
   }
 
   static convert(logs: CommitLog[], version: string): ChangeLogData {
@@ -42,14 +42,14 @@ export class Generator {
     }
   }
 
-  static parseChangeLog(changeLog: string) {
+  static parseChangeLog(changeLog: string): ChangeLogData[] {
     return changeLog
       .split('##')
       .slice(1)
       .map((item) => Generator.parse('##' + item))
   }
 
-  static stringifyChangeLog(changeLogDataList: ChangeLogData[]) {
+  static stringifyChangeLog(changeLogDataList: ChangeLogData[]): string {
     return [
       '# CHANGELOG',
       ...changeLogDataList.map((item) => Generator.generate(item)),

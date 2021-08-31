@@ -2,6 +2,13 @@
 
 # Changelog
 
+## [0.2.0]
+
+### Changed
+
+- chore: change the name of the plugin displayed in the creation panel to Vite
+- feat: use create-vite instead of the deprecated @vitejs/create-app
+
 ## [0.1.6]
 
 ### Changed

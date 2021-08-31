@@ -109,7 +109,7 @@ export class SyncProgram {
         const gitignorePath = path.resolve(this.base, '.gitignore')
         await writeFile(
           gitignorePath,
-          await readFile(PathUtil.resolveOfProject('.gitignore'), 'utf-8'),
+          await readFile(PathUtil.resolveOfProject('_gitignore'), 'utf-8'),
         )
       },
     },

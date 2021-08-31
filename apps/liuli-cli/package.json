@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/cli",
-  "version": "3.8.3",
+  "version": "3.8.4",
   "description": "一个针对于库和 CLI 应用程序打包的零配置 CLI",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -12,15 +12,6 @@
     "build": "rimraf dist && yarn start build cli",
     "dev": "yarn start build cli -w"
   },
-  "files": [
-    "dist",
-    "src",
-    "templates",
-    ".gitignore",
-    "CHANGELOG.md",
-    "package.json",
-    "tsconfig.json"
-  ],
   "bin": {
     "liuli-cli": "dist/bin.js"
   },

@@ -1,6 +1,5 @@
 {
   "name": "@liuli-util/rollup-plugin-tar",
-  "private": true,
   "version": "0.1.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -19,6 +18,10 @@
     "testMatch": [
       "<rootDir>/src/**/__tests__/*.test.ts"
     ]
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "peerDependencies": {
     "rollup": "^2.52.2"

@@ -1,0 +1,21 @@
+{
+  "name": "rollup-plugin-tar-example",
+  "packageManager": "yarn@3.0.0",
+  "scripts": {
+    "build": "rimraf dist && rollup -c",
+    "dev": "rollup -cw"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "devDependencies": {
+    "@liuli-util/rollup-plugin-tar": "*",
+    "@types/jest": "^26.0.23",
+    "jest": "^26.6.3",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.56.3",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "ts-jest": "^26.5.6",
+    "typescript": "^4.3.4"
+  }
+}

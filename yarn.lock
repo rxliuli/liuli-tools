@@ -1305,6 +1305,28 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@liuli-util/rollup-plugin-tar@*, @liuli-util/rollup-plugin-tar@workspace:libs/rollup-plugin-tar":
+  version: 0.0.0-use.local
+  resolution: "@liuli-util/rollup-plugin-tar@workspace:libs/rollup-plugin-tar"
+  dependencies:
+    "@liuli-util/cli": ^3.7.0
+    "@types/jest": ^26.0.23
+    "@types/tar": ^4.0.5
+    gh-pages: ^3.2.3
+    glob-promise: ^4.2.0
+    jest: ^26.6.3
+    rimraf: ^3.0.2
+    tar: ^6.1.11
+    ts-jest: ^26.5.6
+    ts-node: ^10.0.0
+    type-fest: ^1.2.1
+    typedoc: ^0.21.0
+    typescript: ^4.3.4
+  peerDependencies:
+    rollup: ^2.52.2
+  languageName: unknown
+  linkType: soft
+
 "@liuli-util/shell@workspace:apps/shell":
   version: 0.0.0-use.local
   resolution: "@liuli-util/shell@workspace:apps/shell"
@@ -1758,6 +1780,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/glob@npm:^7.1.3":
+  version: 7.1.4
+  resolution: "@types/glob@npm:7.1.4"
+  dependencies:
+    "@types/minimatch": "*"
+    "@types/node": "*"
+  checksum: 8951f5b903e6f9294f6249e0fab23548e50559ae8a2b17e5560b875668b5af01f0c6b16680a549be08293ead43480a1dc38ea8c6749373d776f70ec35e78e061
+  languageName: node
+  linkType: hard
+
 "@types/graceful-fs@npm:^4.1.2":
   version: 4.1.5
   resolution: "@types/graceful-fs@npm:4.1.5"
@@ -1858,10 +1890,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/minimatch@npm:*":
+  version: 3.0.5
+  resolution: "@types/minimatch@npm:3.0.5"
+  checksum: a1a19ba342d6f39b569510f621ae4bbe972dc9378d15e9a5e47904c440ee60744f5b09225bc73be1c6490e3a9c938eee69eb53debf55ce1f15761201aa965f97
+  languageName: node
+  linkType: hard
+
 "@types/minimist@npm:^1.2.0":
   version: 1.2.2
   resolution: "@types/minimist@npm:1.2.2"
   checksum: f220f57f682bbc3793dab4518f8e2180faa79d8e2589c79614fd777d7182be203ba399020c3a056a115064f5d57a065004a32b522b2737246407621681b24137
+  languageName: node
+  linkType: hard
+
+"@types/minipass@npm:*":
+  version: 3.1.0
+  resolution: "@types/minipass@npm:3.1.0"
+  dependencies:
+    "@types/node": "*"
+  checksum: c0f979197b8e033af8540c3bcf1800a0dde6ccc312b029ad552a2be34695a6fea472c213a0fc8618e426cf8fe416b4ed492da83e3325750b1f7b0820fc4f9697
   languageName: node
   linkType: hard
 
@@ -1943,6 +1991,16 @@ __metadata:
   version: 2.0.1
   resolution: "@types/stack-utils@npm:2.0.1"
   checksum: 3327ee919a840ffe907bbd5c1d07dfd79137dd9732d2d466cf717ceec5bb21f66296173c53bb56cff95fae4185b9cd6770df3e9745fe4ba528bbc4975f54d13f
+  languageName: node
+  linkType: hard
+
+"@types/tar@npm:^4.0.5":
+  version: 4.0.5
+  resolution: "@types/tar@npm:4.0.5"
+  dependencies:
+    "@types/minipass": "*"
+    "@types/node": "*"
+  checksum: 60457a71f308fba0b9ed5761847fd7483c9d9af5e90a2a604c20db5f18a9f30f0e888a45866c21a6903307b6960604be24728d60ab66cc7424598fb47e897623
   languageName: node
   linkType: hard
 
@@ -5356,6 +5414,17 @@ __metadata:
   dependencies:
     is-glob: ^4.0.1
   checksum: cab87638e2112bee3f839ef5f6e0765057163d39c66be8ec1602f3823da4692297ad4e972de876ea17c44d652978638d2fd583c6713d0eb6591706825020c9ee
+  languageName: node
+  linkType: hard
+
+"glob-promise@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "glob-promise@npm:4.2.0"
+  dependencies:
+    "@types/glob": ^7.1.3
+  peerDependencies:
+    glob: ^7.1.6
+  checksum: b77cf842b92b0db0c228baf382d793fdf8405e9aee788fb7977b6371c581bc01d8cbff734579dfd47de2bcc86b137c2803aaaf6ab4650167a718877aa6beb817
   languageName: node
   linkType: hard
 
@@ -9308,6 +9377,21 @@ resolve@1.17.0:
   languageName: node
   linkType: hard
 
+"rollup-plugin-tar-example@workspace:examples/rollup-plugin-tar-example":
+  version: 0.0.0-use.local
+  resolution: "rollup-plugin-tar-example@workspace:examples/rollup-plugin-tar-example"
+  dependencies:
+    "@liuli-util/rollup-plugin-tar": "*"
+    "@types/jest": ^26.0.23
+    jest: ^26.6.3
+    rimraf: ^3.0.2
+    rollup: ^2.56.3
+    rollup-plugin-typescript2: ^0.30.0
+    ts-jest: ^26.5.6
+    typescript: ^4.3.4
+  languageName: unknown
+  linkType: soft
+
 "rollup-plugin-terser@npm:^7.0.2":
   version: 7.0.2
   resolution: "rollup-plugin-terser@npm:7.0.2"
@@ -9387,7 +9471,7 @@ resolve@1.17.0:
   languageName: node
   linkType: hard
 
-"rollup@npm:>=2.0.0, rollup@npm:^2.51.2, rollup@npm:^2.52.2":
+"rollup@npm:>=2.0.0, rollup@npm:^2.51.2, rollup@npm:^2.52.2, rollup@npm:^2.56.3":
   version: 2.56.3
   resolution: "rollup@npm:2.56.3"
   dependencies:
@@ -10273,7 +10357,7 @@ resolve@1.17.0:
   languageName: node
   linkType: hard
 
-"tar@npm:^6.0.2, tar@npm:^6.1.2":
+"tar@npm:^6.0.2, tar@npm:^6.1.11, tar@npm:^6.1.2":
   version: 6.1.11
   resolution: "tar@npm:6.1.11"
   dependencies:

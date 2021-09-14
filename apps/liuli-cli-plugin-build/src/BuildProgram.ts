@@ -7,7 +7,7 @@ import externals from 'rollup-plugin-node-externals'
 import autoExternal from 'rollup-plugin-auto-external'
 
 export class BuildProgram {
-  async build(options: RollupOptions[], isWatch: boolean) {
+  async build(options: RollupOptions[], isWatch: boolean): Promise<void> {
     if (isWatch) {
       watch(
         options.map((option) => {
@@ -38,7 +38,7 @@ export class BuildProgram {
     )
   }
 
-  async buildPkg(isWatch: boolean) {
+  async buildPkg(isWatch: boolean): Promise<void> {
     const outputOptions = [
       {
         file: './dist/index.js',
@@ -68,7 +68,7 @@ export class BuildProgram {
     await this.build(rollupOptions, isWatch)
   }
 
-  async buildCli(isWatch: boolean) {
+  async buildCli(isWatch: boolean): Promise<void> {
     await this.build(
       [
         {

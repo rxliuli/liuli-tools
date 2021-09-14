@@ -2,7 +2,7 @@ import { Command } from 'commander'
 import { SyncProgram } from './SyncProgram'
 
 const syncProgram = new SyncProgram(process.cwd())
-export const syncCommand = new Command('sync')
+export const command = new Command('sync')
   .description('同步配置')
   .action(async () => {
     await syncProgram.sync()
@@ -13,3 +13,4 @@ export const syncCommand = new Command('sync')
       await syncProgram.sync()
     }),
   )
+export * from './SyncProgram'

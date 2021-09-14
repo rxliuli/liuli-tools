@@ -13,7 +13,7 @@ const templateOption = new Option('--template [template]', '模板类型').choic
 ])
 templateOption.required = true
 
-export const initCommand = new Command()
+export const command = new Command()
   .command('generate [dest]')
   .description('生成一些初始项目')
   .addOption(templateOption)

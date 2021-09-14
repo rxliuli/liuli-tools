@@ -1,4 +1,3 @@
-import { PathUtil } from '../../PathUtil'
 import path from 'path'
 import {
   copy,
@@ -12,7 +11,8 @@ import {
 } from 'fs-extra'
 import { PackageJson } from 'type-fest'
 import inquirer from 'inquirer'
-import { SyncProgram } from '../sync/SyncProgram'
+import { PathUtil } from './PathUtil'
+import { SyncProgram } from '@liuli-util/liuli-cli-plugin-sync'
 
 export enum TemplateTypeEnum {
   Cli = 'cli',
@@ -29,7 +29,7 @@ export class GenerateProgram {
   /**
    * 生成项目
    */
-  async generate(config: GenerateConfig) {
+  async generate(config: GenerateConfig): Promise<void> {
     if (!config.dest) {
       const { dest } = await inquirer.prompt({
         name: 'dest',
@@ -88,7 +88,7 @@ export class GenerateProgram {
     }
   }
 
-  static async updatePackageJSON(destFile: string) {
+  static async updatePackageJSON(destFile: string): Promise<void> {
     const jsonFile = path.resolve(destFile, 'package.json')
     const json: PackageJson = await readJSON(jsonFile)
     json.name = json.name?.replace('template', path.basename(destFile))
@@ -97,7 +97,7 @@ export class GenerateProgram {
     })
   }
 
-  static async updateReadme(destFile: string) {
+  static async updateReadme(destFile: string): Promise<void> {
     const readmePath = path.resolve(destFile, 'README.md')
     let readmeFile = await readFile(readmePath, 'utf-8')
     readmeFile = readmeFile.replace('template', path.basename(destFile))

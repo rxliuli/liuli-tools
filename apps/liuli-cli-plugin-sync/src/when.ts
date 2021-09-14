@@ -1,7 +1,7 @@
 import { pathExists, readJson } from 'fs-extra'
 import path from 'path'
 import { PackageJson } from 'type-fest'
-import { findParent } from '../../utils'
+import { findParent } from './utils'
 
 /**
  * 判断是否包含 package.json

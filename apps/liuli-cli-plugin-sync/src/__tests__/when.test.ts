@@ -4,10 +4,10 @@ import {
   isYarnRoot,
   isYarnSubModule,
 } from '../when'
-import { findParent } from '../../../utils'
 import { pathExists, readJson } from 'fs-extra'
 import { PackageJson } from 'type-fest'
 import path from 'path'
+import { findParent } from '../utils'
 
 describe('测试 when', () => {
   let rootPath: string

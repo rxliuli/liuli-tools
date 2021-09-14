@@ -2,7 +2,7 @@ import { Command } from 'commander'
 import { BuildProgram } from './BuildProgram'
 
 const buildProgram = new BuildProgram()
-export const buildCommand = new Command('build')
+export const command = new Command('build')
   .description('使用 rollup 将 ts lib 打包到 dist 目录，格式为 esm/cjs')
   .action(async (option: { watch?: boolean; config?: true | string }) => {
     await buildProgram.buildPkg(!!option.watch)
@@ -23,3 +23,4 @@ export const buildCommand = new Command('build')
         await buildProgram.buildCli(!!option.watch)
       }),
   )
+export * from './BuildProgram'

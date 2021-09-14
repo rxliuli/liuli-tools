@@ -22,26 +22,17 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f",
   "dependencies": {
-    "@rollup/plugin-json": "^4.1.0",
-    "builtin-modules": "^3.2.0",
+    "@liuli-util/liuli-cli-plugin-build": "^0.1.0",
+    "@liuli-util/liuli-cli-plugin-generate": "^0.1.0",
+    "@liuli-util/liuli-cli-plugin-sync": "^0.1.0",
     "chalk": "^4.1.2",
     "commander": "^7.0.0",
     "fs-extra": "^10.0.0",
     "inquirer": "^8.1.0",
-    "lodash": "^4.17.21",
-    "rollup": "^2.51.2",
-    "rollup-plugin-add-shebang": "^0.3.1",
-    "rollup-plugin-auto-external": "^2.0.0",
-    "rollup-plugin-node-externals": "^2.2.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.30.0"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@liuli-util/commitlint-standard-config": "*",
-    "@liuli-util/eslint-config-ts": "*",
-    "@liuli-util/prettier-standard-config": "*",
     "@types/fs-extra": "^9.0.11",
     "@types/inquirer": "^7.3.1",
     "@types/jest": "^26.0.23",

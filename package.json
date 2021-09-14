@@ -15,8 +15,6 @@
     "libs/*",
     "apps/*",
     "examples/*",
-    "templates/*",
-    "docs",
     "!website"
   ],
   "simple-git-hooks": {

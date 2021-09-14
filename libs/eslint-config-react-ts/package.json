@@ -13,7 +13,7 @@
     "directory": "libs/eslint-config-react-ts"
   },
   "dependencies": {
-    "@liuli-util/eslint-config-ts": "^0.1.0",
+    "@liuli-util/eslint-config-ts": "^0.2.0",
     "@types/eslint": "^7",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",

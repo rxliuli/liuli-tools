@@ -1168,7 +1168,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@liuli-util/eslint-config-react-ts@workspace:libs/eslint-config-react-ts"
   dependencies:
-    "@liuli-util/eslint-config-ts": ^0.1.0
+    "@liuli-util/eslint-config-ts": ^0.2.0
     "@types/eslint": ^7
     "@typescript-eslint/eslint-plugin": ^4.29.1
     "@typescript-eslint/parser": ^4.29.1
@@ -1193,21 +1193,6 @@ __metadata:
     typescript: ">=4"
   languageName: unknown
   linkType: soft
-
-"@liuli-util/eslint-config-ts@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "@liuli-util/eslint-config-ts@npm:0.1.0"
-  dependencies:
-    "@types/eslint": ^7
-    "@typescript-eslint/eslint-plugin": ^4.29.1
-    "@typescript-eslint/parser": ^4.29.1
-    eslint: ^7.32.0
-    eslint-config-prettier: ^8.3.0
-  peerDependencies:
-    typescript: ">=4"
-  checksum: 1739276b1ed5009163cf0d0c3048fdaab585c9daf82d65c938fa2fb9c54aed3fd697cc5217ae7fe9c690164c41f809b659a2e9e275e2201a942886bac334169e
-  languageName: node
-  linkType: hard
 
 "@liuli-util/i18next-dts-gen@^0.3.0, @liuli-util/i18next-dts-gen@workspace:libs/i18next-dts-gen":
   version: 0.0.0-use.local
@@ -1267,7 +1252,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@liuli-util/liuli-cli-plugin-build@workspace:apps/liuli-cli-plugin-build"
   dependencies:
-    "@liuli-util/cli": ^3.7.0
     "@rollup/plugin-json": ^4.1.0
     "@types/fs-extra": ^9.0.11
     "@types/inquirer": ^7.3.1

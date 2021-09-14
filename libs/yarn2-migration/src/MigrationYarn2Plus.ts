@@ -47,7 +47,7 @@ yarn-error.log
       `
     }
     const append = `
-    .yarn/*
+.yarn/*
 !.yarn/patches
 !.yarn/releases
 !.yarn/plugins
@@ -56,7 +56,10 @@ yarn-error.log
 .pnp.*
 `
     const res = uniq(
-      (config + append).split('\n').filter((item) => item.length !== 0),
+      (config + append)
+        .split('\n')
+        .map((item) => item.trim())
+        .filter((item) => item.length !== 0),
     ).join('\n')
     await writeFile(configPath, res)
   }

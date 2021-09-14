@@ -1,4 +1,4 @@
-# web-project-utils
+# liuli-tools
 
 一些项目级别的工具集，主要尝试研发提效，欢迎来 [讨论区](https://github.com/rxliuli/liuli-tools/discussions) 交流想法。
 

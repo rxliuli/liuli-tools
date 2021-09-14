@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "setup": "yarn i18n:gen",
-    "build:cli": "esbuild src/bin.ts --bundle --outfile=dist/bin.js --platform=node",
+    "build:cli": "esbuild src/bin.ts --bundle --outfile=dist/bin.js --platform=node --banner:js=\"#!/usr/bin/env node\n\"",
     "build": "rimraf dist && liuli-cli build pkg && yarn build:cli",
     "dev": "liuli-cli build pkg -w",
     "start": "ts-node src/bin.ts",
@@ -32,7 +32,7 @@
     "type": "git",
     "url": "https://github.com/rxliuli/liuli-tools/tree/master/libs/yarn2-migration"
   },
-  "dependencies": {
+  "devDependencies": {
     "@liuli-util/i18next-util": "^0.2.0",
     "commander": "^7.0.0",
     "fs-extra": "^10.0.0",
@@ -40,9 +40,7 @@
     "lodash": "^4.17.21",
     "ora": "^6.0.1",
     "os-locale": "^6.0.0",
-    "yaml": "^1.10.2"
-  },
-  "devDependencies": {
+    "yaml": "^1.10.2",
     "@liuli-util/cli": "^3.7.0",
     "@liuli-util/i18next-dts-gen": "^0.3.0",
     "@rollup/plugin-commonjs": "^20.0.0",

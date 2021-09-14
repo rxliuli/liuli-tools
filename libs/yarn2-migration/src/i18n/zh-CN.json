@@ -1,0 +1,7 @@
+{
+  "setVersion": "设置版本",
+  "updateYaml": "更新 yaml 配置",
+  "updateGitIgnore": "更新 gitignore",
+  "install": "安装依赖",
+  "end": "升级依赖完成"
+}

@@ -1,0 +1,7 @@
+{
+  "setVersion": "Set version",
+  "updateYaml": "Update yaml configuration",
+  "updateGitIgnore": "update gitignore",
+  "install": "Install dependencies",
+  "end": "Upgrade dependency complete"
+}

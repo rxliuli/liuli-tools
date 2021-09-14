@@ -1217,7 +1217,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@liuli-util/i18next-dts-gen@workspace:libs/i18next-dts-gen":
+"@liuli-util/i18next-dts-gen@^0.3.0, @liuli-util/i18next-dts-gen@workspace:libs/i18next-dts-gen":
   version: 0.0.0-use.local
   resolution: "@liuli-util/i18next-dts-gen@workspace:libs/i18next-dts-gen"
   dependencies:
@@ -1254,7 +1254,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/i18next-util@workspace:libs/i18next-util":
+"@liuli-util/i18next-util@^0.2.0, @liuli-util/i18next-util@workspace:libs/i18next-util":
   version: 0.0.0-use.local
   resolution: "@liuli-util/i18next-util@workspace:libs/i18next-util"
   dependencies:
@@ -1439,6 +1439,8 @@ __metadata:
   resolution: "@liuli-util/yarn2-migration@workspace:libs/yarn2-migration"
   dependencies:
     "@liuli-util/cli": ^3.7.0
+    "@liuli-util/i18next-dts-gen": ^0.3.0
+    "@liuli-util/i18next-util": ^0.2.0
     "@rollup/plugin-commonjs": ^20.0.0
     "@rollup/plugin-json": ^4.1.0
     "@rollup/plugin-node-resolve": ^13.0.4
@@ -1456,6 +1458,7 @@ __metadata:
     jest: ^26.6.3
     lodash: ^4.17.21
     ora: ^6.0.1
+    os-locale: ^6.0.0
     rimraf: ^3.0.2
     rollup: ^2.56.3
     ts-jest: ^26.5.6
@@ -7624,7 +7627,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lcid@npm:^3.0.0":
+"lcid@npm:^3.0.0, lcid@npm:^3.1.1":
   version: 3.1.1
   resolution: "lcid@npm:3.1.1"
   dependencies:
@@ -8700,6 +8703,15 @@ __metadata:
     lcid: ^3.0.0
     mem: ^5.0.0
   checksum: f86237f8e6110651e5b10462ec45bbc7b9940fe2b65cba1fd0e07e2790762881f1835fd71316065326c528b0fb54301e85a1fa2f8ab144bfa587fffa04c735d6
+  languageName: node
+  linkType: hard
+
+"os-locale@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "os-locale@npm:6.0.0"
+  dependencies:
+    lcid: ^3.1.1
+  checksum: 31ff1b0fa5a3e23536b0f3c9081626bc1bf8fb4e8d83d1a612fe46f69cd7e32c87d0a62370a7ffb29dfe7ce2c45c47d0fdaaec8d1556b1ae82a6d6d4a7d7d20d
   languageName: node
   linkType: hard
 

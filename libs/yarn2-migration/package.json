@@ -24,6 +24,14 @@
       "<rootDir>/src/**/__tests__/*.test.ts"
     ]
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rxliuli/liuli-tools/tree/master/libs/yarn2-migration"
+  },
   "dependencies": {
     "@liuli-util/i18next-util": "^0.2.0",
     "commander": "^7.0.0",

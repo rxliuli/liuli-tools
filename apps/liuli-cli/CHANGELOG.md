@@ -1,6 +1,15 @@
-# 更新日志
+# CHANGELOG
+
+## 3.9.0
+
+<!--hash:40983b8dc09a06111d642c8c99b16d2ff8319195-->
+
+- chore: 添加 publishConfig 配置，删除不需要的 _gitignore 文件
+- feat: 为 liuli-cli 实现插件系统
 
 ## 3.8.4
+
+<!--hash:d805931cc642fd8002f7ca93a551510b986f5523-->
 
 - 修复发布后的内容不包含 .gitignore 的问题
 
@@ -99,4 +108,4 @@
 - 将代码移至新的仓库：https://github.com/rxliuli/liuli-tools
 - 实现 `liuli-cli build pkg/liuli-cli build cli` 两个子命令
 - 支持使用 rollup 的监视模式
-- 支持 `rollup.config.ts` 配置文件（但未在文档上公开）
+- 支持 `rollup.config.ts` 配置文件（但未在文档上公开）

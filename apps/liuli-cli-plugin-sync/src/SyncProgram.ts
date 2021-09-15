@@ -128,7 +128,11 @@ export class SyncProgram {
         } as PackageJson)
       },
       async when(): Promise<boolean> {
-        return (await isNpmPackage()) && !(await isIncludeDep(['vue']))
+        return (
+          (await isNpmPackage()) &&
+          !(await isIncludeDep(['vue'])) &&
+          !(await isIncludeDep(['react']))
+        )
       },
     },
     {
@@ -136,10 +140,10 @@ export class SyncProgram {
       handler: async () => {
         await mergeJson(this.base, {
           eslintConfig: {
-            extends: ['@pinefield/eslint-config-react-ts'],
+            extends: ['@liuli-util/eslint-config-react-ts'],
           },
           devDependencies: {
-            '@pinefield/eslint-config-vue-ts': `^${eslintReactTs.version}`,
+            '@liuli-util/eslint-config-react-ts': `^${eslintReactTs.version}`,
           },
         } as PackageJson)
       },

@@ -5,6 +5,7 @@ import { merge } from 'lodash'
 import { PackageJson } from 'type-fest'
 import prettier from '@liuli-util/prettier-standard-config/package.json'
 import eslintTs from '@liuli-util/eslint-config-ts/package.json'
+import eslintReactTs from '@liuli-util/eslint-config-react-ts/package.json'
 import commitlint from '@liuli-util/commitlint-standard-config/package.json'
 import { prompt } from 'inquirer'
 import { isIncludeDep, isNpmPackage, isYarnRoot, isYarnSubModule } from './when'
@@ -37,6 +38,7 @@ export type SyncConfigType =
   | 'gitignore'
   | 'eslint-ts'
   | 'eslint-vue-ts'
+  | 'eslint-react-ts'
   | 'jest'
 
 export interface SyncConfig {
@@ -126,7 +128,27 @@ export class SyncProgram {
         } as PackageJson)
       },
       async when(): Promise<boolean> {
-        return (await isNpmPackage()) && !(await isIncludeDep(['vue']))
+        return (
+          (await isNpmPackage()) &&
+          !(await isIncludeDep(['vue'])) &&
+          !(await isIncludeDep(['react']))
+        )
+      },
+    },
+    {
+      type: 'eslint-react-ts',
+      handler: async () => {
+        await mergeJson(this.base, {
+          eslintConfig: {
+            extends: ['@liuli-util/eslint-config-react-ts'],
+          },
+          devDependencies: {
+            '@liuli-util/eslint-config-react-ts': `^${eslintReactTs.version}`,
+          },
+        } as PackageJson)
+      },
+      async when(): Promise<boolean> {
+        return (await isNpmPackage()) && (await isIncludeDep(['react']))
       },
     },
     {

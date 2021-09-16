@@ -38,6 +38,10 @@ module.exports = {
                 link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/rollup-plugin-worker-threads/README.ZH_CN.md',
               },
               {
+                text: '@liuli-util/rollup-plugin-tar',
+                link: 'https://github.com/rxliuli/liuli-tools/tree/master/libs/rollup-plugin-tar',
+              },
+              {
                 text: '@liuli-util/shell',
                 link: 'https://github.com/rxliuli/liuli-tools/tree/master/apps/shell',
               },

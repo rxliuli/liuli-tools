@@ -8,7 +8,7 @@ The integration of Vite scaffolding in JetBrains IDE is mainly responsible for c
 
 <!-- Plugin description end -->
 
-![image](https://user-images.githubusercontent.com/24560368/119949505-85906b00-bfcc-11eb-9cee-d1082f4923d0.png)
+![image](https://user-images.githubusercontent.com/24560368/133882346-b1e4e706-1c12-4094-86bd-447ef2075211.png)
 
 ## Roadmap
 

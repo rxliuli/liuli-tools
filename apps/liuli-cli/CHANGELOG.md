@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.9.1
+
+<!--hash:8516e723871614844f91a47928510c88f152fae8-->
+
+- fix: 修复 @liuli-util/liuli-cli-plugin-sync 影响的模块
+
 ## 3.9.0
 
 <!--hash:40983b8dc09a06111d642c8c99b16d2ff8319195-->

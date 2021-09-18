@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/liuli-cli-plugin-generate",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -29,7 +29,7 @@
     ]
   },
   "dependencies": {
-    "@liuli-util/liuli-cli-plugin-sync": "^0.1.0",
+    "@liuli-util/liuli-cli-plugin-sync": "^0.1.1",
     "commander": "^7.0.0",
     "fs-extra": "^10.0.0",
     "inquirer": "^8.1.0"

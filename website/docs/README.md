@@ -1,6 +1,6 @@
 ---
 home: true
-heroText: Web Project Tools
+heroText: liuli tools
 tagline: 一些项目级别的工具集，主要尝试研发提效，欢迎来 GitHub 讨论区交流想法。
 actions:
   - link: /tools/

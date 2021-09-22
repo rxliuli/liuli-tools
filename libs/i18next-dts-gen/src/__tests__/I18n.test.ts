@@ -1,6 +1,7 @@
 import i18next from 'i18next'
 import en from './i18n/en.json'
 import zhCN from './i18n/zhCN.json'
+// @ts-ignore
 import { TranslateParams } from './i18n'
 
 enum LanguageEnum {

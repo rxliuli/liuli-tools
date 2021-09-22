@@ -20,7 +20,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "bin": {
-    "build": "dist/bin.js"
+    "liuli-build": "dist/bin.js"
   },
   "jest": {
     "preset": "ts-jest",

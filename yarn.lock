@@ -1100,7 +1100,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/liuli-cli-plugin-build@*, @liuli-util/liuli-cli-plugin-build@^0.1.0, @liuli-util/liuli-cli-plugin-build@workspace:apps/liuli-cli-plugin-build":
+"@liuli-util/liuli-cli-plugin-build@^0.1.0, @liuli-util/liuli-cli-plugin-build@workspace:apps/liuli-cli-plugin-build":
   version: 0.0.0-use.local
   resolution: "@liuli-util/liuli-cli-plugin-build@workspace:apps/liuli-cli-plugin-build"
   dependencies:
@@ -1131,15 +1131,14 @@ __metadata:
     typedoc: ^0.22.4
     typescript: ^4.4.3
   bin:
-    build: dist/bin.js
+    liuli-build: dist/bin.js
   languageName: unknown
   linkType: soft
 
-"@liuli-util/liuli-cli-plugin-esbuild@^0.1.0, @liuli-util/liuli-cli-plugin-esbuild@workspace:apps/liuli-cli-plugin-esbuild":
+"@liuli-util/liuli-cli-plugin-esbuild@*, @liuli-util/liuli-cli-plugin-esbuild@^0.1.0, @liuli-util/liuli-cli-plugin-esbuild@workspace:apps/liuli-cli-plugin-esbuild":
   version: 0.0.0-use.local
   resolution: "@liuli-util/liuli-cli-plugin-esbuild@workspace:apps/liuli-cli-plugin-esbuild"
   dependencies:
-    "@liuli-util/cli": ^3.7.0
     "@types/fs-extra": ^9.0.13
     "@types/inquirer": ^8.1.2
     "@types/jest": ^27.0.2
@@ -1167,7 +1166,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@liuli-util/liuli-cli-plugin-generate@workspace:apps/liuli-cli-plugin-generate"
   dependencies:
-    "@liuli-util/liuli-cli-plugin-build": "*"
+    "@liuli-util/liuli-cli-plugin-esbuild": "*"
     "@liuli-util/liuli-cli-plugin-sync": ^0.1.1
     "@types/fs-extra": ^9.0.13
     "@types/inquirer": ^8.1.2
@@ -1186,7 +1185,7 @@ __metadata:
     typedoc: ^0.22.4
     typescript: ^4.4.3
   bin:
-    generate: dist/bin.js
+    liuli-generate: dist/bin.js
   languageName: unknown
   linkType: soft
 
@@ -1196,7 +1195,7 @@ __metadata:
   dependencies:
     "@liuli-util/commitlint-standard-config": "*"
     "@liuli-util/eslint-config-ts": "*"
-    "@liuli-util/liuli-cli-plugin-build": "*"
+    "@liuli-util/liuli-cli-plugin-esbuild": "*"
     "@liuli-util/prettier-standard-config": "*"
     "@types/fs-extra": ^9.0.13
     "@types/inquirer": ^8.1.2
@@ -1216,7 +1215,7 @@ __metadata:
     typedoc: ^0.22.4
     typescript: ^4.4.3
   bin:
-    sync: dist/bin.js
+    liuli-sync: dist/bin.js
   languageName: unknown
   linkType: soft
 

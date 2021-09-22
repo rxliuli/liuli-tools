@@ -82,7 +82,7 @@ export class BuildProgram {
                 },
               },
             }),
-            autoExternal(),
+            autoExternal() as Plugin,
             externals(),
             json(),
             terser(),

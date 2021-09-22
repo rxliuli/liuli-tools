@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
     "setup": "yarn build",
-    "build": "rimraf dist && build cli",
-    "dev": "build cli -w",
+    "build": "rimraf dist && liuli-esbuild cli",
+    "dev": "liuli-esbuild cli -w",
     "start": "ts-node src/bin.ts",
     "docs:server": "live-server docs",
     "docs:dev": "typedoc --watch",
@@ -20,7 +20,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "bin": {
-    "sync": "dist/bin.js"
+    "liuli-sync": "dist/bin.js"
   },
   "jest": {
     "preset": "ts-jest",
@@ -37,7 +37,7 @@
   "devDependencies": {
     "@liuli-util/commitlint-standard-config": "*",
     "@liuli-util/eslint-config-ts": "*",
-    "@liuli-util/liuli-cli-plugin-build": "*",
+    "@liuli-util/liuli-cli-plugin-esbuild": "*",
     "@liuli-util/prettier-standard-config": "*",
     "@types/fs-extra": "^9.0.13",
     "@types/inquirer": "^8.1.2",

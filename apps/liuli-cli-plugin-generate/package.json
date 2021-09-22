@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
     "setup": "yarn build",
-    "build": "rimraf dist && build cli",
-    "dev": "build cli -w",
+    "build": "rimraf dist && liuli-esbuild cli",
+    "dev": "liuli-esbuild cli -w",
     "start": "ts-node src/bin.ts",
     "docs:server": "live-server docs",
     "docs:dev": "typedoc --watch",
@@ -23,7 +23,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "bin": {
-    "generate": "dist/bin.js"
+    "liuli-generate": "dist/bin.js"
   },
   "jest": {
     "preset": "ts-jest",
@@ -38,7 +38,7 @@
     "inquirer": "^8.1.5"
   },
   "devDependencies": {
-    "@liuli-util/liuli-cli-plugin-build": "*",
+    "@liuli-util/liuli-cli-plugin-esbuild": "*",
     "@types/fs-extra": "^9.0.13",
     "@types/inquirer": "^8.1.2",
     "@types/jest": "^27.0.2",

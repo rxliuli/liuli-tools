@@ -13,20 +13,20 @@
     "preset": "ts-jest"
   },
   "devDependencies": {
-    "@liuli-util/test": "^3.2.3",
-    "@types/jest": "^26.0.23",
-    "@types/node": "14",
-    "jest": "^26.6.3",
+    "@liuli-util/test": "^3.2.7",
+    "@types/jest": "^27.0.2",
+    "@types/node": "16.9.6",
+    "jest": "^27.2.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.52.2",
-    "rollup-plugin-typescript2": "^0.29.0",
+    "rollup": "^2.57.0",
+    "rollup-plugin-typescript2": "^0.30.0",
     "rollup-plugin-worker-threads": "*",
-    "ts-jest": "^26.5.6",
-    "ts-node": "^10.0.0",
-    "typescript": "^4.3.4"
+    "ts-jest": "^27.0.5",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
   },
   "dependencies": {
-    "@liuli-util/async": "^3.2.3",
+    "@liuli-util/async": "^3.2.7",
     "comlink": "^4.3.1"
   }
 }

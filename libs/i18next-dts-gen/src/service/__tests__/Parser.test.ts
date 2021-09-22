@@ -45,7 +45,7 @@ describe('测试 Parser', () => {
         parser._parseLocale({
           greetings: {
             morning: 'Good morning',
-          },
+          } as any,
         }),
       ).toThrowError()
     })

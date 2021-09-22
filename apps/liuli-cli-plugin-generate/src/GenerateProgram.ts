@@ -89,12 +89,17 @@ export class GenerateProgram {
   }
 
   static async updatePackageJSON(destFile: string): Promise<void> {
-    const jsonFile = path.resolve(destFile, 'package.json')
-    const json: PackageJson = await readJSON(jsonFile)
-    json.name = json.name?.replace('template', path.basename(destFile))
-    await writeJSON(jsonFile, json, {
-      spaces: 2,
-    })
+    const pkgPath = path.resolve(destFile, 'package.json')
+    await writeJSON(
+      pkgPath,
+      {
+        ...(await readJSON(pkgPath)),
+        name: path.basename(destFile),
+      },
+      {
+        spaces: 2,
+      },
+    )
   }
 
   static async updateReadme(destFile: string): Promise<void> {

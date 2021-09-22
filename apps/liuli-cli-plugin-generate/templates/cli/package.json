@@ -22,19 +22,19 @@
   },
   "dependencies": {
     "commander": "^7.0.0",
-    "inquirer": "^8.1.0",
-    "fs-extra": "^10.0.0"
+    "fs-extra": "^10.0.0",
+    "inquirer": "^8.1.0"
   },
   "devDependencies": {
-    "rimraf": "^3.0.2",
-    "@types/inquirer": "^7.3.1",
     "@liuli-util/cli": "^3.7.0",
     "@types/fs-extra": "^9.0.11",
+    "@types/inquirer": "^7.3.1",
     "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.168",
     "@types/node": "^12.20.6",
     "gh-pages": "^3.2.3",
     "jest": "^26.6.3",
+    "rimraf": "^3.0.2",
     "ts-jest": "^26.5.6",
     "ts-node": "^10.0.0",
     "type-fest": "^1.2.1",

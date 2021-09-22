@@ -6,7 +6,6 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "setup": "yarn build",
     "start": "ts-node src/bin.ts",
     "build": "yarn start rm dist && rollup -c",
     "dev": "rollup -cw",

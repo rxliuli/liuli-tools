@@ -23,3 +23,5 @@ export const command = new Command('build')
         await buildProgram.buildCli(!!option.watch)
       }),
   )
+
+export * from './ESBuildProgram'

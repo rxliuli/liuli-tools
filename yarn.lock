@@ -962,7 +962,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@liuli-util/cli@workspace:apps/liuli-cli"
   dependencies:
-    "@liuli-util/liuli-cli-plugin-build": ^0.1.0
     "@liuli-util/liuli-cli-plugin-esbuild": ^0.1.0
     "@liuli-util/liuli-cli-plugin-generate": ^0.1.1
     "@liuli-util/liuli-cli-plugin-sync": ^0.1.1
@@ -1100,7 +1099,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/liuli-cli-plugin-build@^0.1.0, @liuli-util/liuli-cli-plugin-build@workspace:apps/liuli-cli-plugin-build":
+"@liuli-util/liuli-cli-plugin-build@workspace:apps/liuli-cli-plugin-build":
   version: 0.0.0-use.local
   resolution: "@liuli-util/liuli-cli-plugin-build@workspace:apps/liuli-cli-plugin-build"
   dependencies:

@@ -1,0 +1,46 @@
+{
+  "name": "@liuli-util/liuli-cli-plugin-esbuild",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && yarn start cli",
+    "dev": "yarn start cli -w",
+    "start": "esno src/bin.ts"
+  },
+  "bin": {
+    "liuli-esbuild": "dist/bin.js"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "dependencies": {
+    "commander": "^7.0.0",
+    "esbuild": "^0.12.29",
+    "fs-extra": "^10.0.0",
+    "inquirer": "^8.1.0"
+  },
+  "devDependencies": {
+    "@liuli-util/cli": "^3.7.0",
+    "@types/fs-extra": "^9.0.11",
+    "@types/inquirer": "^7.3.1",
+    "@types/jest": "^26.0.23",
+    "@types/lodash": "^4.14.168",
+    "@types/node": "^12.20.6",
+    "esno": "^0.9.1",
+    "gh-pages": "^3.2.3",
+    "jest": "^27.2.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.5",
+    "ts-node": "^10.2.1",
+    "type-fest": "^2.3.4",
+    "typedoc": "^0.22.4",
+    "typescript": "^4.4.3"
+  },
+  "sync": [
+    "gitignore",
+    "jest"
+  ]
+}

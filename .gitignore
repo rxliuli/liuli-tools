@@ -21,4 +21,4 @@ dist/
 .pnp.*
 .yarn-cache.json
 .yarn-cache-debug.json
-tsconfig.tsbuildinfo
+*.tsbuildinfo

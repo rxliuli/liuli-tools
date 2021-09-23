@@ -6,6 +6,7 @@
   "types": "src/index.ts",
   "license": "MIT",
   "scripts": {
+    "setup": "yarn build",
     "build": "rimraf dist && yarn start cli",
     "dev": "yarn start cli -w",
     "start": "esno src/bin.ts"

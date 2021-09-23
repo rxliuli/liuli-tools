@@ -21,10 +21,4 @@ dist/
 .pnp.*
 .yarn-cache.json
 .yarn-cache-debug.json
-    .yarn/*
-!.yarn/patches
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
-.pnp.*
+tsconfig.tsbuildinfo

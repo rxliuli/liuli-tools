@@ -1,8 +1,10 @@
 import { build, BuildOptions } from 'esbuild'
 import { execPromise } from './utils/execPromise'
-import { readJson } from 'fs-extra'
+import { readJson, remove, unlink, writeJson } from 'fs-extra'
 import * as path from 'path'
 import { PackageJson } from 'type-fest'
+import { merge } from 'lodash'
+import { CompilerOptions } from 'typescript'
 
 export class ESBuildProgram {
   async build(options: BuildOptions[]): Promise<void> {
@@ -22,6 +24,29 @@ export class ESBuildProgram {
     })
   }
 
+  async genDTS(isWatch: boolean): Promise<void> {
+    const json = await readJson(path.resolve('tsconfig.json'))
+    const newTSConfig = merge(json, {
+      compilerOptions: {
+        declaration: true,
+        declarationMap: true,
+        incremental: true,
+        outDir: 'dist',
+        emitDeclarationOnly: true,
+      } as CompilerOptions,
+      exclude: [...(json.exclude ?? []), '**/__tests__/*.test.ts'],
+    })
+    const buildTSConfigPath = path.resolve('esbuild.tsconfig.json')
+    await writeJson(buildTSConfigPath, newTSConfig)
+    await execPromise(
+      `tsc --project ${buildTSConfigPath} ${isWatch ? '--watch' : ''}`,
+      {
+        cwd: path.resolve(),
+      },
+    )
+    await unlink(buildTSConfigPath)
+    await remove(buildTSConfigPath)
+  }
   async buildPkg(isWatch: boolean): Promise<void> {
     const outputOptions: BuildOptions[] = [
       {
@@ -47,15 +72,7 @@ export class ESBuildProgram {
           platform: 'node',
         } as BuildOptions),
     )
-    await Promise.all([
-      execPromise(
-        `tsc --emitDeclarationOnly --outDir dist ${isWatch ? '--watch' : ''}`,
-        {
-          cwd: path.resolve(),
-        },
-      ),
-      this.build(rollupOptions),
-    ])
+    await Promise.all([this.genDTS(isWatch), this.build(rollupOptions)])
   }
 
   async buildCli(isWatch: boolean): Promise<void> {

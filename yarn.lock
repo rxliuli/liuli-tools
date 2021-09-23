@@ -932,9 +932,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@liuli-util/cli-template@workspace:apps/liuli-cli-plugin-generate/templates/cli":
+"@liuli-util/cli-template@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-generate/templates/cli":
   version: 0.0.0-use.local
-  resolution: "@liuli-util/cli-template@workspace:apps/liuli-cli-plugin-generate/templates/cli"
+  resolution: "@liuli-util/cli-template@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-generate/templates/cli"
   dependencies:
     "@liuli-util/cli": ^3.7.0
     "@types/fs-extra": ^9.0.13
@@ -1082,9 +1082,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/lib-template@workspace:apps/liuli-cli-plugin-generate/templates/lib":
+"@liuli-util/lib-template@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-generate/templates/lib":
   version: 0.0.0-use.local
-  resolution: "@liuli-util/lib-template@workspace:apps/liuli-cli-plugin-generate/templates/lib"
+  resolution: "@liuli-util/lib-template@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-generate/templates/lib"
   dependencies:
     "@liuli-util/cli": ^3.7.0
     "@types/jest": ^27.0.2
@@ -1099,9 +1099,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/liuli-cli-plugin-build@workspace:apps/liuli-cli-plugin-build":
+"@liuli-util/liuli-cli-plugin-build@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-build":
   version: 0.0.0-use.local
-  resolution: "@liuli-util/liuli-cli-plugin-build@workspace:apps/liuli-cli-plugin-build"
+  resolution: "@liuli-util/liuli-cli-plugin-build@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-build"
   dependencies:
     "@rollup/plugin-json": ^4.1.0
     "@types/fs-extra": ^9.0.13
@@ -1134,9 +1134,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/liuli-cli-plugin-esbuild@*, @liuli-util/liuli-cli-plugin-esbuild@^0.1.0, @liuli-util/liuli-cli-plugin-esbuild@workspace:apps/liuli-cli-plugin-esbuild":
+"@liuli-util/liuli-cli-plugin-esbuild@*, @liuli-util/liuli-cli-plugin-esbuild@^0.1.0, @liuli-util/liuli-cli-plugin-esbuild@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-esbuild":
   version: 0.0.0-use.local
-  resolution: "@liuli-util/liuli-cli-plugin-esbuild@workspace:apps/liuli-cli-plugin-esbuild"
+  resolution: "@liuli-util/liuli-cli-plugin-esbuild@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-esbuild"
   dependencies:
     "@types/fs-extra": ^9.0.13
     "@types/inquirer": ^8.1.2
@@ -1161,9 +1161,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/liuli-cli-plugin-generate@^0.1.1, @liuli-util/liuli-cli-plugin-generate@workspace:apps/liuli-cli-plugin-generate":
+"@liuli-util/liuli-cli-plugin-generate@^0.1.1, @liuli-util/liuli-cli-plugin-generate@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-generate":
   version: 0.0.0-use.local
-  resolution: "@liuli-util/liuli-cli-plugin-generate@workspace:apps/liuli-cli-plugin-generate"
+  resolution: "@liuli-util/liuli-cli-plugin-generate@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-generate"
   dependencies:
     "@liuli-util/liuli-cli-plugin-esbuild": "*"
     "@liuli-util/liuli-cli-plugin-sync": ^0.1.1
@@ -1188,9 +1188,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/liuli-cli-plugin-sync@^0.1.1, @liuli-util/liuli-cli-plugin-sync@workspace:apps/liuli-cli-plugin-sync":
+"@liuli-util/liuli-cli-plugin-sync@^0.1.1, @liuli-util/liuli-cli-plugin-sync@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-sync":
   version: 0.0.0-use.local
-  resolution: "@liuli-util/liuli-cli-plugin-sync@workspace:apps/liuli-cli-plugin-sync"
+  resolution: "@liuli-util/liuli-cli-plugin-sync@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-sync"
   dependencies:
     "@liuli-util/commitlint-standard-config": "*"
     "@liuli-util/eslint-config-ts": "*"

@@ -12,6 +12,9 @@
     "build": "rimraf dist && yarn start build cli",
     "dev": "yarn start build cli -w"
   },
+  "workspaces": [
+    "plugins/*"
+  ],
   "bin": {
     "liuli-cli": "dist/bin.js"
   },

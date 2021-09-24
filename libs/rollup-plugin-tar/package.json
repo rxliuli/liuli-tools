@@ -27,7 +27,7 @@
     "rollup": "^2.52.2"
   },
   "devDependencies": {
-    "@liuli-util/cli": "^3.7.0",
+    "@liuli-util/cli": "^3.10.0",
     "@types/jest": "^27.0.2",
     "@types/tar": "^4.0.5",
     "esno": "^0.9.1",

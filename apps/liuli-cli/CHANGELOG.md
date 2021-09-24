@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 3.10.0
+
+<!--hash:13921896bfb584abdefb3b055f7c914e88cebe4d-->
+
+- chore: 重新 yarn 安装依赖引起的变更
+- chore: 删除 liuli-shell、liuli-build 的 setup 脚本，因为没有模块依赖于它们了
+- chore: 升级所有的依赖
+- chore: 删除不需要的依赖
+- feat: 将 tsconfig 中的编译目标修改为 ESNext
+- feat: 迁移 ts-node 为更高效的 esno
+- feat: 将 liuli-cli 合并为一个仓库
+- feat: 将 liuli-cli 的插件作为子模块一起发布
+- docs: 更新网站标题
+- fix: 修复 @liuli-util/liuli-cli-plugin-sync 影响的模块
+
 ## 3.9.1
 
 <!--hash:8516e723871614844f91a47928510c88f152fae8-->

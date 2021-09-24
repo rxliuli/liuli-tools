@@ -1,11 +1,11 @@
 import { Command } from 'commander'
-import { command as buildCommand } from '@liuli-util/liuli-cli-plugin-esbuild'
-import { command as initCommand } from '@liuli-util/liuli-cli-plugin-generate'
-import { command as syncCommand } from '@liuli-util/liuli-cli-plugin-sync'
+import { buildCommand } from './commands/esbuild'
+import { generateCommand } from './commands/generate'
+import { syncCommand } from './commands/sync'
 
 const main = new Command()
 main
   .addCommand(buildCommand)
-  .addCommand(initCommand)
+  .addCommand(generateCommand)
   .addCommand(syncCommand)
   .parse()

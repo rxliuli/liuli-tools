@@ -932,9 +932,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@liuli-util/cli-template@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-generate/templates/cli":
+"@liuli-util/cli-template@workspace:apps/liuli-cli/templates/cli":
   version: 0.0.0-use.local
-  resolution: "@liuli-util/cli-template@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-generate/templates/cli"
+  resolution: "@liuli-util/cli-template@workspace:apps/liuli-cli/templates/cli"
   dependencies:
     "@liuli-util/cli": ^3.7.0
     "@types/fs-extra": ^9.0.13
@@ -943,13 +943,13 @@ __metadata:
     "@types/lodash": ^4.14.173
     "@types/node": ^16.9.6
     commander: ^8.2.0
+    esno: ^0.9.1
     fs-extra: ^10.0.0
     gh-pages: ^3.2.3
     inquirer: ^8.1.5
     jest: ^27.2.1
     rimraf: ^3.0.2
     ts-jest: ^27.0.5
-    ts-node: ^10.2.1
     type-fest: ^2.3.4
     typedoc: ^0.22.4
     typescript: ^4.4.3
@@ -962,15 +962,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@liuli-util/cli@workspace:apps/liuli-cli"
   dependencies:
-    "@liuli-util/liuli-cli-plugin-esbuild": ^0.1.0
-    "@liuli-util/liuli-cli-plugin-generate": ^0.1.1
-    "@liuli-util/liuli-cli-plugin-sync": ^0.1.1
     "@types/fs-extra": ^9.0.13
     "@types/inquirer": ^8.1.2
     "@types/jest": ^27.0.2
     "@types/lodash": ^4.14.173
     "@types/node": ^16.9.6
-    "@types/rollup-plugin-auto-external": ^2.0.2
     chalk: ^4.1.2
     commander: ^8.2.0
     esno: ^0.9.1
@@ -1082,9 +1078,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/lib-template@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-generate/templates/lib":
+"@liuli-util/lib-template@workspace:apps/liuli-cli/templates/lib":
   version: 0.0.0-use.local
-  resolution: "@liuli-util/lib-template@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-generate/templates/lib"
+  resolution: "@liuli-util/lib-template@workspace:apps/liuli-cli/templates/lib"
   dependencies:
     "@liuli-util/cli": ^3.7.0
     "@types/jest": ^27.0.2
@@ -1096,125 +1092,6 @@ __metadata:
     type-fest: ^2.3.4
     typedoc: ^0.22.4
     typescript: ^4.4.3
-  languageName: unknown
-  linkType: soft
-
-"@liuli-util/liuli-cli-plugin-build@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-build":
-  version: 0.0.0-use.local
-  resolution: "@liuli-util/liuli-cli-plugin-build@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-build"
-  dependencies:
-    "@rollup/plugin-json": ^4.1.0
-    "@types/fs-extra": ^9.0.13
-    "@types/inquirer": ^8.1.2
-    "@types/jest": ^27.0.2
-    "@types/lodash": ^4.14.173
-    "@types/node": ^16.9.6
-    builtin-modules: ^3.2.0
-    chalk: ^4.1.2
-    commander: ^8.2.0
-    fs-extra: ^10.0.0
-    gh-pages: ^3.2.3
-    inquirer: ^8.1.5
-    jest: ^27.2.1
-    lodash: ^4.17.21
-    rimraf: ^3.0.2
-    rollup: ^2.57.0
-    rollup-plugin-add-shebang: ^0.3.1
-    rollup-plugin-auto-external: ^2.0.0
-    rollup-plugin-node-externals: ^2.2.0
-    rollup-plugin-terser: ^7.0.2
-    rollup-plugin-typescript2: ^0.30.0
-    ts-jest: ^27.0.5
-    ts-node: ^10.2.1
-    type-fest: ^2.3.4
-    typedoc: ^0.22.4
-    typescript: ^4.4.3
-  bin:
-    liuli-build: dist/bin.js
-  languageName: unknown
-  linkType: soft
-
-"@liuli-util/liuli-cli-plugin-esbuild@*, @liuli-util/liuli-cli-plugin-esbuild@^0.1.0, @liuli-util/liuli-cli-plugin-esbuild@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-esbuild":
-  version: 0.0.0-use.local
-  resolution: "@liuli-util/liuli-cli-plugin-esbuild@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-esbuild"
-  dependencies:
-    "@types/fs-extra": ^9.0.13
-    "@types/inquirer": ^8.1.2
-    "@types/jest": ^27.0.2
-    "@types/lodash": ^4.14.173
-    "@types/node": ^16.9.6
-    commander: ^8.2.0
-    esbuild: ^0.12.29
-    esno: ^0.9.1
-    fs-extra: ^10.0.0
-    gh-pages: ^3.2.3
-    inquirer: ^8.1.5
-    jest: ^27.2.1
-    rimraf: ^3.0.2
-    ts-jest: ^27.0.5
-    ts-node: ^10.2.1
-    type-fest: ^2.3.4
-    typedoc: ^0.22.4
-    typescript: ^4.4.3
-  bin:
-    liuli-esbuild: dist/bin.js
-  languageName: unknown
-  linkType: soft
-
-"@liuli-util/liuli-cli-plugin-generate@^0.1.1, @liuli-util/liuli-cli-plugin-generate@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-generate":
-  version: 0.0.0-use.local
-  resolution: "@liuli-util/liuli-cli-plugin-generate@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-generate"
-  dependencies:
-    "@liuli-util/liuli-cli-plugin-esbuild": "*"
-    "@liuli-util/liuli-cli-plugin-sync": ^0.1.1
-    "@types/fs-extra": ^9.0.13
-    "@types/inquirer": ^8.1.2
-    "@types/jest": ^27.0.2
-    "@types/lodash": ^4.14.173
-    "@types/node": ^16.9.6
-    commander: ^8.2.0
-    fs-extra: ^10.0.0
-    gh-pages: ^3.2.3
-    inquirer: ^8.1.5
-    jest: ^27.2.1
-    rimraf: ^3.0.2
-    ts-jest: ^27.0.5
-    ts-node: ^10.2.1
-    type-fest: ^2.3.4
-    typedoc: ^0.22.4
-    typescript: ^4.4.3
-  bin:
-    liuli-generate: dist/bin.js
-  languageName: unknown
-  linkType: soft
-
-"@liuli-util/liuli-cli-plugin-sync@^0.1.1, @liuli-util/liuli-cli-plugin-sync@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-sync":
-  version: 0.0.0-use.local
-  resolution: "@liuli-util/liuli-cli-plugin-sync@workspace:apps/liuli-cli/plugins/liuli-cli-plugin-sync"
-  dependencies:
-    "@liuli-util/commitlint-standard-config": "*"
-    "@liuli-util/eslint-config-ts": "*"
-    "@liuli-util/liuli-cli-plugin-esbuild": "*"
-    "@liuli-util/prettier-standard-config": "*"
-    "@types/fs-extra": ^9.0.13
-    "@types/inquirer": ^8.1.2
-    "@types/jest": ^27.0.2
-    "@types/lodash": ^4.14.173
-    "@types/node": ^16.9.6
-    commander: ^8.2.0
-    fs-extra: ^10.0.0
-    gh-pages: ^3.2.3
-    inquirer: ^8.1.5
-    jest: ^27.2.1
-    lodash: ^4.17.21
-    rimraf: ^3.0.2
-    ts-jest: ^27.0.5
-    ts-node: ^10.2.1
-    type-fest: ^2.3.4
-    typedoc: ^0.22.4
-    typescript: ^4.4.3
-  bin:
-    liuli-sync: dist/bin.js
   languageName: unknown
   linkType: soft
 

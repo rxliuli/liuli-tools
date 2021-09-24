@@ -1,4 +1,4 @@
-# @pinefield/cmd-shim
+# @liuli-util/cmd-shim
 
 ## 简介
 
@@ -7,7 +7,7 @@
 ## 使用
 
 ```sh
-npm i -g @pinefield/cmd-shim
+npm i -g @liuli-util/cmd-shim
 cd <module>
 cmd-shim
 ```

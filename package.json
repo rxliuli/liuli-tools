@@ -15,7 +15,8 @@
     "libs/*",
     "apps/*",
     "examples/*",
-    "!website"
+    "!website",
+    "scripts"
   ],
   "simple-git-hooks": {
     "pre-commit": "yarn lint-staged",
@@ -42,6 +43,7 @@
     "@liuli-util/commitlint-standard-config": "*",
     "@liuli-util/eslint-config-ts": "*",
     "@liuli-util/prettier-standard-config": "*",
+    "esno": "^0.9.1",
     "gh-pages": "^3.2.3",
     "lint-staged": "^11.1.2",
     "prettier": "^2.4.1",

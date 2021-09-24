@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
     "rootDir": "./src",
     "outDir": "./dist",
     "resolveJsonModule": true,
@@ -14,17 +16,18 @@
     "declaration": true,
     "declarationMap": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules"],
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
   "typedocOptions": {
-    "entryPoints": ["src/index.ts"],
+    "entryPoints": [
+      "src/index.ts"
+    ],
     "out": "docs",
     "readme": "README.md",
     "gitRemote": "origin"
-  },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    }
   }
 }

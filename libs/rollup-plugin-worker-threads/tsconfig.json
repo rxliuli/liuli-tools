@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
     "outDir": "./dist",
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -12,17 +14,18 @@
     "declaration": true,
     "declarationMap": true
   },
-  "include": ["src"],
-  "exclude": ["**/__tests__"],
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "**/__tests__"
+  ],
   "typedocOptions": {
-    "entryPoints": ["src/index.ts"],
+    "entryPoints": [
+      "src/index.ts"
+    ],
     "out": "docs",
     "readme": "README.md",
     "gitRemote": "origin"
-  },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    }
   }
 }

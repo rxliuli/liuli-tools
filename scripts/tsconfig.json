@@ -7,12 +7,13 @@
     "outDir": "./dist",
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "strict": true,
+    "strict": false,
     "module": "ESNext",
     "moduleResolution": "node",
     "sourceMap": true,
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "resolveJsonModule": true
   },
   "include": [
     "src"

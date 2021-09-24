@@ -2,7 +2,9 @@
   "compilerOptions": {
     "module": "ESNext",
     "target": "es6",
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
     "sourceMap": true,
     "strict": true,
     "rootDir": "src",
@@ -15,14 +17,11 @@
     "moduleResolution": "Node"
   },
   "typedocOptions": {
-    "entryPoints": ["src/index.ts"],
+    "entryPoints": [
+      "src/index.ts"
+    ],
     "out": "docs",
     "readme": "README.md",
     "gitRemote": "origin"
-  },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    }
   }
 }

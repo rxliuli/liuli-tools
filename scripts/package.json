@@ -1,0 +1,15 @@
+{
+  "name": "@liuli-util/scripts",
+  "private": true,
+  "scripts": {
+    "script:ts-node-to-esno": "esno ts-node-to-esno.ts"
+  },
+  "dependencies": {
+    "fs-extra": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "esno": "^0.9.1",
+    "type-fest": "^2.3.4"
+  }
+}

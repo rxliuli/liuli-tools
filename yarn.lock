@@ -920,7 +920,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@liuli-util/cli-template@workspace:apps/liuli-cli/templates/cli"
   dependencies:
-    "@liuli-util/cli": ^3.10.0
+    "@liuli-util/cli": ^3.10.1
     "@types/fs-extra": ^9.0.13
     "@types/inquirer": ^8.1.2
     "@types/jest": ^27.0.2
@@ -942,7 +942,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/cli@*, @liuli-util/cli@^3.10.0, @liuli-util/cli@workspace:apps/liuli-cli":
+"@liuli-util/cli@*, @liuli-util/cli@^3.10.1, @liuli-util/cli@workspace:apps/liuli-cli":
   version: 0.0.0-use.local
   resolution: "@liuli-util/cli@workspace:apps/liuli-cli"
   dependencies:
@@ -1049,7 +1049,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@liuli-util/i18next-util@workspace:libs/i18next-util"
   dependencies:
-    "@liuli-util/cli": ^3.10.0
+    "@liuli-util/cli": ^3.10.1
     "@types/jest": ^27.0.2
     jest: ^27.2.1
     rimraf: ^3.0.2
@@ -1066,7 +1066,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@liuli-util/lib-template@workspace:apps/liuli-cli/templates/lib"
   dependencies:
-    "@liuli-util/cli": ^3.10.0
+    "@liuli-util/cli": ^3.10.1
     "@types/jest": ^27.0.2
     esno: ^0.9.1
     gh-pages: ^3.2.3
@@ -1083,7 +1083,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@liuli-util/monorepo-changelog@workspace:libs/monorepo-changelog"
   dependencies:
-    "@liuli-util/cli": ^3.10.0
+    "@liuli-util/cli": ^3.10.1
     "@types/conventional-changelog": ^3.1.1
     "@types/fs-extra": ^9.0.13
     "@types/inquirer": ^8.1.2
@@ -1117,7 +1117,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@liuli-util/rollup-plugin-tar@workspace:libs/rollup-plugin-tar"
   dependencies:
-    "@liuli-util/cli": ^3.10.0
+    "@liuli-util/cli": ^3.10.1
     "@types/jest": ^27.0.2
     "@types/tar": ^4.0.5
     esno: ^0.9.1
@@ -1184,7 +1184,7 @@ __metadata:
   resolution: "@liuli-util/simple-ci@workspace:apps/simple-ci"
   dependencies:
     "@liuli-util/async": ^3.2.7
-    "@liuli-util/cli": ^3.10.0
+    "@liuli-util/cli": ^3.10.1
     "@liuli-util/eslint-config-ts": ^0.2.0
     "@types/fs-extra": ^9.0.13
     "@types/inquirer": ^8.1.2
@@ -1225,7 +1225,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@liuli-util/yarn-plugin-builder@workspace:apps/yarn-plugin-builder"
   dependencies:
-    "@liuli-util/cli": ^3.10.0
+    "@liuli-util/cli": ^3.10.1
     "@types/fs-extra": ^9.0.13
     "@types/inquirer": ^8.1.2
     "@types/jest": ^27.0.2
@@ -1286,7 +1286,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@liuli-util/yarn2-migration@workspace:libs/yarn2-migration"
   dependencies:
-    "@liuli-util/cli": ^3.10.0
+    "@liuli-util/cli": ^3.10.1
     "@liuli-util/i18next-dts-gen": ^0.3.0
     "@liuli-util/i18next-util": ^0.2.0
     "@rollup/plugin-commonjs": ^20.0.0

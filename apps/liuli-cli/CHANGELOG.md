@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.10.1
+
+<!--hash:c0223e217f45ec5d1c39e14035a494ca49b8e868-->
+
+- fix: 修复没有添加 esbulild 作为运行时依赖的错误
+
 ## 3.10.0
 
 <!--hash:13921896bfb584abdefb3b055f7c914e88cebe4d-->

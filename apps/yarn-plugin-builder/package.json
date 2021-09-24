@@ -15,6 +15,10 @@
     "docs:deploy": "yarn docs:build && gh-pages -d docs/ -e / -a"
   },
   "bin": "dist/bin.js",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "jest": {
     "preset": "ts-jest",
     "testMatch": [

@@ -76,7 +76,7 @@ export async function buildYarnPlugin(
     format: `iife`,
     platform: `node`,
     plugins: [dynamicLibResolver],
-    // minify: true,
-    // sourcemap: 'inline',
+    minify: true,
+    sourcemap: 'inline',
   })
 }

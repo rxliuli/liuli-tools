@@ -968,6 +968,28 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@liuli-util/cmd-shim@workspace:apps/cmd-shim":
+  version: 0.0.0-use.local
+  resolution: "@liuli-util/cmd-shim@workspace:apps/cmd-shim"
+  dependencies:
+    "@liuli-util/async": ^3.2.7
+    "@liuli-util/cli": "*"
+    "@types/fs-extra": ^9.0.11
+    "@types/jest": ^27.0.2
+    "@types/node": ^12.20.6
+    cmd-shim: ^4.1.0
+    esno: ^0.9.1
+    fs-extra: ^10.0.0
+    jest: ^27.2.1
+    rimraf: ^3.0.2
+    ts-jest: ^27.0.5
+    type-fest: ^2.3.4
+    typescript: ^4.3.4
+  bin:
+    cmd-shim: dist/bin.js
+  languageName: unknown
+  linkType: soft
+
 "@liuli-util/commitlint-standard-config@*, @liuli-util/commitlint-standard-config@workspace:libs/commitlint-standard-config":
   version: 0.0.0-use.local
   resolution: "@liuli-util/commitlint-standard-config@workspace:libs/commitlint-standard-config"
@@ -1637,7 +1659,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/fs-extra@npm:^9.0.13":
+"@types/fs-extra@npm:^9.0.11, @types/fs-extra@npm:^9.0.13":
   version: 9.0.13
   resolution: "@types/fs-extra@npm:9.0.13"
   dependencies:
@@ -1806,6 +1828,13 @@ __metadata:
   version: 16.9.6
   resolution: "@types/node@npm:16.9.6"
   checksum: 79fbeb5179b41ba6f9bd5a8dca00403e43a379ab235381ea2ab23a739daf23608c21063fd4ca733d764bf034b84ec78f15809dd6844af907fcdc64c2e7183186
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^12.20.6":
+  version: 12.20.26
+  resolution: "@types/node@npm:12.20.26"
+  checksum: 029c77a0319351bd3b625d40bb64bf2d2c7875328715ef75a6706eb9e94690dc4039d87ec652612cc3b214c0ee4cd623ed61bd43e20f3ae2094caddf06141e48
   languageName: node
   linkType: hard
 
@@ -3547,6 +3576,15 @@ __metadata:
   version: 1.0.4
   resolution: "clone@npm:1.0.4"
   checksum: 2176952b3649293473999a95d7bebfc9dc96410f6cbd3d2595cf12fd401f63a4bf41a7adbfd3ab2ff09ed60cb9870c58c6acdd18b87767366fabfc163700f13b
+  languageName: node
+  linkType: hard
+
+"cmd-shim@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "cmd-shim@npm:4.1.0"
+  dependencies:
+    mkdirp-infer-owner: ^2.0.0
+  checksum: 9cb911c768a5894473e72d87e682fdfb9bc8f8097cc21bbbf1120a69f8c2edda3f72135beb41cbc75ec3fe113a96c3d6b37c652df800208e6fe71ed97a0cc602
   languageName: node
   linkType: hard
 
@@ -7149,6 +7187,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mkdirp-infer-owner@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "mkdirp-infer-owner@npm:2.0.0"
+  dependencies:
+    chownr: ^2.0.0
+    infer-owner: ^1.0.4
+    mkdirp: ^1.0.3
+  checksum: 548356a586b92a16fc90eb62b953e5a23d594b56084ecdf72446f4164bbaa6a3bacd8c140672ad24f10c5f561e16c35ac3d97a5ab422832c5ed5449c72501a03
+  languageName: node
+  linkType: hard
+
 "mkdirp@npm:^0.5.1":
   version: 0.5.5
   resolution: "mkdirp@npm:0.5.5"
@@ -9498,7 +9547,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-typescript@^4.4.3:
+"typescript@^4.3.4, typescript@^4.4.3":
   version: 4.4.3
   resolution: "typescript@npm:4.4.3"
   bin:
@@ -9508,7 +9557,7 @@ typescript@^4.4.3:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.4.3#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.3.4#~builtin<compat/typescript>, typescript@patch:typescript@^4.4.3#~builtin<compat/typescript>":
   version: 4.4.3
   resolution: "typescript@patch:typescript@npm%3A4.4.3#~builtin<compat/typescript>::version=4.4.3&hash=32657b"
   bin:

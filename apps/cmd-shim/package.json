@@ -13,6 +13,10 @@
   "jest": {
     "preset": "ts-jest"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
     "@liuli-util/async": "^3.2.7",
     "cmd-shim": "^4.1.0",

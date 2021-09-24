@@ -1,7 +1,7 @@
 import { appendScript } from '../appendScript'
 
 describe('测试 appendScript', () => {
-  const newScript = 'pinefield sync'
+  const newScript = 'liuli-cli sync'
   it('脚本不存在', () => {
     expect(appendScript(undefined, newScript)).toBe(newScript)
   })

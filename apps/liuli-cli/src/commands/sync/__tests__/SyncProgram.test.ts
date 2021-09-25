@@ -1,7 +1,7 @@
 import { mkdir, readJson, remove, writeJson } from 'fs-extra'
 import path from 'path'
 import { SyncConfigType, SyncProgram } from '../SyncProgram'
-import { merge } from 'lodash'
+import { merge } from 'lodash-es'
 import { PackageJson } from 'type-fest'
 
 describe('测试 SyncProgram', () => {
@@ -44,7 +44,7 @@ describe('测试 SyncProgram', () => {
   }, 100_000)
 })
 
-it('测试 lodash.merge', () => {
+it('测试 lodash-es.merge', () => {
   const res = merge({ arr: ['a'] }, { arr: ['b'] })
   expect(res).toEqual({ arr: ['b'] })
 })

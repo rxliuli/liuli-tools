@@ -949,7 +949,7 @@ __metadata:
     "@types/fs-extra": ^9.0.13
     "@types/inquirer": ^8.1.2
     "@types/jest": ^27.0.2
-    "@types/lodash": ^4.14.173
+    "@types/lodash-es": ^4.17.5
     "@types/node": ^16.9.6
     chalk: ^4.1.2
     commander: ^8.2.0
@@ -959,6 +959,7 @@ __metadata:
     inquirer: ^8.1.5
     jest: ^27.2.1
     lodash: ^4.17.21
+    lodash-es: ^4.17.21
     rimraf: ^3.0.2
     ts-jest: ^27.0.5
     type-fest: ^2.3.4
@@ -1768,6 +1769,22 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: d5f85a944e719b4df4b649ee0b825263a6de68efd57a972774df48cf5ec5b816ab1f057be4d55f2f57a8822f74dcc3ed5bad7045366c41e9dc09214398d87ec0
+  languageName: node
+  linkType: hard
+
+"@types/lodash-es@npm:^4.17.5":
+  version: 4.17.5
+  resolution: "@types/lodash-es@npm:4.17.5"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: 57f9bc57cda56bece77fef9bf66d87fa78f8615131135ec93caf3bb0b1a1861c346617866116b2007a3472cee3aa3a3a009a1bb8bf803dfc68331d97038ffe39
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*":
+  version: 4.14.174
+  resolution: "@types/lodash@npm:4.14.174"
+  checksum: 36b6253e9c840427bb08aeeb82daea8dd71fcd8ed1993e75902810f4e7505f382b9539844373f3711a18668e37fc78d72089a2e37cf03ebf5439d4e392e8b1c5
   languageName: node
   linkType: hard
 
@@ -6779,6 +6796,13 @@ __metadata:
   dependencies:
     p-locate: ^5.0.0
   checksum: d3972ab70dfe58ce620e64265f90162d247e87159b6126b01314dd67be43d50e96a50b517bce2d9452a79409c7614054c277b5232377de50416564a77ac7aad3
+  languageName: node
+  linkType: hard
+
+"lodash-es@npm:^4.17.21":
+  version: 4.17.21
+  resolution: "lodash-es@npm:4.17.21"
+  checksum: fb407355f7e6cd523a9383e76e6b455321f0f153a6c9625e21a8827d10c54c2a2341bd2ae8d034358b60e07325e1330c14c224ff582d04612a46a4f0479ff2f2
   languageName: node
   linkType: hard
 

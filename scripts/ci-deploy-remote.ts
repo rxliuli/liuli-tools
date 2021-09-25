@@ -30,11 +30,10 @@ async function publishRelease() {
   const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN,
   })
-  await octokit.rest.reactions.createForRelease({
+  await octokit.rest.repos.createRelease({
     owner: 'rxliuli',
     repo: 'liuli-tools',
-    release_id: Date.now(),
-    content: '+1',
+    tag_name: '@liuli-util/test@0.1.0',
   })
 }
 

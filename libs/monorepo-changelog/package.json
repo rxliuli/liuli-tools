@@ -6,7 +6,6 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "setup": "yarn build",
     "build": "rimraf dist && liuli-cli build cli",
     "dev": "liuli-cli build cli -w",
     "start": "esno src/bin.ts",

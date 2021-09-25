@@ -80,6 +80,17 @@ export class ESBuildProgram {
             js: '#!/usr/bin/env node',
           },
           external: ['esbuild', ...(isWatch ? deps : [])],
+          plugins: [
+            {
+              name: 'exclude-node-module-plugin',
+              setup(build) {
+                build.onResolve({ filter: /(^node:)/ }, (args) => ({
+                  path: args.path,
+                  external: true,
+                }))
+              },
+            },
+          ],
         } as BuildOptions,
       ]),
       this.buildPkg(isWatch),

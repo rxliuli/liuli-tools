@@ -1,8 +1,8 @@
 import { build, BuildOptions, Platform, Plugin } from 'esbuild'
-import { execPromise } from '../../utils/execPromise'
 import { readJson } from 'fs-extra'
 import path from 'path'
 import { PackageJson } from 'type-fest'
+import { dtsPlugin } from 'esbuild-plugin-d.ts'
 
 export class ESBuildProgram {
   constructor(private readonly base: string) {}
@@ -25,17 +25,7 @@ export class ESBuildProgram {
     })
   }
 
-  async genDTS(isWatch: boolean): Promise<void> {
-    await execPromise(
-      `tsc --emitDeclarationOnly --outDir dist --incremental --declaration --declarationMap --noEmit false ${
-        isWatch ? '--watch' : ''
-      }`,
-      {
-        cwd: path.resolve(this.base),
-      },
-    )
-  }
-  async buildPkg(isWatch: boolean): Promise<void> {
+  async getBuildPkgOptions(isWatch: boolean): Promise<BuildOptions[]> {
     const outputOptions: BuildOptions[] = [
       {
         outfile: './dist/index.js',
@@ -49,7 +39,7 @@ export class ESBuildProgram {
       },
     ]
     const deps = await this.getDeps()
-    const rollupOptions = outputOptions.map(
+    return outputOptions.map(
       (output) =>
         ({
           ...output,
@@ -58,9 +48,13 @@ export class ESBuildProgram {
           bundle: true,
           external: deps,
           platform: 'node',
+          plugins: [dtsPlugin()],
         } as BuildOptions),
     )
-    await Promise.all([this.genDTS(isWatch), this.build(rollupOptions)])
+  }
+
+  async buildPkg(isWatch: boolean): Promise<void> {
+    await this.build(await this.getBuildPkgOptions(isWatch))
   }
 
   async getPlatform(): Promise<Platform> {
@@ -95,6 +89,7 @@ export class ESBuildProgram {
           external: ['esbuild', ...(isWatch ? deps : [])],
           plugins,
         } as BuildOptions,
+        ...(await this.getBuildPkgOptions(isWatch)),
       ]),
       this.buildPkg(isWatch),
     ])

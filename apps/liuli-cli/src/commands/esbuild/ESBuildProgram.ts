@@ -1,4 +1,4 @@
-import { build, BuildOptions } from 'esbuild'
+import { build, BuildOptions, Platform, Plugin } from 'esbuild'
 import { execPromise } from '../../utils/execPromise'
 import { readJson } from 'fs-extra'
 import path from 'path'
@@ -63,7 +63,20 @@ export class ESBuildProgram {
     await Promise.all([this.genDTS(isWatch), this.build(rollupOptions)])
   }
 
+  async getPlatform(): Promise<Platform> {
+    const json = await readJson(path.resolve(this.base, 'tsconfig.json'))
+    const isBrowser = (json.lib as string[])?.some(
+      (lib) => lib.toLowerCase() === 'dom',
+    )
+    return isBrowser ? 'browser' : 'node'
+  }
+
   async buildCli(isWatch: boolean): Promise<void> {
+    const plugins: Plugin[] = []
+    const platform = await this.getPlatform()
+    if (platform === 'node') {
+      plugins.push(nodeExternals())
+    }
     const deps = await this.getDeps()
     await Promise.all([
       this.build([
@@ -72,7 +85,7 @@ export class ESBuildProgram {
           outfile: './dist/bin.js',
           format: 'cjs',
           sourcemap: true,
-          platform: 'node',
+          platform,
           watch: isWatch,
           bundle: true,
           minify: !isWatch,
@@ -80,20 +93,44 @@ export class ESBuildProgram {
             js: '#!/usr/bin/env node',
           },
           external: ['esbuild', ...(isWatch ? deps : [])],
-          plugins: [
-            {
-              name: 'exclude-node-module-plugin',
-              setup(build) {
-                build.onResolve({ filter: /(^node:)/ }, (args) => ({
-                  path: args.path,
-                  external: true,
-                }))
-              },
-            },
-          ],
+          plugins,
         } as BuildOptions,
       ]),
       this.buildPkg(isWatch),
     ])
+  }
+}
+
+/**
+ * 排除和替换 node 内置模块
+ */
+function nodeExternals(): Plugin {
+  return {
+    name: 'esbuild-plugin-node-externals',
+    setup(build) {
+      build.onResolve({ filter: /(^node:)/ }, (args) => ({
+        path: args.path.slice(5),
+        external: true,
+      }))
+    },
+  }
+}
+
+/**
+ * 存在一些问题
+ * @link https://github.com/evanw/esbuild/issues/1634
+ */
+function autoExternal(): Plugin {
+  return {
+    name: 'esbuild-plugin-auto-external',
+    setup(build) {
+      build.onResolve({ filter: /^(?!\.{1,2}\/)/ }, (args) => {
+        console.log('esbuild-plugin-auto-external: ', args.path)
+        return {
+          path: args.path,
+          external: true,
+        }
+      })
+    },
   }
 }

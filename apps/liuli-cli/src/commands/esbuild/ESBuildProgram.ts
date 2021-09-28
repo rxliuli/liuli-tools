@@ -86,7 +86,7 @@ export class ESBuildProgram {
           banner: {
             js: '#!/usr/bin/env node',
           },
-          external: ['esbuild', ...(isWatch ? deps : [])],
+          external: ['esbuild', 'pnpapi', ...(isWatch ? deps : [])],
           plugins,
         } as BuildOptions,
         ...(await this.getBuildPkgOptions(isWatch)),

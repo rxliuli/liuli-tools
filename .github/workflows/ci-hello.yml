@@ -21,9 +21,9 @@ jobs:
           cache-name: cache-setup
         with:
           path: |
-            ./.yarn-cache.json
-            ./**/dist/**
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./.yarn-cache.json') }}
+            **/.yarn-cache.json
+            **/dist/
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/.yarn-cache.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
       - run: yarn

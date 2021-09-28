@@ -20,8 +20,9 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ./.yarn-cache.json
+          path: |
+            ./.yarn-cache.json
+            ./**/dist/**
           key: ${{ runner.os }}-setup-${{ hashFiles('./.yarn-cache.json') }}
       - run: yarn
       - run: yarn setup

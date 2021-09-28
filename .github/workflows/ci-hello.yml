@@ -1,9 +1,9 @@
-name: Node.js Package
+name: ci-hello
 
 on:
   push:
-    tags:
-      - master
+    branches:
+      - feat_ci
 
 jobs:
   init:
@@ -14,9 +14,9 @@ jobs:
         with:
           node-version: 14
       - run: yarn
-#       - run: yarn setup
-      - run: yarn esno ./scripts/ci-deploy-remote.ts
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GIT_EMAIL: ${{ secrets.MY_EMAIL }}
-          GIT_NAME: ${{ secrets.MY_NAME }}
+      - run: yarn setup
+#       - run: yarn esno ./scripts/ci-deploy-remote.ts
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           GIT_EMAIL: ${{ secrets.MY_EMAIL }}
+#           GIT_NAME: ${{ secrets.MY_NAME }}

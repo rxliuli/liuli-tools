@@ -13,6 +13,15 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14
+          cache: 'yarn'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: .yarn-cache.json
+          key: ${{ runner.os }}-setup-${{ hashFiles('.yarn-cache.json') }}
       - run: yarn
       - run: yarn setup
 #       - run: yarn esno ./scripts/ci-deploy-remote.ts

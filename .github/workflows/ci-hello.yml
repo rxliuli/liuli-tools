@@ -24,6 +24,8 @@ jobs:
             ./.yarn-cache.json
             ./**/dist/**
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/.yarn-cache.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
       - run: yarn
       - run: yarn setup
 #       - run: yarn esno ./scripts/ci-deploy-remote.ts

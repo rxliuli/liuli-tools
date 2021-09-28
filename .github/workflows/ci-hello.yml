@@ -15,7 +15,7 @@ jobs:
           node-version: 16
           cache: 'yarn'
           cache-dependency-path: yarn.lock
-      - name: Cache node modules
+      - name: setup cache
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules
@@ -23,7 +23,7 @@ jobs:
           path: |
             ./.yarn-cache.json
             ./**/dist/**
-          key: ${{ runner.os }}-setup-${{ hashFiles('./.yarn-cache.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/.yarn-cache.json') }}
       - run: yarn
       - run: yarn setup
 #       - run: yarn esno ./scripts/ci-deploy-remote.ts

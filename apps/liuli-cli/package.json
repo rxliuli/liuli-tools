@@ -29,16 +29,24 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "chalk": "^4.1.2",
+    "@liuli-util/commitlint-standard-config": "workspace:libs/commitlint-standard-config",
+    "@liuli-util/eslint-config-react-ts": "workspace:libs/eslint-config-react-ts",
+    "@liuli-util/eslint-config-ts": "workspace:libs/eslint-config-ts",
+    "@liuli-util/prettier-standard-config": "workspace:libs/prettier-standard-config",
+    "chokidar": "^3.5.2",
     "commander": "^8.2.0",
     "esbuild": "^0.13.2",
-    "esbuild-plugin-d.ts": "^1.0.6",
     "fs-extra": "^10.0.0",
+    "glob": "^7.2.0",
+    "glob-promise": "^4.2.0",
     "inquirer": "^8.1.5",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.21",
+    "spinnies": "^0.5.1",
+    "ts-morph": "^12.0.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
+    "@types/glob": "^7",
     "@types/inquirer": "^8.1.2",
     "@types/jest": "^27.0.2",
     "@types/lodash-es": "^4.17.5",

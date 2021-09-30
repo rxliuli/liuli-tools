@@ -36,7 +36,7 @@
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
     "@liuli-util/async": "workspace:libs/async",
-    "@liuli-util/cli": "^3.7.1",
+    "@liuli-util/cli": "^3.11.0",
     "@liuli-util/prettier-standard-config": "^0.1.0",
     "@types/fs-extra": "^9.0.12",
     "@types/gulp": "^4.0.9",

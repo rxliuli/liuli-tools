@@ -12,7 +12,7 @@
     "preset": "ts-jest"
   },
   "devDependencies": {
-    "@liuli-util/cli": "^3.7.1",
+    "@liuli-util/cli": "^3.11.0",
     "@liuli-util/shell": "^0.2.0",
     "@types/jest": "^26.0.24",
     "@types/rimraf": "^3.0.1",

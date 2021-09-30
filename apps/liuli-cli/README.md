@@ -20,6 +20,8 @@ yarn liuli-cli build cli # 打包 cli 引用程序
 
 > 添加 `-w` 选项则启动 rollup 的监视模式，打包出来的 dist/ 不会压缩且不会将依赖项打进 bundle。
 
+![监视模式](https://liuli.dev/images/liuli-cli%20%E7%9B%91%E8%A7%86%E6%A8%A1%E5%BC%8F.gif)
+
 ### 生成
 
 ```sh

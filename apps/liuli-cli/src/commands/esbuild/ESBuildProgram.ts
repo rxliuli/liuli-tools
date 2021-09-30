@@ -176,7 +176,10 @@ export class ESBuildProgram {
       banner: {
         js: '#!/usr/bin/env node',
       },
-      external: ['esbuild', 'pnpapi', ...(this.options.isWatch ? deps : [])],
+      external: [
+        ...ESBuildProgram.globalExternal,
+        ...(this.options.isWatch ? deps : []),
+      ],
       plugins,
       minify: !this.options.isWatch,
       incremental: this.options.isWatch,
@@ -264,14 +267,9 @@ export class ESBuildProgram {
       const platform = await ESBuildProgram.getPlatform(this.options.base)
       const tasks = genTasks(deps, platform)
       const spinnies = new Spinnies()
-      //让 esbuild 尽可能地快速并发构建
       await Promise.all(
-        tasks
-          .slice(0, 3)
-          .map(async (task) => ESBuildProgram.execTask(spinnies, task)),
+        tasks.map(async (task) => ESBuildProgram.execTask(spinnies, task)),
       )
-      //然后生成类型定义
-      await ESBuildProgram.execTask(spinnies, tasks[3])
       console.log(`构建完成: ${Date.now() - start}ms`)
     }
 

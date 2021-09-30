@@ -1,6 +1,5 @@
 import { readFile, readJson, writeFile, writeJson } from 'fs-extra'
 import path from 'path'
-import { execSync } from 'child_process'
 import { merge } from 'lodash-es'
 import { PackageJson } from 'type-fest'
 import prettier from '@liuli-util/prettier-standard-config/package.json'
@@ -11,13 +10,6 @@ import { prompt } from 'inquirer'
 import { isIncludeDep, isNpmPackage, isYarnRoot, isYarnSubModule } from './when'
 import { appendScript, arrayToMap, AsyncArray } from '../../utils'
 import { PathUtil } from '../../PathUtil'
-
-export function installDeps(base: string, deps: string[]): void {
-  execSync('yarn add -D -W ' + deps.join(' '), {
-    stdio: 'inherit',
-    cwd: base,
-  })
-}
 
 export async function mergeJson(base: string, json: object): Promise<void> {
   const pkgJsonFilePath = path.resolve(base, './package.json')

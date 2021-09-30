@@ -29,10 +29,10 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "@liuli-util/commitlint-standard-config": "workspace:libs/commitlint-standard-config",
-    "@liuli-util/eslint-config-react-ts": "workspace:libs/eslint-config-react-ts",
-    "@liuli-util/eslint-config-ts": "workspace:libs/eslint-config-ts",
-    "@liuli-util/prettier-standard-config": "workspace:libs/prettier-standard-config",
+    "@liuli-util/commitlint-standard-config": "^0.1.6",
+    "@liuli-util/eslint-config-react-ts": "^0.1.0",
+    "@liuli-util/eslint-config-ts": "^0.2.0",
+    "@liuli-util/prettier-standard-config": "^0.1.0",
     "chokidar": "^3.5.2",
     "commander": "^8.2.0",
     "esbuild": "^0.13.2",

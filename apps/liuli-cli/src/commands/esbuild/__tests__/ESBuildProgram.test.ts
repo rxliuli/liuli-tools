@@ -3,13 +3,9 @@ import * as path from 'path'
 import { mkdirp, pathExists, remove, writeJson } from 'fs-extra'
 import { PackageJson } from 'type-fest'
 import { build, Platform, Plugin } from 'esbuild'
-import {
-  autoExternal,
-  nativeNodeModules,
-  nodeExternals,
-} from '../util/esbuildPlugins'
+import { nativeNodeModules, nodeExternals } from '../util/esbuildPlugins'
 
-describe('测试', () => {
+describe('测试 ESBuildProgram', () => {
   describe('测试 getPlatform', () => {
     const base: string = path.resolve(__dirname, '.temp/getPlatform')
     beforeEach(async () => {
@@ -113,16 +109,17 @@ describe('测试', () => {
 })
 it('测试 esbuild', async () => {
   await build({
-    outfile: './dist/index.esm.js',
-    format: 'esm',
+    outfile: './dist/bin.js',
+    format: 'cjs',
     sourcemap: true,
-    entryPoints: ['./src/index.ts'],
+    entryPoints: ['./src/bin.ts'],
     bundle: true,
     external: [
       ...ESBuildProgram.globalExternal,
-      ...(await ESBuildProgram.getDeps(path.resolve())),
+      // ...(await ESBuildProgram.getDeps(path.resolve())),
     ],
     platform: 'node',
     plugins: [nativeNodeModules(), nodeExternals()],
+    treeShaking: true,
   })
 })

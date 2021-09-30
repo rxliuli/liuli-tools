@@ -946,10 +946,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@liuli-util/cli@workspace:apps/liuli-cli"
   dependencies:
-    "@liuli-util/commitlint-standard-config": "workspace:libs/commitlint-standard-config"
-    "@liuli-util/eslint-config-react-ts": "workspace:libs/eslint-config-react-ts"
-    "@liuli-util/eslint-config-ts": "workspace:libs/eslint-config-ts"
-    "@liuli-util/prettier-standard-config": "workspace:libs/prettier-standard-config"
+    "@liuli-util/commitlint-standard-config": ^0.1.6
+    "@liuli-util/eslint-config-react-ts": ^0.1.0
+    "@liuli-util/eslint-config-ts": ^0.2.0
+    "@liuli-util/prettier-standard-config": ^0.1.0
     "@types/fs-extra": ^9.0.13
     "@types/glob": ^7
     "@types/inquirer": ^8.1.2
@@ -1000,7 +1000,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/commitlint-standard-config@*, @liuli-util/commitlint-standard-config@workspace:libs/commitlint-standard-config":
+"@liuli-util/commitlint-standard-config@*, @liuli-util/commitlint-standard-config@^0.1.6, @liuli-util/commitlint-standard-config@workspace:libs/commitlint-standard-config":
   version: 0.0.0-use.local
   resolution: "@liuli-util/commitlint-standard-config@workspace:libs/commitlint-standard-config"
   dependencies:
@@ -1010,7 +1010,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/eslint-config-react-ts@workspace:libs/eslint-config-react-ts":
+"@liuli-util/eslint-config-react-ts@^0.1.0, @liuli-util/eslint-config-react-ts@workspace:libs/eslint-config-react-ts":
   version: 0.0.0-use.local
   resolution: "@liuli-util/eslint-config-react-ts@workspace:libs/eslint-config-react-ts"
   dependencies:
@@ -1139,7 +1139,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@liuli-util/prettier-standard-config@*, @liuli-util/prettier-standard-config@workspace:libs/prettier-standard-config":
+"@liuli-util/prettier-standard-config@*, @liuli-util/prettier-standard-config@^0.1.0, @liuli-util/prettier-standard-config@workspace:libs/prettier-standard-config":
   version: 0.0.0-use.local
   resolution: "@liuli-util/prettier-standard-config@workspace:libs/prettier-standard-config"
   languageName: unknown

@@ -35,7 +35,7 @@ util 也支持交互式的创建项目
 yarn liuli-cli generate
 ```
 
-![交互式创建截图](./docs/交互式创建截图.gif)
+![liuli-cli 交互式创建截图](https://liuli.dev/images/liuli-cli%20%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%88%9B%E5%BB%BA%E6%88%AA%E5%9B%BE.gif)
 
 ### 同步配置
 

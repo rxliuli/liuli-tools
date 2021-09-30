@@ -23,7 +23,7 @@ interface Task {
 export class ESBuildProgram {
   constructor(private readonly options: ESBuildProgramOptions) {}
 
-  static readonly globalExternal = ['esbuild', 'pnpapi']
+  static readonly globalExternal = ['esbuild', 'pnpapi', 'ts-morph']
 
   /**
    * 获取所有依赖

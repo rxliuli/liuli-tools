@@ -9,7 +9,7 @@ import {
   writeFile,
   writeJSON,
 } from 'fs-extra'
-import inquirer from 'inquirer'
+import { prompt } from 'enquirer'
 import { SyncProgram } from '../sync/SyncProgram'
 import { PathUtil } from '../../PathUtil'
 
@@ -30,7 +30,7 @@ export class GenerateProgram {
    */
   async generate(config: GenerateConfig): Promise<void> {
     if (!config.dest) {
-      const { dest } = await inquirer.prompt({
+      const { dest } = await prompt<{ dest: string }>({
         name: 'dest',
         type: 'input',
         message: '请输入项目名',
@@ -41,7 +41,7 @@ export class GenerateProgram {
       config.dest = path.resolve(dest)
     }
     if (!config.template) {
-      const { template } = await inquirer.prompt({
+      const { template } = await prompt<{ template: TemplateTypeEnum }>({
         name: 'template',
         type: 'list',
         message: '请选择模板',
@@ -69,10 +69,12 @@ export class GenerateProgram {
       (await pathExists(destFile)) &&
       (await readdir(destFile)).some((file) => pathExists(file))
     ) {
-      const { override } = await inquirer.prompt({
+      const { override } = await prompt<{
+        override: boolean
+      }>({
         name: 'override',
         type: 'confirm',
-        default: true,
+        initial: true,
         message: '目标位置不是一个空目录，确认要覆盖么？',
       })
       if (!override) {

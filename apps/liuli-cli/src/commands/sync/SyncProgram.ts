@@ -6,7 +6,7 @@ import prettier from '@liuli-util/prettier-standard-config/package.json'
 import eslintTs from '@liuli-util/eslint-config-ts/package.json'
 import eslintReactTs from '@liuli-util/eslint-config-react-ts/package.json'
 import commitlint from '@liuli-util/commitlint-standard-config/package.json'
-import { prompt } from 'inquirer'
+import { prompt } from 'enquirer'
 import { isIncludeDep, isNpmPackage, isYarnRoot, isYarnSubModule } from './when'
 import { appendScript, arrayToMap, AsyncArray } from '../../utils'
 import { PathUtil } from '../../PathUtil'
@@ -232,8 +232,10 @@ export class SyncProgram {
       }),
       (item) => item.type,
     )
-    const res = await prompt({
-      type: 'checkbox',
+    const res = await prompt<{
+      sync: string[]
+    }>({
+      type: 'multiselect',
       message: '请选择需要同步的配置项',
       name: 'sync',
       choices: [...configMap.keys()],

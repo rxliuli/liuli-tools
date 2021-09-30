@@ -30,7 +30,7 @@
     "i18next": "^20.3.3"
   },
   "devDependencies": {
-    "@liuli-util/cli": "^3.10.1",
+    "@liuli-util/cli": "^3.11.0",
     "@types/jest": "^27.0.2",
     "jest": "^27.2.1",
     "rimraf": "^3.0.2",

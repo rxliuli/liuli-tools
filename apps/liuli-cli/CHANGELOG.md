@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 3.11.0
+
+<!--hash:5036beb706902f3ec7e8122696f99cefa7c51f57-->
+
+- fix: 修复构建的包过大的问题（非压缩 10+M）
+- fix: 修复构建时任务数量不确定导致失败的错误
+- fix: 修复打包时提示 pnpapi 依赖缺失问题
+- fix: 修复一个单元测试错误
+- feat: 重构 esbuild 命令，优化 cli 提示信息
+- feat: 使用 esbuild dts 插件只编译入口点声明和引用的 ts 类型定义
+- feat: 将 node 内置包通过插件替换和排除
+- feat: 默认忽略 node 原生模块
+- perf: 使用 lodash-es 替换 lodash 减小最终打包 bin.js 的大小
+
 ## 3.10.1
 
 <!--hash:c0223e217f45ec5d1c39e14035a494ca49b8e868-->

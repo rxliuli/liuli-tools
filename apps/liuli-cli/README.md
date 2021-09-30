@@ -14,11 +14,11 @@ npm i -g @liuli-util/cli # 全局安装
 ### 打包
 
 ```sh
-yarn liuli-cli build pkg # 打包库
+yarn liuli-cli build lib # 打包库
 yarn liuli-cli build cli # 打包 cli 引用程序
 ```
 
-> 添加 `-w` 选项则启动 rollup 的监视模式，打包出来的 dist/ 不会压缩
+> 添加 `-w` 选项则启动 rollup 的监视模式，打包出来的 dist/ 不会压缩且不会将依赖项打进 bundle。
 
 ### 生成
 
@@ -75,7 +75,7 @@ yarn liuli-cli sync init
 - 约定大于配置，如果可能应该不提供配置。VitePress 也是这样做的，参考：https://vitepress.vuejs.org/#lighter-page-weight 这会导致一些约束，包括以下内容
   - 打包库时入口文件必须是 `src/index.ts`，出口文件则是 `dist/index.esm.js` 与 `dist/index.js`
   - 打包 CLI 时入口文件必须是 `src/bin.ts`，出口文件则是 `dist/bin.js`
-  - 会将所有的依赖作为外部依赖处理
+  - 在打包 lib 时会将所有的依赖作为外部依赖处理，而在打包 cli 时会将所有依赖项打进 bundle
 
 ## FAQ
 

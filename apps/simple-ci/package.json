@@ -29,7 +29,7 @@
     "open": "^8.2.1"
   },
   "devDependencies": {
-    "@liuli-util/cli": "^3.10.1",
+    "@liuli-util/cli": "^3.11.0",
     "@liuli-util/eslint-config-ts": "^0.2.0",
     "@types/fs-extra": "^9.0.13",
     "@types/inquirer": "^8.1.2",

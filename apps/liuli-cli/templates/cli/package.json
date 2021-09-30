@@ -26,7 +26,7 @@
     "inquirer": "^8.1.5"
   },
   "devDependencies": {
-    "@liuli-util/cli": "^3.10.1",
+    "@liuli-util/cli": "^3.11.0",
     "@types/fs-extra": "^9.0.13",
     "@types/inquirer": "^8.1.2",
     "@types/jest": "^27.0.2",

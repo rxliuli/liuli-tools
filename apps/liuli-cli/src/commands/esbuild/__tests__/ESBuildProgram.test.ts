@@ -2,7 +2,7 @@ import { ESBuildProgram } from '../ESBuildProgram'
 import * as path from 'path'
 import { mkdirp, pathExists, remove, writeJson } from 'fs-extra'
 import { PackageJson } from 'type-fest'
-import { build, Platform, Plugin } from 'esbuild'
+import { build, Platform } from 'esbuild'
 import { nativeNodeModules, nodeExternals } from '../util/esbuildPlugins'
 
 describe('测试 ESBuildProgram', () => {
@@ -22,6 +22,7 @@ describe('测试 ESBuildProgram', () => {
     })
     it('测试浏览器类型', async () => {
       await writeJson(path.resolve(base, 'tsconfig.json'), {
+        //注释
         compilerOptions: {
           lib: ['DOM'],
         },
@@ -63,12 +64,10 @@ describe('测试 ESBuildProgram', () => {
     })
     let deps: string[]
     let platform: Platform
-    let plugins: Plugin[]
     beforeEach(async () => {
       await remove(path.resolve(base, 'dist'))
       deps = await ESBuildProgram.getDeps(base)
       platform = await ESBuildProgram.getPlatform(base)
-      plugins = ESBuildProgram.getPlugins(platform)
     })
     it('测试 genDTS', async () => {
       await program.genDTS()
@@ -122,4 +121,14 @@ it('测试 esbuild', async () => {
     plugins: [nativeNodeModules(), nodeExternals()],
     treeShaking: true,
   })
+})
+
+it('测试真实的构建', async () => {
+  const program = new ESBuildProgram({
+    base: path.resolve(
+      'C:/Users/rxliuli/Code/Web/joplin-utils/libs/joplin-api',
+    ),
+    isWatch: true,
+  })
+  await program.buildLib()
 })

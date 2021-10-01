@@ -1,5 +1,5 @@
 import { build, BuildOptions, Platform, Plugin } from 'esbuild'
-import { pathExists, readJson } from 'fs-extra'
+import { pathExists, readFile, readJson } from 'fs-extra'
 import * as path from 'path'
 import { PackageJson } from 'type-fest'
 import { Project } from 'ts-morph'
@@ -9,6 +9,7 @@ import { nativeNodeModules, nodeExternals } from './util/esbuildPlugins'
 import { watch } from 'chokidar'
 import Spinnies from 'spinnies'
 import { debounce } from './util/debounce'
+import { parse } from 'json5'
 
 interface ESBuildProgramOptions {
   base: string
@@ -45,7 +46,7 @@ export class ESBuildProgram {
   static async getPlatform(base: string): Promise<Platform> {
     const tsconfigPath = path.resolve(base, 'tsconfig.json')
     if (await pathExists(tsconfigPath)) {
-      const tsconfigJson = await readJson(tsconfigPath)
+      const tsconfigJson = parse(await readFile(tsconfigPath, 'utf-8'))
       if (
         (tsconfigJson.compilerOptions.lib as string[]).some(
           (lib) => lib.toLowerCase() === 'dom',
@@ -114,10 +115,10 @@ export class ESBuildProgram {
     platform: Platform
   }): BuildOptions {
     return {
-      outfile: './dist/index.js',
+      entryPoints: [path.resolve(this.options.base, './src/index.ts')],
+      outfile: path.resolve(this.options.base, './dist/index.js'),
       format: 'cjs',
       sourcemap: true,
-      entryPoints: ['./src/index.ts'],
       bundle: true,
       external: [...ESBuildProgram.globalExternal, ...deps],
       platform: platform,
@@ -140,10 +141,10 @@ export class ESBuildProgram {
     platform: Platform
   }): BuildOptions {
     return {
-      outfile: './dist/index.esm.js',
+      entryPoints: [path.resolve(this.options.base, './src/index.ts')],
+      outfile: path.resolve(this.options.base, './dist/index.esm.js'),
       format: 'esm',
       sourcemap: true,
-      entryPoints: ['./src/index.ts'],
       bundle: true,
       external: [...ESBuildProgram.globalExternal, ...deps],
       platform: platform,
@@ -167,8 +168,8 @@ export class ESBuildProgram {
   }): BuildOptions {
     const plugins = ESBuildProgram.getPlugins(platform)
     return {
-      entryPoints: ['./src/bin.ts'],
-      outfile: './dist/bin.js',
+      entryPoints: [path.resolve(this.options.base, './src/bin.ts')],
+      outfile: path.resolve(this.options.base, './dist/bin.js'),
       format: 'cjs',
       sourcemap: true,
       platform: platform,

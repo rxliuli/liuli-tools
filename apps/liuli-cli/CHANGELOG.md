@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 3.11.1
+
+<!--hash:ba04dd24f8ee1e4a83c06dbd289195587a221079-->
+
+- fix: 修复 tsconfig.json 不是标准 json 无法直接解析的错误，修复路径不是绝对值的错误
+- docs: 修复交互式创建的 gif 演示地址 404 的错误
+- docs: 更新 build 命令监视模式的 gif 演示
+
 ## 3.11.0
 
 <!--hash:5036beb706902f3ec7e8122696f99cefa7c51f57-->

@@ -9,7 +9,7 @@
 安装
 
 ```shell
-yarn plugin import https://liuli-tools.rxliuli.com/yarn-plugin-changed/%40liuli-util/plugin-changed.js
+yarn plugin import https://liuli.dev/yarn-plugin-changed/%40liuli-util/plugin-changed.js
 ```
 
 功能

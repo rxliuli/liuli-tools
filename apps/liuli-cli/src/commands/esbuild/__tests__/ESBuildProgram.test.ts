@@ -95,6 +95,17 @@ describe('测试 ESBuildProgram', () => {
         await pathExists(path.resolve(base, 'dist/index.esm.js')),
       ).toBeTruthy()
     })
+    it('测试 getBuildIifeOption', async () => {
+      const option = program.getBuildIifeOption({
+        deps: deps,
+        platform: platform,
+      })
+      console.log('option: ', deps, option)
+      await build(option)
+      expect(
+        await pathExists(path.resolve(base, 'dist/index.iife.js')),
+      ).toBeTruthy()
+    })
     it('测试 getBuildCliOption', async () => {
       await build(
         program.getBuildCliOption({

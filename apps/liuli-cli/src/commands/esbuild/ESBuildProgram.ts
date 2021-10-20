@@ -154,6 +154,32 @@ export class ESBuildProgram {
   }
 
   /**
+   * 获取构建 iife 的选项
+   * @param deps
+   * @param platform
+   * @param plugins
+   */
+  getBuildIifeOption({
+    deps,
+    platform,
+  }: {
+    deps: string[]
+    platform: Platform
+  }): BuildOptions {
+    return {
+      entryPoints: [path.resolve(this.options.base, './src/index.ts')],
+      outfile: path.resolve(this.options.base, './dist/index.iife.js'),
+      format: 'iife',
+      sourcemap: true,
+      bundle: true,
+      external: [...ESBuildProgram.globalExternal, ...deps],
+      platform: platform,
+      minify: !this.options.isWatch,
+      incremental: this.options.isWatch,
+    }
+  }
+
+  /**
    * 获取构建 cli 的选项
    * @param deps
    * @param platform
@@ -197,6 +223,22 @@ export class ESBuildProgram {
 
   async buildLib(): Promise<void> {
     await this.build(this.getBuildLibTask.bind(this))
+  }
+
+  async buildIife(): Promise<void> {
+    await this.build((deps, platform) => [
+      {
+        title: '构建 iife',
+        task: async () => {
+          await build(
+            this.getBuildIifeOption({
+              deps: deps,
+              platform: platform,
+            }),
+          )
+        },
+      },
+    ])
   }
 
   async buildCli(): Promise<void> {

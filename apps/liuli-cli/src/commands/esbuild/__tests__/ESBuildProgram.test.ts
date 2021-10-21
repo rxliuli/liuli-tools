@@ -99,9 +99,13 @@ describe('测试 ESBuildProgram', () => {
       const option = program.getBuildIifeOption({
         deps: deps,
         platform: platform,
+        globalName: 'test',
       })
       console.log('option: ', deps, option)
-      await build(option)
+      await build({
+        ...option,
+        minify: false,
+      })
       expect(
         await pathExists(path.resolve(base, 'dist/index.iife.js')),
       ).toBeTruthy()

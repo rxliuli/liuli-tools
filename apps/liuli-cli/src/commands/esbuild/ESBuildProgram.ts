@@ -10,6 +10,7 @@ import { watch } from 'chokidar'
 import Spinnies from 'spinnies'
 import { debounce } from './util/debounce'
 import { parse } from 'json5'
+import { getPkgGlobalName } from './util/getPkgGlobalName'
 
 interface ESBuildProgramOptions {
   base: string
@@ -162,9 +163,11 @@ export class ESBuildProgram {
   getBuildIifeOption({
     deps,
     platform,
+    globalName,
   }: {
     deps: string[]
     platform: Platform
+    globalName: string
   }): BuildOptions {
     return {
       entryPoints: [path.resolve(this.options.base, './src/index.ts')],
@@ -176,6 +179,7 @@ export class ESBuildProgram {
       platform: platform,
       minify: !this.options.isWatch,
       incremental: this.options.isWatch,
+      globalName,
     }
   }
 
@@ -234,6 +238,13 @@ export class ESBuildProgram {
             this.getBuildIifeOption({
               deps: deps,
               platform: platform,
+              globalName: getPkgGlobalName(
+                (
+                  (await readJson(
+                    path.resolve(this.options.base, './package.json'),
+                  )) as PackageJson
+                ).name!,
+              ),
             }),
           )
         },

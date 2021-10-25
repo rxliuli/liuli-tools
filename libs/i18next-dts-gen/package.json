@@ -8,6 +8,7 @@
   "scripts": {
     "setup": "yarn start && yarn build",
     "build": "rimraf dist && liuli-cli build cli",
+    "dev": "rimraf dist && liuli-cli build cli -w",
     "start": "esno src/bin.ts --dirs src/i18n",
     "docs:server": "live-server docs",
     "docs:dev": "typedoc --watch",
@@ -29,13 +30,10 @@
   "dependencies": {
     "@liuli-util/array": "^3.2.7",
     "@liuli-util/async": "^3.2.7",
-    "@liuli-util/tree": "^3.2.7",
     "chokidar": "^3.5.2",
     "commander": "^8.2.0",
     "fs-extra": "^10.0.0",
     "i18next": "^21.0.1",
-    "luxon": "^2.0.2",
-    "ora": "^6.0.1",
     "os-locale": "^6.0.0",
     "ts-morph": "^12.0.0"
   },
@@ -44,7 +42,6 @@
     "@liuli-util/test": "^3.2.7",
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "^27.0.2",
-    "@types/luxon": "^2.0.4",
     "@types/node": "^16.9.6",
     "@types/prettier": "^2.3.2",
     "dts-minify": "^0.2.3",

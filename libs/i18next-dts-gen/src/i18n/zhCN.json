@@ -3,7 +3,6 @@
   "cli.option.watch": "是否使用监视模式",
   "cli.option.language": "默认使用的语言",
   "cli.description": "根据 json 生成 .d.ts 类型定义",
-  "generator.begin": "[{{time}}] 开始生成类型定义：{{dtsPath}}",
-  "generator.end": "[{{time}}] 结束生成类型定义：{{dtsPath}}",
+  "generator.end": "[{{time}}ms] 生成类型定义：{{dtsPath}}",
   "generator.error.nestKey": "不支持嵌套 key"
 }

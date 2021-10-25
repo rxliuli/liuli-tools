@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.3.2
+
+<!--hash:0b3c831f5800f97627da399e7dbb5542d3703bea-->
+
+- fix: 降级 os-locale 以使用支持 cjs 的旧版本
+
 ## 0.3.1
 
 <!--hash:74d0af318de9fcb189c91ffa9932ae9ee754f26d-->

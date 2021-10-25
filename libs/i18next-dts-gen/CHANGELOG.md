@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## 0.3.1
+
+<!--hash:74d0af318de9fcb189c91ffa9932ae9ee754f26d-->
+
+- feat: 创建 rollup-plugin-i18next-dts-gen 以支持将生成类型定义添加到构建流程中
+- feat: 将 tsconfig 中的编译目标修改为 ESNext
+- feat: 迁移 ts-node 为更高效的 esno
+- feat: 支持 ts 类型系统提示返回值的结果大致上是什么
+- fix: 修复项目中各种依赖、类型、测试错误
+- chore: 升级所有的依赖
+- chore: 更新 yarn plugin changed 插件的安装位置，修改为在线的 gh-pages 地址
+- chore: 尽可能地解决 yarn2 安装依赖时的警告
+- chore: 修复各种问题
+- chore: 升级 yarn 2，放弃使用 lerna
+- chore: 使用 * 替代具体的版本
+- chore: 添加发布与仓库配置
+- chore: 修复引入 i18next-dts-gen 模块带来的各种奇怪的问题
+- chore: 将 i18next-dts-gen 模块引入到这个项目
+- docs: 修复文档引用链接错误
+- docs: 修复 markdown 格式错误
+- docs: 修复一些小问题
+- docs: 使用 typedoc 打包 api 文档
+- docs: 删除并忽略 docs 目录
+- docs: 修复图表引用链接错误
+- docs: 更新文档，调整示例与详细说明的顺序
+- style: 修复各种 eslint 报的低级错误
+- refactor: 在 @liuli-util/i18next-dts-gen 项目中集成 @liuli-util/i18next-util
+
 ## 0.3.0
 
 - feat: Support generating return value types based on default language
@@ -22,4 +50,4 @@
 
 ## 0.1.1
 
-- Basic implementation scans a single directory to generate type definitions
+- Basic implementation scans a single directory to generate type definitions

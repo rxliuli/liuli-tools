@@ -3,6 +3,6 @@
   "cli.option.watch": "Whether to use watch mode",
   "cli.option.language": "Default language",
   "cli.description": "Generate .d.ts type definitions from json",
-  "generator.end": "[{{time}}ms] Ends generating type definition: {{dtsPath}}",
+  "generator.end": "Ends generating type definition [{{time}}ms]: {{dtsPath}}",
   "generator.error.nestKey": "Does not support nested keys"
 }

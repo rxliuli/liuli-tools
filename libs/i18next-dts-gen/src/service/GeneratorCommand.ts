@@ -5,7 +5,10 @@ import { writeFile } from 'fs-extra'
 import path from 'path'
 import { AsyncArray } from '@liuli-util/async'
 import { Watcher } from './Watcher'
-import { i18n } from '../constants/I18n'
+import { getLanguage, i18n } from '../constants/I18n'
+import en from '../i18n/en.json'
+import zhCN from '../i18n/zhCN.json'
+import { normalizePath } from '../util/normalizePath'
 
 export interface GenerateOptions {
   dirs: string[]
@@ -19,6 +22,7 @@ export class GeneratorCommandProgram {
    * @param options
    */
   async main(options: GenerateOptions): Promise<void> {
+    await i18n.init({ en, zhCN }, await getLanguage())
     if (options.watch) {
       new Promise((resolve, reject) => {
         new Watcher()
@@ -45,7 +49,7 @@ export class GeneratorCommandProgram {
     console.info(
       i18n.t('generator.end', {
         time: Date.now() - start,
-        dtsPath,
+        dtsPath: normalizePath(path.relative(path.resolve(), dtsPath)),
       }),
     )
   }

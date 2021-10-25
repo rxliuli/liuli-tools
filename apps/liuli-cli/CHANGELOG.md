@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 3.12.0
+
+<!--hash:18b4c02da2ba2d55b6c26cd2b45dbf370855f721-->
+
+- feat: 支持单独构建某种文件的功能
+- feat: 支持构建 iife 格式的 bundle 时自动设置 global
+- feat: 支持构建 iife 格式的 bundle
+
 ## 3.11.1
 
 <!--hash:ba04dd24f8ee1e4a83c06dbd289195587a221079-->

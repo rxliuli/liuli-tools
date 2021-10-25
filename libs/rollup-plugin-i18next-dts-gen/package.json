@@ -1,6 +1,5 @@
 {
-  "name": "rollup-plugin-i18next-dts-gen",
-  "private": true,
+  "name": "@liuli-util/rollup-plugin-i18next-dts-gen",
   "version": "0.1.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -33,6 +32,6 @@
   },
   "sync": [],
   "dependencies": {
-    "@liuli-util/i18next-dts-gen": "^0.3.0"
+    "@liuli-util/i18next-dts-gen": "^0.3.3"
   }
 }

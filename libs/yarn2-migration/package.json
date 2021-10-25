@@ -7,9 +7,8 @@
   "license": "MIT",
   "scripts": {
     "setup": "yarn i18n:gen",
-    "build:cli": "esbuild src/bin.ts --bundle --outfile=dist/bin.js --platform=node --banner:js=\"#!/usr/bin/env node\n\"",
-    "build": "rimraf dist && liuli-cli build pkg && yarn build:cli",
-    "dev": "liuli-cli build pkg -w",
+    "build": "rimraf dist && liuli-cli build cli",
+    "dev": "liuli-cli build cli -w",
     "start": "esno src/bin.ts",
     "docs:server": "live-server docs",
     "docs:dev": "typedoc --watch",
@@ -44,7 +43,8 @@
   },
   "devDependencies": {
     "@liuli-util/cli": "^3.11.1",
-    "@liuli-util/i18next-dts-gen": "^0.3.0",
+    "@liuli-util/i18next-dts-gen": "^0.3.3",
+    "@liuli-util/rollup-plugin-i18next-dts-gen": "^0.1.0",
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.5",

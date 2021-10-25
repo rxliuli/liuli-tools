@@ -34,7 +34,7 @@
     "commander": "^8.2.0",
     "fs-extra": "^10.0.0",
     "i18next": "^21.0.1",
-    "os-locale": "^6.0.0",
+    "os-locale": "^4.0.0",
     "ts-morph": "^12.0.0"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 // @ts-ignore
 import { TranslateType } from '../i18n'
-import { osLocale } from 'os-locale'
+import osLocale from 'os-locale'
 import { I18nextUtil, LanguageEnum } from '../util/I18nextUtil'
 
 export async function getLanguage(): Promise<LanguageEnum> {

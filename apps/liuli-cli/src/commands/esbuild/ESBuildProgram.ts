@@ -22,8 +22,14 @@ interface Task {
   task(): Promise<any>
 }
 
+export type TaskTypeEnum = 'esm' | 'cjs' | 'iife' | 'cli' | 'dts'
+
 export class ESBuildProgram {
   constructor(private readonly options: ESBuildProgramOptions) {}
+
+  set isWatch(isWatch: boolean) {
+    this.options.isWatch = isWatch
+  }
 
   static readonly globalExternal = ['esbuild', 'pnpapi', 'ts-morph']
 
@@ -226,12 +232,40 @@ export class ESBuildProgram {
   }
 
   async buildLib(): Promise<void> {
-    await this.build(this.getBuildLibTask.bind(this))
+    const tasks = await this.getTasks()
+    await this.build([tasks.esm, tasks.cjs, tasks.dts])
   }
 
-  async buildIife(): Promise<void> {
-    await this.build((deps, platform) => [
-      {
+  async buildCli(): Promise<void> {
+    const tasks = await this.getTasks()
+    await this.build([tasks.cli, tasks.esm, tasks.cjs, tasks.dts])
+  }
+
+  async getTasks(): Promise<Record<TaskTypeEnum, Task>> {
+    const deps = await ESBuildProgram.getDeps(this.options.base)
+    const platform = await ESBuildProgram.getPlatform(this.options.base)
+    return {
+      esm: {
+        title: '构建 esm',
+        task: () =>
+          build(
+            this.getBuildESMOption({
+              deps: deps,
+              platform: platform,
+            }),
+          ),
+      },
+      cjs: {
+        title: '构建 cjs',
+        task: () =>
+          build(
+            this.getBuildCjsOption({
+              deps: deps,
+              platform: platform,
+            }),
+          ),
+      },
+      iife: {
         title: '构建 iife',
         task: async () => {
           await build(
@@ -249,44 +283,7 @@ export class ESBuildProgram {
           )
         },
       },
-    ])
-  }
-
-  async buildCli(): Promise<void> {
-    await this.build(this.getBuildCliTask.bind(this))
-  }
-
-  getBuildLibTask(deps: string[], platform: Platform): Task[] {
-    return [
-      {
-        title: '构建 esm',
-        task: () =>
-          build(
-            this.getBuildESMOption({
-              deps: deps,
-              platform: platform,
-            }),
-          ),
-      },
-      {
-        title: '构建 cjs',
-        task: () =>
-          build(
-            this.getBuildCjsOption({
-              deps: deps,
-              platform: platform,
-            }),
-          ),
-      },
-      {
-        title: '生成类型定义',
-        task: () => this.genDTS(),
-      },
-    ]
-  }
-  getBuildCliTask(deps: string[], platform: Platform): Task[] {
-    return [
-      {
+      cli: {
         title: '构建 cli',
         task: () =>
           build(
@@ -296,8 +293,11 @@ export class ESBuildProgram {
             }),
           ),
       },
-      ...this.getBuildLibTask(deps, platform),
-    ]
+      dts: {
+        title: '生成类型定义',
+        task: () => this.genDTS(),
+      },
+    }
   }
 
   static async execTask(spinnies: Spinnies, task: Task): Promise<void> {
@@ -312,14 +312,9 @@ export class ESBuildProgram {
       spinnies.fail(task.title, { text: task.title })
     }
   }
-  async build(
-    genTasks: (deps: string[], platform: Platform) => Task[],
-  ): Promise<void> {
+  async build(tasks: Task[]): Promise<void> {
     const run = async () => {
       const start = Date.now()
-      const deps = await ESBuildProgram.getDeps(this.options.base)
-      const platform = await ESBuildProgram.getPlatform(this.options.base)
-      const tasks = genTasks(deps, platform)
       const spinnies = new Spinnies()
       await Promise.all(
         tasks.map(async (task) => ESBuildProgram.execTask(spinnies, task)),

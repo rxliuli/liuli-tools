@@ -17,6 +17,10 @@
   "jest": {
     "preset": "ts-jest"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "devDependencies": {
     "@liuli-util/cli": "^3.11.1",
     "@types/jest": "^27.0.2",

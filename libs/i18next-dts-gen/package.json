@@ -15,7 +15,7 @@
     "docs:build": "rimraf docs && typedoc",
     "docs:deploy": "yarn build && gh-pages -d docs/ -e /i18next-dts-gen -a"
   },
-  "bin": "dist/bin.js",
+  "bin": "./bin.js",
   "jest": {
     "preset": "ts-jest"
   },

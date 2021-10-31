@@ -1,0 +1,93 @@
+{
+  "version": 2,
+  "projects": {
+    "@liuli-util/cli": {
+      "root": "apps/liuli-cli",
+      "implicitDependencies": []
+    },
+    "@liuli-util/cli-template": {
+      "root": "apps/liuli-cli/templates/cli",
+      "implicitDependencies": []
+    },
+    "@liuli-util/cmd-shim": {
+      "root": "apps/cmd-shim",
+      "implicitDependencies": []
+    },
+    "@liuli-util/commitlint-standard-config": {
+      "root": "libs/commitlint-standard-config",
+      "implicitDependencies": []
+    },
+    "@liuli-util/eslint-config-react-ts": {
+      "root": "libs/eslint-config-react-ts",
+      "implicitDependencies": []
+    },
+    "@liuli-util/eslint-config-ts": {
+      "root": "libs/eslint-config-ts",
+      "implicitDependencies": []
+    },
+    "@liuli-util/i18next-dts-gen": {
+      "root": "libs/i18next-dts-gen",
+      "implicitDependencies": []
+    },
+    "@liuli-util/i18next-util": {
+      "root": "libs/i18next-util",
+      "implicitDependencies": []
+    },
+    "@liuli-util/lib-template": {
+      "root": "apps/liuli-cli/templates/lib",
+      "implicitDependencies": []
+    },
+    "@liuli-util/monorepo-changelog": {
+      "root": "libs/monorepo-changelog",
+      "implicitDependencies": []
+    },
+    "@liuli-util/prettier-standard-config": {
+      "root": "libs/prettier-standard-config",
+      "implicitDependencies": []
+    },
+    "@liuli-util/rollup-plugin-i18next-dts-gen": {
+      "root": "libs/rollup-plugin-i18next-dts-gen",
+      "implicitDependencies": []
+    },
+    "@liuli-util/rollup-plugin-tar": {
+      "root": "libs/rollup-plugin-tar",
+      "implicitDependencies": []
+    },
+    "@liuli-util/scripts": {
+      "root": "scripts",
+      "implicitDependencies": []
+    },
+    "@liuli-util/simple-ci": {
+      "root": "apps/simple-ci",
+      "implicitDependencies": []
+    },
+    "@liuli-util/website": {
+      "root": "website",
+      "implicitDependencies": []
+    },
+    "@liuli-util/yarn-plugin-builder": {
+      "root": "apps/yarn-plugin-builder",
+      "implicitDependencies": []
+    },
+    "@liuli-util/yarn-plugin-changed": {
+      "root": "libs/yarn-plugin-changed",
+      "implicitDependencies": []
+    },
+    "@liuli-util/yarn2-migration": {
+      "root": "libs/yarn2-migration",
+      "implicitDependencies": []
+    },
+    "rollup-plugin-tar-example": {
+      "root": "examples/rollup-plugin-tar-example",
+      "implicitDependencies": []
+    },
+    "rollup-plugin-worker-threads": {
+      "root": "libs/rollup-plugin-worker-threads",
+      "implicitDependencies": []
+    },
+    "worker-threads-example": {
+      "root": "examples/worker-threads-example",
+      "implicitDependencies": []
+    }
+  }
+}

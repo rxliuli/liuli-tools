@@ -16,7 +16,7 @@
     "docs:deploy": "yarn docs:build && gh-pages -d docs/ -e / -a",
     "i18n:gen": "i18next-dts-gen --dirs src/i18n"
   },
-  "bin": "dist/bin.js",
+  "bin": "./bin.js",
   "jest": {
     "preset": "ts-jest",
     "testMatch": [

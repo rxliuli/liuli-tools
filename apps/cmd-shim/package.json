@@ -9,7 +9,7 @@
     "dev": "liuli-cli build cli -w",
     "start": "esno src/bin.ts"
   },
-  "bin": "dist/bin.js",
+  "bin": "./bin.js",
   "jest": {
     "preset": "ts-jest"
   },

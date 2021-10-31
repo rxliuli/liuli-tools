@@ -19,7 +19,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "bin": {
-    "changelog": "dist/bin.js"
+    "changelog": "./bin.js"
   },
   "jest": {
     "preset": "ts-jest",

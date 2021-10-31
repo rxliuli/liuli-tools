@@ -16,7 +16,7 @@
     "templates/*"
   ],
   "bin": {
-    "liuli-cli": "dist/bin.js"
+    "liuli-cli": "./bin.js"
   },
   "jest": {
     "preset": "ts-jest",

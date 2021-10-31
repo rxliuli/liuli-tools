@@ -14,7 +14,7 @@
     "docs:build": "rimraf docs && typedoc",
     "docs:deploy": "yarn docs:build && gh-pages -d docs/ -e / -a"
   },
-  "bin": "dist/bin.js",
+  "bin": "./bin.js",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

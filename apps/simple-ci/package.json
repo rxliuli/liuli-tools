@@ -14,7 +14,7 @@
     "docs:build": "rimraf docs && typedoc",
     "docs:deploy": "yarn build && gh-pages -d docs/ -e / -a"
   },
-  "bin": "dist/bin.js",
+  "bin": "./bin.js",
   "jest": {
     "preset": "ts-jest",
     "testMatch": [

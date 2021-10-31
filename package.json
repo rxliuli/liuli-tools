@@ -3,9 +3,10 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "setup": "yarn changed foreach -pv --topological-dev run setup",
+    "setup-all": "nx run-many --target=setup --all",
+    "dep-graph": "nx dep-graph",
     "clean": "yarn workspaces foreach -p -A exec \"yarn dlx rimraf dist node_modules .yarn-cache.json\"",
-    "build": "yarn workspaces foreach -p --topological-dev run build",
+    "build-all": "nx run-many --target=build --all",
     "build:cache": "yarn changed foreach -p --topological-dev run setup",
     "list:cache": "yarn changed list",
     "postinstall": "npx simple-git-hooks"
@@ -49,7 +50,10 @@
     "prettier": "^2.4.1",
     "rimraf": "^3.0.2",
     "simple-git-hooks": "^2.6.1",
-    "typescript": "^4.4.3"
+    "typescript": "^4.4.3",
+    "@nrwl/workspace": "latest",
+    "@nrwl/cli": "latest",
+    "@nrwl/tao": "latest"
   },
   "packageManager": "yarn@3.0.2"
 }

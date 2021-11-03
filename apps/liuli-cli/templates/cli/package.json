@@ -15,7 +15,7 @@
     "docs:deploy": "yarn docs:build && gh-pages -d docs/ -e / -a"
   },
   "bin": {
-    "cli-name": "dist/bin.js"
+    "cli-name": "./bin.js"
   },
   "jest": {
     "preset": "ts-jest"

@@ -1,6 +1,7 @@
 node_modules/
 .rpt2_cache/
 yarn-error.log
+.pnpm-debug.log
 
 # Editor directories and files
 .idea

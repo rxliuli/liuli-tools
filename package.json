@@ -3,7 +3,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "setup-all": "nx run-many --target=setup --all",
+    "setup-all": "nx run-many --target=setup --all --parallel",
     "dep-graph": "nx dep-graph",
     "clean": "yarn workspaces foreach -p -A exec \"yarn dlx rimraf dist node_modules .yarn-cache.json\"",
     "build-all": "nx run-many --target=build --all",

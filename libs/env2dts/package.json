@@ -52,6 +52,7 @@
     ]
   },
   "publishConfig": {
-    "registry": "http://10.8.0.1:28081/repository/npm-private/"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

@@ -37,9 +37,7 @@ export class ESBuildProgram {
    * 获取所有依赖
    */
   static async getDeps(base: string): Promise<string[]> {
-    const json = (await readJson(
-      path.resolve(base, 'package.json'),
-    )) as PackageJson
+    const json = (await readJson(path.resolve(base, 'package.json'))) as PackageJson
     return Object.keys({
       ...json.dependencies,
       ...json.devDependencies,
@@ -54,11 +52,7 @@ export class ESBuildProgram {
     const tsconfigPath = path.resolve(base, 'tsconfig.json')
     if (await pathExists(tsconfigPath)) {
       const tsconfigJson = parse(await readFile(tsconfigPath, 'utf-8'))
-      if (
-        (tsconfigJson.compilerOptions.lib as string[]).some(
-          (lib) => lib.toLowerCase() === 'dom',
-        )
-      ) {
+      if ((tsconfigJson.compilerOptions.lib as string[]).some((lib) => lib.toLowerCase() === 'dom')) {
         return 'browser'
       }
     }
@@ -87,9 +81,7 @@ export class ESBuildProgram {
    */
   async genDTS(): Promise<void> {
     const base = this.options.base
-    const { pattern, options } = ESBuildProgram.getWatchOptions(
-      this.options.base,
-    )
+    const { pattern, options } = ESBuildProgram.getWatchOptions(this.options.base)
     const project = new Project({
       tsConfigFilePath: path.resolve(base, 'tsconfig.json'),
       skipAddingFilesFromTsConfig: true,
@@ -99,9 +91,7 @@ export class ESBuildProgram {
         incremental: this.options.isWatch,
       },
     })
-    const fileList = (await promise(pattern, options)).map((filePath) =>
-      path.resolve(base, filePath),
-    )
+    const fileList = (await promise(pattern, options)).map((filePath) => path.resolve(base, filePath))
     project.addSourceFilesAtPaths(fileList)
     await project.emit({
       emitOnlyDtsFiles: true,
@@ -114,13 +104,7 @@ export class ESBuildProgram {
    * @param platform
    * @param plugins
    */
-  getBuildCjsOption({
-    deps,
-    platform,
-  }: {
-    deps: string[]
-    platform: Platform
-  }): BuildOptions {
+  getBuildCjsOption({ deps, platform }: { deps: string[]; platform: Platform }): BuildOptions {
     return {
       entryPoints: [path.resolve(this.options.base, './src/index.ts')],
       outfile: path.resolve(this.options.base, './dist/index.js'),
@@ -131,6 +115,7 @@ export class ESBuildProgram {
       platform: platform,
       minify: !this.options.isWatch,
       incremental: this.options.isWatch,
+      metafile: this.options.isWatch,
     }
   }
 
@@ -140,13 +125,7 @@ export class ESBuildProgram {
    * @param platform
    * @param plugins
    */
-  getBuildESMOption({
-    deps,
-    platform,
-  }: {
-    deps: string[]
-    platform: Platform
-  }): BuildOptions {
+  getBuildESMOption({ deps, platform }: { deps: string[]; platform: Platform }): BuildOptions {
     return {
       entryPoints: [path.resolve(this.options.base, './src/index.ts')],
       outfile: path.resolve(this.options.base, './dist/index.esm.js'),
@@ -157,6 +136,7 @@ export class ESBuildProgram {
       platform: platform,
       minify: !this.options.isWatch,
       incremental: this.options.isWatch,
+      metafile: this.options.isWatch,
     }
   }
 
@@ -185,6 +165,7 @@ export class ESBuildProgram {
       platform: platform,
       minify: !this.options.isWatch,
       incremental: this.options.isWatch,
+      metafile: this.options.isWatch,
       globalName,
     }
   }
@@ -193,15 +174,8 @@ export class ESBuildProgram {
    * 获取构建 cli 的选项
    * @param deps
    * @param platform
-   * @param plugins
    */
-  getBuildCliOption({
-    deps,
-    platform,
-  }: {
-    deps: string[]
-    platform: Platform
-  }): BuildOptions {
+  getBuildCliOption({ platform }: { deps: string[]; platform: Platform }): BuildOptions {
     const plugins = ESBuildProgram.getPlugins(platform)
     return {
       entryPoints: [path.resolve(this.options.base, './src/bin.ts')],
@@ -213,13 +187,11 @@ export class ESBuildProgram {
       banner: {
         js: '#!/usr/bin/env node',
       },
-      external: [
-        ...ESBuildProgram.globalExternal,
-        ...(this.options.isWatch ? deps : []),
-      ],
+      external: [...ESBuildProgram.globalExternal],
       plugins,
       minify: !this.options.isWatch,
       incremental: this.options.isWatch,
+      metafile: this.options.isWatch,
     }
   }
 
@@ -231,14 +203,11 @@ export class ESBuildProgram {
     return plugins
   }
 
-  async buildLib(): Promise<void> {
-    const tasks = await this.getTasks()
-    await this.build([tasks.esm, tasks.cjs, tasks.dts])
-  }
-
-  async buildCli(): Promise<void> {
-    const tasks = await this.getTasks()
-    await this.build([tasks.cli, tasks.esm, tasks.cjs, tasks.dts])
+  async build(options: BuildOptions): Promise<void> {
+    // if (this.options.isWatch) {
+    //   options.plugins = [...(options.plugins ?? []), metafile(options.outfile + '.meta.json')]
+    // }
+    await build(options)
   }
 
   async getTasks(): Promise<Record<TaskTypeEnum, Task>> {
@@ -248,7 +217,7 @@ export class ESBuildProgram {
       esm: {
         title: '构建 esm',
         task: () =>
-          build(
+          this.build(
             this.getBuildESMOption({
               deps: deps,
               platform: platform,
@@ -258,7 +227,7 @@ export class ESBuildProgram {
       cjs: {
         title: '构建 cjs',
         task: () =>
-          build(
+          this.build(
             this.getBuildCjsOption({
               deps: deps,
               platform: platform,
@@ -268,16 +237,12 @@ export class ESBuildProgram {
       iife: {
         title: '构建 iife',
         task: async () => {
-          await build(
+          return await this.build(
             this.getBuildIifeOption({
               deps: deps,
               platform: platform,
               globalName: getPkgGlobalName(
-                (
-                  (await readJson(
-                    path.resolve(this.options.base, './package.json'),
-                  )) as PackageJson
-                ).name!,
+                ((await readJson(path.resolve(this.options.base, './package.json'))) as PackageJson).name!,
               ),
             }),
           )
@@ -312,13 +277,11 @@ export class ESBuildProgram {
       spinnies.fail(task.title, { text: task.title })
     }
   }
-  async build(tasks: Task[]): Promise<void> {
+  async execTasks(tasks: Task[]): Promise<void> {
     const run = async () => {
       const start = Date.now()
       const spinnies = new Spinnies()
-      await Promise.all(
-        tasks.map(async (task) => ESBuildProgram.execTask(spinnies, task)),
-      )
+      await Promise.all(tasks.map(async (task) => ESBuildProgram.execTask(spinnies, task)))
       console.log(`构建完成: ${Date.now() - start}ms`)
     }
 
@@ -327,9 +290,7 @@ export class ESBuildProgram {
       return
     }
 
-    const { pattern, options } = ESBuildProgram.getWatchOptions(
-      this.options.base,
-    )
+    const { pattern, options } = ESBuildProgram.getWatchOptions(this.options.base)
     await new Promise((resolve, reject) => {
       watch(pattern, options).on('error', reject).on('all', debounce(run, 10))
     })

@@ -71,9 +71,7 @@ describe('测试 ESBuildProgram', () => {
     })
     it('测试 genDTS', async () => {
       await program.genDTS()
-      expect(
-        await pathExists(path.resolve(base, 'dist/index.d.ts')),
-      ).toBeTruthy()
+      expect(await pathExists(path.resolve(base, 'dist/index.d.ts'))).toBeTruthy()
     })
     it('测试 getBuildCjsOption', async () => {
       await build(
@@ -91,9 +89,7 @@ describe('测试 ESBuildProgram', () => {
       })
       console.log('option: ', deps, option)
       await build(option)
-      expect(
-        await pathExists(path.resolve(base, 'dist/index.esm.js')),
-      ).toBeTruthy()
+      expect(await pathExists(path.resolve(base, 'dist/index.esm.js'))).toBeTruthy()
     })
     it('测试 getBuildIifeOption', async () => {
       const option = program.getBuildIifeOption({
@@ -106,12 +102,20 @@ describe('测试 ESBuildProgram', () => {
         ...option,
         minify: false,
       })
-      expect(
-        await pathExists(path.resolve(base, 'dist/index.iife.js')),
-      ).toBeTruthy()
+      expect(await pathExists(path.resolve(base, 'dist/index.iife.js'))).toBeTruthy()
     })
     it('测试 getBuildCliOption', async () => {
       await build(
+        program.getBuildCliOption({
+          deps: deps,
+          platform: platform,
+        }),
+      )
+      expect(await pathExists(path.resolve(base, 'dist/bin.js'))).toBeTruthy()
+    })
+    it('测试 metafile', async () => {
+      program.isWatch = true
+      await program.build(
         program.getBuildCliOption({
           deps: deps,
           platform: platform,
@@ -136,14 +140,4 @@ it('测试 esbuild', async () => {
     plugins: [nativeNodeModules(), nodeExternals()],
     treeShaking: true,
   })
-})
-
-it('测试真实的构建', async () => {
-  const program = new ESBuildProgram({
-    base: path.resolve(
-      'C:/Users/rxliuli/Code/Web/joplin-utils/libs/joplin-api',
-    ),
-    isWatch: true,
-  })
-  await program.buildLib()
 })

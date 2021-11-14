@@ -5,7 +5,7 @@ import { merge } from 'lodash-es'
 import { PackageJson } from 'type-fest'
 
 describe('测试 SyncProgram', () => {
-  const tempPath = path.resolve(__dirname, 'temp')
+  const tempPath = path.resolve(__dirname, '.temp')
   const syncProgram = new SyncProgram(tempPath)
   beforeEach(async () => {
     await remove(tempPath)
@@ -32,7 +32,7 @@ describe('测试 SyncProgram', () => {
     await syncProgram.sync()
   }, 100_000)
 
-  it('测试初始化同步配置', async () => {
+  it.skip('测试初始化同步配置', async () => {
     await writeJson(path.resolve(tempPath, 'lerna.json'), {})
     const file = path.resolve(tempPath, 'package.json')
     await writeJson(file, {

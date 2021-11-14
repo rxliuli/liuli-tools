@@ -1,4 +1,5 @@
 import { Plugin } from 'esbuild'
+import { writeJson } from 'fs-extra'
 
 /**
  * 处理 nodejs 原生模块
@@ -28,13 +29,10 @@ export function nativeNodeModules(): Plugin {
       // If a ".node" file is imported within a module in the "node-file" namespace, put
       // it in the "file" namespace where esbuild's default loading behavior will handle
       // it. It is already an absolute path since we resolved it to one above.
-      build.onResolve(
-        { filter: /\.node$/, namespace: 'node-file' },
-        (args) => ({
-          path: args.path,
-          namespace: 'file',
-        }),
-      )
+      build.onResolve({ filter: /\.node$/, namespace: 'node-file' }, (args) => ({
+        path: args.path,
+        namespace: 'file',
+      }))
 
       // Tell esbuild's default loading behavior to use the "file" loader for
       // these ".node" files.
@@ -76,6 +74,21 @@ export function autoExternal(): Plugin {
           path: args.path,
           external: true,
         }
+      })
+    },
+  }
+}
+
+/**
+ * 生成 metafile 的插件
+ * @param metafilePath
+ */
+export function metafile(metafilePath: string): Plugin {
+  return {
+    name: 'esbuild-plugin-metafile',
+    setup(builder) {
+      builder.onEnd(async (result) => {
+        await writeJson(metafilePath, result.metafile)
       })
     },
   }

@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.13.1
+
+<!--hash:0f666fdbeee514f614a61b5257c4aa9a6cfd3143-->
+
+- fix: 修复 generate 不能选择模板的问题
+
 ## 3.13.0
 
 <!--hash:615c6f1f69083a4cf7b0760ee6a81c68c2cf6e85-->
@@ -175,4 +181,4 @@
 - 将代码移至新的仓库：https://github.com/rxliuli/liuli-tools
 - 实现 `liuli-cli build pkg/liuli-cli build cli` 两个子命令
 - 支持使用 rollup 的监视模式
-- 支持 `rollup.config.ts` 配置文件（但未在文档上公开）
+- 支持 `rollup.config.ts` 配置文件（但未在文档上公开）

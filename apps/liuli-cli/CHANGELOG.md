@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 3.13.0
+
+<!--hash:615c6f1f69083a4cf7b0760ee6a81c68c2cf6e85-->
+
+- test: 修复一些单元测试的错误
+- feat: 构建 cli 时无论如何都会打包依赖
+- feat: 使用 pnpm + nx 替代 yarn
+- fix: 修复 nodejs cli 中 bin.js 没有添加顶部声明的错误
+- fix: 修复 cli 模板项目 bin 字段指向文件不存在的问题
+
 ## 3.12.0
 
 <!--hash:18b4c02da2ba2d55b6c26cd2b45dbf370855f721-->
@@ -61,7 +71,7 @@
 
 <!--hash:40983b8dc09a06111d642c8c99b16d2ff8319195-->
 
-- chore: 添加 publishConfig 配置，删除不需要的 _gitignore 文件
+- chore: 添加 publishConfig 配置，删除不需要的 \_gitignore 文件
 - feat: 为 liuli-cli 实现插件系统
 
 ## 3.8.4
@@ -165,4 +175,4 @@
 - 将代码移至新的仓库：https://github.com/rxliuli/liuli-tools
 - 实现 `liuli-cli build pkg/liuli-cli build cli` 两个子命令
 - 支持使用 rollup 的监视模式
-- 支持 `rollup.config.ts` 配置文件（但未在文档上公开）
+- 支持 `rollup.config.ts` 配置文件（但未在文档上公开）

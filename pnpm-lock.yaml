@@ -11,11 +11,8 @@ importers:
       '@nrwl/cli': latest
       '@nrwl/tao': latest
       '@nrwl/workspace': latest
-      esno: ^0.9.1
-      gh-pages: ^3.2.3
       lint-staged: ^11.1.2
       prettier: ^2.4.1
-      rimraf: ^3.0.2
       simple-git-hooks: ^2.6.1
       typescript: ^4.4.3
     devDependencies:
@@ -26,11 +23,8 @@ importers:
       '@nrwl/cli': 13.1.4
       '@nrwl/tao': 13.1.4
       '@nrwl/workspace': 13.1.4_prettier@2.4.1
-      esno: 0.9.1
-      gh-pages: 3.2.3
       lint-staged: 11.2.6
       prettier: 2.4.1
-      rimraf: 3.0.2
       simple-git-hooks: 2.7.0
       typescript: 4.4.4
 
@@ -54,7 +48,7 @@ importers:
       cmd-shim: 4.1.0
       fs-extra: 10.0.0
     devDependencies:
-      '@liuli-util/cli': link:../liuli-cli
+      '@liuli-util/cli': 3.13.1_97ee5c4bb3a0b9c7e20d967d02f44abb
       '@types/fs-extra': 9.0.13
       '@types/jest': 27.0.2
       '@types/node': 12.20.36
@@ -152,7 +146,7 @@ importers:
       inquirer: 8.2.0
       open: 8.4.0
     devDependencies:
-      '@liuli-util/cli': link:../liuli-cli
+      '@liuli-util/cli': 3.13.1_97ee5c4bb3a0b9c7e20d967d02f44abb
       '@liuli-util/eslint-config-ts': link:../../libs/eslint-config-ts
       '@types/fs-extra': 9.0.13
       '@types/inquirer': 8.1.3
@@ -194,7 +188,7 @@ importers:
       fs-extra: 10.0.0
       inquirer: 8.2.0
     devDependencies:
-      '@liuli-util/cli': link:../liuli-cli
+      '@liuli-util/cli': 3.13.1_97ee5c4bb3a0b9c7e20d967d02f44abb
       '@types/fs-extra': 9.0.13
       '@types/inquirer': 8.1.3
       '@types/jest': 27.0.2
@@ -297,7 +291,7 @@ importers:
       inquirer: 8.2.0
       lodash: 4.17.21
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
+      '@liuli-util/cli': 3.13.1_97ee5c4bb3a0b9c7e20d967d02f44abb
       '@liuli-util/eslint-config-ts': 0.1.0_typescript@4.4.4
       '@types/fs-extra': 9.0.13
       '@types/inquirer': 7.3.3
@@ -380,7 +374,7 @@ importers:
       os-locale: 4.0.0
       ts-morph: 12.1.0
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
+      '@liuli-util/cli': 3.13.1_97ee5c4bb3a0b9c7e20d967d02f44abb
       '@liuli-util/test': 3.2.7
       '@types/fs-extra': 9.0.13
       '@types/jest': 27.0.2
@@ -408,7 +402,7 @@ importers:
       typedoc: ^0.22.4
       typescript: ^4.4.3
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
+      '@liuli-util/cli': 3.13.1_97ee5c4bb3a0b9c7e20d967d02f44abb
       '@types/jest': 27.0.2
       jest: 27.3.1
       rimraf: 3.0.2
@@ -444,7 +438,7 @@ importers:
       lodash: 4.17.21
       simple-git: 2.47.0
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
+      '@liuli-util/cli': 3.13.1_97ee5c4bb3a0b9c7e20d967d02f44abb
       '@types/conventional-changelog': 3.1.1
       '@types/fs-extra': 9.0.13
       '@types/inquirer': 8.1.3
@@ -481,7 +475,7 @@ importers:
       '@liuli-util/env2dts': link:../env2dts
       chokidar: 3.5.2
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
+      '@liuli-util/cli': 3.13.1_97ee5c4bb3a0b9c7e20d967d02f44abb
       '@types/fs-extra': 9.0.13
       '@types/jest': 27.0.2
       '@types/node': 16.11.6
@@ -509,7 +503,7 @@ importers:
     dependencies:
       '@liuli-util/i18next-dts-gen': link:../i18next-dts-gen
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
+      '@liuli-util/cli': 3.13.1_97ee5c4bb3a0b9c7e20d967d02f44abb
       '@types/jest': 27.0.2
       esno: 0.9.1
       gh-pages: 3.2.3
@@ -543,7 +537,7 @@ importers:
       i18next: 21.3.3
       tar: 6.1.11
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
+      '@liuli-util/cli': 3.13.1_97ee5c4bb3a0b9c7e20d967d02f44abb
       '@types/jest': 27.0.2
       '@types/node': 16.11.6
       '@types/tar': 4.0.5
@@ -576,7 +570,7 @@ importers:
     dependencies:
       '@rollup/pluginutils': 4.1.1
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
+      '@liuli-util/cli': 3.13.1_97ee5c4bb3a0b9c7e20d967d02f44abb
       '@types/fs-extra': 9.0.13
       '@types/jest': 27.0.2
       '@types/node': 16.9.6
@@ -690,7 +684,7 @@ importers:
       os-locale: 6.0.1
       yaml: 1.10.2
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
+      '@liuli-util/cli': 3.13.1_97ee5c4bb3a0b9c7e20d967d02f44abb
       '@liuli-util/i18next-dts-gen': link:../i18next-dts-gen
       '@liuli-util/rollup-plugin-i18next-dts-gen': link:../rollup-plugin-i18next-dts-gen
       '@rollup/plugin-commonjs': 20.0.0_rollup@2.58.3
@@ -1108,6 +1102,13 @@ packages:
       resolve-from: 5.0.0
       resolve-global: 1.0.0
       yargs: 17.2.1
+    dev: true
+
+  /@commitlint/config-conventional/12.1.4:
+    resolution: {integrity: sha512-ZIdzmdy4o4WyqywMEpprRCrehjCSQrHkaRTVZV411GyLigFQHlEBSJITAihLAWe88Qy/8SyoIe5uKvAsV5vRqQ==}
+    engines: {node: '>=v10'}
+    dependencies:
+      conventional-changelog-conventionalcommits: 4.6.1
     dev: true
 
   /@commitlint/config-conventional/13.2.0:
@@ -1557,6 +1558,57 @@ packages:
     resolution: {integrity: sha512-2nEcSPFmBalOQgAyfE72I1d/yBYSM3/dNzZ7sryKqDwnoRNKL+QPRPvAf15eZWZzJwWPmkndWBZiBcDjbEE5hQ==}
     dev: false
 
+  /@liuli-util/cli/3.13.1_97ee5c4bb3a0b9c7e20d967d02f44abb:
+    resolution: {integrity: sha512-TRBQbz3m4Iy62qPbUE6dtMfJEjl3WsK8IvpvrnpnX63PNBcktxpW+zZEZ3R4DGLBgAOb7H/NVMcP2aSjJV16Ww==}
+    hasBin: true
+    dependencies:
+      '@liuli-util/commitlint-standard-config': 0.1.6_@commitlint+cli@13.2.1
+      '@liuli-util/eslint-config-react-ts': 0.1.0_typescript@4.4.4
+      '@liuli-util/eslint-config-ts': 0.2.0_typescript@4.4.4
+      '@liuli-util/prettier-standard-config': 0.1.0
+      chokidar: 3.5.2
+      commander: 8.3.0
+      enquirer: 2.3.6
+      esbuild: 0.13.12
+      fs-extra: 10.0.0
+      glob: 7.2.0
+      glob-promise: 4.2.2_glob@7.2.0
+      json5: 2.2.0
+      lodash-es: 4.17.21
+      spinnies: 0.5.1
+      ts-morph: 12.1.0
+    transitivePeerDependencies:
+      - '@commitlint/cli'
+      - supports-color
+      - typescript
+    dev: true
+
+  /@liuli-util/commitlint-standard-config/0.1.6_@commitlint+cli@13.2.1:
+    resolution: {integrity: sha512-KITf5VvbW44zx4vCUGMJ6cFer4tYyo3GMsPLe7/UCUyuChxVbFGbX/4Ksi1ymhTLDgnFUK77kEyc9glz5r+XSw==}
+    peerDependencies:
+      '@commitlint/cli': ^12.1.4
+    dependencies:
+      '@commitlint/cli': 13.2.1
+      '@commitlint/config-conventional': 12.1.4
+    dev: true
+
+  /@liuli-util/eslint-config-react-ts/0.1.0_typescript@4.4.4:
+    resolution: {integrity: sha512-nMdM82Bo4RpnWkzCY6NrDJeQScif16pZJt2oQ+JozLF+6vUvt0OCWQZ54YRR0keDK6VvEsbyjOP3VN9Ef5EQKA==}
+    peerDependencies:
+      typescript: '>=4'
+    dependencies:
+      '@liuli-util/eslint-config-ts': 0.1.0_typescript@4.4.4
+      '@types/eslint': 7.28.2
+      '@typescript-eslint/eslint-plugin': 4.33.0_cc617358c89d3f38c52462f6d809db4c
+      '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.4.4
+      eslint: 7.32.0
+      eslint-config-prettier: 8.3.0_eslint@7.32.0
+      eslint-plugin-react-hooks: 4.2.0_eslint@7.32.0
+      typescript: 4.4.4
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /@liuli-util/eslint-config-ts/0.1.0_typescript@4.4.4:
     resolution: {integrity: sha512-bKEs3PhRPyjMGIyKeFSkmE0OPKZFmASSUVGg6QvyphM+4YkVv+JVqfrLdPCcw1RfPSW9p9N/qJIhfF7d70z3eg==}
     peerDependencies:
@@ -1572,9 +1624,23 @@ packages:
       - supports-color
     dev: true
 
+  /@liuli-util/eslint-config-ts/0.2.0_typescript@4.4.4:
+    resolution: {integrity: sha512-hxBJjdLL1HuicMswxKJ9Z56cymBt1wHGVw1N/cqGxpXguVUX1RIheyROyKS3VUywukwOwPnbRoST2econF5bjQ==}
+    peerDependencies:
+      typescript: '>=4'
+    dependencies:
+      '@types/eslint': 7.28.2
+      '@typescript-eslint/eslint-plugin': 4.33.0_cc617358c89d3f38c52462f6d809db4c
+      '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.4.4
+      eslint: 7.32.0
+      eslint-config-prettier: 8.3.0_eslint@7.32.0
+      typescript: 4.4.4
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /@liuli-util/prettier-standard-config/0.1.0:
     resolution: {integrity: sha512-y0dbvdhqHtwo77kwFukn7HVdaojGgimmDM+QP3JB3SlLjdwePb7wLjr9UKqk3eNMFa3v5oIFGzEgK9L2mK7dWw==}
-    dev: false
 
   /@liuli-util/test/3.2.7:
     resolution: {integrity: sha512-ivN1uxGmqKloR3SS43+S9qa2VU9ItHnkf3cmjAXQXxbkevHdFcwVlaumCqGl6uRWy03tWCnrXJ0Q3qh12A6eWw==}
@@ -1940,7 +2006,6 @@ packages:
       minimatch: 3.0.4
       mkdirp: 1.0.4
       path-browserify: 1.0.1
-    dev: false
 
   /@types/babel__core/7.1.16:
     resolution: {integrity: sha512-EAEHtisTMM+KaKwfWdC3oyllIqswlznXCIVCt7/oRNrh+DhgT4UEBNC/jlADNjvw7UnfbcdkGQcPVZ1xYiLcrQ==}
@@ -3539,7 +3604,6 @@ packages:
 
   /code-block-writer/10.1.1:
     resolution: {integrity: sha512-67ueh2IRGst/51p0n6FvPrnRjAGHY5F8xdjkgrYE7DDzpJe6qA07RYQ9VcoUeo5ATOjSOiWpSL3SWBRRbempMw==}
-    dev: false
 
   /collect-v8-coverage/1.0.1:
     resolution: {integrity: sha512-iBPtljfCNcTKNAto0KEtDfZ3qzjJvqE3aTGZsbhjSBlorqpXJlaWWtPO35D+ZImoC3KWejX64o+yPGxhWSTzfg==}
@@ -3625,7 +3689,6 @@ packages:
       compare-func: 2.0.0
       lodash: 4.17.21
       q: 1.5.1
-    dev: false
 
   /conventional-commits-parser/3.2.3:
     resolution: {integrity: sha512-YyRDR7On9H07ICFpRm/igcdjIqebXbvf4Cff+Pf0BrBys1i1EOzx9iFXNlAbdrLAR8jf7bkUYkDAr8pEy0q4Pw==}
@@ -4205,7 +4268,6 @@ packages:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
     dependencies:
       eslint: 7.32.0
-    dev: false
 
   /eslint-scope/5.1.1:
     resolution: {integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==}
@@ -4731,7 +4793,6 @@ packages:
     dependencies:
       '@types/glob': 7.2.0
       glob: 7.2.0
-    dev: false
 
   /glob-to-regexp/0.4.1:
     resolution: {integrity: sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==}
@@ -6171,7 +6232,6 @@ packages:
 
   /lodash-es/4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
-    dev: false
 
   /lodash.clonedeep/4.5.0:
     resolution: {integrity: sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=}
@@ -6834,7 +6894,6 @@ packages:
 
   /path-browserify/1.0.1:
     resolution: {integrity: sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g==}
-    dev: false
 
   /path-exists/3.0.0:
     resolution: {integrity: sha1-zg6+ql94yxiSXqfYENe1mwEP1RU=}
@@ -7509,7 +7568,6 @@ packages:
       chalk: 2.4.2
       cli-cursor: 3.1.0
       strip-ansi: 5.2.0
-    dev: false
 
   /split-on-first/1.1.0:
     resolution: {integrity: sha512-43ZssAJaMusuKWL8sKUBQXHWOpq8d6CfN/u1p4gUzfJkM05C8rxTmYrkIPTXapZpORA6LkkzcUulJ8FqA7Uudw==}
@@ -8003,7 +8061,6 @@ packages:
     dependencies:
       '@ts-morph/common': 0.11.1
       code-block-writer: 10.1.1
-    dev: false
 
   /ts-node/9.1.1_typescript@4.4.4:
     resolution: {integrity: sha512-hPlt7ZACERQGf03M253ytLY3dHbGNGrAq9qIHWUY9XHYl1z7wYngSr3OQ5xmui8o2AaxsONxIzjafLUiWBo1Fg==}

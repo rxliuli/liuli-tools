@@ -1,14 +1,5 @@
 import path from 'path'
-import {
-  copy,
-  pathExists,
-  readdir,
-  readFile,
-  readJSON,
-  remove,
-  writeFile,
-  writeJSON,
-} from 'fs-extra'
+import { copy, pathExists, readdir, readFile, readJSON, remove, writeFile, writeJSON } from 'fs-extra'
 import { prompt } from 'enquirer'
 import { SyncProgram } from '../sync/SyncProgram'
 import { PathUtil } from '../../PathUtil'
@@ -45,10 +36,7 @@ export class GenerateProgram {
         name: 'template',
         type: 'list',
         message: '请选择模板',
-        choices: [
-          TemplateTypeEnum.Lib,
-          TemplateTypeEnum.Cli,
-        ] as TemplateTypeEnum[],
+        choices: [TemplateTypeEnum.Lib, TemplateTypeEnum.Cli] as TemplateTypeEnum[],
       })
       config.template = template
     }
@@ -60,15 +48,9 @@ export class GenerateProgram {
       - 修改 package.json，删除 private，修改名字
     模板特定修改
      */
-    const srcFile = path.resolve(
-      PathUtil.RootPath,
-      `templates/${config.template}`,
-    )
+    const srcFile = path.resolve(PathUtil.RootPath, `templates/${config.template}`)
     const destFile = path.resolve(config.dest)
-    if (
-      (await pathExists(destFile)) &&
-      (await readdir(destFile)).some((file) => pathExists(file))
-    ) {
+    if ((await pathExists(destFile)) && (await readdir(destFile)).some((file) => pathExists(file))) {
       const { override } = await prompt<{
         override: boolean
       }>({
@@ -82,7 +64,9 @@ export class GenerateProgram {
       }
     }
     await remove(destFile)
-    await copy(srcFile, destFile)
+    await copy(srcFile, destFile, {
+      filter: (source) => path.basename(source) !== 'node_modules',
+    })
     await GenerateProgram.updatePackageJSON(destFile)
     await GenerateProgram.updateReadme(destFile)
     if (config.initSync) {

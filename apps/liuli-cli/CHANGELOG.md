@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.14.0
+
+<!--hash:640b9c257c2276edfe262e2cbfd1c11bab6fb27b-->
+
+- feat: 构建 iife 时强制包含所有依赖
+
 ## 3.13.1
 
 <!--hash:0f666fdbeee514f614a61b5257c4aa9a6cfd3143-->

@@ -64,7 +64,9 @@ export class GenerateProgram {
       }
     }
     await remove(destFile)
-    await copy(srcFile, destFile)
+    await copy(srcFile, destFile, {
+      filter: (source) => path.basename(source) !== 'node_modules',
+    })
     await GenerateProgram.updatePackageJSON(destFile)
     await GenerateProgram.updateReadme(destFile)
     if (config.initSync) {

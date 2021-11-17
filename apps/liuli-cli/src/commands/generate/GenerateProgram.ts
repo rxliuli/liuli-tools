@@ -34,7 +34,7 @@ export class GenerateProgram {
     if (!config.template) {
       const { template } = await prompt<{ template: TemplateTypeEnum }>({
         name: 'template',
-        type: 'list',
+        type: 'select',
         message: '请选择模板',
         choices: [TemplateTypeEnum.Lib, TemplateTypeEnum.Cli] as TemplateTypeEnum[],
       })

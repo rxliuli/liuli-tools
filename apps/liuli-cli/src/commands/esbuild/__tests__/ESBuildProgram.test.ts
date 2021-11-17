@@ -93,7 +93,6 @@ describe('测试 ESBuildProgram', () => {
     })
     it('测试 getBuildIifeOption', async () => {
       const option = program.getBuildIifeOption({
-        deps: deps,
         platform: platform,
         globalName: 'test',
       })

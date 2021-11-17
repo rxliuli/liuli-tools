@@ -146,22 +146,14 @@ export class ESBuildProgram {
    * @param platform
    * @param plugins
    */
-  getBuildIifeOption({
-    deps,
-    platform,
-    globalName,
-  }: {
-    deps: string[]
-    platform: Platform
-    globalName: string
-  }): BuildOptions {
+  getBuildIifeOption({ platform, globalName }: { platform: Platform; globalName: string }): BuildOptions {
     return {
       entryPoints: [path.resolve(this.options.base, './src/index.ts')],
       outfile: path.resolve(this.options.base, './dist/index.iife.js'),
       format: 'iife',
       sourcemap: true,
       bundle: true,
-      external: [...ESBuildProgram.globalExternal, ...deps],
+      external: [...ESBuildProgram.globalExternal],
       platform: platform,
       minify: !this.options.isWatch,
       incremental: this.options.isWatch,
@@ -239,7 +231,6 @@ export class ESBuildProgram {
         task: async () => {
           return await this.build(
             this.getBuildIifeOption({
-              deps: deps,
               platform: platform,
               globalName: getPkgGlobalName(
                 ((await readJson(path.resolve(this.options.base, './package.json'))) as PackageJson).name!,

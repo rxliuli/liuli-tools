@@ -16,6 +16,10 @@
       "<rootDir>/src/**/__tests__/*.test.ts"
     ]
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "peerDependencies": {
     "@graphql-codegen/cli": "^2.0.0"
   },

@@ -2,6 +2,13 @@
 
 # Changelog
 
+## [0.2.1]
+
+
+### Fixed
+
+- fix: fix expired API `ServiceManager.getService`
+
 ## [0.2.0]
 
 ### Changed

@@ -26,8 +26,9 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^2.1.1",
     "@types/node": "^16.11.7",
-    "typescript": "^4.3.5",
-    "rollup": "^2"
+    "rimraf": "^3.0.2",
+    "rollup": "^2",
+    "typescript": "^4.3.5"
   },
   "sync": [
     "jest"

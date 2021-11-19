@@ -38,7 +38,7 @@
     "ts-morph": "^12.0.0"
   },
   "devDependencies": {
-    "@liuli-util/cli": "*",
+    "@liuli-util/cli": "workspace:*",
     "@liuli-util/test": "^3.2.7",
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "^27.0.2",

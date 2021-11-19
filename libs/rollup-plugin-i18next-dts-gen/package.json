@@ -22,7 +22,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@liuli-util/cli": "^3.11.1",
+    "@liuli-util/cli": "workspace:*",
     "@types/jest": "^27.0.2",
     "esno": "^0.9.1",
     "gh-pages": "^3.2.3",

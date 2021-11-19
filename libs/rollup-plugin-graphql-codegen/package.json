@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.1.1",
+    "@liuli-util/cli": "workspace:*",
     "@types/node": "^16.11.7",
     "rimraf": "^3.0.2",
     "rollup": "^2",

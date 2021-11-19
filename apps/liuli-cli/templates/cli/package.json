@@ -8,11 +8,7 @@
   "scripts": {
     "build": "rimraf dist && liuli-cli build cli",
     "dev": "liuli-cli build cli -w",
-    "start": "esno src/bin.ts",
-    "docs:server": "live-server docs",
-    "docs:dev": "typedoc --watch",
-    "docs:build": "rimraf docs && typedoc",
-    "docs:deploy": "yarn docs:build && gh-pages -d docs/ -e / -a"
+    "start": "esno src/bin.ts"
   },
   "bin": {
     "cli-name": "./bin.js"
@@ -22,8 +18,8 @@
   },
   "dependencies": {
     "commander": "^8.2.0",
-    "fs-extra": "^10.0.0",
-    "inquirer": "^8.1.5"
+    "enquirer": "^2.3.6",
+    "fs-extra": "^10.0.0"
   },
   "devDependencies": {
     "@liuli-util/cli": "workspace:*",
@@ -33,12 +29,10 @@
     "@types/lodash": "^4.14.173",
     "@types/node": "^16.9.6",
     "esno": "^0.9.1",
-    "gh-pages": "^3.2.3",
     "jest": "^27.2.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.5",
     "type-fest": "^2.3.4",
-    "typedoc": "^0.22.4",
     "typescript": "^4.4.3"
   }
 }

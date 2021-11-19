@@ -22,10 +22,14 @@ export function graphQLCodegen(): Plugin {
   return {
     name: 'rollup-plugin-graphql-codegen',
     async buildStart() {
-      const worker = new Worker(__filename)
-      const codegenWorker = wrap<(watch: boolean) => void>(nodeEndpoint(worker))
-      // noinspection ES6MissingAwait
-      codegenWorker(this.meta.watchMode)
+      if (this.meta.watchMode) {
+        const worker = new Worker(__filename)
+        const codegenWorker = wrap<(watch: boolean) => void>(nodeEndpoint(worker))
+        // noinspection ES6MissingAwait
+        codegenWorker(this.meta.watchMode)
+      } else {
+        await codegen(false)
+      }
     },
   }
 }

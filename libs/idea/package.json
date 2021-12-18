@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/idea",
-  "version": "3.2.7",
+  "version": "3.3.0",
   "private": true,
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

@@ -1,5 +1,6 @@
 import { countTime } from '../countTime'
-import { wait } from '@liuli-util/async'
+
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 describe('测试 countTime', () => {
   it('测试异步函数', async () => {

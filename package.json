@@ -4,19 +4,15 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "clean": "yarn workspaces foreach -p exec yarn dlx rimraf dist release node_modules",
-    "build": "yarn workspaces foreach -p run build",
-    "test": "yarn workspaces foreach exec yarn jest --all",
-    "gen:readme": "gulp generateReadmes",
-    "docs:build": "fliegdoc build && gulp copyDocsFile",
-    "docs:serve": "fliegdoc serve",
-    "docs:deploy": "yarn docs:build && gh-pages -d docs -t true",
-    "postinstall": "yarn dlx simple-git-hooks"
+    "clean-all": "pnpx rimraf **/node_modules **/dist",
+    "build-all": "nx run-many --target=build --all",
+    "dep-graph": "nx dep-graph",
+    "docs-build": "fliegdoc build && cp CNAME docs/",
+    "docs-serve": "fliegdoc serve",
+    "docs-deploy": "pnpm docs-build && gh-pages -d docs -t true",
+    "postinstall": "simple-git-hooks"
   },
   "prettier": "@liuli-util/prettier-standard-config",
-  "workspaces": [
-    "libs/*"
-  ],
   "simple-git-hooks": {
     "pre-commit": "yarn lint-staged",
     "commit-msg": "yarn commitlint --edit $1"
@@ -35,16 +31,17 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
-    "@liuli-util/async": "workspace:libs/async",
+    "@jscutlery/semver": "^2.15.0",
     "@liuli-util/cli": "^3.11.0",
     "@liuli-util/prettier-standard-config": "^0.1.0",
+    "@nrwl/cli": "latest",
+    "@nrwl/tao": "latest",
+    "@nrwl/workspace": "latest",
     "@types/fs-extra": "^9.0.12",
-    "@types/gulp": "^4.0.9",
     "@types/node": "^16.4.13",
     "fliegdoc": "^0.5.1",
     "fs-extra": "^10.0.0",
     "gh-pages": "^3.2.3",
-    "gulp": "^4.0.2",
     "lint-staged": "^11.1.2",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",

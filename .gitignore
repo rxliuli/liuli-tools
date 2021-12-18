@@ -24,6 +24,7 @@ docs
 *.sln
 package-lock.json
 .docz
+.pnpm-debug.log
 
 # build dist
 *.tgz

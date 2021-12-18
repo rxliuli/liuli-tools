@@ -9,7 +9,6 @@
     "build": "rimraf dist && liuli-cli build pkg"
   },
   "devDependencies": {
-    "@liuli-util/async": "^3.2.7",
     "@liuli-util/cli": "^3.11.0",
     "@liuli-util/shell": "^0.2.0",
     "@types/jest": "^26.0.24",

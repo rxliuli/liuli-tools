@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "clean-all": "pnpx rimraf **/node_modules **/dist",
-    "build-all": "lerna run --stream build",
+    "build-all": "pnpx rimraf libs/*/dist && lerna exec --stream -- liuli-cli build lib",
     "dep-graph": "lerna ls",
     "docs-build": "fliegdoc build && cp CNAME docs/",
     "docs-serve": "fliegdoc serve",
@@ -14,8 +14,8 @@
   },
   "prettier": "@liuli-util/prettier-standard-config",
   "simple-git-hooks": {
-    "pre-commit": "yarn lint-staged",
-    "commit-msg": "yarn commitlint --edit $1"
+    "pre-commit": "pnpm lint-staged",
+    "commit-msg": "pnpm commitlint --edit $1"
   },
   "commitlint": {
     "extends": [

@@ -21,3 +21,11 @@
 ## 许可证
 
 [MIT](./LICENSE)
+
+## 更新与维护
+
+```sh
+pnpm build-all
+lerna version <type>
+lerna publish
+```

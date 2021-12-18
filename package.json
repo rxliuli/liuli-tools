@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "clean-all": "pnpx rimraf **/node_modules **/dist",
-    "build-all": "nx run-many --target=build --all",
-    "dep-graph": "nx dep-graph",
+    "build-all": "lerna run --stream build",
+    "dep-graph": "lerna ls",
     "docs-build": "fliegdoc build && cp CNAME docs/",
     "docs-serve": "fliegdoc serve",
     "docs-deploy": "pnpm docs-build && gh-pages -d docs -t true",
@@ -31,12 +31,8 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
-    "@jscutlery/semver": "^2.15.0",
     "@liuli-util/cli": "^3.11.0",
     "@liuli-util/prettier-standard-config": "^0.1.0",
-    "@nrwl/cli": "latest",
-    "@nrwl/tao": "latest",
-    "@nrwl/workspace": "latest",
     "@types/fs-extra": "^9.0.12",
     "@types/node": "^16.4.13",
     "fliegdoc": "^0.5.1",

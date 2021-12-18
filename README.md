@@ -24,8 +24,11 @@
 
 ## 更新与维护
 
+> 由于同时使用 yarn/nx/lerna，有点混乱，所以将维护信息放在这里。
+
 ```sh
+#构建所有依赖
 pnpm build-all
-lerna version <type>
+#发布
 lerna publish
 ```

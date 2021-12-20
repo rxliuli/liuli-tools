@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "clean-all": "pnpx rimraf **/node_modules **/dist",
-    "build-all": "pnpx rimraf libs/*/dist && lerna exec --stream -- liuli-cli build lib",
+    "build-all": "pnpx rimraf libs/*/dist && pnpm --filter ./libs exec -- liuli-cli build lib",
     "dep-graph": "lerna ls",
     "docs-build": "fliegdoc build && cp CNAME docs/",
     "docs-serve": "fliegdoc serve",
@@ -32,7 +32,7 @@
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
     "@liuli-util/cli": "^3.11.0",
-    "@liuli-util/prettier-standard-config": "^0.1.0",
+    "@liuli-util/prettier-standard-config": "0.2.0",
     "@types/fs-extra": "^9.0.12",
     "@types/node": "^16.4.13",
     "fliegdoc": "^0.5.1",

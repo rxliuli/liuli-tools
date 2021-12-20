@@ -7,7 +7,7 @@ importers:
       '@commitlint/cli': ^13.1.0
       '@commitlint/config-conventional': ^13.1.0
       '@liuli-util/cli': ^3.11.0
-      '@liuli-util/prettier-standard-config': ^0.1.0
+      '@liuli-util/prettier-standard-config': 0.2.0
       '@types/fs-extra': ^9.0.12
       '@types/node': ^16.4.13
       fliegdoc: ^0.5.1
@@ -24,7 +24,7 @@ importers:
       '@commitlint/cli': 13.2.1
       '@commitlint/config-conventional': 13.2.0
       '@liuli-util/cli': 3.15.0_ea79783cb110b1384cde027d4fe9e1c7
-      '@liuli-util/prettier-standard-config': 0.1.0
+      '@liuli-util/prettier-standard-config': 0.2.0
       '@types/fs-extra': 9.0.13
       '@types/node': 16.11.14
       fliegdoc: 0.5.1
@@ -1086,6 +1086,10 @@ packages:
 
   /@liuli-util/prettier-standard-config/0.1.0:
     resolution: {integrity: sha512-y0dbvdhqHtwo77kwFukn7HVdaojGgimmDM+QP3JB3SlLjdwePb7wLjr9UKqk3eNMFa3v5oIFGzEgK9L2mK7dWw==}
+    dev: true
+
+  /@liuli-util/prettier-standard-config/0.2.0:
+    resolution: {integrity: sha512-0p1uMAj7WLx3HxiH3dy44NwQbyqezI6KZzlM1ldqZ+WlnJWFsqAD4eGhAnGWuZa64hN/S+eH6XpwcbAZPRqCtQ==}
     dev: true
 
   /@liuli-util/shell/0.2.0:

@@ -1,6 +1,7 @@
 import {
   BaseDeployOptions,
   DeployTypeEnum,
+  GhPagesDeployService,
   IDeployService,
   SftpDeployOptions,
   SftpDeployService,
@@ -20,15 +21,19 @@ async function getOptions(cwd: string): Promise<BaseDeployOptions> {
   throw new Error('找不到配置')
 }
 
-export async function deploy(options: Omit<BaseDeployOptions, 'type'>) {
+export async function deploy(options: Omit<BaseDeployOptions, 'type'>): Promise<void> {
   const deployOptions = await getOptions(options.cwd)
   let service: IDeployService
+  const _options = {
+    ...options,
+    ...deployOptions,
+  } as unknown as SftpDeployOptions
   switch (deployOptions.type) {
     case DeployTypeEnum.Sftp:
-      service = await new SftpDeployService({
-        ...options,
-        ...deployOptions,
-      } as unknown as SftpDeployOptions)
+      service = new SftpDeployService(_options)
+      break
+    case DeployTypeEnum.GhPages:
+      service = new GhPagesDeployService(_options)
       break
     default:
       throw new Error('未知的部署预设类型 ' + deployOptions.type)
@@ -37,7 +42,7 @@ export async function deploy(options: Omit<BaseDeployOptions, 'type'>) {
   if (!isValidate) {
     throw new Error(errorText)
   }
-  await service.deploy().on('process', (info) => {
-    console.info(`[${info.rate}/${info.all}] ${info.title}`)
+  await service.deploy().on('process', (title) => {
+    console.info(title)
   })
 }

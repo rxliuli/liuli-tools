@@ -2,12 +2,14 @@ import { EventExtPromise, PromiseUtil } from './util/PromiseUtil'
 import Client, { ConnectOptions } from 'ssh2-sftp-client'
 import * as path from 'path'
 import * as os from 'os'
-import { readFile } from 'fs-extra'
+import { copy, mkdirp, pathExists, readFile } from 'fs-extra'
 import Ajv from 'ajv'
 import localize from 'ajv-i18n/localize'
+import simpleGit from 'simple-git'
+import { nodeCacheDir } from '../../utils/nodeCacheDir'
 
 export interface DeployEvents {
-  process(options: { rate: number; all: number; title: string }): void
+  process(title: string): void
 }
 
 /**
@@ -94,19 +96,62 @@ export class SftpDeployService implements IDeployService {
   }
 }
 
+export type GhPagesDeployOptions = Omit<BaseDeployOptions, 'type'> & {
+  dest: string
+  remote: string
+}
+
 /**
  * 将本地静态资源推送到 gh-pages 远端
  */
 export class GhPagesDeployService implements IDeployService {
-  readonly type = DeployTypeEnum.GhPages
+  constructor(private readonly options: GhPagesDeployOptions) {}
 
   deploy(): EventExtPromise<void, DeployEvents> {
-    return PromiseUtil.wrapOnEvent(async () => {
-      throw new Error('no impl')
+    const defaultRemote = 'origin'
+    const defaultBranch = 'gh-pages'
+    return PromiseUtil.wrapOnEvent(async (events: DeployEvents) => {
+      events.process('开始推送')
+      const git = simpleGit(this.options.cwd)
+      events.process('获取当前项目的远端配置')
+      const originRemote = (await git.getRemotes(true)).find((item) => item.name === defaultRemote)
+      if (!originRemote) {
+        throw new Error('当前目录不是一个 git 项目或没有配置 git remote')
+      }
+      const ghPagesRoot = path.resolve(nodeCacheDir('liuli-cli'), 'gh-pages')
+      const originRepoName = originRemote.refs.fetch.replace(new RegExp('[/:]', 'g'), '_')
+      const localRepoPath = path.resolve(ghPagesRoot, originRepoName)
+      if (!(await pathExists(localRepoPath))) {
+        events.process('克隆项目')
+        await git.clone(originRemote.refs.fetch, localRepoPath, { '--branch': defaultBranch })
+      } else {
+        await git.pull()
+      }
+      events.process('复制文件')
+      const remoteDestPath = path.join(localRepoPath, this.options.remote)
+      await mkdirp(remoteDestPath)
+      await copy(path.resolve(this.options.cwd, this.options.dest), remoteDestPath)
+      events.process('推送到远端')
+      await git.cwd(localRepoPath)
+      await git.add('-A')
+      await git.commit('Updates gh-pages by liuli-cli')
+      await git.push(defaultRemote, defaultBranch)
+      events.process('完成推送')
     })
   }
 
-  validate(): [isValidate: boolean, errorText: string] {
-    return [false, '']
+  validate(): [isValid: boolean, errorText: string] {
+    return ajvValidate(
+      {
+        type: 'object',
+        properties: {
+          cwd: { type: 'string' },
+          dest: { type: 'string' },
+          remote: { type: 'string' },
+        },
+        required: ['cwd', 'dest', 'remote'],
+      },
+      this.options,
+    )
   }
 }

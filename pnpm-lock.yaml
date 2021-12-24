@@ -88,6 +88,7 @@ importers:
       lodash: ^4.17.21
       lodash-es: ^4.17.21
       rimraf: ^3.0.2
+      simple-git: ^2.45.1
       spinnies: ^0.5.1
       ssh2: ^1.5.0
       ssh2-sftp-client: ^7.2.1
@@ -112,6 +113,7 @@ importers:
       glob-promise: 4.2.2_glob@7.2.0
       json5: 2.2.0
       lodash-es: 4.17.21
+      simple-git: 2.47.0
       spinnies: 0.5.1
       ssh2: 1.5.0
       ssh2-sftp-client: 7.2.1

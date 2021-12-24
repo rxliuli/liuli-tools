@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 3.15.0
+
+<!--hash:5402013d664173283c30e818a63d427fa55edf73-->
+
+- feat: 同步命令支持同步 jest 依赖
+- chore: 更新模板，删除不需要的文档相关的命令
+- chore: 将所有的 liuli-cli 的依赖强制指向本地
+- fix: 修复 monorepo 中使用 cli 会复制 node_modules 的错误
+
 ## 3.14.0
 
 <!--hash:640b9c257c2276edfe262e2cbfd1c11bab6fb27b-->

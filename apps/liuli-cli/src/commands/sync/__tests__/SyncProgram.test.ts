@@ -30,7 +30,7 @@ describe('测试 SyncProgram', () => {
       workspaces,
     } as PackageJson)
     await syncProgram.sync()
-  }, 100_000)
+  })
 
   it.skip('测试初始化同步配置', async () => {
     await writeJson(path.resolve(tempPath, 'lerna.json'), {})
@@ -42,6 +42,18 @@ describe('测试 SyncProgram', () => {
     await syncProgram.init()
     expect(((await readJson(file)).sync as string[]).length).toBeGreaterThan(0)
   }, 100_000)
+
+  it('测试同步 jest', async () => {
+    const jsonPath = path.resolve(tempPath, 'package.json')
+    await writeJson(jsonPath, {
+      name: 'temp',
+      sync: ['jest'] as SyncConfigType[],
+    } as PackageJson)
+    await syncProgram.sync()
+    const json = (await readJson(jsonPath)) as PackageJson
+    const devDeps = Object.keys(json.devDependencies!)
+    expect(devDeps.includes('jest') && devDeps.includes('ts-jest')).toBeTruthy()
+  })
 })
 
 it('测试 lodash-es.merge', () => {

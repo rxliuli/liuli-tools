@@ -31,7 +31,7 @@ export class ESBuildProgram {
     this.options.isWatch = isWatch
   }
 
-  static readonly globalExternal = ['esbuild', 'pnpapi', 'ts-morph']
+  static readonly globalExternal = ['esbuild', 'pnpapi', 'ts-morph', 'ssh2']
 
   /**
    * 获取所有依赖

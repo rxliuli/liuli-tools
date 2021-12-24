@@ -2,10 +2,11 @@ import { Command } from 'commander'
 import { esbuildCommand } from './commands/esbuild'
 import { generateCommand } from './commands/generate'
 import { syncCommand } from './commands/sync'
+import { deployCommand } from './commands/deploy'
 
-const main = new Command()
-main
+new Command()
   .addCommand(esbuildCommand)
   .addCommand(generateCommand)
   .addCommand(syncCommand)
+  .addCommand(deployCommand)
   .parse()

@@ -79,7 +79,6 @@ importers:
       enquirer: ^2.3.6
       esbuild: ^0.13.2
       esno: ^0.9.1
-      find-cache-dir: ^3.3.2
       fs-extra: ^10.0.0
       glob: ^7.2.0
       glob-promise: ^4.2.0
@@ -99,7 +98,7 @@ importers:
     dependencies:
       '@liuli-util/commitlint-standard-config': link:../../libs/commitlint-standard-config
       '@liuli-util/eslint-config-react-ts': link:../../libs/eslint-config-react-ts
-      '@liuli-util/eslint-config-ts': link:../../libs/eslint-config-ts
+      '@liuli-util/eslint-config-ts': 0.2.0_typescript@4.4.4
       '@liuli-util/prettier-standard-config': 0.1.0
       ajv: 8.8.2
       ajv-i18n: 4.2.0_ajv@8.8.2
@@ -107,7 +106,6 @@ importers:
       commander: 8.3.0
       enquirer: 2.3.6
       esbuild: 0.13.12
-      find-cache-dir: 3.3.2
       fs-extra: 10.0.0
       glob: 7.2.0
       glob-promise: 4.2.2_glob@7.2.0
@@ -218,7 +216,7 @@ importers:
       open: 8.4.0
     devDependencies:
       '@liuli-util/cli': link:../liuli-cli
-      '@liuli-util/eslint-config-ts': link:../../libs/eslint-config-ts
+      '@liuli-util/eslint-config-ts': 0.2.0_typescript@4.4.4
       '@types/fs-extra': 9.0.13
       '@types/inquirer': 8.1.3
       '@types/jest': 27.0.2
@@ -428,7 +426,7 @@ importers:
       eslint-config-prettier: ^8.3.0
       eslint-plugin-react-hooks: ^4.2.0
     dependencies:
-      '@liuli-util/eslint-config-ts': link:../eslint-config-ts
+      '@liuli-util/eslint-config-ts': 0.2.0_typescript@4.4.4
       '@types/eslint': 7.28.2
       '@typescript-eslint/eslint-plugin': 4.33.0_cc617358c89d3f38c52462f6d809db4c
       '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.4.4
@@ -2889,6 +2887,20 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@liuli-util/eslint-config-ts/0.2.0_typescript@4.4.4:
+    resolution: {integrity: sha512-hxBJjdLL1HuicMswxKJ9Z56cymBt1wHGVw1N/cqGxpXguVUX1RIheyROyKS3VUywukwOwPnbRoST2econF5bjQ==}
+    peerDependencies:
+      typescript: '>=4'
+    dependencies:
+      '@types/eslint': 7.28.2
+      '@typescript-eslint/eslint-plugin': 4.33.0_cc617358c89d3f38c52462f6d809db4c
+      '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.4.4
+      eslint: 7.32.0
+      eslint-config-prettier: 8.3.0_eslint@7.32.0
+      typescript: 4.4.4
+    transitivePeerDependencies:
+      - supports-color
 
   /@liuli-util/prettier-standard-config/0.1.0:
     resolution: {integrity: sha512-y0dbvdhqHtwo77kwFukn7HVdaojGgimmDM+QP3JB3SlLjdwePb7wLjr9UKqk3eNMFa3v5oIFGzEgK9L2mK7dWw==}
@@ -8264,7 +8276,7 @@ packages:
         optional: true
     dependencies:
       abab: 2.0.5
-      acorn: 8.5.0
+      acorn: 8.6.0
       acorn-globals: 6.0.0
       cssom: 0.4.4
       cssstyle: 2.3.0

@@ -26,4 +26,9 @@ describe('测试 simple-git', () => {
     const originRepoName = originRemote.refs.fetch.replace(new RegExp('[/:]', 'g'), '_')
     await git.clone(originRemote.refs.fetch, path.resolve(tempPath, originRepoName), { '--branch': 'gh-pages' })
   }, 100_000)
+  it('测试 git status', async () => {
+    await git.add('-A')
+    const status = await git.status()
+    console.log('status: ', status.files)
+  })
 })

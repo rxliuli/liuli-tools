@@ -7,8 +7,6 @@ import Ajv from 'ajv'
 import localize from 'ajv-i18n/localize'
 import simpleGit from 'simple-git'
 import { nodeCacheDir } from '../../utils/nodeCacheDir'
-import Conf from 'conf'
-import { wait } from './util/wait'
 
 export interface DeployEvents {
   process(title: string): void
@@ -109,8 +107,6 @@ export type GhPagesDeployOptions = Omit<BaseDeployOptions, 'type'> & {
 export class GhPagesDeployService implements IDeployService {
   constructor(private readonly options: GhPagesDeployOptions) {}
 
-  readonly conf = new Conf<{ lock: boolean }>({ projectName: '@liuli-util/cli' })
-
   deploy(): EventExtPromise<void, DeployEvents> {
     const defaultRemote = 'origin'
     const defaultBranch = 'gh-pages'
@@ -124,42 +120,23 @@ export class GhPagesDeployService implements IDeployService {
       }
       const ghPagesRoot = path.resolve(nodeCacheDir('liuli-cli'), 'gh-pages')
       const originRepoName = originRemote.refs.fetch.replace(new RegExp('[/:]', 'g'), '_')
-
-      // console.log('this.conf.get(originRepoName): ', this.conf.get(originRepoName))
-      if (this.conf.get(originRepoName)) {
-        console.log('其他位置正在推送这个项目，请等待...')
-        await wait(() => {
-          const isUnlock = !this.conf.store.lock
-          if (isUnlock) {
-            this.conf.set(originRepoName, true)
-          }
-          return isUnlock
-        })
+      const localRepoPath = path.resolve(ghPagesRoot, originRepoName)
+      if (!(await pathExists(localRepoPath))) {
+        events.process('克隆项目')
+        await git.clone(originRemote.refs.fetch, localRepoPath, { '--branch': defaultBranch })
       } else {
-        this.conf.set(originRepoName, true)
+        await git.pull()
       }
-
-      try {
-        const localRepoPath = path.resolve(ghPagesRoot, originRepoName)
-        if (!(await pathExists(localRepoPath))) {
-          events.process('克隆项目')
-          await git.clone(originRemote.refs.fetch, localRepoPath, { '--branch': defaultBranch })
-        } else {
-          await git.pull()
-        }
-        events.process('复制文件')
-        const remoteDestPath = path.join(localRepoPath, this.options.remote)
-        await mkdirp(remoteDestPath)
-        await copy(path.resolve(this.options.cwd, this.options.dest), remoteDestPath)
-        events.process('推送到远端')
-        await git.cwd(localRepoPath)
-        await git.add('-A')
-        await git.commit('Updates gh-pages by liuli-cli')
-        await git.push(defaultRemote, defaultBranch)
-        events.process('完成推送')
-      } finally {
-        this.conf.set(originRepoName, false)
-      }
+      events.process('复制文件')
+      const remoteDestPath = path.join(localRepoPath, this.options.remote)
+      await mkdirp(remoteDestPath)
+      await copy(path.resolve(this.options.cwd, this.options.dest), remoteDestPath)
+      events.process('推送到远端')
+      await git.cwd(localRepoPath)
+      await git.add('-A')
+      await git.commit('Updates gh-pages by liuli-cli')
+      await git.push(defaultRemote, defaultBranch)
+      events.process('完成推送')
     })
   }
 

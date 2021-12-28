@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 3.16.0
+
+- feat: 不再处理并发部署 gh-pages 的问题
+- feat: 实现一个根据配置文件决定是否需要等待的 gh-pages 部署（实测会有并发问题）
+- feat: 实现部署项目到 gh-pages 远端
+- feat: 实现发布到 sftp 远端
+
 ## 3.15.0
 
 <!--hash:5402013d664173283c30e818a63d427fa55edf73-->
@@ -196,4 +203,4 @@
 - 将代码移至新的仓库：https://github.com/rxliuli/liuli-tools
 - 实现 `liuli-cli build pkg/liuli-cli build cli` 两个子命令
 - 支持使用 rollup 的监视模式
-- 支持 `rollup.config.ts` 配置文件（但未在文档上公开）
+- 支持 `rollup.config.ts` 配置文件（但未在文档上公开）

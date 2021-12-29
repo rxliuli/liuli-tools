@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/mobx-vue3-hooks",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rxliuli/liuli-tools/tree/master/libs/mobx-vue3-hooks"
+    "url": "https://github.com/rxliuli/liuli-tools.git",
+    "directory": "libs/mobx-vue3-hooks"
   },
   "devDependencies": {
     "@liuli-util/cli": "workspace:*",

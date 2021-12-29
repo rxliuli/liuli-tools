@@ -7,7 +7,9 @@ An inspiration: If we can use hooks like vue3 in react without manually managing
 ## Quick start
 
 ```tsx
-const UseRefDemo = defineComponent(() => {
+import { defineComponent, useVRef, useVFn, useVComputed } from '@liuli-util/mobx-vue3-hooks'
+
+const HelloWorld = defineComponent(() => {
   const state = useVRef(0)
   const computedValue = useVComputed(() => state.value * 2)
 
@@ -33,4 +35,4 @@ const UseRefDemo = defineComponent(() => {
 - `useVWatchEffect`: Create a watch to monitor state changes and respond to them
 - `useVWatch`: Same type as useVWatchEffect but allows to pass in dependencies. The difference from vue3 is that you must use a function instead of a value
 
-> Source of inspiration: <https://github.com/RisingStack/react-easy-state#local-stores-in-function-components>, related discussion: <https://github.com/mobxjs/mobx/discussions/ 3209>
+> Source of inspiration: <https://github.com/RisingStack/react-easy-state#local-stores-in-function-components>, related discussion: <https://github.com/mobxjs/mobx/discussions/3209>

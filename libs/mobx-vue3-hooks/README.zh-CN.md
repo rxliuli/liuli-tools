@@ -7,7 +7,9 @@
 ## 快速入门
 
 ```tsx
-const UseRefDemo = defineComponent(() => {
+import { defineComponent, useVRef, useVFn, useVComputed } from '@liuli-util/mobx-vue3-hooks'
+
+const HelloWorld = defineComponent(() => {
   const state = useVRef(0)
   const computedValue = useVComputed(() => state.value * 2)
 

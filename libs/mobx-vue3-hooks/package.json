@@ -1,0 +1,44 @@
+{
+  "name": "@liuli-util/mobx-vue3-hooks",
+  "private": true,
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && liuli-cli build lib",
+    "dev": "liuli-cli build lib -w"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/*.test.ts"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rxliuli/liuli-tools/tree/master/libs/mobx-vue3-hooks"
+  },
+  "devDependencies": {
+    "@liuli-util/cli": "workspace:*",
+    "@types/jest": "^27.0.2",
+    "esno": "^0.9.1",
+    "jest": "^27.4.3",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.7",
+    "type-fest": "^2.3.4",
+    "typescript": "^4.4.3",
+    "mobx": "^6",
+    "mobx-react": "^7",
+    "@types/react": "^17"
+  },
+  "peerDependencies": {
+    "react": "^17",
+    "mobx": "^6",
+    "mobx-react": "^7"
+  },
+  "sync": [
+    "jest"
+  ]
+}

@@ -5,13 +5,13 @@
  * @param param 等待时间/等待条件
  * @returns Promise 对象
  */
-export function wait(param?: number | (() => boolean)): Promise<void> {
+export function wait(param?: number | (() => boolean | Promise<boolean>)): Promise<void> {
   return new Promise((resolve) => {
     if (typeof param === 'number') {
       setTimeout(resolve, param)
     } else if (typeof param === 'function') {
-      const timer = setInterval(() => {
-        if (param()) {
+      const timer = setInterval(async () => {
+        if (await param()) {
           clearInterval(timer)
           resolve()
         }

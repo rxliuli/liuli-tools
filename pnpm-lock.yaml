@@ -279,7 +279,7 @@ importers:
 
   examples/react-router-async-example:
     specifiers:
-      '@liuli-util/react-router': workspace:^0.1.1
+      '@liuli-util/react-router': workspace:*
       '@types/react': ^17.0.33
       '@types/react-dom': ^17.0.10
       '@vitejs/plugin-react': ^1.0.7
@@ -300,7 +300,7 @@ importers:
 
   examples/react-router-basic-example:
     specifiers:
-      '@liuli-util/react-router': ^0.1.1
+      '@liuli-util/react-router': workspace:*
       '@types/qs': ^6.9.7
       '@types/react': ^17.0.33
       '@types/react-dom': ^17.0.10
@@ -323,7 +323,7 @@ importers:
 
   examples/react-router-nest-example:
     specifiers:
-      '@liuli-util/react-router': ^0.1.1
+      '@liuli-util/react-router': workspace:*
       '@types/qs': ^6.9.7
       '@types/react': ^17.0.33
       '@types/react-dom': ^17.0.10

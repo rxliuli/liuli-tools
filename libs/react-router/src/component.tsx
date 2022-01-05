@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { ReactNode, useMemo } from 'react'
 import { Route, Router, Routes } from 'react-router-dom'
 import { BaseHistory, RouteConfig } from './index'
 import { treeMap } from '@liuli-util/tree'
 
 interface HistoryRouterProps {
   history: BaseHistory
+  fallback?: ReactNode
 }
 
 const BaseReactRouter: React.FC<HistoryRouterProps> = ({ history, children }) => {
@@ -20,12 +21,13 @@ const BaseReactRouter: React.FC<HistoryRouterProps> = ({ history, children }) =>
   return React.createElement(Router, Object.assign({ children, navigator: history }, state))
 }
 
-export const ReactRouter: React.FC<HistoryRouterProps & { routes: RouteConfig[] }> = ({ history, routes }) => {
+export const ReactRouter: React.FC<HistoryRouterProps & { routes: RouteConfig[] }> = (props) => {
+  const fallback = useMemo(() => props.fallback ?? '...', [props])
   return (
-    <BaseReactRouter history={history}>
+    <BaseReactRouter history={props.history}>
       <Routes>
         {treeMap(
-          routes,
+          props.routes,
           (item, key) => {
             return (
               <Route
@@ -34,7 +36,7 @@ export const ReactRouter: React.FC<HistoryRouterProps & { routes: RouteConfig[] 
                 element={
                   item.component &&
                   (typeof item.component === 'function' ? (
-                    <React.Suspense fallback={<>...</>}>
+                    <React.Suspense fallback={fallback}>
                       {React.createElement(React.lazy(item.component as any))}
                     </React.Suspense>
                   ) : (

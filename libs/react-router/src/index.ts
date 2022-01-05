@@ -1,10 +1,10 @@
-import React, { createElement } from 'react'
+import React, { ComponentType } from 'react'
 import { createHashHistory as _createHashHistory, History } from 'history'
 import { stringify } from 'qs'
 
 export interface RouteConfig {
   path: string
-  component?: React.FC
+  component?: React.FC | (() => Promise<{ default: ComponentType<any> }>)
   children?: RouteConfig[]
 }
 

@@ -20,9 +20,9 @@ importers:
       '@liuli-util/commitlint-standard-config': link:libs/commitlint-standard-config
       '@liuli-util/eslint-config-ts': link:libs/eslint-config-ts
       '@liuli-util/prettier-standard-config': link:libs/prettier-standard-config
-      '@nrwl/cli': 13.4.2
-      '@nrwl/tao': 13.4.2
-      '@nrwl/workspace': 13.4.2_prettier@2.4.1+typescript@4.4.4
+      '@nrwl/cli': 13.4.3
+      '@nrwl/tao': 13.4.3
+      '@nrwl/workspace': 13.4.3_prettier@2.4.1+typescript@4.4.4
       lint-staged: 11.2.6
       prettier: 2.4.1
       simple-git-hooks: 2.7.0
@@ -276,6 +276,27 @@ importers:
       type-fest: 2.5.2
       typedoc: 0.22.7_typescript@4.4.4
       typescript: 4.4.4
+
+  examples/react-router-async-example:
+    specifiers:
+      '@liuli-util/react-router': workspace:^0.1.1
+      '@types/react': ^17.0.33
+      '@types/react-dom': ^17.0.10
+      '@vitejs/plugin-react': ^1.0.7
+      react: ^17.0.2
+      react-dom: ^17.0.2
+      typescript: ^4.4.4
+      vite: ^2.7.2
+    dependencies:
+      '@liuli-util/react-router': link:../../libs/react-router
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    devDependencies:
+      '@types/react': 17.0.35
+      '@types/react-dom': 17.0.11
+      '@vitejs/plugin-react': 1.0.9
+      typescript: 4.4.4
+      vite: 2.7.10
 
   examples/react-router-basic-example:
     specifiers:
@@ -3259,11 +3280,11 @@ packages:
       rimraf: 3.0.2
     dev: true
 
-  /@nrwl/cli/13.4.2:
-    resolution: {integrity: sha512-QIHmyuzbIuCKsWnq71bDsyxTrkZ22qsap0ea9cKA0Wo08jm8McKoIGWR0tqAKDlzPXlRNlHd/t3GTUvwJpGdMA==}
+  /@nrwl/cli/13.4.3:
+    resolution: {integrity: sha512-AdCErb7DDJ10Ow07RE0t+DGXlvwAU31J3zM56dJ3+fLtPO3myVi8JPuc4uG0bndxHrEcRd1BjAoaE3Mfkm3G+w==}
     hasBin: true
     dependencies:
-      '@nrwl/tao': 13.4.2
+      '@nrwl/tao': 13.4.3
       chalk: 4.1.0
       enquirer: 2.3.6
       v8-compile-cache: 2.3.0
@@ -3271,10 +3292,10 @@ packages:
       yargs-parser: 20.0.0
     dev: true
 
-  /@nrwl/devkit/13.4.2:
-    resolution: {integrity: sha512-T4sSYMCWNOkghnzOaG0Dsv8Oi/0lvNvdB19YSeTsK7NcU2JSu2zB+ySMcRgYpsrMzFoeOql16DdrBGVFTSI0QQ==}
+  /@nrwl/devkit/13.4.3:
+    resolution: {integrity: sha512-AHyuW83vjdkUzZgboKJqAOhDvpe6wHbTd0yyQu1ye10FJFTAJ0lcGGv8I1ce0zmY4x3dRvy4VkLCnwMaiZys2A==}
     dependencies:
-      '@nrwl/tao': 13.4.2
+      '@nrwl/tao': 13.4.3
       ejs: 3.1.6
       ignore: 5.1.8
       rxjs: 6.6.7
@@ -3282,12 +3303,12 @@ packages:
       tslib: 2.3.1
     dev: true
 
-  /@nrwl/jest/13.4.2:
-    resolution: {integrity: sha512-LZEW7vP3Vg8Ox4lzCnecnI8Ibq/ejB9LwSwyZlW5jUsLYhkIDHLYd+MwFM0v51phOkJlVdZtZZlmuUfSBCGO/A==}
+  /@nrwl/jest/13.4.3:
+    resolution: {integrity: sha512-3BEtYsdAg3Xnp3dK46XQJoGmFQHwu9LSU3mUX6zzy4ieZTHbRCgsl/e/+hCMxmT85rCL7gAQKMmRa0uE4GFGIw==}
     dependencies:
       '@jest/reporters': 27.2.2
       '@jest/test-result': 27.2.2
-      '@nrwl/devkit': 13.4.2
+      '@nrwl/devkit': 13.4.3
       chalk: 4.1.0
       identity-obj-proxy: 3.0.0
       jest-config: 27.2.2
@@ -3305,11 +3326,11 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@nrwl/linter/13.4.2_typescript@4.4.4:
-    resolution: {integrity: sha512-IqGvGi1aU/4uEpfye9nixCCNHXvB94W7jcToFkXeSEak8hbX6EWKKhcRIXPvQCl59vRUTtN7W3VRe0ZnUbpgPw==}
+  /@nrwl/linter/13.4.3_typescript@4.4.4:
+    resolution: {integrity: sha512-0MsNrusHGmQieObO/UtJFobJwwUuk3B3TJ380b4DI9CKgL/hStBfEjPvvsV7fVW9/0RjSPLtUW4Iq97lBG3c5Q==}
     dependencies:
-      '@nrwl/devkit': 13.4.2
-      '@nrwl/jest': 13.4.2
+      '@nrwl/devkit': 13.4.3
+      '@nrwl/jest': 13.4.3
       '@phenomnomnominal/tsquery': 4.1.1_typescript@4.4.4
       eslint: 8.2.0
       glob: 7.1.4
@@ -3326,8 +3347,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@nrwl/tao/13.4.2:
-    resolution: {integrity: sha512-Fc5+th1rdDeo/WyTE15o2pXIib6P1K/QkPkDAfxKnI77kMem0YlGLtohgoEQf/nfOF1qMv3P+bEWv6uH3+KyPw==}
+  /@nrwl/tao/13.4.3:
+    resolution: {integrity: sha512-hO2XSJf3dspfEq3qMd8nOTa8szxd5wp/JsH2ri54EI7QWVswAkzdF+v1/TsM+2lB6zFbFgrzRMioXfd1AD4y4g==}
     hasBin: true
     dependencies:
       chalk: 4.1.0
@@ -3336,7 +3357,7 @@ packages:
       fs-extra: 9.1.0
       ignore: 5.1.8
       jsonc-parser: 3.0.0
-      nx: 13.4.2
+      nx: 13.4.3
       rxjs: 6.6.7
       rxjs-for-await: 0.0.2_rxjs@6.6.7
       semver: 7.3.4
@@ -3345,18 +3366,18 @@ packages:
       yargs-parser: 20.0.0
     dev: true
 
-  /@nrwl/workspace/13.4.2_prettier@2.4.1+typescript@4.4.4:
-    resolution: {integrity: sha512-uKNQTd2Y2/JhpXa68bIFecoNahdPyYEHXXO1cWqsExns6GNRtM2EjOkHMbEPQexAwzAyMKXmNaSunGSevvF2PA==}
+  /@nrwl/workspace/13.4.3_prettier@2.4.1+typescript@4.4.4:
+    resolution: {integrity: sha512-9Or+WbDMn2cje8kOxxJvHAyACw+lXyzn01+B5uAa5ljXz0bX9JPeUNGsPZtfy2Vez9j7VXp49o/L3jLRHSravg==}
     peerDependencies:
       prettier: ^2.3.0
     peerDependenciesMeta:
       prettier:
         optional: true
     dependencies:
-      '@nrwl/cli': 13.4.2
-      '@nrwl/devkit': 13.4.2
-      '@nrwl/jest': 13.4.2
-      '@nrwl/linter': 13.4.2_typescript@4.4.4
+      '@nrwl/cli': 13.4.3
+      '@nrwl/devkit': 13.4.3
+      '@nrwl/jest': 13.4.3
+      '@nrwl/linter': 13.4.3_typescript@4.4.4
       '@parcel/watcher': 2.0.4
       chalk: 4.1.0
       chokidar: 3.5.2
@@ -10127,11 +10148,11 @@ packages:
     resolution: {integrity: sha512-h2AatdwYH+JHiZpv7pt/gSX1XoRGb7L/qSIeuqA6GwYoF9w1vP1cw42TO0aI2pNyshRK5893hNSl+1//vHK7hQ==}
     dev: true
 
-  /nx/13.4.2:
-    resolution: {integrity: sha512-4zakyBenWXXhpmLB9TG4gSZC3inW6l+JMV/Hr3SVx8sHjxB708JTnss1tHwhvWp0fYaC8lG6ZLsMczmFKrhgjg==}
+  /nx/13.4.3:
+    resolution: {integrity: sha512-HlydHUk65tnxip9XTn7EByAh46Qp/T3QUpVoclMJFBFxDc/u6S+zcOp4kU5WTZmGj996LVFYqQvTj6Zyz78UOg==}
     hasBin: true
     dependencies:
-      '@nrwl/cli': 13.4.2
+      '@nrwl/cli': 13.4.3
     dev: true
 
   /object-assign/4.1.1:

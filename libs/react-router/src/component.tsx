@@ -1,4 +1,4 @@
-import React, { createElement } from 'react'
+import React from 'react'
 import { Route, Router, Routes } from 'react-router-dom'
 import { BaseHistory, RouteConfig } from './index'
 import { treeMap } from '@liuli-util/tree'
@@ -26,14 +26,25 @@ export const ReactRouter: React.FC<HistoryRouterProps & { routes: RouteConfig[] 
       <Routes>
         {treeMap(
           routes,
-          (item, key) => (
-            <Route
-              key={key.join(',')}
-              path={item.path}
-              element={item.component && createElement(item.component)}
-              children={item.children}
-            />
-          ),
+          (item, key) => {
+            return (
+              <Route
+                key={key.join(',')}
+                path={item.path}
+                element={
+                  item.component &&
+                  (typeof item.component === 'function' ? (
+                    <React.Suspense fallback={<>...</>}>
+                      {React.createElement(React.lazy(item.component as any))}
+                    </React.Suspense>
+                  ) : (
+                    React.createElement(item.component)
+                  ))
+                }
+                children={item.children}
+              />
+            )
+          },
           {
             id: 'path',
             children: 'children',

@@ -4,7 +4,7 @@
 
 > [中文](https://github.com/rxliuli/liuli-tools/tree/master/libs/react-router/README.zh-CN.md)
 
-Encapsulating react-router is a centralized js routing configuration, components only expose necessary components, and the use of routing outside of react components is supported by default.
+Encapsulating react-router is a centralized js routing configuration, the component only exposes the necessary props, and the use of routing outside the react component is supported by default.
 
 ## Quick start
 

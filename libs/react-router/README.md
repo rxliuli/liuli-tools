@@ -90,6 +90,19 @@ export const Layout: React.FC = () => (
 
 > [Example](https://github.com/rxliuli/liuli-tools/tree/master/examples/react-router-nest-example)
 
+### Asynchronous routing
+
+It is almost the same as vue-router to use, just change the component to `() => import('path')`
+
+```ts
+export const routeList: RouteConfig[] = [
+  { path: '/', component: () => import('../views/HomeView') },
+  { path: '/hello-world', component: () => import('../views/HelloWorld') },
+]
+```
+
+> [Example](https://github.com/rxliuli/liuli-tools/tree/master/examples/react-router-async-example)
+
 ### Use programmatic routing
 
 ```ts

@@ -2,7 +2,7 @@
 
 ## 简介
 
-封装 react-router 为集中式的 js 路由配置，组件仅暴露必要的组件，并且默认支持在 react 组件外使用路由。
+封装 react-router 为集中式的 js 路由配置，组件仅暴露必要的组件和功能，并且默认支持在 react 组件外使用路由。
 
 ## 快速入门
 
@@ -87,6 +87,19 @@ export const Layout: React.FC = () => (
 ```
 
 > [Example](https://github.com/rxliuli/liuli-tools/tree/master/examples/react-router-nest-example)
+
+### 异步路由
+
+使用起来几乎与 vue-router 保持一致，只需要将组件改为 `() => import('path')` 即可
+
+```ts
+export const routeList: RouteConfig[] = [
+  { path: '/', component: () => import('../views/HomeView') },
+  { path: '/hello-world', component: () => import('../views/HelloWorld') },
+]
+```
+
+> [Example](https://github.com/rxliuli/liuli-tools/tree/master/examples/react-router-async-example)
 
 ### 使用编程式路由
 

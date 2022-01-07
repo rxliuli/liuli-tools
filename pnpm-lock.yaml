@@ -385,6 +385,31 @@ importers:
       vite: 2.6.14
       vite-plugin-checker: 0.3.4_vite@2.6.14
 
+  examples/rollup-plugin-i18next-dts-gen-example:
+    specifiers:
+      '@liuli-util/rollup-plugin-i18next-dts-gen': workspace:*
+      '@types/react': ^17.0.33
+      '@types/react-dom': ^17.0.10
+      '@vitejs/plugin-react': ^1.0.7
+      i18next: ^21.0.1
+      react: ^17.0.2
+      react-dom: ^17.0.2
+      react-use: ^17.3.1
+      typescript: ^4.4.4
+      vite: ^2.7.2
+    dependencies:
+      i18next: 21.3.3
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-use: 17.3.1_react-dom@17.0.2+react@17.0.2
+    devDependencies:
+      '@liuli-util/rollup-plugin-i18next-dts-gen': link:../../libs/rollup-plugin-i18next-dts-gen
+      '@types/react': 17.0.35
+      '@types/react-dom': 17.0.11
+      '@vitejs/plugin-react': 1.0.9
+      typescript: 4.4.4
+      vite: 2.7.10
+
   examples/rollup-plugin-tar-example:
     specifiers:
       '@liuli-util/rollup-plugin-tar': '*'
@@ -752,7 +777,7 @@ importers:
       gh-pages: ^3.2.3
       jest: ^27.2.1
       rimraf: ^3.0.2
-      rollup: ^2.58.3
+      rollup: ^2
       ts-jest: ^27.0.5
       type-fest: ^2.3.4
       typedoc: ^0.22.4
@@ -766,7 +791,7 @@ importers:
       gh-pages: 3.2.3
       jest: 27.3.1
       rimraf: 3.0.2
-      rollup: 2.58.3
+      rollup: 2.62.0
       ts-jest: 27.0.7_2c4ca6574207836d1023f54689cc81ac
       type-fest: 2.5.2
       typedoc: 0.22.7_typescript@4.4.4

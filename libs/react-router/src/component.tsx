@@ -21,6 +21,10 @@ const BaseReactRouter: React.FC<HistoryRouterProps> = ({ history, children }) =>
   return React.createElement(Router, Object.assign({ children, navigator: history }, state))
 }
 
+function isLazy(thing: any) {
+  return typeof thing === 'function' && /\(.*\)[ \n]*=>[ \n]*import(.+)/.test(thing.toString() as string)
+}
+
 export const ReactRouter: React.FC<HistoryRouterProps & { routes: RouteConfig[] }> = (props) => {
   const fallback = useMemo(() => props.fallback ?? '...', [props])
   return (
@@ -35,12 +39,12 @@ export const ReactRouter: React.FC<HistoryRouterProps & { routes: RouteConfig[] 
                 path={item.path}
                 element={
                   item.component &&
-                  (typeof item.component === 'function' ? (
+                  (isLazy(item.component) ? (
                     <React.Suspense fallback={fallback}>
                       {React.createElement(React.lazy(item.component as any))}
                     </React.Suspense>
                   ) : (
-                    React.createElement(item.component)
+                    React.createElement(item.component as any)
                   ))
                 }
                 children={item.children}

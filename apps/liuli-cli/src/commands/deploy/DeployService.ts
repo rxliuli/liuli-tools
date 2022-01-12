@@ -145,14 +145,21 @@ export class GhPagesDeployService implements IDeployService {
       const remoteDestPath = path.join(localRepoPath, this.options.remote)
       await mkdirp(remoteDestPath)
       await copy(path.resolve(this.options.cwd, this.options.dest), remoteDestPath)
-      mark('推送到远端')
+      mark('提交所有文件')
       await git.cwd(localRepoPath)
       await git.add('-A')
-      if ((await git.status()).files.length !== 0) {
+      if ((await git.status()).files.length === 0) {
+        mark('没有任何提交，跳过提交')
+      } else {
         await git.commit('Updates gh-pages by liuli-cli')
-        await git.push(defaultRemote, defaultBranch)
       }
-      mark('完成推送')
+      mark('推送到远端')
+      if ((await git.status()).ahead === 0) {
+        mark('没有更新，跳过推送')
+      } else {
+        await git.push(defaultRemote, defaultBranch)
+        mark('完成推送')
+      }
       obs.disconnect()
     })
   }

@@ -1,8 +1,8 @@
 {
   "name": "@liuli-util/react-router",
   "version": "0.2.3",
-  "main": "src/index.ts",
-  "module": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "types": "src/index.ts",
   "license": "MIT",
   "scripts": {

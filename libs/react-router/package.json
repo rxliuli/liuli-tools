@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/react-router",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "src/index.ts",

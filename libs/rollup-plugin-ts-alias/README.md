@@ -17,14 +17,14 @@ There are the following requirements
 Install
 
 ```sh
-pnpm i -D @pinefield/rollup-plugin-ts-alias
+pnpm i -D @liuli-util/rollup-plugin-ts-alias
 ```
 
 configure
 
 ```ts
 // vite.config.ts
-import { tsAlias } from '@pinefield/rollup-plugin-ts-alias'
+import { tsAlias } from '@liuli-util/rollup-plugin-ts-alias'
 
 export default defineConfig({
   plugins: [tsAlias(['@liuli-util/'])],

@@ -280,6 +280,7 @@ importers:
   examples/react-router-async-example:
     specifiers:
       '@liuli-util/react-router': workspace:*
+      '@liuli-util/rollup-plugin-ts-alias': workspace:*
       '@types/react': ^17.0.33
       '@types/react-dom': ^17.0.10
       '@vitejs/plugin-react': ^1.0.7
@@ -292,6 +293,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     devDependencies:
+      '@liuli-util/rollup-plugin-ts-alias': link:../../libs/rollup-plugin-ts-alias
       '@types/react': 17.0.35
       '@types/react-dom': 17.0.11
       '@vitejs/plugin-react': 1.0.9
@@ -301,6 +303,7 @@ importers:
   examples/react-router-basic-example:
     specifiers:
       '@liuli-util/react-router': workspace:*
+      '@liuli-util/rollup-plugin-ts-alias': workspace:*
       '@types/qs': ^6.9.7
       '@types/react': ^17.0.33
       '@types/react-dom': ^17.0.10
@@ -314,6 +317,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     devDependencies:
+      '@liuli-util/rollup-plugin-ts-alias': link:../../libs/rollup-plugin-ts-alias
       '@types/qs': 6.9.7
       '@types/react': 17.0.35
       '@types/react-dom': 17.0.11
@@ -324,6 +328,7 @@ importers:
   examples/react-router-nest-example:
     specifiers:
       '@liuli-util/react-router': workspace:*
+      '@liuli-util/rollup-plugin-ts-alias': workspace:*
       '@types/qs': ^6.9.7
       '@types/react': ^17.0.33
       '@types/react-dom': ^17.0.10
@@ -337,6 +342,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     devDependencies:
+      '@liuli-util/rollup-plugin-ts-alias': link:../../libs/rollup-plugin-ts-alias
       '@types/qs': 6.9.7
       '@types/react': 17.0.35
       '@types/react-dom': 17.0.11
@@ -840,6 +846,29 @@ importers:
       ts-jest: 27.0.7_2c4ca6574207836d1023f54689cc81ac
       type-fest: 2.5.2
       typedoc: 0.22.7_typescript@4.4.4
+      typescript: 4.4.4
+
+  libs/rollup-plugin-ts-alias:
+    specifiers:
+      '@liuli-util/cli': workspace:*
+      '@types/fs-extra': ^9.0.13
+      fs-extra: ^10.0.0
+      jest: ^27.4.3
+      rimraf: ^3.0.2
+      rollup: ^2.63.0
+      ts-jest: ^27.0.7
+      type-fest: ^2.3.4
+      typescript: ^4.4.3
+    dependencies:
+      fs-extra: 10.0.0
+    devDependencies:
+      '@liuli-util/cli': link:../../apps/liuli-cli
+      '@types/fs-extra': 9.0.13
+      jest: 27.4.5
+      rimraf: 3.0.2
+      rollup: 2.63.0
+      ts-jest: 27.0.7_jest@27.4.5+typescript@4.4.4
+      type-fest: 2.5.2
       typescript: 4.4.4
 
   libs/rollup-plugin-worker-threads:
@@ -11028,6 +11057,14 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
+
+  /rollup/2.63.0:
+    resolution: {integrity: sha512-nps0idjmD+NXl6OREfyYXMn/dar3WGcyKn+KBzPdaLecub3x/LrId0wUcthcr8oZUAcZAR8NKcfGGFlNgGL1kQ==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
 
   /rtl-css-js/1.14.5:
     resolution: {integrity: sha512-+ng7LWVvPjQUdgDVviR6vKi2X4JiBtlw5rdY0UM5/Cj39c2/KDUsY/VxEzGE25m4KR5g0dvuKfrDq7DaoDooIA==}

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.18.0
+
+- feat: 支持自定义 `repo/remote/branch` 等配置
+
 ## 3.17.0
 
 - feat: 不再处理并发发布的问题

@@ -13,18 +13,14 @@
   "bin": {
     "cli-name": "./bin.js"
   },
-  "jest": {
-    "preset": "ts-jest"
-  },
   "dependencies": {
     "commander": "^8.2.0",
     "enquirer": "^2.3.6",
     "fs-extra": "^10.0.0"
   },
   "devDependencies": {
-    "@liuli-util/cli": "workspace:*",
+    "@liuli-util/cli": "^3.18.0",
     "@types/fs-extra": "^9.0.13",
-    "@types/inquirer": "^8.1.2",
     "@types/jest": "^27.0.2",
     "@types/lodash": "^4.14.173",
     "@types/node": "^16.9.6",

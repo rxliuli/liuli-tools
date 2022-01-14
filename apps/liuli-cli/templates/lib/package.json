@@ -11,7 +11,7 @@
     "dev": "liuli-cli build lib -w"
   },
   "devDependencies": {
-    "@liuli-util/cli": "^3.17.2",
+    "@liuli-util/cli": "^3.18.0",
     "rimraf": "^3.0.2",
     "type-fest": "^2.3.4",
     "typescript": "^4.4.3"

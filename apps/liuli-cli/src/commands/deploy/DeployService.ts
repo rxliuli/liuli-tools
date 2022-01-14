@@ -36,7 +36,7 @@ export interface BaseDeployOptions {
   type: DeployTypeEnum
 }
 
-export type SftpDeployOptions = Omit<BaseDeployOptions, 'type'> & {
+export interface SftpDeployOptions extends Omit<BaseDeployOptions, 'type'> {
   dist: string
   dest: string
   sshConfig: ConnectOptions
@@ -86,7 +86,7 @@ export class SftpDeployService implements IDeployService {
   }
 }
 
-export type GhPagesDeployOptions = Omit<BaseDeployOptions, 'type'> & {
+export interface GhPagesDeployOptions extends Omit<BaseDeployOptions, 'type'> {
   /**
    * 推送的本地目录
    */
@@ -119,7 +119,7 @@ export class GhPagesDeployService implements IDeployService {
     const defaultRemote = this.options.remote ?? 'origin'
     const defaultBranch = this.options.branch ?? 'gh-pages'
     return PromiseUtil.wrapOnEvent(async (events: DeployEvents) => {
-      const obs = new PerformanceObserver((perfObserverList, observer) => {
+      const obs = new PerformanceObserver((perfObserverList) => {
         if (this.options.debug) {
           console.log(perfObserverList.getEntries())
         }
@@ -143,6 +143,7 @@ export class GhPagesDeployService implements IDeployService {
       const ghPagesRoot = path.resolve(nodeCacheDir('liuli-cli'), 'gh-pages')
       const originRepoName = this.options.repo.replace(new RegExp('[/:]', 'g'), '_')
       const localRepoPath = path.resolve(ghPagesRoot, originRepoName)
+      let forcePush = false
       if (!(await pathExists(localRepoPath))) {
         mark('克隆项目')
         //如果失败，应该尝试克隆主分支，然后 checkout
@@ -162,8 +163,10 @@ export class GhPagesDeployService implements IDeployService {
           await git.checkout({
             '--orphan': defaultBranch,
           })
+          forcePush = true
         }
       } else {
+        await git.cwd(localRepoPath)
         mark('更新项目')
         await git.pull()
       }
@@ -180,11 +183,11 @@ export class GhPagesDeployService implements IDeployService {
         await git.commit('Updates gh-pages by liuli-cli')
       }
       mark('推送到远端')
-      if ((await git.status()).ahead === 0) {
-        mark('没有更新，跳过推送')
-      } else {
+      if ((await git.status()).ahead > 0 || forcePush) {
         await git.push(defaultRemote, defaultBranch)
         mark('完成推送')
+      } else {
+        mark('没有更新，跳过推送')
       }
       obs.disconnect()
     })

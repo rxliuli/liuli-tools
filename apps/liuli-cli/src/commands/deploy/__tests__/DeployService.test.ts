@@ -1,7 +1,8 @@
 import * as path from 'path'
-import { mkdirp, remove, writeFile } from 'fs-extra'
-import { GhPagesDeployService, SftpDeployOptions, SftpDeployService } from '../DeployService'
+import { mkdirp, remove, unlink, writeFile } from 'fs-extra'
+import { GhPagesDeployOptions, GhPagesDeployService, SftpDeployOptions, SftpDeployService } from '../DeployService'
 import { execPromise } from '../util/execPromise'
+import { nodeCacheDir } from '../../../utils/nodeCacheDir'
 
 const tempPath = path.resolve(__dirname, '.temp')
 beforeAll(async () => {
@@ -25,15 +26,15 @@ beforeAll(async () => {
   )
 })
 
-describe('测试 SftpDeployService', () => {
+describe.skip('测试 SftpDeployService', () => {
   const options: SftpDeployOptions = {
     debug: false,
     cwd: tempPath,
     dist: 'dist',
-    dest: '/home/pinefield/apps/test',
+    dest: process.env.dest!,
     sshConfig: {
-      host: '10.8.2.4',
-      username: 'pinefield',
+      host: process.env.host,
+      username: process.env.username,
     },
   }
   it('基本示例', async () => {
@@ -56,16 +57,52 @@ describe('测试 SftpDeployService', () => {
 })
 
 describe('测试 GhPagesDeployService', () => {
-  const ghPagesDeployService = new GhPagesDeployService({
+  const options: GhPagesDeployOptions = {
     debug: false,
     cwd: tempPath,
     dist: 'dist',
     dest: '/',
     repo: 'https://github.com/rxliuli/test-git.git',
-    remote: 'examples/test-app',
+    remote: 'origin',
     branch: 'gh-pages',
+  }
+  const ghPagesDeployService = new GhPagesDeployService(options)
+  const distPath = path.resolve(tempPath, 'dist')
+  const mock = jest.fn().mockImplementation((title) => console.log(title))
+  beforeEach(async () => {
+    await writeFile(
+      path.resolve(distPath, 'index.html'),
+      `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>测试部署</title>
+  </head>
+  <body>
+    <h1>测试部署</h1>
+    <p>${Date.now()}</p>
+  </body>
+</html>
+    `,
+    )
+    mock.mockClear()
   })
   it('基本示例', async () => {
-    await ghPagesDeployService.deploy().on('process', (title) => console.log(title))
-  }, 100_000)
+    await ghPagesDeployService.deploy().on('process', mock)
+    console.log(mock.mock.calls)
+    expect(mock.mock.calls.some((item: string[]) => item.includes('完成推送'))).toBeTruthy()
+  }, 10_000)
+  it('测试没有任何修改', async () => {
+    await writeFile(path.resolve(distPath, 'index.html'), 'test')
+    await ghPagesDeployService.deploy().on('process', mock)
+    await ghPagesDeployService.deploy().on('process', mock)
+    expect(mock.mock.calls.some((item: string[]) => item.includes('没有任何提交，跳过提交'))).toBeTruthy()
+    expect(mock.mock.calls.some((item: string[]) => item.includes('没有更新，跳过推送'))).toBeTruthy()
+  }, 20_000)
+  it('测试首次拉取代码', async () => {
+    const dir = path.resolve(nodeCacheDir('liuli-cli'), 'gh-pages', options.repo!.replace(new RegExp('[/:]', 'g'), '_'))
+    await remove(dir)
+    await ghPagesDeployService.deploy().on('process', mock)
+    expect(mock.mock.calls.some((item: string[]) => item.includes('克隆项目'))).toBeTruthy()
+  }, 10_000)
 })

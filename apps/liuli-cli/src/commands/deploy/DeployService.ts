@@ -8,23 +8,10 @@ import localize from 'ajv-i18n/localize'
 import simpleGit from 'simple-git'
 import { nodeCacheDir } from '../../utils/nodeCacheDir'
 import { performance, PerformanceObserver } from 'perf_hooks'
+import { validate } from './util/validate'
 
 export interface DeployEvents {
   process(title: string): void
-}
-
-/**
- * 使用 ajv 校验数据
- * @param schema
- * @param data
- */
-function ajvValidate(schema: object, data: object): [isValid: boolean, errorText: string] {
-  const ajv = new Ajv({ allErrors: true, messages: false })
-  const res = ajv.validate(schema, data)
-  if (!res) {
-    localize.zh(ajv.errors)
-  }
-  return [res, ajv.errorsText()]
 }
 
 /**
@@ -50,8 +37,8 @@ export interface BaseDeployOptions {
 }
 
 export type SftpDeployOptions = Omit<BaseDeployOptions, 'type'> & {
+  dist: string
   dest: string
-  remote: string
   sshConfig: ConnectOptions
 }
 
@@ -69,29 +56,30 @@ export class SftpDeployService implements IDeployService {
         ...this.options.sshConfig,
         privateKey,
       })
-      await client.mkdir(this.options.remote, true)
-      await client.uploadDir(path.resolve(this.options.cwd, this.options.dest), this.options.remote)
+      await client.mkdir(this.options.dest, true)
+      await client.uploadDir(path.resolve(this.options.cwd, this.options.dist), this.options.dest)
       await client.end()
     })
   }
 
   validate(): [isValidate: boolean, errorText: string] {
-    return ajvValidate(
+    return validate<SftpDeployOptions>(
       {
         type: 'object',
         properties: {
+          debug: { type: 'boolean' },
           cwd: { type: 'string' },
+          dist: { type: 'string' },
           dest: { type: 'string' },
-          remote: { type: 'string' },
           sshConfig: {
             type: 'object',
             properties: {
               host: { type: 'string' },
               username: { type: 'string' },
             },
-          },
+          } as any,
         },
-        required: ['cwd', 'dest', 'remote', 'sshConfig'],
+        required: ['cwd', 'dist', 'dest', 'sshConfig', 'debug'],
       },
       this.options,
     )
@@ -99,8 +87,26 @@ export class SftpDeployService implements IDeployService {
 }
 
 export type GhPagesDeployOptions = Omit<BaseDeployOptions, 'type'> & {
-  dest: string
-  remote: string
+  /**
+   * 推送的本地目录
+   */
+  dist: string
+  /**
+   * 推送的远端目录，默认为分支根目录
+   */
+  dest?: string
+  /**
+   * 推送的项目 git 地址，默认为当前项目
+   */
+  repo?: string
+  /**
+   * 推送的远端，默认为 origin
+   */
+  remote?: string
+  /**
+   * 远端分支名，默认为 gh-pages
+   */
+  branch?: string
 }
 
 /**
@@ -110,8 +116,8 @@ export class GhPagesDeployService implements IDeployService {
   constructor(private readonly options: GhPagesDeployOptions) {}
 
   deploy(): EventExtPromise<void, DeployEvents> {
-    const defaultRemote = 'origin'
-    const defaultBranch = 'gh-pages'
+    const defaultRemote = this.options.remote ?? 'origin'
+    const defaultBranch = this.options.branch ?? 'gh-pages'
     return PromiseUtil.wrapOnEvent(async (events: DeployEvents) => {
       const obs = new PerformanceObserver((perfObserverList, observer) => {
         if (this.options.debug) {
@@ -126,25 +132,45 @@ export class GhPagesDeployService implements IDeployService {
       }
       mark('开始推送')
       const git = simpleGit(this.options.cwd)
-      mark('获取当前项目的远端配置')
-      const originRemote = (await git.getRemotes(true)).find((item) => item.name === defaultRemote)
-      if (!originRemote) {
-        throw new Error('当前目录不是一个 git 项目或没有配置 git remote')
+      if (!this.options.repo) {
+        mark('获取当前项目的远端配置')
+        const originRemote = (await git.getRemotes(true)).find((item) => item.name === defaultRemote)
+        if (!originRemote) {
+          throw new Error('当前目录不是一个 git 项目或没有配置 git remote')
+        }
+        this.options.repo = originRemote.refs.fetch
       }
       const ghPagesRoot = path.resolve(nodeCacheDir('liuli-cli'), 'gh-pages')
-      const originRepoName = originRemote.refs.fetch.replace(new RegExp('[/:]', 'g'), '_')
+      const originRepoName = this.options.repo.replace(new RegExp('[/:]', 'g'), '_')
       const localRepoPath = path.resolve(ghPagesRoot, originRepoName)
       if (!(await pathExists(localRepoPath))) {
         mark('克隆项目')
-        await git.clone(originRemote.refs.fetch, localRepoPath, { '--branch': defaultBranch })
+        //如果失败，应该尝试克隆主分支，然后 checkout
+        try {
+          await git.clone(this.options.repo, localRepoPath, {
+            '--branch': defaultBranch,
+            '--single-branch': null,
+            '--depth': 1,
+          })
+        } catch (e) {
+          mark(`未找到 ${defaultBranch} 分支，尝试自动创建`)
+          await git.clone(this.options.repo, localRepoPath, {
+            '--single-branch': null,
+            '--depth': 1,
+          })
+          await git.cwd(localRepoPath)
+          await git.checkout({
+            '--orphan': defaultBranch,
+          })
+        }
       } else {
         mark('更新项目')
         await git.pull()
       }
       mark('复制文件')
-      const remoteDestPath = path.join(localRepoPath, this.options.remote)
+      const remoteDestPath = path.join(localRepoPath, this.options.dest ?? './')
       await mkdirp(remoteDestPath)
-      await copy(path.resolve(this.options.cwd, this.options.dest), remoteDestPath)
+      await copy(path.resolve(this.options.cwd, this.options.dist), remoteDestPath)
       mark('提交所有文件')
       await git.cwd(localRepoPath)
       await git.add('-A')
@@ -165,15 +191,19 @@ export class GhPagesDeployService implements IDeployService {
   }
 
   validate(): [isValid: boolean, errorText: string] {
-    return ajvValidate(
+    return validate<GhPagesDeployOptions>(
       {
         type: 'object',
         properties: {
+          debug: { type: 'boolean' },
           cwd: { type: 'string' },
-          dest: { type: 'string' },
-          remote: { type: 'string' },
+          dist: { type: 'string' },
+          dest: { type: 'string', nullable: true },
+          repo: { type: 'string', nullable: true },
+          remote: { type: 'string', nullable: true },
+          branch: { type: 'string', nullable: true },
         },
-        required: ['cwd', 'dest', 'remote'],
+        required: ['debug', 'cwd', 'dist'],
       },
       this.options,
     )

@@ -27,9 +27,10 @@ beforeAll(async () => {
 
 describe('测试 SftpDeployService', () => {
   const options: SftpDeployOptions = {
+    debug: false,
     cwd: tempPath,
-    dest: 'dist',
-    remote: '/home/pinefield/apps/test',
+    dist: 'dist',
+    dest: '/home/pinefield/apps/test',
     sshConfig: {
       host: '10.8.2.4',
       username: 'pinefield',
@@ -56,20 +57,15 @@ describe('测试 SftpDeployService', () => {
 
 describe('测试 GhPagesDeployService', () => {
   const ghPagesDeployService = new GhPagesDeployService({
+    debug: false,
     cwd: tempPath,
-    dest: 'dist',
+    dist: 'dist',
+    dest: '/',
+    repo: 'https://github.com/rxliuli/test-git.git',
     remote: 'examples/test-app',
+    branch: 'gh-pages',
   })
   it('基本示例', async () => {
     await ghPagesDeployService.deploy().on('process', (title) => console.log(title))
-  }, 10_000)
-  //TODO 无法使用单元测试
-  it.skip('并发推送', async () => {
-    const scriptPath = path.resolve(__dirname, './util/deployGhPageWorker.ts').replace(/\\/g, '/')
-    await Promise.all(
-      [1, 2].map(async () => {
-        await execPromise(`esno ${scriptPath}`)
-      }),
-    )
-  }, 10_000)
+  }, 100_000)
 })

@@ -6,14 +6,18 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "setup": "yarn start && yarn build",
+    "setup": "pnpm start && pnpm build",
     "build": "rimraf dist && liuli-cli build cli",
     "dev": "rimraf dist && liuli-cli build cli -w",
     "start": "esno src/bin.ts --dirs src/i18n",
-    "docs:server": "live-server docs",
-    "docs:dev": "typedoc --watch",
-    "docs:build": "rimraf docs && typedoc",
-    "docs:deploy": "yarn build && gh-pages -d docs/ -e /i18next-dts-gen -a"
+    "docs-dev": "typedoc --watch",
+    "docs-build": "rimraf docs && typedoc",
+    "docs-deploy": "pnpm docs-build && liuli-cli deploy"
+  },
+  "deploy": {
+    "type": "gh-pages",
+    "dist": "docs/",
+    "dest": "/i18next-dts-gen"
   },
   "bin": "./bin.js",
   "jest": {

@@ -1,6 +1,6 @@
 # @liuli-util/i18next-dts-gen
 
-> [English](https://liuli-tools.rxliuli.com/tools/i18next-dts-gen/), [简体中文](https://liuli-tools.rxliuli.com/zh/tools/i18next-dts-gen/)
+> [中文](https://github.com/rxliuli/liuli-tools/blob/master/libs/i18next-dts-gen/README.ZH_CN.md)
 
 ## Introduction
 

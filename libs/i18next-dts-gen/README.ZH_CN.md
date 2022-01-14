@@ -1,7 +1,5 @@
 # @liuli-util/i18next-dts-gen
 
-> [English](https://liuli-tools.rxliuli.com/tools/i18next-dts-gen/), [简体中文](https://liuli-tools.rxliuli.com/zh/tools/i18next-dts-gen/)
-
 ## 简介
 
 i18next 的 typescript 类型定义生成器，可以从多个语言翻译 json 文件中生成类型定义，支持嵌套对象与参数。
@@ -32,15 +30,15 @@ Options:
 
 提示
 
-![prompt](./assets/prompt.gif)
+![prompt](https://github.com/rxliuli/liuli-tools/raw/master/libs/i18next-dts-gen/assets/prompt.gif)
 
 导航
 
-![navigation](./assets/navigation.gif)
+![navigation](https://github.com/rxliuli/liuli-tools/raw/master/libs/i18next-dts-gen/assets/navigation.gif)
 
 搜索和替换
 
-![searchAndReplace](assets/searchAndReplace.gif)
+![searchAndReplace](https://github.com/rxliuli/liuli-tools/raw/master/libs/i18next-dts-gen/assets/searchAndReplace.gif)
 
 ## 动机
 
@@ -61,9 +59,9 @@ Options:
 
 ## 设计
 
-![架构图](./assets/schema.drawio.svg)
+![架构图](https://github.com/rxliuli/liuli-tools/raw/master/libs/i18next-dts-gen/assets/schema.drawio.svg)
 
-![流程图](./assets/flowchart.drawio.svg)
+![流程图](https://github.com/rxliuli/liuli-tools/raw/master/libs/i18next-dts-gen/assets/flowchart.drawio.svg)
 
 ## FAQ
 

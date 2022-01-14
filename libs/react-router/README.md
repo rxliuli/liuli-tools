@@ -8,8 +8,6 @@ Encapsulating react-router is a centralized js routing configuration, the compon
 
 ## Quick start
 
-> Note: The current lib is not compiled, your build tool must support compiling tsx (such as vite or esbuild).
-
 Installation dependencies
 
 ```sh

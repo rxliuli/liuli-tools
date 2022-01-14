@@ -1,5 +1,10 @@
 import React, { ComponentType } from 'react'
-import { createHashHistory as _createHashHistory, History } from 'history'
+import {
+  createHashHistory as _createHashHistory,
+  createBrowserHistory as _createBrowserHistory,
+  createMemoryHistory as _createMemoryHistory,
+  History,
+} from 'history'
 import { stringify } from 'qs'
 
 export interface RouteConfig {
@@ -33,6 +38,12 @@ function proxyHistory(history: History): BaseHistory {
 
 export function createHashHistory(): BaseHistory {
   return proxyHistory(_createHashHistory())
+}
+export function createBrowserHistory(): BaseHistory {
+  return proxyHistory(_createBrowserHistory())
+}
+export function createMemoryHistory(): BaseHistory {
+  return proxyHistory(_createMemoryHistory())
 }
 
 export { Link, Outlet as RouterView } from 'react-router-dom'

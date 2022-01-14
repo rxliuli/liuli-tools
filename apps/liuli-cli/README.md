@@ -1,49 +1,51 @@
 # @liuli-util/cli
 
-一个针对于库和 CLI 应用程序打包的零配置 CLI。
+> [中文](https://github.com/rxliuli/liuli-tools/tree/master/apps/liuli-cli/README.zh-CN.md)
 
-## 起步
+A zero-configuration CLI packaged for libraries and CLI applications.
 
-### 安装
+## Getting started
 
-```sh
-yarn add -D @liuli-util/cli # 局部安装
-npm i -g @liuli-util/cli # 全局安装
-```
-
-### 打包
+### Install
 
 ```sh
-yarn liuli-cli build lib # 打包库
-yarn liuli-cli build cli # 打包 cli 引用程序
+yarn add -D @liuli-util/cli # local installation
+npm i -g @liuli-util/cli # install globally
 ```
 
-> 添加 `-w` 选项则启动 rollup 的监视模式，打包出来的 dist/ 不会压缩且不会将依赖项打进 bundle。
-
-![监视模式](https://liuli.dev/images/liuli-cli%20%E7%9B%91%E8%A7%86%E6%A8%A1%E5%BC%8F.gif)
-
-### 生成
+### Bale
 
 ```sh
-yarn liuli-cli generate <name> --template lib # 生成 ts-lib 项目
-yarn liuli-cli generate <name> --template cli # 生成 cli 项目
+yarn liuli-cli build lib # package library
+yarn liuli-cli build cli # package cli reference program
 ```
 
-util 也支持交互式的创建项目
+> Add the `-w` option to start the watch mode of rollup, the packaged dist/ will not be compressed and the dependencies will not be included in the bundle.
+
+![Monitor Mode](https://liuli.dev/images/liuli-cli%20%E7%9B%91%E8%A7%86%E6%A8%A1%E5%BC%8F.gif)
+
+### Generate
+
+```sh
+yarn liuli-cli generate <name> --template lib # Generate ts-lib project
+yarn liuli-cli generate <name> --template cli # Generate cli project
+```
+
+util also supports interactive project creation
 
 ```shell
 yarn liuli-cli generate
 ```
 
-![liuli-cli 交互式创建截图](https://liuli.dev/images/liuli-cli%20%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%88%9B%E5%BB%BA%E6%88%AA%E5%9B%BE.gif)
+![Liuli-cli interactively create screenshots](https://liuli.dev/images/liuli-cli%20%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%88%9B %E5%BB%BA%E6%88%AA%E5%9B%BE.gif)
 
-### 同步配置
+### Sync configuration
 
 ```shell
 yarn liuli-cli sync
 ```
 
-需要在 package.json 中指定同步哪些配置
+Which configuration needs to be synced in package.json
 
 ```json
 {
@@ -51,7 +53,7 @@ yarn liuli-cli sync
 }
 ```
 
-目前支持的配置项
+Currently supported configuration items
 
 - prettier
 - commitlint
@@ -62,39 +64,25 @@ yarn liuli-cli sync
 - eslint-vue-ts
 - jest
 
-未来的目标：默认将包括检查 cli 自身的同步（如果需要在 monorepo 之外使用的话），eslint/style-lint 之类，还有在没有配置时实现交互式 cli
+Future goals: By default will include checking the synchronization of the cli itself (if it needs to be used outside of a monorepo), eslint/style-lint etc., and implementing an interactive cli when not configured
 
-> 注：目前仅同步依赖而不会执行安装
+> Note: Currently only the dependencies are synced and no installation is performed
 
-也支持交互式的初始化同步配置
+Interactive initialization synchronization configuration is also supported
 
 ```shell
 yarn liuli-cli sync init
 ```
 
-## 设计理念
+## design concept
 
-- 约定大于配置，如果可能应该不提供配置。VitePress 也是这样做的，参考：https://vitepress.vuejs.org/#lighter-page-weight 这会导致一些约束，包括以下内容
-  - 打包库时入口文件必须是 `src/index.ts`，出口文件则是 `dist/index.esm.js` 与 `dist/index.js`
-  - 打包 CLI 时入口文件必须是 `src/bin.ts`，出口文件则是 `dist/bin.js`
-  - 在打包 lib 时会将所有的依赖作为外部依赖处理，而在打包 cli 时会将所有依赖项打进 bundle
+- Convention over configuration, configuration should not be provided if possible. VitePress does this too, reference: https://vitepress.vuejs.org/#lighter-page-weight This leads to some constraints, including the following
+  - When packaging the library, the entry file must be `src/index.ts`, and the export file must be `dist/index.esm.js` and `dist/index.js`
+  - When packaging the CLI, the entry file must be `src/bin.ts`, and the exit file must be `dist/bin.js`
+  - All dependencies will be treated as external dependencies when packaging lib, and all dependencies will be bundled when packaging cli
 
 ## FAQ
 
-### 为什么底层没有选择 esbuild
+### Why not bundle external dependencies
 
-事实上，esbuild 本身非常非常非常快（重要的事情说三遍），但如果使用 js 封装 CLI，则性能会迅速降低。
-
-打包这个项目使用 esbuild、cli 封装、rollup 的时间对比如下
-
-| 打包方式 | 时间  |
-| -------- | ----- |
-| esbuild  | 0.49s |
-| cli 封装 | 3.2s  |
-| rollup   | 3.65s |
-
-> 现在 [vscode 插件打包官方推荐使用 esbuild](https://code.visualstudio.com/api/working-with-extensions/bundling-extension) ，吾辈在生产项目中也有过实践，长期而言吾辈比较看好这类更高性能的打包工具。
-
-### 为什么不捆绑外部依赖项
-
-主要原因是希望将捆绑的工作交由最终应用完成，避免重复捆绑相同的依赖，而且还可以避免处理 nodejs 中直接基于文件系统使用 `worker_threads` 的问题。
+The main reason is that you want to leave the bundling work to the final application, avoid bundling the same dependencies repeatedly, and also avoid dealing with the problem of using `worker_threads` directly based on the file system in nodejs.

@@ -7,15 +7,15 @@
 ### 安装
 
 ```sh
-yarn add -D @liuli-util/cli # 局部安装
-npm i -g @liuli-util/cli # 全局安装
+pnpm i -D @liuli-util/cli # 局部安装
+pnpm i -g @liuli-util/cli # 全局安装
 ```
 
 ### 打包
 
 ```sh
-yarn liuli-cli build lib # 打包库
-yarn liuli-cli build cli # 打包 cli 引用程序
+liuli-cli build lib # 打包库
+liuli-cli build cli # 打包 cli 引用程序
 ```
 
 > 添加 `-w` 选项则启动 rollup 的监视模式，打包出来的 dist/ 不会压缩且不会将依赖项打进 bundle。
@@ -25,22 +25,66 @@ yarn liuli-cli build cli # 打包 cli 引用程序
 ### 生成
 
 ```sh
-yarn liuli-cli generate <name> --template lib # 生成 ts-lib 项目
-yarn liuli-cli generate <name> --template cli # 生成 cli 项目
+liuli-cli generate <name> --template lib # 生成 ts-lib 项目
+liuli-cli generate <name> --template cli # 生成 cli 项目
 ```
 
 util 也支持交互式的创建项目
 
 ```shell
-yarn liuli-cli generate
+liuli-cli generate
 ```
 
 ![liuli-cli 交互式创建截图](https://liuli.dev/images/liuli-cli%20%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%88%9B%E5%BB%BA%E6%88%AA%E5%9B%BE.gif)
 
+### 部署
+
+支持部署前端资源通过 sftp/gh-pages 部署到远端，配置信息在 package.json 中的 `deploy` 字段
+
+```sh
+liuli deploy
+```
+
+公共
+
+| 配置   | 说明                      | 默认值 |
+| ------ | ------------------------- | ------ |
+| `type` | 部署类型，`sftp/gh-pgaes` | 无     |
+| `dist` | 静态资源目录              | 无     |
+| `dest` | 部署的远端目录            | 无     |
+
+sftp
+
+| 配置                 | 说明           | 默认值 |
+| -------------------- | -------------- | ------ |
+| `sshConfig.host`     | ssh 的 ip 地址 |        |
+| `sshConfig.port`     | ssh 的端口号   | 22     |
+| `sshConfig.username` | ssh 的用户名   |        |
+
+gh-pages
+
+| 配置     | 说明                | 默认值                      |
+| -------- | ------------------- | --------------------------- |
+| `repo`   | 部署的 git 项目地址 | 当前 git 项目的 remote 地址 |
+| `remote` | 远端名              | origin                      |
+| `branch` | 远端分支            | gh-pages                    |
+
+部署 vuepress 文档网站示例配置
+
+```json
+{
+  "deploy": {
+    "type": "gh-pages",
+    "dest": "docs/.vuepress/dist",
+    "remote": "/"
+  }
+}
+```
+
 ### 同步配置
 
 ```shell
-yarn liuli-cli sync
+liuli-cli sync
 ```
 
 需要在 package.json 中指定同步哪些配置
@@ -69,7 +113,7 @@ yarn liuli-cli sync
 也支持交互式的初始化同步配置
 
 ```shell
-yarn liuli-cli sync init
+liuli-cli sync init
 ```
 
 ## 设计理念

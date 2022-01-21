@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
     "setup": "pnpm build",
-    "build": "rimraf dist && liuli-cli build pkg",
-    "dev": "liuli-cli build pkg -w"
+    "build": "rimraf dist && liuli-cli build lib",
+    "dev": "liuli-cli build lib -w"
   },
   "jest": {
     "preset": "ts-jest",
@@ -29,7 +29,7 @@
     "@types/node": "^16.11.7",
     "rimraf": "^3.0.2",
     "rollup": "^2",
-    "typescript": "^4.3.5"
+    "typescript": "^4.5.5"
   },
   "sync": [
     "jest"

@@ -1,0 +1,30 @@
+{
+  "name": "@liuli-util/object",
+  "version": "3.3.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "description": "对象相关功能的函数库",
+  "scripts": {
+    "build": "rimraf dist && liuli-cli build pkg"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "devDependencies": {
+    "@liuli-util/cli": "^3.11.0",
+    "@liuli-util/shell": "^0.2.0",
+    "@types/jest": "^26.0.24",
+    "@types/rimraf": "^3.0.1",
+    "jest": "^27.0.6",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.4",
+    "typescript": "^4.3.5"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f",
+  "license": "MIT"
+}

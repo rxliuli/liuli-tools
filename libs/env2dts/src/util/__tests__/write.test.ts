@@ -1,7 +1,7 @@
 import { insertCode } from '../write'
 import { generate } from '../generate'
 
-describe('测试 insertCode', () => {
+describe.skip('测试 insertCode', () => {
   it('基本示例', () => {
     const res = insertCode(
       `declare interface ViteEnv {

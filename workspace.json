@@ -4,7 +4,7 @@
       "root": "apps/cmd-shim"
     },
     "@liuli-util/simple-ci": {
-      "root": "apps/simple-ci"
+      "root": "archives/simple-ci"
     },
     "@liuli-util/cli": {
       "root": "apps/liuli-cli"
@@ -19,7 +19,7 @@
       "root": "libs/array"
     },
     "@liuli-util/yarn-plugin-builder": {
-      "root": "apps/yarn-plugin-builder"
+      "root": "archives/yarn-plugin-builder"
     },
     "@liuli-util/async": {
       "root": "libs/async"
@@ -67,7 +67,7 @@
       "root": "libs/react-router"
     },
     "@liuli-util/rollup-plugin-env-dts-gen": {
-      "root": "libs/rollup-plugin-env-dts-gen"
+      "root": "archives/rollup-plugin-env-dts-gen"
     },
     "@liuli-util/rollup-plugin-graphql-codegen": {
       "root": "libs/rollup-plugin-graphql-codegen"
@@ -97,10 +97,10 @@
       "root": "libs/vite-plugin-env-dts-gen"
     },
     "@liuli-util/yarn-plugin-changed": {
-      "root": "libs/yarn-plugin-changed"
+      "root": "archives/yarn-plugin-changed"
     },
     "@liuli-util/yarn2-migration": {
-      "root": "libs/yarn2-migration"
+      "root": "archives/yarn2-migration"
     },
     "react-router-async-example": {
       "root": "examples/react-router-async-example"

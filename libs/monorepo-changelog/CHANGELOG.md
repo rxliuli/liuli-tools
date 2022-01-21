@@ -2,6 +2,20 @@
 
 ## 0.2.1
 
+<!--hash:eaddbae71ed959e9c8bae642485342f96d7c950f-->
+
+- chore: 修复合并之后衍生的各种问题
+- chore: 将所有的 liuli-cli 的依赖强制指向本地
+- chore: 删除 changelog 的 setup 脚本
+- chore: 重新 yarn 安装依赖引起的变更
+- chore: 升级所有的依赖
+- fix: 修复 nodejs cli 中 bin.js 没有添加顶部声明的错误
+- feat: 使用 pnpm + nx 替代 yarn
+- feat: 将 tsconfig 中的编译目标修改为 ESNext
+- feat: 迁移 ts-node 为更高效的 esno
+
+## 0.2.1
+
 <!--hash:995399ad9071c15100c07db9c03d70f7079304e8-->
 
 - fix: 修复 monorepo-changelog 不能支持旧的 changelog 格式的问题

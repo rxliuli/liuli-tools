@@ -5,6 +5,7 @@ import { uniqueBy } from '@liuli-util/array'
 import promise from 'glob-promise'
 import { parse } from 'dotenv'
 import { format } from 'prettier'
+import prettierOptions from '@liuli-util/prettier-standard-config'
 
 /**
  * 获取环境变量的路径
@@ -55,5 +56,5 @@ export async function gen(cwd: string): Promise<void> {
       properties: envs,
     })
   }
-  await writeFile(envPath, format(sourceFile.getFullText(), { parser: 'typescript' }))
+  await writeFile(envPath, format(sourceFile.getFullText(), { ...prettierOptions, parser: 'typescript' }))
 }

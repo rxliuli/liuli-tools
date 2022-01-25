@@ -20,9 +20,9 @@ importers:
       '@liuli-util/commitlint-standard-config': link:libs/commitlint-standard-config
       '@liuli-util/eslint-config-ts': link:libs/eslint-config-ts
       '@liuli-util/prettier-standard-config': link:libs/prettier-standard-config
-      '@nrwl/cli': 13.4.6
-      '@nrwl/tao': 13.4.6
-      '@nrwl/workspace': 13.4.6_prettier@2.4.1+typescript@4.5.5
+      '@nrwl/cli': 13.5.2
+      '@nrwl/tao': 13.5.2
+      '@nrwl/workspace': 13.5.2_prettier@2.4.1+typescript@4.5.5
       lint-staged: 11.2.6
       prettier: 2.4.1
       simple-git-hooks: 2.7.0
@@ -211,43 +211,6 @@ importers:
       jest: 27.4.7
       rimraf: 3.0.2
       ts-jest: 27.1.3_bc464af956686ccd28ad646067711a2c
-      typedoc: 0.22.11_typescript@4.5.5
-      typescript: 4.5.5
-
-  apps/yarn-plugin-builder:
-    specifiers:
-      '@liuli-util/cli': workspace:*
-      '@types/fs-extra': ^9.0.13
-      '@types/jest': ^27.0.2
-      '@types/lodash': ^4.14.173
-      '@types/node': ^16.9.6
-      '@yarnpkg/cli': ^2.4.2
-      commander: ^8.2.0
-      esbuild: ^0.13.15
-      esno: ^0.9.1
-      fs-extra: ^10.0.0
-      jest: ^27.4.7
-      rimraf: ^3.0.2
-      ts-jest: ^27.1.3
-      type-fest: ^2.3.4
-      typedoc: ^0.22.11
-      typescript: ^4.5.5
-    dependencies:
-      commander: 8.3.0
-      esbuild: 0.13.15
-      fs-extra: 10.0.0
-    devDependencies:
-      '@liuli-util/cli': link:../liuli-cli
-      '@types/fs-extra': 9.0.13
-      '@types/jest': 27.0.2
-      '@types/lodash': 4.14.176
-      '@types/node': 16.11.6
-      '@yarnpkg/cli': 2.4.3_typescript@4.5.5
-      esno: 0.9.1
-      jest: 27.4.7
-      rimraf: 3.0.2
-      ts-jest: 27.1.3_7a3c0eada30bd851b30087ddd964f9b8
-      type-fest: 2.5.2
       typedoc: 0.22.11_typescript@4.5.5
       typescript: 4.5.5
 
@@ -969,7 +932,10 @@ importers:
       typescript: 4.5.5
 
   libs/prettier-standard-config:
-    specifiers: {}
+    specifiers:
+      prettier: ^2.4.1
+    devDependencies:
+      prettier: 2.4.1
 
   libs/react-router:
     specifiers:
@@ -1177,8 +1143,9 @@ importers:
 
   libs/vite-plugin-env-dts-gen:
     specifiers:
-      '@liuli-util/array': ^3.2.7
+      '@liuli-util/array': ^3.3.0
       '@liuli-util/cli': workspace:*
+      '@liuli-util/prettier-standard-config': ^0.2.0
       '@types/fs-extra': ^9.0.13
       '@types/node': ^17.0.8
       dotenv: ^10.0.0
@@ -1194,6 +1161,7 @@ importers:
       vite: ^2.7.13
     dependencies:
       '@liuli-util/array': link:../array
+      '@liuli-util/prettier-standard-config': link:../prettier-standard-config
       dotenv: 10.0.0
       glob: 7.2.0
       glob-promise: 4.2.2_glob@7.2.0
@@ -3530,21 +3498,21 @@ packages:
       rimraf: 3.0.2
     dev: true
 
-  /@nrwl/cli/13.4.6:
-    resolution: {integrity: sha512-GNEFnrTV6EntckK92MTqqi7oLKuDEfQAtacUKBwZogd6p5Jqo/476psZ5+G84i8TpMR4O4aw+WyX5UhUZTboeA==}
+  /@nrwl/cli/13.5.2:
+    resolution: {integrity: sha512-TvrxQ8Qu9l665YZBaMxI8b54Gp1VO/BPsf+8luf3+rZZdsd+ha7PzTtMhTPOoNB0sx0auM71iyZTCV4J1Up43A==}
     hasBin: true
     dependencies:
-      '@nrwl/tao': 13.4.6
+      '@nrwl/tao': 13.5.2
       chalk: 4.1.0
       enquirer: 2.3.6
       v8-compile-cache: 2.3.0
       yargs-parser: 20.0.0
     dev: true
 
-  /@nrwl/devkit/13.4.6:
-    resolution: {integrity: sha512-dlUJIZh8iVSTwfeW9aUZyCpALz6U6tLBgLYWstWVk8Gw6Cos074BN+qfrwMXCgLWHytTA4Lo1LEs60btXSrrvQ==}
+  /@nrwl/devkit/13.5.2:
+    resolution: {integrity: sha512-xOKDDJrHIgsBI80ZpOtEgzoleD8v/+8V4F6VKcq7Ika9RgP9NuEBUTMvuGTQM3GJy5xWkQEXTh1YlfgibnQpfA==}
     dependencies:
-      '@nrwl/tao': 13.4.6
+      '@nrwl/tao': 13.5.2
       ejs: 3.1.6
       ignore: 5.2.0
       rxjs: 6.6.7
@@ -3552,12 +3520,12 @@ packages:
       tslib: 2.3.1
     dev: true
 
-  /@nrwl/jest/13.4.6:
-    resolution: {integrity: sha512-AtD0f7OiEnGP4FByFiBDBw7iWeKfHYgpYdUSUal0or7Fyuz5TpmeJ0FqV6wiHgHedJCCFqBUnTknPHFQ0nuH7w==}
+  /@nrwl/jest/13.5.2:
+    resolution: {integrity: sha512-GoP4ofExKi3XlN3UW7zeLMHiMcrZ32p1QhQ4VyKzPtVrzaZReGwjT5V1RWnglyhZKeDed4saNJVbcx55xG6dfQ==}
     dependencies:
       '@jest/reporters': 27.2.2
       '@jest/test-result': 27.2.2
-      '@nrwl/devkit': 13.4.6
+      '@nrwl/devkit': 13.5.2
       chalk: 4.1.0
       identity-obj-proxy: 3.0.0
       jest-config: 27.2.2
@@ -3575,13 +3543,16 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@nrwl/linter/13.4.6_typescript@4.5.5:
-    resolution: {integrity: sha512-FFUrlPtDk8HzI+Qw0MeuNtaSwFv5N/mh3AkyW81G7oO4e2O1X9c8iZM+orrbCGj93SmYsxI72mYM/3ShoVqdEQ==}
+  /@nrwl/linter/13.5.2_typescript@4.5.5:
+    resolution: {integrity: sha512-mNEZ2T5uB3D0mcfVSjGDQ2o1MKaihJWcS8QNKpyFH9ZZROV6+VDki8tOQG1GQnraLHIlIIzfkOg+FHRkNHkedQ==}
     peerDependencies:
       eslint: ^8.0.0
+    peerDependenciesMeta:
+      eslint:
+        optional: true
     dependencies:
-      '@nrwl/devkit': 13.4.6
-      '@nrwl/jest': 13.4.6
+      '@nrwl/devkit': 13.5.2
+      '@nrwl/jest': 13.5.2
       '@phenomnomnominal/tsquery': 4.1.1_typescript@4.5.5
       tmp: 0.2.1
       tslib: 2.3.1
@@ -3595,8 +3566,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@nrwl/tao/13.4.6:
-    resolution: {integrity: sha512-qEvgV/s8Q6/kOxvUbUeULLuEfdiTeAtLElK4Iwkx0Yap5oahQG4ZGJVhNY8zKcFV0weE1Vhn49rvAgiLwwh1DA==}
+  /@nrwl/tao/13.5.2:
+    resolution: {integrity: sha512-6yACds22JtmH1I4ImXGUpdP923DiXUcu575RtJtYfCH5XNTMuvH2pVp9AKv5Tz6Srp5tOporR62aOI0CB5C9dA==}
     hasBin: true
     dependencies:
       chalk: 4.1.0
@@ -3605,7 +3576,7 @@ packages:
       fs-extra: 9.1.0
       ignore: 5.2.0
       jsonc-parser: 3.0.0
-      nx: 13.4.6
+      nx: 13.5.2
       rxjs: 6.6.7
       rxjs-for-await: 0.0.2_rxjs@6.6.7
       semver: 7.3.4
@@ -3614,21 +3585,22 @@ packages:
       yargs-parser: 20.0.0
     dev: true
 
-  /@nrwl/workspace/13.4.6_prettier@2.4.1+typescript@4.5.5:
-    resolution: {integrity: sha512-WW2oQ/7kTabg7G13QymArLJvYyfC58ifBpeWniwH682KCG+uCgo33Iz5zSbZukYcRSrPTMNiIOvlvIyrGbU4Uw==}
+  /@nrwl/workspace/13.5.2_prettier@2.4.1+typescript@4.5.5:
+    resolution: {integrity: sha512-qvc2ggncT3uTr1+nKef8HDHTt0DeXNZgQB+URQ7la/O0lYRrUcVZhDb9JwDad2JWkeBvL7TTHXf1XY6qJ34+xw==}
     peerDependencies:
-      prettier: ^2.3.0
+      prettier: ^2.5.1
     peerDependenciesMeta:
       prettier:
         optional: true
     dependencies:
-      '@nrwl/cli': 13.4.6
-      '@nrwl/devkit': 13.4.6
-      '@nrwl/jest': 13.4.6
-      '@nrwl/linter': 13.4.6_typescript@4.5.5
+      '@nrwl/cli': 13.5.2
+      '@nrwl/devkit': 13.5.2
+      '@nrwl/jest': 13.5.2
+      '@nrwl/linter': 13.5.2_typescript@4.5.5
       '@parcel/watcher': 2.0.4
       chalk: 4.1.0
       chokidar: 3.5.3
+      cli-cursor: 3.1.0
       cli-spinners: 2.6.1
       dotenv: 10.0.0
       enquirer: 2.3.6
@@ -8732,7 +8704,7 @@ packages:
   /jsonfile/4.0.0:
     resolution: {integrity: sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss=}
     optionalDependencies:
-      graceful-fs: 4.2.8
+      graceful-fs: 4.2.9
     dev: true
 
   /jsonfile/6.1.0:
@@ -9572,11 +9544,11 @@ packages:
     resolution: {integrity: sha512-h2AatdwYH+JHiZpv7pt/gSX1XoRGb7L/qSIeuqA6GwYoF9w1vP1cw42TO0aI2pNyshRK5893hNSl+1//vHK7hQ==}
     dev: true
 
-  /nx/13.4.6:
-    resolution: {integrity: sha512-b0qDsqL94OIJ78V+n5w9i6CzkDMVowPEokt3Q17Ko5gxcagR+gzA2dHGtLHArFpB58yRI2MI3vxbA8J2qsOvcw==}
+  /nx/13.5.2:
+    resolution: {integrity: sha512-Jq++QZMCD5WvCEsOs979W5v1rkvyRTlgcuTxCAIYutp1LxpeOQM4xZnHQlAWpzB/inZCxwFmWqeL7+oUuyapDg==}
     hasBin: true
     dependencies:
-      '@nrwl/cli': 13.4.6
+      '@nrwl/cli': 13.5.2
     dev: true
 
   /object-assign/4.1.1:
@@ -10458,7 +10430,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       onetime: 5.1.2
-      signal-exit: 3.0.5
+      signal-exit: 3.0.6
 
   /restore-cursor/4.0.0:
     resolution: {integrity: sha512-I9fPXU9geO9bHOt9pHHOhOkYerIMsmVaWB0rA2AI9ERh/+x/i7MV5HKBNrg+ljO5eoPVgCcnFuRjJ9uH6I/3eg==}
@@ -10731,7 +10703,6 @@ packages:
 
   /signal-exit/3.0.6:
     resolution: {integrity: sha512-sDl4qMFpijcGw22U5w63KmD3cZJfBuFlVNbVMKje2keoKML7X2UzWbc4XrmEbDwg0NXJc3yv4/ox7b+JWb57kQ==}
-    dev: true
 
   /signedsource/1.0.0:
     resolution: {integrity: sha1-HdrOSYF5j5O9gzlzgD2A1S6TrWo=}

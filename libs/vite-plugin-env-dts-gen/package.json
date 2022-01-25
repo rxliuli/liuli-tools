@@ -36,7 +36,8 @@
   },
   "sync": [],
   "dependencies": {
-    "@liuli-util/array": "^3.2.7",
+    "@liuli-util/array": "^3.3.0",
+    "@liuli-util/prettier-standard-config": "^0.2.0",
     "dotenv": "^10.0.0",
     "glob": "^7.2.0",
     "glob-promise": "^4.2.0",

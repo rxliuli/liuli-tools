@@ -23,12 +23,8 @@ export class Generator {
     const lines = str.split('\n')
     const version = lines.find((line) => line.startsWith('## '))!.slice(3)
     const regex = /<!--hash:(\w+)-->/
-    const hashRes = regex.exec(
-      lines.find((line) => line.startsWith('<!--hash:'))!,
-    )!
-    const contents = lines
-      .filter((line) => line.startsWith('- '))
-      .map((item) => item.slice(2))
+    const hashRes = regex.exec(lines.find((line) => line.startsWith('<!--hash:'))!)!
+    const contents = lines.filter((line) => line.startsWith('- ')).map((item) => item.slice(2))
     return { version, hash: hashRes?.[1], contents }
   }
 
@@ -50,9 +46,6 @@ export class Generator {
   }
 
   static stringifyChangeLog(changeLogDataList: ChangeLogData[]): string {
-    return [
-      '# CHANGELOG',
-      ...changeLogDataList.map((item) => Generator.generate(item)),
-    ].join('\n\n')
+    return ['# CHANGELOG', ...changeLogDataList.map((item) => Generator.generate(item))].join('\n\n')
   }
 }

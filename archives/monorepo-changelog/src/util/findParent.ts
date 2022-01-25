@@ -5,18 +5,9 @@ import path from 'path'
  * @param cwd
  * @param predicate
  */
-export function findParent(
-  cwd: string,
-  predicate: (dir: string) => boolean,
-): string | null
-export function findParent(
-  cwd: string,
-  predicate: (dir: string) => Promise<boolean>,
-): Promise<string | null>
-export function findParent<
-  T extends (dir: string) => boolean | Promise<boolean>,
-  R extends string | null,
->(
+export function findParent(cwd: string, predicate: (dir: string) => boolean): string | null
+export function findParent(cwd: string, predicate: (dir: string) => Promise<boolean>): Promise<string | null>
+export function findParent<T extends (dir: string) => boolean | Promise<boolean>, R extends string | null>(
   cwd: string,
   predicate: T,
 ): ReturnType<T> extends Promise<any> ? Promise<R> : R {

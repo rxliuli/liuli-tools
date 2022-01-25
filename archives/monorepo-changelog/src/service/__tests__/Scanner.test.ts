@@ -8,9 +8,7 @@ import * as console from 'console'
 describe('测试 Scanner', () => {
   let scanner: Scanner
   beforeAll(async () => {
-    const cwd = await findParent(__dirname, (dir) =>
-      pathExists(path.resolve(dir, 'package.json')),
-    )
+    const cwd = await findParent(__dirname, (dir) => pathExists(path.resolve(dir, 'package.json')))
     scanner = new Scanner(cwd!)
   })
 
@@ -19,34 +17,24 @@ describe('测试 Scanner', () => {
       type: 'chore',
       title: '引入 yarn version 插件',
     })
-    expect(
-      Scanner.parseMessage(
-        'test(@liuli-util/yarn-plugin-changed): 添加单元测试',
-      ),
-    ).toEqual({
+    expect(Scanner.parseMessage('test(@liuli-util/yarn-plugin-changed): 添加单元测试')).toEqual({
       type: 'test',
       title: '添加单元测试',
     })
-    expect(
-      Scanner.parseMessage("Merge remote-tracking branch 'origin/dev'"),
-    ).toEqual({
+    expect(Scanner.parseMessage("Merge remote-tracking branch 'origin/dev'")).toEqual({
       type: 'other',
       title: "Merge remote-tracking branch 'origin/dev'",
     })
   })
 
   it('测试 scan', async () => {
-    const commitLogs = await scanner.scan(
-      '4e77fbd3fb4e3ddc12808c2160337751c86958ba',
-    )
+    const commitLogs = await scanner.scan('4e77fbd3fb4e3ddc12808c2160337751c86958ba')
     console.log(commitLogs)
   })
 
   it('测试 simpleGit', async () => {
     const git = simpleGit()
-    const modulePath = path.resolve(
-      'C:/Users/rxliuli/Code/Pkg/liuli-tools/libs/yarn-plugin-changed',
-    )
+    const modulePath = path.resolve('C:/Users/rxliuli/Code/Pkg/liuli-tools/libs/yarn-plugin-changed')
     git.cwd(modulePath)
     const last = (await git.log({ file: modulePath, maxCount: 1 })).latest
 

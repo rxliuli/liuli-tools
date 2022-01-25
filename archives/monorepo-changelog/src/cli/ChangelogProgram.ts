@@ -11,13 +11,8 @@ export class ChangelogProgram extends BaseProgram {
     if (!(await pathExists(changelogPath))) {
       await writeFile(changelogPath, '# CHANGELOG\n')
     }
-    const json = (await readJson(
-      path.resolve(this.cwd, 'package.json'),
-    )) as PackageJson
-    const changelog = await readFile(
-      path.resolve(this.cwd, 'CHANGELOG.md'),
-      'utf-8',
-    )
+    const json = (await readJson(path.resolve(this.cwd, 'package.json'))) as PackageJson
+    const changelog = await readFile(path.resolve(this.cwd, 'CHANGELOG.md'), 'utf-8')
     const changeLogDataList = Generator.parseChangeLog(changelog)
     const scanner = new Scanner(this.cwd)
 
@@ -38,9 +33,6 @@ export class ChangelogProgram extends BaseProgram {
       const commitLogs = await scanner.scan(changeLogDataList[1]?.hash)
       changeLogDataList[0] = Generator.convert(commitLogs, json.version!)
     }
-    await writeFile(
-      changelogPath,
-      Generator.stringifyChangeLog(changeLogDataList),
-    )
+    await writeFile(changelogPath, Generator.stringifyChangeLog(changeLogDataList))
   }
 }

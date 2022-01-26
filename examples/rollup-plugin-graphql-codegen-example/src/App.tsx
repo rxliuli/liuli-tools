@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { useMount } from 'react-use'
-import { FindRepoStar, FindRepoStarQuery, FindRepoStarQueryVariables } from './api/RepoQuery.generated'
+import { FindRepoStarDocument } from './api/RepoQuery.generated'
+import React from 'react'
 
 const client = new ApolloClient({
   uri: 'https://api.github.com/graphql',
@@ -10,16 +11,16 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 })
 
-function App() {
+const App: React.FC = () => {
   useMount(async () => {
-    const res = await client.query<FindRepoStarQuery, FindRepoStarQueryVariables>({
-      query: FindRepoStar,
+    const res = await client.query({
+      query: FindRepoStarDocument,
       variables: {
         name: 'liuli-tools',
         owner: 'rxliuli',
       },
     })
-    console.log('res: ', res)
+    console.log('res: ', res.data.repository?.stargazerCount)
   })
   return <div>app</div>
 }

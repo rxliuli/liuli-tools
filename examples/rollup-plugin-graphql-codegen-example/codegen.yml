@@ -1,16 +1,26 @@
 overwrite: true
 schema: 'schema.graphql'
 generates:
-  ./src/graphql.gql.ts:
+  ./src/graphql.generated.ts:
     plugins:
       - typescript
+#  .:
+#    documents:
+#      - 'src/**/*.ts'
+#      - '!src/**/*.gql.ts'
+#    preset: near-operation-file
+#    presetConfig:
+#      baseTypesPath: ./src/graphql.generated.ts
+#      extension: .gql.ts
+#    plugins:
+#      - typescript-operations
   ./:
     documents:
-      - 'src/**/*.ts'
-      - '!src/**/*.gql.ts'
+      - 'src/**/*.gql'
     preset: near-operation-file
     presetConfig:
-      baseTypesPath: ./src/graphql.gql.ts
-      extension: .gql.ts
+      baseTypesPath: ./src/graphql.generated.ts
+      extension: .generated.ts
     plugins:
       - typescript-operations
+      - typescript-document-nodes

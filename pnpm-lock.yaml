@@ -20,9 +20,9 @@ importers:
       '@liuli-util/commitlint-standard-config': link:libs/commitlint-standard-config
       '@liuli-util/eslint-config-ts': link:libs/eslint-config-ts
       '@liuli-util/prettier-standard-config': link:libs/prettier-standard-config
-      '@nrwl/cli': 13.5.2
-      '@nrwl/tao': 13.5.2
-      '@nrwl/workspace': 13.5.2_prettier@2.4.1+typescript@4.5.5
+      '@nrwl/cli': 13.5.3
+      '@nrwl/tao': 13.5.3
+      '@nrwl/workspace': 13.5.3_prettier@2.4.1+typescript@4.5.5
       lint-staged: 11.2.6
       prettier: 2.4.1
       simple-git-hooks: 2.7.0
@@ -488,13 +488,17 @@ importers:
       '@graphql-codegen/cli': 2.2.1
       '@graphql-codegen/near-operation-file-preset': ^2.1.6
       '@graphql-codegen/plugin-helpers': ^2.3.1
+      '@graphql-codegen/typed-document-node': ^2.2.2
       '@graphql-codegen/typescript': ^2.2.4
+      '@graphql-codegen/typescript-document-nodes': ^2.2.2
       '@graphql-codegen/typescript-operations': ^2.1.8
       '@liuli-util/rollup-plugin-graphql-codegen': workspace:*
+      '@liuli-util/vite-plugin-env-dts-gen': workspace:*
       '@types/react': ^17.0.0
       '@types/react-dom': ^17.0.0
       '@vitejs/plugin-react': ^1.0.0
       graphql: ^15.6.1
+      graphql-tag: ^2.12.6
       react: ^17.0.0
       react-dom: ^17.0.0
       react-use: ^17.3.1
@@ -512,12 +516,16 @@ importers:
       '@graphql-codegen/cli': 2.2.1_graphql@15.7.2+typescript@4.5.5
       '@graphql-codegen/near-operation-file-preset': 2.2.2_graphql@15.7.2
       '@graphql-codegen/plugin-helpers': 2.3.1_graphql@15.7.2
+      '@graphql-codegen/typed-document-node': 2.2.2_graphql@15.7.2
       '@graphql-codegen/typescript': 2.4.1_graphql@15.7.2
+      '@graphql-codegen/typescript-document-nodes': 2.2.2_graphql@15.7.2
       '@graphql-codegen/typescript-operations': 2.2.1_graphql@15.7.2
       '@liuli-util/rollup-plugin-graphql-codegen': link:../../libs/rollup-plugin-graphql-codegen
+      '@liuli-util/vite-plugin-env-dts-gen': link:../../libs/vite-plugin-env-dts-gen
       '@types/react': 17.0.35
       '@types/react-dom': 17.0.11
       '@vitejs/plugin-react': 1.0.9
+      graphql-tag: 2.12.6_graphql@15.7.2
       tslib: 2.3.1
       typescript: 4.5.5
       vite: 2.7.13
@@ -1333,7 +1341,7 @@ packages:
     resolution: {integrity: sha512-ItmYF9vR4zA8cByDocY05o0LGUkp1zhbTQOH1NFyl5xXEqlTJQCEJjieriw+aFpxo16swMxUnUiKS7a/r4vtHg==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.16.0
+      '@babel/types': 7.16.8
     dev: true
 
   /@babel/helper-compilation-targets/7.16.0_@babel+core@7.16.0:
@@ -1436,7 +1444,7 @@ packages:
     resolution: {integrity: sha512-bsjlBFPuWT6IWhl28EdrQ+gTvSvj5tqVP5Xeftp07SEuz5pLnsXZuDkDD3Rfcxy0IsHmbZ+7B2/9SHzxO0T+sQ==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.16.0
+      '@babel/types': 7.16.8
     dev: true
 
   /@babel/helper-module-imports/7.16.0:
@@ -1489,7 +1497,7 @@ packages:
     resolution: {integrity: sha512-SuI467Gi2V8fkofm2JPnZzB/SUuXoJA5zXe/xzyPP2M04686RzFKFHPK6HDVN6JvWBIEW8tt9hPR7fXdn2Lgpw==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.16.0
+      '@babel/types': 7.16.8
     dev: true
 
   /@babel/helper-plugin-utils/7.14.5:
@@ -1508,8 +1516,8 @@ packages:
     dependencies:
       '@babel/helper-member-expression-to-functions': 7.16.0
       '@babel/helper-optimise-call-expression': 7.16.0
-      '@babel/traverse': 7.16.0
-      '@babel/types': 7.16.0
+      '@babel/traverse': 7.16.10
+      '@babel/types': 7.16.8
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1532,7 +1540,7 @@ packages:
     resolution: {integrity: sha512-+il1gTy0oHwUsBQZyJvukbB4vPMdcYBrFHa0Uc4AizLxbq6BOYC51Rv4tWocX9BLBDLZ4kc6qUFpQ6HRgL+3zw==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.16.0
+      '@babel/types': 7.16.8
     dev: true
 
   /@babel/helper-split-export-declaration/7.16.0:
@@ -2529,6 +2537,20 @@ packages:
       tslib: 2.3.1
     dev: true
 
+  /@graphql-codegen/plugin-helpers/2.3.2_graphql@15.7.2:
+    resolution: {integrity: sha512-19qFA5XMAWaAY64sBljjDPYfHjE+QMk/+oalCyY13WjSlcLDvYPfmFlCNgFSsydArDELlHR8T1GMbA7C42M8TA==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-tools/utils': 8.5.3_graphql@15.7.2
+      change-case-all: 1.0.14
+      common-tags: 1.8.2
+      graphql: 15.7.2
+      import-from: 4.0.0
+      lodash: 4.17.21
+      tslib: 2.3.1
+    dev: true
+
   /@graphql-codegen/schema-ast/2.4.0_graphql@15.7.2:
     resolution: {integrity: sha512-xsLd4mF0H3mPp7Z2PHZ2Sv1KKIb/FOORqhDc9XHCnHJJ/h9nmaleKSTxTGzSUfIAQ1aCNzVilcaUwlenK+MMBQ==}
     peerDependencies:
@@ -2538,6 +2560,35 @@ packages:
       '@graphql-tools/utils': 8.5.3_graphql@15.7.2
       graphql: 15.7.2
       tslib: 2.3.1
+    dev: true
+
+  /@graphql-codegen/typed-document-node/2.2.2_graphql@15.7.2:
+    resolution: {integrity: sha512-FOqXcH8mL91Wjvh57VzayjP1WSFPNOii6P4BqJ42j88wsVV7RpO/eQoQjQX1ltAjHGSny8UZJDKA/8It5QaboQ==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 2.3.2_graphql@15.7.2
+      '@graphql-codegen/visitor-plugin-common': 2.5.2_graphql@15.7.2
+      auto-bind: 4.0.0
+      change-case-all: 1.0.14
+      graphql: 15.7.2
+      tslib: 2.3.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@graphql-codegen/typescript-document-nodes/2.2.2_graphql@15.7.2:
+    resolution: {integrity: sha512-DUVBvZ53+uNS759zGez6xCtLR5nVVDOgB+YJBJ0l0p+RCpq3MsPJMEez383uIaOQTis2ZLgAuKsU7CAMiRSzgQ==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 2.3.2_graphql@15.7.2
+      '@graphql-codegen/visitor-plugin-common': 2.5.2_graphql@15.7.2
+      auto-bind: 4.0.0
+      graphql: 15.7.2
+      tslib: 2.3.1
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /@graphql-codegen/typescript-operations/2.2.1_graphql@15.7.2:
@@ -2576,6 +2627,26 @@ packages:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       '@graphql-codegen/plugin-helpers': 2.3.1_graphql@15.7.2
+      '@graphql-tools/optimize': 1.1.1_graphql@15.7.2
+      '@graphql-tools/relay-operation-optimizer': 6.4.1_graphql@15.7.2
+      '@graphql-tools/utils': 8.5.3_graphql@15.7.2
+      auto-bind: 4.0.0
+      change-case-all: 1.0.14
+      dependency-graph: 0.11.0
+      graphql: 15.7.2
+      graphql-tag: 2.12.6_graphql@15.7.2
+      parse-filepath: 1.0.2
+      tslib: 2.3.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@graphql-codegen/visitor-plugin-common/2.5.2_graphql@15.7.2:
+    resolution: {integrity: sha512-qDMraPmumG+vEGAz42/asRkdgIRmQWH5HTc320UX+I6CY6eE/Ey85cgzoqeQGLV8gu4sj3UkNx/3/r79eX4u+Q==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 2.3.2_graphql@15.7.2
       '@graphql-tools/optimize': 1.1.1_graphql@15.7.2
       '@graphql-tools/relay-operation-optimizer': 6.4.1_graphql@15.7.2
       '@graphql-tools/utils': 8.5.3_graphql@15.7.2
@@ -3152,7 +3223,7 @@ packages:
     dependencies:
       '@jest/types': 27.4.2
       '@types/node': 17.0.10
-      chalk: 4.1.0
+      chalk: 4.1.2
       jest-message-util: 27.4.6
       jest-util: 27.4.2
       slash: 3.0.0
@@ -3209,7 +3280,7 @@ packages:
     dependencies:
       '@jest/fake-timers': 27.4.6
       '@jest/types': 27.4.2
-      '@types/node': 17.0.8
+      '@types/node': 17.0.10
       jest-mock: 27.4.6
     dev: true
 
@@ -3219,7 +3290,7 @@ packages:
     dependencies:
       '@jest/types': 27.4.2
       '@sinonjs/fake-timers': 8.1.0
-      '@types/node': 17.0.8
+      '@types/node': 17.0.10
       jest-message-util: 27.4.6
       jest-mock: 27.4.6
       jest-util: 27.4.2
@@ -3357,7 +3428,7 @@ packages:
       '@babel/core': 7.16.10
       '@jest/types': 27.4.2
       babel-plugin-istanbul: 6.1.1
-      chalk: 4.1.0
+      chalk: 4.1.2
       convert-source-map: 1.8.0
       fast-json-stable-stringify: 2.1.0
       graceful-fs: 4.2.9
@@ -3399,9 +3470,9 @@ packages:
     resolution: {integrity: sha512-j35yw0PMTPpZsUoOBiuHzr1zTYoad1cVIE0ajEjcrJONxxrko/IRGKkXx3os0Nsi4Hu3+5VmDbVfq5WhG/pWAg==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
-      '@types/istanbul-lib-coverage': 2.0.3
+      '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 17.0.8
+      '@types/node': 17.0.10
       '@types/yargs': 16.0.4
       chalk: 4.1.2
     dev: true
@@ -3498,21 +3569,21 @@ packages:
       rimraf: 3.0.2
     dev: true
 
-  /@nrwl/cli/13.5.2:
-    resolution: {integrity: sha512-TvrxQ8Qu9l665YZBaMxI8b54Gp1VO/BPsf+8luf3+rZZdsd+ha7PzTtMhTPOoNB0sx0auM71iyZTCV4J1Up43A==}
+  /@nrwl/cli/13.5.3:
+    resolution: {integrity: sha512-TMh8FfF6PPnjuxoSIU0wFVtE6xcf5UfxmX0pSy+ztEDU66RBSPwUxbHUFZGMKrT7jNZLutqmziwi89leTngvfw==}
     hasBin: true
     dependencies:
-      '@nrwl/tao': 13.5.2
+      '@nrwl/tao': 13.5.3
       chalk: 4.1.0
       enquirer: 2.3.6
       v8-compile-cache: 2.3.0
       yargs-parser: 20.0.0
     dev: true
 
-  /@nrwl/devkit/13.5.2:
-    resolution: {integrity: sha512-xOKDDJrHIgsBI80ZpOtEgzoleD8v/+8V4F6VKcq7Ika9RgP9NuEBUTMvuGTQM3GJy5xWkQEXTh1YlfgibnQpfA==}
+  /@nrwl/devkit/13.5.3:
+    resolution: {integrity: sha512-Fg2n5KjCbKn2c5lRGpYzuyB2x385RJmsyJ+7EE230MCTJaw5OXk7U02hrK+nL5dZltEmI06VH409FAEwVyOUqw==}
     dependencies:
-      '@nrwl/tao': 13.5.2
+      '@nrwl/tao': 13.5.3
       ejs: 3.1.6
       ignore: 5.2.0
       rxjs: 6.6.7
@@ -3520,12 +3591,12 @@ packages:
       tslib: 2.3.1
     dev: true
 
-  /@nrwl/jest/13.5.2:
-    resolution: {integrity: sha512-GoP4ofExKi3XlN3UW7zeLMHiMcrZ32p1QhQ4VyKzPtVrzaZReGwjT5V1RWnglyhZKeDed4saNJVbcx55xG6dfQ==}
+  /@nrwl/jest/13.5.3:
+    resolution: {integrity: sha512-PCBX/4LxKKWxrsgqj0ejAWwT64Iv6fejntZsyQNr2yzDSZY/sQL4XJ8EbVH4yivzxqn3F1+blmpDrDLlAhDy6g==}
     dependencies:
       '@jest/reporters': 27.2.2
       '@jest/test-result': 27.2.2
-      '@nrwl/devkit': 13.5.2
+      '@nrwl/devkit': 13.5.3
       chalk: 4.1.0
       identity-obj-proxy: 3.0.0
       jest-config: 27.2.2
@@ -3543,16 +3614,16 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@nrwl/linter/13.5.2_typescript@4.5.5:
-    resolution: {integrity: sha512-mNEZ2T5uB3D0mcfVSjGDQ2o1MKaihJWcS8QNKpyFH9ZZROV6+VDki8tOQG1GQnraLHIlIIzfkOg+FHRkNHkedQ==}
+  /@nrwl/linter/13.5.3_typescript@4.5.5:
+    resolution: {integrity: sha512-xiQVPlhLjesFdt9uHXV4GtuFgiUbx9cATc3At1R6xHkdd7Lbqv/deq+FWJKnGb5MgTpvzyQc/gNUvfSyKoSBsA==}
     peerDependencies:
       eslint: ^8.0.0
     peerDependenciesMeta:
       eslint:
         optional: true
     dependencies:
-      '@nrwl/devkit': 13.5.2
-      '@nrwl/jest': 13.5.2
+      '@nrwl/devkit': 13.5.3
+      '@nrwl/jest': 13.5.3
       '@phenomnomnominal/tsquery': 4.1.1_typescript@4.5.5
       tmp: 0.2.1
       tslib: 2.3.1
@@ -3566,8 +3637,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@nrwl/tao/13.5.2:
-    resolution: {integrity: sha512-6yACds22JtmH1I4ImXGUpdP923DiXUcu575RtJtYfCH5XNTMuvH2pVp9AKv5Tz6Srp5tOporR62aOI0CB5C9dA==}
+  /@nrwl/tao/13.5.3:
+    resolution: {integrity: sha512-YAHW4yGROt+a8yDrgG9UxrmSyi62S0Pi6EhLluk5e9s/sNJM1k2NfoVCzZMZYsCbv4tKYv4RSlqf3EQMe28uJw==}
     hasBin: true
     dependencies:
       chalk: 4.1.0
@@ -3576,7 +3647,7 @@ packages:
       fs-extra: 9.1.0
       ignore: 5.2.0
       jsonc-parser: 3.0.0
-      nx: 13.5.2
+      nx: 13.5.3
       rxjs: 6.6.7
       rxjs-for-await: 0.0.2_rxjs@6.6.7
       semver: 7.3.4
@@ -3585,18 +3656,18 @@ packages:
       yargs-parser: 20.0.0
     dev: true
 
-  /@nrwl/workspace/13.5.2_prettier@2.4.1+typescript@4.5.5:
-    resolution: {integrity: sha512-qvc2ggncT3uTr1+nKef8HDHTt0DeXNZgQB+URQ7la/O0lYRrUcVZhDb9JwDad2JWkeBvL7TTHXf1XY6qJ34+xw==}
+  /@nrwl/workspace/13.5.3_prettier@2.4.1+typescript@4.5.5:
+    resolution: {integrity: sha512-ZY7HGPhs0w0neXLXJgbIYd36+FZuc8LHgaxhExsK9vdusuaXhNVyMkR+TmbtN9sXAB0ZN0+hzcty+V7ncn4sHQ==}
     peerDependencies:
       prettier: ^2.5.1
     peerDependenciesMeta:
       prettier:
         optional: true
     dependencies:
-      '@nrwl/cli': 13.5.2
-      '@nrwl/devkit': 13.5.2
-      '@nrwl/jest': 13.5.2
-      '@nrwl/linter': 13.5.2_typescript@4.5.5
+      '@nrwl/cli': 13.5.3
+      '@nrwl/devkit': 13.5.3
+      '@nrwl/jest': 13.5.3
+      '@nrwl/linter': 13.5.3_typescript@4.5.5
       '@parcel/watcher': 2.0.4
       chalk: 4.1.0
       chokidar: 3.5.3
@@ -3967,7 +4038,7 @@ packages:
   /@types/istanbul-lib-report/3.0.0:
     resolution: {integrity: sha512-plGgXAPfVKFoYfa9NpYDAkseG+g6Jr294RqeqcqDixSbU34MZVJRi/P+7Y8GDpzkEwLaGZZOpKIEmeVZNtKsrg==}
     dependencies:
-      '@types/istanbul-lib-coverage': 2.0.3
+      '@types/istanbul-lib-coverage': 2.0.4
     dev: true
 
   /@types/istanbul-reports/3.0.1:
@@ -5177,7 +5248,7 @@ packages:
       '@types/babel__core': 7.1.18
       babel-plugin-istanbul: 6.1.1
       babel-preset-jest: 27.4.0_@babel+core@7.16.10
-      chalk: 4.1.0
+      chalk: 4.1.2
       graceful-fs: 4.2.9
       slash: 3.0.0
     transitivePeerDependencies:
@@ -5663,10 +5734,6 @@ packages:
 
   /ci-info/2.0.0:
     resolution: {integrity: sha512-5tK7EtrZ0N+OLFMthtqOj4fI2Jeb88C4CAZPu25LDVUgXJ0A3Js4PMGqrn0JU1W0Mh1/Z8wZzYPxqUrXeBboCQ==}
-    dev: true
-
-  /ci-info/3.2.0:
-    resolution: {integrity: sha512-dVqRX7fLUm8J6FgHJ418XuIgDLZDkYcDFTeL6TA2gt5WlIZUQrrH6EZrNClwT/H0FateUsZkGIOPRrLbP+PR9A==}
     dev: true
 
   /ci-info/3.3.0:
@@ -7996,7 +8063,7 @@ packages:
       '@jest/test-result': 27.4.6
       '@jest/types': 27.4.2
       '@types/node': 17.0.10
-      chalk: 4.1.0
+      chalk: 4.1.2
       co: 4.6.0
       dedent: 0.7.0
       expect: 27.4.6
@@ -8162,7 +8229,7 @@ packages:
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
       '@jest/types': 27.4.2
-      chalk: 4.1.0
+      chalk: 4.1.2
       jest-get-type: 27.4.0
       jest-util: 27.4.2
       pretty-format: 27.4.6
@@ -8242,7 +8309,7 @@ packages:
       '@jest/test-result': 27.4.6
       '@jest/types': 27.4.2
       '@types/node': 17.0.10
-      chalk: 4.1.0
+      chalk: 4.1.2
       co: 4.6.0
       expect: 27.4.6
       is-generator-fn: 2.1.0
@@ -8296,7 +8363,7 @@ packages:
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
       '@jest/types': 27.4.2
-      '@types/node': 17.0.8
+      '@types/node': 17.0.10
     dev: true
 
   /jest-pnp-resolver/1.2.2_jest-resolve@27.2.2:
@@ -8380,7 +8447,7 @@ packages:
       '@jest/test-result': 27.4.6
       '@jest/transform': 27.4.6
       '@jest/types': 27.4.2
-      '@types/node': 17.0.8
+      '@types/node': 17.0.10
       chalk: 4.1.2
       emittery: 0.8.1
       exit: 0.1.2
@@ -8489,11 +8556,11 @@ packages:
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
       '@jest/types': 27.4.2
-      '@types/node': 17.0.8
+      '@types/node': 17.0.10
       chalk: 4.1.2
-      ci-info: 3.2.0
-      graceful-fs: 4.2.8
-      picomatch: 2.3.0
+      ci-info: 3.3.0
+      graceful-fs: 4.2.9
+      picomatch: 2.3.1
     dev: true
 
   /jest-validate/27.4.6:
@@ -8502,7 +8569,7 @@ packages:
     dependencies:
       '@jest/types': 27.4.2
       camelcase: 6.3.0
-      chalk: 4.1.0
+      chalk: 4.1.2
       jest-get-type: 27.4.0
       leven: 3.1.0
       pretty-format: 27.4.6
@@ -9544,11 +9611,11 @@ packages:
     resolution: {integrity: sha512-h2AatdwYH+JHiZpv7pt/gSX1XoRGb7L/qSIeuqA6GwYoF9w1vP1cw42TO0aI2pNyshRK5893hNSl+1//vHK7hQ==}
     dev: true
 
-  /nx/13.5.2:
-    resolution: {integrity: sha512-Jq++QZMCD5WvCEsOs979W5v1rkvyRTlgcuTxCAIYutp1LxpeOQM4xZnHQlAWpzB/inZCxwFmWqeL7+oUuyapDg==}
+  /nx/13.5.3:
+    resolution: {integrity: sha512-OqYNq+RL+nk8IAbxOl9CnfHnURA68tYlQojUdtdAiKnmcOouSzWnt1zRZb2nUWiMUiWEVojExMvCqXLwgRwQ6Q==}
     hasBin: true
     dependencies:
-      '@nrwl/cli': 13.5.2
+      '@nrwl/cli': 13.5.3
     dev: true
 
   /object-assign/4.1.1:
@@ -11304,7 +11371,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       '@istanbuljs/schema': 0.1.3
-      glob: 7.1.4
+      glob: 7.2.0
       minimatch: 3.0.4
     dev: true
 

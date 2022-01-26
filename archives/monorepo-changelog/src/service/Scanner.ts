@@ -36,9 +36,7 @@ export class Scanner extends BaseProgram {
       from: from,
       to: to,
     })
-    const json = (await readJson(
-      path.resolve(this.cwd, 'package.json'),
-    )) as PackageJson
+    const json = (await readJson(path.resolve(this.cwd, 'package.json'))) as PackageJson
     return res.all
       .map(
         (commit) =>

@@ -20,10 +20,10 @@ yarn add -D @liuli-util/rollup-plugin-graphql-codegen
 ```ts
 // vite.config.ts
 import { defineConfig } from 'vite'
-import { graphQLCodegen } from '@liuli-util/rollup-plugin-graphql-codegen'
+import { gql2TsConfig, graphQLCodegen } from '@liuli-util/rollup-plugin-graphql-codegen'
 
 export default defineConfig({
-  plugins: [graphQLCodegen()],
+  plugins: [graphQLCodegen(gql2TsConfig)],
 })
 ```
 

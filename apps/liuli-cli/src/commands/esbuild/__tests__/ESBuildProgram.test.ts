@@ -4,6 +4,7 @@ import { mkdirp, pathExists, remove, writeJson } from 'fs-extra'
 import { PackageJson } from 'type-fest'
 import { build, Platform } from 'esbuild'
 import { nativeNodeModules, nodeExternals } from '../util/esbuildPlugins'
+import { findParent } from '../../../utils'
 
 describe('测试 ESBuildProgram', () => {
   describe('测试 getPlatform', () => {
@@ -138,5 +139,19 @@ it('测试 esbuild', async () => {
     platform: 'node',
     plugins: [nativeNodeModules(), nodeExternals()],
     treeShaking: true,
+  })
+})
+describe('测试 cli 本身的构建', () => {
+  let selfPath: string
+  beforeAll(async () => {
+    selfPath = (await findParent(__dirname, async (dir) => pathExists(path.join(dir, 'package.json'))))!
+  })
+  it('基本示例', async () => {
+    const program = new ESBuildProgram({
+      base: selfPath,
+      isWatch: false,
+    })
+    const { cli, cjs, esm } = await program.getTasks()
+    await program.execTasks([cli, cjs, esm])
   })
 })

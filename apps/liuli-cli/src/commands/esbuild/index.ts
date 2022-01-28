@@ -30,17 +30,26 @@ export const esbuildCommand = new Command('build')
       }),
   )
   .addCommand(
-    (['iife', 'cli', 'esm', 'cjs', 'dts'] as TaskTypeEnum[]).reduce((res, type) => {
-      res.addCommand(
-        new Command(type)
-          .description(`单独构建 ${type}`)
-          .option('-w --watch', '监视模式')
-          .action(async (options: CliBuildOptions) => {
-            program.isWatch = !!options.watch
-            const tasks = await program.getTasks()
-            await program.execTasks([tasks[type]])
-          }),
-      )
-      return res
-    }, new Command('single').description('单独构建某种类型的 bundle')),
+    (['iife', 'cli', 'esm', 'cjs', 'dts'] as TaskTypeEnum[]).reduce(
+      (res, type) => {
+        res.addCommand(
+          new Command(type)
+            .description(`单独构建 ${type}`)
+            .option('-w --watch', '监视模式')
+            .action(async (options: CliBuildOptions) => {
+              program.isWatch = !!options.watch
+              const tasks = await program.getTasks()
+              await program.execTasks([tasks[type]])
+            }),
+        )
+        return res
+      },
+      new Command('single')
+        .description('单独构建某种类型的 bundle')
+        .option('-t, --target <target...>', '构建目标，是一个数组')
+        .action(async (options: { target: TaskTypeEnum[] }) => {
+          const tasks = await program.getTasks()
+          await program.execTasks(options.target.map((type) => tasks[type]))
+        }),
+    ),
   )

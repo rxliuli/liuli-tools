@@ -3,10 +3,10 @@
   "version": "0.3.3",
   "main": "dist/index.js",
   "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "setup": "pnpm start && pnpm build",
+    "setup": "saki build cli",
     "build": "rimraf dist && liuli-cli build cli",
     "dev": "rimraf dist && liuli-cli build cli -w",
     "start": "esno src/bin.ts --dirs src/i18n",

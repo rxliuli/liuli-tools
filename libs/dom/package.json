@@ -3,10 +3,10 @@
   "version": "3.3.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "types": "src/index.ts",
   "description": "仅在浏览器端使用的相关功能的函数库",
   "scripts": {
-    "setup": "pnpm build",
+    "setup": "saki build lib",
     "build": "rimraf dist && liuli-cli build lib"
   },
   "jest": {

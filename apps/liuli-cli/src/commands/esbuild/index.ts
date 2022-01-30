@@ -15,7 +15,7 @@ export const esbuildCommand = new Command('build')
       .action(async (options: CliBuildOptions) => {
         program.isWatch = !!options.watch
         const tasks = await program.getTasks()
-        await program.execTasks([tasks.esm, tasks.cjs, tasks.dts])
+        await program.execTasks([tasks.esm, tasks.cjs])
       })
       .alias('pkg'),
   )
@@ -26,7 +26,7 @@ export const esbuildCommand = new Command('build')
       .action(async (options: CliBuildOptions) => {
         program.isWatch = !!options.watch
         const tasks = await program.getTasks()
-        await program.execTasks([tasks.cli, tasks.esm, tasks.cjs, tasks.dts])
+        await program.execTasks([tasks.cli, tasks.esm, tasks.cjs])
       }),
   )
   .addCommand(

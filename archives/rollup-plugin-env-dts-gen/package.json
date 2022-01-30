@@ -5,6 +5,7 @@
   "module": "dist/index.esm.js",
   "types": "src/index.ts",
   "scripts": {
+    "setup": "saki build lib",
     "build": "rimraf dist && liuli-cli build lib",
     "dev": "liuli-cli build lib -w"
   },

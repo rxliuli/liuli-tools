@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "setup-all": "pnpm --filter . run setup",
+    "setup-all-with-saki": "saki run setup",
     "setup-all-with-nx": "nx run-many --target=setup --all --parallel",
     "build-all": "nx run-many --target=build --all",
     "dep-graph": "nx dep-graph",

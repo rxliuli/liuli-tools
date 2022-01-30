@@ -4,10 +4,10 @@
   "description": "一个针对于库和 CLI 应用程序打包的零配置 CLI",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "types": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "setup": "pnpm build",
+    "setup": "saki build cli",
     "build": "rimraf dist && esno src/bin.ts build cli",
     "dev": "esno src/bin.ts build cli -w",
     "start": "esno src/bin.ts"

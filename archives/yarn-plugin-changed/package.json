@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "main": "src/index.ts",
   "scripts": {
-    "setup": "saki build lib",
+    "setup": "liuli-cli build lib",
     "build": "yarn-plugin-builder build",
     "dev": "chokidar src/ -i '*.test.ts' -c \"yarn build --no-minify && esno src/cli/buildAfter.ts\"",
     "deploy": "yarn build && gh-pages -d bundles/ -e /yarn-plugin-changed -a"
@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@liuli-util/yarn-plugin-builder": "*",
+    "@liuli-util/cli": "workspace:*",
     "@types/fs-extra": "^9.0.13",
     "@types/gh-pages": "^3.2.0",
     "@types/jest": "^27.0.2",

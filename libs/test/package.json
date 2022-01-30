@@ -6,7 +6,7 @@
   "types": "src/index.ts",
   "description": "辅助其他模块测试的工具函数库",
   "scripts": {
-    "setup": "saki build lib",
+    "setup": "liuli-cli build lib",
     "build": "rimraf dist && liuli-cli build lib"
   },
   "devDependencies": {

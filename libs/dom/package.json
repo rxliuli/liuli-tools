@@ -6,7 +6,7 @@
   "types": "src/index.ts",
   "description": "仅在浏览器端使用的相关功能的函数库",
   "scripts": {
-    "setup": "saki build lib",
+    "setup": "liuli-cli build lib",
     "build": "rimraf dist && liuli-cli build lib"
   },
   "jest": {

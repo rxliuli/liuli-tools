@@ -7,7 +7,7 @@
   "types": "src/index.ts",
   "description": "一些 idea 想法",
   "scripts": {
-    "setup": "saki build lib",
+    "setup": "liuli-cli build lib",
     "build": "rimraf dist && liuli-cli build lib"
   },
   "jest": {

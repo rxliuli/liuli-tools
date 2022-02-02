@@ -1,7 +1,9 @@
 <idea-plugin>
     <id>com.rxliuli.vite-jetbrains-plugin</id>
     <name>Vite Integrated</name>
-    <vendor email="rxliuli@gmail.com" url="https://github.com/rxliuli/liuli-tools/tree/master/jetbrains-plugins/vite-jetbrains-plugin">rxliuli</vendor>
+    <vendor email="rxliuli@gmail.com"
+            url="https://github.com/rxliuli/liuli-tools/tree/master/jetbrains-plugins/vite-jetbrains-plugin">rxliuli
+    </vendor>
 
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
@@ -14,10 +16,10 @@
         <projectTemplatesFactory
                 implementation="com.rxliuli.vite.cli.ViteProjectTemplateFactory"/> <!-- works in IntelliJ IDEA -->
 
-        <applicationService serviceImplementation="com.rxliuli.vite.settings.AppSettingsState"/>
-<!--        <applicationConfigurable parentId="tools" instance="com.rxliuli.vite.settings.AppSettingsConfigurable"-->
-<!--                                 id="com.rxliuli.vite.settings.AppSettingsConfigurable"-->
-<!--                                 displayName="Vite Settings"/>-->
+        <applicationService serviceImplementation="com.rxliuli.vite.settings.ViteAppSettingsState"/>
+        <!--        <applicationConfigurable parentId="tools" instance="com.rxliuli.vite.settings.AppSettingsConfigurable"-->
+        <!--                                 id="com.rxliuli.vite.settings.AppSettingsConfigurable"-->
+        <!--                                 displayName="Vite Settings"/>-->
     </extensions>
 
     <actions>

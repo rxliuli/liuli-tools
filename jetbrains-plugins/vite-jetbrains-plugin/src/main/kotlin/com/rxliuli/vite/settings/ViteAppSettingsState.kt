@@ -7,7 +7,7 @@ import com.intellij.openapi.components.Storage
 import com.intellij.util.xmlb.XmlSerializerUtil
 
 @State(name = "org.intellij.sdk.settings.AppSettingsState", storages = [Storage("SdkSettingsPlugin.xml")])
-class AppSettingsState : PersistentStateComponent<AppSettingsState?> {
+class ViteAppSettingsState : PersistentStateComponent<ViteAppSettingsState?> {
     var template = "react-ts"
     val templates = arrayOf(
         "vanilla",
@@ -24,16 +24,16 @@ class AppSettingsState : PersistentStateComponent<AppSettingsState?> {
         "svelte-ts",
     )
 
-    override fun getState(): AppSettingsState {
+    override fun getState(): ViteAppSettingsState {
         return this
     }
 
-    override fun loadState(state: AppSettingsState) {
+    override fun loadState(state: ViteAppSettingsState) {
         XmlSerializerUtil.copyBean(state, this)
     }
 
     companion object {
-        val instance: AppSettingsState
-            get() = ApplicationManager.getApplication().getService(AppSettingsState::class.java)
+        val instance: ViteAppSettingsState
+            get() = ApplicationManager.getApplication().getService(ViteAppSettingsState::class.java)
     }
 }

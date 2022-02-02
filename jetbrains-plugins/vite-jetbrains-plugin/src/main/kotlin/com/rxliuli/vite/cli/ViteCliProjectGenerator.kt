@@ -13,7 +13,7 @@ import com.intellij.platform.ProjectGeneratorPeer
 import com.intellij.util.ui.UIUtil
 import com.rxliuli.vite.ViteIcons
 import com.rxliuli.vite.ViteMessage
-import com.rxliuli.vite.settings.AppSettingsState
+import com.rxliuli.vite.settings.ViteAppSettingsState
 import org.jetbrains.annotations.Nullable
 import java.io.File
 import javax.swing.DefaultComboBoxModel
@@ -54,7 +54,7 @@ class ViteCliProjectGenerator : NpmPackageProjectGenerator() {
     }
 
     val settingsTemplateKey = Key.create<String>("template")
-    private val globalSettings: AppSettingsState = AppSettingsState.instance
+    private val globalSettings: ViteAppSettingsState = ViteAppSettingsState.instance
 
     override fun createPeer(): ProjectGeneratorPeer<Settings> {
         val templateComponent = ComboBox(DefaultComboBoxModel(globalSettings.templates))

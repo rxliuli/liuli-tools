@@ -36,6 +36,9 @@ export class I18nextUtil<
         return res
       }, {}),
       keySeparator: false,
+      interpolation: {
+        escapeValue: false,
+      },
     })
   }
 

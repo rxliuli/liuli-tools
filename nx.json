@@ -1,0 +1,57 @@
+{
+  "extends": "@nrwl/workspace/presets/npm.json",
+  "npmScope": "liuli-tools",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "setup",
+          "build",
+          "test",
+          "lint",
+          "package",
+          "prepare"
+        ]
+      }
+    }
+  },
+  "implicitDependencies": {
+    "workspace.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.base.json": "*",
+    "nx.json": "*"
+  },
+  "targetDependencies": {
+    "setup": [
+      {
+        "target": "setup",
+        "projects": "dependencies"
+      }
+    ],
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ],
+    "prepare": [
+      {
+        "target": "prepare",
+        "projects": "dependencies"
+      }
+    ],
+    "package": [
+      {
+        "target": "package",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "affected": {
+    "defaultBase": "master"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "@liuli-util/async",
+  "version": "3.3.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "description": "异步相关功能的函数库",
+  "scripts": {
+    "setup": "pnpm build",
+    "build": "rimraf dist && liuli-cli build lib",
+    "test": "jest --all"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "devDependencies": {
+    "@liuli-util/cli": "workspace:*",
+    "@liuli-util/test": "workspace:*",
+    "@types/jest": "^26.0.24",
+    "jest": "^27.4.7",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.1.3",
+    "type-fest": "^2.0.0",
+    "typescript": "^4.5.5"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "gitHead": "9ebadce05245141b72dedfef846332d4f2a566fc",
+  "license": "MIT"
+}

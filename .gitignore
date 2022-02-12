@@ -1,6 +1,7 @@
 node_modules/
 .rpt2_cache/
 yarn-error.log
+.pnpm-debug.log
 
 # Editor directories and files
 .idea
@@ -17,8 +18,9 @@ dist/
 !.yarn/releases
 !.yarn/plugins
 !.yarn/sdks
-!.yarn/versions
+#!.yarn/versions
 .pnp.*
 .yarn-cache.json
 .yarn-cache-debug.json
 *.tsbuildinfo
+**/src/**/i18n/index.d.ts

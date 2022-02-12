@@ -1,0 +1,11 @@
+fragment Repo on Repository {
+  id
+  name
+}
+
+query findRepoStar($name: String!, $owner: String!) {
+  repository(name: $name, owner: $owner) {
+    ...Repo
+    stargazerCount
+  }
+}

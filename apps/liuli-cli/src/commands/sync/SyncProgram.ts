@@ -1,33 +1,21 @@
 import { readFile, readJson, writeFile, writeJson } from 'fs-extra'
 import path from 'path'
-import { execSync } from 'child_process'
-import { merge } from 'lodash-es'
+import { merge } from 'lodash'
 import { PackageJson } from 'type-fest'
 import prettier from '@liuli-util/prettier-standard-config/package.json'
 import eslintTs from '@liuli-util/eslint-config-ts/package.json'
 import eslintReactTs from '@liuli-util/eslint-config-react-ts/package.json'
 import commitlint from '@liuli-util/commitlint-standard-config/package.json'
-import { prompt } from 'inquirer'
+import { prompt } from 'enquirer'
 import { isIncludeDep, isNpmPackage, isYarnRoot, isYarnSubModule } from './when'
 import { appendScript, arrayToMap, AsyncArray } from '../../utils'
 import { PathUtil } from '../../PathUtil'
 
-export function installDeps(base: string, deps: string[]): void {
-  execSync('yarn add -D -W ' + deps.join(' '), {
-    stdio: 'inherit',
-    cwd: base,
-  })
-}
-
 export async function mergeJson(base: string, json: object): Promise<void> {
   const pkgJsonFilePath = path.resolve(base, './package.json')
-  await writeJson(
-    pkgJsonFilePath,
-    merge(await readJson(pkgJsonFilePath), json),
-    {
-      spaces: 2,
-    },
-  )
+  await writeJson(pkgJsonFilePath, merge(await readJson(pkgJsonFilePath), json), {
+    spaces: 2,
+  })
 }
 
 export type SyncConfigType =
@@ -76,10 +64,7 @@ export class SyncProgram {
         } as PackageJson)
       },
       async when(): Promise<boolean> {
-        return (
-          (await isNpmPackage()) &&
-          ((await isYarnRoot()) || !(await isYarnSubModule()))
-        )
+        return (await isNpmPackage()) && ((await isYarnRoot()) || !(await isYarnSubModule()))
       },
     },
     {
@@ -99,23 +84,14 @@ export class SyncProgram {
         } as PackageJson)
       },
       async when(): Promise<boolean> {
-        return (
-          (await isNpmPackage()) &&
-          ((await isYarnRoot()) || !(await isYarnSubModule()))
-        )
+        return (await isNpmPackage()) && ((await isYarnRoot()) || !(await isYarnSubModule()))
       },
     },
     {
       type: 'gitignore',
       handler: async () => {
         const gitignorePath = path.resolve(this.base, '.gitignore')
-        await writeFile(
-          gitignorePath,
-          await readFile(
-            path.resolve(PathUtil.RootPath, '_gitignore'),
-            'utf-8',
-          ),
-        )
+        await writeFile(gitignorePath, await readFile(path.resolve(PathUtil.RootPath, '_gitignore'), 'utf-8'))
       },
     },
     {
@@ -131,11 +107,7 @@ export class SyncProgram {
         } as PackageJson)
       },
       async when(): Promise<boolean> {
-        return (
-          (await isNpmPackage()) &&
-          !(await isIncludeDep(['vue'])) &&
-          !(await isIncludeDep(['react']))
-        )
+        return (await isNpmPackage()) && !(await isIncludeDep(['vue'])) && !(await isIncludeDep(['react']))
       },
     },
     {
@@ -162,6 +134,10 @@ export class SyncProgram {
             preset: 'ts-jest',
             testMatch: ['<rootDir>/src/**/__tests__/*.test.ts'],
           },
+          devDependencies: {
+            jest: '^27.4.3',
+            'ts-jest': '^27.0.7',
+          },
         })
       },
     },
@@ -179,10 +155,7 @@ export class SyncProgram {
         }
         let config = {
           scripts: {
-            postinstall: appendScript(
-              json?.scripts?.postinstall,
-              'npx simple-git-hooks',
-            ),
+            postinstall: appendScript(json?.scripts?.postinstall, 'npx simple-git-hooks'),
           },
           'simple-git-hooks': {
             'pre-commit': 'yarn lint-staged',
@@ -205,26 +178,19 @@ export class SyncProgram {
         await mergeJson(this.base, config as PackageJson)
       },
       async when(): Promise<boolean> {
-        return (
-          (await isNpmPackage()) &&
-          ((await isYarnRoot()) || !(await isYarnSubModule()))
-        )
+        return (await isNpmPackage()) && ((await isYarnRoot()) || !(await isYarnSubModule()))
       },
     },
   ]
 
   async sync(): Promise<void> {
-    const { sync } = (await readJson(
-      path.resolve(this.base, 'package.json'),
-    )) as {
+    const { sync } = (await readJson(path.resolve(this.base, 'package.json'))) as {
       sync?: SyncConfigType[]
     }
     if (!sync) {
       return
     }
-    const syncConfigs = this.syncConfigs.filter((config) =>
-      sync.includes(config.type),
-    )
+    const syncConfigs = this.syncConfigs.filter((config) => sync.includes(config.type))
     for (const syncConfig of syncConfigs) {
       await syncConfig.handler()
     }
@@ -240,8 +206,10 @@ export class SyncProgram {
       }),
       (item) => item.type,
     )
-    const res = await prompt({
-      type: 'checkbox',
+    const res = await prompt<{
+      sync: string[]
+    }>({
+      type: 'multiselect',
       message: '请选择需要同步的配置项',
       name: 'sync',
       choices: [...configMap.keys()],

@@ -40,7 +40,7 @@ class AddInputDialog : DialogWrapper(true) {
 }
 
 class AppSettingsComponent {
-    private val globalSettings: AppSettingsState = AppSettingsState.instance
+    private val globalSettings: ViteAppSettingsState = ViteAppSettingsState.instance
 
     val panel: DialogPanel = panel {
         row("Default template:") {

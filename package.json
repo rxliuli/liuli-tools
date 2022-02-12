@@ -3,24 +3,18 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "setup": "yarn changed foreach -pv --topological-dev run setup",
-    "clean": "yarn workspaces foreach -p -A exec \"yarn dlx rimraf dist node_modules .yarn-cache.json\"",
-    "build": "yarn workspaces foreach -p --topological-dev run build",
-    "build:cache": "yarn changed foreach -p --topological-dev run setup",
-    "list:cache": "yarn changed list",
-    "postinstall": "npx simple-git-hooks"
+    "setup-all": "pnpm --filter . run setup",
+    "setup-all-with-nx": "nx run-many --target=setup --all --parallel",
+    "build-all": "nx run-many --target=build --all",
+    "test-all": "pnpm --filter . --parallel run test",
+    "test-all-with-nx": "nx run-many --target=test --all --parallel",
+    "dep-graph": "nx dep-graph",
+    "postinstall": "pnpx simple-git-hooks"
   },
   "prettier": "@liuli-util/prettier-standard-config",
-  "workspaces": [
-    "libs/*",
-    "apps/*",
-    "examples/*",
-    "!website",
-    "scripts"
-  ],
   "simple-git-hooks": {
-    "pre-commit": "yarn lint-staged",
-    "commit-msg": "yarn commitlint --edit $1"
+    "pre-commit": "pnpm lint-staged",
+    "commit-msg": "pnpm commitlint --edit $1"
   },
   "commitlint": {
     "extends": [
@@ -30,7 +24,7 @@
   "lint-staged": {
     "**/src/**/*.{ts,tsx,js,jsx,css}": [
       "prettier --write",
-      "eslint --fix"
+      "eslint --fix --quiet"
     ]
   },
   "eslintConfig": {
@@ -43,13 +37,12 @@
     "@liuli-util/commitlint-standard-config": "*",
     "@liuli-util/eslint-config-ts": "*",
     "@liuli-util/prettier-standard-config": "*",
-    "esno": "^0.9.1",
-    "gh-pages": "^3.2.3",
+    "@nrwl/cli": "^13.8.1",
+    "@nrwl/tao": "^13.8.1",
+    "@nrwl/workspace": "^13.8.1",
     "lint-staged": "^11.1.2",
     "prettier": "^2.4.1",
-    "rimraf": "^3.0.2",
     "simple-git-hooks": "^2.6.1",
-    "typescript": "^4.4.3"
-  },
-  "packageManager": "yarn@3.0.2"
+    "typescript": "^4.5.5"
+  }
 }

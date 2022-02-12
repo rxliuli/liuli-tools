@@ -1,0 +1,32 @@
+{
+  "name": "@liuli-util/idea",
+  "version": "3.3.0",
+  "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "description": "一些 idea 想法",
+  "scripts": {
+    "setup": "pnpm build",
+    "build": "rimraf dist && liuli-cli build lib",
+    "test": "jest --all"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "devDependencies": {
+    "@liuli-util/cli": "workspace:*",
+    "@types/jest": "^26.0.24",
+    "jest": "^27.4.7",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.1.3",
+    "type-fest": "^2.0.0",
+    "typescript": "^4.5.5"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f",
+  "license": "MIT"
+}

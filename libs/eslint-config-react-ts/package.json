@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@liuli-util/eslint-config-ts": "^0.2.0",
-    "@types/eslint": "^7.28.0",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
     "eslint": "^7.32.0",

@@ -1,15 +1,6 @@
 import path from 'path'
-import {
-  copy,
-  pathExists,
-  readdir,
-  readFile,
-  readJSON,
-  remove,
-  writeFile,
-  writeJSON,
-} from 'fs-extra'
-import inquirer from 'inquirer'
+import { copy, pathExists, readdir, readFile, readJSON, remove, writeFile, writeJSON } from 'fs-extra'
+import { prompt } from 'enquirer'
 import { SyncProgram } from '../sync/SyncProgram'
 import { PathUtil } from '../../PathUtil'
 
@@ -30,7 +21,7 @@ export class GenerateProgram {
    */
   async generate(config: GenerateConfig): Promise<void> {
     if (!config.dest) {
-      const { dest } = await inquirer.prompt({
+      const { dest } = await prompt<{ dest: string }>({
         name: 'dest',
         type: 'input',
         message: '请输入项目名',
@@ -41,14 +32,11 @@ export class GenerateProgram {
       config.dest = path.resolve(dest)
     }
     if (!config.template) {
-      const { template } = await inquirer.prompt({
+      const { template } = await prompt<{ template: TemplateTypeEnum }>({
         name: 'template',
-        type: 'list',
+        type: 'select',
         message: '请选择模板',
-        choices: [
-          TemplateTypeEnum.Lib,
-          TemplateTypeEnum.Cli,
-        ] as TemplateTypeEnum[],
+        choices: [TemplateTypeEnum.Lib, TemplateTypeEnum.Cli] as TemplateTypeEnum[],
       })
       config.template = template
     }
@@ -60,19 +48,15 @@ export class GenerateProgram {
       - 修改 package.json，删除 private，修改名字
     模板特定修改
      */
-    const srcFile = path.resolve(
-      PathUtil.RootPath,
-      `templates/${config.template}`,
-    )
+    const srcFile = path.resolve(PathUtil.RootPath, `templates/${config.template}`)
     const destFile = path.resolve(config.dest)
-    if (
-      (await pathExists(destFile)) &&
-      (await readdir(destFile)).some((file) => pathExists(file))
-    ) {
-      const { override } = await inquirer.prompt({
+    if ((await pathExists(destFile)) && (await readdir(destFile)).some((file) => pathExists(file))) {
+      const { override } = await prompt<{
+        override: boolean
+      }>({
         name: 'override',
         type: 'confirm',
-        default: true,
+        initial: true,
         message: '目标位置不是一个空目录，确认要覆盖么？',
       })
       if (!override) {
@@ -80,7 +64,9 @@ export class GenerateProgram {
       }
     }
     await remove(destFile)
-    await copy(srcFile, destFile)
+    await copy(srcFile, destFile, {
+      filter: (source) => path.basename(source) !== 'node_modules',
+    })
     await GenerateProgram.updatePackageJSON(destFile)
     await GenerateProgram.updateReadme(destFile)
     if (config.initSync) {

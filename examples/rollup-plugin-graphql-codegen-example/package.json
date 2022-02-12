@@ -1,0 +1,29 @@
+{
+  "name": "rollup-plugin-graphql-codegen-example",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.4.16",
+    "graphql": "^15.6.1",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-use": "^17.3.1"
+  },
+  "devDependencies": {
+    "@graphql-typed-document-node/core": "^3.1.1",
+    "@liuli-util/rollup-plugin-graphql-codegen": "workspace:*",
+    "@liuli-util/vite-plugin-env-dts-gen": "workspace:*",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@vitejs/plugin-react": "^1.0.0",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.5",
+    "vite": "^2.7.13",
+    "vite-plugin-checker": "^0.3.4"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "@liuli-util/array",
+  "version": "3.3.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "description": "数组相关功能的函数库",
+  "scripts": {
+    "setup": "pnpm build",
+    "build": "rimraf dist && liuli-cli build lib",
+    "test": "jest --all"
+  },
+  "devDependencies": {
+    "@liuli-util/cli": "workspace:*",
+    "@liuli-util/test": "workspace:*",
+    "@types/jest": "^26.0.24",
+    "@types/mockjs": "^1.0.4",
+    "jest": "^27.4.7",
+    "mockjs": "^1.1.0",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.5.5"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f",
+  "license": "MIT"
+}

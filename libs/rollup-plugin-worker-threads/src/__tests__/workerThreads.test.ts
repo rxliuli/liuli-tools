@@ -1,8 +1,7 @@
 import { rollup } from 'rollup'
 import typescript from 'rollup-plugin-typescript2'
-import path from 'path'
+import * as path from 'path'
 import { workerThreads } from '../workerThreads'
-import worker from 'rollup-plugin-worker-factory'
 
 it('测试 workerThreads', async () => {
   const bundle = await rollup({

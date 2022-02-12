@@ -74,12 +74,6 @@ describe('测试 loadI18n', () => {
     //   ).toBe('test.Nested parameters liuli')
   })
   it('测试包含 :', () => {
-    expect(i18n.t('test.Contains a colon:')).toBe('')
-    expect(
-      i18n.t(
-        'test.Contains a colon:' as never,
-        { nsSeparator: false } as never,
-      ),
-    ).toBe('包含冒号:')
+    expect(i18n.t('test.Contains a colon:')).toBe('包含冒号:ss')
   })
 })

@@ -1,5 +1,5 @@
 import { Command } from 'commander'
-import { prompt } from 'inquirer'
+import { prompt } from 'enquirer'
 
 new Command()
   .action(async () => {

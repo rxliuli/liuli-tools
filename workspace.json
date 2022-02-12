@@ -1,0 +1,133 @@
+{
+  "projects": {
+    "@liuli-util/cmd-shim": {
+      "root": "apps/cmd-shim"
+    },
+    "@liuli-util/simple-ci": {
+      "root": "archives/simple-ci"
+    },
+    "@liuli-util/cli": {
+      "root": "apps/liuli-cli"
+    },
+    "@liuli-util/cli-template": {
+      "root": "apps/liuli-cli/templates/cli"
+    },
+    "@liuli-util/lib-template": {
+      "root": "apps/liuli-cli/templates/lib"
+    },
+    "@liuli-util/array": {
+      "root": "libs/array"
+    },
+    "@liuli-util/yarn-plugin-builder": {
+      "root": "archives/yarn-plugin-builder"
+    },
+    "@liuli-util/async": {
+      "root": "libs/async"
+    },
+    "@liuli-util/commitlint-standard-config": {
+      "root": "libs/commitlint-standard-config"
+    },
+    "@liuli-util/dom": {
+      "root": "libs/dom"
+    },
+    "@liuli-util/env2dts": {
+      "root": "libs/env2dts"
+    },
+    "@liuli-util/eslint-config-react-ts": {
+      "root": "libs/eslint-config-react-ts"
+    },
+    "@liuli-util/eslint-config-ts": {
+      "root": "libs/eslint-config-ts"
+    },
+    "@liuli-util/i18next-dts-gen": {
+      "root": "libs/i18next-dts-gen"
+    },
+    "@liuli-util/i18next-util": {
+      "root": "libs/i18next-util"
+    },
+    "@liuli-util/idea": {
+      "root": "libs/idea"
+    },
+    "@liuli-util/mobx-vue3-hooks": {
+      "root": "libs/mobx-vue3-hooks"
+    },
+    "@liuli-util/monorepo-changelog": {
+      "root": "libs/monorepo-changelog"
+    },
+    "@liuli-util/object": {
+      "root": "libs/object"
+    },
+    "@liuli-util/prettier-standard-config": {
+      "root": "libs/prettier-standard-config"
+    },
+    "@liuli-util/other": {
+      "root": "libs/other"
+    },
+    "@liuli-util/react-router": {
+      "root": "libs/react-router"
+    },
+    "@liuli-util/rollup-plugin-env-dts-gen": {
+      "root": "archives/rollup-plugin-env-dts-gen"
+    },
+    "@liuli-util/rollup-plugin-graphql-codegen": {
+      "root": "libs/rollup-plugin-graphql-codegen"
+    },
+    "@liuli-util/rollup-plugin-i18next-dts-gen": {
+      "root": "libs/rollup-plugin-i18next-dts-gen"
+    },
+    "@liuli-util/rollup-plugin-tar": {
+      "root": "libs/rollup-plugin-tar"
+    },
+    "@liuli-util/rollup-plugin-ts-alias": {
+      "root": "libs/rollup-plugin-ts-alias"
+    },
+    "rollup-plugin-worker-threads": {
+      "root": "libs/rollup-plugin-worker-threads"
+    },
+    "@liuli-util/string": {
+      "root": "libs/string"
+    },
+    "@liuli-util/test": {
+      "root": "libs/test"
+    },
+    "@liuli-util/tree": {
+      "root": "libs/tree"
+    },
+    "@liuli-util/vite-plugin-env-dts-gen": {
+      "root": "libs/vite-plugin-env-dts-gen"
+    },
+    "@liuli-util/yarn-plugin-changed": {
+      "root": "archives/yarn-plugin-changed"
+    },
+    "@liuli-util/yarn2-migration": {
+      "root": "archives/yarn2-migration"
+    },
+    "react-router-async-example": {
+      "root": "examples/react-router-async-example"
+    },
+    "@liuli-util/react-router-basic-example": {
+      "root": "examples/react-router-basic-example"
+    },
+    "@liuli-util/react-router-nest-example": {
+      "root": "examples/react-router-nest-example"
+    },
+    "rollup-plugin-graphql-codegen-example": {
+      "root": "examples/rollup-plugin-graphql-codegen-example"
+    },
+    "vite-project": {
+      "root": "examples/rollup-plugin-i18next-dts-gen-example"
+    },
+    "rollup-plugin-tar-example": {
+      "root": "examples/rollup-plugin-tar-example"
+    },
+    "vite-plugin-env-dts-gen-example": {
+      "root": "examples/vite-plugin-env-dts-gen-example"
+    },
+    "worker-threads-example": {
+      "root": "examples/worker-threads-example"
+    },
+    "@liuli-util/scripts": {
+      "root": "scripts"
+    }
+  }
+}

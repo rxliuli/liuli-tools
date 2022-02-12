@@ -1,10 +1,17 @@
 {
   "name": "@liuli-util/prettier-standard-config",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": ".prettierrc.json",
+  "types": "index.d.ts",
   "license": "MIT",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "prettier": "^2.4.1"
+  },
+  "peerDependencies": {
+    "prettier": "^2"
   }
 }

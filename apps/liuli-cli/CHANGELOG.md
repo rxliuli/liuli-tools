@@ -1,5 +1,81 @@
 # CHANGELOG
 
+## 3.18.0
+
+- feat: 支持自定义 `repo/remote/branch` 等配置
+
+## 3.17.0
+
+- feat: 不再处理并发发布的问题
+
+## 3.16.0
+
+- feat: 不再处理并发部署 gh-pages 的问题
+- feat: 实现一个根据配置文件决定是否需要等待的 gh-pages 部署（实测会有并发问题）
+- feat: 实现部署项目到 gh-pages 远端
+- feat: 实现发布到 sftp 远端
+
+## 3.15.0
+
+<!--hash:5402013d664173283c30e818a63d427fa55edf73-->
+
+- feat: 同步命令支持同步 jest 依赖
+- chore: 更新模板，删除不需要的文档相关的命令
+- chore: 将所有的 liuli-cli 的依赖强制指向本地
+- fix: 修复 monorepo 中使用 cli 会复制 node_modules 的错误
+
+## 3.14.0
+
+<!--hash:640b9c257c2276edfe262e2cbfd1c11bab6fb27b-->
+
+- feat: 构建 iife 时强制包含所有依赖
+
+## 3.13.1
+
+<!--hash:0f666fdbeee514f614a61b5257c4aa9a6cfd3143-->
+
+- fix: 修复 generate 不能选择模板的问题
+
+## 3.13.0
+
+<!--hash:615c6f1f69083a4cf7b0760ee6a81c68c2cf6e85-->
+
+- test: 修复一些单元测试的错误
+- feat: 构建 cli 时无论如何都会打包依赖
+- feat: 使用 pnpm + nx 替代 yarn
+- fix: 修复 nodejs cli 中 bin.js 没有添加顶部声明的错误
+- fix: 修复 cli 模板项目 bin 字段指向文件不存在的问题
+
+## 3.12.0
+
+<!--hash:18b4c02da2ba2d55b6c26cd2b45dbf370855f721-->
+
+- feat: 支持单独构建某种文件的功能
+- feat: 支持构建 iife 格式的 bundle 时自动设置 global
+- feat: 支持构建 iife 格式的 bundle
+
+## 3.11.1
+
+<!--hash:ba04dd24f8ee1e4a83c06dbd289195587a221079-->
+
+- fix: 修复 tsconfig.json 不是标准 json 无法直接解析的错误，修复路径不是绝对值的错误
+- docs: 修复交互式创建的 gif 演示地址 404 的错误
+- docs: 更新 build 命令监视模式的 gif 演示
+
+## 3.11.0
+
+<!--hash:5036beb706902f3ec7e8122696f99cefa7c51f57-->
+
+- fix: 修复构建的包过大的问题（非压缩 10+M）
+- fix: 修复构建时任务数量不确定导致失败的错误
+- fix: 修复打包时提示 pnpapi 依赖缺失问题
+- fix: 修复一个单元测试错误
+- feat: 重构 esbuild 命令，优化 cli 提示信息
+- feat: 使用 esbuild dts 插件只编译入口点声明和引用的 ts 类型定义
+- feat: 将 node 内置包通过插件替换和排除
+- feat: 默认忽略 node 原生模块
+- perf: 使用 lodash-es 替换 lodash 减小最终打包 bin.js 的大小
+
 ## 3.10.1
 
 <!--hash:c0223e217f45ec5d1c39e14035a494ca49b8e868-->
@@ -31,7 +107,7 @@
 
 <!--hash:40983b8dc09a06111d642c8c99b16d2ff8319195-->
 
-- chore: 添加 publishConfig 配置，删除不需要的 _gitignore 文件
+- chore: 添加 publishConfig 配置，删除不需要的 \_gitignore 文件
 - feat: 为 liuli-cli 实现插件系统
 
 ## 3.8.4
@@ -135,4 +211,4 @@
 - 将代码移至新的仓库：https://github.com/rxliuli/liuli-tools
 - 实现 `liuli-cli build pkg/liuli-cli build cli` 两个子命令
 - 支持使用 rollup 的监视模式
-- 支持 `rollup.config.ts` 配置文件（但未在文档上公开）
+- 支持 `rollup.config.ts` 配置文件（但未在文档上公开）

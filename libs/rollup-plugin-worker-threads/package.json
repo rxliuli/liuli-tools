@@ -11,7 +11,7 @@
     "docs:server": "live-server docs",
     "docs:dev": "typedoc --watch",
     "docs:build": "rimraf docs && typedoc",
-    "docs:deploy": "yarn build && gh-pages -d docs/ -e / -a"
+    "docs:deploy": "pnpm build && gh-pages -d docs/ -e / -a"
   },
   "jest": {
     "preset": "ts-jest"

@@ -1,17 +1,14 @@
 import { isIncludeDep, isNpmPackage, isYarnRoot, isYarnSubModule } from '../when'
 import { pathExists, readJson } from 'fs-extra'
 import { PackageJson } from 'type-fest'
-import path from 'path'
+import * as path from 'path'
 import { findParent } from '../../../utils'
 
 describe('测试 when', () => {
   let rootPath: string
   let subModulePath: string
   beforeAll(async () => {
-    rootPath = (await findParent(__dirname, async (dir) => {
-      const jsonPath = path.resolve(dir, 'package.json')
-      return (await pathExists(jsonPath)) && !!((await readJson(jsonPath)) as PackageJson).workspaces
-    }))!
+    rootPath = (await findParent(__dirname, (dir) => pathExists(path.resolve(dir, 'pnpm-workspace.yaml'))))!
     subModulePath = (await findParent(__dirname, async (dir) => pathExists(path.join(dir, 'package.json'))))!
   })
   it('测试 isNpmPackage', async () => {

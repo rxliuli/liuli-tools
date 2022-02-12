@@ -5,8 +5,9 @@ async function deployGhPages() {
   const tempPath = path.resolve(__dirname, '../.temp/')
   const ghPagesDeployService = new GhPagesDeployService({
     cwd: tempPath,
-    dest: 'dist',
-    remote: 'examples/test-app',
+    dist: 'dist',
+    dest: 'examples/test-app',
+    debug: false,
   })
   const now = Date.now()
   await ghPagesDeployService.deploy().on('process', (title) => console.log(`[${now}] ${title}`))

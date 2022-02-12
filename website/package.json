@@ -4,7 +4,7 @@
   "scripts": {
     "docs-dev": "vuepress dev docs",
     "docs-build": "vuepress build docs",
-    "docs-deploy": "yarn docs-build && liuli-cli deploy"
+    "docs-deploy": "pnpm docs-build && liuli-cli deploy"
   },
   "deploy": {
     "type": "gh-pages",

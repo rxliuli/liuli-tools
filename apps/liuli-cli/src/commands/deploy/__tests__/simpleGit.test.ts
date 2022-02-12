@@ -1,9 +1,9 @@
 import simpleGit, { SimpleGit } from 'simple-git'
 import * as path from 'path'
-import { mkdirp, pathExists, remove } from 'fs-extra'
+import { mkdirp, remove } from 'fs-extra'
 import * as os from 'os'
 
-describe('测试 simple-git', () => {
+describe.skip('测试 simple-git', () => {
   async function getOriginRemote() {
     const git = simpleGit()
     const remotes = await git.getRemotes(true)
@@ -39,7 +39,10 @@ describe.skip('测试真实场景', () => {
     os.homedir(),
     './AppData/Local/liuli-cli/Cache/gh-pages/https___github.com_rxliuli_webos.git',
   )
-  const git = simpleGit(gitPath)
+  let git: SimpleGit
+  beforeAll(() => {
+    git = simpleGit(gitPath)
+  })
   it('测试获取提交状态', async () => {
     const res = await git.status()
     console.log(res)

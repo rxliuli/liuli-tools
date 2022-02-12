@@ -1,7 +1,6 @@
 import * as path from 'path'
-import { mkdirp, remove, unlink, writeFile } from 'fs-extra'
+import { mkdirp, remove, writeFile } from 'fs-extra'
 import { GhPagesDeployOptions, GhPagesDeployService, SftpDeployOptions, SftpDeployService } from '../DeployService'
-import { execPromise } from '../util/execPromise'
 import { nodeCacheDir } from '../../../utils/nodeCacheDir'
 
 const tempPath = path.resolve(__dirname, '.temp')
@@ -56,7 +55,7 @@ describe.skip('测试 SftpDeployService', () => {
   })
 })
 
-describe('测试 GhPagesDeployService', () => {
+describe.skip('测试 GhPagesDeployService', () => {
   const options: GhPagesDeployOptions = {
     debug: false,
     cwd: tempPath,

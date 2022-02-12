@@ -1,7 +1,7 @@
 import { mkdir, readJson, remove, writeJson } from 'fs-extra'
 import path from 'path'
 import { SyncConfigType, SyncProgram } from '../SyncProgram'
-import { merge } from 'lodash-es'
+import { merge } from 'lodash'
 import { PackageJson } from 'type-fest'
 
 describe('测试 SyncProgram', () => {

@@ -1,6 +1,6 @@
 import { readFile, readJson, writeFile, writeJson } from 'fs-extra'
 import path from 'path'
-import { merge } from 'lodash-es'
+import { merge } from 'lodash'
 import { PackageJson } from 'type-fest'
 import prettier from '@liuli-util/prettier-standard-config/package.json'
 import eslintTs from '@liuli-util/eslint-config-ts/package.json'

@@ -6,7 +6,7 @@ import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.util.xmlb.XmlSerializerUtil
 
-@State(name = "org.intellij.sdk.settings.AppSettingsState", storages = [Storage("SdkSettingsPlugin.xml")])
+@State(name = "com.rxliuli.vite.settings.ViteAppSettingsState", storages = [Storage("SdkSettingsPlugin.xml")])
 class ViteAppSettingsState : PersistentStateComponent<ViteAppSettingsState?> {
     var template = "react-ts"
     val templates = arrayOf(

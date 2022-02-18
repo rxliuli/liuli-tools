@@ -1,7 +1,6 @@
 import Conf from 'conf'
 import { wait } from '../util/wait'
 import { writeJson } from 'fs-extra'
-import * as path from 'path'
 
 describe('测试 conf', () => {
   const conf = new Conf<{ lock: boolean }>({ projectName: '@liuli-util/test' })

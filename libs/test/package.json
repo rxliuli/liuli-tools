@@ -8,7 +8,8 @@
   "scripts": {
     "setup": "pnpm build",
     "build": "rimraf dist && liuli-cli build lib",
-    "test": "jest --all"
+    "test": "jest --all",
+    "lint": "eslint --fix src/**"
   },
   "devDependencies": {
     "@liuli-util/cli": "workspace:*",

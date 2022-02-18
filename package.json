@@ -7,6 +7,7 @@
     "setup-all-with-nx": "nx run-many --target=setup --all --parallel",
     "build-all": "nx run-many --target=build --all",
     "test-all": "pnpm --filter . --parallel run test",
+    "lint-all": "pnpm --filter . --parallel run lint",
     "test-all-with-nx": "nx run-many --target=test --all --parallel",
     "dep-graph": "nx dep-graph",
     "postinstall": "pnpx simple-git-hooks"
@@ -33,16 +34,16 @@
     ]
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
-    "@liuli-util/commitlint-standard-config": "*",
-    "@liuli-util/eslint-config-ts": "*",
-    "@liuli-util/prettier-standard-config": "*",
-    "@nrwl/cli": "^13.8.1",
-    "@nrwl/tao": "^13.8.1",
-    "@nrwl/workspace": "^13.8.1",
-    "lint-staged": "^11.1.2",
-    "prettier": "^2.4.1",
-    "simple-git-hooks": "^2.6.1",
+    "@commitlint/cli": "^13.2.1",
+    "@liuli-util/commitlint-standard-config": "workspace:*",
+    "@liuli-util/eslint-config-ts": "workspace:*",
+    "@liuli-util/prettier-standard-config": "workspace:*",
+    "@nrwl/cli": "^13.8.2",
+    "@nrwl/tao": "^13.8.2",
+    "@nrwl/workspace": "^13.8.2",
+    "lint-staged": "^11.2.6",
+    "prettier": "^2.5.1",
+    "simple-git-hooks": "^2.7.0",
     "typescript": "^4.5.5"
   }
 }

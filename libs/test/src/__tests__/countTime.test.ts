@@ -12,6 +12,7 @@ describe('测试 countTime', () => {
     const num = 100
     const mock = jest.fn(() => {
       const start = Date.now()
+      // eslint-disable-next-line no-empty
       while (Date.now() - start < num) {}
     })
     expect(countTime(mock)).toBeGreaterThanOrEqual(num)

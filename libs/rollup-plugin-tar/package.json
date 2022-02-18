@@ -11,7 +11,8 @@
     "docs:server": "live-server docs",
     "docs:dev": "typedoc --watch",
     "docs:build": "rimraf docs && typedoc",
-    "docs:deploy": "pnpm docs:build && gh-pages -d docs/ -e /api/rollup-plugin-tar -a"
+    "docs:deploy": "pnpm docs:build && gh-pages -d docs/ -e /api/rollup-plugin-tar -a",
+    "lint": "eslint --fix src/**"
   },
   "jest": {
     "preset": "ts-jest",

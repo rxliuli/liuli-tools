@@ -11,7 +11,8 @@
     "build": "rimraf dist && esno src/bin.ts build cli",
     "dev": "esno src/bin.ts build cli -w",
     "start": "esno src/bin.ts",
-    "test": "jest --all"
+    "test": "jest --all",
+    "lint": "eslint --fix src/**"
   },
   "bin": {
     "liuli-cli": "./bin.js"

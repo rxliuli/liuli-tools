@@ -8,6 +8,7 @@ describe('测试 repeatedCall', () => {
     expect(i).toBe(6)
   })
   it('测试异步函数', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     const mockFn = jest.fn(async () => {})
     await repeatedCall(mockFn, len)
     expect(mockFn.mock.calls.length).toBe(len)

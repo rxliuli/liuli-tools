@@ -14,8 +14,6 @@ export class I18nextUtil<
     }
   >,
 > {
-  constructor() {}
-
   async changeLang(lang: LanguageEnum) {
     await i18next.changeLanguage(lang)
   }

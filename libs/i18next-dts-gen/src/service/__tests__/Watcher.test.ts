@@ -14,15 +14,12 @@ describe('测试 Watcher', () => {
     })
   }, 1_000_000)
   it('监视两个目录', async () => {
-    await new Promise<void>(async (resolve, reject) => {
+    await new Promise<void>(async (resolve) => {
       const callback = jest.fn(async (dir: string) => {
         await wait(100)
         console.log(dir)
       })
-      const dirs = [
-        path.resolve(__dirname, 'temp/i18n1'),
-        path.resolve(__dirname, 'temp/i18n2'),
-      ]
+      const dirs = [path.resolve(__dirname, 'temp/i18n1'), path.resolve(__dirname, 'temp/i18n2')]
       const fsWatcher = watcher.watchDirs(dirs, callback)
       await new Promise((resolve) => fsWatcher.on('ready', resolve))
       await wait(200)

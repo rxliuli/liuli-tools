@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { BaseExpect, Expect } from '../Expect'
 
 describe('测试 Expect', () => {
   it('基本示例', () => {
-    type E4<T, R extends T> = Extract<BaseExpect<T, R>, Error> extends Error
-      ? Error
-      : R
+    type E4<T, R extends T> = Extract<BaseExpect<T, R>, Error> extends Error ? Error : R
 
     type S = Extract<number, number>
 

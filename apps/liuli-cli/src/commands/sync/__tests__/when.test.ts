@@ -1,6 +1,5 @@
 import { isIncludeDep, isNpmPackage, isYarnRoot, isYarnSubModule } from '../when'
-import { pathExists, readJson } from 'fs-extra'
-import { PackageJson } from 'type-fest'
+import { pathExists } from 'fs-extra'
 import * as path from 'path'
 import { findParent } from '../../../utils'
 

@@ -17,10 +17,7 @@ const key = Symbol('key')
  * @param obj
  * @param handler
  */
-export function enhanceProxy<T extends object>(
-  obj: T,
-  handler: EnhanceProxyHandler<T>,
-) {
+export function enhanceProxy<T extends object>(obj: T, handler: EnhanceProxyHandler<T>) {
   const _handler: ProxyHandler<T> = {}
   if (handler.get) {
     _handler.get = (target: T, p: PropertyKey, receiver: any): any => {
@@ -36,17 +33,14 @@ export function enhanceProxy<T extends object>(
     }
   }
   if (handler.set) {
-    _handler.set = (
-      target: T,
-      p: PropertyKey,
-      value: any,
-      receiver: any,
-    ): boolean => {
+    _handler.set = (): boolean => {
       return false
     }
   }
   if (handler.apply) {
-    _handler.apply = (target: T, thisArg: any, argArray?: any): any => {}
+    _handler.apply = (): any => {
+      return
+    }
   }
   return new Proxy(obj, _handler)
 }

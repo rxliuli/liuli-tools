@@ -13,12 +13,12 @@ export function listToTree<
     parentId: keyof T
     children: string & keyof R
   },
-  R extends ReType<T, C['children']>
+  R extends ReType<T, C['children']>,
 >(list: T[], options: C): R[] {
   const res: R[] = []
   const fullMap = new Map<T[C['id']], T>(list.map((v) => [v[options.id], v]))
 
-  for (let node of list) {
+  for (const node of list) {
     const parent: R = fullMap.get(node[options.parentId]) as R
     if (parent) {
       if (!parent[options.children]) {

@@ -8,7 +8,8 @@
   "scripts": {
     "setup": "npm run build",
     "build": "rimraf dist && liuli-cli build lib",
-    "dev": "liuli-cli build lib -w"
+    "dev": "liuli-cli build lib -w",
+    "lint": "eslint --fix src/**"
   },
   "publishConfig": {
     "access": "public",

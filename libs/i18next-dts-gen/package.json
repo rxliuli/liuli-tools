@@ -12,7 +12,8 @@
     "start": "esno src/bin.ts --dirs src/i18n",
     "docs-dev": "typedoc --watch",
     "docs-build": "rimraf docs && typedoc",
-    "docs-deploy": "pnpm docs-build && liuli-cli deploy"
+    "docs-deploy": "pnpm docs-build && liuli-cli deploy",
+    "lint": "eslint --fix src/**"
   },
   "deploy": {
     "type": "gh-pages",

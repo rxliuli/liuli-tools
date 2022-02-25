@@ -8,7 +8,7 @@
   "description": "一些 idea 想法",
   "scripts": {
     "setup": "pnpm build",
-    "build": "rimraf dist && liuli-cli build lib",
+    "build": "liuli-cli build lib",
     "test": "jest --all",
     "lint": "eslint --fix src/**"
   },

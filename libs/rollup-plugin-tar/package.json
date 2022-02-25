@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist && liuli-cli build lib",
+    "build": "liuli-cli build lib",
     "dev": "liuli-cli build lib -w",
     "docs:server": "live-server docs",
     "docs:dev": "typedoc --watch",

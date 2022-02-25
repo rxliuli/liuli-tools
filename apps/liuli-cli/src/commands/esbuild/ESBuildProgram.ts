@@ -1,5 +1,5 @@
 import { build, BuildOptions, Platform, Plugin } from 'esbuild'
-import { pathExists, readFile, readJson } from 'fs-extra'
+import { pathExists, readFile, readJson, remove } from 'fs-extra'
 import * as path from 'path'
 import { PackageJson } from 'type-fest'
 import { Project } from 'ts-morph'
@@ -296,6 +296,7 @@ export class ESBuildProgram {
     }
 
     if (!this.options.isWatch) {
+      await remove(path.resolve(this.options.base, 'dist'))
       await run()
       return
     }

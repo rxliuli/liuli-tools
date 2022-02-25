@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "setup": "pnpm build",
-    "build": "rimraf dist && esno src/bin.ts build cli",
+    "build": "esno src/bin.ts build cli",
     "dev": "esno src/bin.ts build cli -w",
     "start": "esno src/bin.ts",
     "test": "jest --all",

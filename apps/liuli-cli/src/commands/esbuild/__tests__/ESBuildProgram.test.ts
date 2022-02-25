@@ -1,18 +1,18 @@
 import { ESBuildProgram } from '../ESBuildProgram'
 import * as path from 'path'
-import { mkdirp, pathExists, remove, writeJson } from 'fs-extra'
+import { mkdirp, pathExists, remove, writeFile, writeJson } from 'fs-extra'
 import { PackageJson } from 'type-fest'
 import { build, Platform } from 'esbuild'
 import { nativeNodeModules, nodeExternals } from '../util/esbuildPlugins'
 import { findParent } from '../../../utils'
 
 describe('测试 ESBuildProgram', () => {
+  const base: string = path.resolve(__dirname, '.temp')
+  beforeEach(async () => {
+    await remove(base)
+    await mkdirp(base)
+  })
   describe('测试 getPlatform', () => {
-    const base: string = path.resolve(__dirname, '.temp/getPlatform')
-    beforeEach(async () => {
-      await remove(base)
-      await mkdirp(base)
-    })
     it('测试 node 类型', async () => {
       await writeJson(path.resolve(base, 'package.json'), {
         devDependencies: {
@@ -35,11 +35,6 @@ describe('测试 ESBuildProgram', () => {
     })
   })
   describe('测试 getDeps', () => {
-    const base: string = path.resolve(__dirname, '.temp/getDeps')
-    beforeEach(async () => {
-      await remove(base)
-      await mkdirp(base)
-    })
     it('基本示例', async () => {
       await writeJson(path.resolve(base, 'package.json'), {
         devDependencies: {
@@ -122,6 +117,33 @@ describe('测试 ESBuildProgram', () => {
         }),
       )
       expect(await pathExists(path.resolve(base, 'dist/bin.js'))).toBeTruthy()
+    })
+  })
+  describe('测试构建 userjs', () => {
+    const program = new ESBuildProgram({
+      base,
+      isWatch: false,
+    })
+    beforeEach(async () => {
+      await mkdirp(path.resolve(base, 'src'))
+      await writeJson(path.resolve(base, 'package.json'), {
+        name: 'test',
+        version: '1.0.0',
+        userjs: {
+          name: 'test',
+          version: '0.1.0',
+          description: '测试脚本',
+          author: 'rxliuli',
+          match: ['https://twitter.com/*'],
+          grant: ['unsafeWindow'],
+          license: 'MIT',
+        },
+      } as PackageJson)
+      await writeFile(path.resolve(base, 'src/index.ts'), `console.log(unsafeWindow)`)
+    })
+    it('基本示例', async () => {
+      await build(program.getBuildUserJSOption())
+      expect(await pathExists(path.resolve(base, 'dist/index.user.js'))).toBeTruthy()
     })
   })
 })

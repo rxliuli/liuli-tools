@@ -5,7 +5,7 @@ import { PackageJson } from 'type-fest'
 import { Project } from 'ts-morph'
 import { promise } from 'glob-promise'
 import { IOptions } from 'glob'
-import { nativeNodeModules, nodeExternals } from './util/esbuildPlugins'
+import { nativeNodeModules, nodeExternals, userJS } from './util/esbuildPlugins'
 import { watch } from 'chokidar'
 import Spinnies from 'spinnies'
 import { debounce } from './util/debounce'
@@ -22,7 +22,7 @@ interface Task {
   task(): Promise<any>
 }
 
-export type TaskTypeEnum = 'esm' | 'cjs' | 'iife' | 'cli' | 'dts'
+export type TaskTypeEnum = 'esm' | 'cjs' | 'iife' | 'cli' | 'dts' | 'userjs'
 
 export class ESBuildProgram {
   constructor(private readonly options: ESBuildProgramOptions) {}
@@ -52,7 +52,7 @@ export class ESBuildProgram {
     const tsconfigPath = path.resolve(base, 'tsconfig.json')
     if (await pathExists(tsconfigPath)) {
       const tsconfigJson = parse(await readFile(tsconfigPath, 'utf-8'))
-      if ((tsconfigJson.compilerOptions.lib as string[]).some((lib) => lib.toLowerCase() === 'dom')) {
+      if ((tsconfigJson?.compilerOptions?.lib as string[])?.some((lib) => lib.toLowerCase() === 'dom')) {
         return 'browser'
       }
     }
@@ -96,6 +96,22 @@ export class ESBuildProgram {
     await project.emit({
       emitOnlyDtsFiles: true,
     })
+  }
+  /**
+   * 获取构建 cjs 的选项
+   */
+  getBuildUserJSOption(): BuildOptions {
+    return {
+      entryPoints: [path.resolve(this.options.base, './src/index.ts')],
+      outfile: path.resolve(this.options.base, './dist/index.user.js'),
+      format: 'iife',
+      bundle: true,
+      external: [...ESBuildProgram.globalExternal],
+      platform: 'browser',
+      plugins: [userJS()],
+      incremental: this.options.isWatch,
+      absWorkingDir: this.options.base,
+    }
   }
 
   /**
@@ -144,7 +160,6 @@ export class ESBuildProgram {
    * 获取构建 iife 的选项
    * @param deps
    * @param platform
-   * @param plugins
    */
   getBuildIifeOption({ platform, globalName }: { platform: Platform; globalName: string }): BuildOptions {
     return {
@@ -252,6 +267,10 @@ export class ESBuildProgram {
       dts: {
         title: '生成类型定义',
         task: () => this.genDTS(),
+      },
+      userjs: {
+        title: '打包 userjs',
+        task: () => this.build(this.getBuildUserJSOption()),
       },
     }
   }

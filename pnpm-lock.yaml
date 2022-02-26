@@ -139,7 +139,6 @@ importers:
       '@liuli-util/cli': ^3.18.0
       '@types/fs-extra': ^9.0.13
       '@types/jest': ^27.0.2
-      '@types/lodash': ^4.14.173
       '@types/node': ^16.9.6
       commander: ^8.2.0
       enquirer: ^2.3.6
@@ -158,7 +157,6 @@ importers:
       '@liuli-util/cli': link:../..
       '@types/fs-extra': 9.0.13
       '@types/jest': 27.0.2
-      '@types/lodash': 4.14.176
       '@types/node': 16.11.8
       esno: 0.9.1
       jest: 27.4.7

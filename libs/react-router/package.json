@@ -3,9 +3,10 @@
   "version": "0.3.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
-  "types": "src/index.ts",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
+    "setup": "pnpm build",
     "build": "liuli-cli build lib",
     "dev": "liuli-cli build lib -w"
   },

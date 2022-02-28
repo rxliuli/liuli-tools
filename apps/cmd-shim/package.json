@@ -5,7 +5,7 @@
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rimraf dist && liuli-cli build cli",
+    "build": "liuli-cli build cli",
     "dev": "liuli-cli build cli -w",
     "start": "esno src/bin.ts",
     "lint": "eslint --fix src/**"

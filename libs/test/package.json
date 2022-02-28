@@ -7,7 +7,7 @@
   "description": "辅助其他模块测试的工具函数库",
   "scripts": {
     "setup": "pnpm build",
-    "build": "rimraf dist && liuli-cli build lib",
+    "build": "liuli-cli build lib",
     "test": "jest --all",
     "lint": "eslint --fix src/**"
   },

@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
     "setup": "pnpm start && pnpm build",
-    "build": "rimraf dist && liuli-cli build cli",
-    "dev": "rimraf dist && liuli-cli build cli -w",
+    "build": "liuli-cli build cli",
+    "dev": "liuli-cli build cli -w",
     "start": "esno src/bin.ts --dirs src/i18n",
     "docs-dev": "typedoc --watch",
     "docs-build": "rimraf docs && typedoc",

@@ -7,7 +7,7 @@
   "description": "数组相关功能的函数库",
   "scripts": {
     "setup": "pnpm build",
-    "build": "rimraf dist && liuli-cli build lib",
+    "build": "liuli-cli build lib",
     "test": "jest --all",
     "lint": "eslint --fix src/**"
   },

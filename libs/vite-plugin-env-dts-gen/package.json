@@ -1,13 +1,13 @@
 {
   "name": "@liuli-util/vite-plugin-env-dts-gen",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
-  "types": "src/index.ts",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "setup": "npm run build",
-    "build": "rimraf dist && liuli-cli build lib",
+    "build": "liuli-cli build lib",
     "dev": "liuli-cli build lib -w",
     "lint": "eslint --fix src/**"
   },

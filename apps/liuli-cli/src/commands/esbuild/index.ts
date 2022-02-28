@@ -46,10 +46,14 @@ export const esbuildCommand = new Command('build')
       },
       new Command('single')
         .description('单独构建某种类型的 bundle')
-        .option('-t, --target <target...>', '构建目标，是一个数组')
-        .action(async (options: { target: TaskTypeEnum[] }) => {
+        .option('-t, --target <target...>', '构建目标，是一个数组，可以使用 , 分割')
+        .option('-w, --watch', '监视模式')
+        .action(async (options: { target: TaskTypeEnum[]; watch?: boolean }) => {
+          program.isWatch = !!options.watch
           const tasks = await program.getTasks()
-          await program.execTasks(options.target.map((type) => tasks[type]))
+          await program.execTasks(
+            options.target.flatMap((s) => s.split(',') as TaskTypeEnum[]).map((type) => tasks[type]),
+          )
         }),
     ),
   )

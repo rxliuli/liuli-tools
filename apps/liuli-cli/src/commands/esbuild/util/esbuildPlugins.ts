@@ -1,5 +1,6 @@
 import { Plugin } from 'esbuild'
-import { writeJson } from 'fs-extra'
+import { readJson, writeJson } from 'fs-extra'
+import path from 'path'
 
 /**
  * 处理 nodejs 原生模块
@@ -90,6 +91,41 @@ export function metafile(metafilePath: string): Plugin {
       builder.onEnd(async (result) => {
         await writeJson(metafilePath, result.metafile)
       })
+    },
+  }
+}
+
+function generateBanner(meta: object) {
+  return (
+    [
+      '// ==UserScript==',
+      ...Object.entries(meta)
+        .map(([key, value]) => {
+          if (Array.isArray(value)) {
+            return value.map((item) => `// @${key} ${item}`)
+          }
+          return `// @${key} ${value}`
+        })
+        .flat(),
+      '// ==/UserScript==',
+    ].join('\n') + '\n'
+  )
+}
+
+export function userJS(): Plugin {
+  return {
+    name: 'esbuild-plugin-userjs',
+    async setup(build) {
+      const json = (await readJson(path.resolve(build.initialOptions.absWorkingDir!, 'package.json'))) as {
+        userjs: object
+      }
+      if (!json.userjs) {
+        throw new Error('userjs is not supported')
+      }
+      if (!build.initialOptions.banner) {
+        build.initialOptions.banner = {}
+      }
+      build.initialOptions.banner!['js'] = generateBanner(json.userjs)
     },
   }
 }

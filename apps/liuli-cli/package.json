@@ -29,9 +29,9 @@
   },
   "dependencies": {
     "@liuli-util/commitlint-standard-config": "^0.1.6",
-    "@liuli-util/eslint-config-react-ts": "^0.1.0",
-    "@liuli-util/eslint-config-ts": "^0.2.0",
-    "@liuli-util/prettier-standard-config": "^0.1.0",
+    "@liuli-util/eslint-config-react-ts": "^0.2.1",
+    "@liuli-util/eslint-config-ts": "^0.4.0",
+    "@liuli-util/prettier-standard-config": "^0.2.0",
     "ajv": "^8.8.2",
     "ajv-formats": "^2.1.1",
     "ajv-i18n": "^4.2.0",

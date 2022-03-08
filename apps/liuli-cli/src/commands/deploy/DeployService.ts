@@ -166,7 +166,9 @@ export class GhPagesDeployService implements IDeployService {
       } else {
         await git.cwd(localRepoPath)
         mark('更新项目')
-        await git.pull()
+        await git.pull(defaultRemote, defaultBranch, {
+          '--allow-unrelated-histories': null,
+        })
       }
       mark('复制文件')
       const remoteDestPath = path.join(localRepoPath, this.options.dest ?? './')
@@ -181,12 +183,8 @@ export class GhPagesDeployService implements IDeployService {
         await git.commit('Updates gh-pages by liuli-cli')
       }
       mark('推送到远端')
-      if ((await git.status()).ahead > 0 || forcePush) {
-        await git.push(defaultRemote, defaultBranch)
-        mark('完成推送')
-      } else {
-        mark('没有更新，跳过推送')
-      }
+      await git.push(defaultRemote, defaultBranch)
+      mark('完成推送')
       obs.disconnect()
     })
   }

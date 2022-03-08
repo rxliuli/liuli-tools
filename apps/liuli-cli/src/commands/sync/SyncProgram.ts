@@ -146,12 +146,12 @@ export class SyncProgram {
       type: 'simplehooks',
       handler: async () => {
         const json = await readJson(path.resolve(this.base, './package.json'))
-        const lintStaged: string[] = []
+        const lintStaged: Record<string, string[]> = {}
         if (json.prettier) {
-          lintStaged.push('prettier --write')
+          lintStaged['src/**/*.{ts,tsx,js,jsx,css,vue}'] = ['prettier --write', 'git add']
         }
         if (json.eslintConfig) {
-          lintStaged.push('eslint --fix')
+          lintStaged['src/**/*.{ts,tsx,js,jsx}'] = ['eslint --fix --quiet', 'git add']
         }
         let config = {
           scripts: {
@@ -160,9 +160,7 @@ export class SyncProgram {
           'simple-git-hooks': {
             'pre-commit': 'yarn lint-staged',
           },
-          'lint-staged': {
-            '*.{ts,tsx,js,jsx,css,vue}': [...lintStaged, 'git add'],
-          },
+          'lint-staged': lintStaged,
           devDependencies: {
             'simple-git-hooks': '^2.5.1',
             'lint-staged': '^11.1.1',

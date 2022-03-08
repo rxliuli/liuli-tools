@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 3.19.1
+
+- fix: 修复同步 eslint+simple hooks 错误处理 css 文件的问题
+- chore: 更新使用最新版的统一配置
+- chore: 删除 cli 模板中不再需要的 @types/lodash 依赖
+
+## 3.19.0
+
+- feat: 构建模式下默认删除 dist 目录，避免依赖于 rimraf
+- feat: 支持零配置打包 userjs 脚本
+- feat: build single 支持构建不同类型的 bundle
+- docs: 更新 liuli deploy 的文档
+
 ## 3.18.0
 
 - feat: 支持自定义 `repo/remote/branch` 等配置

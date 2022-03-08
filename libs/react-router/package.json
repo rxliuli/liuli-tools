@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/react-router",
-  "version": "0.3.1",
+  "version": "0.4.1",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -34,7 +34,6 @@
   "dependencies": {
     "@liuli-util/tree": "^3.3.0",
     "history": "^5.2.0",
-    "qs": "^6.10.1",
     "react-router-dom": "^6.0.0"
   }
 }

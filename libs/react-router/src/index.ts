@@ -5,7 +5,6 @@ import {
   createMemoryHistory as _createMemoryHistory,
   History,
 } from 'history'
-import { stringify } from 'qs'
 
 export interface RouteConfig {
   path: string
@@ -13,9 +12,23 @@ export interface RouteConfig {
   children?: RouteConfig[]
 }
 
-export interface BaseHistory extends Omit<History, 'push'> {
+function stringify(query: object): string {
+  const params = new URLSearchParams()
+  Object.entries(query).forEach(([k, v]) => {
+    if (Array.isArray(v)) {
+      v.forEach((item) => params.append(k, item))
+    } else {
+      params.set(k, v)
+    }
+  })
+  return params.toString()
+}
+
+export interface BaseHistory extends Omit<History, 'push' | 'replace'> {
   push(url: string): void
   push(options: { pathname: string; query: object }): void
+  replace(url: string): void
+  replace(options: { pathname: string; query: object }): void
 }
 
 function proxyHistory(history: History): BaseHistory {
@@ -46,6 +59,6 @@ export function createMemoryHistory(): BaseHistory {
   return proxyHistory(_createMemoryHistory())
 }
 
-export { Link, Outlet as RouterView } from 'react-router-dom'
+export { Link, Outlet as RouterView, useSearchParams } from 'react-router-dom'
 
 export * from './component'

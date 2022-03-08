@@ -115,6 +115,58 @@ history.back()
 history.location
 ```
 
+## 使用路由查询参数
+
+```ts
+import { history } from './router'
+
+//跳转
+history.push({
+  pathname: '/',
+  query: {
+    pathname: '/hello-world',
+    query: {
+      name: 'liuli',
+      age: 17,
+      firends: ['miku', 'sora'],
+    },
+  },
+})
+```
+
+在组件内获取
+
+```ts
+const [params] = useSearchParams()
+
+return (
+  <pre>
+    {JSON.stringify(
+      {
+        name: params.get('name'),
+        age: params.get('age'),
+        firends: params.getAll('firends'),
+      },
+      null,
+      2,
+    )}
+  </pre>
+)
+```
+
+在组件外获取
+
+```ts
+const params = new URLSearchParams(history.location.search)
+console.log('search: ', {
+  name: params.get('name'),
+  age: params.get('age'),
+  firends: params.getAll('firends'),
+})
+```
+
+> 注意：目前仅处理简单的参数，复杂参数请使用 json+base64 的形式放在 url 上。
+
 ## FAQ
 
 ### 为什么不使用官方的 react-router

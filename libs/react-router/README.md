@@ -117,6 +117,58 @@ history.back()
 history.location
 ```
 
+## Using route query parameters
+
+```ts
+import { history } from './router'
+
+//jump
+history.push({
+  pathname: '/',
+  query: {
+    pathname: '/hello-world',
+    query: {
+      name: 'liuli',
+      age: 17,
+      firends: ['miku', 'sora'],
+    },
+  },
+})
+```
+
+get inside the component
+
+```ts
+const [params] = useSearchParams()
+
+return (
+  <pre>
+    {JSON.stringify(
+      {
+        name: params.get('name'),
+        age: params.get('age'),
+        firends: params.getAll('firends'),
+      },
+      null,
+      2,
+    )}
+  </pre>
+)
+```
+
+Get outside the component
+
+```ts
+const params = new URLSearchParams(history.location.search)
+console.log('search: ', {
+  name: params.get('name'),
+  age: params.get('age'),
+  firends: params.getAll('firends'),
+})
+```
+
+> Note: Currently only simple parameters are processed. For complex parameters, please use the form of json+base64 on the url.
+
 ## FAQ
 
 ### Why not use the official react-router

@@ -1,6 +1,6 @@
 import { Plugin } from 'esbuild'
-import { readJson, writeJson } from 'fs-extra'
-import path from 'path'
+import { readFile } from 'fs-extra'
+import * as path from 'path'
 
 /**
  * 处理 nodejs 原生模块
@@ -81,51 +81,66 @@ export function autoExternal(): Plugin {
 }
 
 /**
- * 生成 metafile 的插件
- * @param metafilePath
+ * 通过 ?raw 将资源作为字符串打包进来
+ * @returns
  */
-export function metafile(metafilePath: string): Plugin {
+export function raw(): Plugin {
   return {
-    name: 'esbuild-plugin-metafile',
-    setup(builder) {
-      builder.onEnd(async (result) => {
-        await writeJson(metafilePath, result.metafile)
+    name: 'esbuild-plugin-raw',
+    setup(build) {
+      build.onResolve({ filter: /\?raw$/ }, (args) => {
+        return {
+          path: path.isAbsolute(args.path) ? args.path : path.join(args.resolveDir, args.path),
+          namespace: 'raw-loader',
+        }
+      })
+      build.onLoad({ filter: /\?raw$/, namespace: 'raw-loader' }, async (args) => {
+        return {
+          contents: await readFile(args.path.replace(/\?raw$/, '')),
+          loader: 'text',
+        }
       })
     },
   }
 }
 
-function generateBanner(meta: object) {
-  return (
-    [
-      '// ==UserScript==',
-      ...Object.entries(meta)
-        .map(([key, value]) => {
-          if (Array.isArray(value)) {
-            return value.map((item) => `// @${key} ${item}`)
-          }
-          return `// @${key} ${value}`
-        })
-        .flat(),
-      '// ==/UserScript==',
-    ].join('\n') + '\n'
-  )
+/**
+ * @param {string} str
+ */
+function isValidId(str: string) {
+  try {
+    new Function(`var ${str};`)
+  } catch (err) {
+    return false
+  }
+  return true
 }
 
-export function userJS(): Plugin {
+function defineImportEnv() {
+  const definitions: Record<string, string> = {}
+  Object.keys(process.env).forEach((key) => {
+    if (isValidId(key)) {
+      definitions[`import.meta.env.${key}`] = JSON.stringify(process.env[key])
+    }
+  })
+  definitions['import.meta.env'] = '{}'
+  return definitions
+}
+
+/**
+ * Pass environment variables to esbuild.
+ * @return An esbuild plugin.
+ */
+export function envPlugin(): Plugin {
   return {
-    name: 'esbuild-plugin-userjs',
-    async setup(build) {
-      const json = (await readJson(path.resolve(build.initialOptions.absWorkingDir!, 'package.json'))) as {
-        userjs: object
+    name: 'esbuild-plugin-env',
+    setup(build) {
+      const { platform, define = {} } = build.initialOptions
+      if (platform === 'node') {
+        return
       }
-      if (!json.userjs) {
-        throw new Error('userjs is not supported')
-      }
-      if (!build.initialOptions.banner) {
-        build.initialOptions.banner = {}
-      }
-      build.initialOptions.banner!['js'] = generateBanner(json.userjs)
+      build.initialOptions.define = define
+      Object.assign(build.initialOptions.define, defineImportEnv())
     },
   }
 }

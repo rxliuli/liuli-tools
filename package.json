@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "setup-all": "pnpm --filter . run setup",
-    "test-turbo": "turbo run setup --filter=/apps/* --dry=json > log.json",
+    "test-turbo": "turbo run setup --filter=./apps/* --dry=json > log.json",
+    "test-run-turbo": "turbo run setup --filter=./apps/*",
     "setup-all-with-nx": "nx run-many --target=setup --all --parallel",
     "build-all": "nx run-many --target=build --all",
     "test-all": "pnpm --filter . --parallel run test",

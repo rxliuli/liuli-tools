@@ -1,5 +1,5 @@
 import { Plugin } from 'esbuild'
-import { readFile } from 'fs-extra'
+import { readFile, readJson, writeJson } from 'fs-extra'
 import * as path from 'path'
 
 /**
@@ -141,6 +141,56 @@ export function envPlugin(): Plugin {
       }
       build.initialOptions.define = define
       Object.assign(build.initialOptions.define, defineImportEnv())
+    },
+  }
+}
+
+/**
+ * 生成 metafile 的插件
+ * @param metafilePath
+ */
+export function metafile(metafilePath: string): Plugin {
+  return {
+    name: 'esbuild-plugin-metafile',
+    setup(builder) {
+      builder.onEnd(async (result) => {
+        await writeJson(metafilePath, result.metafile)
+      })
+    },
+  }
+}
+
+function generateBanner(meta: object) {
+  return (
+    [
+      '// ==UserScript==',
+      ...Object.entries(meta)
+        .map(([key, value]) => {
+          if (Array.isArray(value)) {
+            return value.map((item) => `// @${key} ${item}`)
+          }
+          return `// @${key} ${value}`
+        })
+        .flat(),
+      '// ==/UserScript==',
+    ].join('\n') + '\n'
+  )
+}
+
+export function userJS(): Plugin {
+  return {
+    name: 'esbuild-plugin-userjs',
+    async setup(build) {
+      const json = (await readJson(path.resolve(build.initialOptions.absWorkingDir!, 'package.json'))) as {
+        userjs: object
+      }
+      if (!json.userjs) {
+        throw new Error('userjs is not supported')
+      }
+      if (!build.initialOptions.banner) {
+        build.initialOptions.banner = {}
+      }
+      build.initialOptions.banner!['js'] = generateBanner(json.userjs)
     },
   }
 }

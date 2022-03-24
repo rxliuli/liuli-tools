@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "setup-all": "pnpm --filter . run setup",
+    "test-turbo": "turbo run setup --filter=/apps/* --dry=json > log.json",
     "setup-all-with-nx": "nx run-many --target=setup --all --parallel",
     "build-all": "nx run-many --target=build --all",
     "test-all": "pnpm --filter . --parallel run test",
@@ -44,6 +45,7 @@
     "lint-staged": "^11.2.6",
     "prettier": "^2.5.1",
     "simple-git-hooks": "^2.7.0",
+    "turbo": "^1.2.0-canary.0",
     "typescript": "^4.5.5"
   }
 }

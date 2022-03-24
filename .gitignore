@@ -24,3 +24,5 @@ dist/
 .yarn-cache-debug.json
 *.tsbuildinfo
 **/src/**/i18n/index.d.ts
+.turbo
+log.json

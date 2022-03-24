@@ -14,6 +14,7 @@ importers:
       lint-staged: ^11.2.6
       prettier: ^2.5.1
       simple-git-hooks: ^2.7.0
+      turbo: ^1.2.0-canary.0
       typescript: ^4.5.5
     devDependencies:
       '@commitlint/cli': 13.2.1
@@ -26,6 +27,7 @@ importers:
       lint-staged: 11.2.6
       prettier: 2.5.1
       simple-git-hooks: 2.7.0
+      turbo: 1.2.0-canary.0
       typescript: 4.5.5
 
   apps/cmd-shim:
@@ -12446,6 +12448,121 @@ packages:
   /tunnel/0.0.6:
     resolution: {integrity: sha512-1h/Lnq9yajKY2PEbBadPXj3VxsDDu844OnaAo52UVmIzIvwwtBPIuNvkjuzBlTWpfJyUbG3ez0KSBibQkj4ojg==}
     engines: {node: '>=0.6.11 <=0.7.0 || >=0.7.3'}
+    dev: true
+
+  /turbo-darwin-64/1.2.0-canary.0:
+    resolution: {integrity: sha512-tvKw3LQkETi0jHudkyxOdtYhcsGWvlhR/1q/xjapjgh+r2Nh0NioxG8Bt8KC2P60KkO6ecIy69atB8eKTa+Qhg==}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /turbo-darwin-arm64/1.2.0-canary.0:
+    resolution: {integrity: sha512-FxPbecro3r+CUNJ0Z4vYbuBSmdK0mwg+LEIeW1SdLszdrdEov0o2PgwTS1Fq5nFQVKBIDhcKURApDSdXcpwG4Q==}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /turbo-freebsd-64/1.2.0-canary.0:
+    resolution: {integrity: sha512-DohRwiDmAMsa1Afc/0d7uAKRgXiIUTXowWkC9acL22rQJnp7bHbVwW2D3HhZo8PcwI+gpVMaNiEfQWSodM+nvg==}
+    cpu: [x64]
+    os: [freebsd]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /turbo-freebsd-arm64/1.2.0-canary.0:
+    resolution: {integrity: sha512-wDp+J4p7Hs7MGdSueKXpmh6rd7dPIYmyHzoubb8lVCOYZDTBAO8ExP0LBLTPj6Oy+1OI0aOYWtEL7H7+9LwT6w==}
+    cpu: [arm64]
+    os: [freebsd]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /turbo-linux-32/1.2.0-canary.0:
+    resolution: {integrity: sha512-a7odGmdJ6DcdLLvnv5vGoMFY6egMUwD6m8vobGY5y7iWUX8BmTD08g0T8ZrlWKYW7zh2g/0NH6SNaKEkwAq2LA==}
+    cpu: [ia32]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /turbo-linux-64/1.2.0-canary.0:
+    resolution: {integrity: sha512-Bt1HviffY1VEUoule6O92uYEt4F5WpQ7LM5V8BVItN49O/7Q5XUlgDJ8I23Aae7bHHbUZa1NOCAqE6p6GEFz3g==}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /turbo-linux-arm/1.2.0-canary.0:
+    resolution: {integrity: sha512-/vMLfywOudaev1joj4U0kkGJ/Z5r0nc20NkGxQdJVM0hSw6vy7MT1POQsfFtRoRQhkQ1xGWq7TrIHYtGzUzrrQ==}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /turbo-linux-arm64/1.2.0-canary.0:
+    resolution: {integrity: sha512-dtrKXYRf0CFyHB1qZIAL/+I2+9Dt5UO8OnszdLRiuHwEHKBAbrxo41b2WRKg3YytMJtyv8F65TFMD+3U6T0gwQ==}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /turbo-linux-mips64le/1.2.0-canary.0:
+    resolution: {integrity: sha512-7PLhN3hUfwguufsWIaIRIZ9Zbg6ZaNWg6nM3fqXfu9GesxxDfoVPVjU3Eel2k6Fc+b1qY1KSWBAF+1wVuqAOcQ==}
+    cpu: [mips64el]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /turbo-linux-ppc64le/1.2.0-canary.0:
+    resolution: {integrity: sha512-XseRL2ymHcYe3ydMX0KPui8sumg4m99RzEsnY21LRRe3n8wbldOKKJM0kDbiCnuqAdGIRLbpWE6SiXBBcho3Wg==}
+    cpu: [ppc64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /turbo-windows-32/1.2.0-canary.0:
+    resolution: {integrity: sha512-bpItTLsW2VRygjMZ5zE1ZK/9dmhYzORxlSw8gCTsdOcPGcQ97NGVo8PT4dEZX+GpWha7Qxf+9R/u05ejshSB3g==}
+    cpu: [ia32]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /turbo-windows-64/1.2.0-canary.0:
+    resolution: {integrity: sha512-4YChF8gtZ2VnC5pYEiH9uh2qvZ8ovfQbnJRcOA+izq4KGqV1zAk0yuVYrr8BjsO840qWkaU8Ydw5h8s0XQ0HTA==}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /turbo/1.2.0-canary.0:
+    resolution: {integrity: sha512-rk7gbY0nP9NC7rUfvTBWeSmpcyeEzVDJVJ2QUbitfSO0fAy7Sc4dG1jatIk2mRuvIXBpm5kdcSwTaX7s+R2t3w==}
+    hasBin: true
+    requiresBuild: true
+    optionalDependencies:
+      turbo-darwin-64: 1.2.0-canary.0
+      turbo-darwin-arm64: 1.2.0-canary.0
+      turbo-freebsd-64: 1.2.0-canary.0
+      turbo-freebsd-arm64: 1.2.0-canary.0
+      turbo-linux-32: 1.2.0-canary.0
+      turbo-linux-64: 1.2.0-canary.0
+      turbo-linux-arm: 1.2.0-canary.0
+      turbo-linux-arm64: 1.2.0-canary.0
+      turbo-linux-mips64le: 1.2.0-canary.0
+      turbo-linux-ppc64le: 1.2.0-canary.0
+      turbo-windows-32: 1.2.0-canary.0
+      turbo-windows-64: 1.2.0-canary.0
     dev: true
 
   /tweetnacl/0.14.5:

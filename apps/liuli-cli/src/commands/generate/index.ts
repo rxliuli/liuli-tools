@@ -1,9 +1,5 @@
 import { Command, Option } from 'commander'
-import {
-  GenerateConfig,
-  GenerateProgram,
-  TemplateTypeEnum,
-} from './GenerateProgram'
+import { GenerateConfig, GenerateProgram, TemplateTypeEnum } from './GenerateProgram'
 
 const generateProgram = new GenerateProgram()
 
@@ -17,10 +13,11 @@ export const generateCommand = new Command()
   .command('generate [dest]')
   .description('生成一些初始项目')
   .addOption(templateOption)
-  .action(async (dest, options: Pick<GenerateConfig, 'template'>) => {
+  .option('--init-sync', '是否同步初始化', true)
+  .action(async (dest, options: Pick<GenerateConfig, 'template' | 'initSync'>) => {
     await generateProgram.generate({
       ...options,
       dest: dest,
-      initSync: true,
+      initSync: options.initSync,
     })
   })

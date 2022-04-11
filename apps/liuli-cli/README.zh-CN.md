@@ -63,11 +63,12 @@ sftp
 
 gh-pages
 
-| 配置     | 说明                | 默认值                      |
-| -------- | ------------------- | --------------------------- |
-| `repo`   | 部署的 git 项目地址 | 当前 git 项目的 remote 地址 |
-| `remote` | 远端名              | origin                      |
-| `branch` | 远端分支            | gh-pages                    |
+| 配置              | 说明                | 默认值               |
+| ----------------- | ------------------- | -------------------- |
+| `repo?: string`   | 推送的项目 git 地址 | 默认为当前项目       |
+| `remote?: string` | 推送的远端          | 默认为 origin        |
+| `branch?: string` | 远端分支名          | 默认为 gh-pages      |
+| `add?: boolean`   | 是否增量推送        | 默认会清理 dest 目录 |
 
 部署 vuepress 文档网站示例配置
 
@@ -75,8 +76,7 @@ gh-pages
 {
   "deploy": {
     "type": "gh-pages",
-    "dest": "docs/.vuepress/dist",
-    "remote": "/"
+    "dist": "docs/.vuepress/dist"
   }
 }
 ```

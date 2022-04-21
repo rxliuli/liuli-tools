@@ -36,7 +36,7 @@ export function rewriteHTML(html: string, version: string) {
 /**
  * 标准的版本信息
  */
-export function standardInfo(): Plugin {
+export function version(): Plugin {
   let root: string
   return {
     name: 'vite-plugin-standard-info',

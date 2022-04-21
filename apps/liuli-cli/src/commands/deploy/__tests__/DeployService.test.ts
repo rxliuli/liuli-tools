@@ -55,7 +55,7 @@ describe.skip('测试 SftpDeployService', () => {
   })
 })
 
-describe.skip('测试 GhPagesDeployService', () => {
+describe('测试 GhPagesDeployService', () => {
   const options: GhPagesDeployOptions = {
     debug: false,
     cwd: tempPath,
@@ -86,19 +86,38 @@ describe.skip('测试 GhPagesDeployService', () => {
     )
     mock.mockClear()
   })
-  it('基本示例', async () => {
+  it.skip('基本示例', async () => {
     await ghPagesDeployService.deploy().on('process', mock)
     console.log(mock.mock.calls)
     expect(mock.mock.calls.some((item: string[]) => item.includes('完成推送'))).toBeTruthy()
   }, 10_000)
-  it('测试没有任何修改', async () => {
+  it.skip('测试推送到子目录', async () => {
+    const ghPagesDeployService = new GhPagesDeployService({
+      ...options,
+      dest: '/test',
+    })
+    await ghPagesDeployService.deploy().on('process', mock)
+    console.log(mock.mock.calls)
+    expect(mock.mock.calls.some((item: string[]) => item.includes('完成推送'))).toBeTruthy()
+  }, 10_000)
+  it('测试增量推送', async () => {
+    const ghPagesDeployService = new GhPagesDeployService({
+      ...options,
+      dist: './',
+      add: true,
+    })
+    await ghPagesDeployService.deploy().on('process', mock)
+    console.log(mock.mock.calls)
+    expect(mock.mock.calls.some((item: string[]) => item.includes('完成推送'))).toBeTruthy()
+  }, 10_000)
+  it.skip('测试没有任何修改', async () => {
     await writeFile(path.resolve(distPath, 'index.html'), 'test')
     await ghPagesDeployService.deploy().on('process', mock)
     await ghPagesDeployService.deploy().on('process', mock)
     expect(mock.mock.calls.some((item: string[]) => item.includes('没有任何提交，跳过提交'))).toBeTruthy()
     expect(mock.mock.calls.some((item: string[]) => item.includes('没有更新，跳过推送'))).toBeTruthy()
   }, 20_000)
-  it('测试首次拉取代码', async () => {
+  it.skip('测试首次拉取代码', async () => {
     const dir = path.resolve(nodeCacheDir('liuli-cli'), 'gh-pages', options.repo!.replace(new RegExp('[/:]', 'g'), '_'))
     await remove(dir)
     await ghPagesDeployService.deploy().on('process', mock)

@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## 3.21.0
+
+- feat: 支持配置增量更新，将部署 gh-pages 的默认行为修改为清理 dest
+
+## 3.20.2
+
+- fix: 修复使用 boolean 类型无法设置默认为 true 的问题
+
+## 3.20.1
+
+- fix: 修复 liuli-cli generate 命令行参数声明的问题
+
+## 3.20.0
+
+- feat: 支持以非交互式的方式创建模板项目
+- fix: 恢复错误被删除的 userjs 插件
+- feat: 添加一些 esbuild 插件
+
+## 3.19.2
+
+- fix: 修复拉取项目时没有指定参数 --allow-unrelated-histories 的问题
+
 ## 3.19.1
 
 - fix: 修复同步 eslint+simple hooks 错误处理 css 文件的问题

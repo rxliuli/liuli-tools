@@ -2,11 +2,12 @@ import { EventExtPromise, PromiseUtil } from './util/PromiseUtil'
 import Client, { ConnectOptions } from 'ssh2-sftp-client'
 import * as path from 'path'
 import * as os from 'os'
-import { copy, mkdirp, pathExists, readFile } from 'fs-extra'
+import { copy, emptyDir, mkdirp, pathExists, readdir, readFile, remove } from 'fs-extra'
 import simpleGit from 'simple-git'
 import { nodeCacheDir } from '../../utils/nodeCacheDir'
 import { performance, PerformanceObserver } from 'perf_hooks'
 import { validate } from './util/validate'
+import { AsyncArray } from '../../utils'
 
 export interface DeployEvents {
   process(title: string): void
@@ -105,6 +106,10 @@ export interface GhPagesDeployOptions extends Omit<BaseDeployOptions, 'type'> {
    * 远端分支名，默认为 gh-pages
    */
   branch?: string
+  /**
+   * 是否增量推送，默认会清理 dest 目录
+   */
+  add?: boolean
 }
 
 /**
@@ -170,8 +175,20 @@ export class GhPagesDeployService implements IDeployService {
           '--allow-unrelated-histories': null,
         })
       }
+      const remoteDestPath = path.resolve(path.join(localRepoPath, this.options.dest ?? './'))
+      if (!this.options.add) {
+        mark('清理文件')
+        if (remoteDestPath === localRepoPath) {
+          const whiteList = ['.git']
+          await AsyncArray.forEach(
+            (await readdir(remoteDestPath)).filter((name) => !whiteList.includes(name)),
+            (name) => remove(path.resolve(remoteDestPath, name)),
+          )
+        } else {
+          await emptyDir(remoteDestPath)
+        }
+      }
       mark('复制文件')
-      const remoteDestPath = path.join(localRepoPath, this.options.dest ?? './')
       await mkdirp(remoteDestPath)
       await copy(path.resolve(this.options.cwd, this.options.dist), remoteDestPath)
       mark('提交所有文件')
@@ -201,6 +218,7 @@ export class GhPagesDeployService implements IDeployService {
           repo: { type: 'string', nullable: true },
           remote: { type: 'string', nullable: true },
           branch: { type: 'string', nullable: true },
+          add: { type: 'boolean', nullable: true },
         },
         required: ['debug', 'cwd', 'dist'],
       },

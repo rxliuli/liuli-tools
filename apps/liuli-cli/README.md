@@ -2,50 +2,94 @@
 
 > [中文](https://github.com/rxliuli/liuli-tools/tree/master/apps/liuli-cli/README.zh-CN.md)
 
-A zero-configuration CLI packaged for libraries and CLI applications.
+A zero-configuration CLI for packaging libraries and CLI applications.
 
-## Getting started
+## Getting Started
 
 ### Install
 
 ```sh
-yarn add -D @liuli-util/cli # local installation
-npm i -g @liuli-util/cli # install globally
+pnpm i -D @liuli-util/cli # Local installation
+pnpm i -g @liuli-util/cli # global install
 ```
 
-### Bale
+### Packages
 
 ```sh
-yarn liuli-cli build lib # package library
-yarn liuli-cli build cli # package cli reference program
+liuli-cli build lib # Package the library
+liuli-cli build cli # Package cli references
 ```
 
-> Add the `-w` option to start the watch mode of rollup, the packaged dist/ will not be compressed and the dependencies will not be included in the bundle.
+> Adding the `-w` option starts the rollup monitoring mode, the dist/ will not be compressed and the dependencies will not be added to the bundle.
 
-![Monitor Mode](https://liuli.dev/images/liuli-cli%20%E7%9B%91%E8%A7%86%E6%A8%A1%E5%BC%8F.gif)
+![watchdog mode](https://liuli.dev/images/liuli-cli%20%E7%9B%91%E8%A7%86%E6%A8%A1%E5%BC%8F.gif)
 
 ### Generate
 
 ```sh
-yarn liuli-cli generate <name> --template lib # Generate ts-lib project
-yarn liuli-cli generate <name> --template cli # Generate cli project
+liuli-cli generate <name> --template lib # Generate ts-lib project
+liuli-cli generate <name> --template cli # generate cli project
 ```
 
 util also supports interactive project creation
 
 ```shell
-yarn liuli-cli generate
+liuli-cli generate
 ```
 
-![Liuli-cli interactively create screenshots](https://liuli.dev/images/liuli-cli%20%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%88%9B %E5%BB%BA%E6%88%AA%E5%9B%BE.gif)
+![liuli-cli interactive creation screenshot](https://liuli.dev/images/liuli-cli%20%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%88%9B%E5%BB%BA%E6%88%AA%E5%9B%BE.gif)
+
+### Deployment
+
+Support for deploying front-end resources to a remote location via sftp/gh-pages, with configuration information in the `deploy` field in package.json
+
+```sh
+liuli deploy
+```
+
+public
+
+| configuration | description                       | defaults |
+| ------------- | --------------------------------- | -------- |
+| ``type`       | deployment type, ``sftp/gh-pgaes` | none     |
+| `dist`        | Static resource directory         | None     |
+| `dest`        | deployed remote directory         | none     |
+
+sftp
+
+| configuration        | description       | defaults |
+| -------------------- | ----------------- | -------- |
+| `sshConfig.host`     | ip address of ssh |          |
+| `sshConfig.port`     | ssh's port number | 22       |
+| `sshConfig.username` | ssh's username    |          |
+
+gh-pages
+
+| configuration     | description                               | default                                 |
+| ----------------- | ----------------------------------------- | --------------------------------------- |
+| `repo?: string`   | the git address of the project to push to | the default is the current project      |
+| `remote?: string` | push remote                               | defaults to origin                      |
+| `branch?: string` | remote branch name                        | defaults to gh-pages                    |
+| `add?: boolean`   | whether to push incrementally             | cleans up the dest directory by default |
+
+Example configuration for deploying a vuepress documentation site
+
+```json
+{
+  "deploy": {
+    "type": "gh-pages",
+    "dist": "docs/.vuepress/dist"
+  }
+}
+```
 
 ### Sync configuration
 
 ```shell
-yarn liuli-cli sync
+liuli-cli sync
 ```
 
-Which configuration needs to be synced in package.json
+You need to specify which configuration to sync in package.json
 
 ```json
 {
@@ -64,25 +108,25 @@ Currently supported configuration items
 - eslint-vue-ts
 - jest
 
-Future goals: By default will include checking the synchronization of the cli itself (if it needs to be used outside of a monorepo), eslint/style-lint etc., and implementing an interactive cli when not configured
+Future goals: By default, this will include checking the cli's own sync (if it needs to be used outside of monorepo), eslint/style-lint, and interactive cli when not configured
 
-> Note: Currently only the dependencies are synced and no installation is performed
+> Note: Currently, only dependencies are synchronized and no installation is performed
 
-Interactive initialization synchronization configuration is also supported
+Interactive initialization of synchronized configuration is also supported
 
 ```shell
-yarn liuli-cli sync init
+liuli-cli sync init
 ```
 
-## design concept
+## Design philosophy
 
-- Convention over configuration, configuration should not be provided if possible. VitePress does this too, reference: https://vitepress.vuejs.org/#lighter-page-weight This leads to some constraints, including the following
-  - When packaging the library, the entry file must be `src/index.ts`, and the export file must be `dist/index.esm.js` and `dist/index.js`
-  - When packaging the CLI, the entry file must be `src/bin.ts`, and the exit file must be `dist/bin.js`
-  - All dependencies will be treated as external dependencies when packaging lib, and all dependencies will be bundled when packaging cli
+- Conventions outweigh configuration and should be left out if possible. VitePress does the same thing, see: https://vitepress.vuejs.org/#lighter-page-weight This leads to a number of constraints, including the following
+  - The entry file must be `src/index.ts` when packaging the library, and the exit file must be `dist/index.esm.js` and `dist/index.js`
+  - The entry file must be `src/bin.ts` and the exit file is `dist/bin.js` when packaging the CLI.
+  - When packaging lib, all dependencies are treated as external dependencies, while when packaging cli, all dependencies are typed into the bundle
 
 ## FAQ
 
 ### Why not bundle external dependencies
 
-The main reason is that you want to leave the bundling work to the final application, avoid bundling the same dependencies repeatedly, and also avoid dealing with the problem of using `worker_threads` directly based on the file system in nodejs.
+The main reason is that we want to leave the bundling to the final application, to avoid bundling the same dependencies over and over again, and to avoid dealing with the problem of using `worker_threads` directly on the filesystem in nodejs.

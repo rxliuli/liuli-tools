@@ -3,7 +3,7 @@ import { Plugin } from 'esbuild'
 /**
  * 排除和替换 node 内置模块
  */
- export function nodeExternals(): Plugin {
+ export function nodeExternal(): Plugin {
   return {
     name: 'nodeExternals',
     setup(build) {

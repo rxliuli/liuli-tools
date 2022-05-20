@@ -5,12 +5,12 @@ import { PackageJson } from 'type-fest'
 import { Project } from 'ts-morph'
 import { promise } from 'glob-promise'
 import { IOptions } from 'glob'
-import { nativeNodeModules, nodeExternals, userJS } from './util/esbuildPlugins'
 import { watch } from 'chokidar'
 import Spinnies from 'spinnies'
 import { debounce } from './util/debounce'
 import { parse } from 'json5'
 import { getPkgGlobalName } from './util/getPkgGlobalName'
+import { userJS, nodeExternals, nativeNodeModules, resolve } from '@liuli-util/esbuild-plugins/src/'
 
 interface ESBuildProgramOptions {
   base: string
@@ -117,8 +117,6 @@ export class ESBuildProgram {
   /**
    * 获取构建 cjs 的选项
    * @param deps
-   * @param platform
-   * @param plugins
    */
   getBuildCjsOption({ deps, platform }: { deps: string[]; platform: Platform }): BuildOptions {
     return {
@@ -132,14 +130,13 @@ export class ESBuildProgram {
       minify: !this.options.isWatch,
       incremental: this.options.isWatch,
       metafile: this.options.isWatch,
+      plugins: [resolve([['@liuli-util/esbuild-plugins/src/', '@liuli-util/esbuild-plugins']])],
     }
   }
 
   /**
    * 获取构建 esm 的选项
    * @param deps
-   * @param platform
-   * @param plugins
    */
   getBuildESMOption({ deps, platform }: { deps: string[]; platform: Platform }): BuildOptions {
     return {
@@ -153,13 +150,13 @@ export class ESBuildProgram {
       minify: !this.options.isWatch,
       incremental: this.options.isWatch,
       metafile: this.options.isWatch,
+      plugins: [resolve([['@liuli-util/esbuild-plugins/src/', '@liuli-util/esbuild-plugins']])],
     }
   }
 
   /**
    * 获取构建 iife 的选项
    * @param deps
-   * @param platform
    */
   getBuildIifeOption({ platform, globalName }: { platform: Platform; globalName: string }): BuildOptions {
     return {
@@ -180,7 +177,6 @@ export class ESBuildProgram {
   /**
    * 获取构建 cli 的选项
    * @param deps
-   * @param platform
    */
   getBuildCliOption({ platform }: { deps: string[]; platform: Platform }): BuildOptions {
     const plugins = ESBuildProgram.getPlugins(platform)

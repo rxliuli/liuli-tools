@@ -4,20 +4,10 @@
   "license": "MIT",
   "scripts": {
     "setup-all": "pnpm -r run setup",
-<<<<<<< HEAD
     "build-all": "pnpm -r run build",
     "test-all": "pnpm -r --parallel run test",
     "lint-all": "pnpm -r --parallel run lint",
     "postinstall": "pnpm simple-git-hooks"
-=======
-    "setup-all-with-nx": "nx run-many --target=setup --all --parallel",
-    "build-all": "nx run-many --target=build --all",
-    "test-all": "pnpm -r --parallel run test",
-    "lint-all": "pnpm -r --parallel run lint",
-    "test-all-with-nx": "nx run-many --target=test --all --parallel",
-    "dep-graph": "nx dep-graph",
-    "postinstall": "pnpx simple-git-hooks"
->>>>>>> 42a63497707a400481a78dcbab4b4907b71ff19b
   },
   "prettier": "@liuli-util/prettier-standard-config",
   "simple-git-hooks": {

@@ -4,13 +4,10 @@
   "license": "MIT",
   "scripts": {
     "setup-all": "pnpm -r run setup",
-    "setup-all-with-nx": "nx run-many --target=setup --all --parallel",
-    "build-all": "nx run-many --target=build --all",
+    "build-all": "pnpm -r run build",
     "test-all": "pnpm -r --parallel run test",
     "lint-all": "pnpm -r --parallel run lint",
-    "test-all-with-nx": "nx run-many --target=test --all --parallel",
-    "dep-graph": "nx dep-graph",
-    "postinstall": "pnpx simple-git-hooks"
+    "postinstall": "pnpm simple-git-hooks"
   },
   "prettier": "@liuli-util/prettier-standard-config",
   "simple-git-hooks": {
@@ -38,9 +35,6 @@
     "@liuli-util/commitlint-standard-config": "workspace:*",
     "@liuli-util/eslint-config-ts": "workspace:*",
     "@liuli-util/prettier-standard-config": "workspace:*",
-    "@nrwl/cli": "^13.8.2",
-    "@nrwl/tao": "^13.8.2",
-    "@nrwl/workspace": "^13.8.2",
     "lint-staged": "^11.2.6",
     "prettier": "^2.5.1",
     "simple-git-hooks": "^2.7.0",

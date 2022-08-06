@@ -1,0 +1,41 @@
+{
+  "name": "@liuli-util/ast-types-code-generator-generator",
+  "private": true,
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "liuli-cli build lib",
+    "dev": "liuli-cli build lib -w"
+  },
+  "devDependencies": {
+    "@liuli-util/cli": "^3.18.0",
+    "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^28.1.6",
+    "@types/node": "^18.6.4",
+    "@typescript-eslint/typescript-estree": "^5.32.0",
+    "fs-extra": "^10.0.0",
+    "jest": "^27.4.3",
+    "recast": "^0.21.2",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.7",
+    "type-fest": "^2.3.4",
+    "typescript": "^4.5.5"
+  },
+  "sync": [
+    "jest"
+  ],
+  "jest": {
+    "preset": "ts-jest",
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/*.test.ts"
+    ]
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.182",
+    "ast-types": "^0.14.2",
+    "lodash": "^4.17.21"
+  }
+}

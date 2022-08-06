@@ -43,7 +43,6 @@
     "recast": "^0.21.2",
     "fast-glob": "^3.2.11",
     "@liuli-util/array": "workspace:^",
-    "@liuli-util/prettier-standard-config": "workspace:^",
     "@typescript-eslint/typescript-estree": "^5.32.0",
     "dotenv": "^16.0.1"
   }

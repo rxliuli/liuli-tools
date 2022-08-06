@@ -1,5 +1,6 @@
 {
   "name": "@liuli-util/ast-types-code-generator-generator",
+  "type": "module",
   "private": true,
   "version": "0.1.0",
   "main": "dist/index.js",
@@ -11,18 +12,18 @@
     "dev": "liuli-cli build lib -w"
   },
   "devDependencies": {
-    "@liuli-util/cli": "^3.18.0",
+    "@liuli-util/cli": "workspace:^",
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "^28.1.6",
     "@types/node": "^18.6.4",
     "@typescript-eslint/typescript-estree": "^5.32.0",
-    "fs-extra": "^10.0.0",
-    "jest": "^27.4.3",
+    "fs-extra": "^10.1.0",
+    "jest": "^28.1.3",
     "recast": "^0.21.2",
     "rimraf": "^3.0.2",
-    "ts-jest": "^27.0.7",
-    "type-fest": "^2.3.4",
-    "typescript": "^4.5.5"
+    "ts-jest": "^28.0.7",
+    "type-fest": "^2.18.0",
+    "typescript": "^4.7.4"
   },
   "sync": [
     "jest"

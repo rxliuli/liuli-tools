@@ -108,7 +108,7 @@ export class ESBuildProgram {
       bundle: true,
       external: [...ESBuildProgram.globalExternal],
       platform: 'browser',
-      plugins: [userJS()],
+      plugins: [userJS() as any],
       incremental: this.options.isWatch,
       absWorkingDir: this.options.base,
     }
@@ -130,7 +130,7 @@ export class ESBuildProgram {
       minify: !this.options.isWatch,
       incremental: this.options.isWatch,
       metafile: this.options.isWatch,
-      plugins: [resolve([['@liuli-util/esbuild-plugins/src/', '@liuli-util/esbuild-plugins']])],
+      plugins: [resolve([['@liuli-util/esbuild-plugins/src/', '@liuli-util/esbuild-plugins']])] as any,
     }
   }
 
@@ -150,7 +150,7 @@ export class ESBuildProgram {
       minify: !this.options.isWatch,
       incremental: this.options.isWatch,
       metafile: this.options.isWatch,
-      plugins: [resolve([['@liuli-util/esbuild-plugins/src/', '@liuli-util/esbuild-plugins']])],
+      plugins: [resolve([['@liuli-util/esbuild-plugins/src/', '@liuli-util/esbuild-plugins']])] as any,
     }
   }
 
@@ -201,7 +201,7 @@ export class ESBuildProgram {
   static getPlugins(platform: string): Plugin[] {
     const plugins: Plugin[] = []
     if (platform === 'node') {
-      plugins.push(nodeExternals(), nativeNodeModules())
+      plugins.push(nodeExternals() as any, nativeNodeModules() as any)
     }
     return plugins
   }

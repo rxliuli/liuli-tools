@@ -3,8 +3,8 @@ import * as path from 'path'
 import { mkdirp, pathExists, remove, writeFile, writeJson } from 'fs-extra'
 import { PackageJson } from 'type-fest'
 import { build, Platform } from 'esbuild'
-import { nativeNodeModules, nodeExternals } from '../util/esbuildPlugins'
 import { findParent } from '../../../utils'
+import { nativeNodeModules, nodeExternals } from '@liuli-util/esbuild-plugins/src'
 
 describe('测试 ESBuildProgram', () => {
   const base: string = path.resolve(__dirname, '.temp')
@@ -159,7 +159,7 @@ it('测试 esbuild', async () => {
       // ...(await ESBuildProgram.getDeps(path.resolve())),
     ],
     platform: 'node',
-    plugins: [nativeNodeModules(), nodeExternals()],
+    plugins: [nativeNodeModules(), nodeExternals()] as any,
     treeShaking: true,
   })
 })

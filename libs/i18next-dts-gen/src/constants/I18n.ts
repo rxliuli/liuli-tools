@@ -1,12 +1,11 @@
 // @ts-ignore
 import { TranslateType } from '../i18n'
-import osLocale from 'os-locale'
 import { I18nextUtil, LanguageEnum } from '../util/I18nextUtil'
 
 export async function getLanguage(): Promise<LanguageEnum> {
-  const language = await osLocale()
+  const language = Intl.DateTimeFormat().resolvedOptions().locale
   /**
-   * os-locale => i18next 的语言类型字符串映射
+   * locale => i18next 的语言类型字符串映射
    */
   const map: Record<string, LanguageEnum> = {
     'zh-CN': LanguageEnum.ZhCN,

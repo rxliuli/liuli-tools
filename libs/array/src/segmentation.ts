@@ -9,5 +9,5 @@ import { groupBy } from './groupBy'
  */
 
 export function segmentation<T>(arr: T[], num: number): T[][] {
-  return Array.from(groupBy(arr, (item, i) => Math.floor(i / num)).values())
+  return Array.from(groupBy(arr, (_item, i) => Math.floor(i / num)).values())
 }

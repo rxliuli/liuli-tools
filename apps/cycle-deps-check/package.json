@@ -1,0 +1,52 @@
+{
+  "name": "@liuli-util/cycle-deps-check",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "liuli-cli build cli",
+    "dev": "liuli-cli build cli -w",
+    "start": "esno src/bin.ts"
+  },
+  "bin": {
+    "cycle-deps-check": "./bin.js"
+  },
+  "dependencies": {
+    "@liuli-util/async": "workspace:^3.3.0",
+    "commander": "^8.2.0",
+    "enquirer": "^2.3.6",
+    "fs-extra": "^10.0.0",
+    "glob": "^7.2.0",
+    "glob-promise": "^4.2.0",
+    "lodash": "^4.17.21",
+    "yaml": "^1.10.2"
+  },
+  "devDependencies": {
+    "@liuli-util/cli": "^3.18.0",
+    "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^27.5.2",
+    "@types/lodash": "^4.14.182",
+    "@types/node": "^16.11.8",
+    "esno": "^0.9.1",
+    "jest": "^27.5.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.1.5",
+    "type-fest": "^2.3.4",
+    "typescript": "^4.5.5"
+  },
+  "sync": [
+    "jest"
+  ],
+  "jest": {
+    "preset": "ts-jest",
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/*.test.ts"
+    ]
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

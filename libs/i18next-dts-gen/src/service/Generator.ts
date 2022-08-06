@@ -1,5 +1,5 @@
 import { namedTypes as n, builders as b } from 'ast-types'
-import { CodeUtil } from '@liuli-util/ast-types-code-generator-generator'
+import { CodeUtil } from '../utils/CodeUtil'
 
 /**
  * 翻译的字符串

@@ -1,6 +1,6 @@
 // @ts-ignore
 import { TranslateType } from '../i18n'
-import { I18nextUtil, LanguageEnum } from '../util/I18nextUtil'
+import { I18nextUtil, LanguageEnum } from '../utils/I18nextUtil'
 
 export async function getLanguage(): Promise<LanguageEnum> {
   const language = Intl.DateTimeFormat().resolvedOptions().locale

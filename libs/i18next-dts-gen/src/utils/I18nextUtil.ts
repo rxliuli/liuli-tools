@@ -9,9 +9,7 @@ export class I18nextUtil<
   T extends Record<
     string,
     {
-      params:
-        | [key: string]
-        | [key: string, params: Record<string, string | number>]
+      params: [key: string] | [key: string, params: Record<string, string | number>]
       value: string
     }
   >,
@@ -23,10 +21,7 @@ export class I18nextUtil<
   /**
    * 加载国际化
    */
-  async init(
-    resources: Record<LanguageEnum, Record<string, string>>,
-    language: LanguageEnum,
-  ): Promise<void> {
+  async init(resources: Record<LanguageEnum, Record<string, string>>, language: LanguageEnum): Promise<void> {
     await i18next.init({
       lng: language,
       resources: Object.entries(resources).reduce((res, [k, v]) => {

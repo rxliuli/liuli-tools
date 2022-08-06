@@ -8,7 +8,7 @@ import { Watcher } from './Watcher'
 import { getLanguage, i18n } from '../constants/I18n'
 import en from '../i18n/en.json'
 import zhCN from '../i18n/zhCN.json'
-import { normalizePath } from '../util/normalizePath'
+import { normalizePath } from '../utils/normalizePath'
 
 export interface GenerateOptions {
   dirs: string[]
@@ -25,14 +25,10 @@ export class GeneratorCommandProgram {
     await i18n.init({ en, zhCN }, await getLanguage())
     if (options.watch) {
       new Promise((resolve, reject) => {
-        new Watcher()
-          .watchDirs(options.dirs, (dir) => this.exec(dir, options.language))
-          .on('error', reject)
+        new Watcher().watchDirs(options.dirs, (dir) => this.exec(dir, options.language)).on('error', reject)
       })
     }
-    await AsyncArray.forEach(options.dirs, (dir) =>
-      this.exec(dir, options.language),
-    )
+    await AsyncArray.forEach(options.dirs, (dir) => this.exec(dir, options.language))
   }
 
   // noinspection JSMethodCanBeStatic

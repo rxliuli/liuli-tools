@@ -1,5 +1,6 @@
-import { CodeUtil, generate } from '@liuli-util/ast-types-code-generator-generator'
+import { generate } from '@liuli-util/ast-types-code-generator-generator'
 import { builders as b } from 'ast-types'
+import { CodeUtil } from '../utils/CodeUtil'
 
 it('basic', () => {
   const res = CodeUtil.print(

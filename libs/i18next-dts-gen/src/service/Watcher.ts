@@ -1,15 +1,12 @@
 import { FSWatcher, watch } from 'chokidar'
 import path from 'path'
-import { exhaustMapByParam } from '../util/exhaustMapByParam'
+import { exhaustMapByParam } from '../utils/exhaustMapByParam'
 
 /**
  * 目录监视器
  */
 export class Watcher {
-  watchDirs(
-    dirs: string[],
-    callback: (dir: string) => Promise<void>,
-  ): FSWatcher {
+  watchDirs(dirs: string[], callback: (dir: string) => Promise<void>): FSWatcher {
     const _callback = exhaustMapByParam(callback)
     return watch(
       dirs.map((dir) => path.join(dir, '*.json')),

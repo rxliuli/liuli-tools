@@ -37,16 +37,17 @@
     "url": "https://github.com/rxliuli/liuli-tools/tree/master/libs/i18next-dts-gen"
   },
   "dependencies": {
-    "@liuli-util/array": "workspace:^3.3.0",
-    "@liuli-util/ast-types-code-generator-generator": "workspace:^",
-    "@liuli-util/async": "^3.4.0",
+    "@liuli-util/array": "workspace:^",
+    "@liuli-util/async": "workspace:^",
     "ast-types": "^0.14.2",
     "chokidar": "^3.5.3",
     "commander": "^9.4.0",
     "fs-extra": "^10.1.0",
-    "i18next": "^21.8.16"
+    "i18next": "^21.8.16",
+    "recast": "^0.21.2"
   },
   "devDependencies": {
+    "@liuli-util/ast-types-code-generator-generator": "workspace:^",
     "@liuli-util/cli": "workspace:*",
     "@liuli-util/test": "workspace:^3.3.0",
     "@types/fs-extra": "^9.0.13",

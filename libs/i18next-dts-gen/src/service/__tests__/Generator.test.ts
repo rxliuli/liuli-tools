@@ -1,6 +1,6 @@
 import { Generator } from '../Generator'
-import { CodeUtil } from '@liuli-util/ast-types-code-generator-generator'
 import { astNodesAreEquivalent } from 'ast-types'
+import { CodeUtil } from '../../utils/CodeUtil'
 export type TranslateType = {
   'hello world': { value: 'string'; params: [key: 'hello world'] }
 }

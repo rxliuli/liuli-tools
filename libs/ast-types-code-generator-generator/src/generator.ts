@@ -113,12 +113,33 @@ function generateByFrom(ast: n.ASTNode): n.CallExpression {
   )
 }
 
+function generateTsLiteral(value: any) {
+  if (typeof value === 'string') {
+    return b.stringLiteral(value)
+  }
+  if (typeof value === 'boolean') {
+    return b.booleanLiteral(value)
+  }
+  if (typeof value === 'number') {
+    return b.numericLiteral(value)
+  }
+  console.log(value)
+  throw new Error('generateTsLiteral error ' + value)
+}
+
 export function generate(ast: n.ASTNode): n.CallExpression {
   // 兼容 eslint-tree 的问题，ref: <https://github.com/typescript-eslint/typescript-eslint/issues/5424>
   if (ast.type === 'TSTypeParameter' && (ast.name as any).type === 'Identifier') {
     return generate({
       ...ast,
       name: (ast.name as any).name,
+    })
+  }
+  // 兼容解析 TSLiteralType 的问题
+  if (ast.type === 'TSLiteralType' && (ast.literal.type as any) === 'Literal') {
+    return generate({
+      ...ast,
+      literal: generateTsLiteral((ast.literal as unknown as n.Literal).value),
     })
   }
   return isUsingFrom(ast) ? generateByFrom(ast) : generateByParams(ast)

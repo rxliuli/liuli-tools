@@ -229,81 +229,85 @@ async function evalAst(name: string, ast: n.ASTNode) {
   return CodeUtil.print(f.default())
 }
 
-it('test', async () => {
-  const list = [
-    {
-      name: 'hello',
-      code: `export function hello(name: string): string {
-        return 'hello ' + name
-      }
-      console.log(hello('liuli'))`,
-    },
-    {
-      name: 'interface',
-      code: `export interface User {
-      name: string;
-      age: number;
+const list = [
+  {
+    name: 'hello',
+    code: `export function hello(name: string): string {
+      return 'hello ' + name
+    }
+    console.log(hello('liuli'))`,
+  },
+  {
+    name: 'interface',
+    code: `export interface User {
+    name: string;
+    age: number;
+}`,
+  },
+  {
+    name: 'function',
+    code: `export function hello(name: string) {
+      return "hello " + name;
   }`,
-    },
-    {
-      name: 'function',
-      code: `export function hello(name: string) {
-        return "hello " + name;
-    }`,
-    },
-    {
-      name: 'templateString',
-      code: '`visit${type.toString()}`',
-    },
-    {
-      name: 'class',
-      code: `import { parse, print } from 'recast'
-      import { namedTypes as n, visit } from 'ast-types'
-      import * as eslint from '@typescript-eslint/typescript-estree'
-      import { Type } from 'ast-types/lib/types'
-      import { NodePath } from 'ast-types/lib/node-path'
-      export class CodeUtil {
-        static parse(code: string): n.ASTNode {
-          return parse(code, { parser: eslint })
-        }
-        static print(ast: n.ASTNode): string {
-          return print(ast, { parser: eslint }).code
-        }
-        static iterator<T>(ast: n.ASTNode, type: Type<T>): T[] {
-          const res: T[] = []
-          visit(ast, {
-            [\`visit\${type.toString()}\`](path: NodePath) {
-              res.push(path.node)
-              return false
-            },
-          })
-          return res
-        }
+  },
+  {
+    name: 'templateString',
+    code: '`visit${type.toString()}`',
+  },
+  {
+    name: 'class',
+    code: `import { parse, print } from 'recast'
+    import { namedTypes as n, visit } from 'ast-types'
+    import * as eslint from '@typescript-eslint/typescript-estree'
+    import { Type } from 'ast-types/lib/types'
+    import { NodePath } from 'ast-types/lib/node-path'
+    export class CodeUtil {
+      static parse(code: string): n.ASTNode {
+        return parse(code, { parser: eslint })
       }
-      `,
-    },
-    {
-      name: 'tsTypeParameter',
-      code: `function f<T>(a: T): T {
-        return a
-      }`,
-    },
-    {
-      name: 'objectMethod',
-      code: `hello({
-        [\`\${name}\`]: 'liuli',
-        age: 17,
-        ['info'](){}
-      })`,
-    },
-    {
-      name: 'topLevelAwait',
-      code: `import { getEnv } from '@pinefield/app-utils'
+      static print(ast: n.ASTNode): string {
+        return print(ast, { parser: eslint }).code
+      }
+      static iterator<T>(ast: n.ASTNode, type: Type<T>): T[] {
+        const res: T[] = []
+        visit(ast, {
+          [\`visit\${type.toString()}\`](path: NodePath) {
+            res.push(path.node)
+            return false
+          },
+        })
+        return res
+      }
+    }
+    `,
+  },
+  {
+    name: 'tsTypeParameter',
+    code: `function f<T>(a: T): T {
+      return a
+    }`,
+  },
+  {
+    name: 'objectMethod',
+    code: `hello({
+      [\`\${name}\`]: 'liuli',
+      age: 17,
+      ['info'](){}
+    })`,
+  },
+  {
+    name: 'topLevelAwait',
+    code: `import { getEnv } from '@pinefield/app-utils'
 
-      export const envs = await getEnv()
-      `,
-    },
-  ]
+    export const envs = await getEnv()
+    `,
+  },
+  {
+    name: 'TSLiteralType',
+    code: `export type TranslateType = { 'hello world': { value: 'string'; params: [key: 'hello world'] } }`,
+  },
+]
+it('test', async () => {
   await Promise.all(
     list.map(async (item) => {
       check(await evalAst(item.name, generate(CodeUtil.parse(item.code))), item.code)

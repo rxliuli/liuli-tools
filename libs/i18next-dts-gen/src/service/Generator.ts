@@ -1,6 +1,5 @@
-import { WriterFunctionUtil } from '../util/WriterFunctionUtil'
-import { Project, StructureKind, WriterFunction, Writers } from 'ts-morph'
-import { RandomUtil } from '../util/RandomUtil'
+import { namedTypes as n, builders as b } from 'ast-types'
+import { CodeUtil } from '@liuli-util/ast-types-code-generator-generator'
 
 /**
  * 翻译的字符串
@@ -15,49 +14,44 @@ export interface TranslateTypeConfig {
  * 根据解析的结果生成类型定义
  */
 export class Generator {
-  private project = new Project()
-
-  convert(configs: TranslateTypeConfig[]): Record<string, WriterFunction> {
-    return configs.reduce((res, config) => {
-      const obj: {
-        params?: WriterFunction
-        value: WriterFunction
-      } = {
-        value: WriterFunctionUtil.literal(config.value ?? 'string'),
-      }
-      const tokens = [
-        { name: 'key', type: WriterFunctionUtil.literal(config.key) },
-      ]
-      if (config.params) {
-        tokens.push({
-          name: 'params',
-          type: Writers.object(
-            config.params.reduce((res, p) => {
-              res[p] = Writers.unionType('string', 'number')
-              return res
-            }, {} as Record<string, WriterFunction>),
+  generateByConfig(config: TranslateTypeConfig): n.TSPropertySignature {
+    const params: n.TSNamedTupleMember[] = [
+      b.tsNamedTupleMember(b.identifier('key'), b.tsLiteralType(b.stringLiteral(config.key))),
+    ]
+    if (config.params) {
+      params.push(
+        b.tsNamedTupleMember(
+          b.identifier('params'),
+          b.tsTypeLiteral(
+            config.params.map((item) =>
+              b.tsPropertySignature(
+                b.identifier(item),
+                b.tsTypeAnnotation(b.tsUnionType([b.tsStringKeyword(), b.tsNumberKeyword()])),
+              ),
+            ),
           ),
-        })
-      }
-      obj.params = WriterFunctionUtil.tuple(tokens)
-      res[WriterFunctionUtil.key(config.key)] = Writers.object(obj)
-      return res
-    }, {} as Record<string, WriterFunction>)
+        ),
+      )
+    }
+    return b.tsPropertySignature(
+      b.literal(config.key),
+      b.tsTypeAnnotation(
+        b.tsTypeLiteral([
+          b.tsPropertySignature(
+            b.identifier('value'),
+            b.tsTypeAnnotation(config.value ? b.tsLiteralType(b.stringLiteral(config.value)) : b.tsStringKeyword()),
+          ),
+          b.tsPropertySignature(b.identifier('params'), b.tsTypeAnnotation(b.tsTupleType(params))),
+        ]),
+      ),
+    )
   }
 
   generate(configs: TranslateTypeConfig[]): string {
-    const types = this.convert(configs)
-    const sourceFile = this.project.createSourceFile(RandomUtil.string(), {
-      statements: [
-        {
-          kind: StructureKind.TypeAlias,
-          name: 'TranslateType',
-          isExported: true,
-          type: Writers.object(types),
-        },
-      ],
-    })
-    sourceFile.formatText()
-    return sourceFile.getText()
+    return CodeUtil.print(
+      b.exportNamedDeclaration(
+        b.tsTypeAliasDeclaration(b.identifier('TranslateType'), b.tsTypeLiteral(configs.map(this.generateByConfig))),
+      ),
+    )
   }
 }

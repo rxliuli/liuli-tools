@@ -579,6 +579,7 @@ importers:
   libs/i18next-dts-gen:
     specifiers:
       '@liuli-util/array': workspace:^3.3.0
+      '@liuli-util/ast-types-code-generator-generator': workspace:^
       '@liuli-util/async': ^3.4.0
       '@liuli-util/cli': workspace:*
       '@liuli-util/test': workspace:^3.3.0
@@ -586,6 +587,7 @@ importers:
       '@types/jest': ^28.1.6
       '@types/node': ^18.6.4
       '@types/prettier': ^2.7.0
+      ast-types: ^0.14.2
       chokidar: ^3.5.3
       commander: ^9.4.0
       dts-minify: ^0.3.0
@@ -596,18 +598,18 @@ importers:
       prettier: ^2.7.1
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
-      ts-morph: ^15.1.0
       type-fest: ^2.18.0
       typedoc: ^0.23.10
       typescript: ^4.7.4
     dependencies:
       '@liuli-util/array': link:../array
+      '@liuli-util/ast-types-code-generator-generator': link:../ast-types-code-generator-generator
       '@liuli-util/async': 3.4.0
+      ast-types: 0.14.2
       chokidar: 3.5.3
       commander: 9.4.0
       fs-extra: 10.1.0
       i18next: 21.8.16
-      ts-morph: 15.1.0
     devDependencies:
       '@liuli-util/cli': link:../../apps/liuli-cli
       '@liuli-util/test': link:../test

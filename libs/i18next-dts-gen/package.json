@@ -38,12 +38,13 @@
   },
   "dependencies": {
     "@liuli-util/array": "workspace:^3.3.0",
+    "@liuli-util/ast-types-code-generator-generator": "workspace:^",
     "@liuli-util/async": "^3.4.0",
+    "ast-types": "^0.14.2",
     "chokidar": "^3.5.3",
     "commander": "^9.4.0",
     "fs-extra": "^10.1.0",
-    "i18next": "^21.8.16",
-    "ts-morph": "^15.1.0"
+    "i18next": "^21.8.16"
   },
   "devDependencies": {
     "@liuli-util/cli": "workspace:*",

@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/i18next-dts-gen",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",

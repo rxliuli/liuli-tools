@@ -1,11 +1,10 @@
 import { pathExists, readFile, writeFile } from 'fs-extra'
 import * as path from 'path'
-import { OptionalKind, Project, PropertySignatureStructure } from 'ts-morph'
 import { uniqueBy } from '@liuli-util/array'
-import promise from 'glob-promise'
 import { parse } from 'dotenv'
-import { format } from 'prettier'
-import prettierOptions from '@liuli-util/prettier-standard-config'
+import { CodeUtil } from './utils/CodeUtil'
+import FastGlob from 'fast-glob'
+import { namedTypes as n, builders as b } from 'ast-types'
 
 /**
  * 获取环境变量的路径
@@ -27,34 +26,51 @@ async function getEnvPath(cwd: string) {
  * 扫描所有的文件
  */
 export async function scan(dir: string): Promise<string[]> {
-  const files = await promise('.env*', {
+  const files = await FastGlob('.env*', {
     cwd: path.resolve(dir),
   })
   const configs = await Promise.all(files.map((file) => readFile(path.resolve(dir, file), 'utf-8')))
   return uniqueBy(configs.map((s) => Object.keys(parse(s))).flat())
 }
 
+export function eq(a: string[], b: string[]): boolean {
+  const f = (a: string, b: string) => a.localeCompare(b)
+  return JSON.stringify([...a].sort(f)) === JSON.stringify([...b].sort(f))
+}
+
+export function getEnvs(ast: n.ASTNode): string[] {
+  return CodeUtil.iterator(ast, n.TSInterfaceDeclaration)
+    .filter((item) => (item.id as n.Identifier).name === 'ImportMetaEnv')
+    .flatMap((ast) => CodeUtil.iterator(ast, n.TSPropertySignature))
+    .flatMap((ast) => CodeUtil.iterator(ast, n.Identifier))
+    .map((item) => item.name)
+}
+
+function convert(ast: n.ASTNode, envs: string[]): n.ASTNode {
+  let envInterface = CodeUtil.iterator(ast, n.TSInterfaceDeclaration).find(
+    (item) => (item.id as n.Identifier).name === 'ImportMetaEnv',
+  )
+  if (!envInterface) {
+    envInterface = b.tsInterfaceDeclaration(b.identifier('ImportMetaEnv'), b.tsInterfaceBody([]))
+    ;(ast as n.File).program.body.push(envInterface)
+  }
+  envInterface.body.body = envs.map((name) =>
+    b.tsPropertySignature.from({
+      key: b.identifier(name),
+      typeAnnotation: b.tsTypeAnnotation(b.tsStringKeyword()),
+      readonly: true,
+    }),
+  )
+  return ast
+}
+
 export async function gen(cwd: string): Promise<void> {
   const envPath = await getEnvPath(cwd)
-  const project = new Project()
-  const envs = (await scan(cwd)).map(
-    (item) =>
-      ({
-        name: item,
-        type: 'string',
-        isReadonly: true,
-      } as OptionalKind<PropertySignatureStructure>),
-  )
-  const sourceFile = project.addSourceFileAtPath(envPath)
-  const existsEnvDts = sourceFile.getInterface('ImportMetaEnv')
-  if (existsEnvDts) {
-    const set = new Set(existsEnvDts.getProperties().map((item) => item.getName()))
-    existsEnvDts.addProperties(envs.filter((item) => !set.has(item.name)))
-  } else {
-    sourceFile.addInterface({
-      name: 'ImportMetaEnv',
-      properties: envs,
-    })
+  const code = await readFile(envPath, 'utf-8')
+  const ast = CodeUtil.parse(code)
+  const envNames = await scan(cwd)
+  if (eq(envNames, getEnvs(ast))) {
+    return
   }
-  await writeFile(envPath, format(sourceFile.getFullText(), { ...prettierOptions, parser: 'typescript' }))
+  await writeFile(envPath, CodeUtil.print(convert(ast, envNames)))
 }

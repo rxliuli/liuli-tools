@@ -22,6 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noEmit": true
   },
-  "include": ["src"],
-  "exclude": ["src/__tests__"]
+  "include": ["src"]
 }

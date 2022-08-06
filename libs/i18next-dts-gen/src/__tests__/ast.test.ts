@@ -56,7 +56,7 @@ describe('测试 typescript ast', () => {
   })
 })
 
-describe('使用 ts-morph', () => {
+describe.skip('使用 ts-morph', () => {
   const project = new Project()
   it('构建一个 ast 并转换为代码', () => {
     const sourceFile = project.createSourceFile('', {

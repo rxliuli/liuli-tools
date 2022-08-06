@@ -2,6 +2,7 @@ import { rollup } from 'rollup'
 import typescript from 'rollup-plugin-typescript2'
 import * as path from 'path'
 import { workerThreads } from '../workerThreads'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
 
 it('测试 workerThreads', async () => {
   const bundle = await rollup({
@@ -15,9 +16,7 @@ it('测试 workerThreads', async () => {
           },
         },
       }),
-      // worker({
-      //   plugins: [typescript()],
-      // }),
+      nodeResolve(),
       workerThreads(),
     ],
   })

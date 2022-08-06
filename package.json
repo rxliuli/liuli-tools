@@ -5,7 +5,7 @@
   "scripts": {
     "setup-all": "pnpm -r run setup",
     "build-all": "pnpm -r run build",
-    "test-all": "pnpm -r --parallel run test",
+    "test-all": "pnpm test -r",
     "lint-all": "pnpm -r --parallel run lint",
     "postinstall": "pnpm simple-git-hooks"
   },

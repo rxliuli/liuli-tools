@@ -29,7 +29,7 @@ export function areSame(text1: string, text2: string): boolean {
   return false
 }
 
-const minifier = createMinifier(ts as typeof import('typescript'))
+const minifier = createMinifier(ts)
 export function formatCode(text: string): string {
   return format(minifier.minify(text), {
     parser: 'typescript',
@@ -40,17 +40,13 @@ function* getTokens(text: string): Generator<string, void, unknown> {
   const scanner = ts.createScanner(ts.ScriptTarget.Latest, true)
   scanner.setText(formatCode(text))
   scanner.setOnError((message) => console.error(message))
-  scanner.setLanguageVariant(
-    getLanguageVariantFromFileName(RandomUtil.string()),
-  )
+  scanner.setLanguageVariant(getLanguageVariantFromFileName(RandomUtil.string()))
 
-  while (scanner.scan() !== ts.SyntaxKind.EndOfFileToken)
-    yield scanner.getTokenText()
+  while (scanner.scan() !== ts.SyntaxKind.EndOfFileToken) yield scanner.getTokenText()
 }
 
 function getLanguageVariantFromFileName(fileName: string) {
   const lowerCaseFileName = fileName.toLowerCase()
-  const isJsxOrTsxFile =
-    lowerCaseFileName.endsWith('.tsx') || lowerCaseFileName.endsWith('.jsx')
+  const isJsxOrTsxFile = lowerCaseFileName.endsWith('.tsx') || lowerCaseFileName.endsWith('.jsx')
   return isJsxOrTsxFile ? ts.LanguageVariant.JSX : ts.LanguageVariant.Standard
 }

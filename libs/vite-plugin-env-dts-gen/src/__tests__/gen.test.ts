@@ -4,7 +4,7 @@ import { gen } from '../gen'
 import { Project } from 'ts-morph'
 
 describe('测试 gen', () => {
-  const tempPath = path.resolve(__dirname, '.temp')
+  const tempPath = path.resolve(__dirname, '.temp/gen')
   beforeEach(async () => {
     await remove(tempPath)
     await mkdirp(tempPath)

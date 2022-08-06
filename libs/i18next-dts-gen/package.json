@@ -13,7 +13,8 @@
     "docs-dev": "typedoc --watch",
     "docs-build": "rimraf docs && typedoc",
     "docs-deploy": "pnpm docs-build && liuli-cli deploy",
-    "lint": "eslint --fix src/**"
+    "lint": "eslint --fix src/**",
+    "test": "jest --all"
   },
   "deploy": {
     "type": "gh-pages",

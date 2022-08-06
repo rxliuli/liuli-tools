@@ -32,10 +32,13 @@ export function readBinList(base: string, pkgJson: PackageJson): BinConfig[] {
       },
     ]
   }
-  return Object.entries(bin).map(([k, v]) => ({
-    name: k,
-    path: path.isAbsolute(v) ? v : path.resolve(base, v),
-  }))
+  return Object.entries(bin).map(
+    ([k, v]) =>
+      ({
+        name: k,
+        path: path.isAbsolute(v!) ? v : path.resolve(base, v!),
+      } as BinConfig),
+  )
 }
 
 /**
@@ -44,8 +47,5 @@ export function readBinList(base: string, pkgJson: PackageJson): BinConfig[] {
  * @param config
  */
 export async function linkGlobalBin(globalBinPath: string, config: BinConfig) {
-  await (cmdShim as any)(
-    path.resolve(config.path),
-    path.resolve(globalBinPath, config.name),
-  )
+  await (cmdShim as any)(path.resolve(config.path), path.resolve(globalBinPath, config.name))
 }

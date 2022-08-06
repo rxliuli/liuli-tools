@@ -1,6 +1,6 @@
 import { create, CreateOptions } from 'tar'
-import { promise } from 'glob-promise'
 import * as path from 'path'
+import FastGlob from 'fast-glob'
 
 export interface ArchiveOptions {
   // sourceDir 源目录，一般设置为 dist
@@ -17,8 +17,8 @@ export async function createArchive(options: ArchiveOptions): Promise<void> {
   const sourceDir = path.resolve(options.sourceDir)
   const destPath = path.resolve(options.destPath)
   console.log('createArchive: ', sourceDir, destPath)
-  const distFiles = (await promise(`${sourceDir}/**/*`, { nodir: true })).map(
-    (f) => f.substr(sourceDir.length + 1),
+  const distFiles = (await FastGlob(`./**`, { onlyFiles: true, cwd: sourceDir })).map((f) =>
+    f.substring(sourceDir.length + 1),
   )
   await create(
     {

@@ -1,7 +1,6 @@
 import { AsyncArray } from '../AsyncArray'
 import { wait } from '../wait'
 import { countTime, Expect } from '@liuli-util/test'
-import * as console from 'console'
 
 describe('测试 AsyncArray', () => {
   async function testReduce(reduce: Function) {

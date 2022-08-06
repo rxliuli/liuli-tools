@@ -5,10 +5,12 @@
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "setup": "pnpm build",
     "build": "liuli-cli build cli",
     "dev": "liuli-cli build cli -w",
     "start": "esno src/bin.ts",
-    "lint": "eslint --fix src/**"
+    "lint": "eslint --fix src/**",
+    "test": "jest --all"
   },
   "bin": "./bin.js",
   "jest": {

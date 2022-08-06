@@ -1,5 +1,4 @@
 import { enhanceProxy, EnhanceProxyHandler } from '../enhanceProxy'
-import * as console from 'console'
 
 describe('测试 enhanceProxy', () => {
   it('基本示例', () => {

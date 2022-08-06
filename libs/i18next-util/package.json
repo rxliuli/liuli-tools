@@ -14,7 +14,8 @@
     "docs:build": "rm docs && typedoc",
     "docs:deploy": "pnpm build && gh-pages -d docs/ -e / -a",
     "gen-i18n": "i18next-dts-gen --dirs src/__tests__/i18n",
-    "lint": "eslint --fix src/**"
+    "lint": "eslint --fix src/**",
+    "test": "jest --all"
   },
   "jest": {
     "preset": "ts-jest",

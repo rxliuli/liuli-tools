@@ -4,7 +4,7 @@ export type TranslateType = {
   'hello world': { value: 'string'; params: [key: 'hello world'] }
 }
 
-describe('测试 Generator', () => {
+describe.skip('测试 Generator', () => {
   const generator = new Generator()
   it('基本示例', () => {
     const res = generator.generate([{ key: 'hello world' }])

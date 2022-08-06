@@ -9,7 +9,8 @@
     "setup": "npm run build",
     "build": "liuli-cli build lib",
     "dev": "liuli-cli build lib -w",
-    "lint": "eslint --fix src/**"
+    "lint": "eslint --fix src/**",
+    "test": "jest --all"
   },
   "publishConfig": {
     "access": "public",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "@liuli-util/cli": "workspace:*",
     "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^28.1.6",
     "jest": "^28.1.3",
     "rimraf": "^3.0.2",
     "rollup": "^2.77.2",

@@ -17,7 +17,7 @@ export function print(type: WriterFunction) {
   return sourceFile.getText()
 }
 
-describe('测试 WriterFunctionUtil', () => {
+describe.skip('测试 WriterFunctionUtil', () => {
   describe('测试 tuple', () => {
     it('基本示例', () => {
       const txt = print(

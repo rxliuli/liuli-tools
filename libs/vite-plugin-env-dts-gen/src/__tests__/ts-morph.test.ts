@@ -4,7 +4,7 @@ import { Project } from 'ts-morph'
 import { format } from 'prettier'
 
 describe('测试 ts-morph', () => {
-  const tempPath = path.resolve(__dirname, '.temp')
+  const tempPath = path.resolve(__dirname, '.temp/ts-morph')
   beforeEach(async () => {
     await remove(tempPath)
     await mkdirp(tempPath)

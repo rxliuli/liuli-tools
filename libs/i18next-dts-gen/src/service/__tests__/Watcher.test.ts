@@ -2,7 +2,7 @@ import { Watcher } from '../Watcher'
 import path from 'path'
 import { wait } from '@liuli-util/async'
 
-describe('测试 Watcher', () => {
+describe.skip('测试 Watcher', () => {
   const watcher = new Watcher()
   it('基本示例', async () => {
     await new Promise((resolve, reject) => {

@@ -3,11 +3,8 @@ import cmdShim from 'cmd-shim'
 import { writeFile } from 'fs-extra'
 import { execPromise } from '../utils/execPromise'
 
-it('测试 cmdShim', async () => {
+it.skip('测试 cmdShim', async () => {
   const globalBinPath = ((await execPromise('npm -g bin')) as string).trimEnd()
   await writeFile(path.resolve(globalBinPath, 'test'), 'test')
-  await cmdShim(
-    path.resolve('dist/bin.js'),
-    path.resolve(globalBinPath, 'cmd-link-global'),
-  )
+  await cmdShim(path.resolve('dist/bin.js'), path.resolve(globalBinPath, 'cmd-link-global'))
 })

@@ -9,7 +9,8 @@
   "license": "MIT",
   "scripts": {
     "build": "liuli-cli build lib",
-    "dev": "liuli-cli build lib -w"
+    "dev": "liuli-cli build lib -w",
+    "test": "jest --all"
   },
   "devDependencies": {
     "@liuli-util/cli": "workspace:^",

@@ -1,7 +1,8 @@
 import { build, BuildOptions } from 'esbuild'
 import { remove, mkdirp, writeFile } from 'fs-extra'
 import * as path from 'path'
-import { env, raw } from '@liuli-util/esbuild-plugins/src'
+import { env } from '../env'
+import { raw } from '../raw'
 
 describe('测试 esbuildPlugins', () => {
   const tempPath = path.resolve(__dirname, '.temp')

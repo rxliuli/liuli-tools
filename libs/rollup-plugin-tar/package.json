@@ -12,7 +12,8 @@
     "docs:dev": "typedoc --watch",
     "docs:build": "rimraf docs && typedoc",
     "docs:deploy": "pnpm docs:build && gh-pages -d docs/ -e /api/rollup-plugin-tar -a",
-    "lint": "eslint --fix src/**"
+    "lint": "eslint --fix src/**",
+    "test": "jest --all"
   },
   "jest": {
     "preset": "ts-jest",
@@ -29,11 +30,14 @@
   },
   "devDependencies": {
     "@liuli-util/cli": "workspace:*",
+    "@types/fs-extra": "^9.0.13",
     "@types/jest": "^28.1.6",
     "@types/node": "^18.6.4",
     "@types/tar": "^6.1.2",
+    "fs-extra": "^10.1.0",
     "jest": "^28.1.3",
     "rimraf": "^3.0.2",
+    "rollup": "^2.77.2",
     "ts-jest": "^28.0.7",
     "typedoc": "^0.23.10",
     "typescript": "^4.7.4"
@@ -43,7 +47,7 @@
     "jest"
   ],
   "dependencies": {
-    "glob-promise": "^5.0.0",
+    "fast-glob": "^3.2.11",
     "i18next": "^21.8.16",
     "tar": "^6.1.11"
   }

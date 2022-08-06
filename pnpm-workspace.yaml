@@ -2,6 +2,5 @@ packages:
   - 'apps/*'
   - 'apps/liuli-cli/templates/*'
   - 'libs/*'
-  - 'archives/*'
   - 'examples/*'
   - 'scripts'

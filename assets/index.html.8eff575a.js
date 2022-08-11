@@ -1,1 +1,0 @@
-const t={key:"v-ba1f53f2",path:"/zh/tools/i18next-util/",title:"@liuli-util/i18next-util",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[{level:2,title:"简介",slug:"简介",children:[]},{level:2,title:"使用",slug:"使用",children:[]}],filePathRelative:"zh/tools/i18next-util/README.md",git:{updatedTime:null,contributors:[]}};export{t as data};

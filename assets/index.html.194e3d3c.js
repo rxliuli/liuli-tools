@@ -1,1 +1,0 @@
-const t={key:"v-0ca54bbb",path:"/zh/tools/prettier-standard-config/",title:"@liuli-util/prettier-standard-config",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[{level:2,title:"简介",slug:"简介",children:[]},{level:2,title:"使用",slug:"使用",children:[]}],filePathRelative:"zh/tools/prettier-standard-config/README.md",git:{updatedTime:null,contributors:[]}};export{t as data};

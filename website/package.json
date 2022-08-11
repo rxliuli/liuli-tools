@@ -8,8 +8,8 @@
   },
   "deploy": {
     "type": "gh-pages",
-    "dest": "docs/.vuepress/dist",
-    "remote": "/"
+    "dist": "docs/.vuepress/dist",
+    "dest": "/"
   },
   "devDependencies": {
     "gh-pages": "^3.2.3",

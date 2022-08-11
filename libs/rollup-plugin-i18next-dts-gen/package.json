@@ -36,6 +36,6 @@
   },
   "sync": [],
   "dependencies": {
-    "@liuli-util/i18next-dts-gen": "workspace:^0.3.3"
+    "@liuli-util/i18next-dts-gen": "workspace:^"
   }
 }

@@ -1,16 +1,16 @@
 {
   "name": "@liuli-util/cli",
-  "version": "3.21.0",
+  "version": "3.22.0",
   "description": "一个针对于库和 CLI 应用程序打包的零配置 CLI",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "setup": "pnpm build",
-    "build": "esno src/bin.ts build cli",
-    "dev": "esno src/bin.ts build cli -w",
-    "start": "esno src/bin.ts",
+    "build": "tsx src/bin.ts build cli",
+    "dev": "tsx src/bin.ts build cli -w",
+    "start": "tsx src/bin.ts",
     "test": "jest --all",
     "lint": "eslint --fix src/**"
   },
@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "@liuli-util/commitlint-standard-config": "workspace:*",
-    "@liuli-util/esbuild-plugins": "workspace:*",
     "@liuli-util/eslint-config-react-ts": "workspace:*",
     "@liuli-util/eslint-config-ts": "workspace:*",
     "@liuli-util/prettier-standard-config": "workspace:*",
@@ -59,16 +58,21 @@
     "@types/lodash": "^4.14.182",
     "@types/node": "^18.6.4",
     "@types/ssh2-sftp-client": "^7.1.0",
-    "esno": "^0.16.3",
     "jest": "^28.1.3",
     "lodash": "^4.17.21",
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.7",
+    "tsx": "^3.9.0",
     "type-fest": "^2.18.0",
     "typescript": "^4.7.4"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/rxliuli/liuli-tools/tree/master/apps/liuli-cli"
+  },
+  "exports": {
+    "import": "./dist/index.esm.js",
+    "require": "./dist/index.js",
+    "types": "./dist/index.d.ts"
   }
 }

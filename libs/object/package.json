@@ -1,9 +1,9 @@
 {
   "name": "@liuli-util/object",
-  "version": "3.3.0",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "version": "3.4.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
   "description": "对象相关功能的函数库",
   "scripts": {
     "setup": "pnpm build",
@@ -26,5 +26,10 @@
     "registry": "https://registry.npmjs.org/"
   },
   "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f",
-  "license": "MIT"
+  "license": "MIT",
+  "exports": {
+    "import": "./dist/index.esm.js",
+    "require": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  }
 }

@@ -1,9 +1,9 @@
 {
   "name": "@liuli-util/rollup-plugin-tar",
-  "version": "0.1.0",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "version": "0.2.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "build": "liuli-cli build lib",
@@ -50,5 +50,10 @@
     "fast-glob": "^3.2.11",
     "i18next": "^21.8.16",
     "tar": "^6.1.11"
+  },
+  "exports": {
+    "import": "./dist/index.esm.js",
+    "require": "./dist/index.js",
+    "types": "./dist/index.d.ts"
   }
 }

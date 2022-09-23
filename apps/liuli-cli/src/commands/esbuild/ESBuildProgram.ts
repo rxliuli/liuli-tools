@@ -10,7 +10,7 @@ import Spinnies from 'spinnies'
 import { debounce } from './util/debounce'
 import { parse } from 'json5'
 import { getPkgGlobalName } from './util/getPkgGlobalName'
-import { userJS, nativeNodeModules, resolve, nodeExternal } from '@liuli-util/esbuild-plugins/src/'
+import { nativeNodeModules, nodeExternal, resolve, userJS } from './util'
 
 interface ESBuildProgramOptions {
   base: string

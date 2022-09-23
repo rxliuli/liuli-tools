@@ -1,8 +1,8 @@
 {
   "name": "@liuli-util/env2dts",
   "version": "0.1.0",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
   "types": "src/index.ts",
   "scripts": {
     "setup": "pnpm build",

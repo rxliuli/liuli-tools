@@ -1,6 +1,6 @@
 {
   "name": "worker-threads-example",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -25,5 +25,10 @@
   "dependencies": {
     "@liuli-util/async": "^3.4.0",
     "comlink": "^4.3.1"
+  },
+  "exports": {
+    "import": "dist/esm/index.js",
+    "require": "dist/cjs/index.js",
+    "types": "dist/esm/index.d.ts"
   }
 }

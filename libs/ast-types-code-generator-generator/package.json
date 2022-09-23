@@ -1,10 +1,10 @@
 {
   "name": "@liuli-util/ast-types-code-generator-generator",
   "private": true,
-  "version": "0.1.0",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "version": "0.2.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "setup": "pnpm build",
@@ -39,5 +39,10 @@
     "@types/lodash": "^4.14.182",
     "ast-types": "^0.14.2",
     "lodash": "^4.17.21"
+  },
+  "exports": {
+    "import": "./dist/index.esm.js",
+    "require": "./dist/index.js",
+    "types": "./dist/index.d.ts"
   }
 }

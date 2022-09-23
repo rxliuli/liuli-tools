@@ -1,9 +1,9 @@
 {
   "name": "rollup-plugin-worker-threads",
-  "version": "0.1.1",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "version": "0.2.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "build": "liuli-cli build lib",
@@ -40,5 +40,10 @@
   },
   "dependencies": {
     "@rollup/pluginutils": "^4.2.1"
+  },
+  "exports": {
+    "import": "./dist/index.esm.js",
+    "require": "./dist/index.js",
+    "types": "./dist/index.d.ts"
   }
 }

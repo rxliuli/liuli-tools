@@ -1,10 +1,15 @@
 {
   "name": "@liuli-util/async",
-  "version": "3.4.0",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "version": "3.5.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
   "description": "异步相关功能的函数库",
+  "exports": {
+    "import": "./dist/index.esm.js",
+    "require": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  },
   "scripts": {
     "setup": "pnpm build",
     "build": "liuli-cli build lib",

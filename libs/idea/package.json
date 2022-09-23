@@ -1,10 +1,10 @@
 {
   "name": "@liuli-util/idea",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "private": true,
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
   "description": "一些 idea 想法",
   "scripts": {
     "setup": "pnpm build",
@@ -30,5 +30,10 @@
     "registry": "https://registry.npmjs.org/"
   },
   "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f",
-  "license": "MIT"
+  "license": "MIT",
+  "exports": {
+    "import": "./dist/index.esm.js",
+    "require": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  }
 }

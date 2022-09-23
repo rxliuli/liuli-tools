@@ -1,9 +1,9 @@
 {
   "name": "@liuli-util/vite-plugin-version-info",
-  "version": "0.2.0",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "version": "0.3.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "setup": "pnpm build",
     "build": "liuli-cli build lib",
@@ -44,5 +44,10 @@
     "fs-extra": "^10.1.0",
     "node-html-parser": "^5.3.3",
     "vite-plugin-html": "^3.2.0"
+  },
+  "exports": {
+    "import": "./dist/index.esm.js",
+    "require": "./dist/index.js",
+    "types": "./dist/index.d.ts"
   }
 }

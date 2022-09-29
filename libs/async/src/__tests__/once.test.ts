@@ -1,9 +1,10 @@
+import { expect, it, vi } from 'vitest'
 import { AsyncArray } from '../AsyncArray'
 import { once } from '../once'
 import { wait } from '../wait'
 
 it('once', async () => {
-  const fn = jest.fn().mockImplementation((i) => i)
+  const fn = vi.fn().mockImplementation((i) => i)
   const res = await AsyncArray.map(
     Array(10)
       .fill(0)
@@ -16,10 +17,12 @@ it('once', async () => {
 
 it('wait', async () => {
   const start = Date.now()
-  const fn = jest.fn().mockImplementation(async (i) => {
+
+  const fn = vi.fn().mockImplementation(async (i) => {
     await wait(100)
     return i
   })
+
   const res = await AsyncArray.map(
     Array(10)
       .fill(0)
@@ -32,12 +35,14 @@ it('wait', async () => {
 })
 
 it('error', async () => {
-  const fn = jest.fn().mockImplementation(async (i) => {
+  const fn = vi.fn().mockImplementation(async (i) => {
     await wait(100)
+
     if (i === 0) {
       throw new Error()
     }
   })
+
   const f = once(fn)
   await expect(
     AsyncArray.map(

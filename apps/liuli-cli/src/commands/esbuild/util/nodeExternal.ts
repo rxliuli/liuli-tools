@@ -6,11 +6,17 @@ import { Plugin } from 'esbuild'
 export function nodeExternal(): Plugin {
   return {
     name: 'nodeExternals',
+
     setup(build) {
-      build.onResolve({ filter: /(^node:)/ }, (args) => ({
-        path: args.path.slice(5),
-        external: true,
-      }))
+      build.onResolve(
+        {
+          filter: /(^node:)/,
+        },
+        (args) => ({
+          path: args.path.slice(5),
+          external: true,
+        }),
+      )
     },
   }
 }

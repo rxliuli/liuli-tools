@@ -1,3 +1,4 @@
+import { expect, it, describe } from 'vitest'
 import { findParent } from '../findParent'
 import { mkdir, remove } from '@liuli-util/fs-extra'
 import path from 'path'

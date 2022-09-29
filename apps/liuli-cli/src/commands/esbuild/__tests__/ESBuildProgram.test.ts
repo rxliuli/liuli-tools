@@ -1,3 +1,4 @@
+import { expect, it, describe, beforeEach, beforeAll } from 'vitest'
 import { ESBuildProgram } from '../ESBuildProgram'
 import * as path from 'path'
 import { mkdirp, pathExists, remove, writeFile, writeJson } from '@liuli-util/fs-extra'

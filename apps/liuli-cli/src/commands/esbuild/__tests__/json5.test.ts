@@ -1,3 +1,4 @@
+import { expect, it } from 'vitest'
 import { mkdirp, readFile, remove, writeJson } from '@liuli-util/fs-extra'
 import * as path from 'path'
 import { parse } from 'json5'

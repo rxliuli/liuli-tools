@@ -1,3 +1,4 @@
+import { expect, it, describe, beforeAll } from 'vitest'
 import { isIncludeDep, isNpmPackage, isYarnRoot, isYarnSubModule } from '../when'
 import { pathExists } from '@liuli-util/fs-extra'
 import * as path from 'path'

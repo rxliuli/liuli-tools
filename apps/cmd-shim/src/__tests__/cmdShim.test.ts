@@ -1,3 +1,4 @@
+import { expect, it } from 'vitest'
 import path from 'path'
 import cmdShim from 'cmd-shim'
 import { writeFile } from '@liuli-util/fs-extra'

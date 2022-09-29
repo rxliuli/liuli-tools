@@ -1,3 +1,4 @@
+import { expect, it, describe } from 'vitest'
 import { uniqueBy } from '../uniqueBy'
 
 /**
@@ -5,9 +6,7 @@ import { uniqueBy } from '../uniqueBy'
  */
 describe('test uniqueBy', () => {
   it('simple example', () => {
-    expect(uniqueBy([1, 2, 3, 4, 3, 2, 1])).toEqual(
-      expect.arrayContaining([1, 2, 3, 4]),
-    )
+    expect(uniqueBy([1, 2, 3, 4, 3, 2, 1])).toEqual(expect.arrayContaining([1, 2, 3, 4]))
   })
 
   it('test custom kFn', () => {

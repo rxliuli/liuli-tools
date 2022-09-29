@@ -1,3 +1,4 @@
+import { expect, it, describe } from 'vitest'
 import { omit } from '../omit'
 
 describe('test omit', () => {
@@ -5,18 +6,24 @@ describe('test omit', () => {
     name: 'rx',
     age: 17,
   }
+
   it('test normal object and not exclude any field.', () => {
     expect(omit(obj)).not.toBe(obj)
     expect(omit(obj)).toEqual(obj)
   })
 
   it('test normal object and normal fields', () => {
-    expect(omit(obj, 'name')).toEqual({ age: 17 })
+    expect(omit(obj, 'name')).toEqual({
+      age: 17,
+    })
+
     expect(omit(obj, 'name', 'age')).toEqual({})
   })
+
   it('test exclude Symbol', () => {
     const symbol = Symbol('name')
     const name = 'name'
+
     expect(
       omit(
         {
@@ -25,6 +32,8 @@ describe('test omit', () => {
         },
         symbol,
       ),
-    ).toEqual({ [name]: symbol })
+    ).toEqual({
+      [name]: symbol,
+    })
   })
 })

@@ -1,3 +1,4 @@
+import { expect, it, describe } from 'vitest'
 import { treeFilter } from '../treeFilter'
 
 describe('测试 treeFilter', () => {
@@ -11,6 +12,7 @@ describe('测试 treeFilter', () => {
     {
       id: '1',
       name: 'test',
+
       children: [
         {
           id: '1-1',
@@ -29,6 +31,7 @@ describe('测试 treeFilter', () => {
     {
       id: '2',
       name: '2',
+
       children: [
         {
           id: '2-1',
@@ -58,10 +61,12 @@ describe('测试 treeFilter', () => {
         children: 'children',
       },
     )
+
     expect(nodes).toEqual([
       {
         id: '1',
         name: 'test',
+
         children: [
           {
             id: '1-1',

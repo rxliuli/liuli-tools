@@ -1,3 +1,4 @@
+import { expect, it, describe, beforeEach } from 'vitest'
 import * as path from 'path'
 import { mkdirp, readFile, remove, writeFile, writeJson } from '@liuli-util/fs-extra'
 import { rewriteEnv, rewriteHTML } from '../index'

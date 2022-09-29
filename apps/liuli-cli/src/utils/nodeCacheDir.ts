@@ -2,6 +2,7 @@
 copy by https://github.com/LinusU/node-cachedir
  */
 import * as os from 'os'
+
 import * as path from 'path'
 
 function posix(id: string) {
@@ -38,6 +39,7 @@ const implementation = (function () {
           process.pid
         }) [cachedir] Warning: the platform "${os.platform()}" is not currently supported by node-cachedir, falling back to "posix". Please file an issue with your platform here: https://github.com/LinusU/node-cachedir/issues/new`,
       )
+
       return posix
   }
 })()
@@ -46,6 +48,7 @@ export function nodeCacheDir(id: string): string {
   if (id.length === 0) {
     throw new Error('id cannot be empty')
   }
+
   if (/[^0-9a-zA-Z-]/.test(id)) {
     throw new Error('id cannot contain special characters')
   }

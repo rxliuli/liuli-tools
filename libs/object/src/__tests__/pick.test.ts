@@ -1,3 +1,4 @@
+import { expect, it, describe } from 'vitest'
 import { pick } from '../pick'
 
 describe('测试 pick', () => {
@@ -6,6 +7,7 @@ describe('测试 pick', () => {
       name: 'rx',
       age: 1,
     }
+
     expect(pick(user, 'name')).toEqual({
       name: user.name,
     })

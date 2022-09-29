@@ -8,22 +8,29 @@ import { Plugin } from 'esbuild'
 export function sideEffects(packages: string[]): Plugin {
   return {
     name: 'sideEffects',
+
     setup(build) {
-      build.onResolve({ filter: /.*/ }, async (args) => {
-        if (
-          args.pluginData || // Ignore this if we called ourselves
-          !packages.includes(args.path)
-        ) {
-          return
-        }
+      build.onResolve(
+        {
+          filter: /.*/,
+        },
+        async (args) => {
+          if (
+            // Ignore this if we called ourselves
+            args.pluginData ||
+            !packages.includes(args.path)
+          ) {
+            return
+          }
 
-        const { path, ...rest } = args
-        rest.pluginData = true // Avoid infinite recursion
-        const result = await build.resolve(path, rest)
+          const { path, ...rest } = args
 
-        result.sideEffects = false
-        return result
-      })
+          rest.pluginData = true // Avoid infinite recursion
+          const result = await build.resolve(path, rest)
+          result.sideEffects = false
+          return result
+        },
+      )
     },
   }
 }

@@ -1,3 +1,4 @@
+import { expect, it, describe, vi } from 'vitest'
 import { asyncLimiting } from '../asyncLimiting'
 import { wait } from '../wait'
 import { countTime } from '@liuli-util/test'
@@ -26,9 +27,10 @@ describe('测试 AsyncArray', () => {
   }
 
   async function testForEach(forEach: Function) {
-    const fn = jest.fn(async (item: number) => {
+    const fn = vi.fn(async (item: number) => {
       console.log(item)
     })
+
     await forEach([1, 2, 3, 4, 5], fn)
     expect(fn.mock.calls.length).toBe(5)
   }
@@ -43,23 +45,28 @@ describe('测试 AsyncArray', () => {
     it('测试 reduce', async () => {
       await testReduce(AsyncArray.reduce)
     })
+
     it('测试 map', async () => {
       await testMap(AsyncArray.map)
       await testParallelTime(AsyncArray.map)
     })
+
     it('测试 flatMap', async () => {
       await testFlatMap(AsyncArray.flatMap)
       await testParallelTime(AsyncArray.flatMap)
     })
+
     it('测试 filter', async () => {
       await testFilter(AsyncArray.filter)
       await testParallelTime(AsyncArray.filter)
     })
+
     it('测试 forEach', async () => {
       await testForEach(AsyncArray.forEach)
       await testParallelTime(AsyncArray.forEach)
     })
   })
+
   describe('测试 AsyncArray 测试链式调用', () => {
     it('基本示例', async () => {
       const res = await new AsyncArray([1, 2, 3, 4, 5])
@@ -68,18 +75,21 @@ describe('测试 AsyncArray', () => {
         .map(async (i) => i.toString())
       expect(res).toEqual(Array(6).fill('0'))
     })
+
     it('测试 forEach', async () => {
-      const fn = jest.fn().mockImplementation(() => wait(100))
+      const fn = vi.fn().mockImplementation(() => wait(100))
       const arr = [1, 2, 3, 4, 5]
       await AsyncArray.forEach(arr, asyncLimiting(fn, 1))
       console.log(fn.mock.calls[0][0])
       expect(fn.mock.calls.map((v) => v[0])).toEqual(arr)
     })
   })
+
   it('测试两次调用间隔过久', async () => {
-    const fn = jest.fn().mockImplementation(() => wait(100))
+    const fn = vi.fn().mockImplementation(() => wait(100))
     const mockFn = asyncLimiting(fn, 1)
     await mockFn()
+
     // 如果没有正确处理会导致超时错误
     await mockFn()
   })

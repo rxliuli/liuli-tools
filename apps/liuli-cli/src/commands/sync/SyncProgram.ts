@@ -1,6 +1,6 @@
 import { readFile, readJson, writeFile, writeJson } from '@liuli-util/fs-extra'
 import path from 'path'
-import { merge } from 'lodash'
+import { merge } from 'lodash-es'
 import { PackageJson } from 'type-fest'
 import prettier from '@liuli-util/prettier-standard-config/package.json'
 import eslintTs from '@liuli-util/eslint-config-ts/package.json'
@@ -149,7 +149,7 @@ export class SyncProgram {
       async when(): Promise<boolean> {
         return (await isNpmPackage()) && (await isIncludeDep(['react']))
       },
-    },
+    }, //必须放到最后一个，后续根据检测结果添加 hooks
     {
       type: 'jest',
 
@@ -166,7 +166,7 @@ export class SyncProgram {
           },
         })
       },
-    }, //必须放到最后一个，后续根据检测结果添加 hooks
+    },
     {
       type: 'simplehooks',
 

@@ -1,3 +1,4 @@
+import { expect, it, describe } from 'vitest'
 import { Digraph, findCycle } from '../Graph'
 
 describe('Digraph', () => {
@@ -13,6 +14,7 @@ describe('Digraph', () => {
     expect(g.getEdges(2)).toEqual([3])
     expect(g.getEdges(3)).toEqual([])
   })
+
   describe('findCycle', () => {
     it('no cycle', () => {
       const g = new Digraph<number>()
@@ -24,6 +26,7 @@ describe('Digraph', () => {
       g.addEdge(2, 3)
       expect(findCycle(g)).toEqual([])
     })
+
     it('has cycle', () => {
       const g = new Digraph<number>()
       g.addNode(1)
@@ -36,6 +39,7 @@ describe('Digraph', () => {
       g.addEdge(4, 1)
       expect(findCycle(g)).toEqual([1, 2, 3, 4, 1])
     })
+
     it('self cycle', () => {
       const g = new Digraph<number>()
       g.addNode(1)

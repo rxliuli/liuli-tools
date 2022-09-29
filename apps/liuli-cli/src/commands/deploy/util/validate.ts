@@ -8,11 +8,17 @@ import formatsPlugin from 'ajv-formats'
  * @param data 校验的数据
  */
 export function validate<T>(schema: JSONSchemaType<T>, data: T): [isValid: boolean, errorText: string] {
-  const ajv = new Ajv({ allErrors: true, messages: false })
+  const ajv = new Ajv({
+    allErrors: true,
+    messages: false,
+  })
+
   formatsPlugin(ajv)
   const res = ajv.validate(schema, data)
+
   if (!res) {
     localize.zh(ajv.errors)
   }
+
   return [res, ajv.errorsText()]
 }

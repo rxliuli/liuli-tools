@@ -1,3 +1,4 @@
+import { expect, it, describe } from 'vitest'
 import { throttle } from '../throttle'
 import { wait } from '../wait'
 
@@ -9,12 +10,15 @@ describe('test throttle', () => {
     let num = 0
     const fn = throttle(() => num++, 10)
     const now = Date.now()
+
     await wait(() => {
       fn()
       return Date.now() - now > 100
     })
+
     expect(num).toBeLessThanOrEqual(10)
   })
+
   it('async and return result', async () => {
     const add = async (a: number, b: number) => a + b
     const fn = throttle(add, 10)

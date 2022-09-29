@@ -11,10 +11,7 @@ enum ActionTypeEnum {
 class Action {
   public static Type = ActionTypeEnum
 
-  constructor(
-    public readonly type: ActionTypeEnum,
-    public readonly args: any[],
-  ) {
+  constructor(public readonly type: ActionTypeEnum, public readonly args: any[]) {
     this.type = type
     this.args = args
   }
@@ -30,39 +27,29 @@ export class AsyncArray<T> implements PromiseLike<T[]> {
     res: R,
   ): Promise<R> {
     return arr.reduce(
-      (res: Promise<R>, item: IterableElement<T>, index: number) =>
-        res.then((r) => fn(r, item, index)),
+      (res: Promise<R>, item: IterableElement<T>, index: number) => res.then((r) => fn(r, item, index)),
       Promise.resolve(res),
     )
   }
 
-  static map<T, R>(
-    arr: T[],
-    fn: (item: T, index: number) => Promise<R>,
-  ): Promise<R[]> {
+  static map<T, R>(arr: T[], fn: (item: T, index: number) => Promise<R>): Promise<R[]> {
     return Promise.all(arr.map((item, index) => fn(item, index)))
   }
 
-  static async filter<T>(
-    arr: T[],
-    fn: (item: T, index: number) => Promise<boolean>,
-  ): Promise<T[]> {
+  static async filter<T>(arr: T[], fn: (item: T, index: number) => Promise<boolean>): Promise<T[]> {
     const res: T[] = []
+
     await AsyncArray.map(arr, async (item, index) => {
       if (await fn(item, index)) {
         res.push(item)
       }
     })
+
     return res
   }
 
-  static async flatMap<T, R>(
-    arr: T[],
-    fn: (item: T, index: number) => Promise<R[]>,
-  ): Promise<R[]> {
-    return (
-      await Promise.all(arr.map((item, index) => fn(item, index)))
-    ).flatMap((r) => r)
+  static async flatMap<T, R>(arr: T[], fn: (item: T, index: number) => Promise<R[]>): Promise<R[]> {
+    return (await Promise.all(arr.map((item, index) => fn(item, index)))).flatMap((r) => r)
   }
 
   static async forEach<T extends any[]>(
@@ -73,7 +60,6 @@ export class AsyncArray<T> implements PromiseLike<T[]> {
   }
 
   private tasks: Action[] = []
-
   constructor(private readonly arr: T[]) {}
 
   map<R>(fn: (item: T, index: number) => Promise<R>): AsyncArray<R> {
@@ -97,16 +83,11 @@ export class AsyncArray<T> implements PromiseLike<T[]> {
   }
 
   then<TResult1 = T[], TResult2 = never>(
-    resolve?:
-      | ((value: T[]) => PromiseLike<TResult1> | TResult1)
-      | undefined
-      | null,
-    reject?:
-      | ((reason: any) => PromiseLike<TResult2> | TResult2)
-      | undefined
-      | null,
+    resolve?: ((value: T[]) => PromiseLike<TResult1> | TResult1) | undefined | null,
+    reject?: ((reason: any) => PromiseLike<TResult2> | TResult2) | undefined | null,
   ): PromiseLike<TResult1 | TResult2> {
     const res = this.value()
+
     res
       .then((r) => {
         resolve && resolve(res as any)
@@ -116,11 +97,13 @@ export class AsyncArray<T> implements PromiseLike<T[]> {
         reject && reject(e as any)
         throw e
       })
+
     return res as any
   }
 
   private async value(): Promise<any> {
     let res = this.arr
+
     for (const task of this.tasks) {
       switch (task.type) {
         case ActionTypeEnum.Filter:
@@ -139,6 +122,7 @@ export class AsyncArray<T> implements PromiseLike<T[]> {
           return await AsyncArray.reduce(res, task.args[0], task.args[1])
       }
     }
+
     return res
   }
 }

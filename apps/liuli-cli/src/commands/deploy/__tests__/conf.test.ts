@@ -1,3 +1,4 @@
+import { expect, it, describe, beforeEach } from 'vitest'
 import Conf from 'conf'
 import { wait } from '../util/wait'
 import { writeJson } from '@liuli-util/fs-extra'

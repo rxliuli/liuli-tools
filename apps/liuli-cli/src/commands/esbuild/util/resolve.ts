@@ -8,14 +8,22 @@ import { Plugin } from 'esbuild'
 export function resolve(entries: [from: string, to: string][]): Plugin {
   return {
     name: 'resolve',
+
     setup(build) {
-      build.onResolve({ filter: /.*/ }, async (args) => {
-        const findEntries = entries.find((item) => item[0] === args.path)
-        if (!findEntries) {
-          return
-        }
-        return await build.resolve(findEntries[1])
-      })
+      build.onResolve(
+        {
+          filter: /.*/,
+        },
+        async (args) => {
+          const findEntries = entries.find((item) => item[0] === args.path)
+
+          if (!findEntries) {
+            return
+          }
+
+          return await build.resolve(findEntries[1])
+        },
+      )
     },
   }
 }

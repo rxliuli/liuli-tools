@@ -25,19 +25,23 @@ b.exportNamedDeclaration(
 */
 
 import { ExpressionKind } from 'ast-types/gen/kinds'
+
 import { namedTypes as n, builders as b, Type, Field, getFieldValue, getBuilderName } from 'ast-types'
-import { chain, difference, isEqual } from 'lodash'
+import { chain, difference, isEqual } from 'lodash-es'
 
 function generateValue(v: any): n.SpreadElement | ExpressionKind {
   if (Array.isArray(v)) {
     return b.arrayExpression(v.map(generate))
   }
+
   if (v === null) {
     return b.literal(null)
   }
+
   if (typeof v === 'object' && v['type']) {
     return generate(v)
   }
+
   if (typeof v === 'object') {
     return b.objectExpression(
       Object.entries(v).map(([k, v]) =>
@@ -45,17 +49,23 @@ function generateValue(v: any): n.SpreadElement | ExpressionKind {
       ),
     )
   }
+
   return b.literal(v)
 }
 
 export function isUsingFrom(ast: n.ASTNode): boolean {
   const meta = Type.def(ast.type)
-  const built: { [name: string]: Field<any> } = {}
+
+  const built: {
+    [name: string]: Field<any>
+  } = {}
+
   return chain(difference(Object.keys(meta.allFields), ['type', 'loc', 'comments']))
     .filter((name) => !meta.buildParams.includes(name))
     .map((name) => {
       const isFilter = isEqual(meta.allFields[name].getValue(built), getFieldValue(ast, name))
       built[name] = getFieldValue(ast, name)
+
       return {
         name,
         isFilter,
@@ -69,11 +79,16 @@ export function isUsingFrom(ast: n.ASTNode): boolean {
 
 function generateByParams(ast: n.ASTNode): n.CallExpression {
   const meta = Type.def(ast.type)
-  const built: { [name: string]: Field<any> } = {}
+
+  const built: {
+    [name: string]: Field<any>
+  } = {}
+
   const params = chain(meta.buildParams)
     .map((name) => {
       const isFilter = isEqual(meta.allFields[name].getValue(built), getFieldValue(ast, name))
       built[name] = getFieldValue(ast, name)
+
       return {
         name,
         isFilter,
@@ -84,12 +99,17 @@ function generateByParams(ast: n.ASTNode): n.CallExpression {
     .map((name) => getFieldValue(ast, name))
     .map(generateValue)
     .value()
+
   return b.callExpression(b.memberExpression(b.identifier('b'), b.identifier(getBuilderName(ast.type))), params)
 }
 
 function generateByFrom(ast: n.ASTNode): n.CallExpression {
   const meta = Type.def(ast.type)
-  const built: { [name: string]: Field<any> } = {}
+
+  const built: {
+    [name: string]: Field<any>
+  } = {}
+
   const params = chain(difference(meta.fieldNames, ['type', 'loc', 'comments']))
     .filter((name) => {
       const r = !isEqual(meta.allFields[name].getValue(built), getFieldValue(ast, name))
@@ -104,6 +124,7 @@ function generateByFrom(ast: n.ASTNode): n.CallExpression {
       b.property('init', b.identifier(item.name), generateValue(item.value) as unknown as n.SpreadPropertyPattern),
     )
     .value()
+
   return b.callExpression(
     b.memberExpression(
       b.memberExpression(b.identifier('b'), b.identifier(getBuilderName(ast.type))),
@@ -117,12 +138,15 @@ function generateTsLiteral(value: any) {
   if (typeof value === 'string') {
     return b.stringLiteral(value)
   }
+
   if (typeof value === 'boolean') {
     return b.booleanLiteral(value)
   }
+
   if (typeof value === 'number') {
     return b.numericLiteral(value)
   }
+
   console.log(value)
   throw new Error('generateTsLiteral error ' + value)
 }
@@ -135,6 +159,7 @@ export function generate(ast: n.ASTNode): n.CallExpression {
       name: (ast.name as any).name,
     })
   }
+
   // 兼容解析 TSLiteralType 的问题
   if (ast.type === 'TSLiteralType' && (ast.literal.type as any) === 'Literal') {
     return generate({
@@ -142,5 +167,6 @@ export function generate(ast: n.ASTNode): n.CallExpression {
       literal: generateTsLiteral((ast.literal as unknown as n.Literal).value),
     })
   }
+
   return isUsingFrom(ast) ? generateByFrom(ast) : generateByParams(ast)
 }

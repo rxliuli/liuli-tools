@@ -1,3 +1,4 @@
+import { expect, it, describe } from 'vitest'
 import { concatMap } from '../concatMap'
 import { wait } from '../wait'
 
@@ -11,11 +12,13 @@ describe('test concatMap', () => {
 
     it('no use concatMap', async () => {
       let result = 0
+
       await Promise.all([
         get(30).then((res) => (result = res)),
         get(20).then((res) => (result = res)),
         get(10).then((res) => (result = res)),
       ])
+
       expect(result).toBe(30)
     })
 
@@ -23,6 +26,7 @@ describe('test concatMap', () => {
       const fn = concatMap(get)
       let last = 0
       let sum = 0
+
       await Promise.all([
         fn(30).then((res) => {
           last = res
@@ -37,7 +41,9 @@ describe('test concatMap', () => {
           sum += res
         }),
       ])
+
       expect(last).toBe(10)
+
       // 实际上确实执行了 3 次，结果也确实为 3 次调用参数之和
       expect(sum).toBe(60)
     }, 100000)

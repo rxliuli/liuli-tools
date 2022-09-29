@@ -7,6 +7,7 @@ export function execPromise(command: string, options?: ExecOptions): Promise<str
         reject(error)
         return
       }
+
       resolve(stdout)
     })
   })

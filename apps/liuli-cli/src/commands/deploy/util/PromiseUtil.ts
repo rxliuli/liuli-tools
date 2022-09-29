@@ -1,5 +1,4 @@
 import { ConditionalKeys, PromiseValue } from 'type-fest'
-
 type VoidFunc = ((...args: any[]) => void) | undefined
 
 export type EventExtPromise<T, E> = Promise<T> & {
@@ -17,18 +16,22 @@ export class PromiseUtil {
     K extends ConditionalKeys<E, VoidFunc>,
   >(executor: F): EventExtPromise<PromiseValue<ReturnType<F>>, E> {
     const events: Partial<Pick<E, K>> = {}
+
     const res = new Promise(async (resolve, reject) => {
       await new Promise((resolve) => setTimeout(resolve, 0))
+
       try {
         resolve(await executor(events))
       } catch (e) {
         reject(e)
       }
     })
+
     Reflect.set(res, 'on', (type: K, callback: E[K]) => {
       events[type] = callback
       return res
     })
+
     return res as any
   }
 }

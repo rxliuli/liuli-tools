@@ -1,3 +1,4 @@
+import { expect, it, describe, beforeEach } from 'vitest'
 import { build, BuildOptions } from 'esbuild'
 import { remove, mkdirp, writeFile } from '@liuli-util/fs-extra'
 import * as path from 'path'

@@ -1,3 +1,4 @@
+import { expect, it, describe, beforeAll } from 'vitest'
 import { GenerateProgram, TemplateTypeEnum } from '../GenerateProgram'
 import path from 'path'
 import { mkdir, pathExists, readFile, readJson, remove, writeFile, writeJson } from '@liuli-util/fs-extra'

@@ -1,3 +1,4 @@
+import { expect, it, describe } from 'vitest'
 import { wait } from '../wait'
 import { switchMap } from '../switchMap'
 
@@ -11,11 +12,13 @@ describe('tes switchMap', () => {
 
     it('no use switchMap', async () => {
       let result = 0
+
       await Promise.all([
         get(30).then((res) => (result = res)),
         get(20).then((res) => (result = res)),
         get(10).then((res) => (result = res)),
       ])
+
       expect(result).toBe(30)
     })
 
@@ -23,6 +26,7 @@ describe('tes switchMap', () => {
       const fn = switchMap(get)
       let last = 0
       let sum = 0
+
       await Promise.all([
         fn(30).then((res) => {
           last = res
@@ -37,7 +41,9 @@ describe('tes switchMap', () => {
           sum += res
         }),
       ])
+
       expect(last).toBe(10)
+
       // 实际上确实执行了 3 次，然而结果并不是 3 次调用参数之和，因为前两次的结果均被抛弃，实际上返回了最后一次发送请求的结果
       expect(sum).toBe(30)
     })

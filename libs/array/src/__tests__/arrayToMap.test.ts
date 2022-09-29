@@ -1,3 +1,4 @@
+import { expect, it, describe } from 'vitest'
 import { arrayToMap } from '../arrayToMap'
 
 /**
@@ -6,10 +7,9 @@ import { arrayToMap } from '../arrayToMap'
 describe('test arrayToMap', () => {
   it('arrayToMap [1, 2, 3] to equals Map({1 => 1, 2 => 2, 3 => 3})', () => {
     const arr = [1, 2, 3]
-    expect(arrayToMap(arr, (i: any) => i)).toEqual(
-      new Map().set(1, 1).set(2, 2).set(3, 3),
-    )
+    expect(arrayToMap(arr, (i: any) => i)).toEqual(new Map().set(1, 1).set(2, 2).set(3, 3))
   })
+
   it('use vFn', () => {
     const arr = [1, 2, 3]
     expect(
@@ -20,6 +20,7 @@ describe('test arrayToMap', () => {
       ),
     ).toEqual(new Map().set(1, '2').set(2, '4').set(3, '6'))
   })
+
   it('use string k/v field', () => {
     class User {
       constructor(public id: number, public name: string) {}

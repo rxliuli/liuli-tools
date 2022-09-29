@@ -52,12 +52,12 @@ export class GenerateProgram {
     }
 
     /*
-            克隆项目
-            修改一些内容
-            共通修改
-              - 修改 package.json，删除 private，修改名字
-            模板特定修改
-             */
+                    克隆项目
+                    修改一些内容
+                    共通修改
+                      - 修改 package.json，删除 private，修改名字
+                    模板特定修改
+                     */
     const srcFile = path.resolve(PathUtil.RootPath, `templates/${config.template}`)
 
     const destFile = path.resolve(config.dest)

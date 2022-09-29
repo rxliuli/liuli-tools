@@ -1,3 +1,4 @@
+import { expect, it, describe, vi } from 'vitest'
 import { treeEach } from '../treeEach'
 
 describe('测试 treeEach', () => {
@@ -5,6 +6,7 @@ describe('测试 treeEach', () => {
     const node = {
       value: 1,
       label: '1',
+
       children: [
         {
           value: 2,
@@ -13,7 +15,7 @@ describe('测试 treeEach', () => {
       ],
     }
 
-    const mockFn = jest.fn()
+    const mockFn = vi.fn()
 
     treeEach(
       [node],

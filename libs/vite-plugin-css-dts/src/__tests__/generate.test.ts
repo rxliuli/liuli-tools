@@ -1,10 +1,7 @@
-import fsExtra from '@liuli-util/fs-extra'
+import { remove, mkdirp, writeFile, readFile } from '@liuli-util/fs-extra'
 import path from 'path'
 import { generate } from '../generate'
 import { beforeEach, it } from 'vitest'
-
-const { remove, mkdirp, writeFile, readFile } = fsExtra
-
 const tempPath = path.resolve(__dirname, '.temp')
 
 beforeEach(async () => {

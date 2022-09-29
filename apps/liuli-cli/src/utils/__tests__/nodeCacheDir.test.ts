@@ -1,3 +1,4 @@
+import { expect, it } from 'vitest'
 import { nodeCacheDir } from '../nodeCacheDir'
 
 it('测试 nodeCacheDir', () => {

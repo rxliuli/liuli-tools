@@ -1,3 +1,4 @@
+import { expect, it, describe } from 'vitest'
 import { treeMap } from '../treeMap'
 import { Expect } from '@liuli-util/test'
 
@@ -12,6 +13,7 @@ describe('测试 treeMap', () => {
     const node: Node = {
       value: 1,
       label: '1',
+
       children: [
         {
           value: 2,
@@ -41,6 +43,7 @@ describe('测试 treeMap', () => {
         id: 1,
         content: '1',
         path: [1],
+
         sub: [
           {
             id: 2,
@@ -50,6 +53,7 @@ describe('测试 treeMap', () => {
         ],
       },
     ]
+
     expect(res1).toEqual(expectRes)
 
     interface NewNode {
@@ -70,12 +74,15 @@ describe('测试 treeMap', () => {
         } as NewNode),
       options,
     )
+
     expect(res2 as Expect<typeof res2, NewNode[]>).toEqual(expectRes)
   })
+
   it('将子树挂载到另外一颗树的指定节点上', () => {
     const node1 = {
       value: 1,
       label: '1',
+
       children: [
         {
           value: 2,
@@ -83,9 +90,11 @@ describe('测试 treeMap', () => {
         },
       ],
     }
+
     const node2 = {
       value: 3,
       label: '3',
+
       children: [
         {
           value: 4,
@@ -93,12 +102,14 @@ describe('测试 treeMap', () => {
         },
       ],
     }
+
     const res = treeMap(
       [node1],
       (node) => {
         if (node.value === 2) {
           node.children = [...(node.children || []), node2]
         }
+
         return node
       },
       {
@@ -106,18 +117,22 @@ describe('测试 treeMap', () => {
         children: 'children',
       },
     )
+
     expect(res).toEqual([
       {
         value: 1,
         label: '1',
+
         children: [
           {
             value: 2,
             label: '2',
+
             children: [
               {
                 value: 3,
                 label: '3',
+
                 children: [
                   {
                     value: 4,

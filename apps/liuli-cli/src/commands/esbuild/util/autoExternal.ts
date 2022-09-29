@@ -7,16 +7,23 @@ import { Plugin } from 'esbuild'
 export function autoExternal(): Plugin {
   return {
     name: 'autoExternal',
+
     setup(build) {
-      build.onResolve({ filter: /.*/ }, (args) => {
-        if (/^\.{1,2}\//.test(args.path)) {
-          return
-        }
-        return {
-          path: args.path,
-          external: true,
-        }
-      })
+      build.onResolve(
+        {
+          filter: /.*/,
+        },
+        (args) => {
+          if (/^\.{1,2}\//.test(args.path)) {
+            return
+          }
+
+          return {
+            path: args.path,
+            external: true,
+          }
+        },
+      )
     },
   }
 }

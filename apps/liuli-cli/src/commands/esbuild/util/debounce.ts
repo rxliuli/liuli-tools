@@ -17,11 +17,13 @@ export function debounce<
 >(fn: T, delay: number, init: any = null): R {
   let flag: number
   let result = init
+
   return async function (...args) {
     return new Promise((resolve) => {
       if (flag) {
         clearTimeout(flag as any)
       }
+
       flag = setTimeout(() => resolve((result = fn(...args))), delay) as any
       setTimeout(() => resolve(result), delay)
     })

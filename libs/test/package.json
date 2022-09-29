@@ -6,18 +6,16 @@
   "scripts": {
     "setup": "pnpm build",
     "build": "tsup src/index.ts --format esm,cjs --dts",
-    "test": "jest --all",
+    "test": "vitest run",
     "lint": "eslint --fix src/**"
   },
   "devDependencies": {
-    "@types/jest": "^28.1.6",
     "@types/node": "^18.6.4",
-    "jest": "^28.1.3",
     "rimraf": "^3.0.2",
-    "ts-jest": "^28.0.7",
     "type-fest": "^2.18.0",
     "typescript": "^4.7.4",
-    "tsup": "^6.2.3"
+    "tsup": "^6.2.3",
+    "vitest": "^0.23.4"
   },
   "jest": {
     "preset": "ts-jest"

@@ -1,3 +1,4 @@
+import { expect, it, describe } from 'vitest'
 import { BinConfig, linkGlobalBin, readBinList } from '../index'
 import * as path from 'path'
 import { execPromise } from '../utils/execPromise'

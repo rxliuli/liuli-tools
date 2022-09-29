@@ -1,3 +1,4 @@
+import { expect, it, describe } from 'vitest'
 import { deepEach } from '../deepEach'
 
 describe('测试 deepEach', () => {
@@ -5,6 +6,7 @@ describe('测试 deepEach', () => {
     deepEach(
       {
         name: 'liuli',
+
         info: {
           code: '1',
         },
@@ -13,15 +15,18 @@ describe('测试 deepEach', () => {
         if (typeof value === 'object') {
           return Object.entries(value)
         }
+
         console.log(value)
         console.log(paths)
       },
     )
   })
+
   it('遍历树结构', () => {
     const node = {
       value: 1,
       label: '1',
+
       children: [
         {
           value: 2,
@@ -29,10 +34,12 @@ describe('测试 deepEach', () => {
         },
       ],
     }
+
     deepEach(node, (value: any, paths) => {
       paths.pop()
       paths.push(value.value)
       console.log(value.value, paths)
+
       if (Array.isArray(value.children)) {
         return value.children.map((item: { value: string }) => {
           return [item.value, item]

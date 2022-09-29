@@ -2,11 +2,15 @@ import { Command } from 'commander'
 import { ESBuildProgram, TaskTypeEnum } from './ESBuildProgram'
 import path from 'path'
 
-type CliBuildOptions = { watch?: boolean }
+type CliBuildOptions = {
+  watch?: boolean
+}
+
 const program = new ESBuildProgram({
   base: path.resolve(),
   isWatch: false,
 })
+
 export const esbuildCommand = new Command('build')
   .addCommand(
     new Command('lib')
@@ -42,6 +46,7 @@ export const esbuildCommand = new Command('build')
               await program.execTasks([tasks[type]])
             }),
         )
+
         return res
       },
       new Command('single')
@@ -51,6 +56,7 @@ export const esbuildCommand = new Command('build')
         .action(async (options: { target: TaskTypeEnum[]; watch?: boolean }) => {
           program.isWatch = !!options.watch
           const tasks = await program.getTasks()
+
           await program.execTasks(
             options.target.flatMap((s) => s.split(',') as TaskTypeEnum[]).map((type) => tasks[type]),
           )

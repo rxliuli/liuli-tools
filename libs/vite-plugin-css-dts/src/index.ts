@@ -1,11 +1,9 @@
 import { Plugin, ResolvedConfig } from 'vite'
 import { globby } from 'globby'
 import path from 'path'
-import fsExtra from '@liuli-util/fs-extra'
+import { pathExists, readFile, remove, writeFile } from '@liuli-util/fs-extra'
 import { watch } from 'chokidar'
 import { generate } from './generate'
-
-const { pathExists, readFile, remove, writeFile } = fsExtra
 
 export function cssdts(): Plugin {
   let config: ResolvedConfig

@@ -1,3 +1,4 @@
+import { expect, it, beforeEach } from 'vitest'
 import path from 'path'
 import { mkdirp, readFile, remove, writeFile } from '@liuli-util/fs-extra'
 import { eq, gen, getEnvs } from '../gen'

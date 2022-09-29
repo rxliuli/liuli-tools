@@ -1,3 +1,4 @@
+import { expect, it, beforeEach } from 'vitest'
 import { namedTypes as n, builders as b, astNodesAreEquivalent, Type } from 'ast-types'
 import { generate, isUsingFrom } from '../generator'
 import { mkdirp, remove, writeFile } from 'fs-extra'
@@ -6,6 +7,7 @@ import { CodeUtil } from '../CodeUtil'
 
 it('isUsingFrom', () => {
   expect(isUsingFrom(b.identifier('name'))).toBeFalsy()
+
   expect(
     isUsingFrom(
       b.identifier.from({
@@ -14,6 +16,7 @@ it('isUsingFrom', () => {
       }),
     ),
   ).toBeTruthy()
+
   expect(isUsingFrom(b.file(b.program([])))).toBeFalsy()
 })
 
@@ -24,10 +27,11 @@ it('isUsingFrom by parse', () => {
 it('meta', () => {
   console.log(b.literal('age'))
   console.log(b.identifier('age'))
+
   // console.log(b.identifier.from({ name: 'age', optional: true }))
   console.log(Type.from(b.identifier('age'), 'ide'))
-  console.log(n.Identifier)
 
+  console.log(n.Identifier)
   console.log(Type.def('Identifier'))
 })
 
@@ -37,6 +41,7 @@ function check(src1: any, src2: any) {
 
 it('identifier', () => {
   check(CodeUtil.print(generate(b.identifier('age'))), `b.identifier('age')`)
+
   check(
     CodeUtil.print(
       generate(
@@ -52,6 +57,7 @@ it('identifier', () => {
   })`,
   )
 })
+
 it('interface', () => {
   check(
     `b.exportNamedDeclaration(b.tsInterfaceDeclaration(b.identifier("User"), b.tsInterfaceBody([
@@ -59,16 +65,17 @@ it('interface', () => {
       b.tsPropertySignature(b.identifier("age"), b.tsTypeAnnotation(b.tsNumberKeyword()))
   ])))`,
     CodeUtil.print(
+      // prettier-ignore
       generate(
-        // prettier-ignore
-        b.exportNamedDeclaration(b.tsInterfaceDeclaration(b.identifier("User"), b.tsInterfaceBody([
-          b.tsPropertySignature(b.identifier("name"), b.tsTypeAnnotation(b.tsStringKeyword())),
-          b.tsPropertySignature(b.identifier("age"), b.tsTypeAnnotation(b.tsNumberKeyword()))
-      ]))),
-      ),
+            b.exportNamedDeclaration(b.tsInterfaceDeclaration(b.identifier("User"), b.tsInterfaceBody([
+                b.tsPropertySignature(b.identifier("name"), b.tsTypeAnnotation(b.tsStringKeyword())),
+                b.tsPropertySignature(b.identifier("age"), b.tsTypeAnnotation(b.tsNumberKeyword()))
+            ])))
+        ),
     ),
   )
 })
+
 it('function', () => {
   check(
     `b.exportNamedDeclaration(b.functionDeclaration(b.identifier("hello"), [b.identifier.from({
@@ -78,24 +85,24 @@ it('function', () => {
   b.returnStatement(b.binaryExpression("+", b.literal("hello "), b.identifier("name")))
 ])))`,
     CodeUtil.print(
+      // prettier-ignore
       generate(
-        // prettier-ignore
-        b.exportNamedDeclaration(b.functionDeclaration(b.identifier("hello"), [b.identifier.from({
-          name: "name",
-          typeAnnotation: b.tsTypeAnnotation(b.tsStringKeyword())
-        })], b.blockStatement([
-          b.returnStatement(b.binaryExpression("+", b.literal("hello "), b.identifier("name")))
-        ]))),
-      ),
+            b.exportNamedDeclaration(b.functionDeclaration(b.identifier("hello"), [b.identifier.from({
+                name: "name",
+                typeAnnotation: b.tsTypeAnnotation(b.tsStringKeyword())
+            })], b.blockStatement([
+                b.returnStatement(b.binaryExpression("+", b.literal("hello "), b.identifier("name")))
+            ])))
+        ),
     ),
   )
 })
+
 it('templateString', () => {
   check(
     CodeUtil.print(
-      generate(
-        // prettier-ignore
-        b.templateLiteral([b.templateElement({
+      // prettier-ignore
+      generate(b.templateLiteral([b.templateElement({
         raw: "visit",
         cooked: "visit"
     }, false), b.templateElement({
@@ -104,8 +111,7 @@ it('templateString', () => {
     }, true)], [b.callExpression(
         b.memberExpression(b.identifier("type"), b.identifier("toString"), false),
         []
-    )]),
-      ),
+    )])),
     ),
     `b.templateLiteral([b.templateElement({
     raw: "visit",
@@ -118,6 +124,7 @@ it('templateString', () => {
 ])`,
   )
 })
+
 it('class', async () => {
   const ast = CodeUtil.parse(`import { parse, print } from 'recast'
   import { namedTypes as n, visit } from 'ast-types'
@@ -143,17 +150,21 @@ it('class', async () => {
     }
   }
   `)
+
   console.log(ast)
   console.log(CodeUtil.parse(''))
   const res = CodeUtil.print(generate(ast))
+
   console.log(res)
   // await mkdir(path.resolve(__dirname, '.temp'))
   // await writeFile(path.resolve(__dirname, '.temp/test.ts'), res)
 })
+
 it('tsTypeParameter', () => {
   const from = CodeUtil.parse(`function f<T>(a: T): T {
     return a
   }`)
+
   check(
     CodeUtil.print(generate(from)),
     `b.file(b.program([b.functionDeclaration.from({
@@ -177,7 +188,9 @@ it('object method', () => {
     age: 17,
     ['info'](){}
   })`)
+
   const g1 = generate(from)
+
   check(
     CodeUtil.print(g1),
     `b.file(b.program([b.expressionStatement(
@@ -223,6 +236,7 @@ async function evalAst(name: string, ast: n.ASTNode) {
     export default main
     `
   }
+
   const filePath = path.resolve(testPath, `${name}.ts`)
   await writeFile(filePath, wrap(ast))
   const f = await import(filePath)
@@ -232,6 +246,7 @@ async function evalAst(name: string, ast: n.ASTNode) {
 const list = [
   {
     name: 'hello',
+
     code: `export function hello(name: string): string {
       return 'hello ' + name
     }
@@ -239,6 +254,7 @@ const list = [
   },
   {
     name: 'interface',
+
     code: `export interface User {
     name: string;
     age: number;
@@ -246,6 +262,7 @@ const list = [
   },
   {
     name: 'function',
+
     code: `export function hello(name: string) {
       return "hello " + name;
   }`,
@@ -256,6 +273,7 @@ const list = [
   },
   {
     name: 'class',
+
     code: `import { parse, print } from 'recast'
     import { namedTypes as n, visit } from 'ast-types'
     import * as eslint from '@typescript-eslint/typescript-estree'
@@ -283,12 +301,14 @@ const list = [
   },
   {
     name: 'tsTypeParameter',
+
     code: `function f<T>(a: T): T {
       return a
     }`,
   },
   {
     name: 'objectMethod',
+
     code: `hello({
       [\`\${name}\`]: 'liuli',
       age: 17,
@@ -297,6 +317,7 @@ const list = [
   },
   {
     name: 'topLevelAwait',
+
     code: `import { getEnv } from '@pinefield/app-utils'
 
     export const envs = await getEnv()
@@ -307,6 +328,7 @@ const list = [
     code: `export type TranslateType = { 'hello world': { value: 'string'; params: [key: 'hello world'] } }`,
   },
 ]
+
 it('test', async () => {
   await Promise.all(
     list.map(async (item) => {
@@ -322,12 +344,15 @@ export function hello(name: string): string {
 }
 console.log(hello('liuli'))
   `)
+
   let temp = from
+
   const list = Array(6)
     .fill(0)
     .map(() => {
       temp = generate(temp)
       return CodeUtil.print(temp).split('\n').length
     })
+
   console.log(list)
 })

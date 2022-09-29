@@ -1,9 +1,7 @@
-import fsExtra from '@liuli-util/fs-extra'
+import { copy, pathExists, readJson, writeJson } from '@liuli-util/fs-extra'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { PackageJson } from 'type-fest'
-
-const { copy, pathExists, readJson, writeJson } = fsExtra
 
 export interface GenerateOptions {
   cwd: string

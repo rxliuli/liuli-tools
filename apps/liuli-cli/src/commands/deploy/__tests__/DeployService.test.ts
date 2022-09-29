@@ -1,3 +1,4 @@
+import { expect, it, beforeAll, describe, beforeEach, vi } from 'vitest'
 import * as path from 'path'
 import { mkdirp, remove, writeFile } from '@liuli-util/fs-extra'
 
@@ -75,7 +76,7 @@ describe('测试 GhPagesDeployService', () => {
 
   const ghPagesDeployService = new GhPagesDeployService(options)
   const distPath = path.resolve(tempPath, 'dist')
-  const mock = jest.fn().mockImplementation((title) => console.log(title))
+  const mock = vi.fn().mockImplementation((title) => console.log(title))
 
   beforeEach(async () => {
     await writeFile(

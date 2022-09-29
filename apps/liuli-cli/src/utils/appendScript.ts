@@ -3,15 +3,14 @@
  * @param oldScript
  * @param newScript
  */
-export function appendScript(
-  oldScript: string | undefined,
-  newScript: string,
-): string {
+export function appendScript(oldScript: string | undefined, newScript: string): string {
   if (!oldScript) {
     return newScript
   }
+
   if (oldScript.includes(newScript)) {
     return oldScript
   }
+
   return oldScript + ' && ' + newScript
 }

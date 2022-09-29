@@ -1,3 +1,4 @@
+import { expect, it } from 'vitest'
 import { build } from 'esbuild'
 import { autoExternal } from '../autoExternal'
 
@@ -9,11 +10,13 @@ it('autoExternal', async () => {
         console.log(build)
       `,
     },
+
     plugins: [autoExternal()],
     format: 'esm',
     bundle: true,
     write: false,
   })
+
   console.log(res.outputFiles[0].text)
   expect(res.outputFiles[0].text.includes('import { build } from "esbuild"')).toBeTruthy()
 })

@@ -1,7 +1,8 @@
+import { expect, it, describe, beforeEach } from 'vitest'
 import { mkdir, readJson, remove, writeJson } from '@liuli-util/fs-extra'
 import path from 'path'
 import { SyncConfigType, SyncProgram } from '../SyncProgram'
-import { merge } from 'lodash'
+import { merge } from 'lodash-es'
 import { PackageJson } from 'type-fest'
 
 describe('测试 SyncProgram', () => {

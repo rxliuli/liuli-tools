@@ -8,7 +8,6 @@
     "build": "tsx src/bin.ts build cli",
     "dev": "tsx src/bin.ts build cli -w",
     "start": "tsx src/bin.ts",
-    "test": "jest --all",
     "lint": "eslint --fix src/**"
   },
   "bin": {
@@ -50,18 +49,16 @@
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
-    "@types/jest": "^28.1.6",
-    "@types/lodash": "^4.14.182",
     "@types/node": "^18.6.4",
     "@types/ssh2-sftp-client": "^7.1.0",
-    "jest": "^28.1.3",
-    "lodash": "^4.17.21",
     "rimraf": "^3.0.2",
-    "ts-jest": "^28.0.7",
     "tsx": "^3.9.0",
     "type-fest": "^2.18.0",
     "typescript": "^4.7.4",
-    "tsup": "^6.2.3"
+    "tsup": "^6.2.3",
+    "vitest": "^0.23.4",
+    "@types/lodash-es": "^4.17.6",
+    "lodash-es": "^4.17.21"
   },
   "repository": {
     "type": "git",

@@ -1,3 +1,4 @@
+import { expect, it } from 'vitest'
 import { builders as b, Type } from 'ast-types'
 
 it('meta', () => {

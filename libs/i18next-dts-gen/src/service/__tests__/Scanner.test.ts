@@ -1,3 +1,4 @@
+import { expect, it } from 'vitest'
 import { Scanner } from '../Scanner'
 import path from 'path'
 

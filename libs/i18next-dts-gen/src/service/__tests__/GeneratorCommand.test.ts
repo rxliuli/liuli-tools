@@ -1,3 +1,4 @@
+import { expect, it } from 'vitest'
 import { GeneratorCommandProgram } from '../GeneratorCommand'
 import path from 'path'
 import { pathExists, remove } from '@liuli-util/fs-extra'

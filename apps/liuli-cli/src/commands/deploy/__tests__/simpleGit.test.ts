@@ -1,3 +1,4 @@
+import { expect, it, describe, beforeEach, beforeAll } from 'vitest'
 import simpleGit, { SimpleGit } from 'simple-git'
 import * as path from 'path'
 import { mkdirp, remove } from '@liuli-util/fs-extra'

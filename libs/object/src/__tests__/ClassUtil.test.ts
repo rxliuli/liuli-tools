@@ -1,10 +1,10 @@
+import { expect, it, describe } from 'vitest'
 import { ClassUtil } from '../ClassUtil'
 
 describe('测试 ClassUtil', () => {
   it('测试 scan', () => {
     class HelloApi {
       list = () => {}
-
       hello() {}
     }
 

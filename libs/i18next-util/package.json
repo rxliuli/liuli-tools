@@ -1,14 +1,12 @@
 {
   "name": "@liuli-util/i18next-util",
   "version": "0.3.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "setup": "pnpm build",
-    "build": "liuli-cli build lib",
-    "dev": "liuli-cli build lib -w",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "docs:server": "live-server docs",
     "docs:dev": "typedoc --watch",
     "docs:build": "rm docs && typedoc",
@@ -35,19 +33,18 @@
     "i18next": "^20.3.3"
   },
   "devDependencies": {
-    "@liuli-util/cli": "workspace:*",
     "@types/jest": "^28.1.6",
     "i18next": "^21.8.16",
     "jest": "^28.1.3",
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.7",
     "typedoc": "^0.23.10",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "tsup": "^6.2.3"
   },
   "exports": {
-    "import": "./dist/index.esm.js",
-    "require": "./dist/index.js",
-    "types": "./dist/index.d.ts"
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
   },
   "type": "module"
 }

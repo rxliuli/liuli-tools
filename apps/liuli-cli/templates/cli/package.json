@@ -1,15 +1,13 @@
 {
   "name": "@liuli-util/cli-template",
   "version": "0.2.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "liuli-cli build cli",
-    "dev": "liuli-cli build cli -w",
-    "start": "esno src/bin.ts"
+    "build": "tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm",
+    "dev": "tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm --watch",
+    "start": "tsx src/bin.ts"
   },
   "bin": {
     "cli-name": "./bin.js"
@@ -17,21 +15,19 @@
   "dependencies": {
     "commander": "^9.4.0",
     "enquirer": "^2.3.6",
-    "fs-extra": "^10.1.0"
+    "@liuli-util/fs-extra": "workspace:^"
   },
   "devDependencies": {
-    "@liuli-util/cli": "workspace:^3.21.0",
-    "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.6.4",
-    "esno": "^0.16.3",
     "rimraf": "^3.0.2",
     "type-fest": "^2.18.0",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "tsup": "^6.2.3",
+    "tsx": "^3.9.0"
   },
   "exports": {
-    "import": "./dist/index.esm.js",
-    "require": "./dist/index.js",
-    "types": "./dist/index.d.ts"
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
   },
   "type": "module"
 }

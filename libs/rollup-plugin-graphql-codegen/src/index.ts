@@ -4,7 +4,7 @@ import { isMainThread, parentPort, Worker } from 'worker_threads'
 import { expose, wrap } from 'comlink'
 import nodeEndpoint from 'comlink/dist/umd/node-adapter'
 import { tagStr2DtsConfig } from './config'
-import { pathExists } from 'fs-extra'
+import { pathExists } from '@liuli-util/fs-extra'
 import { Types } from '@graphql-codegen/plugin-helpers'
 import * as path from 'path'
 
@@ -12,7 +12,11 @@ async function codegenDts(watch: boolean, config: Types.Config) {
   try {
     if (await pathExists('codegen.yml')) {
       const codegenContext = await loadContext()
-      codegenContext.updateConfig({ watch })
+
+      codegenContext.updateConfig({
+        watch,
+      })
+
       await generate(codegenContext)
     } else {
       await generate({
@@ -33,11 +37,14 @@ if (!isMainThread) {
 export function graphQLCodegen(config: Types.Config = tagStr2DtsConfig): Plugin {
   return {
     name: 'rollup-plugin-graphql-codegen',
+
     async buildStart() {
       await codegenDts(false, config)
+
       if (this.meta.watchMode) {
         const worker = new Worker(__filename)
         const codegenWorker = wrap<(watch: boolean, config: Types.Config) => void>(nodeEndpoint(worker))
+
         // noinspection ES6MissingAwait
         codegenWorker(this.meta.watchMode, config)
       }

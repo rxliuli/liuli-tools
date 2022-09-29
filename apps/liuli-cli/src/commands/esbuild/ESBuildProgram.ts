@@ -1,5 +1,5 @@
 import { build, BuildOptions, Platform, Plugin } from 'esbuild'
-import { pathExists, readFile, readJson, remove } from 'fs-extra'
+import { pathExists, readFile, readJson, remove } from '@liuli-util/fs-extra'
 import * as path from 'path'
 import { PackageJson } from 'type-fest'
 import { Project } from 'ts-morph'
@@ -38,6 +38,7 @@ export class ESBuildProgram {
    */
   static async getDeps(base: string): Promise<string[]> {
     const json = (await readJson(path.resolve(base, 'package.json'))) as PackageJson
+
     return Object.keys({
       ...json.dependencies,
       ...json.devDependencies,
@@ -50,53 +51,72 @@ export class ESBuildProgram {
    */
   static async getPlatform(base: string): Promise<Platform> {
     const tsconfigPath = path.resolve(base, 'tsconfig.json')
+
     if (await pathExists(tsconfigPath)) {
       const tsconfigJson = parse(await readFile(tsconfigPath, 'utf-8'))
+
       if ((tsconfigJson?.compilerOptions?.lib as string[])?.some((lib) => lib.toLowerCase() === 'dom')) {
         return 'browser'
       }
     }
+
     const pkgPath = path.resolve(base, 'package.json')
+
     if (await pathExists(pkgPath)) {
       const pkgJson = (await readJson(pkgPath)) as PackageJson
+
       if (Object.keys(pkgJson.devDependencies ?? {}).includes('@types/node')) {
         return 'node'
       }
     }
+
     return 'neutral'
   }
+
   static getWatchOptions(base: string): {
     pattern: string
     options: IOptions
   } {
     const pattern = 'src/**/*.ts'
+
     const options: Pick<IOptions, 'cwd' | 'ignore'> = {
       cwd: base,
       ignore: '**/__tests__/**/*',
     }
-    return { pattern, options }
+
+    return {
+      pattern,
+      options,
+    }
   }
+
   /**
    * 生成类型定义
    */
   async genDTS(): Promise<void> {
     const base = this.options.base
+
     const { pattern, options } = ESBuildProgram.getWatchOptions(this.options.base)
+
     const project = new Project({
       tsConfigFilePath: path.resolve(base, 'tsconfig.json'),
       skipAddingFilesFromTsConfig: true,
+
       compilerOptions: {
         emitDeclarationOnly: true,
         noEmit: false,
         incremental: this.options.isWatch,
       },
     })
+
     const fileList = (await promise(pattern, options)).map((filePath) => path.resolve(base, filePath))
     project.addSourceFilesAtPaths(fileList)
+
     await project.emit({
       emitOnlyDtsFiles: true,
     })
   }
+
   /**
    * 获取构建 cjs 的选项
    */
@@ -130,6 +150,7 @@ export class ESBuildProgram {
       minify: !this.options.isWatch,
       incremental: this.options.isWatch,
       metafile: this.options.isWatch,
+
       plugins: [resolve([['@liuli-util/esbuild-plugins/src/', '@liuli-util/esbuild-plugins']])] as any,
     }
   }
@@ -150,6 +171,7 @@ export class ESBuildProgram {
       minify: !this.options.isWatch,
       incremental: this.options.isWatch,
       metafile: this.options.isWatch,
+
       plugins: [resolve([['@liuli-util/esbuild-plugins/src/', '@liuli-util/esbuild-plugins']])] as any,
     }
   }
@@ -180,6 +202,7 @@ export class ESBuildProgram {
    */
   getBuildCliOption({ platform }: { deps: string[]; platform: Platform }): BuildOptions {
     const plugins = ESBuildProgram.getPlugins(platform)
+
     return {
       entryPoints: [path.resolve(this.options.base, './src/bin.ts')],
       outfile: path.resolve(this.options.base, './dist/bin.js'),
@@ -187,9 +210,11 @@ export class ESBuildProgram {
       sourcemap: true,
       platform: platform,
       bundle: true,
+
       banner: {
         js: '#!/usr/bin/env node',
       },
+
       external: [...ESBuildProgram.globalExternal],
       plugins,
       minify: !this.options.isWatch,
@@ -200,9 +225,11 @@ export class ESBuildProgram {
 
   static getPlugins(platform: string): Plugin[] {
     const plugins: Plugin[] = []
+
     if (platform === 'node') {
       plugins.push(nodeExternal() as any, nativeNodeModules() as any)
     }
+
     return plugins
   }
 
@@ -216,9 +243,11 @@ export class ESBuildProgram {
   async getTasks(): Promise<Record<TaskTypeEnum, Task>> {
     const deps = await ESBuildProgram.getDeps(this.options.base)
     const platform = await ESBuildProgram.getPlatform(this.options.base)
+
     return {
       esm: {
         title: '构建 esm',
+
         task: () =>
           this.build(
             this.getBuildESMOption({
@@ -227,8 +256,10 @@ export class ESBuildProgram {
             }),
           ),
       },
+
       cjs: {
         title: '构建 cjs',
+
         task: () =>
           this.build(
             this.getBuildCjsOption({
@@ -237,12 +268,15 @@ export class ESBuildProgram {
             }),
           ),
       },
+
       iife: {
         title: '构建 iife',
+
         task: async () => {
           return await this.build(
             this.getBuildIifeOption({
               platform: platform,
+
               globalName: getPkgGlobalName(
                 ((await readJson(path.resolve(this.options.base, './package.json'))) as PackageJson).name!,
               ),
@@ -250,8 +284,10 @@ export class ESBuildProgram {
           )
         },
       },
+
       cli: {
         title: '构建 cli',
+
         task: () =>
           build(
             this.getBuildCliOption({
@@ -260,10 +296,12 @@ export class ESBuildProgram {
             }),
           ),
       },
+
       dts: {
         title: '生成类型定义',
         task: () => this.genDTS(),
       },
+
       userjs: {
         title: '打包 userjs',
         task: () => this.build(this.getBuildUserJSOption()),
@@ -273,16 +311,24 @@ export class ESBuildProgram {
 
   static async execTask(spinnies: Spinnies, task: Task): Promise<void> {
     const start = Date.now()
-    spinnies.add(task.title, { text: task.title })
+
+    spinnies.add(task.title, {
+      text: task.title,
+    })
+
     try {
       await task.task()
+
       spinnies.succeed(task.title, {
         text: `${task.title}: ${Date.now() - start}ms`,
       })
     } catch (e) {
-      spinnies.fail(task.title, { text: task.title })
+      spinnies.fail(task.title, {
+        text: task.title,
+      })
     }
   }
+
   async execTasks(tasks: Task[]): Promise<void> {
     const run = async () => {
       const start = Date.now()
@@ -298,6 +344,7 @@ export class ESBuildProgram {
     }
 
     const { pattern, options } = ESBuildProgram.getWatchOptions(this.options.base)
+
     await new Promise((resolve, reject) => {
       watch(pattern, options).on('error', reject).on('all', debounce(run, 10))
     })

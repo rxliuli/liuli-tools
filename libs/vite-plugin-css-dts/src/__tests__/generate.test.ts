@@ -1,4 +1,4 @@
-import fsExtra from 'fs-extra'
+import fsExtra from '@liuli-util/fs-extra'
 import path from 'path'
 import { generate } from '../generate'
 import { beforeEach, it } from 'vitest'

@@ -1,13 +1,11 @@
 {
   "name": "@liuli-util/rollup-plugin-tar",
   "version": "0.2.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "build": "liuli-cli build lib",
-    "dev": "liuli-cli build lib -w",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "docs:server": "live-server docs",
     "docs:dev": "typedoc --watch",
     "docs:build": "rimraf docs && typedoc",
@@ -29,7 +27,6 @@
     "rollup": "^2.52.2"
   },
   "devDependencies": {
-    "@liuli-util/cli": "workspace:*",
     "@types/fs-extra": "^9.0.13",
     "@types/jest": "^28.1.6",
     "@types/node": "^18.6.4",
@@ -40,7 +37,8 @@
     "rollup": "^2.77.2",
     "ts-jest": "^28.0.7",
     "typedoc": "^0.23.10",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "tsup": "^6.2.3"
   },
   "sync": [
     "gitignore",
@@ -52,9 +50,8 @@
     "tar": "^6.1.11"
   },
   "exports": {
-    "import": "./dist/index.esm.js",
-    "require": "./dist/index.js",
-    "types": "./dist/index.d.ts"
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
   },
   "type": "module"
 }

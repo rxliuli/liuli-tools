@@ -1,13 +1,11 @@
 {
   "name": "@liuli-util/async",
   "version": "3.5.1",
-  "main": "./dist/index.js",
-  "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
   "description": "异步相关功能的函数库",
   "scripts": {
     "setup": "pnpm build",
-    "build": "liuli-cli build lib",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
     "test": "jest --all",
     "lint": "eslint --fix src/**"
   },
@@ -15,7 +13,6 @@
     "preset": "ts-jest"
   },
   "devDependencies": {
-    "@liuli-util/cli": "workspace:*",
     "@liuli-util/test": "workspace:*",
     "@types/jest": "^28.1.6",
     "@types/node": "^18.6.4",
@@ -23,7 +20,8 @@
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.7",
     "type-fest": "^2.18.0",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "tsup": "^6.2.3"
   },
   "publishConfig": {
     "access": "public",
@@ -31,5 +29,9 @@
   },
   "gitHead": "9ebadce05245141b72dedfef846332d4f2a566fc",
   "license": "MIT",
-  "type": "module"
+  "type": "module",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  }
 }

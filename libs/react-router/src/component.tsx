@@ -1,4 +1,4 @@
-import React, { ReactNode, useMemo } from 'react'
+import React, { PropsWithChildren, ReactNode, useMemo } from 'react'
 import { Route, Router, Routes } from 'react-router-dom'
 import { BaseHistory, RouteConfig } from './index'
 import { treeMap } from '@liuli-util/tree'
@@ -8,7 +8,7 @@ interface HistoryRouterProps {
   fallback?: ReactNode
 }
 
-const BaseReactRouter: React.FC<HistoryRouterProps> = ({ history, children }) => {
+function BaseReactRouter({ history, children }: PropsWithChildren<HistoryRouterProps>) {
   const [state, setState] = React.useState({
     action: history.action,
     location: history.location,

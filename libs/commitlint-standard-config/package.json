@@ -1,8 +1,8 @@
 {
   "name": "@liuli-util/commitlint-standard-config",
   "version": "0.1.6",
-  "main": ".commitlintrc.json",
   "license": "MIT",
+  "main": "./.commitlintrc.json",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

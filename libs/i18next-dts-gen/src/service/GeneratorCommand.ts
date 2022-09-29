@@ -1,7 +1,7 @@
 import { Scanner } from './Scanner'
 import { Parser } from './Parser'
 import { Generator } from './Generator'
-import { writeFile } from 'fs-extra'
+import { writeFile } from '@liuli-util/fs-extra'
 import path from 'path'
 import { AsyncArray } from '@liuli-util/async'
 import { Watcher } from './Watcher'
@@ -22,12 +22,20 @@ export class GeneratorCommandProgram {
    * @param options
    */
   async main(options: GenerateOptions): Promise<void> {
-    await i18n.init({ en, zhCN }, await getLanguage())
+    await i18n.init(
+      {
+        en,
+        zhCN,
+      },
+      await getLanguage(),
+    )
+
     if (options.watch) {
       new Promise((resolve, reject) => {
         new Watcher().watchDirs(options.dirs, (dir) => this.exec(dir, options.language)).on('error', reject)
       })
     }
+
     await AsyncArray.forEach(options.dirs, (dir) => this.exec(dir, options.language))
   }
 
@@ -42,6 +50,7 @@ export class GeneratorCommandProgram {
     const configs = parser.parse(locales)
     const code = generator.generate(configs)
     await writeFile(dtsPath, code)
+
     console.info(
       i18n.t('generator.end', {
         time: Date.now() - start,

@@ -1,4 +1,4 @@
-import { readdir, readJSON } from 'fs-extra'
+import { readdir, readJSON } from '@liuli-util/fs-extra'
 import path from 'path'
 import { AsyncArray } from '@liuli-util/async'
 import { LocaleJSON } from './Parser'
@@ -9,10 +9,12 @@ import { LocaleJSON } from './Parser'
 export class Scanner {
   async scan(dirPath: string): Promise<LocaleJSON[]> {
     const files = await readdir(path.resolve(dirPath))
+
     return await AsyncArray.map(
       files.filter((file) => file.endsWith('.json')),
       async (file) => {
         const filePath = path.resolve(dirPath, file)
+
         return {
           path: filePath,
           data: await readJSON(filePath),

@@ -1,4 +1,4 @@
-import { pathExists, readFile, writeFile } from 'fs-extra'
+import { pathExists, readFile, writeFile } from '@liuli-util/fs-extra'
 import * as path from 'path'
 import { uniqueBy } from '@liuli-util/array'
 import { parse } from 'dotenv'
@@ -12,13 +12,17 @@ import { namedTypes as n, builders as b } from 'ast-types'
  */
 async function getEnvPath(cwd: string) {
   let envPath = path.resolve(cwd, 'src/vite-env.d.ts')
+
   if (await pathExists(envPath)) {
     return envPath
   }
+
   envPath = path.resolve(cwd, 'src/env.d.ts')
+
   if (await pathExists(envPath)) {
     return envPath
   }
+
   throw new Error('未找到环境变量配置文件')
 }
 
@@ -29,6 +33,7 @@ export async function scan(dir: string): Promise<string[]> {
   const files = await FastGlob('.env*', {
     cwd: path.resolve(dir),
   })
+
   const configs = await Promise.all(files.map((file) => readFile(path.resolve(dir, file), 'utf-8')))
   return uniqueBy(configs.map((s) => Object.keys(parse(s))).flat())
 }
@@ -50,10 +55,12 @@ function convert(ast: n.ASTNode, envs: string[]): n.ASTNode {
   let envInterface = CodeUtil.iterator(ast, n.TSInterfaceDeclaration).find(
     (item) => (item.id as n.Identifier).name === 'ImportMetaEnv',
   )
+
   if (!envInterface) {
     envInterface = b.tsInterfaceDeclaration(b.identifier('ImportMetaEnv'), b.tsInterfaceBody([]))
     ;(ast as n.File).program.body.push(envInterface)
   }
+
   envInterface.body.body = envs.map((name) =>
     b.tsPropertySignature.from({
       key: b.identifier(name),
@@ -61,6 +68,7 @@ function convert(ast: n.ASTNode, envs: string[]): n.ASTNode {
       readonly: true,
     }),
   )
+
   return ast
 }
 
@@ -69,8 +77,10 @@ export async function gen(cwd: string): Promise<void> {
   const code = await readFile(envPath, 'utf-8')
   const ast = CodeUtil.parse(code)
   const envNames = await scan(cwd)
+
   if (eq(envNames, getEnvs(ast))) {
     return
   }
+
   await writeFile(envPath, CodeUtil.print(convert(ast, envNames)))
 }

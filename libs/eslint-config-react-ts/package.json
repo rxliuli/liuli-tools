@@ -1,8 +1,8 @@
 {
   "name": "@liuli-util/eslint-config-react-ts",
   "version": "0.2.1",
-  "main": ".eslintrc.json",
   "license": "MIT",
+  "main": "./.eslintrc.json",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

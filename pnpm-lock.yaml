@@ -25,50 +25,50 @@ importers:
   apps/cmd-shim:
     specifiers:
       '@liuli-util/async': ^3.4.0
-      '@liuli-util/cli': workspace:*
-      '@types/fs-extra': ^9.0.13
+      '@liuli-util/fs-extra': workspace:^
       '@types/jest': ^28.1.6
       '@types/node': ^18.6.4
+      ast-types: ^0.14.2
       cmd-shim: ^5.0.0
-      esno: ^0.16.3
-      fs-extra: ^10.1.0
       jest: ^28.1.3
+      recast: ^0.21.2
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
+      tsx: ^3.9.0
       type-fest: ^2.18.0
       typescript: ^4.7.4
     dependencies:
       '@liuli-util/async': link:../../libs/async
+      '@liuli-util/fs-extra': link:../../libs/fs-extra
       cmd-shim: 5.0.0
-      fs-extra: 10.1.0
     devDependencies:
-      '@liuli-util/cli': link:../liuli-cli
-      '@types/fs-extra': 9.0.13
       '@types/jest': 28.1.6
       '@types/node': 18.6.4
-      esno: 0.16.3
+      ast-types: 0.14.2
       jest: 28.1.3_@types+node@18.6.4
+      recast: 0.21.2
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
+      tsx: 3.9.0
       type-fest: 2.18.0
       typescript: 4.7.4
 
   apps/create-liuli:
     specifiers:
-      '@types/fs-extra': ^9.0.13
+      '@liuli-util/fs-extra': workspace:^
       '@types/node': ^18.7.23
       commander: ^9.4.0
-      fs-extra: ^10.1.0
       tsup: ^6.2.3
       tsx: ^3.9.0
       type-fest: ^3.0.0
       typescript: ^4.8.4
       vitest: ^0.23.4
     dependencies:
+      '@liuli-util/fs-extra': link:../../libs/fs-extra
       commander: 9.4.0
-      fs-extra: 10.1.0
     devDependencies:
-      '@types/fs-extra': 9.0.13
       '@types/node': 18.7.23
       tsup: 6.2.3_typescript@4.8.4
       tsx: 3.9.0
@@ -91,43 +91,41 @@ importers:
   apps/cycle-deps-check:
     specifiers:
       '@liuli-util/async': workspace:^3.3.0
-      '@liuli-util/cli': ^3.18.0
-      '@types/fs-extra': ^9.0.13
+      '@liuli-util/fs-extra': workspace:^
       '@types/jest': ^27.5.2
       '@types/lodash': ^4.14.182
       '@types/node': ^16.11.8
       commander: ^8.2.0
       enquirer: ^2.3.6
-      esno: ^0.9.1
-      fs-extra: ^10.0.0
       glob: ^7.2.0
       glob-promise: ^4.2.0
       jest: ^27.5.1
       lodash: ^4.17.21
       rimraf: ^3.0.2
       ts-jest: ^27.1.5
+      tsup: ^6.2.3
+      tsx: ^3.9.0
       type-fest: ^2.3.4
       typescript: ^4.5.5
       yaml: ^1.10.2
     dependencies:
       '@liuli-util/async': link:../../libs/async
+      '@liuli-util/fs-extra': link:../../libs/fs-extra
       commander: 8.3.0
       enquirer: 2.3.6
-      fs-extra: 10.1.0
       glob: 7.2.3
       glob-promise: 4.2.2_glob@7.2.3
       lodash: 4.17.21
       yaml: 1.10.2
     devDependencies:
-      '@liuli-util/cli': link:../liuli-cli
-      '@types/fs-extra': 9.0.13
       '@types/jest': 27.5.2
       '@types/lodash': 4.14.182
       '@types/node': 16.11.47
-      esno: 0.9.1
       jest: 27.5.1
       rimraf: 3.0.2
       ts-jest: 27.1.5_mqaoisgizytgigbr3gbjwvnjie
+      tsup: 6.2.3_typescript@4.7.4
+      tsx: 3.9.0
       type-fest: 2.18.0
       typescript: 4.7.4
 
@@ -136,8 +134,8 @@ importers:
       '@liuli-util/commitlint-standard-config': workspace:*
       '@liuli-util/eslint-config-react-ts': workspace:*
       '@liuli-util/eslint-config-ts': workspace:*
+      '@liuli-util/fs-extra': workspace:^
       '@liuli-util/prettier-standard-config': workspace:*
-      '@types/fs-extra': ^9.0.13
       '@types/glob': ^7.2.0
       '@types/jest': ^28.1.6
       '@types/lodash': ^4.14.182
@@ -151,7 +149,6 @@ importers:
       conf: ^10.2.0
       enquirer: ^2.3.6
       esbuild: 0.14.39
-      fs-extra: ^10.1.0
       glob: ^8.0.3
       glob-promise: ^5.0.0
       jest: ^28.1.3
@@ -165,6 +162,7 @@ importers:
       tar: ^6.1.11
       ts-jest: ^28.0.7
       ts-morph: ^15.1.0
+      tsup: ^6.2.3
       tsx: ^3.9.0
       type-fest: ^2.18.0
       typescript: ^4.7.4
@@ -172,6 +170,7 @@ importers:
       '@liuli-util/commitlint-standard-config': link:../../libs/commitlint-standard-config
       '@liuli-util/eslint-config-react-ts': link:../../libs/eslint-config-react-ts
       '@liuli-util/eslint-config-ts': link:../../libs/eslint-config-ts
+      '@liuli-util/fs-extra': link:../../libs/fs-extra
       '@liuli-util/prettier-standard-config': link:../../libs/prettier-standard-config
       ajv: 8.11.0
       ajv-formats: 2.1.1_ajv@8.11.0
@@ -181,7 +180,6 @@ importers:
       conf: 10.2.0
       enquirer: 2.3.6
       esbuild: 0.14.39
-      fs-extra: 10.1.0
       glob: 8.0.3
       glob-promise: 5.0.0_glob@8.0.3
       json5: 2.2.1
@@ -192,7 +190,6 @@ importers:
       tar: 6.1.11
       ts-morph: 15.1.0
     devDependencies:
-      '@types/fs-extra': 9.0.13
       '@types/glob': 7.2.0
       '@types/jest': 28.1.6
       '@types/lodash': 4.14.182
@@ -202,44 +199,43 @@ importers:
       lodash: 4.17.21
       rimraf: 3.0.2
       ts-jest: 28.0.7_vtxqz5ej632iwich57uyylid4u
+      tsup: 6.2.3_typescript@4.7.4
       tsx: 3.9.0
       type-fest: 2.18.0
       typescript: 4.7.4
 
   apps/liuli-cli/templates/cli:
     specifiers:
-      '@liuli-util/cli': workspace:^3.21.0
-      '@types/fs-extra': ^9.0.13
+      '@liuli-util/fs-extra': workspace:^
       '@types/node': ^18.6.4
       commander: ^9.4.0
       enquirer: ^2.3.6
-      esno: ^0.16.3
-      fs-extra: ^10.1.0
       rimraf: ^3.0.2
+      tsup: ^6.2.3
+      tsx: ^3.9.0
       type-fest: ^2.18.0
       typescript: ^4.7.4
     dependencies:
+      '@liuli-util/fs-extra': link:../../../../libs/fs-extra
       commander: 9.4.0
       enquirer: 2.3.6
-      fs-extra: 10.1.0
     devDependencies:
-      '@liuli-util/cli': link:../..
-      '@types/fs-extra': 9.0.13
       '@types/node': 18.6.4
-      esno: 0.16.3
       rimraf: 3.0.2
+      tsup: 6.2.3_typescript@4.7.4
+      tsx: 3.9.0
       type-fest: 2.18.0
       typescript: 4.7.4
 
   apps/liuli-cli/templates/lib:
     specifiers:
-      '@liuli-util/cli': workspace:^3.21.0
       rimraf: ^3.0.2
+      tsup: ^6.2.3
       type-fest: ^2.18.0
       typescript: ^4.7.4
     devDependencies:
-      '@liuli-util/cli': link:../..
       rimraf: 3.0.2
+      tsup: 6.2.3_typescript@4.7.4
       type-fest: 2.18.0
       typescript: 4.7.4
 
@@ -500,7 +496,6 @@ importers:
 
   libs/array:
     specifiers:
-      '@liuli-util/cli': workspace:*
       '@liuli-util/test': workspace:*
       '@types/jest': ^28.1.6
       '@types/mockjs': ^1.0.6
@@ -508,9 +503,9 @@ importers:
       mockjs: ^1.1.0
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       typescript: ^4.7.4
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@liuli-util/test': link:../test
       '@types/jest': 28.1.6
       '@types/mockjs': 1.0.6
@@ -518,11 +513,11 @@ importers:
       mockjs: 1.1.0
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       typescript: 4.7.4
 
   libs/ast-types-code-generator-generator:
     specifiers:
-      '@liuli-util/cli': workspace:^
       '@types/fs-extra': ^9.0.13
       '@types/jest': ^28.1.6
       '@types/lodash': ^4.14.182
@@ -535,6 +530,7 @@ importers:
       recast: ^0.21.2
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       type-fest: ^2.18.0
       typescript: ^4.7.4
     dependencies:
@@ -542,7 +538,6 @@ importers:
       ast-types: 0.14.2
       lodash: 4.17.21
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@types/fs-extra': 9.0.13
       '@types/jest': 28.1.6
       '@types/node': 18.6.4
@@ -552,28 +547,29 @@ importers:
       recast: 0.21.2
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       type-fest: 2.18.0
       typescript: 4.7.4
 
   libs/async:
     specifiers:
-      '@liuli-util/cli': workspace:*
       '@liuli-util/test': workspace:*
       '@types/jest': ^28.1.6
       '@types/node': ^18.6.4
       jest: ^28.1.3
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       type-fest: ^2.18.0
       typescript: ^4.7.4
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@liuli-util/test': link:../test
       '@types/jest': 28.1.6
       '@types/node': 18.6.4
       jest: 28.1.3_@types+node@18.6.4
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       type-fest: 2.18.0
       typescript: 4.7.4
 
@@ -587,54 +583,52 @@ importers:
     specifiers:
       '@liuli-util/array': workspace:^3.3.0
       '@liuli-util/async': workspace:*
-      '@liuli-util/cli': workspace:*
       '@liuli-util/test': workspace:^3.3.0
       '@types/jest': ^28.1.6
       jest: ^28.1.3
       jest-environment-jsdom: ^28.1.3
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       type-fest: ^2.18.0
       typescript: ^4.7.4
     dependencies:
       '@liuli-util/array': link:../array
     devDependencies:
       '@liuli-util/async': link:../async
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@liuli-util/test': link:../test
       '@types/jest': 28.1.6
       jest: 28.1.3
       jest-environment-jsdom: 28.1.3
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       type-fest: 2.18.0
       typescript: 4.7.4
 
   libs/esbuild-plugins:
     specifiers:
-      '@liuli-util/cli': workspace:^3.21.0
-      '@types/fs-extra': ^9.0.13
+      '@liuli-util/fs-extra': workspace:^
       '@types/jest': ^28.1.6
       '@types/node': ^18.6.4
       esbuild: ^0.14.53
-      fs-extra: ^10.1.0
       jest: ^28.1.3
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       typescript: ^4.7.4
       utility-types: ^3.10.0
     dependencies:
-      fs-extra: 10.1.0
+      '@liuli-util/fs-extra': link:../fs-extra
       utility-types: 3.10.0
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
-      '@types/fs-extra': 9.0.13
       '@types/jest': 28.1.6
       '@types/node': 18.6.4
       esbuild: 0.14.53
       jest: 28.1.3_@types+node@18.6.4
       rimraf: 3.0.2
       ts-jest: 28.0.7_7d2bruck3sob2g5idzt4ine7qe
+      tsup: 6.2.3_typescript@4.7.4
       typescript: 4.7.4
 
   libs/eslint-config-react-ts:
@@ -667,14 +661,40 @@ importers:
       eslint-config-prettier: 8.5.0_eslint@8.21.0
       eslint-plugin-unused-imports: 2.0.0_i7ihj7mda6acsfp32zwgvvndem
 
+  libs/fs-extra:
+    specifiers:
+      '@types/fs-extra': ^9.0.13
+      '@types/lodash-es': ^4.17.6
+      '@types/node': ^18.7.23
+      ast-types: ^0.14.2
+      fs-extra: ^10.1.0
+      lodash-es: ^4.17.21
+      recast: ^0.21.2
+      tsup: ^6.2.3
+      tsx: ^3.9.0
+      typescript: ^4.8.4
+      vitest: ^0.23.4
+    dependencies:
+      '@types/fs-extra': 9.0.13
+      fs-extra: 10.1.0
+    devDependencies:
+      '@types/lodash-es': 4.17.6
+      '@types/node': 18.7.23
+      ast-types: 0.14.2
+      lodash-es: 4.17.21
+      recast: 0.21.2
+      tsup: 6.2.3_typescript@4.8.4
+      tsx: 3.9.0
+      typescript: 4.8.4
+      vitest: 0.23.4
+
   libs/i18next-dts-gen:
     specifiers:
       '@liuli-util/array': workspace:^
       '@liuli-util/ast-types-code-generator-generator': workspace:^
       '@liuli-util/async': workspace:^
-      '@liuli-util/cli': workspace:*
+      '@liuli-util/fs-extra': workspace:^
       '@liuli-util/test': workspace:^3.3.0
-      '@types/fs-extra': ^9.0.13
       '@types/jest': ^28.1.6
       '@types/node': ^18.6.4
       '@types/prettier': ^2.7.0
@@ -682,85 +702,83 @@ importers:
       chokidar: ^3.5.3
       commander: ^9.4.0
       dts-minify: ^0.3.0
-      esno: ^0.16.3
-      fs-extra: ^10.1.0
       i18next: ^21.8.16
       jest: ^28.1.3
       recast: ^0.21.2
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
+      tsx: ^3.9.0
       type-fest: ^2.18.0
       typedoc: ^0.23.10
       typescript: ^4.7.4
     dependencies:
       '@liuli-util/array': link:../array
       '@liuli-util/async': link:../async
+      '@liuli-util/fs-extra': link:../fs-extra
       ast-types: 0.14.2
       chokidar: 3.5.3
       commander: 9.4.0
-      fs-extra: 10.1.0
       i18next: 21.8.16
       recast: 0.21.2
     devDependencies:
       '@liuli-util/ast-types-code-generator-generator': link:../ast-types-code-generator-generator
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@liuli-util/test': link:../test
-      '@types/fs-extra': 9.0.13
       '@types/jest': 28.1.6
       '@types/node': 18.6.4
       '@types/prettier': 2.7.0
       dts-minify: 0.3.0
-      esno: 0.16.3
       jest: 28.1.3_@types+node@18.6.4
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
+      tsx: 3.9.0
       type-fest: 2.18.0
       typedoc: 0.23.10_typescript@4.7.4
       typescript: 4.7.4
 
   libs/i18next-util:
     specifiers:
-      '@liuli-util/cli': workspace:*
       '@types/jest': ^28.1.6
       i18next: ^21.8.16
       jest: ^28.1.3
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       typedoc: ^0.23.10
       typescript: ^4.7.4
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@types/jest': 28.1.6
       i18next: 21.8.16
       jest: 28.1.3
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       typedoc: 0.23.10_typescript@4.7.4
       typescript: 4.7.4
 
   libs/idea:
     specifiers:
-      '@liuli-util/cli': workspace:*
       '@types/jest': ^28.1.6
       '@types/node': ^18.6.4
       jest: ^28.1.3
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       type-fest: ^2.18.0
       typescript: ^4.7.4
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@types/jest': 28.1.6
       '@types/node': 18.6.4
       jest: 28.1.3_@types+node@18.6.4
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       type-fest: 2.18.0
       typescript: 4.7.4
 
   libs/mobx-vue3-hooks:
     specifiers:
-      '@liuli-util/cli': workspace:*
       '@types/jest': ^28.1.6
       '@types/react': ^18.0.15
       jest: ^28.1.3
@@ -768,9 +786,9 @@ importers:
       mobx-react: ^7.5.2
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       typescript: ^4.7.4
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@types/jest': 28.1.6
       '@types/react': 18.0.15
       jest: 28.1.3
@@ -778,40 +796,41 @@ importers:
       mobx-react: 7.5.2_mobx@6.6.1
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       typescript: 4.7.4
 
   libs/object:
     specifiers:
-      '@liuli-util/cli': workspace:*
       '@types/jest': ^28.1.6
       jest: ^28.1.3
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       typescript: ^4.7.4
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@types/jest': 28.1.6
       jest: 28.1.3
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       typescript: 4.7.4
 
   libs/other:
     specifiers:
-      '@liuli-util/cli': workspace:*
       '@types/jest': ^28.1.6
       '@types/node': ^18.6.4
       jest: ^28.1.3
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       typescript: ^4.7.4
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@types/jest': 28.1.6
       '@types/node': 18.6.4
       jest: 28.1.3_@types+node@18.6.4
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       typescript: 4.7.4
 
   libs/prettier-standard-config:
@@ -822,7 +841,6 @@ importers:
 
   libs/react-router:
     specifiers:
-      '@liuli-util/cli': workspace:*
       '@liuli-util/tree': workspace:^3.3.0
       '@types/jest': ^28.1.6
       '@types/react': ^18.0.15
@@ -831,18 +849,19 @@ importers:
       react-router-dom: ^6.3.0
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       typescript: ^4.7.4
     dependencies:
       '@liuli-util/tree': link:../tree
       history: 5.3.0
       react-router-dom: 6.3.0
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@types/jest': 28.1.6
       '@types/react': 18.0.15
       jest: 28.1.3
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       typescript: 4.7.4
 
   libs/rollup-plugin-graphql-codegen:
@@ -854,13 +873,12 @@ importers:
       '@graphql-codegen/typescript': ^2.7.2
       '@graphql-codegen/typescript-operations': ^2.5.2
       '@graphql-typed-document-node/core': ^3.1.1
-      '@liuli-util/cli': workspace:*
-      '@types/fs-extra': ^9.0.13
+      '@liuli-util/fs-extra': workspace:^
       '@types/node': ^18.6.4
       comlink: ^4.3.1
-      fs-extra: ^10.1.0
       rimraf: ^3.0.2
       rollup: ^2.77.2
+      tsup: ^6.2.3
       typescript: ^4.7.4
     dependencies:
       '@graphql-codegen/cli': 2.11.3_hn66opzbaneygq52jmwjxha6su
@@ -870,44 +888,42 @@ importers:
       '@graphql-codegen/typescript': 2.7.2
       '@graphql-codegen/typescript-operations': 2.5.2
       '@graphql-typed-document-node/core': 3.1.1
+      '@liuli-util/fs-extra': link:../fs-extra
       comlink: 4.3.1
-      fs-extra: 10.1.0
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
-      '@types/fs-extra': 9.0.13
       '@types/node': 18.6.4
       rimraf: 3.0.2
       rollup: 2.77.2
+      tsup: 6.2.3_typescript@4.7.4
       typescript: 4.7.4
 
   libs/rollup-plugin-i18next-dts-gen:
     specifiers:
-      '@liuli-util/cli': workspace:*
       '@liuli-util/i18next-dts-gen': workspace:^
       '@types/jest': ^28.1.6
       jest: ^28.1.3
       rimraf: ^3.0.2
       rollup: ^2.77.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       type-fest: ^2.18.0
       typedoc: ^0.23.10
       typescript: ^4.7.4
     dependencies:
       '@liuli-util/i18next-dts-gen': link:../i18next-dts-gen
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@types/jest': 28.1.6
       jest: 28.1.3
       rimraf: 3.0.2
       rollup: 2.77.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       type-fest: 2.18.0
       typedoc: 0.23.10_typescript@4.7.4
       typescript: 4.7.4
 
   libs/rollup-plugin-tar:
     specifiers:
-      '@liuli-util/cli': workspace:*
       '@types/fs-extra': ^9.0.13
       '@types/jest': ^28.1.6
       '@types/node': ^18.6.4
@@ -920,6 +936,7 @@ importers:
       rollup: ^2.77.2
       tar: ^6.1.11
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       typedoc: ^0.23.10
       typescript: ^4.7.4
     dependencies:
@@ -927,7 +944,6 @@ importers:
       i18next: 21.8.16
       tar: 6.1.11
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@types/fs-extra': 9.0.13
       '@types/jest': 28.1.6
       '@types/node': 18.6.4
@@ -937,35 +953,33 @@ importers:
       rimraf: 3.0.2
       rollup: 2.77.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       typedoc: 0.23.10_typescript@4.7.4
       typescript: 4.7.4
 
   libs/rollup-plugin-ts-alias:
     specifiers:
-      '@liuli-util/cli': workspace:*
-      '@types/fs-extra': ^9.0.13
+      '@liuli-util/fs-extra': workspace:^
       '@types/jest': ^28.1.6
-      fs-extra: ^10.1.0
       jest: ^28.1.3
       rimraf: ^3.0.2
       rollup: ^2.77.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       typescript: ^4.7.4
     dependencies:
-      fs-extra: 10.1.0
+      '@liuli-util/fs-extra': link:../fs-extra
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
-      '@types/fs-extra': 9.0.13
       '@types/jest': 28.1.6
       jest: 28.1.3
       rimraf: 3.0.2
       rollup: 2.77.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       typescript: 4.7.4
 
   libs/rollup-plugin-worker-threads:
     specifiers:
-      '@liuli-util/cli': workspace:*
       '@rollup/plugin-node-resolve': ^13.3.0
       '@rollup/pluginutils': ^4.2.1
       '@types/fs-extra': ^9.0.13
@@ -977,12 +991,12 @@ importers:
       rollup: ^2.77.2
       rollup-plugin-typescript2: ^0.32.1
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       typedoc: ^0.23.10
       typescript: ^4.7.4
     dependencies:
       '@rollup/pluginutils': 4.2.1
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@rollup/plugin-node-resolve': 13.3.0_rollup@2.77.2
       '@types/fs-extra': 9.0.13
       '@types/jest': 28.1.6
@@ -993,74 +1007,74 @@ importers:
       rollup: 2.77.2
       rollup-plugin-typescript2: 0.32.1_oo3i3f3qmqiztdz5qgxrrjmd5e
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       typedoc: 0.23.10_typescript@4.7.4
       typescript: 4.7.4
 
   libs/string:
     specifiers:
-      '@liuli-util/cli': workspace:*
       '@types/jest': ^28.1.6
       jest: ^28.1.3
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       typescript: ^4.7.4
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@types/jest': 28.1.6
       jest: 28.1.3
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       typescript: 4.7.4
 
   libs/test:
     specifiers:
-      '@liuli-util/cli': workspace:*
       '@types/jest': ^28.1.6
       '@types/node': ^18.6.4
       jest: ^28.1.3
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       type-fest: ^2.18.0
       typescript: ^4.7.4
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@types/jest': 28.1.6
       '@types/node': 18.6.4
       jest: 28.1.3_@types+node@18.6.4
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       type-fest: 2.18.0
       typescript: 4.7.4
 
   libs/tree:
     specifiers:
-      '@liuli-util/cli': workspace:*
       '@liuli-util/test': workspace:^3.3.0
       '@types/jest': ^28.1.6
       jest: ^28.1.3
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       typescript: ^4.7.4
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
       '@liuli-util/test': link:../test
       '@types/jest': 28.1.6
       jest: 28.1.3
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       typescript: 4.7.4
 
   libs/vite-plugin-css-dts:
     specifiers:
+      '@liuli-util/fs-extra': workspace:^
       '@types/css-tree': ^1.0.7
-      '@types/fs-extra': ^9.0.13
       '@types/lodash': ^4.14.182
       '@types/lodash-es': ^4.17.6
       '@types/node': ^18.7.23
       ast-types: ^0.14.2
       chokidar: ^3.5.3
       css-tree: ^2.2.1
-      fs-extra: ^10.1.0
       globby: ^13.1.2
       lodash: ^4.17.21
       lodash-es: ^4.17.21
@@ -1072,10 +1086,10 @@ importers:
       vite: ^3.1.0
       vitest: ^0.23.4
     dependencies:
+      '@liuli-util/fs-extra': link:../fs-extra
       ast-types: 0.14.2
       chokidar: 3.5.3
       css-tree: 2.2.1
-      fs-extra: 10.1.0
       globby: 13.1.2
       lodash: 4.17.21
       lodash-es: 4.17.21
@@ -1083,7 +1097,6 @@ importers:
       source-map: 0.7.4
     devDependencies:
       '@types/css-tree': 1.0.7
-      '@types/fs-extra': 9.0.13
       '@types/lodash': 4.14.182
       '@types/lodash-es': 4.17.6
       '@types/node': 18.7.23
@@ -1096,100 +1109,94 @@ importers:
   libs/vite-plugin-env-dts-gen:
     specifiers:
       '@liuli-util/array': workspace:^
-      '@liuli-util/cli': workspace:*
-      '@types/fs-extra': ^9.0.13
+      '@liuli-util/fs-extra': workspace:^
       '@types/jest': ^28.1.6
       '@types/node': ^18.6.4
       '@typescript-eslint/typescript-estree': ^5.32.0
       ast-types: ^0.14.2
       dotenv: ^16.0.1
       fast-glob: ^3.2.11
-      fs-extra: ^10.1.0
       jest: ^28.1.3
       recast: ^0.21.2
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       typescript: ^4.7.4
       vite: ^3.0.4
     dependencies:
       '@liuli-util/array': link:../array
+      '@liuli-util/fs-extra': link:../fs-extra
       '@typescript-eslint/typescript-estree': 5.32.0_typescript@4.7.4
       ast-types: 0.14.2
       dotenv: 16.0.1
       fast-glob: 3.2.11
-      fs-extra: 10.1.0
       recast: 0.21.2
     optionalDependencies:
       vite: 3.1.4
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
-      '@types/fs-extra': 9.0.13
       '@types/jest': 28.1.6
       '@types/node': 18.6.4
       jest: 28.1.3_@types+node@18.6.4
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       typescript: 4.7.4
 
   libs/vite-plugin-svg-patch:
     specifiers:
-      '@liuli-util/cli': workspace:^3.21.0
+      '@liuli-util/fs-extra': workspace:^
       '@rollup/pluginutils': ^4.2.1
-      '@types/fs-extra': ^9.0.13
       '@types/node': ^18.6.4
       '@types/svgo': ^2.6.3
-      fs-extra: ^10.1.0
       mini-svg-data-uri: ^1.4.4
       rimraf: ^3.0.2
       svgo: ^2.8.0
+      tsup: ^6.2.3
       type-fest: ^2.18.0
       typescript: ^4.7.4
       vite: ^3.0.4
     dependencies:
+      '@liuli-util/fs-extra': link:../fs-extra
       '@rollup/pluginutils': 4.2.1
-      fs-extra: 10.1.0
       mini-svg-data-uri: 1.4.4
       svgo: 2.8.0
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
-      '@types/fs-extra': 9.0.13
       '@types/node': 18.6.4
       '@types/svgo': 2.6.3
       rimraf: 3.0.2
+      tsup: 6.2.3_typescript@4.7.4
       type-fest: 2.18.0
       typescript: 4.7.4
       vite: 3.0.4
 
   libs/vite-plugin-version-info:
     specifiers:
-      '@liuli-util/cli': '*'
-      '@types/fs-extra': ^9.0.13
+      '@liuli-util/fs-extra': workspace:^
       '@types/jest': ^28.1.6
       '@types/node': ^18.6.4
       envfile: ^6.17.0
-      fs-extra: ^10.1.0
       jest: ^28.1.3
       node-html-parser: ^5.3.3
       rimraf: ^3.0.2
       ts-jest: ^28.0.7
+      tsup: ^6.2.3
       type-fest: ^2.18.0
       typedoc: ^0.23.10
       typescript: ^4.7.4
       vite: ^3.0.4
       vite-plugin-html: ^3.2.0
     dependencies:
+      '@liuli-util/fs-extra': link:../fs-extra
       envfile: 6.17.0
-      fs-extra: 10.1.0
       node-html-parser: 5.3.3
       vite-plugin-html: 3.2.0_vite@3.0.4
     devDependencies:
-      '@liuli-util/cli': link:../../apps/liuli-cli
-      '@types/fs-extra': 9.0.13
       '@types/jest': 28.1.6
       '@types/node': 18.6.4
       jest: 28.1.3_@types+node@18.6.4
       rimraf: 3.0.2
       ts-jest: 28.0.7_bi2kohzqnxavgozw3csgny5hju
+      tsup: 6.2.3_typescript@4.7.4
       type-fest: 2.18.0
       typedoc: 0.23.10_typescript@4.7.4
       typescript: 4.7.4
@@ -1204,10 +1211,12 @@ importers:
       '@types/jest': ^28.1.6
       '@types/node': ^18.6.4
       '@types/uuid': ^8.3.4
+      ast-types: ^0.14.2
       esno: ^0.16.3
       fast-glob: ^3.2.11
       fs-extra: ^10.1.0
       jest: ^28.1.3
+      recast: ^0.21.2
       ts-jest: ^28.0.7
       type-fest: ^2.18.0
       uuid: ^8.3.2
@@ -1223,9 +1232,11 @@ importers:
       '@types/jest': 28.1.6
       '@types/node': 18.6.4
       '@types/uuid': 8.3.4
+      ast-types: 0.14.2
       esno: 0.16.3
       fast-glob: 3.2.11
       jest: 28.1.3_@types+node@18.6.4
+      recast: 0.21.2
       ts-jest: 28.0.7_jest@28.1.3
       type-fest: 2.18.0
       yaml: 2.1.1
@@ -3540,7 +3551,6 @@ packages:
     resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
     dependencies:
       '@types/node': 18.7.23
-    dev: true
 
   /@types/gh-pages/3.2.1:
     resolution: {integrity: sha512-y5ULkwfoOEUa6sp2te+iEODv2S//DRiKmxpeXboXhhv+s758rSSxLUiBd6NnlR7aAY4nw1X4FGovLrSWEXWLow==}
@@ -4169,7 +4179,6 @@ packages:
     engines: {node: '>=4'}
     dependencies:
       tslib: 2.4.0
-    dev: false
 
   /ast-types/0.15.2:
     resolution: {integrity: sha512-c27loCv9QkZinsa5ProX751khO9DJl/AcB5c2KNtA6NRvHKS0PgLfcftz72KVq504vB0Gku5s2kUZzDBvQWvHg==}
@@ -5341,14 +5350,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-android-arm64/0.13.15:
-    resolution: {integrity: sha512-m602nft/XXeO8YQPUDVoHfjyRVPdPgjyyXOxZ44MK/agewFFkPa8tUo6lAzSWh5Ui5PB4KR9UIFTSBKh/RrCmg==}
-    cpu: [arm64]
-    os: [android]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /esbuild-android-arm64/0.14.39:
     resolution: {integrity: sha512-+twajJqO7n3MrCz9e+2lVOnFplRsaGRwsq1KL/uOy7xK7QdRSprRQcObGDeDZUZsacD5gUkk6OiHiYp6RzU3CA==}
     engines: {node: '>=12'}
@@ -5371,14 +5372,6 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
-    optional: true
-
-  /esbuild-darwin-64/0.13.15:
-    resolution: {integrity: sha512-ihOQRGs2yyp7t5bArCwnvn2Atr6X4axqPpEdCFPVp7iUj4cVSdisgvEKdNR7yH3JDjW6aQDw40iQFoTqejqxvQ==}
-    cpu: [x64]
-    os: [darwin]
-    requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-darwin-64/0.14.39:
@@ -5405,14 +5398,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-darwin-arm64/0.13.15:
-    resolution: {integrity: sha512-i1FZssTVxUqNlJ6cBTj5YQj4imWy3m49RZRnHhLpefFIh0To05ow9DTrXROTE1urGTQCloFUXTX8QfGJy1P8dQ==}
-    cpu: [arm64]
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /esbuild-darwin-arm64/0.14.39:
     resolution: {integrity: sha512-/fcQ5UhE05OiT+bW5v7/up1bDsnvaRZPJxXwzXsMRrr7rZqPa85vayrD723oWMT64dhrgWeA3FIneF8yER0XTw==}
     engines: {node: '>=12'}
@@ -5435,14 +5420,6 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
-    optional: true
-
-  /esbuild-freebsd-64/0.13.15:
-    resolution: {integrity: sha512-G3dLBXUI6lC6Z09/x+WtXBXbOYQZ0E8TDBqvn7aMaOCzryJs8LyVXKY4CPnHFXZAbSwkCbqiPuSQ1+HhrNk7EA==}
-    cpu: [x64]
-    os: [freebsd]
-    requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-freebsd-64/0.14.39:
@@ -5469,14 +5446,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-freebsd-arm64/0.13.15:
-    resolution: {integrity: sha512-KJx0fzEDf1uhNOZQStV4ujg30WlnwqUASaGSFPhznLM/bbheu9HhqZ6mJJZM32lkyfGJikw0jg7v3S0oAvtvQQ==}
-    cpu: [arm64]
-    os: [freebsd]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /esbuild-freebsd-arm64/0.14.39:
     resolution: {integrity: sha512-1GHK7kwk57ukY2yI4ILWKJXaxfr+8HcM/r/JKCGCPziIVlL+Wi7RbJ2OzMcTKZ1HpvEqCTBT/J6cO4ZEwW4Ypg==}
     engines: {node: '>=12'}
@@ -5499,14 +5468,6 @@ packages:
     cpu: [arm64]
     os: [freebsd]
     requiresBuild: true
-    optional: true
-
-  /esbuild-linux-32/0.13.15:
-    resolution: {integrity: sha512-ZvTBPk0YWCLMCXiFmD5EUtB30zIPvC5Itxz0mdTu/xZBbbHJftQgLWY49wEPSn2T/TxahYCRDWun5smRa0Tu+g==}
-    cpu: [ia32]
-    os: [linux]
-    requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-linux-32/0.14.39:
@@ -5533,14 +5494,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-linux-64/0.13.15:
-    resolution: {integrity: sha512-eCKzkNSLywNeQTRBxJRQ0jxRCl2YWdMB3+PkWFo2BBQYC5mISLIVIjThNtn6HUNqua1pnvgP5xX0nHbZbPj5oA==}
-    cpu: [x64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /esbuild-linux-64/0.14.39:
     resolution: {integrity: sha512-4tcgFDYWdI+UbNMGlua9u1Zhu0N5R6u9tl5WOM8aVnNX143JZoBZLpCuUr5lCKhnD0SCO+5gUyMfupGrHtfggQ==}
     engines: {node: '>=12'}
@@ -5563,14 +5516,6 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    optional: true
-
-  /esbuild-linux-arm/0.13.15:
-    resolution: {integrity: sha512-wUHttDi/ol0tD8ZgUMDH8Ef7IbDX+/UsWJOXaAyTdkT7Yy9ZBqPg8bgB/Dn3CZ9SBpNieozrPRHm0BGww7W/jA==}
-    cpu: [arm]
-    os: [linux]
-    requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-linux-arm/0.14.39:
@@ -5597,14 +5542,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-linux-arm64/0.13.15:
-    resolution: {integrity: sha512-bYpuUlN6qYU9slzr/ltyLTR9YTBS7qUDymO8SV7kjeNext61OdmqFAzuVZom+OLW1HPHseBfJ/JfdSlx8oTUoA==}
-    cpu: [arm64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /esbuild-linux-arm64/0.14.39:
     resolution: {integrity: sha512-23pc8MlD2D6Px1mV8GMglZlKgwgNKAO8gsgsLLcXWSs9lQsCYkIlMo/2Ycfo5JrDIbLdwgP8D2vpfH2KcBqrDQ==}
     engines: {node: '>=12'}
@@ -5629,14 +5566,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-linux-mips64le/0.13.15:
-    resolution: {integrity: sha512-KlVjIG828uFPyJkO/8gKwy9RbXhCEUeFsCGOJBepUlpa7G8/SeZgncUEz/tOOUJTcWMTmFMtdd3GElGyAtbSWg==}
-    cpu: [mips64el]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /esbuild-linux-mips64le/0.14.39:
     resolution: {integrity: sha512-epwlYgVdbmkuRr5n4es3B+yDI0I2e/nxhKejT9H0OLxFAlMkeQZxSpxATpDc9m8NqRci6Kwyb/SfmD1koG2Zuw==}
     engines: {node: '>=12'}
@@ -5659,14 +5588,6 @@ packages:
     cpu: [mips64el]
     os: [linux]
     requiresBuild: true
-    optional: true
-
-  /esbuild-linux-ppc64le/0.13.15:
-    resolution: {integrity: sha512-h6gYF+OsaqEuBjeesTBtUPw0bmiDu7eAeuc2OEH9S6mV9/jPhPdhOWzdeshb0BskRZxPhxPOjqZ+/OqLcxQwEQ==}
-    cpu: [ppc64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-linux-ppc64le/0.14.39:
@@ -5741,14 +5662,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-netbsd-64/0.13.15:
-    resolution: {integrity: sha512-3+yE9emwoevLMyvu+iR3rsa+Xwhie7ZEHMGDQ6dkqP/ndFzRHkobHUKTe+NCApSqG5ce2z4rFu+NX/UHnxlh3w==}
-    cpu: [x64]
-    os: [netbsd]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /esbuild-netbsd-64/0.14.39:
     resolution: {integrity: sha512-Uo2suJBSIlrZCe4E0k75VDIFJWfZy+bOV6ih3T4MVMRJh1lHJ2UyGoaX4bOxomYN3t+IakHPyEoln1+qJ1qYaA==}
     engines: {node: '>=12'}
@@ -5771,20 +5684,6 @@ packages:
     cpu: [x64]
     os: [netbsd]
     requiresBuild: true
-    optional: true
-
-  /esbuild-node-loader/0.3.2:
-    resolution: {integrity: sha512-4Y6sTwvB5pH+A7gmpd/xzyPkOZC4nmEWRoGBi4BQoE0DhZvrrzHqSmT+jb4x7m1rwv4BCuNbajN13LN8D0PGoA==}
-    dependencies:
-      esbuild: 0.13.15
-    dev: true
-
-  /esbuild-openbsd-64/0.13.15:
-    resolution: {integrity: sha512-wTfvtwYJYAFL1fSs8yHIdf5GEE4NkbtbXtjLWjM3Cw8mmQKqsg8kTiqJ9NJQe5NX/5Qlo7Xd9r1yKMMkHllp5g==}
-    cpu: [x64]
-    os: [openbsd]
-    requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-openbsd-64/0.14.39:
@@ -5811,22 +5710,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-register/3.3.3_esbuild@0.12.29:
-    resolution: {integrity: sha512-eFHOkutgIMJY5gc8LUp/7c+LLlDqzNi9T6AwCZ2WKKl3HmT+5ef3ZRyPPxDOynInML0fgaC50yszPKfPnjC0NQ==}
-    peerDependencies:
-      esbuild: '>=0.12 <1'
-    dependencies:
-      esbuild: 0.12.29
-    dev: true
-
-  /esbuild-sunos-64/0.13.15:
-    resolution: {integrity: sha512-lbivT9Bx3t1iWWrSnGyBP9ODriEvWDRiweAs69vI+miJoeKwHWOComSRukttbuzjZ8r1q0mQJ8Z7yUsDJ3hKdw==}
-    cpu: [x64]
-    os: [sunos]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /esbuild-sunos-64/0.14.39:
     resolution: {integrity: sha512-qHq0t5gePEDm2nqZLb+35p/qkaXVS7oIe32R0ECh2HOdiXXkj/1uQI9IRogGqKkK+QjDG+DhwiUw7QoHur/Rwg==}
     engines: {node: '>=12'}
@@ -5849,14 +5732,6 @@ packages:
     cpu: [x64]
     os: [sunos]
     requiresBuild: true
-    optional: true
-
-  /esbuild-windows-32/0.13.15:
-    resolution: {integrity: sha512-fDMEf2g3SsJ599MBr50cY5ve5lP1wyVwTe6aLJsM01KtxyKkB4UT+fc5MXQFn3RLrAIAZOG+tHC+yXObpSn7Nw==}
-    cpu: [ia32]
-    os: [win32]
-    requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-windows-32/0.14.39:
@@ -5883,14 +5758,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-windows-64/0.13.15:
-    resolution: {integrity: sha512-9aMsPRGDWCd3bGjUIKG/ZOJPKsiztlxl/Q3C1XDswO6eNX/Jtwu4M+jb6YDH9hRSUflQWX0XKAfWzgy5Wk54JQ==}
-    cpu: [x64]
-    os: [win32]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /esbuild-windows-64/0.14.39:
     resolution: {integrity: sha512-E2wm+5FwCcLpKsBHRw28bSYQw0Ikxb7zIMxw3OPAkiaQhLVr3dnVO8DofmbWhhf6b97bWzg37iSZ45ZDpLw7Ow==}
     engines: {node: '>=12'}
@@ -5913,14 +5780,6 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
-    optional: true
-
-  /esbuild-windows-arm64/0.13.15:
-    resolution: {integrity: sha512-zzvyCVVpbwQQATaf3IG8mu1IwGEiDxKkYUdA4FpoCHi1KtPa13jeScYDjlW0Qh+ebWzpKfR2ZwvqAQkSWNcKjA==}
-    cpu: [arm64]
-    os: [win32]
-    requiresBuild: true
-    dev: true
     optional: true
 
   /esbuild-windows-arm64/0.14.39:
@@ -5946,36 +5805,6 @@ packages:
     os: [win32]
     requiresBuild: true
     optional: true
-
-  /esbuild/0.12.29:
-    resolution: {integrity: sha512-w/XuoBCSwepyiZtIRsKsetiLDUVGPVw1E/R3VTFSecIy8UR7Cq3SOtwKHJMFoVqqVG36aGkzh4e8BvpO1Fdc7g==}
-    hasBin: true
-    requiresBuild: true
-    dev: true
-
-  /esbuild/0.13.15:
-    resolution: {integrity: sha512-raCxt02HBKv8RJxE8vkTSCXGIyKHdEdGfUmiYb8wnabnaEmHzyW7DCHb5tEN0xU8ryqg5xw54mcwnYkC4x3AIw==}
-    hasBin: true
-    requiresBuild: true
-    optionalDependencies:
-      esbuild-android-arm64: 0.13.15
-      esbuild-darwin-64: 0.13.15
-      esbuild-darwin-arm64: 0.13.15
-      esbuild-freebsd-64: 0.13.15
-      esbuild-freebsd-arm64: 0.13.15
-      esbuild-linux-32: 0.13.15
-      esbuild-linux-64: 0.13.15
-      esbuild-linux-arm: 0.13.15
-      esbuild-linux-arm64: 0.13.15
-      esbuild-linux-mips64le: 0.13.15
-      esbuild-linux-ppc64le: 0.13.15
-      esbuild-netbsd-64: 0.13.15
-      esbuild-openbsd-64: 0.13.15
-      esbuild-sunos-64: 0.13.15
-      esbuild-windows-32: 0.13.15
-      esbuild-windows-64: 0.13.15
-      esbuild-windows-arm64: 0.13.15
-    dev: true
 
   /esbuild/0.14.39:
     resolution: {integrity: sha512-2kKujuzvRWYtwvNjYDY444LQIA3TyJhJIX3Yo4+qkFlDDtGlSicWgeHVJqMUP/2sSfH10PGwfsj+O2ro1m10xQ==}
@@ -6218,16 +6047,6 @@ packages:
     hasBin: true
     dependencies:
       tsx: 3.9.0
-    dev: true
-
-  /esno/0.9.1:
-    resolution: {integrity: sha512-3pnZ7fI0+8R7kJSTwuOfzAvXNXun7eaZsTSE5avkNRrxTokq3Jm32gaah3Zgl5opHQ1K9SJasoQQySzmfN8alw==}
-    hasBin: true
-    dependencies:
-      cross-spawn: 7.0.3
-      esbuild: 0.12.29
-      esbuild-node-loader: 0.3.2
-      esbuild-register: 3.3.3_esbuild@0.12.29
     dev: true
 
   /espree/9.3.3:
@@ -8584,7 +8403,6 @@ packages:
 
   /lodash-es/4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
-    dev: false
 
   /lodash.debounce/4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
@@ -10671,6 +10489,42 @@ packages:
   /tslib/2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
 
+  /tsup/6.2.3_typescript@4.7.4:
+    resolution: {integrity: sha512-J5Pu2Dx0E1wlpIEsVFv9ryzP1pZ1OYsJ2cBHZ7GrKteytNdzaSz5hmLX7/nAxtypq+jVkVvA79d7S83ETgHQ5w==}
+    engines: {node: '>=14'}
+    hasBin: true
+    peerDependencies:
+      '@swc/core': ^1
+      postcss: ^8.4.12
+      typescript: ^4.1.0
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      postcss:
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      bundle-require: 3.1.0_esbuild@0.15.9
+      cac: 6.7.14
+      chokidar: 3.5.3
+      debug: 4.3.4
+      esbuild: 0.15.9
+      execa: 5.1.1
+      globby: 11.1.0
+      joycon: 3.1.1
+      postcss-load-config: 3.1.4
+      resolve-from: 5.0.0
+      rollup: 2.78.1
+      source-map: 0.8.0-beta.0
+      sucrase: 3.27.0
+      tree-kill: 1.2.2
+      typescript: 4.7.4
+    transitivePeerDependencies:
+      - supports-color
+      - ts-node
+    dev: true
+
   /tsup/6.2.3_typescript@4.8.4:
     resolution: {integrity: sha512-J5Pu2Dx0E1wlpIEsVFv9ryzP1pZ1OYsJ2cBHZ7GrKteytNdzaSz5hmLX7/nAxtypq+jVkVvA79d7S83ETgHQ5w==}
     engines: {node: '>=14'}
@@ -10697,7 +10551,7 @@ packages:
       joycon: 3.1.1
       postcss-load-config: 3.1.4
       resolve-from: 5.0.0
-      rollup: 2.77.2
+      rollup: 2.78.1
       source-map: 0.8.0-beta.0
       sucrase: 3.27.0
       tree-kill: 1.2.2
@@ -11067,7 +10921,7 @@ packages:
       tinybench: 2.2.1
       tinypool: 0.3.0
       tinyspy: 1.0.2
-      vite: 3.0.4
+      vite: 3.1.4
     transitivePeerDependencies:
       - less
       - sass

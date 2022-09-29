@@ -1,18 +1,15 @@
 {
   "name": "@liuli-util/array",
   "version": "3.4.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
   "description": "数组相关功能的函数库",
   "scripts": {
     "setup": "pnpm build",
-    "build": "liuli-cli build lib",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
     "test": "jest --all",
     "lint": "eslint --fix src/**"
   },
   "devDependencies": {
-    "@liuli-util/cli": "workspace:*",
     "@liuli-util/test": "workspace:*",
     "@types/jest": "^28.1.6",
     "@types/mockjs": "^1.0.6",
@@ -20,7 +17,8 @@
     "mockjs": "^1.1.0",
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.7",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "tsup": "^6.2.3"
   },
   "jest": {
     "preset": "ts-jest"
@@ -32,9 +30,8 @@
   "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f",
   "license": "MIT",
   "exports": {
-    "import": "./dist/index.esm.js",
-    "require": "./dist/index.js",
-    "types": "./dist/index.d.ts"
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
   },
   "type": "module"
 }

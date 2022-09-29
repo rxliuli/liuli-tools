@@ -1,5 +1,5 @@
 import { AsyncArray } from '@liuli-util/async'
-import { pathExists, readFile, readJson } from 'fs-extra'
+import { pathExists, readFile, readJson } from '@liuli-util/fs-extra'
 import * as path from 'path'
 import { parse } from 'yaml'
 import { globby } from './globby'
@@ -23,12 +23,15 @@ async function findMonorepoConfig(rootPath: string): Promise<string[]> {
   if (await pathExists(path.resolve(rootPath, 'pnpm-lock.yaml'))) {
     return parsePnpmConfig(rootPath)
   }
+
   if (await pathExists(path.resolve(rootPath, 'package-lock.json'))) {
     return parseNpmConfig(rootPath)
   }
+
   if (await pathExists(path.resolve(rootPath, 'yarn.lock'))) {
     return parseYarnConfig(rootPath)
   }
+
   throw new Error('不支持的包管理器')
 }
 
@@ -37,6 +40,10 @@ async function findMonorepoConfig(rootPath: string): Promise<string[]> {
  */
 export async function scanMods(rootPath: string): Promise<string[]> {
   const packages = await findMonorepoConfig(rootPath)
-  const list = await globby(packages, { cwd: rootPath })
+
+  const list = await globby(packages, {
+    cwd: rootPath,
+  })
+
   return await AsyncArray.filter(list, (s) => pathExists(path.resolve(rootPath, s, 'package.json')))
 }

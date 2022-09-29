@@ -1,18 +1,15 @@
 {
   "name": "@liuli-util/i18next-dts-gen",
   "version": "0.5.0",
-  "main": "./dist/index.js",
-  "module": "dist/index.js",
   "types": "./dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "setup": "pnpm start && pnpm build",
-    "build": "liuli-cli build cli",
-    "dev": "liuli-cli build cli -w",
-    "start": "esno src/bin.ts --dirs src/i18n",
+    "build": "tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm",
+    "dev": "tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm --watch",
+    "start": "tsx src/bin.ts --dirs src/i18n",
     "docs-dev": "typedoc --watch",
     "docs-build": "rimraf docs && typedoc",
-    "docs-deploy": "pnpm docs-build && liuli-cli deploy",
     "lint": "eslint --fix src/**",
     "test": "jest --all"
   },
@@ -39,34 +36,32 @@
   "dependencies": {
     "@liuli-util/array": "workspace:^",
     "@liuli-util/async": "workspace:^",
+    "@liuli-util/fs-extra": "workspace:^",
     "ast-types": "^0.14.2",
     "chokidar": "^3.5.3",
     "commander": "^9.4.0",
-    "fs-extra": "^10.1.0",
     "i18next": "^21.8.16",
     "recast": "^0.21.2"
   },
   "devDependencies": {
     "@liuli-util/ast-types-code-generator-generator": "workspace:^",
-    "@liuli-util/cli": "workspace:*",
     "@liuli-util/test": "workspace:^3.3.0",
-    "@types/fs-extra": "^9.0.13",
     "@types/jest": "^28.1.6",
     "@types/node": "^18.6.4",
     "@types/prettier": "^2.7.0",
     "dts-minify": "^0.3.0",
-    "esno": "^0.16.3",
     "jest": "^28.1.3",
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.7",
+    "tsup": "^6.2.3",
+    "tsx": "^3.9.0",
     "type-fest": "^2.18.0",
     "typedoc": "^0.23.10",
     "typescript": "^4.7.4"
   },
   "exports": {
-    "import": "dist/index.js",
-    "require": "./dist/index.js",
-    "types": "./dist/index.d.ts"
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
   },
   "type": "module"
 }

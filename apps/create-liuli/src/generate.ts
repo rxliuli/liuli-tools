@@ -1,9 +1,9 @@
-import fsExtra, { copy, pathExists, readJson, writeJson } from 'fs-extra'
+import fsExtra from 'fs-extra'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { PackageJson } from 'type-fest'
 
-// const { copy, pathExists, readJson, writeJson } = fsExtra
+const { copy, pathExists, readJson, writeJson } = fsExtra
 
 export interface GenerateOptions {
   cwd: string

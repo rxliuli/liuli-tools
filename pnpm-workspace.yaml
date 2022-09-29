@@ -1,6 +1,7 @@
 packages:
   - 'apps/*'
   - 'apps/liuli-cli/templates/*'
+  - 'apps/create-liuli/templates/*'
   - 'libs/*'
   - 'examples/*'
   - 'scripts'

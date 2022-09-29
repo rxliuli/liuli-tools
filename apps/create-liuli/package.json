@@ -1,0 +1,33 @@
+{
+  "name": "create-liuli",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "setup": "pnpm build",
+    "build": "pnpm tsup src/bin.ts --format esm",
+    "start": "tsx src/bin.ts",
+    "test": "vitest run"
+  },
+  "bin": {
+    "bundle": "./bin.js"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^18.7.23",
+    "tsup": "^6.2.3",
+    "tsx": "^3.9.0",
+    "type-fest": "^3.0.0",
+    "typescript": "^4.8.4",
+    "vitest": "^0.23.4"
+  },
+  "dependencies": {
+    "commander": "^9.4.0",
+    "fs-extra": "^10.1.0"
+  }
+}

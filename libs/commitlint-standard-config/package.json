@@ -12,5 +12,6 @@
   },
   "peerDependencies": {
     "@commitlint/cli": "^12.1.4"
-  }
+  },
+  "type": "module"
 }

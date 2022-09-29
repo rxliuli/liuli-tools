@@ -45,5 +45,6 @@
     "import": "./dist/index.esm.js",
     "require": "./dist/index.js",
     "types": "./dist/index.d.ts"
-  }
+  },
+  "type": "module"
 }

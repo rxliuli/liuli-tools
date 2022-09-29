@@ -13,5 +13,6 @@
   },
   "peerDependencies": {
     "prettier": "^2"
-  }
+  },
+  "type": "module"
 }

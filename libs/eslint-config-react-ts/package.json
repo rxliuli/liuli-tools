@@ -22,5 +22,6 @@
   },
   "peerDependencies": {
     "typescript": ">=4"
-  }
+  },
+  "type": "module"
 }

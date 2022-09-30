@@ -6,13 +6,11 @@
   "sideEffects": false,
   "scripts": {
     "setup": "pnpm build",
-    "build": "pnpm tsup src/bin.ts --format esm",
+    "build": "pnpm tsup src/bin.ts --format esm --target esnext",
     "start": "tsx src/bin.ts",
     "test": "vitest run"
   },
-  "bin": {
-    "bundle": "./bin.js"
-  },
+  "bin": "./bin.js",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

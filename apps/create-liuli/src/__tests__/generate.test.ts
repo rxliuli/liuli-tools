@@ -41,3 +41,13 @@ it('generate by overwrite', async () => {
 
   expect(await pathExists(path.resolve(tempPath, 'test/package.json'))).toBeTruthy()
 })
+
+it('generate cli', async () => {
+  await generate({
+    cwd: tempPath,
+    name: '@liuli-util/test-cli',
+    type: 'cli',
+  })
+
+  expect(await pathExists(path.resolve(tempPath, 'test-cli/package.json'))).toBeTruthy()
+})

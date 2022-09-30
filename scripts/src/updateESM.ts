@@ -37,8 +37,14 @@ async function updateBundle(modPath: string) {
   if (json.scripts) {
     Object.keys(json.scripts).forEach((k) => {
       const matches = [
-        ['liuli-cli build cli -w', 'tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm --watch'],
-        ['liuli-cli build cli', 'tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm'],
+        [
+          'liuli-cli build cli -w',
+          'tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm --target esnext --watch',
+        ],
+        [
+          'liuli-cli build cli',
+          'tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm --target esnext',
+        ],
         ['liuli-cli build lib -w', 'tsup src/index.ts --format esm,cjs --dts --watch'],
         ['liuli-cli build lib', 'tsup src/index.ts --format esm,cjs --dts'],
       ]

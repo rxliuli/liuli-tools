@@ -14,9 +14,6 @@
     "import": "./dist/index.js",
     "require": "./dist/index.cjs"
   },
-  "bin": {
-    "bundle": "./bin.js"
-  },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

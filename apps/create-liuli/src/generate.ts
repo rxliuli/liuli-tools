@@ -5,7 +5,7 @@ import type { PackageJson } from 'type-fest'
 
 export interface GenerateOptions {
   cwd: string
-  type: 'lib'
+  type: 'lib' | 'cli'
   name: string
   overwrite?: boolean
 }

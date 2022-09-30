@@ -5,8 +5,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm",
-    "dev": "tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm --watch",
+    "build": "tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm --target esnext",
+    "dev": "tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm --target esnext --watch",
     "start": "tsx src/bin.ts"
   },
   "bin": {

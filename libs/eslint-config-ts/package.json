@@ -2,16 +2,13 @@
   "name": "@liuli-util/eslint-config-ts",
   "version": "0.4.0",
   "license": "MIT",
-  "main": "./.eslintrc.json",
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/rxliuli/liuli-tools",
     "directory": "libs/eslint-config-ts"
   },
+  "type": "module",
+  "main": "./.eslintrc.json",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
@@ -22,5 +19,8 @@
   "peerDependencies": {
     "typescript": ">=4"
   },
-  "type": "module"
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }

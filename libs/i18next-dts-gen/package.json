@@ -1,32 +1,28 @@
 {
   "name": "@liuli-util/i18next-dts-gen",
   "version": "0.5.0",
-  "types": "./dist/index.d.ts",
   "license": "MIT",
-  "scripts": {
-    "setup": "pnpm start && pnpm build",
-    "build": "tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm --target esnext",
-    "dev": "tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm --target esnext --watch",
-    "start": "tsx src/bin.ts --dirs src/i18n",
-    "docs-dev": "typedoc --watch",
-    "docs-build": "rimraf docs && typedoc",
-    "lint": "eslint --fix src/**",
-    "test": "vitest run"
-  },
-  "deploy": {
-    "type": "gh-pages",
-    "dist": "docs/",
-    "dest": "/i18next-dts-gen"
-  },
-  "bin": "./bin.js",
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/rxliuli/liuli-tools/tree/master/libs/i18next-dts-gen"
   },
+  "type": "module",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
+  "bin": "./bin.js",
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm --target esnext",
+    "dev": "tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm --target esnext --watch",
+    "docs-build": "rimraf docs && typedoc",
+    "docs-dev": "typedoc --watch",
+    "lint": "eslint --fix src/**",
+    "setup": "pnpm start && pnpm build",
+    "start": "tsx src/bin.ts --dirs src/i18n",
+    "test": "vitest run"
+  },
+  "types": "./dist/index.d.ts",
   "dependencies": {
     "@liuli-util/array": "workspace:^",
     "@liuli-util/async": "workspace:^",
@@ -51,9 +47,13 @@
     "typescript": "^4.7.4",
     "vitest": "^0.23.4"
   },
-  "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
-  "type": "module"
+  "deploy": {
+    "type": "gh-pages",
+    "dist": "docs/",
+    "dest": "/i18next-dts-gen"
+  }
 }

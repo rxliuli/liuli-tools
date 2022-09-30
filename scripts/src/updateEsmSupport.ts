@@ -1,5 +1,6 @@
+import { createRequire } from 'module'
 import { AsyncArray } from '@liuli-util/async'
-import { readJson, writeJson } from 'fs-extra'
+import { readJson, writeJson } from '@liuli-util/fs-extra'
 import path from 'path'
 import { PackageJson } from 'type-fest'
 import { findPnpmRootPath } from './utils/findPnpmRootPath'

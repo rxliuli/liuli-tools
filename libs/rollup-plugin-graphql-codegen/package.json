@@ -1,31 +1,19 @@
 {
   "name": "@liuli-util/rollup-plugin-graphql-codegen",
   "version": "0.3.0",
-  "types": "./dist/index.d.ts",
   "license": "MIT",
+  "type": "module",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
   "scripts": {
-    "setup": "pnpm build",
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
-    "lint": "eslint --fix src/**"
+    "lint": "eslint --fix src/**",
+    "setup": "pnpm build"
   },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
-  "peerDependencies": {
-    "rollup": "^2"
-  },
-  "devDependencies": {
-    "@types/node": "^18.6.4",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.77.2",
-    "typescript": "^4.7.4",
-    "tsup": "^6.2.3"
-  },
-  "sync": [
-    "jest"
-  ],
+  "types": "./dist/index.d.ts",
   "dependencies": {
     "@graphql-codegen/cli": "2.11.3",
     "@graphql-codegen/near-operation-file-preset": "^2.4.0",
@@ -34,12 +22,24 @@
     "@graphql-codegen/typescript": "^2.7.2",
     "@graphql-codegen/typescript-operations": "^2.5.2",
     "@graphql-typed-document-node/core": "^3.1.1",
-    "comlink": "^4.3.1",
-    "@liuli-util/fs-extra": "workspace:^"
+    "@liuli-util/fs-extra": "workspace:^",
+    "comlink": "^4.3.1"
   },
-  "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
+  "peerDependencies": {
+    "rollup": "^2"
   },
-  "type": "module"
+  "devDependencies": {
+    "@types/node": "^18.6.4",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.77.2",
+    "tsup": "^6.2.3",
+    "typescript": "^4.7.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "sync": [
+    "jest"
+  ]
 }

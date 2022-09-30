@@ -3,24 +3,24 @@
   "version": "0.1.0",
   "license": "MIT",
   "type": "module",
-  "sideEffects": false,
-  "scripts": {
-    "setup": "pnpm build",
-    "build": "tsup src/index.ts --format esm,cjs --dts",
-    "test": "vitest run"
-  },
   "exports": {
     "import": "./dist/index.js",
     "require": "./dist/index.cjs"
   },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "setup": "pnpm build",
+    "test": "vitest run"
   },
+  "sideEffects": false,
   "devDependencies": {
     "tsup": "^6.2.3",
     "tsx": "^3.9.0",
-    "vitest": "^0.23.4",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "vitest": "^0.23.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

@@ -1,43 +1,43 @@
 {
   "name": "@liuli-util/vite-plugin-env-dts-gen",
   "version": "0.2.0",
-  "types": "./dist/index.d.ts",
   "license": "MIT",
+  "type": "module",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
   "scripts": {
-    "setup": "npm run build",
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "lint": "eslint --fix src/**",
+    "setup": "npm run build",
     "test": "vitest run"
+  },
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "@liuli-util/array": "workspace:^",
+    "@liuli-util/fs-extra": "workspace:^",
+    "@typescript-eslint/typescript-estree": "^5.32.0",
+    "ast-types": "^0.14.2",
+    "dotenv": "^16.0.1",
+    "fast-glob": "^3.2.11",
+    "recast": "^0.21.2"
+  },
+  "optionalDependencies": {
+    "vite": "^3.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.6.4",
+    "rimraf": "^3.0.2",
+    "tsup": "^6.2.3",
+    "typescript": "^4.7.4",
+    "vite": "^2.7.10",
+    "vitest": "^0.23.4"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "devDependencies": {
-    "@types/node": "^18.6.4",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.7.4",
-    "vite": "^2.7.10",
-    "tsup": "^6.2.3",
-    "vitest": "^0.23.4"
-  },
-  "optionalDependencies": {
-    "vite": "^3.0.4"
-  },
-  "sync": [],
-  "dependencies": {
-    "ast-types": "^0.14.2",
-    "recast": "^0.21.2",
-    "fast-glob": "^3.2.11",
-    "@liuli-util/array": "workspace:^",
-    "@typescript-eslint/typescript-estree": "^5.32.0",
-    "dotenv": "^16.0.1",
-    "@liuli-util/fs-extra": "workspace:^"
-  },
-  "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
-  },
-  "type": "module"
+  "sync": []
 }

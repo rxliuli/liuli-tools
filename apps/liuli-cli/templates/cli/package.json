@@ -1,33 +1,33 @@
 {
+  "private": true,
   "name": "@liuli-util/cli-template",
   "version": "0.2.0",
-  "types": "./dist/index.d.ts",
-  "private": true,
   "license": "MIT",
+  "type": "module",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
+  "bin": {
+    "cli-name": "./bin.js"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm --target esnext",
     "dev": "tsup src/index.ts --format esm,cjs --dts && tsup src/bin.ts --format esm --target esnext --watch",
     "start": "tsx src/bin.ts"
   },
-  "bin": {
-    "cli-name": "./bin.js"
-  },
+  "types": "./dist/index.d.ts",
   "dependencies": {
+    "@liuli-util/fs-extra": "workspace:^",
     "commander": "^9.4.0",
-    "enquirer": "^2.3.6",
-    "@liuli-util/fs-extra": "workspace:^"
+    "enquirer": "^2.3.6"
   },
   "devDependencies": {
     "@types/node": "^18.6.4",
     "rimraf": "^3.0.2",
-    "type-fest": "^2.18.0",
-    "typescript": "^4.7.4",
     "tsup": "^6.2.3",
-    "tsx": "^3.9.0"
-  },
-  "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
-  },
-  "type": "module"
+    "tsx": "^3.9.0",
+    "type-fest": "^2.18.0",
+    "typescript": "^4.7.4"
+  }
 }

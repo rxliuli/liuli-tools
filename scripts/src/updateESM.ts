@@ -326,10 +326,11 @@ async function updateESM() {
     // updateBundle,
     // replaceEsnoToTsx,
     // updateFsExtraImport,
-    // prettryPackageJson,
-    updateJestToVitest,
+    prettryPackageJson,
+    // updateJestToVitest,
     // updateLodashToLodashEs,
     // updateDirname,
+    // updateRequire,
   ]
   await AsyncArray.forEach(list, async (modPath) => {
     for (const f of funcs) {

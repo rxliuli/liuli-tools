@@ -1,6 +1,6 @@
 import { AsyncArray } from '@liuli-util/async'
 import FastGlob from 'fast-glob'
-import { readJson, writeJson } from 'fs-extra'
+import { readJson, writeJson } from '@liuli-util/fs-extra'
 import path from 'path'
 import { PackageJson } from 'type-fest'
 import { findPnpmRootPath } from './utils/findPnpmRootPath'

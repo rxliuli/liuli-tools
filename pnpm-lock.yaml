@@ -1126,18 +1126,17 @@ importers:
       '@liuli-util/async': ^3.4.0
       '@liuli-util/fs-extra': workspace:^
       '@octokit/rest': ^19.0.3
-      '@types/fs-extra': ^9.0.13
       '@types/gh-pages': ^3.2.1
-      '@types/lodash': ^4.14.182
+      '@types/lodash-es': ^4.17.6
       '@types/node': ^18.6.4
       '@types/uuid': ^8.3.4
       ast-types: ^0.14.2
-      esno: ^0.16.3
       fast-glob: ^3.2.11
-      fs-extra: ^10.1.0
-      lodash: ^4.17.21
+      lodash-es: ^4.17.21
       prettier-package-json: ^2.7.0
       recast: ^0.21.2
+      tsup: ^6.2.3
+      tsx: ^3.9.0
       type-fest: ^2.18.0
       uuid: ^8.3.2
       vitest: ^0.23.4
@@ -1145,22 +1144,21 @@ importers:
     dependencies:
       '@liuli-util/fs-extra': link:../libs/fs-extra
       '@octokit/rest': 19.0.3
-      fs-extra: 10.1.0
       uuid: 8.3.2
     devDependencies:
       '@liuli-util/ast-types-code-generator-generator': link:../libs/ast-types-code-generator-generator
       '@liuli-util/async': link:../libs/async
-      '@types/fs-extra': 9.0.13
       '@types/gh-pages': 3.2.1
-      '@types/lodash': 4.14.182
+      '@types/lodash-es': 4.17.6
       '@types/node': 18.6.4
       '@types/uuid': 8.3.4
       ast-types: 0.14.2
-      esno: 0.16.3
       fast-glob: 3.2.11
-      lodash: 4.17.21
+      lodash-es: 4.17.21
       prettier-package-json: 2.7.0
       recast: 0.21.2
+      tsup: 6.2.3
+      tsx: 3.9.0
       type-fest: 2.18.0
       vitest: 0.23.4
       yaml: 2.1.1
@@ -8475,6 +8473,41 @@ packages:
 
   /tslib/2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
+
+  /tsup/6.2.3:
+    resolution: {integrity: sha512-J5Pu2Dx0E1wlpIEsVFv9ryzP1pZ1OYsJ2cBHZ7GrKteytNdzaSz5hmLX7/nAxtypq+jVkVvA79d7S83ETgHQ5w==}
+    engines: {node: '>=14'}
+    hasBin: true
+    peerDependencies:
+      '@swc/core': ^1
+      postcss: ^8.4.12
+      typescript: ^4.1.0
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      postcss:
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      bundle-require: 3.1.0_esbuild@0.15.9
+      cac: 6.7.14
+      chokidar: 3.5.3
+      debug: 4.3.4
+      esbuild: 0.15.9
+      execa: 5.1.1
+      globby: 11.1.0
+      joycon: 3.1.1
+      postcss-load-config: 3.1.4
+      resolve-from: 5.0.0
+      rollup: 2.78.1
+      source-map: 0.8.0-beta.0
+      sucrase: 3.27.0
+      tree-kill: 1.2.2
+    transitivePeerDependencies:
+      - supports-color
+      - ts-node
+    dev: true
 
   /tsup/6.2.3_typescript@4.7.4:
     resolution: {integrity: sha512-J5Pu2Dx0E1wlpIEsVFv9ryzP1pZ1OYsJ2cBHZ7GrKteytNdzaSz5hmLX7/nAxtypq+jVkVvA79d7S83ETgHQ5w==}

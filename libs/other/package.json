@@ -1,29 +1,29 @@
 {
   "name": "@liuli-util/other",
   "version": "3.4.0",
-  "types": "./dist/index.d.ts",
   "description": "其它类型功能的函数库",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
   "scripts": {
-    "setup": "pnpm build",
     "build": "tsup src/index.ts --format esm,cjs --dts",
+    "setup": "pnpm build",
     "test": "vitest run"
   },
+  "types": "./dist/index.d.ts",
   "devDependencies": {
     "@types/node": "^18.6.4",
     "rimraf": "^3.0.2",
-    "typescript": "^4.7.4",
     "tsup": "^6.2.3",
+    "typescript": "^4.7.4",
     "vitest": "^0.23.4"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f",
-  "license": "MIT",
-  "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
-  },
-  "type": "module"
+  "gitHead": "7380a1d6ca155200b8086ad321504cd56031977f"
 }

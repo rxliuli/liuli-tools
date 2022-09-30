@@ -2,7 +2,7 @@
 迁移 ts-node 为更高效的 esno
 */
 
-import { readJson, writeJson } from 'fs-extra'
+import { readJson, writeJson } from '@liuli-util/fs-extra'
 import * as path from 'path'
 import { PackageJson } from 'type-fest'
 

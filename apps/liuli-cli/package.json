@@ -2,25 +2,31 @@
   "name": "@liuli-util/cli",
   "version": "3.22.0",
   "description": "一个针对于库和 CLI 应用程序打包的零配置 CLI",
-  "types": "./dist/index.d.ts",
   "license": "MIT",
-  "scripts": {
-    "build": "tsx src/bin.ts build cli",
-    "dev": "tsx src/bin.ts build cli -w",
-    "start": "tsx src/bin.ts",
-    "lint": "eslint --fix src/**"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rxliuli/liuli-tools/tree/master/apps/liuli-cli"
+  },
+  "type": "module",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
   },
   "bin": {
     "liuli-cli": "./bin.js"
   },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
+  "scripts": {
+    "build": "tsx src/bin.ts build cli",
+    "dev": "tsx src/bin.ts build cli -w",
+    "lint": "eslint --fix src/**",
+    "start": "tsx src/bin.ts"
   },
+  "types": "./dist/index.d.ts",
   "dependencies": {
     "@liuli-util/commitlint-standard-config": "workspace:*",
     "@liuli-util/eslint-config-react-ts": "workspace:*",
     "@liuli-util/eslint-config-ts": "workspace:*",
+    "@liuli-util/fs-extra": "workspace:^",
     "@liuli-util/prettier-standard-config": "workspace:*",
     "ajv": "^8.11.0",
     "ajv-formats": "^2.1.1",
@@ -38,29 +44,23 @@
     "ssh2": "^1.11.0",
     "ssh2-sftp-client": "^9.0.3",
     "tar": "^6.1.11",
-    "ts-morph": "^15.1.0",
-    "@liuli-util/fs-extra": "workspace:^"
+    "ts-morph": "^15.1.0"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
+    "@types/lodash-es": "^4.17.6",
     "@types/node": "^18.6.4",
     "@types/ssh2-sftp-client": "^7.1.0",
+    "lodash-es": "^4.17.21",
     "rimraf": "^3.0.2",
+    "tsup": "^6.2.3",
     "tsx": "^3.9.0",
     "type-fest": "^2.18.0",
     "typescript": "^4.7.4",
-    "tsup": "^6.2.3",
-    "vitest": "^0.23.4",
-    "@types/lodash-es": "^4.17.6",
-    "lodash-es": "^4.17.21"
+    "vitest": "^0.23.4"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rxliuli/liuli-tools/tree/master/apps/liuli-cli"
-  },
-  "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
-  },
-  "type": "module"
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }

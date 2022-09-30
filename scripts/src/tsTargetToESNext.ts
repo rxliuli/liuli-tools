@@ -3,7 +3,7 @@
 */
 
 import * as path from 'path'
-import { pathExists, readJson, writeJson } from 'fs-extra'
+import { pathExists, readJson, writeJson } from '@liuli-util/fs-extra'
 
 async function main() {
   const tsconfigPath = path.resolve('tsconfig.json')

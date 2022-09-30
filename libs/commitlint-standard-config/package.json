@@ -2,16 +2,16 @@
   "name": "@liuli-util/commitlint-standard-config",
   "version": "0.1.6",
   "license": "MIT",
+  "type": "module",
   "main": "./.commitlintrc.json",
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
   "dependencies": {
     "@commitlint/config-conventional": "^17.0.3"
   },
   "peerDependencies": {
     "@commitlint/cli": "^12.1.4"
   },
-  "type": "module"
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }

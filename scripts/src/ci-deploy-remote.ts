@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'url'
 import { publish } from 'gh-pages'
 import * as path from 'path'
 import { Octokit } from '@octokit/rest'
@@ -5,7 +6,7 @@ import { Octokit } from '@octokit/rest'
 async function deployGHPages() {
   await new Promise<void>((resolve, reject) => {
     publish(
-      path.resolve(__dirname),
+      path.resolve(path.dirname(fileURLToPath(import.meta.url))),
       {
         user: {
           name: 'rxliuli',

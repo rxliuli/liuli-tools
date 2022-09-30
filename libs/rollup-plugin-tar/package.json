@@ -1,21 +1,27 @@
 {
   "name": "@liuli-util/rollup-plugin-tar",
   "version": "0.2.0",
-  "types": "./dist/index.d.ts",
   "license": "MIT",
+  "type": "module",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
-    "docs:server": "live-server docs",
-    "docs:dev": "typedoc --watch",
     "docs:build": "rimraf docs && typedoc",
     "docs:deploy": "pnpm docs:build && gh-pages -d docs/ -e /api/rollup-plugin-tar -a",
+    "docs:dev": "typedoc --watch",
+    "docs:server": "live-server docs",
     "lint": "eslint --fix src/**",
     "test": "vitest run"
   },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "fast-glob": "^3.2.11",
+    "i18next": "^21.8.16",
+    "tar": "^6.1.11"
   },
   "peerDependencies": {
     "rollup": "^2.52.2"
@@ -27,23 +33,17 @@
     "fs-extra": "^10.1.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.77.2",
+    "tsup": "^6.2.3",
     "typedoc": "^0.23.10",
     "typescript": "^4.7.4",
-    "tsup": "^6.2.3",
     "vitest": "^0.23.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "sync": [
     "gitignore",
     "jest"
-  ],
-  "dependencies": {
-    "fast-glob": "^3.2.11",
-    "i18next": "^21.8.16",
-    "tar": "^6.1.11"
-  },
-  "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
-  },
-  "type": "module"
+  ]
 }

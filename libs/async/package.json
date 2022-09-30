@@ -1,32 +1,32 @@
 {
   "name": "@liuli-util/async",
   "version": "3.5.1",
-  "types": "./dist/index.d.ts",
   "description": "异步相关功能的函数库",
-  "scripts": {
-    "setup": "pnpm build",
-    "build": "tsup src/index.ts --format esm,cjs --dts",
-    "test": "vitest run",
-    "lint": "eslint --fix src/**"
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
   },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "lint": "eslint --fix src/**",
+    "setup": "pnpm build",
+    "test": "vitest run"
+  },
+  "types": "./dist/index.d.ts",
   "devDependencies": {
     "@liuli-util/test": "workspace:*",
     "@types/node": "^18.6.4",
     "rimraf": "^3.0.2",
+    "tsup": "^6.2.3",
     "type-fest": "^2.18.0",
     "typescript": "^4.7.4",
-    "tsup": "^6.2.3",
     "vitest": "^0.23.4"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "gitHead": "9ebadce05245141b72dedfef846332d4f2a566fc",
-  "license": "MIT",
-  "type": "module",
-  "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
-  }
+  "gitHead": "9ebadce05245141b72dedfef846332d4f2a566fc"
 }

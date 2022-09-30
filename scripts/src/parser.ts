@@ -1,3 +1,4 @@
+import { createRequire } from 'module'
 import { parse, print } from 'recast'
 import { namedTypes as n, builders as b } from 'ast-types'
 import { generate } from '@liuli-util/ast-types-code-generator-generator'

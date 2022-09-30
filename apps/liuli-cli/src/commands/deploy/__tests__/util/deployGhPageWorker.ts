@@ -1,8 +1,9 @@
+import { fileURLToPath } from 'url'
 import { GhPagesDeployService } from '../../DeployService'
 import * as path from 'path'
 
 async function deployGhPages() {
-  const tempPath = path.resolve(__dirname, '../.temp/')
+  const tempPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../.temp/')
 
   const ghPagesDeployService = new GhPagesDeployService({
     cwd: tempPath,

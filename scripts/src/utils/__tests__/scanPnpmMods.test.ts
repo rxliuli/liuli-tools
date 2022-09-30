@@ -1,3 +1,4 @@
+import { expect, it } from 'vitest'
 import { findPnpmRootPath } from '../findPnpmRootPath'
 import { scanPnpmMods } from '../scanPnpmMods'
 

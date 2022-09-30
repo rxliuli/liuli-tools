@@ -8,10 +8,6 @@
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "test": "vitest run"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "jsdom"
-  },
   "dependencies": {
     "@liuli-util/array": "workspace:^3.3.0"
   },

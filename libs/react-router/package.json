@@ -9,9 +9,6 @@
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "test": "vitest run"
   },
-  "jest": {
-    "preset": "ts-jest"
-  },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

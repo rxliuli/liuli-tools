@@ -1,8 +1,9 @@
+import { fileURLToPath } from 'url'
 import { expect, it, beforeEach } from 'vitest'
 import { remove, mkdirp, writeFile, pathExists } from 'fs-extra'
 import * as path from 'path'
 import { createArchive } from '../util/createArchive'
-const testPath = path.resolve(__dirname, '.temp')
+const testPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '.temp')
 
 beforeEach(async () => {
   await remove(testPath)

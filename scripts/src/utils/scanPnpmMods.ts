@@ -1,5 +1,5 @@
 import { AsyncArray } from '@liuli-util/async'
-import { pathExists, readFile } from 'fs-extra'
+import { pathExists, readFile } from '@liuli-util/fs-extra'
 import * as path from 'path'
 import { parse } from 'yaml'
 import FastGlob from 'fast-glob'

@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'url'
 import { expect, it, describe, beforeEach } from 'vitest'
 import { build, BuildOptions } from 'esbuild'
 import { remove, mkdirp, writeFile } from '@liuli-util/fs-extra'
@@ -6,7 +7,7 @@ import { env } from '../env'
 import { raw } from '../raw'
 
 describe('测试 esbuildPlugins', () => {
-  const tempPath = path.resolve(__dirname, '.temp')
+  const tempPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '.temp')
 
   beforeEach(async () => {
     await remove(tempPath)

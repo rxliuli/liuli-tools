@@ -1,9 +1,10 @@
+import { fileURLToPath } from 'url'
 import { expect, it, beforeEach } from 'vitest'
 import path from 'path'
 import { mkdirp, readFile, remove, writeFile } from '@liuli-util/fs-extra'
 import { eq, gen, getEnvs } from '../gen'
 import { CodeUtil } from '../utils/CodeUtil'
-const tempPath = path.resolve(__dirname, '.temp/gen')
+const tempPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '.temp/gen')
 
 beforeEach(async () => {
   await remove(tempPath)

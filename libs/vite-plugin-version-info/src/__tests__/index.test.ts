@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'url'
 import { expect, it, describe, beforeEach } from 'vitest'
 import * as path from 'path'
 import { mkdirp, readFile, remove, writeFile, writeJson } from '@liuli-util/fs-extra'
@@ -6,7 +7,7 @@ import * as envFile from 'envfile'
 import { parse } from 'node-html-parser'
 
 describe('测试 rewrite', () => {
-  const tempPath = path.resolve(__dirname, '.temp')
+  const tempPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '.temp')
 
   beforeEach(async () => {
     await remove(tempPath)

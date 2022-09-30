@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'url'
 import { expect, it, describe, beforeEach } from 'vitest'
 import { mkdir, readJson, remove, writeJson } from '@liuli-util/fs-extra'
 import path from 'path'
@@ -6,7 +7,7 @@ import { merge } from 'lodash-es'
 import { PackageJson } from 'type-fest'
 
 describe('测试 SyncProgram', () => {
-  const tempPath = path.resolve(__dirname, '.temp')
+  const tempPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '.temp')
   const syncProgram = new SyncProgram(tempPath)
 
   beforeEach(async () => {

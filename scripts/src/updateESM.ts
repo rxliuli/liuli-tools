@@ -1,13 +1,16 @@
 import { AsyncArray } from '@liuli-util/async'
 import FastGlob from 'fast-glob'
-import { readFile, readJson, writeFile, writeJson } from 'fs-extra'
+import { readFile, readJson, writeFile, writeJson } from '@liuli-util/fs-extra'
 import path from 'path'
 import { PackageJson } from 'type-fest'
 import { findPnpmRootPath } from './utils/findPnpmRootPath'
 import { scanPnpmMods } from './utils/scanPnpmMods'
-import { parse, prettyPrint, visit } from 'recast'
+import { parse, print, visit } from 'recast'
 import { format } from 'prettier-package-json'
 import { namedTypes as n, builders as b } from 'ast-types'
+import { createRequire } from 'module'
+import { NodePath } from 'ast-types/lib/node-path'
+const require = createRequire(import.meta.url)
 
 async function updatePackageJSON(modPath: string) {
   const jsonPath = path.resolve(modPath, 'package.json')
@@ -94,7 +97,7 @@ async function updateFsExtraImport(modPath: string) {
         return false
       },
     })
-    return prettyPrint(ast, { parser: require('recast/parsers/typescript') }).code
+    return print(ast, { parser: require('recast/parsers/typescript') }).code
   }
   await new AsyncArray(list.map((item) => path.resolve(modPath, item)))
     .filter(async (item) => {
@@ -117,9 +120,12 @@ async function prettryPackageJson(modPath: string) {
 async function updateJestToVitest(modPath: string) {
   const jsonPath = path.resolve(modPath, 'package.json')
   const json = (await readJson(jsonPath)) as PackageJson
+
   if (!json.devDependencies?.jest) {
     return
   }
+  delete json?.['jest']
+  delete json?.['wallaby']
   if (json.devDependencies) {
     delete json.devDependencies.jest
     delete json.devDependencies['ts-jest']
@@ -169,7 +175,7 @@ async function updateJestToVitest(modPath: string) {
     } else {
       console.warn('未转换', ast.type)
     }
-    return prettyPrint(ast, { parser: require('recast/parsers/typescript') }).code
+    return print(ast, { parser: require('recast/parsers/typescript') }).code
   }
   await new AsyncArray(list.map((item) => path.resolve(modPath, item))).forEach(async (item) => {
     const text = await readFile(item, 'utf-8')
@@ -207,13 +213,105 @@ async function updateLodashToLodashEs(modPath: string) {
         return false
       },
     })
-    return prettyPrint(ast, { parser: require('recast/parsers/typescript') }).code
+    return print(ast, { parser: require('recast/parsers/typescript') }).code
   }
   await new AsyncArray(list.map((item) => path.resolve(modPath, item))).forEach(async (item) => {
     const text = await readFile(item, 'utf-8')
     await writeFile(item, replace(text))
   })
   await writeJson(jsonPath, json, { spaces: 2 })
+}
+
+async function updateDirname(modPath: string) {
+  const list = await FastGlob('src/**/*.ts', { cwd: modPath })
+  function replace(code: string) {
+    const ast = parse(code, { parser: require('recast/parsers/typescript') }) as n.File
+    let hasDirname = false,
+      urlImp: n.ImportDeclaration,
+      pathImp: n.ImportDeclaration
+    visit(ast, {
+      visitIdentifier(path) {
+        if (path.node.name === '__dirname') {
+          const temp = parse(`path.dirname(fileURLToPath(import.meta.url))`, {
+            parser: require('recast/parsers/typescript'),
+          }) as n.File
+          path.replace(temp.program.body[0])
+          hasDirname = true
+        }
+        return false
+      },
+      visitImportDeclaration(path) {
+        if (path.node.source.value === 'url') {
+          urlImp = path.node as any
+        }
+        if (path.node.source.value === 'path') {
+          pathImp = path.node as any
+        }
+        return false
+      },
+    })
+    if (!hasDirname) {
+      return code
+    }
+    if (!pathImp) {
+      ast.program.body.unshift(b.importDeclaration([b.importDefaultSpecifier(b.identifier('path'))], b.literal('path')))
+    }
+    if (urlImp) {
+      if (!urlImp.specifiers.some((item) => item.local.name === 'fileURLToPath')) {
+        urlImp.specifiers.push(b.importSpecifier(b.identifier('fileURLToPath')))
+      }
+    } else {
+      ast.program.body.unshift(
+        b.importDeclaration([b.importSpecifier(b.identifier('fileURLToPath'))], b.literal('url')),
+      )
+    }
+    return print(ast, { parser: require('recast/parsers/typescript') }).code
+  }
+  await new AsyncArray(list.map((item) => path.resolve(modPath, item))).forEach(async (item) => {
+    const text = await readFile(item, 'utf-8')
+    await writeFile(item, replace(text))
+  })
+}
+
+async function updateRequire(modPath: string) {
+  const list = await FastGlob('src/**/*.ts', { cwd: modPath })
+  function replace(code: string) {
+    const ast = parse(code, { parser: require('recast/parsers/typescript') }) as n.File
+    let hasRequire = false,
+      imp: NodePath<n.ImportDeclaration>
+    visit(ast, {
+      visitIdentifier(path) {
+        if (path.node.name === 'require') {
+          hasRequire = true
+        }
+        return false
+      },
+      visitImportDeclaration(path) {
+        if (path.node.source.value === 'module') {
+          imp = path as any
+        }
+        return false
+      },
+    })
+    if (!hasRequire) {
+      return code
+    }
+    if (imp) {
+      if (!imp.node.specifiers.some((item) => item.local.name === 'createRequire')) {
+        imp.node.specifiers.push(b.importSpecifier(b.identifier('createRequire')))
+      }
+    } else {
+      ast.program.body.unshift(
+        b.importDeclaration([b.importSpecifier(b.identifier('createRequire'))], b.literal('module')),
+      )
+      ast.program.body
+    }
+    return print(ast, { parser: require('recast/parsers/typescript') }).code
+  }
+  await new AsyncArray(list.map((item) => path.resolve(modPath, item))).forEach(async (item) => {
+    const text = await readFile(item, 'utf-8')
+    await writeFile(item, replace(text))
+  })
 }
 
 async function updateESM() {
@@ -229,10 +327,15 @@ async function updateESM() {
     // replaceEsnoToTsx,
     // updateFsExtraImport,
     // prettryPackageJson,
-    // updateJestToVitest,
-    updateLodashToLodashEs,
+    updateJestToVitest,
+    // updateLodashToLodashEs,
+    // updateDirname,
   ]
-  await AsyncArray.forEach(funcs, (f) => AsyncArray.forEach(list, f))
+  await AsyncArray.forEach(list, async (modPath) => {
+    for (const f of funcs) {
+      await f(modPath)
+    }
+  })
 }
 
 updateESM()

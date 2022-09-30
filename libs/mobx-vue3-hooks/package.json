@@ -8,12 +8,6 @@
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "test": "vitest run"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/*.test.ts"
-    ]
-  },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

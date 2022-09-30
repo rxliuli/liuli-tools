@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'url'
 import { expect, it, describe, beforeEach, beforeAll } from 'vitest'
 import simpleGit, { SimpleGit } from 'simple-git'
 import * as path from 'path'
@@ -12,7 +13,7 @@ describe.skip('测试 simple-git', () => {
   }
 
   let git: SimpleGit
-  const tempPath = path.resolve(__dirname, '.temp')
+  const tempPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '.temp')
 
   beforeEach(async () => {
     git = simpleGit()

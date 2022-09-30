@@ -9,9 +9,6 @@
     "test": "vitest run",
     "lint": "eslint --fix src/**"
   },
-  "jest": {
-    "preset": "ts-jest"
-  },
   "devDependencies": {
     "@liuli-util/test": "workspace:*",
     "@types/node": "^18.6.4",

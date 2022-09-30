@@ -19,12 +19,6 @@
     "dest": "/i18next-dts-gen"
   },
   "bin": "./bin.js",
-  "jest": {
-    "preset": "ts-jest",
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/*.test.ts"
-    ]
-  },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

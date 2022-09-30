@@ -30,12 +30,6 @@
   "sync": [
     "jest"
   ],
-  "jest": {
-    "preset": "ts-jest",
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/*.test.ts"
-    ]
-  },
   "exports": {
     "import": "./dist/index.js",
     "require": "./dist/index.cjs"

@@ -12,12 +12,6 @@
     "docs:deploy": "pnpm build && gh-pages -d docs/ -e / -a",
     "test": "vitest run"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/*.test.ts"
-    ]
-  },
   "peerDependencies": {
     "rollup": "^2.52.2"
   },

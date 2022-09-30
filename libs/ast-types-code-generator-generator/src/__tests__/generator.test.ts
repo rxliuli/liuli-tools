@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'url'
 import { expect, it, beforeEach } from 'vitest'
 import { namedTypes as n, builders as b, astNodesAreEquivalent, Type } from 'ast-types'
 import { generate, isUsingFrom } from '../generator'
@@ -218,7 +219,7 @@ it('object method', () => {
   )
 })
 
-const testPath = path.resolve(__dirname, '.temp')
+const testPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '.temp')
 
 beforeEach(async () => {
   await remove(testPath)

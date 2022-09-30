@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'url'
 import { expect, it, describe, beforeEach, beforeAll } from 'vitest'
 import { ESBuildProgram } from '../ESBuildProgram'
 import * as path from 'path'
@@ -8,7 +9,7 @@ import { findParent } from '../../../utils'
 import { nativeNodeModules, nodeExternals } from '@liuli-util/esbuild-plugins/src'
 
 describe('测试 ESBuildProgram', () => {
-  const base: string = path.resolve(__dirname, '.temp')
+  const base: string = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '.temp')
 
   beforeEach(async () => {
     await remove(base)
@@ -206,7 +207,9 @@ describe('测试 cli 本身的构建', () => {
   let selfPath: string
 
   beforeAll(async () => {
-    selfPath = (await findParent(__dirname, async (dir) => pathExists(path.join(dir, 'package.json'))))!
+    selfPath = (await findParent(path.dirname(fileURLToPath(import.meta.url)), async (dir) =>
+      pathExists(path.join(dir, 'package.json')),
+    ))!
   })
 
   it('基本示例', async () => {

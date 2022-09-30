@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'url'
 import { expect, it, beforeAll, describe, beforeEach, vi } from 'vitest'
 import * as path from 'path'
 import { mkdirp, remove, writeFile } from '@liuli-util/fs-extra'
@@ -5,7 +6,7 @@ import { mkdirp, remove, writeFile } from '@liuli-util/fs-extra'
 import { GhPagesDeployOptions, GhPagesDeployService, SftpDeployOptions, SftpDeployService } from '../DeployService'
 
 import { nodeCacheDir } from '../../../utils/nodeCacheDir'
-const tempPath = path.resolve(__dirname, '.temp')
+const tempPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '.temp')
 
 beforeAll(async () => {
   const distPath = path.resolve(tempPath, 'dist')

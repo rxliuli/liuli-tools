@@ -11,9 +11,6 @@
     "test": "vitest run"
   },
   "bin": "./bin.js",
-  "jest": {
-    "preset": "ts-jest"
-  },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

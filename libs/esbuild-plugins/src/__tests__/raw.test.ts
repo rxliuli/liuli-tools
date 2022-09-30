@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'url'
+import path from 'path'
 import { expect, it } from 'vitest'
 import { build } from 'esbuild'
 import { raw } from '../raw'
@@ -10,7 +12,7 @@ it('raw', async () => {
         console.log(readme)
       `,
 
-      resolveDir: __dirname,
+      resolveDir: path.dirname(fileURLToPath(import.meta.url)),
     },
 
     plugins: [raw()],

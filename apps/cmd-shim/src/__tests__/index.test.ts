@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'url'
 import { expect, it, describe } from 'vitest'
 import { BinConfig, linkGlobalBin, readBinList } from '../index'
 import * as path from 'path'
@@ -6,37 +7,37 @@ import { pathExists } from '@liuli-util/fs-extra'
 
 describe('测试 readBinList', () => {
   it('没有 bin', () => {
-    const res = readBinList(__dirname, {})
+    const res = readBinList(path.dirname(fileURLToPath(import.meta.url)), {})
     expect(res.length).toBe(0)
   })
 
   describe('只有一条', () => {
     it('包含组织名', () => {
-      const res = readBinList(__dirname, {
+      const res = readBinList(path.dirname(fileURLToPath(import.meta.url)), {
         name: '@liuli-util/cli',
         bin: './dist/bin.js',
       })
 
       expect(res[0]).toEqual({
         name: 'cli',
-        path: path.resolve(__dirname, './dist/bin.js'),
+        path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), './dist/bin.js'),
       } as BinConfig)
     })
 
     it('不包含组织名', () => {
-      const res = readBinList(__dirname, {
+      const res = readBinList(path.dirname(fileURLToPath(import.meta.url)), {
         name: 'liuli-cli',
         bin: './dist/bin.js',
       })
 
       expect(res[0]).toEqual({
         name: 'liuli-cli',
-        path: path.resolve(__dirname, './dist/bin.js'),
+        path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), './dist/bin.js'),
       } as BinConfig)
     })
 
     it('包含多条', () => {
-      const res = readBinList(__dirname, {
+      const res = readBinList(path.dirname(fileURLToPath(import.meta.url)), {
         name: 'liuli-cli',
 
         bin: {
@@ -48,11 +49,11 @@ describe('测试 readBinList', () => {
       expect(res).toEqual([
         {
           name: 'liuli-cli',
-          path: path.resolve(__dirname, './dist/bin.js'),
+          path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), './dist/bin.js'),
         },
         {
           name: 'li',
-          path: path.resolve(__dirname, './dist/bin.js'),
+          path: path.resolve(path.dirname(fileURLToPath(import.meta.url)), './dist/bin.js'),
         },
       ] as BinConfig[])
     })

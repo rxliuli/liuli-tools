@@ -13,12 +13,6 @@
     "lint": "eslint --fix src/**",
     "test": "vitest run"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/*.test.ts"
-    ]
-  },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

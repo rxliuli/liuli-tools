@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'url'
 import { expect, it, describe, beforeAll } from 'vitest'
 import { GenerateProgram, TemplateTypeEnum } from '../GenerateProgram'
 import path from 'path'
@@ -6,7 +7,7 @@ import { PackageJson } from 'type-fest'
 
 describe('测试 InitProgram', () => {
   const initProgram = new GenerateProgram()
-  const tempPath = path.resolve(__dirname, '.temp')
+  const tempPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '.temp')
 
   it('生成项目', async () => {
     const dest = path.resolve(tempPath, 'lib-demo')

@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'url'
 import { expect, it, describe, vi } from 'vitest'
 import { Watcher } from '../Watcher'
 import path from 'path'
@@ -9,7 +10,7 @@ describe.skip('测试 Watcher', () => {
   it('基本示例', async () => {
     await new Promise((resolve, reject) => {
       watcher
-        .watchDirs([path.resolve(__dirname, 'i18n')], async (dir) => {
+        .watchDirs([path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'i18n')], async (dir) => {
           console.log('watch: ', dir, Date.now())
         })
         .on('error', reject)
@@ -23,7 +24,10 @@ describe.skip('测试 Watcher', () => {
         console.log(dir)
       })
 
-      const dirs = [path.resolve(__dirname, 'temp/i18n1'), path.resolve(__dirname, 'temp/i18n2')]
+      const dirs = [
+        path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'temp/i18n1'),
+        path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'temp/i18n2'),
+      ]
 
       const fsWatcher = watcher.watchDirs(dirs, callback)
       await new Promise((resolve) => fsWatcher.on('ready', resolve))

@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/rollup-plugin-i18next-dts-gen",
-  "version": "0.3.0",
+  "version": "0.4.3",
   "license": "MIT",
   "type": "module",
   "exports": {

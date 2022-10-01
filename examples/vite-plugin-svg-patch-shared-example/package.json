@@ -3,13 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "main": "src/index.ts",
-  "module": "src/index.ts",
   "types": "src/index.ts",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
   "peerDependencies": {
     "react": "^18.1.0"
   },
@@ -17,10 +11,5 @@
     "@types/react": "^18.0.15",
     "react": "^18.2.0",
     "typescript": "^4.7.4"
-  },
-  "exports": {
-    "import": "src/index.ts",
-    "require": "src/index.ts",
-    "types": "src/index.ts"
   }
 }

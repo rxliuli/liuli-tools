@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/object",
-  "version": "3.4.0",
+  "version": "3.5.1",
   "description": "对象相关功能的函数库",
   "license": "MIT",
   "type": "module",

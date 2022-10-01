@@ -1,4 +1,3 @@
-import { createRequire } from 'module'
 import { AsyncArray } from '@liuli-util/async'
 import { readJson, writeJson } from '@liuli-util/fs-extra'
 import path from 'path'
@@ -34,11 +33,11 @@ async function updateEsmSupport() {
   const list = (await scanPnpmMods(rootPath)).map((item) => path.resolve(rootPath, item, 'package.json'))
   const r = await AsyncArray.filter(list, async (jsonPath) => {
     const json = (await readJson(jsonPath)) as PackageJson
-    return !!(json.main && json.module && json.types)
+    return !!((json.exports || json.bin) && !json.private)
   })
   // console.log(r)
   // await update(r[0])
-  // await AsyncArray.forEach(r, updateVersion)
+  await AsyncArray.forEach(r, updateVersion)
   const names = await AsyncArray.map(r, async (item) => {
     const json = (await readJson(item)) as PackageJson
     return json.name
@@ -46,4 +45,4 @@ async function updateEsmSupport() {
   console.log('pnpm ' + names.map((s) => `--filter ${s}`).join(' ') + ' publish')
 }
 
-updateEsmSupport()
+// updateEsmSupport()

@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/test",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "description": "辅助其他模块测试的工具函数库",
   "license": "MIT",
   "type": "module",

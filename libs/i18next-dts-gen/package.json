@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/i18next-dts-gen",
-  "version": "0.5.0",
+  "version": "0.6.3",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "@liuli-util/array": "workspace:^",
     "@liuli-util/async": "workspace:^",
     "@liuli-util/fs-extra": "workspace:^",
+    "@typescript-eslint/typescript-estree": "^5.32.0",
     "ast-types": "^0.14.2",
     "chokidar": "^3.5.3",
     "commander": "^9.4.0",

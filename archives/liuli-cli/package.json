@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/cli",
-  "version": "3.22.0",
+  "version": "3.23.0",
   "description": "一个针对于库和 CLI 应用程序打包的零配置 CLI",
   "license": "MIT",
   "repository": {

@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@liuli-util/rollup-plugin-tar": "*",
+    "@types/node": "^18.7.23",
     "rimraf": "^3.0.2",
     "rollup": "^2.77.2",
     "rollup-plugin-typescript2": "^0.32.1",

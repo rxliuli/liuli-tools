@@ -1,5 +1,14 @@
 import { Plugin, ResolveIdResult } from 'rollup'
 import { pathExists } from '@liuli-util/fs-extra'
+import { createRequire } from 'module'
+import { findParent } from './utils/findParent'
+import path from 'path'
+
+async function resolvePackagePath(name: string) {
+  return await findParent(createRequire(import.meta.url).resolve(name), (item) =>
+    pathExists(path.resolve(item, 'package.json')),
+  )
+}
 
 export function tsAlias(
   includes: (string | RegExp)[],
@@ -13,6 +22,7 @@ export function tsAlias(
 
     async resolveId(source: string): Promise<ResolveIdResult> {
       excludes.push(/\/.*\//)
+      console.log('resolveId', source)
       const predicate = (item: string | RegExp) =>
         typeof item === 'string' ? source.startsWith(item) : item.test(source)
 
@@ -20,7 +30,7 @@ export function tsAlias(
         let res: string
 
         try {
-          res = require.resolve(source + '/src/index.ts')
+          res = (await resolvePackagePath(source)) + '/src/index.ts'
         } catch (e) {
           return null
         }

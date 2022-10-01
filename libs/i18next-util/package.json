@@ -1,12 +1,13 @@
 {
   "name": "@liuli-util/i18next-util",
-  "version": "0.3.0",
+  "version": "0.4.1",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/rxliuli/liuli-tools/tree/master/libs/i18next-util"
   },
   "type": "module",
+  "types": "./dist/index.d.ts",
   "exports": {
     "import": "./dist/index.js",
     "require": "./dist/index.cjs"
@@ -23,7 +24,6 @@
     "setup": "pnpm build",
     "test": "vitest run"
   },
-  "types": "./dist/index.d.ts",
   "peerDependencies": {
     "i18next": "^20.3.3"
   },

@@ -324,7 +324,7 @@ async function updateESM() {
   const rootPath = await findPnpmRootPath()
   const mods = await scanPnpmMods(rootPath)
   const list = mods
-    // .filter((item) => ['appss/', 'libs/'].some((s) => item.startsWith(s)))
+    .filter((item) => ['appss/', 'libs/'].some((s) => item.startsWith(s)))
     .map((item) => path.resolve(rootPath, item))
   const funcs = [
     // 列表
@@ -346,3 +346,12 @@ async function updateESM() {
 }
 
 updateESM()
+
+// 涉及到的需要升级的其他依赖
+// os-locale
+// unified
+// mdast
+// __filename
+// npm pack/publish 默认会检查 .gitignore 了，如果忽略了 dist，则默认也不包含了（真是坑）
+// 构建 esm => cjs 时有一些代码会出现错误，例如 import.meta.url，感觉上还是应该使用 __dirname，然后在构建 esm => esm 时加一个 polyfill，ref: <https://github.com/evanw/esbuild/issues/1921#issuecomment-1232263353>
+// require.resolve 不能完全兼容，require.resolve 目前会被 exports 影响，无法再找到指定包的任意文件的路径，目前没有什么可用的解决方案

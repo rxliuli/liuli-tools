@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/array",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "description": "数组相关功能的函数库",
   "license": "MIT",
   "type": "module",

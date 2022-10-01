@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/rollup-plugin-ts-alias",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -22,6 +22,7 @@
     "rollup": "^2.63.0"
   },
   "devDependencies": {
+    "@types/node": "^18.7.23",
     "rimraf": "^3.0.2",
     "rollup": "^2.77.2",
     "tsup": "^6.2.3",

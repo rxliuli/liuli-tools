@@ -50,6 +50,8 @@ async function updateBundle(modPath: string) {
         ],
         ['liuli-cli build lib -w', 'tsup src/index.ts --format esm,cjs --dts --watch'],
         ['liuli-cli build lib', 'tsup src/index.ts --format esm,cjs --dts'],
+        ['liuli-cli build pkg -w', 'tsup src/index.ts --format esm,cjs --dts --watch'],
+        ['liuli-cli build pkg', 'tsup src/index.ts --format esm,cjs --dts'],
       ]
       matches.forEach(([o, n]) => (json.scripts[k] = json.scripts[k].replaceAll(o, n)))
     })
@@ -85,7 +87,11 @@ async function updateFsExtraImport(modPath: string) {
   }
   delete json.devDependencies?.['@types/fs-extra']
   delete json.dependencies?.['fs-extra']
-  json.dependencies['@liuli-util/fs-extra'] = 'workspace:^'
+  const fsExtraJsonPath = path.resolve(
+    createRequire(import.meta.url).resolve('@liuli-util/fs-extra'),
+    '../../package.json',
+  )
+  json.dependencies['@liuli-util/fs-extra'] = '^' + (await readJson(fsExtraJsonPath)).version
   const list = await FastGlob('src/**/*.ts', { cwd: modPath })
   function replace(code: string) {
     const ast = parse(code, { parser: require('recast/parsers/typescript') })
@@ -318,19 +324,19 @@ async function updateESM() {
   const rootPath = await findPnpmRootPath()
   const mods = await scanPnpmMods(rootPath)
   const list = mods
-    .filter((item) => ['apps/', 'libs/'].some((s) => item.startsWith(s)))
+    // .filter((item) => ['appss/', 'libs/'].some((s) => item.startsWith(s)))
     .map((item) => path.resolve(rootPath, item))
   const funcs = [
     // 列表
-    // updatePackageJSON,
-    // updateBundle,
-    // replaceEsnoToTsx,
-    // updateFsExtraImport,
+    updatePackageJSON,
+    updateBundle,
+    replaceEsnoToTsx,
+    updateFsExtraImport,
+    updateJestToVitest,
+    updateLodashToLodashEs,
+    updateDirname,
+    updateRequire,
     prettryPackageJson,
-    // updateJestToVitest,
-    // updateLodashToLodashEs,
-    // updateDirname,
-    // updateRequire,
   ]
   await AsyncArray.forEach(list, async (modPath) => {
     for (const f of funcs) {

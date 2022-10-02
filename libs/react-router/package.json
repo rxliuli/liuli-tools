@@ -5,8 +5,11 @@
   "homepage": "https://github.com/rxliuli/liuli-tools/tree/master/libs/react-router",
   "type": "module",
   "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./src": "./src/index.ts"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",

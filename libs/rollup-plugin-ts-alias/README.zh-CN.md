@@ -48,4 +48,36 @@ export default defineConfig({
 
 ### 局限性
 
-必须经过 vite/rollup 打包才行，如果是直接引用并使用 nodejs（或 esno 等） 执行则仍然会有问题，但它确实适用于绝大多数 web 项目。
+必须经过 vite/rollup 打包才行，如果是直接引用并使用 nodejs（或 tsx 等） 执行则仍然会有问题，但它确实适用于绝大多数 web 项目。
+
+### exports 支持
+
+在 package.json 中指定 exports 时，nodejs 访问包的功能会受到限制，只能访问在 exports 中声明的路径。为了插件能够重写 import，项目必须导出 `./src`，建议也同时导出 package.json，以供可能需要检查版本的情况。
+
+原先可能是
+
+```json
+{
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  }
+}
+```
+
+需要修改为
+
+```json
+{
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json",
+    "./src": "./src/index.ts"
+  }
+}
+```
+
+> 参考 [子路径导出](https://nodejs.org/api/packages.html#subpath-exports)

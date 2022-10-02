@@ -8,8 +8,11 @@
   },
   "type": "module",
   "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./src": "./src/index.ts"
   },
   "bin": "./bin.js",
   "scripts": {

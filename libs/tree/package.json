@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/tree",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "树结构相关功能的函数库",
   "license": "MIT",
   "type": "module",

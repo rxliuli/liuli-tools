@@ -1,7 +1,8 @@
 import React, { PropsWithChildren, ReactNode, useMemo } from 'react'
-import { Route, Router, Routes } from 'react-router-dom'
-import { BaseHistory, RouteConfig } from './index'
+import { Navigate, Route, Router, Routes } from 'react-router-dom'
+import { BaseHistory } from './index'
 import { treeMap } from '@liuli-util/tree'
+import { RouteConfig } from './model'
 
 interface HistoryRouterProps {
   history: BaseHistory
@@ -18,7 +19,11 @@ function BaseReactRouter({ history, children }: PropsWithChildren<HistoryRouterP
     history.listen(setState)
   }, [history])
 
-  return React.createElement(Router, Object.assign({ children, navigator: history }, state))
+  return (
+    <Router navigator={history} {...state}>
+      {children}
+    </Router>
+  )
 }
 
 function isLazy(thing: any) {
@@ -38,14 +43,18 @@ export const ReactRouter: React.FC<HistoryRouterProps & { routes: RouteConfig[] 
                 key={key.join(',')}
                 path={item.path}
                 element={
-                  item.component &&
-                  (isLazy(item.component) ? (
-                    <React.Suspense fallback={fallback}>
-                      {React.createElement(React.lazy(item.component as any))}
-                    </React.Suspense>
+                  item.redirect ? (
+                    <Navigate replace={true} to={item.redirect}></Navigate>
                   ) : (
-                    React.createElement(item.component as any)
-                  ))
+                    item.component &&
+                    (isLazy(item.component) ? (
+                      <React.Suspense fallback={fallback}>
+                        {React.createElement(React.lazy(item.component as any))}
+                      </React.Suspense>
+                    ) : (
+                      React.createElement(item.component as any)
+                    ))
+                  )
                 }
                 children={item.children}
               />

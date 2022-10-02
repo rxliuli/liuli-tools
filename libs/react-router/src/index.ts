@@ -1,16 +1,9 @@
-import React, { ComponentType } from 'react'
 import {
   createHashHistory as _createHashHistory,
   createBrowserHistory as _createBrowserHistory,
   createMemoryHistory as _createMemoryHistory,
   History,
 } from 'history'
-
-export interface RouteConfig {
-  path: string
-  component?: React.FC | (() => Promise<{ default: ComponentType<any> }>)
-  children?: RouteConfig[]
-}
 
 function stringify(query: object): string {
   const params = new URLSearchParams()
@@ -62,3 +55,4 @@ export function createMemoryHistory(): BaseHistory {
 export { Link, Outlet as RouterView, useSearchParams, useLocation, useMatch } from 'react-router-dom'
 
 export * from './component'
+export * from './model'

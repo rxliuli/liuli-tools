@@ -52,7 +52,7 @@ export default defineConfig({
 
 ### exports 支持
 
-在 package.json 中指定 exports 时，nodejs 访问包的功能会受到限制，只能访问在 exports 中声明的路径。为了插件能够重写 import，项目必须导出 `./src`，建议也同时导出 package.json，以供可能需要检查版本的情况。
+在 package.json 中指定 exports 时，nodejs 访问包的功能会受到限制，只能访问在 exports 中声明的路径。为了插件能够重写 import，项目必须导出 `./src`
 
 原先可能是
 
@@ -74,10 +74,9 @@ export default defineConfig({
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./package.json": "./package.json",
     "./src": "./src/index.ts"
   }
 }
 ```
 
-> 参考 [子路径导出](https://nodejs.org/api/packages.html#subpath-exports)
+> 参考 [nodejs 子路径导出](https://nodejs.org/api/packages.html#subpath-exports)

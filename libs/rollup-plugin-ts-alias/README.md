@@ -51,3 +51,34 @@ vite is supported by default and is executed before vite's default resolveId. Fo
 ### Limitations
 
 It must be packaged through vite/rollup, if it is directly referenced and executed with nodejs (or esno, etc.), there will still be problems, but it does work for the vast majority of web projects.
+
+### exports support
+
+When specifying exports in package.json, nodejs access to packages is limited to the paths declared in exports. In order for plugins to be able to rewrite imports, projects must export `./src`
+
+which may originally be
+
+```json
+{
+  "exports": {
+    "import": ". /dist/index.js",
+    "require": ". /dist/index.cjs"
+  }
+}
+```
+
+needs to be modified to
+
+```json
+{
+  "exports": {
+    ".": {
+      "import": ". /dist/index.js",
+      "require": ". /dist/index.cjs"
+    },
+    ". /src": ". /src/index.ts"
+  }
+}
+```
+
+> Reference [nodejs subpath export](https://nodejs.org/api/packages.html#subpath-exports)

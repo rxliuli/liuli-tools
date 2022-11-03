@@ -5,7 +5,7 @@ import { version } from '../package.json'
 
 new Command()
   .arguments('[name]')
-  .option('--type <type>', 'template')
+  .option('--template <template>', 'template')
   .option('--overwrite', 'is overwrite')
   .action(async (name, destination: Omit<GenerateOptions, 'cwd' | 'name'>) => {
     const options = await initOptions({ ...destination, name, cwd: path.resolve() })

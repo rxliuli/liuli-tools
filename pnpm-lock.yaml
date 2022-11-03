@@ -693,16 +693,6 @@ importers:
       typescript: 4.7.4
       vitest: 0.23.4
 
-  libs/lodash:
-    specifiers:
-      '@types/lodash-es': ^4.17.6
-      lodash: ^4.17.21
-      lodash-es: ^4.17.21
-    dependencies:
-      '@types/lodash-es': 4.17.6
-      lodash: 4.17.21
-      lodash-es: 4.17.21
-
   libs/mobx-vue3-hooks:
     specifiers:
       '@types/react': ^18.0.15
@@ -3026,6 +3016,7 @@ packages:
     resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==}
     dependencies:
       '@types/lodash': 4.14.182
+    dev: true
 
   /@types/lodash/4.14.182:
     resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==}

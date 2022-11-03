@@ -1,6 +1,7 @@
 import { Command } from 'commander'
 import path from 'path'
-import { generate, GenerateOptions, initOptions } from './generate.js'
+import { generate, GenerateOptions, initOptions } from './generate'
+import { version } from '../package.json'
 
 new Command()
   .arguments('[name]')
@@ -10,4 +11,5 @@ new Command()
     const options = await initOptions({ ...destination, name, cwd: path.resolve() })
     await generate(options)
   })
+  .version(version)
   .parse()

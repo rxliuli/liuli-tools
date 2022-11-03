@@ -36,7 +36,7 @@ export async function initOptions(options: Partial<GenerateOptions>): Promise<Ge
   const res = await inquirer.prompt<Partial<Pick<GenerateOptions, 'name' | 'template'>>>(list)
   const r = Object.assign({}, options, res) as GenerateOptions
   const distPath = path.resolve(options.cwd!, extract(r.name).name)
-  if ((await pathExists(distPath)) && (await readdir(distPath)).length > 0) {
+  if (!options.overwrite && (await pathExists(distPath)) && (await readdir(distPath)).length > 0) {
     const { overwrite } = await inquirer.prompt<Pick<GenerateOptions, 'overwrite'>>([
       {
         name: 'overwrite',

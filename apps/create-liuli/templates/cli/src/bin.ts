@@ -1,3 +1,11 @@
-import { readFile } from 'fs/promises'
+import { Command } from 'commander'
+import { version } from '../package.json'
 
-console.log(await readFile(new URL(import.meta.url), 'utf-8'))
+new Command()
+  .argument('[name]')
+  .option('--template <template>')
+  .action(async (source: { name: string }, destination: { template: string }) => {
+    console.log('args: ', source, destination)
+  })
+  .version(version)
+  .parse()

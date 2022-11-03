@@ -1,6 +1,6 @@
-import { expect, it } from 'vitest'
-import { add } from '../index'
+import { it, expect } from 'vitest'
+import { hello } from '..'
 
-it('add', () => {
-  expect(add(1, 2)).toBe(3)
+it('hello', () => {
+  expect(hello('liuli')).eq('hello liuli')
 })

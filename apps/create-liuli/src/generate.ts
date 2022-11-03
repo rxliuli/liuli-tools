@@ -1,36 +1,83 @@
-import { copy, pathExists, readJson, writeJson } from '@liuli-util/fs-extra'
+import inquirer, { DistinctQuestion } from 'inquirer'
+import Mustache from 'mustache'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type { PackageJson } from 'type-fest'
+import { cp, readdir } from 'node:fs/promises'
+import { extract, pathExists, changeJson, changeFile } from './utils'
+
+type GenerateType = 'lib' | 'cli'
 
 export interface GenerateOptions {
   cwd: string
-  type: 'lib' | 'cli'
+  template: GenerateType
   name: string
   overwrite?: boolean
 }
 
+interface RenderOptions extends GenerateOptions {
+  dirName: string
+}
+
+export async function initOptions(options: Partial<GenerateOptions>): Promise<GenerateOptions> {
+  const list: DistinctQuestion[] = (
+    [
+      {
+        name: 'name',
+        type: 'input',
+        message: 'project name',
+      },
+      {
+        name: 'template',
+        type: 'list',
+        choices: ['lib', 'cli'] as GenerateType[],
+      },
+    ] as DistinctQuestion[]
+  ).filter((item) => !(options as any)[item.name!])
+  if (list.length === 0) {
+    return options as GenerateOptions
+  }
+  const res = await inquirer.prompt<Partial<Pick<GenerateOptions, 'name' | 'template'>>>(list)
+  const r = Object.assign({}, options, res) as GenerateOptions
+  const distPath = path.resolve(options.cwd!, extract(r.name).name)
+  if ((await pathExists(distPath)) && (await readdir(distPath)).length > 0) {
+    const { overwrite } = await inquirer.prompt<Pick<GenerateOptions, 'overwrite'>>([
+      {
+        type: 'confirm',
+        message: 'is overwrite?',
+      },
+    ])
+    r.overwrite = overwrite
+  } else {
+    r.overwrite = true
+  }
+  return r
+}
+
 export async function generate(options: GenerateOptions) {
-  const name = options.name.startsWith('@') ? options.name.split('/')[1] : options.name
-  const distPath = path.resolve(options.cwd, name)
+  const dirName = extract(options.name).name
+  const distPath = path.resolve(options.cwd, dirName)
 
-  const templatePath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), `../templates/${options.type}`)
+  const templatePath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), `../templates/${options.template}`)
 
-  if ((await pathExists(distPath)) && !options.overwrite) {
-    console.warn('目录已存在: ', options.name)
+  if (!options.overwrite) {
     return
   }
 
-  await copy(templatePath, distPath, {
-    overwrite: true,
+  await cp(templatePath, distPath, {
     filter: (source) => path.basename(source) !== 'node_modules',
+    force: true,
+    recursive: true,
   })
 
-  const jsonPath = path.resolve(distPath, 'package.json')
-  const json = (await readJson(jsonPath)) as PackageJson
-  json.name = options.name
-
-  await writeJson(jsonPath, json, {
-    spaces: 2,
+  const list = [
+    'package.json',
+    // 'README.md'
+  ]
+  const renderOptions: RenderOptions = { ...options, dirName }
+  await Promise.all(
+    list.map(async (item) => changeFile(path.resolve(distPath, item), (s) => Mustache.render(s, renderOptions))),
+  )
+  await changeJson(path.resolve(distPath, 'package.json'), (json) => {
+    json.name = options.name
   })
 }

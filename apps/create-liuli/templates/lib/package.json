@@ -1,5 +1,5 @@
 {
-  "name": "lib",
+  "name": "create-lib-template-lib",
   "version": "0.2.0",
   "license": "MIT",
   "type": "module",
@@ -8,7 +8,7 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./src": "./src/index.ts"
+    "./*": "./*"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",

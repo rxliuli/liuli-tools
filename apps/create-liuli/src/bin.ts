@@ -1,15 +1,13 @@
 import { Command } from 'commander'
 import path from 'path'
-import { generate, GenerateOptions } from './generate.js'
+import { generate, GenerateOptions, initOptions } from './generate.js'
 
 new Command()
-  .requiredOption('--name <name>', 'project name')
-  .requiredOption('--type <type>', 'template')
-  .option('--overwrite', 'overwrite')
-  .action((options: Omit<GenerateOptions, 'cwd'>) =>
-    generate({
-      ...options,
-      cwd: path.resolve(),
-    }),
-  )
+  .arguments('[name]')
+  .option('--type <type>', 'template')
+  .option('--overwrite', 'is overwrite')
+  .action(async (name, destination: Omit<GenerateOptions, 'cwd' | 'name'>) => {
+    const options = await initOptions({ ...destination, name, cwd: path.resolve() })
+    await generate(options)
+  })
   .parse()

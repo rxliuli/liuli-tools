@@ -1,4 +1,4 @@
 // @ts-ignore
-import { wait } from '@liuli-util/async'
+import { name } from '@liuli-util/rollup-plugin-ts-alias-test-lib'
 
-console.log(await wait(1000))
+console.log(name)

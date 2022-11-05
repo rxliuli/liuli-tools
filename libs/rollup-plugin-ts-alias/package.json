@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@liuli-util/async": "workspace:^",
+    "@liuli-util/rollup-plugin-ts-alias-test-lib": "workspace:^",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@types/node": "^18.7.23",
     "rimraf": "^3.0.2",
@@ -38,8 +39,5 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  },
-  "sync": [
-    "jest"
-  ]
+  }
 }

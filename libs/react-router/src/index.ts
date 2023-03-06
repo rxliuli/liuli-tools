@@ -52,7 +52,7 @@ export function createMemoryHistory(): BaseHistory {
   return proxyHistory(_createMemoryHistory())
 }
 
-export { Link, Outlet as RouterView, useSearchParams, useLocation, useMatch } from 'react-router-dom'
+export { Link, Outlet as RouterView, useSearchParams, useLocation, useMatch, useParams } from 'react-router-dom'
 
 export * from './component'
 export * from './model'

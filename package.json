@@ -29,13 +29,13 @@
     ]
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.3",
+    "@commitlint/cli": "^17.4.4",
     "@liuli-util/commitlint-standard-config": "workspace:*",
     "@liuli-util/eslint-config-ts": "workspace:*",
     "@liuli-util/prettier-standard-config": "workspace:*",
-    "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1",
-    "simple-git-hooks": "^2.8.0",
-    "typescript": "^4.7.4"
+    "lint-staged": "^13.1.2",
+    "prettier": "^2.8.4",
+    "simple-git-hooks": "^2.8.1",
+    "typescript": "^4.9.5"
   }
 }

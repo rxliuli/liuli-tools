@@ -4,6 +4,8 @@ import {
   createMemoryHistory as _createMemoryHistory,
   History,
 } from 'history'
+import { useMemo } from 'react'
+import { useActionData, useLocation, useNavigate } from 'react-router-dom'
 
 function stringify(query: object): string {
   const params = new URLSearchParams()
@@ -56,3 +58,37 @@ export { Link, Outlet as RouterView, useSearchParams, useLocation, useMatch, use
 
 export * from './component'
 export * from './model'
+
+export function useRouter(): Pick<BaseHistory, 'back' | 'forward' | 'go' | 'push' | 'replace' | 'location'> {
+  const navigate = useNavigate()
+  const location = useLocation()
+  return useMemo(
+    () => ({
+      back() {
+        navigate(-1)
+      },
+      forward() {
+        navigate(1)
+      },
+      go(delta) {
+        navigate(delta)
+      },
+      location,
+      push(url: string | { pathname: string; query: object }) {
+        if (typeof url === 'string') {
+          navigate(url)
+        } else {
+          navigate(url.pathname + (url.query ? '?' + stringify(url.query) : ''))
+        }
+      },
+      replace(url: string | { pathname: string; query: object }) {
+        if (typeof url === 'string') {
+          navigate(url, { replace: true })
+        } else {
+          navigate(url.pathname + (url.query ? '?' + stringify(url.query) : ''), { replace: true })
+        }
+      },
+    }),
+    [navigate, location],
+  )
+}

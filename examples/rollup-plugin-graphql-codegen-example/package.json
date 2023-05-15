@@ -8,22 +8,22 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.9",
-    "graphql": "^16.5.0",
+    "@apollo/client": "^3.7.14",
+    "graphql": "^16.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-use": "^17.4.0"
   },
   "devDependencies": {
-    "@graphql-typed-document-node/core": "^3.1.1",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@liuli-util/rollup-plugin-graphql-codegen": "workspace:*",
     "@liuli-util/vite-plugin-env-dts-gen": "workspace:*",
-    "@types/react": "^18.0.15",
-    "@types/react-dom": "^18.0.6",
-    "@vitejs/plugin-react": "^2.0.0",
-    "tslib": "^2.4.0",
-    "typescript": "^4.7.4",
-    "vite": "^3.0.4",
-    "vite-plugin-checker": "^0.4.9"
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
+    "@vitejs/plugin-react": "^4.0.0",
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.5",
+    "vite-plugin-checker": "^0.6.0"
   }
 }

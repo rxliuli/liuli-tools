@@ -1,5 +1,3 @@
-import { PromiseValue } from 'type-fest'
-
 /**
  * 将一个异步函数包装为具有时序的异步函数
  * 注: 该函数会阻止的异步操作，非常类似于 asyncLimiting(1)，但不同之处在于它会直接抛弃掉并发的请求
@@ -8,7 +6,7 @@ import { PromiseValue } from 'type-fest'
  */
 export function exhaustMap<T extends (...args: any[]) => Promise<any>>(
   fn: T,
-): (...args: Parameters<T>) => Promise<PromiseValue<ReturnType<T>> | void> {
+): (...args: Parameters<T>) => Promise<Awaited<ReturnType<T>> | void> {
   let lock = false
   return async function (...args: any[]) {
     if (lock) {

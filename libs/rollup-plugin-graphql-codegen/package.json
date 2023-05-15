@@ -18,25 +18,25 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@graphql-codegen/cli": "2.11.3",
-    "@graphql-codegen/near-operation-file-preset": "^2.4.0",
-    "@graphql-codegen/plugin-helpers": "^2.6.1",
-    "@graphql-codegen/typed-document-node": "^2.3.2",
-    "@graphql-codegen/typescript": "^2.7.2",
-    "@graphql-codegen/typescript-operations": "^2.5.2",
-    "@graphql-typed-document-node/core": "^3.1.1",
+    "@graphql-codegen/cli": "3.3.1",
+    "@graphql-codegen/near-operation-file-preset": "^2.5.0",
+    "@graphql-codegen/plugin-helpers": "^4.2.0",
+    "@graphql-codegen/typed-document-node": "^4.0.1",
+    "@graphql-codegen/typescript": "^3.0.4",
+    "@graphql-codegen/typescript-operations": "^3.0.4",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@liuli-util/fs-extra": "workspace:^",
-    "comlink": "^4.3.1"
+    "comlink": "^4.4.1"
   },
   "peerDependencies": {
     "rollup": "^2"
   },
   "devDependencies": {
-    "@types/node": "^18.6.4",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.77.2",
-    "tsup": "^6.2.3",
-    "typescript": "^4.7.4"
+    "@types/node": "^20.1.4",
+    "rimraf": "^5.0.0",
+    "rollup": "^3.21.7",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4"
   },
   "publishConfig": {
     "access": "public",

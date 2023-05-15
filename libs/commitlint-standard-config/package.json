@@ -5,7 +5,7 @@
   "type": "module",
   "main": "./.commitlintrc.json",
   "dependencies": {
-    "@commitlint/config-conventional": "^17.0.3"
+    "@commitlint/config-conventional": "^17.6.3"
   },
   "peerDependencies": {
     "@commitlint/cli": "^12.1.4"

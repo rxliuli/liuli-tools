@@ -1,7 +1,6 @@
 packages:
   - 'apps/*'
-  - 'apps/liuli-cli/templates/*'
-  - 'apps/create-liuli/templates/*'
+  - 'apps/create-liuli/packages/*'
   - 'libs/*'
   - 'libs/rollup-plugin-ts-alias/packages/*'
   - 'examples/*'

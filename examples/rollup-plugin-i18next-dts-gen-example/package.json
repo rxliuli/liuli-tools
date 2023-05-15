@@ -7,17 +7,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "i18next": "^21.8.16",
+    "i18next": "^22.4.15",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-use": "^17.4.0"
   },
   "devDependencies": {
     "@liuli-util/rollup-plugin-i18next-dts-gen": "workspace:*",
-    "@types/react": "^18.0.15",
-    "@types/react-dom": "^18.0.6",
-    "@vitejs/plugin-react": "^2.0.0",
-    "typescript": "^4.7.4",
-    "vite": "^3.0.4"
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
+    "@vitejs/plugin-react": "^4.0.0",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.5"
   }
 }

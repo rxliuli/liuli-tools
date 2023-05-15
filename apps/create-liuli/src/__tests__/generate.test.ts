@@ -14,20 +14,20 @@ it('generate', async () => {
   await generate({
     cwd: tempPath,
     name: 'test',
-    type: 'lib',
+    template: 'lib',
   })
 
-  expect(await pathExists(path.resolve(tempPath, 'test/package.json'))).toBeTruthy()
+  expect(await pathExists(path.resolve(tempPath, 'test/package.json'))).true
 })
 
 it('generate by org', async () => {
   await generate({
     cwd: tempPath,
     name: '@liuli-util/test',
-    type: 'lib',
+    template: 'lib',
   })
 
-  expect(await pathExists(path.resolve(tempPath, 'test/package.json'))).toBeTruthy()
+  expect(await pathExists(path.resolve(tempPath, 'test/package.json'))).true
 })
 
 it('generate by overwrite', async () => {
@@ -36,19 +36,19 @@ it('generate by overwrite', async () => {
   await generate({
     cwd: tempPath,
     name: 'test',
-    type: 'lib',
+    template: 'lib',
     overwrite: true,
   })
 
-  expect(await pathExists(path.resolve(tempPath, 'test/package.json'))).toBeTruthy()
+  expect(await pathExists(path.resolve(tempPath, 'test/package.json'))).true
 })
 
 it('generate cli', async () => {
   await generate({
     cwd: tempPath,
     name: '@liuli-util/test-cli',
-    type: 'cli',
+    template: 'cli',
   })
 
-  expect(await pathExists(path.resolve(tempPath, 'test-cli/package.json'))).toBeTruthy()
+  expect(await pathExists(path.resolve(tempPath, 'test-cli/package.json'))).true
 })

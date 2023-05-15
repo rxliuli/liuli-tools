@@ -55,9 +55,9 @@ export async function generate(options: GenerateOptions) {
   const dirName = extract(options.name).name
   const distPath = path.resolve(options.cwd, dirName)
 
-  const templatePath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), `../templates/${options.template}`)
+  const templatePath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), `../packages/${options.template}`)
 
-  if (!options.overwrite) {
+  if ((await pathExists(distPath)) && (await readdir(distPath)).length > 0 && !options.overwrite) {
     return
   }
 

@@ -2,7 +2,7 @@ import { createFilter, FilterPattern } from '@rollup/pluginutils'
 import { readFile } from '@liuli-util/fs-extra'
 import svgToMiniDataURI from 'mini-svg-data-uri'
 import * as path from 'path'
-import { optimize, OptimizedSvg } from 'svgo'
+import { optimize } from 'svgo'
 import { Plugin } from 'vite'
 
 const defaults = {
@@ -39,11 +39,7 @@ export function svgPatch(opts?: { include?: FilterPattern; exclude?: FilterPatte
 
       const source = optimize((await readFile(id, 'utf-8')).replace(/[\r\n]+/gm, ''))
 
-      if (source.error || source.modernError) {
-        console.error('svg 优化失败：', id)
-      }
-
-      const dataUri = svgToMiniDataURI((source as OptimizedSvg).data)
+      const dataUri = svgToMiniDataURI(source.data)
       return `export default "${dataUri}";`
     },
   }

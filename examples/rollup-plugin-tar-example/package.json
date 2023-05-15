@@ -9,11 +9,11 @@
     "preset": "ts-jest"
   },
   "devDependencies": {
-    "@liuli-util/rollup-plugin-tar": "*",
-    "@types/node": "^18.7.23",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.77.2",
-    "rollup-plugin-typescript2": "^0.32.1",
-    "typescript": "^4.7.4"
+    "@liuli-util/rollup-plugin-tar": "^0.3.0",
+    "@types/node": "^20.1.4",
+    "rimraf": "^5.0.0",
+    "rollup": "^3.21.7",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "typescript": "^5.0.4"
   }
 }

@@ -1,10 +1,9 @@
 import fsExtra from 'fs-extra'
-import { builders as b, namedTypes as n } from 'ast-types'
-import { prettyPrint } from 'recast'
-import tsParser from 'recast/parsers/typescript'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { difference } from 'lodash-es'
+import { format } from 'prettier'
+import config from '@liuli-util/prettier-standard-config'
 
 function scan() {
   const excludes = [
@@ -21,21 +20,16 @@ function scan() {
 }
 
 function generate(list: string[]) {
-  return b.program([
-    b.importDeclaration([b.importDefaultSpecifier(b.identifier('fsExtra'))], b.literal('fs-extra')),
-    ...list.map((s) =>
-      b.exportNamedDeclaration(
-        b.variableDeclaration('const', [
-          b.variableDeclarator(b.identifier(s), b.memberExpression(b.identifier('fsExtra'), b.identifier(s))),
-        ]),
-      ),
-    ),
-  ])
+  return (
+    `import fsExtra from 'fs-extra'\n\n` +
+    list.map((it) => `export const ${it}: typeof fsExtra.${it} = fsExtra.${it}`).join('\n')
+  )
 }
 
-export async function build() {
+async function build() {
   const list = scan()
-  const ast = generate(list)
-  const code = prettyPrint(ast, { parser: tsParser }).code
+  const code = format(generate(list), { ...config, parser: 'typescript' })
   await fsExtra.writeFile(path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'index.ts'), code)
 }
+
+build()

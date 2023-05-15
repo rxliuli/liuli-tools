@@ -21,24 +21,24 @@
     "@liuli-util/fs-extra": "workspace:^",
     "ast-types": "^0.14.2",
     "chokidar": "^3.5.3",
-    "css-tree": "^2.2.1",
-    "globby": "^13.1.2",
+    "css-tree": "^2.3.1",
+    "globby": "^13.1.4",
     "lodash-es": "^4.17.21",
-    "recast": "^0.21.2",
+    "recast": "^0.23.2",
     "source-map": "^0.7.4"
   },
   "peerDependencies": {
     "vite": "^3"
   },
   "devDependencies": {
-    "@types/css-tree": "^1.0.7",
-    "@types/lodash-es": "^4.17.6",
-    "@types/node": "^18.7.23",
-    "tsup": "^6.2.3",
-    "tsx": "^3.9.0",
-    "typescript": "^4.8.4",
-    "vite": "^3.1.0",
-    "vitest": "^0.23.4"
+    "@types/css-tree": "^2.3.1",
+    "@types/lodash-es": "^4.17.7",
+    "@types/node": "^20.1.4",
+    "tsup": "^6.7.0",
+    "tsx": "^3.12.7",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.5",
+    "vitest": "^0.31.0"
   },
   "publishConfig": {
     "access": "public",

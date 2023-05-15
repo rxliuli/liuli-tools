@@ -1,5 +1,3 @@
-import { PromiseValue } from 'type-fest'
-
 /**
  * 重复执行指定的函数
  * @param num 重复的次数
@@ -9,15 +7,9 @@ import { PromiseValue } from 'type-fest'
 export function repeatedCall<T extends (i: number) => Promise<any>>(
   fn: T,
   num: number,
-): Promise<PromiseValue<ReturnType<T>>[]>
-export function repeatedCall<T extends (i: number) => any>(
-  fn: T,
-  num: number,
-): ReturnType<T>[]
-export function repeatedCall<T extends (i: number) => any>(
-  fn: T,
-  num: number,
-): any {
+): Promise<Awaited<ReturnType<T>>[]>
+export function repeatedCall<T extends (i: number) => any>(fn: T, num: number): ReturnType<T>[]
+export function repeatedCall<T extends (i: number) => any>(fn: T, num: number): any {
   const res = Array(num)
     .fill(0)
     .map((_, i) => fn(i))

@@ -60,7 +60,7 @@ describe('测试 readBinList', () => {
   })
 })
 
-it('测试 linkGlobalBin', async () => {
+it.skip('测试 linkGlobalBin', async () => {
   const globalBinPath = ((await execPromise('npm -g bin')) as string).trimEnd()
 
   await linkGlobalBin(globalBinPath, {

@@ -15,7 +15,9 @@ export function resolve(entries: [from: string, to: string][]): Plugin {
         if (!findEntries) {
           return
         }
-        return await build.resolve(findEntries[1])
+        return await build.resolve(findEntries[1], {
+          kind: args.kind,
+        })
       })
     },
   }

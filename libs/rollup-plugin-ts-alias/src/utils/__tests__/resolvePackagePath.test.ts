@@ -1,8 +1,7 @@
-import { createRequire } from 'module'
 import { expect, it } from 'vitest'
 import { resolvePackagePath } from '../resolvePackagePath'
 
-it('resolvePackagePath', () => {
+it.only('resolvePackagePath', () => {
   const r = resolvePackagePath('@liuli-util/async/package.json')
   expect(r.endsWith('libs/async/package.json')).toBeTruthy()
 })

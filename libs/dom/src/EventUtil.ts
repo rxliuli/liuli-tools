@@ -67,12 +67,7 @@ export class EventUtil {
     listener: EventListenerOrEventListenerObject,
     options?: boolean | AddEventListenerOptions,
   ): void
-  static add(
-    dom: EventOriginType,
-    type: any,
-    listener: any,
-    options?: boolean,
-  ): void {
+  static add(dom: EventOriginType, type: any, listener: any, options?: boolean): void {
     if (!EventUtil.listenerMap.has(dom)) {
       EventUtil.listenerMap.set(dom, [])
     }
@@ -124,20 +119,13 @@ export class EventUtil {
     listener: EventListenerOrEventListenerObject,
     options?: boolean | EventListenerOptions,
   ): void
-  static remove(
-    dom: EventOriginType,
-    type: any,
-    listener: any,
-    options?: boolean,
-  ): void {
+  static remove(dom: EventOriginType, type: any, listener: any, options?: boolean): void {
     dom.removeEventListener(type, listener as any, options)
     EventUtil.listenerMap.set(
       dom,
       (EventUtil.listenerMap.get(dom) || []).filter(
         (cacheListener) =>
-          cacheListener.type !== type ||
-          cacheListener.listener !== listener ||
-          cacheListener.options !== options,
+          cacheListener.type !== type || cacheListener.listener !== listener || cacheListener.options !== options,
       ),
     )
   }
@@ -151,54 +139,33 @@ export class EventUtil {
     type: K,
     options?: boolean | EventListenerOptions,
   ): CacheListener[]
-  static removeByType(
-    dom: Document,
-    type: string,
-    options?: boolean | EventListenerOptions,
-  ): CacheListener[]
+  static removeByType(dom: Document, type: string, options?: boolean | EventListenerOptions): CacheListener[]
   static removeByType<K extends keyof ElementEventMap>(
     el: Element,
     type: K,
     options?: boolean | EventListenerOptions,
   ): CacheListener[]
-  static removeByType(
-    el: Element,
-    type: string,
-    options?: boolean | EventListenerOptions,
-  ): CacheListener[]
+  static removeByType(el: Element, type: string, options?: boolean | EventListenerOptions): CacheListener[]
   static removeByType<K extends keyof WindowEventMap>(
     dom: Window,
     type: K,
     options?: boolean | EventListenerOptions,
   ): CacheListener[]
-  static removeByType(
-    dom: Window,
-    type: string,
-    options?: boolean | EventListenerOptions,
-  ): CacheListener[]
-  static removeByType(
-    dom: EventOriginType,
-    type: any,
-    options?: boolean,
-  ): CacheListener[] {
+  static removeByType(dom: Window, type: string, options?: boolean | EventListenerOptions): CacheListener[]
+  static removeByType(dom: EventOriginType, type: any, options?: boolean): CacheListener[] {
     const listenerList = EventUtil.listenerMap.get(dom)
     if (listenerList === undefined) {
       return []
     }
     const map = groupBy(
       listenerList,
-      (cacheListener) =>
-        type === cacheListener.type && options === cacheListener.options,
+      (cacheListener) => type === cacheListener.type && options === cacheListener.options,
     )
     const removeCacheListenerList = map.get(true) || []
     const retainCacheListenerList = map.get(true) || []
     EventUtil.listenerMap.set(dom, retainCacheListenerList)
     return removeCacheListenerList.map((cacheListener) => {
-      dom.removeEventListener(
-        cacheListener.type,
-        cacheListener.listener as any,
-        cacheListener.options,
-      )
+      dom.removeEventListener(cacheListener.type, cacheListener.listener as any, cacheListener.options)
       return cacheListener
     })
   }

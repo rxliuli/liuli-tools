@@ -8,8 +8,8 @@ describe('测试 EventUtil', () => {
 
   beforeEach(() => {
     document.body.innerHTML = /* html */ `
-    <main class='event-util'>
-        <button id='btn'>按钮</button>
+    <main class="event-util">
+        <button id="btn">按钮</button>
     </main>
     `
 

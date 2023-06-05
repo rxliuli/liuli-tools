@@ -1,0 +1,40 @@
+{
+  "name": "@liuli-util/vite-plugin-node",
+  "version": "0.1.1",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./*": "./*"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "vite build",
+    "setup": "pnpm build",
+    "test": "vitest run"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "devDependencies": {
+    "typescript": "^4.8.4",
+    "vite": "^4.3.9",
+    "vitest": "^0.23.4"
+  },
+  "peerDependencies": {
+    "vite": "^4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "magic-string": "^0.30.0",
+    "rollup-plugin-node-externals": "^6.1.1",
+    "vite-plugin-dts": "^2.3.0"
+  }
+}

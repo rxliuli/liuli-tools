@@ -6,11 +6,11 @@ actions:
   - link: /tools/
     text: 工具 →
 features:
-  - title: 工程工具
-    details: 针对项目级别的工具，包括 cli 和 ide 插件。
-  - title: 函数依赖库
-    details: 直接可以在代码中使用的 lib，主要是一些低层次的工具函数。
-  - title: 统一配置包
-    details: 为了统一多个项目中的各种配置文件，而将之封装为 npm 包。
+  - title: CLI
+    details: 一些有用的 cli 工具，例如脚手架、代码生成器等。
+  - title: 工程
+    details: 工程级别的工具，主要是各种插件或配置包。
+  - title: 函数库
+    details: 一些有用的函数库，例如日期处理、字符串处理等。
 footer: MIT Licensed | Copyright © 2021-present rxliuli
 ---

@@ -5,3 +5,4 @@ packages:
   - 'libs/rollup-plugin-ts-alias/packages/*'
   - 'examples/*'
   - 'scripts'
+  - 'website'

@@ -1322,6 +1322,31 @@ importers:
         specifier: ^0.31.0
         version: 0.31.0(happy-dom@9.18.3)
 
+  libs/vite-plugin-chunk-node-modules:
+    dependencies:
+      magic-string:
+        specifier: ^0.30.0
+        version: 0.30.0
+      rollup-plugin-node-externals:
+        specifier: ^6.1.1
+        version: 6.1.1(rollup@3.21.7)
+      vite-plugin-dts:
+        specifier: ^2.3.0
+        version: 2.3.0(@types/node@20.1.4)(rollup@3.21.7)(vite@4.3.9)
+    devDependencies:
+      '@liuli-util/vite-plugin-node':
+        specifier: workspace:^
+        version: link:../vite-plugin-node
+      typescript:
+        specifier: ^4.8.4
+        version: 4.8.4
+      vite:
+        specifier: ^4.3.9
+        version: 4.3.9(@types/node@20.1.4)
+      vitest:
+        specifier: ^0.23.4
+        version: 0.23.4
+
   libs/vite-plugin-css-dts:
     dependencies:
       '@liuli-util/fs-extra':
@@ -2609,13 +2634,13 @@ packages:
       '@types/node': 20.1.4
       chalk: 4.1.2
       cosmiconfig: 8.1.3
-      cosmiconfig-typescript-loader: 4.3.0(@types/node@20.1.4)(cosmiconfig@8.1.3)(ts-node@10.9.1)(typescript@4.8.4)
+      cosmiconfig-typescript-loader: 4.3.0(@types/node@20.1.4)(cosmiconfig@8.1.3)(ts-node@10.9.1)(typescript@5.0.4)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
       resolve-from: 5.0.0
       ts-node: 10.9.1(@types/node@20.1.4)(typescript@5.0.4)
-      typescript: 4.8.4
+      typescript: 5.0.4
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -6042,7 +6067,7 @@ packages:
       toggle-selection: 1.0.6
     dev: false
 
-  /cosmiconfig-typescript-loader@4.3.0(@types/node@20.1.4)(cosmiconfig@8.1.3)(ts-node@10.9.1)(typescript@4.8.4):
+  /cosmiconfig-typescript-loader@4.3.0(@types/node@20.1.4)(cosmiconfig@8.1.3)(ts-node@10.9.1)(typescript@5.0.4):
     resolution: {integrity: sha512-NTxV1MFfZDLPiBMjxbHRwSh5LaLcPMwNdCutmnHJCKoVnlvldPWlllonKwrsRJ5pYZBIBGRWWU2tfvzxgeSW5Q==}
     engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
@@ -6054,7 +6079,7 @@ packages:
       '@types/node': 20.1.4
       cosmiconfig: 8.1.3
       ts-node: 10.9.1(@types/node@20.1.4)(typescript@5.0.4)
-      typescript: 4.8.4
+      typescript: 5.0.4
     dev: true
 
   /cosmiconfig@7.0.1:
@@ -11905,7 +11930,7 @@ packages:
       strip-literal: 1.0.1
       tinybench: 2.5.0
       tinypool: 0.5.0
-      vite: 4.3.5(@types/node@20.1.4)
+      vite: 4.3.9(@types/node@20.1.4)
       vite-node: 0.31.0(@types/node@20.1.4)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:

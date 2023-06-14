@@ -91,6 +91,9 @@ importers:
       '@liuli-util/fs-extra':
         specifier: workspace:^
         version: link:../../libs/fs-extra
+      '@liuli-util/vite-plugin-node':
+        specifier: workspace:^
+        version: link:../../libs/vite-plugin-node
       '@types/inquirer':
         specifier: ^9.0.3
         version: 9.0.3
@@ -103,15 +106,18 @@ importers:
       '@types/node':
         specifier: ^20.1.4
         version: 20.1.4
-      tsup:
-        specifier: ^6.7.0
-        version: 6.7.0(ts-node@10.9.1)(typescript@5.0.4)
       tsx:
         specifier: ^3.12.7
         version: 3.12.7
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
+      vite:
+        specifier: ^4.3.9
+        version: 4.3.9(@types/node@20.1.4)
+      vite-node:
+        specifier: ^0.32.0
+        version: 0.32.0(@types/node@20.1.4)
       vitest:
         specifier: ^0.31.0
         version: 0.31.0(happy-dom@9.18.3)
@@ -128,6 +134,9 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
     devDependencies:
+      '@liuli-util/vite-plugin-node':
+        specifier: workspace:^
+        version: link:../../../../libs/vite-plugin-node
       '@types/inquirer':
         specifier: ^9.0.3
         version: 9.0.3
@@ -137,30 +146,30 @@ importers:
       '@types/node':
         specifier: ^20.1.4
         version: 20.1.4
-      rimraf:
-        specifier: ^5.0.0
-        version: 5.0.0
-      tsup:
-        specifier: ^6.7.0
-        version: 6.7.0(ts-node@10.9.1)(typescript@5.0.4)
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
+      vite:
+        specifier: ^4.3.9
+        version: 4.3.9(@types/node@20.1.4)
+      vite-node:
+        specifier: ^0.32.0
+        version: 0.32.0(@types/node@20.1.4)
       vitest:
         specifier: ^0.31.0
         version: 0.31.0(happy-dom@9.18.3)
 
   apps/create-liuli/packages/lib:
     devDependencies:
-      tsup:
-        specifier: ^6.7.0
-        version: 6.7.0(ts-node@10.9.1)(typescript@5.0.4)
-      tsx:
-        specifier: ^3.12.7
-        version: 3.12.7
+      '@liuli-util/vite-plugin-node':
+        specifier: workspace:^
+        version: link:../../../../libs/vite-plugin-node
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
+      vite:
+        specifier: ^4.3.9
+        version: 4.3.9(@types/node@20.1.4)
       vitest:
         specifier: ^0.31.0
         version: 0.31.0(happy-dom@9.18.3)
@@ -3519,7 +3528,7 @@ packages:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
       graphql: 16.6.0
-      tslib: 2.4.1
+      tslib: 2.5.0
     dev: false
 
   /@graphql-tools/prisma-loader@7.2.72(@types/node@20.1.4)(graphql@16.6.0):
@@ -3562,7 +3571,7 @@ packages:
       '@ardatan/relay-compiler': 12.0.0(graphql@16.6.0)
       '@graphql-tools/utils': 9.2.1(graphql@16.6.0)
       graphql: 16.6.0
-      tslib: 2.4.1
+      tslib: 2.5.0
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -3612,7 +3621,7 @@ packages:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
       graphql: 16.6.0
-      tslib: 2.4.1
+      tslib: 2.5.0
     dev: false
 
   /@graphql-tools/utils@9.2.1(graphql@16.6.0):
@@ -11553,6 +11562,27 @@ packages:
 
   /vite-node@0.31.0(@types/node@20.1.4):
     resolution: {integrity: sha512-8x1x1LNuPvE2vIvkSB7c1mApX5oqlgsxzHQesYF7l5n1gKrEmrClIiZuOFbFDQcjLsmcWSwwmrWrcGWm9Fxc/g==}
+    engines: {node: '>=v14.18.0'}
+    hasBin: true
+    dependencies:
+      cac: 6.7.14
+      debug: 4.3.4
+      mlly: 1.2.1
+      pathe: 1.1.0
+      picocolors: 1.0.0
+      vite: 4.3.9(@types/node@20.1.4)
+    transitivePeerDependencies:
+      - '@types/node'
+      - less
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+    dev: true
+
+  /vite-node@0.32.0(@types/node@20.1.4):
+    resolution: {integrity: sha512-220P/y8YacYAU+daOAqiGEFXx2A8AwjadDzQqos6wSukjvvTWNqleJSwoUn0ckyNdjHIKoxn93Nh1vWBqEKr3Q==}
     engines: {node: '>=v14.18.0'}
     hasBin: true
     dependencies:

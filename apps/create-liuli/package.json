@@ -1,15 +1,8 @@
 {
   "name": "create-liuli",
-  "version": "0.3.2",
+  "version": "0.3.1",
   "license": "MIT",
   "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
-    "./src": "./src/index.ts"
-  },
   "bin": "./bin.js",
   "files": [
     "bin.js",
@@ -17,7 +10,7 @@
     "packages"
   ],
   "scripts": {
-    "build": "pnpm tsup src/bin.ts --format esm --target esnext",
+    "build": "vite build",
     "setup": "pnpm build",
     "start": "tsx src/bin.ts",
     "test": "vitest run"
@@ -30,13 +23,15 @@
   },
   "devDependencies": {
     "@liuli-util/fs-extra": "workspace:^",
+    "@liuli-util/vite-plugin-node": "workspace:^",
     "@types/inquirer": "^9.0.3",
     "@types/lodash-es": "^4.17.7",
     "@types/mustache": "^4.2.2",
     "@types/node": "^20.1.4",
-    "tsup": "^6.7.0",
     "tsx": "^3.12.7",
     "typescript": "^5.0.4",
+    "vite": "^4.3.9",
+    "vite-node": "^0.32.0",
     "vitest": "^0.31.0"
   },
   "publishConfig": {

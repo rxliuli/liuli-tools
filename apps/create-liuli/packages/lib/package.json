@@ -1,26 +1,22 @@
 {
   "name": "create-lib-template-lib",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "license": "MIT",
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
-    "./*": "./*"
+    "import": "./dist/index.js",
+    "types": "./dist/index.d.ts"
   },
-  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "build": "vite build",
     "setup": "pnpm build",
     "test": "vitest run"
   },
   "sideEffects": false,
   "devDependencies": {
-    "tsup": "^6.7.0",
-    "tsx": "^3.12.7",
+    "@liuli-util/vite-plugin-node": "^0.1.1",
     "typescript": "^5.0.4",
+    "vite": "^4.3.9",
     "vitest": "^0.31.0"
   },
   "publishConfig": {

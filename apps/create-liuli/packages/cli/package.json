@@ -7,8 +7,9 @@
   },
   "scripts": {
     "init": "pnpm build",
-    "build": "tsup src/bin.ts --format esm --target esnext --sourcemap --clean",
+    "build": "vite build",
     "dev": "pnpm build --watch",
+    "start": "vite-node src/bin.ts",
     "test": "vitest run"
   },
   "publishConfig": {
@@ -16,12 +17,13 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
+    "@liuli-util/vite-plugin-node": "^0.1.1",
     "@types/inquirer": "^9.0.3",
     "@types/lodash-es": "^4.17.7",
     "@types/node": "^20.1.4",
-    "rimraf": "^5.0.0",
-    "tsup": "^6.7.0",
     "typescript": "^5.0.4",
+    "vite": "^4.3.9",
+    "vite-node": "^0.32.0",
     "vitest": "^0.31.0"
   },
   "dependencies": {

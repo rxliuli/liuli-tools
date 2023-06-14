@@ -1,5 +1,5 @@
 {
-  "name": "worker-threads-example",
+  "name": "@liuli-util/worker-threads-example",
   "version": "0.3.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -30,5 +30,6 @@
     "import": "dist/esm/index.js",
     "require": "dist/cjs/index.js",
     "types": "dist/esm/index.d.ts"
-  }
+  },
+  "private": true
 }

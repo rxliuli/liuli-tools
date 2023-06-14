@@ -1,5 +1,5 @@
 {
-  "name": "vite-project",
+  "name": "@liuli-util/rollup-plugin-i18next-dts-gen-example",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -19,5 +19,6 @@
     "@vitejs/plugin-react": "^4.0.0",
     "typescript": "^5.0.4",
     "vite": "^4.3.5"
-  }
+  },
+  "private": true
 }

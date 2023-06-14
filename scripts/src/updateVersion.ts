@@ -10,7 +10,6 @@ async function updateExport(jsonPath: string) {
   json.exports = {} as { [key in PackageJson.ExportCondition]: string }
   json.exports.import = json.module
   json.exports.require = json.main
-  // @ts-expect-error
   json.exports.types = json.types
   await writeJson(jsonPath, json, { spaces: 2 })
 }

@@ -1,8 +1,5 @@
 packages:
-  - 'apps/*'
-  - 'apps/create-liuli/packages/*'
-  - 'libs/*'
-  - 'libs/rollup-plugin-ts-alias/packages/*'
+  - 'packages/**'
   - 'examples/*'
   - 'scripts'
-  - 'website'
+  - 'docs'

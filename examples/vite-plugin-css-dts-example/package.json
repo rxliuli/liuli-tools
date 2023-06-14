@@ -1,5 +1,5 @@
 {
-  "name": "vite-plugin-css-dts-example",
+  "name": "@liuli-util/vite-plugin-css-dts-example",
   "private": true,
   "version": "0.0.0",
   "type": "module",

@@ -1,6 +1,7 @@
 {
-  "name": "react-router-redirect-example",
+  "name": "@liuli-util/react-router-redirect-example",
   "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -1,5 +1,6 @@
 {
-  "name": "react-router-async-example",
+  "name": "@liuli-util/react-router-async-example",
+  "private": true,
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",

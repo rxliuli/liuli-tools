@@ -1,6 +1,6 @@
 {
-  "private": true,
   "name": "@liuli-util/scripts",
+  "private": true,
   "type": "module",
   "scripts": {
     "script:ts-node-to-esno": "tsx ts-node-to-tsx.ts",

@@ -21,9 +21,6 @@ async function checkVersion() {
         if (json.private || !json.publishConfig) {
           return false
         }
-        if (lt(json.version, await latestVersion(json.name))) {
-        }
-        json.version < json
         return true
       })
       .map(async (item) => {

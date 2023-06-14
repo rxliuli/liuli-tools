@@ -1,5 +1,5 @@
 {
-  "name": "vite-plugin-env-dts-gen-example",
+  "name": "@liuli-util/vite-plugin-env-dts-gen-example",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -10,5 +10,6 @@
     "@liuli-util/vite-plugin-env-dts-gen": "workspace:*",
     "typescript": "^5.0.4",
     "vite": "^4.3.5"
-  }
+  },
+  "private": true
 }

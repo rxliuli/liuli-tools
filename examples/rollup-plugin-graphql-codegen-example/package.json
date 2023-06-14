@@ -1,5 +1,5 @@
 {
-  "name": "rollup-plugin-graphql-codegen-example",
+  "name": "@liuli-util/rollup-plugin-graphql-codegen-example",
   "private": true,
   "version": "0.0.0",
   "scripts": {

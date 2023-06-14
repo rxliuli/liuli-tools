@@ -1,5 +1,5 @@
 {
-  "name": "rollup-plugin-tar-example",
+  "name": "@liuli-util/rollup-plugin-tar-example",
   "packageManager": "yarn@3.0.0",
   "scripts": {
     "build": "rimraf dist && rollup -c",
@@ -15,5 +15,6 @@
     "rollup": "^3.21.7",
     "rollup-plugin-typescript2": "^0.34.1",
     "typescript": "^5.0.4"
-  }
+  },
+  "private": true
 }

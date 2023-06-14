@@ -10,8 +10,8 @@
     "postinstall": "pnpm simple-git-hooks"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged",
-    "commit-msg": "pnpm commitlint --edit $1"
+    "pre-commit": "npx lint-staged",
+    "commit-msg": "npx commitlint --edit $1"
   },
   "commitlint": {
     "extends": [

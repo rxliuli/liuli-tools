@@ -3,7 +3,7 @@ import { externals } from './plugins/externals'
 import { config } from './plugins/config'
 
 interface NodeBuildOptions {
-  entry?: string // default: 'src/index.ts'
+  entry?: string | string[] // default: 'src/index.ts'
   shims?: boolean // default: false
   dts?: boolean // default: false
   modPatch?: boolean // default: false

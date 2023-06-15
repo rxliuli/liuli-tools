@@ -10,6 +10,7 @@ The following functions are currently supported:
 - [x] Support out-of-the-box configs, but custom configs are also supported
 - [ ] Support bundle as cjs module -- currently also supported, but vite configuration needs to be modified
 - [ ] Support custom output file name -- currently also supported, but vite configuration needs to be modified
+- [x] Support multi-entry construction
 
 In particular, it supports the use in the following scenarios
 
@@ -62,8 +63,8 @@ In fact, the lib itself is built with this plugin too!
 
 ## configuration
 
-| Name    | Type      | Default        | Description                                        |
-| ------- | --------- | -------------- | -------------------------------------------------- |
-| `entry` | `string`  | `src/index.ts` | entry file                                         |
-| `shims` | `boolean` | `false`        | Whether to fill `__dirname` and other cjs features |
-| `dts`   | `boolean` | `false`        | Whether to generate dts type definitions           |
+| Name    | Type               | Default        | Description                                        |
+| ------- | ------------------ | -------------- | -------------------------------------------------- |
+| `entry` | `string, string[]` | `src/index.ts` | entry file                                         |
+| `shims` | `boolean`          | `false`        | Whether to fill `__dirname` and other cjs features |
+| `dts`   | `boolean`          | `false`        | Whether to generate dts type definitions           |

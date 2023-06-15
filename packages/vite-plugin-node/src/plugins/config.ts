@@ -1,7 +1,7 @@
 import { Plugin } from 'vite'
 import path from 'path'
 
-export function config(options: { entry: string }): Plugin {
+export function config(options: { entry: string | string[] }): Plugin {
   const entry = options.entry
   return {
     name: 'node-config',
@@ -11,7 +11,9 @@ export function config(options: { entry: string }): Plugin {
           lib: {
             entry,
             formats: ['es'],
-            fileName: path.basename(entry, path.extname(entry)),
+            fileName(_format, entryName) {
+              return `${path.basename(entryName, path.extname(entryName))}.js`
+            },
           },
         },
       }

@@ -1,0 +1,29 @@
+{
+  "name": "@liuli-util/fs",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    "import": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "vite build",
+    "setup": "pnpm build",
+    "test": "vitest run"
+  },
+  "sideEffects": false,
+  "devDependencies": {
+    "@liuli-util/test": "workspace:^",
+    "@liuli-util/vite-plugin-node": "^0.1.1",
+    "@types/node": "^20.3.1",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.9",
+    "vitest": "^0.31.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

@@ -6,15 +6,12 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
-    "./src": "./src/index.ts"
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts",
     "lint": "eslint --fix src/**",
-    "setup": "pnpm build",
     "test": "vitest run"
   },
   "types": "./dist/index.d.ts",

@@ -9,6 +9,7 @@
   "updateInternalDependencies": "patch",
   "ignore": [
     "@liuli-util/**-example",
+    "@liuli-util/**-demo",
     "create-lib-template-*"
   ]
 }

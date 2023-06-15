@@ -378,7 +378,7 @@ importers:
         specifier: workspace:^
         version: link:../../packages/test
       '@liuli-util/vite-plugin-node':
-        specifier: ^0.1.1
+        specifier: ^0.2.0
         version: link:../../packages/vite-plugin-node
       '@types/inquirer':
         specifier: ^9.0.3
@@ -647,7 +647,7 @@ importers:
         version: 4.17.21
     devDependencies:
       '@liuli-util/vite-plugin-node':
-        specifier: ^0.1.1
+        specifier: ^0.2.0
         version: link:../../../vite-plugin-node
       '@types/inquirer':
         specifier: ^9.0.3
@@ -674,7 +674,7 @@ importers:
   packages/create-liuli/packages/lib:
     devDependencies:
       '@liuli-util/vite-plugin-node':
-        specifier: ^0.1.1
+        specifier: ^0.2.0
         version: link:../../../vite-plugin-node
       typescript:
         specifier: ^5.0.4
@@ -851,7 +851,7 @@ importers:
         specifier: workspace:^
         version: link:../test
       '@liuli-util/vite-plugin-node':
-        specifier: ^0.1.1
+        specifier: ^0.2.0
         version: link:../vite-plugin-node
       '@types/node':
         specifier: ^20.3.1

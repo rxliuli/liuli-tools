@@ -16,14 +16,14 @@ export function treeReduce<T extends object, C extends TreeOption<T>, R>(
    * @param childrenResult 子节点归并结果
    * @param path 节点路径
    */
-  reducer: (accumulator: R, node: T, childrenResult: R, path: string[]) => R,
+  reducer: (accumulator: R, node: T, childrenResult: R, path: T[C['id']][]) => R,
   initialValue: R,
   options: C,
 ): R {
-  function inner(nodeList: T[], parentPath: string[]): R {
+  function inner(nodeList: T[], parentPath: T[C['id']][]): R {
     return nodeList.reduce((accumulator, node) => {
       const path = [...parentPath, node[options.id]]
-      const children = node[options.children] ?? []
+      const children = (node[options.children] ?? []) as T[]
       return reducer(accumulator, node, inner(children, path), path)
     }, initialValue)
   }

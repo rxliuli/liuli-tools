@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/tree",
-  "version": "3.7.0",
+  "version": "3.8.0",
   "description": "树结构相关功能的函数库",
   "license": "MIT",
   "type": "module",
@@ -8,8 +8,7 @@
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
-    },
-    "./src": "./src/index.ts"
+    }
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts",

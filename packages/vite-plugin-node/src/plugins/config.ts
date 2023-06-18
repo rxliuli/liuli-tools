@@ -15,6 +15,7 @@ export function config(options: { entry: string | string[] }): Plugin {
               return `${path.basename(entryName, path.extname(entryName))}.js`
             },
           },
+          target: 'esnext',
         },
       }
     },

@@ -1,5 +1,11 @@
 # @liuli-util/vite-plugin-node
 
+## 0.3.0
+
+### Minor Changes
+
+- feat: 修改默认构建 target 是 esnext 以正确支持 top-level await
+
 ## 0.2.0
 
 ### Minor Changes

@@ -16,7 +16,7 @@
   "sideEffects": false,
   "devDependencies": {
     "@liuli-util/test": "workspace:^",
-    "@liuli-util/vite-plugin-node": "^0.2.0",
+    "@liuli-util/vite-plugin-node": "^0.3.0",
     "@types/node": "^20.3.1",
     "typescript": "^5.0.4",
     "vite": "^4.3.9",

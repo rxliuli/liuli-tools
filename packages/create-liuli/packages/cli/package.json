@@ -19,7 +19,6 @@
   },
   "devDependencies": {
     "@liuli-util/vite-plugin-node": "^0.2.0",
-    "@types/inquirer": "^9.0.3",
     "@types/lodash-es": "^4.17.7",
     "@types/node": "^20.1.4",
     "typescript": "^5.0.4",
@@ -29,7 +28,6 @@
   },
   "dependencies": {
     "commander": "^10.0.1",
-    "inquirer": "^9.2.3",
     "lodash-es": "^4.17.21"
   }
 }

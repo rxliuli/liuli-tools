@@ -7,17 +7,10 @@
     "esModuleInterop": true,
     "strict": true,
     "module": "ESNext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "moduleResolution": "bundler",
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true
   },
-  "include": ["src"],
-  "typedocOptions": {
-    "entryPoints": ["src/index.ts"],
-    "out": "docs",
-    "readme": "README.md",
-    "gitRemote": "origin"
-  }
+  "include": ["src"]
 }

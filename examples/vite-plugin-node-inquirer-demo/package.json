@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@liuli-util/test": "workspace:^",
-    "@liuli-util/vite-plugin-node": "^0.2.0",
+    "@liuli-util/vite-plugin-node": "^0.3.0",
     "@types/inquirer": "^9.0.3",
     "@types/node": "^20.1.4",
     "esbuild": "^0.17.19",

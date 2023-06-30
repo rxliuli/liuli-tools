@@ -6,7 +6,6 @@ interface NodeBuildOptions {
   entry?: string | string[] // default: 'src/index.ts'
   shims?: boolean // default: false
   dts?: boolean // default: false
-  modPatch?: boolean // default: false
 }
 
 export async function node(options?: NodeBuildOptions): Promise<Plugin[]> {
@@ -21,9 +20,6 @@ export async function node(options?: NodeBuildOptions): Promise<Plugin[]> {
   }
   if (options?.dts) {
     r.push((await import('vite-plugin-dts')).default())
-  }
-  if (options?.modPatch) {
-    r.push((await import('./plugins/modPatch')).modPatch())
   }
   return r
 }

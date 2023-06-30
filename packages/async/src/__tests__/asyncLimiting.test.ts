@@ -94,3 +94,12 @@ describe('测试 AsyncArray', () => {
     await mockFn()
   })
 })
+
+it('asyncLimiting', async () => {
+  const start = Date.now()
+  const f = asyncLimiting(() => wait(100), 1)
+  await Promise.all(Array(10).fill(0).map(f))
+  const end = Date.now()
+  console.log(end - start) // 超过 1000ms
+  expect(end - start).toBeGreaterThanOrEqual(1000)
+})

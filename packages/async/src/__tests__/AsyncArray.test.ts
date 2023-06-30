@@ -2,6 +2,8 @@ import { expect, it, describe, vi } from 'vitest'
 import { AsyncArray } from '../AsyncArray'
 import { wait } from '../wait'
 import { countTime, Expect } from '@liuli-util/test'
+import { readFile, readdir } from 'fs/promises'
+import path from 'path'
 
 describe('测试 AsyncArray', () => {
   async function testReduce(reduce: Function) {
@@ -83,4 +85,12 @@ describe('测试 AsyncArray', () => {
       expect(fn.mock.calls.map((v) => v[0])).toEqual(arr)
     })
   })
+})
+
+it('并发读取本地文件', async () => {
+  const r = await AsyncArray.map(await readdir(__dirname), async (it) => ({
+    name: it,
+    content: await readFile(path.resolve(__dirname, it), 'utf-8'),
+  }))
+  console.log(r)
 })

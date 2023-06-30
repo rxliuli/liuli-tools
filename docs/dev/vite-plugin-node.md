@@ -1,4 +1,4 @@
-# vite-plugin-node
+# @liuli-util/vite-plugin-node
 
 使用 vite 构建 nodejs app/lib 所需的一切，希望在构建 node 应用时，能够像使用 vite 构建 web 应用一样简单。
 
@@ -16,7 +16,7 @@
 
 - lib
 - cli
-- server
+- nodejs server
 - vscode plugin
 
 ## 使用
@@ -62,8 +62,8 @@ pnpm vite build
 
 ## 配置
 
-| 名称    | 类型               | 默认值         | 说明                             |
-| ------- | ------------------ | -------------- | -------------------------------- |
-| `entry` | `string, string[]` | `src/index.ts` | 入口文件                         |
-| `shims` | `boolean`          | `false`        | 是否填充 `__dirname` 等 cjs 特性 |
-| `dts`   | `boolean`          | `false`        | 是否生成 dts 类型定义            |
+| 名称    | 类型               | 默认值         | 说明                                     |
+| ------- | ------------------ | -------------- | ---------------------------------------- |
+| `entry` | `string, string[]` | `src/index.ts` | 入口文件                                 |
+| `shims` | `boolean`          | `false`        | 是否填充 `__dirname/require` 等 cjs 特性 |
+| `dts`   | `boolean`          | `false`        | 是否生成 dts 类型定义                    |

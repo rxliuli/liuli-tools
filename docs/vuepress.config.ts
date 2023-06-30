@@ -5,45 +5,13 @@ import { searchPlugin } from '@vuepress/plugin-search'
 export default defineUserConfig({
   lang: 'zh-CN',
   title: 'liuli-tools',
+  description: '一些项目级别的工具集，主要尝试优化开发者体验',
   theme: defaultTheme({
     logo: '/logo.png',
     navbar: [
       {
         text: '工具',
-        children: [
-          {
-            text: 'CLI',
-            link: '/tools/',
-            children: [
-              {
-                text: 'create-cli',
-                link: 'https://github.com/rxliuli/liuli-tools/tree/master/apps/create-liuli',
-              },
-            ],
-          },
-          {
-            text: '工程',
-            children: [
-              {
-                text: 'vite-plugin-node',
-                link: '/vite-plugin-node/',
-              },
-              {
-                text: 'rollup-plugin-i18next-dts-gen',
-                link: 'https://github.com/rxliuli/liuli-tools/blob/master/libs/rollup-plugin-i18next-dts-gen/README.zh-CN.md',
-              },
-            ],
-          },
-          {
-            text: '函数库',
-            children: [
-              {
-                text: 'react-router',
-                link: 'https://github.com/rxliuli/liuli-tools/blob/master/libs/react-router/README.zh-CN.md',
-              },
-            ],
-          },
-        ],
+        link: '/quick-start.md',
       },
       {
         text: 'GitHub',
@@ -54,14 +22,16 @@ export default defineUserConfig({
         link: 'https://www.npmjs.com/org/liuli-util',
       },
     ],
-    sidebar: {
-      '/tools/i18next-dts-gen': [
-        {
-          text: '快速启动',
-          link: '/tools/i18next-dts-gen',
-        },
-      ],
-    },
+    sidebar: [
+      {
+        text: '开发工具',
+        children: ['/dev/create-liuli.md', '/dev/vite-plugin-node.md', '/dev/rollup-plugin-i18next-dts-gen.md'],
+      },
+      {
+        text: '函数库',
+        children: ['/lib/tree.md', '/lib/async.md', '/lib/react-router.md'],
+      },
+    ],
   }),
   plugins: [searchPlugin()],
 })

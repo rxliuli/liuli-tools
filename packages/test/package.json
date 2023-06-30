@@ -5,8 +5,10 @@
   "license": "MIT",
   "type": "module",
   "exports": {
-    "import": "./src/index.ts",
-    "types": "./src/index.ts"
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
   },
   "scripts": {
     "lint": "eslint --fix src/**",
@@ -18,8 +20,10 @@
     "rimraf": "^5.0.0",
     "tsup": "^6.7.0",
     "type-fest": "^3.10.0",
-    "typescript": "^5.0.4",
-    "vitest": "^0.31.0"
+    "typescript": "^5.0.4"
+  },
+  "optionalDependencies": {
+    "vitest": "*"
   },
   "publishConfig": {
     "access": "public",

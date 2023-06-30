@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-4f645082","path":"/dev/create-liuli.html","title":"create-liuli","lang":"zh-CN","frontmatter":{},"headers":[{"level":2,"title":"使用","slug":"使用","link":"#使用","children":[]}],"git":{"updatedTime":1688144778000,"contributors":[{"name":"rxliuli","email":"rxliuli@gmail.com","commits":1}]},"filePathRelative":"dev/create-liuli.md"}');export{e as data};

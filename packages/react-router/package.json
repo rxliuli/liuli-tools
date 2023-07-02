@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/react-router",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "license": "MIT",
   "type": "module",
   "exports": {

@@ -1,5 +1,11 @@
 # @liuli-util/vite-plugin-node
 
+## 0.4.1
+
+### Patch Changes
+
+- chore: 文档和 package.json 的一些清理和修正
+
 ## 0.4.0
 
 ### Minor Changes

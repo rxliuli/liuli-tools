@@ -1,5 +1,11 @@
 # @liuli-util/tree
 
+## 3.8.1
+
+### Patch Changes
+
+- chore: 文档和 package.json 的一些清理和修正
+
 ## 3.8.0
 
 ### Minor Changes

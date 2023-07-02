@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.6.4
+
+### Patch Changes
+
+- Updated dependencies
+  - @liuli-util/async@3.6.1
+
 ## 0.3.3
 
 <!--hash:7535f3bf8f63b1f05553121ad22555a09721b38c-->
@@ -26,7 +33,7 @@
 - chore: 尽可能地解决 yarn2 安装依赖时的警告
 - chore: 修复各种问题
 - chore: 升级 yarn 2，放弃使用 lerna
-- chore: 使用 * 替代具体的版本
+- chore: 使用 \* 替代具体的版本
 - chore: 添加发布与仓库配置
 - chore: 修复引入 i18next-dts-gen 模块带来的各种奇怪的问题
 - chore: 将 i18next-dts-gen 模块引入到这个项目
@@ -62,4 +69,4 @@
 
 ## 0.1.1
 
-- Basic implementation scans a single directory to generate type definitions
+- Basic implementation scans a single directory to generate type definitions

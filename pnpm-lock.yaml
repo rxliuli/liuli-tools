@@ -665,10 +665,10 @@ importers:
         specifier: ^3.4.1
         version: 3.4.1
       '@liuli-util/rollup-plugin-i18next-dts-gen':
-        specifier: workspace:^
+        specifier: ^0.4.4
         version: link:../../../rollup-plugin-i18next-dts-gen
       '@liuli-util/vite-plugin-firefox-dist':
-        specifier: ^0.2.0
+        specifier: ^0.2.1
         version: link:../../../vite-plugin-firefox-dist
       '@types/lodash-es':
         specifier: ^4.17.7

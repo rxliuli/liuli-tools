@@ -5,13 +5,13 @@ import { fileURLToPath } from 'node:url'
 import { cp, readdir } from 'node:fs/promises'
 import { extract, pathExists, changeJson, changeFile } from './utils'
 
-type GenerateType = 'lib' | 'cli'
+type GenerateType = 'lib' | 'cli' | 'react-chrome-plugin'
 
 export interface GenerateOptions {
   cwd: string
   template: GenerateType
   name: string
-  overwrite?: boolean
+  force?: boolean
 }
 
 interface RenderOptions extends GenerateOptions {
@@ -29,24 +29,24 @@ export async function initOptions(options: Partial<GenerateOptions>): Promise<Ge
       {
         name: 'template',
         type: 'list',
-        choices: ['lib', 'cli'] as GenerateType[],
+        choices: ['lib', 'cli', 'react-chrome-plugin'] as GenerateType[],
       },
     ] as DistinctQuestion[]
   ).filter((item) => !(options as any)[item.name!])
   const res = await inquirer.prompt<Partial<Pick<GenerateOptions, 'name' | 'template'>>>(list)
   const r = Object.assign({}, options, res) as GenerateOptions
   const distPath = path.resolve(options.cwd!, extract(r.name).name)
-  if (!options.overwrite && (await pathExists(distPath)) && (await readdir(distPath)).length > 0) {
-    const { overwrite } = await inquirer.prompt<Pick<GenerateOptions, 'overwrite'>>([
+  if (!options.force && (await pathExists(distPath)) && (await readdir(distPath)).length > 0) {
+    const { force } = await inquirer.prompt<Pick<GenerateOptions, 'force'>>([
       {
-        name: 'overwrite',
+        name: 'force',
         type: 'confirm',
         message: 'is overwrite?',
       },
     ])
-    r.overwrite = overwrite
+    r.force = force
   } else {
-    r.overwrite = true
+    r.force = true
   }
   return r
 }
@@ -57,7 +57,7 @@ export async function generate(options: GenerateOptions) {
 
   const templatePath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), `../packages/${options.template}`)
 
-  if ((await pathExists(distPath)) && (await readdir(distPath)).length > 0 && !options.overwrite) {
+  if ((await pathExists(distPath)) && (await readdir(distPath)).length > 0 && !options.force) {
     return
   }
 

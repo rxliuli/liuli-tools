@@ -30,14 +30,14 @@ it('generate by org', async () => {
   expect(await pathExists(path.resolve(tempPath, 'test/package.json'))).true
 })
 
-it('generate by overwrite', async () => {
+it('generate by force', async () => {
   await mkdirp(path.resolve(tempPath, 'test'))
 
   await generate({
     cwd: tempPath,
     name: 'test',
     template: 'lib',
-    overwrite: true,
+    force: true,
   })
 
   expect(await pathExists(path.resolve(tempPath, 'test/package.json'))).true
@@ -51,4 +51,13 @@ it('generate cli', async () => {
   })
 
   expect(await pathExists(path.resolve(tempPath, 'test-cli/package.json'))).true
+})
+
+it('generate chrome plugin', async () => {
+  await generate({
+    cwd: tempPath,
+    name: '@liuli-util/test-chrome-plugin',
+    template: 'react-chrome-plugin',
+  })
+  expect(await pathExists(path.resolve(tempPath, 'test-chrome-plugin/package.json'))).true
 })

@@ -1,0 +1,43 @@
+{
+  "name": "create-lib-template-react-chrome-plugin",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "pack-src": "rimraf src.zip && jszip-cli add src/ package.json .gitignore vite.config.ts tsconfig.json tsconfig.node.json -o ./release/src.zip",
+    "pack-xpi": "web-ext build -s ./dist-firefox/ -o -a release/ -n firefox.zip",
+    "pack-zip": "rimraf extension.zip && jszip-cli add dist/ -o ./release/chrome.zip",
+    "pack-all": "rimraf release && pnpm build && pnpm pack-xpi && pnpm pack-src && pnpm pack-zip",
+    "start-firefox": "web-ext run -s ./dist",
+    "start-chromium": "web-ext run -s ./dist --target=chromium"
+  },
+  "dependencies": {
+    "i18next": "^22.4.15",
+    "lodash-es": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-use": "^17.4.0",
+    "webextension-polyfill": "^0.10.0"
+  },
+  "devDependencies": {
+    "@crxjs/vite-plugin": "2.0.0-beta.18",
+    "@ffflorian/jszip-cli": "^3.4.1",
+    "@liuli-util/rollup-plugin-i18next-dts-gen": "workspace:^",
+    "@liuli-util/vite-plugin-firefox-dist": "^0.1.0",
+    "@types/lodash-es": "^4.17.7",
+    "@types/react": "^18.0.37",
+    "@types/react-dom": "^18.0.11",
+    "@types/webextension-polyfill": "^0.10.1",
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.24",
+    "rimraf": "^5.0.0",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9",
+    "web-ext": "^7.6.2"
+  }
+}

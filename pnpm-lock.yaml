@@ -668,7 +668,7 @@ importers:
         specifier: workspace:^
         version: link:../../../rollup-plugin-i18next-dts-gen
       '@liuli-util/vite-plugin-firefox-dist':
-        specifier: ^0.1.0
+        specifier: ^0.2.0
         version: link:../../../vite-plugin-firefox-dist
       '@types/lodash-es':
         specifier: ^4.17.7

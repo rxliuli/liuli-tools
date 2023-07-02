@@ -11,7 +11,7 @@
     "pack-xpi": "web-ext build -s ./dist-firefox/ -o -a release/ -n firefox.zip",
     "pack-zip": "rimraf extension.zip && jszip-cli add dist/ -o ./release/chrome.zip",
     "pack-all": "rimraf release && pnpm build && pnpm pack-xpi && pnpm pack-src && pnpm pack-zip",
-    "start-firefox": "web-ext run -s ./dist",
+    "start-firefox": "web-ext run -s ./dist-firefox",
     "start-chromium": "web-ext run -s ./dist --target=chromium"
   },
   "dependencies": {
@@ -25,7 +25,7 @@
   "devDependencies": {
     "@crxjs/vite-plugin": "2.0.0-beta.18",
     "@ffflorian/jszip-cli": "^3.4.1",
-    "@liuli-util/rollup-plugin-i18next-dts-gen": "workspace:^",
+    "@liuli-util/rollup-plugin-i18next-dts-gen": "^0.4.4",
     "@liuli-util/vite-plugin-firefox-dist": "^0.2.0",
     "@types/lodash-es": "^4.17.7",
     "@types/react": "^18.0.37",

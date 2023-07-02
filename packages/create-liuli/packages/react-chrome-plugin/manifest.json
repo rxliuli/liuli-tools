@@ -3,5 +3,9 @@
   "name": "CRXJS React Vite Example",
   "version": "0.1.0",
   "permissions": ["storage"],
+  "background": {
+    "service_worker": "src/background.ts",
+    "type": "module"
+  },
   "action": { "default_popup": "index.html" }
 }

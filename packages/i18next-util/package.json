@@ -4,7 +4,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rxliuli/liuli-tools/tree/master/libs/i18next-util"
+    "url": "https://github.com/rxliuli/liuli-tools/tree/master/packages/i18next-util"
   },
   "type": "module",
   "types": "./dist/index.d.ts",

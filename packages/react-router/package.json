@@ -2,7 +2,6 @@
   "name": "@liuli-util/react-router",
   "version": "0.9.3",
   "license": "MIT",
-  "homepage": "https://github.com/rxliuli/liuli-tools/tree/master/libs/react-router",
   "type": "module",
   "exports": {
     ".": {
@@ -38,5 +37,5 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "sync": []
+  "homepage": "https://dev.rxliuli.com/lib/react-router"
 }

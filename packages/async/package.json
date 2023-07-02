@@ -32,5 +32,5 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "gitHead": "9ebadce05245141b72dedfef846332d4f2a566fc"
+  "homepage": "https://dev.rxliuli.com/lib/async"
 }

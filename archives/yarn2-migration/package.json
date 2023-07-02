@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rxliuli/liuli-tools/tree/master/libs/yarn2-migration"
+    "url": "https://github.com/rxliuli/liuli-tools/tree/master/packages/yarn2-migration"
   },
   "dependencies": {
     "@liuli-util/i18next-util": "workspace:^0.2.0",

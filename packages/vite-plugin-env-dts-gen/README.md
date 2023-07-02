@@ -1,6 +1,6 @@
 # @liuli-util/vite-plugin-env-dts-gen
 
-> [中文](https://github.com/rxliuli/liuli-tools/tree/master/libs/vite-plugin-env-dts-gen/README.zh-CN.md)
+> [中文](https://github.com/rxliuli/liuli-tools/tree/master/packages/vite-plugin-env-dts-gen/README.zh-CN.md)
 
 Scan environment variables to generate dts type definitions to avoid manually maintaining dts type definitions for environment variables.
 

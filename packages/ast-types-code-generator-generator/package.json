@@ -35,8 +35,5 @@
     "type-fest": "^3.10.0",
     "typescript": "^5.0.4",
     "vitest": "^0.31.0"
-  },
-  "sync": [
-    "jest"
-  ]
+  }
 }

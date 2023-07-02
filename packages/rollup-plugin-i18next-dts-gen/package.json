@@ -38,5 +38,5 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "sync": []
+  "homepage": "https://dev.rxliuli.com/dev/rollup-plugin-i18next-dts-gen"
 }

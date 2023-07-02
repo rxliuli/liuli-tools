@@ -1,5 +1,11 @@
 # @liuli-util/vite-plugin-node
 
+## 0.4.0
+
+### Minor Changes
+
+- 修改 module exports 默认解析器为 node
+
 ## 0.3.0
 
 ### Minor Changes

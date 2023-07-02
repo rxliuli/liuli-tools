@@ -1,5 +1,11 @@
 # create-liuli
 
+## 0.6.0
+
+### Minor Changes
+
+- feat: 支持新的模版 react-chrome-plugin
+
 ## 0.5.0
 
 ### Minor Changes

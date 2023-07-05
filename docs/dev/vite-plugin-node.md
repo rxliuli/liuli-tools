@@ -62,8 +62,9 @@ pnpm vite build
 
 ## 配置
 
-| 名称    | 类型               | 默认值         | 说明                                     |
-| ------- | ------------------ | -------------- | ---------------------------------------- |
-| `entry` | `string, string[]` | `src/index.ts` | 入口文件                                 |
-| `shims` | `boolean`          | `false`        | 是否填充 `__dirname/require` 等 cjs 特性 |
-| `dts`   | `boolean`          | `false`        | 是否生成 dts 类型定义                    |
+| 名称      | 类型               | 默认值         | 说明                                     |
+| --------- | ------------------ | -------------- | ---------------------------------------- |
+| `entry`   | `string, string[]` | `src/index.ts` | 入口文件                                 |
+| `formats` | `('es', 'cjs')[]`  | `[es]`         | 输出格式                                 |
+| `shims`   | `boolean`          | `false`        | 是否填充 `__dirname/require` 等 cjs 特性 |
+| `dts`     | `boolean`          | `false`        | 是否生成 dts 类型定义                    |

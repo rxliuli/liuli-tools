@@ -1,5 +1,11 @@
 # @liuli-util/vite-plugin-node
 
+## 0.5.0
+
+### Minor Changes
+
+- feat: 支持 cjs 构建选项
+
 ## 0.4.1
 
 ### Patch Changes

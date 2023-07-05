@@ -8,7 +8,7 @@
 - [x] 支持 bundle 时生成 dts 类型定义
 - [x] 支持填充 `__dirname` 等 cjs 特性
 - [x] 支持开箱即用的配置，但也支持自定义配置
-- [ ] 支持 bundle 为 cjs 模块 -- 目前也支持，但需要修改 vite 的配置
+- [x] 支持 bundle 为 cjs 模块 -- 目前也支持，但需要修改 vite 的配置
 - [ ] 支持自定义 output 的文件名 -- 目前也支持，但需要修改 vite 的配置
 - [x] 支持多入口的构建
 
@@ -62,8 +62,9 @@ pnpm vite build
 
 ## 配置
 
-| 名称    | 类型               | 默认值         | 说明                             |
-| ------- | ------------------ | -------------- | -------------------------------- |
-| `entry` | `string, string[]` | `src/index.ts` | 入口文件                         |
-| `shims` | `boolean`          | `false`        | 是否填充 `__dirname` 等 cjs 特性 |
-| `dts`   | `boolean`          | `false`        | 是否生成 dts 类型定义            |
+| 名称      | 类型               | 默认值         | 说明                             |
+| --------- | ------------------ | -------------- | -------------------------------- |
+| `entry`   | `string, string[]` | `src/index.ts` | 入口文件                         |
+| `formats` | `('es', 'cjs')[]`  | `[es]`         | 输出格式                         |
+| `shims`   | `boolean`          | `false`        | 是否填充 `__dirname` 等 cjs 特性 |
+| `dts`     | `boolean`          | `false`        | 是否生成 dts 类型定义            |

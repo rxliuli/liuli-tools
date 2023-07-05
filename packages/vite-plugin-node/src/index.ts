@@ -4,6 +4,7 @@ import { config } from './plugins/config'
 
 interface NodeBuildOptions {
   entry?: string | string[] // default: 'src/index.ts'
+  formats?: ('es' | 'cjs')[] // default: ['es']
   shims?: boolean // default: false
   dts?: boolean // default: false
 }
@@ -13,6 +14,7 @@ export async function node(options?: NodeBuildOptions): Promise<Plugin[]> {
     externals(),
     config({
       entry: options?.entry ?? 'src/index.ts',
+      formats: options?.formats ?? ['es'],
     }),
   ]
   if (options?.shims) {

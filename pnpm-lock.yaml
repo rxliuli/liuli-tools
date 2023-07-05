@@ -1621,6 +1621,9 @@ importers:
       '@types/node':
         specifier: ^20.3.2
         version: 20.3.2
+      fsevents:
+        specifier: ^2.3.2
+        version: 2.3.2
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -8702,7 +8705,6 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
-    optional: true
 
   /function-bind@1.1.1:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}

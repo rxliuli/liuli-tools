@@ -7,4 +7,7 @@ export default defineConfig({
       dts: true,
     }),
   ],
+  build: {
+    minify: false,
+  },
 })

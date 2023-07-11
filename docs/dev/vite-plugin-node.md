@@ -8,8 +8,7 @@
 - [x] 支持 bundle 时生成 dts 类型定义
 - [x] 支持填充 `__dirname` 等 cjs 特性
 - [x] 支持开箱即用的配置，但也支持自定义配置
-- [ ] 支持 bundle 为 cjs 模块 -- 目前也支持，但需要修改 vite 的配置
-- [ ] 支持自定义 output 的文件名 -- 目前也支持，但需要修改 vite 的配置
+- [x] 支持 bundle 为 cjs 模块 -- 目前也支持，但需要修改 vite 的配置
 - [x] 支持多入口的构建
 
 特别是支持在以下场景使用
@@ -68,3 +67,12 @@ pnpm vite build
 | `formats` | `('es', 'cjs')[]`  | `[es]`         | 输出格式                                 |
 | `shims`   | `boolean`          | `false`        | 是否填充 `__dirname/require` 等 cjs 特性 |
 | `dts`     | `boolean`          | `false`        | 是否生成 dts 类型定义                    |
+
+## 环境变量
+
+vite 天然支持环境变量，但目前包含两类环境变量，编译时和运行时
+
+- 编译时环境变量 `import.meta.env.*`
+- 运行时环境变量 `process.env.*`
+
+编译时环境变量在项目编译时就已经被替换为静态字符串，一般适用于 web 应用。而运行时环境变量适合在项目运行时动态指定值，一般适用于 node 应用。

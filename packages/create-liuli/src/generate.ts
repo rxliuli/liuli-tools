@@ -5,7 +5,8 @@ import { fileURLToPath } from 'node:url'
 import { cp, readdir } from 'node:fs/promises'
 import { extract, pathExists, changeJson, changeFile } from './utils'
 
-type GenerateType = 'lib' | 'cli' | 'react-chrome-plugin'
+type GenerateType = 'lib' | 'cli' | 'react-chrome-plugin' | 'react-webapp'
+const templates: GenerateType[] = ['lib', 'cli', 'react-chrome-plugin', 'react-webapp']
 
 export interface GenerateOptions {
   cwd: string
@@ -29,7 +30,7 @@ export async function initOptions(options: Partial<GenerateOptions>): Promise<Ge
       {
         name: 'template',
         type: 'list',
-        choices: ['lib', 'cli', 'react-chrome-plugin'] as GenerateType[],
+        choices: templates,
       },
     ] as DistinctQuestion[]
   ).filter((item) => !(options as any)[item.name!])

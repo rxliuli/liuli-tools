@@ -61,3 +61,13 @@ it('generate chrome plugin', async () => {
   })
   expect(await pathExists(path.resolve(tempPath, 'test-chrome-plugin/package.json'))).true
 })
+
+it('react webapp', async () => {
+  await generate({
+    cwd: tempPath,
+    name: '@liuli-util/test-react-webapp',
+    template: 'react-chrome-plugin',
+  })
+  expect(await pathExists(path.resolve(tempPath, 'test-react-webapp/package.json'))).true
+  expect(await pathExists(path.resolve(tempPath, 'test-react-webapp/tailwind.config.js'))).true
+})

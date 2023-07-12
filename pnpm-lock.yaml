@@ -464,7 +464,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/ast-types-code-generator-generator:
     dependencies:
@@ -510,7 +510,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/async:
     devDependencies:
@@ -534,7 +534,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/commitlint-standard-config:
     dependencies:
@@ -589,7 +589,7 @@ importers:
         version: 0.32.0(@types/node@20.1.4)
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/create-liuli/packages/cli:
     dependencies:
@@ -620,7 +620,7 @@ importers:
         version: 0.32.0(@types/node@20.1.4)
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/create-liuli/packages/lib:
     devDependencies:
@@ -635,7 +635,7 @@ importers:
         version: 4.3.9(@types/node@20.3.2)
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/create-liuli/packages/react-chrome-plugin:
     dependencies:
@@ -716,6 +716,9 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
     devDependencies:
+      '@liuli-util/vite-plugin-css-dts':
+        specifier: ^0.2.0
+        version: link:../../../vite-plugin-css-dts
       '@types/react':
         specifier: ^18.2.14
         version: 18.2.14
@@ -791,7 +794,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/dom:
     dependencies:
@@ -853,7 +856,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/eslint-config-react-ts:
     dependencies:
@@ -919,7 +922,7 @@ importers:
         version: 4.3.9(@types/node@20.3.1)
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/fs-extra:
     dependencies:
@@ -962,7 +965,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/i18next-dts-gen:
     dependencies:
@@ -1029,7 +1032,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/i18next-util:
     devDependencies:
@@ -1050,7 +1053,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/idea:
     devDependencies:
@@ -1071,7 +1074,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/mobx-vue3-hooks:
     dependencies:
@@ -1099,7 +1102,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/object:
     devDependencies:
@@ -1114,7 +1117,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/other:
     devDependencies:
@@ -1132,7 +1135,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/prettier-standard-config:
     devDependencies:
@@ -1169,7 +1172,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/rollup-plugin-graphql-codegen:
     dependencies:
@@ -1243,7 +1246,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/rollup-plugin-tar:
     dependencies:
@@ -1286,7 +1289,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/rollup-plugin-ts-alias:
     dependencies:
@@ -1323,7 +1326,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/rollup-plugin-ts-alias/packages/rollup-plugin-ts-alias-test-lib:
     devDependencies:
@@ -1338,7 +1341,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/rollup-plugin-worker-threads:
     dependencies:
@@ -1378,7 +1381,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/string:
     devDependencies:
@@ -1393,7 +1396,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/test:
     optionalDependencies:
@@ -1433,7 +1436,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/ui:
     dependencies:
@@ -1476,7 +1479,7 @@ importers:
         version: 4.3.9(@types/node@20.3.2)
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/vite-plugin-chunk-node-modules:
     dependencies:
@@ -1529,6 +1532,9 @@ importers:
       source-map:
         specifier: ^0.7.4
         version: 0.7.4
+      vite:
+        specifier: ^4
+        version: 4.4.0(@types/node@20.1.4)
     devDependencies:
       '@types/css-tree':
         specifier: ^2.3.1
@@ -1548,9 +1554,6 @@ importers:
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
-      vite:
-        specifier: ^4.3.5
-        version: 4.3.9(@types/node@20.1.4)
       vitest:
         specifier: 0.24.4
         version: 0.24.4
@@ -1597,7 +1600,7 @@ importers:
         version: 5.0.4
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   packages/vite-plugin-firefox-dist:
     dependencies:
@@ -1749,7 +1752,7 @@ importers:
         version: 4.3.9(@types/node@20.1.4)
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
 
   scripts:
     dependencies:
@@ -1816,7 +1819,7 @@ importers:
         version: 3.10.0(typescript@5.1.6)
       vitest:
         specifier: ^0.31.0
-        version: 0.31.0
+        version: 0.31.0(happy-dom@9.18.3)
       yaml:
         specifier: ^2.2.2
         version: 2.2.2
@@ -14543,7 +14546,7 @@ packages:
     dependencies:
       '@types/node': 20.3.1
       esbuild: 0.17.19
-      postcss: 8.4.25
+      postcss: 8.4.24
       rollup: 3.26.0
     optionalDependencies:
       fsevents: 2.3.2
@@ -14576,7 +14579,7 @@ packages:
     dependencies:
       '@types/node': 20.3.2
       esbuild: 0.17.19
-      postcss: 8.4.25
+      postcss: 8.4.24
       rollup: 3.26.0
     optionalDependencies:
       fsevents: 2.3.2
@@ -14653,7 +14656,6 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: false
-    optional: true
 
   /vite@4.4.0(@types/node@20.3.2):
     resolution: {integrity: sha512-Wf+DCEjuM8aGavEYiF77hnbxEZ+0+/jC9nABR46sh5Xi+GYeSvkeEFRiVuI3x+tPjxgZeS91h1jTAQTPFgePpA==}
@@ -14811,72 +14813,6 @@ packages:
       - terser
     dev: true
 
-  /vitest@0.31.0:
-    resolution: {integrity: sha512-JwWJS9p3GU9GxkG7eBSmr4Q4x4bvVBSswaCFf1PBNHiPx00obfhHRJfgHcnI0ffn+NMlIh9QGvG75FlaIBdKGA==}
-    engines: {node: '>=v14.18.0'}
-    hasBin: true
-    peerDependencies:
-      '@edge-runtime/vm': '*'
-      '@vitest/browser': '*'
-      '@vitest/ui': '*'
-      happy-dom: '*'
-      jsdom: '*'
-      playwright: '*'
-      safaridriver: '*'
-      webdriverio: '*'
-    peerDependenciesMeta:
-      '@edge-runtime/vm':
-        optional: true
-      '@vitest/browser':
-        optional: true
-      '@vitest/ui':
-        optional: true
-      happy-dom:
-        optional: true
-      jsdom:
-        optional: true
-      playwright:
-        optional: true
-      safaridriver:
-        optional: true
-      webdriverio:
-        optional: true
-    dependencies:
-      '@types/chai': 4.3.5
-      '@types/chai-subset': 1.3.3
-      '@types/node': 20.3.2
-      '@vitest/expect': 0.31.0
-      '@vitest/runner': 0.31.0
-      '@vitest/snapshot': 0.31.0
-      '@vitest/spy': 0.31.0
-      '@vitest/utils': 0.31.0
-      acorn: 8.8.2
-      acorn-walk: 8.2.0
-      cac: 6.7.14
-      chai: 4.3.7
-      concordance: 5.0.4
-      debug: 4.3.4
-      local-pkg: 0.4.3
-      magic-string: 0.30.0
-      pathe: 1.1.1
-      picocolors: 1.0.0
-      std-env: 3.3.3
-      strip-literal: 1.0.1
-      tinybench: 2.5.0
-      tinypool: 0.5.0
-      vite: 4.3.9(@types/node@20.3.2)
-      vite-node: 0.31.0(@types/node@20.3.2)
-      why-is-node-running: 2.2.2
-    transitivePeerDependencies:
-      - less
-      - lightningcss
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-    dev: true
-
   /vitest@0.31.0(happy-dom@9.18.3):
     resolution: {integrity: sha512-JwWJS9p3GU9GxkG7eBSmr4Q4x4bvVBSswaCFf1PBNHiPx00obfhHRJfgHcnI0ffn+NMlIh9QGvG75FlaIBdKGA==}
     engines: {node: '>=v14.18.0'}
@@ -14931,7 +14867,7 @@ packages:
       strip-literal: 1.0.1
       tinybench: 2.5.0
       tinypool: 0.5.0
-      vite: 4.4.3(@types/node@20.3.2)
+      vite: 4.3.9(@types/node@20.3.2)
       vite-node: 0.31.0(@types/node@20.3.2)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:

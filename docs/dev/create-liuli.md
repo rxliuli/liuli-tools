@@ -9,11 +9,12 @@
 
 计划支持的模版
 
-- vscode 插件
-- chrome 插件
-- nodejs 服务
-- userscript
-- electron 应用
+- [x] react web 应用
+- [ ] vscode 插件
+- [x] chrome 插件
+- [ ] nodejs 服务
+- [ ] userscript
+- [ ] electron 应用
 
 ## 使用
 

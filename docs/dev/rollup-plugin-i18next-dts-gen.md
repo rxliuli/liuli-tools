@@ -10,7 +10,9 @@
 pnpm i -D i18next @liuli-util/rollup-plugin-i18next-dts-gen
 ```
 
-## 在 _src/i18n/_ 下添加翻译的 json 文件，下面添加两个示例
+## 添加翻译文件
+
+在 _src/i18n/_ 下添加翻译的 json 文件，下面添加两个示例
 
 ```json
 // src/i18n/en-US.json

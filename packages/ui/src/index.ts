@@ -1,4 +1,4 @@
 import './styles/globals.css'
 
-export * from './components/button/'
-export * from './components/tabs/'
+export * from './components/ui/'
+export * from '@tanstack/react-table'

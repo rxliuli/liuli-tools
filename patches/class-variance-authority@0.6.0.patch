@@ -1,0 +1,26 @@
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index 676e466a43ad8932cbb3131bb2c3dea687d47041..629d8f6398977d248f8c87894e95ceec50e2c55d 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -1,5 +1,20 @@
+ import clsx from "clsx";
+-import type { ClassProp, ClassValue, OmitUndefined, StringToBoolean } from "./types";
++import type * as CLSX from "clsx";
++export type ClassPropKey = "class" | "className";
++export type ClassValue = CLSX.ClassValue;
++export type ClassProp = {
++    class: ClassValue;
++    className?: never;
++} | {
++    class?: never;
++    className: ClassValue;
++} | {
++    class?: never;
++    className?: never;
++};
++export type OmitUndefined<T> = T extends undefined ? never : T;
++export type StringToBoolean<T> = T extends "true" | "false" ? boolean : T;
++
+ export type VariantProps<Component extends (...args: any) => any> = Omit<OmitUndefined<Parameters<Component>[0]>, "class" | "className">;
+ export type CxOptions = Parameters<typeof clsx>;
+ export type CxReturn = ReturnType<typeof clsx>;

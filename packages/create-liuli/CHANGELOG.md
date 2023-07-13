@@ -1,5 +1,11 @@
 # create-liuli
 
+## 0.7.0
+
+### Minor Changes
+
+- 增加 react-webapp 模板
+
 ## 0.6.1
 
 ### Patch Changes

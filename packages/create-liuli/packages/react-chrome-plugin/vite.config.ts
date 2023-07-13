@@ -10,6 +10,7 @@ import autoprefixer from 'autoprefixer'
 export default defineConfig({
   plugins: [
     react(),
+    // @ts-expect-error
     crx({ manifest }),
     firefox({
       browser_specific_settings: {

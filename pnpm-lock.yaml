@@ -423,7 +423,7 @@ importers:
         version: 4.4.1
     devDependencies:
       '@liuli-util/test':
-        specifier: workspace:^3.6.0
+        specifier: workspace:^3.7.0
         version: link:../../packages/test
       '@types/node':
         specifier: 20.1.4
@@ -606,7 +606,7 @@ importers:
         version: 4.17.21
     devDependencies:
       '@liuli-util/vite-plugin-node':
-        specifier: ^0.5.0
+        specifier: ^0.6.0
         version: link:../../../vite-plugin-node
       '@types/lodash-es':
         specifier: ^4.17.7
@@ -630,7 +630,7 @@ importers:
   packages/create-liuli/packages/lib:
     devDependencies:
       '@liuli-util/vite-plugin-node':
-        specifier: ^0.5.0
+        specifier: ^0.6.0
         version: link:../../../vite-plugin-node
       typescript:
         specifier: ^5.0.4
@@ -914,7 +914,7 @@ importers:
         specifier: workspace:^
         version: link:../test
       '@liuli-util/vite-plugin-node':
-        specifier: ^0.5.0
+        specifier: ^0.6.0
         version: link:../vite-plugin-node
       '@types/node':
         specifier: ^20.3.1
@@ -1564,7 +1564,7 @@ importers:
         version: 3.21.4
     devDependencies:
       '@liuli-util/vite-plugin-node':
-        specifier: ^0.5.0
+        specifier: ^0.6.0
         version: link:../vite-plugin-node
       '@types/react':
         specifier: ^18.0.37
@@ -1785,7 +1785,7 @@ importers:
         version: link:../fs-extra
       '@rollup/pluginutils':
         specifier: ^5.0.2
-        version: 5.0.2(rollup@3.21.7)
+        version: 5.0.2(rollup@3.26.0)
       mini-svg-data-uri:
         specifier: ^1.4.4
         version: 1.4.4

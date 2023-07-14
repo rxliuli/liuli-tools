@@ -41,6 +41,7 @@
   },
   "homepage": "https://dev.rxliuli.com/dev/vite-plugin-node",
   "dependencies": {
+    "@microsoft/api-extractor": "^7.36.2",
     "magic-string": "^0.30.0",
     "pathe": "^1.1.1",
     "rollup-plugin-node-externals": "^6.1.1",

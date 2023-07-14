@@ -69,7 +69,9 @@ pnpm vite build
 | `shims`   | `boolean`                       | `false`        | 是否填充 `__dirname/require` 等 cjs 特性 |
 | `dts`     | `boolean, { bundle?: boolean }` | `false`        | 是否生成 dts 类型定义                    |
 
-## 环境变量
+## 其他
+
+### 环境变量
 
 vite 天然支持环境变量，但目前包含两类环境变量，编译时和运行时
 
@@ -77,3 +79,7 @@ vite 天然支持环境变量，但目前包含两类环境变量，编译时和
 - 运行时环境变量 `process.env.*`
 
 编译时环境变量在项目编译时就已经被替换为静态字符串，一般适用于 web 应用。而运行时环境变量适合在项目运行时动态指定值，一般适用于 node 应用。
+
+### 为什么不是 rollup/esbuild/tsup
+
+vite 已经成为吾辈在 web 应用开发时使用的基础构建工具，事实上，包括 vscode/chrome 扩展、electron 应用也都在使用，在跨框架方面，它是目前最好的。工作中使用 vue，社区项目一般使用 react/preact，但都使用 vite 构建。而吾辈想要继续使用 vite 来开发和构建 node 应用、ts 函数库等，所以实现了这个 vite 插件。

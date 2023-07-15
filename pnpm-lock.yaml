@@ -423,7 +423,7 @@ importers:
         version: 4.4.1
     devDependencies:
       '@liuli-util/test':
-        specifier: workspace:^3.6.0
+        specifier: workspace:^3.7.0
         version: link:../../packages/test
       '@types/node':
         specifier: 20.1.4
@@ -606,7 +606,7 @@ importers:
         version: 4.17.21
     devDependencies:
       '@liuli-util/vite-plugin-node':
-        specifier: ^0.5.0
+        specifier: ^0.6.0
         version: link:../../../vite-plugin-node
       '@types/lodash-es':
         specifier: ^4.17.7
@@ -630,7 +630,7 @@ importers:
   packages/create-liuli/packages/lib:
     devDependencies:
       '@liuli-util/vite-plugin-node':
-        specifier: ^0.5.0
+        specifier: ^0.6.0
         version: link:../../../vite-plugin-node
       typescript:
         specifier: ^5.0.4
@@ -914,7 +914,7 @@ importers:
         specifier: workspace:^
         version: link:../test
       '@liuli-util/vite-plugin-node':
-        specifier: ^0.5.0
+        specifier: ^0.6.0
         version: link:../vite-plugin-node
       '@types/node':
         specifier: ^20.3.1
@@ -1564,7 +1564,7 @@ importers:
         version: 3.21.4
     devDependencies:
       '@liuli-util/vite-plugin-node':
-        specifier: ^0.5.0
+        specifier: ^0.6.0
         version: link:../vite-plugin-node
       '@types/react':
         specifier: ^18.0.37
@@ -1734,6 +1734,9 @@ importers:
 
   packages/vite-plugin-node:
     dependencies:
+      '@microsoft/api-extractor':
+        specifier: ^7.36.2
+        version: 7.36.2(@types/node@20.3.2)
       magic-string:
         specifier: ^0.30.0
         version: 0.30.0
@@ -4629,30 +4632,30 @@ packages:
     resolution: {integrity: sha512-CD/2ai1W45cDN/zN2AcYduDavU+nq9aStyQizi4MHxnwkRvS/H24WIjgc1qD8CISoqXa8AAIe+A+zpWxwV7a2Q==}
     dev: true
 
-  /@microsoft/api-extractor-model@7.27.1(@types/node@20.3.2):
-    resolution: {integrity: sha512-WgmuQwElTuRLATQxCx+pqk5FtUeRX3FW8WDo7tSDmrN/7+XAggeVg5t8ItiJt688jEdbiPvagZlvjAcJMpXspg==}
+  /@microsoft/api-extractor-model@7.27.4(@types/node@20.3.2):
+    resolution: {integrity: sha512-HjqQFmuGPOS20rtnu+9Jj0QrqZyR59E+piUWXPMZTTn4jaZI+4UmsHSf3Id8vyueAhOBH2cgwBuRTE5R+MfSMw==}
     dependencies:
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.59.2(@types/node@20.3.2)
+      '@rushstack/node-core-library': 3.59.5(@types/node@20.3.2)
     transitivePeerDependencies:
       - '@types/node'
     dev: false
 
-  /@microsoft/api-extractor@7.35.1(@types/node@20.3.2):
-    resolution: {integrity: sha512-xGVf1lKCYKEyJsspLzQjo4Oo6PGDPH95Z5/te75xQWpcRHcfemb6zTSPtiFeVDHkg9Tan5HW2QXGLwQRkW199w==}
+  /@microsoft/api-extractor@7.36.2(@types/node@20.3.2):
+    resolution: {integrity: sha512-ONe/jOmTZtR3OjTkWKHmeSV1P5ozbHDxHr6FV3KoWyIl1AcPk2B3dmvVBM5eOlZB5bgM66nxcWQTZ6msQo2hHg==}
     hasBin: true
     dependencies:
-      '@microsoft/api-extractor-model': 7.27.1(@types/node@20.3.2)
+      '@microsoft/api-extractor-model': 7.27.4(@types/node@20.3.2)
       '@microsoft/tsdoc': 0.14.2
       '@microsoft/tsdoc-config': 0.16.2
-      '@rushstack/node-core-library': 3.59.2(@types/node@20.3.2)
-      '@rushstack/rig-package': 0.3.19
-      '@rushstack/ts-command-line': 4.13.3
+      '@rushstack/node-core-library': 3.59.5(@types/node@20.3.2)
+      '@rushstack/rig-package': 0.4.0
+      '@rushstack/ts-command-line': 4.15.1
       colors: 1.2.5
       lodash: 4.17.21
       resolve: 1.22.2
-      semver: 7.3.5
+      semver: 7.3.8
       source-map: 0.6.1
       typescript: 5.0.4
     transitivePeerDependencies:
@@ -6343,15 +6346,33 @@ packages:
       z-schema: 5.0.5
     dev: false
 
-  /@rushstack/rig-package@0.3.19:
-    resolution: {integrity: sha512-2d0/Gn+qjOYneZbiHjn4SjyDwq9I0WagV37z0F1V71G+yONgH7wlt3K/UoNiDkhA8gTHYPRo2jz3CvttybwSag==}
+  /@rushstack/node-core-library@3.59.5(@types/node@20.3.2):
+    resolution: {integrity: sha512-1IpV7LufrI1EoVO8hYsb3t6L8L+yp40Sa0OaOV2CIu1zx4e6ZeVNaVIEXFgMXBKdGXkAh21MnCaIzlDNpG6ZQw==}
+    peerDependencies:
+      '@types/node': '*'
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+    dependencies:
+      '@types/node': 20.3.2
+      colors: 1.2.5
+      fs-extra: 7.0.1
+      import-lazy: 4.0.0
+      jju: 1.4.0
+      resolve: 1.22.2
+      semver: 7.3.8
+      z-schema: 5.0.5
+    dev: false
+
+  /@rushstack/rig-package@0.4.0:
+    resolution: {integrity: sha512-FnM1TQLJYwSiurP6aYSnansprK5l8WUK8VG38CmAaZs29ZeL1msjK0AP1VS4ejD33G0kE/2cpsPsS9jDenBMxw==}
     dependencies:
       resolve: 1.22.2
       strip-json-comments: 3.1.1
     dev: false
 
-  /@rushstack/ts-command-line@4.13.3:
-    resolution: {integrity: sha512-6aQIv/o1EgsC/+SpgUyRmzg2QIAL6sudEzw3sWzJKwWuQTc5XRsyZpyldfE7WAmIqMXDao9QG35/NYORjHm5Zw==}
+  /@rushstack/ts-command-line@4.15.1:
+    resolution: {integrity: sha512-EL4jxZe5fhb1uVL/P/wQO+Z8Rc8FMiWJ1G7VgnPDvdIt5GVjRfK7vwzder1CZQiX3x0PY6uxENYLNGTFd1InRQ==}
     dependencies:
       '@types/argparse': 1.0.38
       argparse: 1.0.10
@@ -14273,7 +14294,6 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
-    dev: true
 
   /semver@7.5.0:
     resolution: {integrity: sha512-+XC0AD/R7Q2mPSRuy2Id0+CGTZ98+8f+KvwirxOKIEyid+XSx6HbC63p+O4IndTHuX5Z+JxQ0TghCkO5Cg/2HA==}
@@ -15757,7 +15777,7 @@ packages:
       vite: '>=2.9.0'
     dependencies:
       '@babel/parser': 7.21.8
-      '@microsoft/api-extractor': 7.35.1(@types/node@20.3.2)
+      '@microsoft/api-extractor': 7.36.2(@types/node@20.3.2)
       '@rollup/pluginutils': 5.0.2(rollup@3.26.0)
       '@rushstack/node-core-library': 3.59.2(@types/node@20.3.2)
       debug: 4.3.4

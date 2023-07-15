@@ -33,7 +33,7 @@ function defaultOutExtension({ format, pkgType }: { format: Format; pkgType?: st
   }
 }
 
-export function config(options: { entry: string | string[]; formats: Format[] }): Plugin {
+export function config(options: { entry: string[]; formats: Format[] }): Plugin {
   return {
     name: 'node-config',
     async config(config, env) {

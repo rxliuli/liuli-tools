@@ -1,6 +1,6 @@
 {
   "name": "@liuli-util/vite-plugin-node",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -41,6 +41,7 @@
   },
   "homepage": "https://dev.rxliuli.com/dev/vite-plugin-node",
   "dependencies": {
+    "@microsoft/api-extractor": "^7.36.2",
     "magic-string": "^0.30.0",
     "pathe": "^1.1.1",
     "rollup-plugin-node-externals": "^6.1.1",

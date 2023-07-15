@@ -1,5 +1,11 @@
 # @liuli-util/vite-plugin-node
 
+## 0.6.0
+
+### Minor Changes
+
+- feat: 支持 dts bundle 以裁剪类型定义
+
 ## 0.5.0
 
 ### Minor Changes

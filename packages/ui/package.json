@@ -19,7 +19,7 @@
   },
   "sideEffects": false,
   "devDependencies": {
-    "@liuli-util/vite-plugin-node": "^0.5.0",
+    "@liuli-util/vite-plugin-node": "^0.6.0",
     "@types/react": "^18.0.37",
     "typescript": "^5.0.4",
     "vite": "^4.3.9",

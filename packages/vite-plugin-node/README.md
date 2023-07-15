@@ -1,4 +1,4 @@
-# vite-plugin-node
+# @liuli-util/vite-plugin-node
 
 Everything you need to build a nodejs app/lib with vite, hopefully making building node apps as easy as building web apps with vite.
 
@@ -8,16 +8,15 @@ The following functions are currently supported:
 - [x] Generate dts typedefs when bundle is supported
 - [x] Support filling cjs features such as `__dirname`
 - [x] Support out-of-the-box configs, but custom configs are also supported
-- [x] Support bundle as cjs module -- currently also supported, but vite configuration needs to be modified
-- [ ] Support custom output file name -- currently also supported, but vite configuration needs to be modified
-- [x] Support multi-entry construction
+- [x] Support bundle as cjs module -- currently also supported, but need to modify vite configuration
+- [x] Support multi-entry builds
+- [x] Support dts type bundle
 
 In particular, it supports the use in the following scenarios
 
--lib
--cli
-
-- server
+- lib
+- cli
+- nodejs server
 - vscode plugin
 
 ## Usage
@@ -63,9 +62,18 @@ In fact, the lib itself is built with this plugin too!
 
 ## configuration
 
-| Name      | Type               | Default        | Description                                        |
-| --------- | ------------------ | -------------- | -------------------------------------------------- |
-| `entry`   | `string, string[]` | `src/index.ts` | Entry file                                         |
-| `formats` | `('es', 'cjs')[]`  | `[es]`         | Output format                                      |
-| `shims`   | `boolean`          | `false`        | Whether to fill `__dirname` and other cjs features |
-| `dts`     | `boolean`          | `false`        | Whether to generate dts type definitions           |
+| Name      | Type                            | Default        | Description                                                |
+| --------- | ------------------------------- | -------------- | ---------------------------------------------------------- |
+| `entry`   | `string, string[]`              | `src/index.ts` | entry file                                                 |
+| `formats` | `('es', 'cjs')[]`               | `[es]`         | output format                                              |
+| `shims`   | `boolean`                       | `false`        | Whether to fill `__dirname/require` and other cjs features |
+| `dts`     | `boolean, { bundle?: boolean }` | `false`        | Whether to generate dts type definitions                   |
+
+## Environment variables
+
+vite naturally supports environment variables, but currently contains two types of environment variables, compile time and runtime
+
+- Compile-time environment variables `import.meta.env.*`
+- Runtime environment variables `process.env.*`
+
+Compile-time environment variables have been replaced with static strings when the project is compiled, and are generally applicable to web applications. The runtime environment variable is suitable for dynamically specifying values when the project is running, and is generally applicable to node applications.

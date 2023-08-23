@@ -68,6 +68,7 @@ In fact, the lib itself is built with this plugin too!
 | `formats` | `('es', 'cjs')[]`               | `[es]`         | output format                                              |
 | `shims`   | `boolean`                       | `false`        | Whether to fill `__dirname/require` and other cjs features |
 | `dts`     | `boolean, { bundle?: boolean }` | `false`        | Whether to generate dts type definitions                   |
+| `outDir`  | `string`                        | `dist`         | output directory (relative to project root)                |
 
 ## Environment variables
 

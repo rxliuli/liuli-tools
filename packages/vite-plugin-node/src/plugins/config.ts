@@ -33,7 +33,7 @@ function defaultOutExtension({ format, pkgType }: { format: Format; pkgType?: st
   }
 }
 
-export function config(options: { entry: string[]; formats: Format[] }): Plugin {
+export function config(options: { entry: string[]; formats: Format[]; outDir?: string }): Plugin {
   return {
     name: 'node-config',
     async config(config, env) {
@@ -45,6 +45,7 @@ export function config(options: { entry: string[]; formats: Format[] }): Plugin 
       const r = JSON.parse(await readFile(jsonPath, 'utf-8'))
       return {
         build: {
+          outDir: options.outDir,
           lib: {
             entry: options.entry,
             formats: options.formats,

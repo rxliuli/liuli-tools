@@ -2,7 +2,6 @@ import { Plugin } from 'vite'
 import { externals } from './plugins/externals'
 import { config } from './plugins/config'
 import { dts } from './plugins/dts'
-import { pick } from 'lodash-es'
 
 interface NodeBuildOptions {
   entry?: string | string[] // default: 'src/index.ts'
@@ -13,6 +12,7 @@ interface NodeBuildOptions {
     | {
         bundle?: boolean // default: false
       } // default: false
+  outDir?: string // default: 'dist'
 }
 
 /**
@@ -27,6 +27,7 @@ export async function node(options?: NodeBuildOptions): Promise<Plugin[]> {
     config({
       entry,
       formats: options?.formats ?? ['es'],
+      outDir: options?.outDir,
     }),
   ]
   if (options?.shims) {

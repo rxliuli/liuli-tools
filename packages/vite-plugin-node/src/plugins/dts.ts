@@ -33,7 +33,7 @@ async function dtsBundle(options: { entry: string; outFile: string }) {
   }
 }
 
-export async function dts(options: { bundle?: boolean; entry: string[] }): Promise<Plugin[]> {
+export async function dts(options: { bundle?: boolean; entry: string[]; outDir?: string }): Promise<Plugin[]> {
   if (!options.bundle) {
     return [(await import('vite-plugin-dts')).default()]
   } else {
@@ -46,18 +46,23 @@ export async function dts(options: { bundle?: boolean; entry: string[] }): Promi
         },
       },
       (await import('vite-plugin-dts')).default({
-        outputDir: 'dist/types',
+        outputDir: pathe.join(options.outDir ?? 'dist', 'types'),
         async afterBuild() {
+          const outDir = options.outDir
+            ? pathe.isAbsolute(options.outDir)
+              ? options.outDir
+              : pathe.resolve(config.root, options.outDir)
+            : pathe.resolve(config.root, 'dist')
           await Promise.all(
             options.entry.map(async (it) => {
               const fileName = pathe.basename(it, pathe.extname(it)) + '.d.ts'
               await dtsBundle({
-                entry: pathe.resolve(config.root, 'dist/types', fileName),
-                outFile: pathe.resolve(config.root, 'dist/', fileName),
+                entry: pathe.resolve(outDir, 'types', fileName),
+                outFile: pathe.resolve(outDir, fileName),
               })
             }),
           )
-          await rm(pathe.resolve(config.root, 'dist/types'), { force: true, recursive: true })
+          await rm(pathe.resolve(outDir, 'types'), { force: true, recursive: true })
         },
       }),
     ]

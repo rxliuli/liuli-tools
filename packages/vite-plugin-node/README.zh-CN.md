@@ -68,8 +68,11 @@ pnpm vite build
 | `formats` | `('es', 'cjs')[]`               | `[es]`         | 输出格式                                 |
 | `shims`   | `boolean`                       | `false`        | 是否填充 `__dirname/require` 等 cjs 特性 |
 | `dts`     | `boolean, { bundle?: boolean }` | `false`        | 是否生成 dts 类型定义                    |
+| `outDir`  | `string`                        | `dist`         | 输出目录                                 |
 
-## 环境变量
+## 其他
+
+### 环境变量
 
 vite 天然支持环境变量，但目前包含两类环境变量，编译时和运行时
 

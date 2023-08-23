@@ -66,11 +66,13 @@ In fact, the lib itself is built with this plugin too!
 | --------- | ------------------------------- | -------------- | ---------------------------------------------------------- |
 | `entry`   | `string, string[]`              | `src/index.ts` | entry file                                                 |
 | `formats` | `('es', 'cjs')[]`               | `[es]`         | output format                                              |
-| `shims`   | `boolean`                       | `false`        | Whether to fill `__dirname/require` and other cjs features |
-| `dts`     | `boolean, { bundle?: boolean }` | `false`        | Whether to generate dts type definitions                   |
+| `shims`   | `boolean`                       | `false`        | whether to fill `__dirname/require` and other cjs features |
+| `dts`     | `boolean, { bundle?: boolean }` | `false`        | whether to generate dts type definitions                   |
 | `outDir`  | `string`                        | `dist`         | output directory (relative to project root)                |
 
-## Environment variables
+## Other
+
+### Environment variables
 
 vite naturally supports environment variables, but currently contains two types of environment variables, compile time and runtime
 

@@ -1,5 +1,11 @@
 # @liuli-util/vite-plugin-node
 
+## 0.7.0
+
+### Minor Changes
+
+- feat: vite-plugin-node should support outDir
+
 ## 0.6.0
 
 ### Minor Changes

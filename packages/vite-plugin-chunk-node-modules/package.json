@@ -25,7 +25,7 @@
     "@liuli-util/vite-plugin-node": "workspace:^",
     "typescript": "^4.8.4",
     "vite": "^4.3.9 || ^5.0.0",
-    "vitest": "^0.23.4"
+    "vitest": "^1.0.4"
   },
   "peerDependencies": {
     "vite": "^4"

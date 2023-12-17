@@ -23,7 +23,7 @@
     "typescript": "^5.0.4"
   },
   "optionalDependencies": {
-    "vitest": "*"
+    "vitest": "^1.0.4"
   },
   "publishConfig": {
     "access": "public",

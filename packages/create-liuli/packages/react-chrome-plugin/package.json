@@ -15,29 +15,29 @@
     "start-chromium": "web-ext run -s ./dist --target=chromium"
   },
   "dependencies": {
-    "i18next": "^22.4.15",
+    "i18next": "^23.7.11",
     "lodash-es": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-use": "^17.4.0",
+    "react-use": "^17.4.2",
     "webextension-polyfill": "^0.10.0"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "2.0.0-beta.18",
-    "@ffflorian/jszip-cli": "^3.4.1",
-    "@liuli-util/rollup-plugin-i18next-dts-gen": "^0.4.4",
-    "@liuli-util/vite-plugin-firefox-dist": "^0.2.1",
-    "@types/lodash-es": "^4.17.7",
-    "@types/react": "^18.0.37",
-    "@types/react-dom": "^18.0.11",
-    "@types/webextension-polyfill": "^0.10.1",
-    "@vitejs/plugin-react": "^4.0.0",
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.24",
-    "rimraf": "^5.0.0",
-    "tailwindcss": "^3.3.2",
-    "typescript": "^5.0.2",
-    "vite": "^4.3.9",
-    "web-ext": "^7.6.2"
+    "@crxjs/vite-plugin": "1.0.14",
+    "@ffflorian/jszip-cli": "^3.5.6",
+    "@liuli-util/rollup-plugin-i18next-dts-gen": "workspace:^",
+    "@liuli-util/vite-plugin-firefox-dist": "workspace:^",
+    "@types/lodash-es": "^4.17.12",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@types/webextension-polyfill": "^0.10.7",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "rimraf": "^5.0.5",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "web-ext": "^7.9.0"
   }
 }

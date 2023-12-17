@@ -18,16 +18,16 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@liuli-util/vite-plugin-node": "^0.7.0",
-    "@types/lodash-es": "^4.17.7",
-    "@types/node": "^20.1.4",
-    "typescript": "^5.0.4",
-    "vite": "^4.3.9",
-    "vite-node": "^0.32.0",
-    "vitest": "^0.31.0"
+    "@liuli-util/vite-plugin-node": "workspace:^",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^20.10.4",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "vite-node": "^1.0.4",
+    "vitest": "^1.0.4"
   },
   "dependencies": {
-    "commander": "^10.0.1",
+    "commander": "^11.1.0",
     "lodash-es": "^4.17.21"
   }
 }

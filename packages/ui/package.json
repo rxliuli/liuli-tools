@@ -14,8 +14,7 @@
   "scripts": {
     "build": "vite build",
     "build-watch": "vite build --watch",
-    "init": "pnpm build",
-    "test": "vitest run"
+    "init": "pnpm build"
   },
   "sideEffects": false,
   "devDependencies": {
@@ -23,7 +22,7 @@
     "@types/react": "^18.0.37",
     "typescript": "^5.0.4",
     "vite": "^4.3.9",
-    "vitest": "^0.31.0"
+    "vitest": "^1.0.4"
   },
   "publishConfig": {
     "access": "public",

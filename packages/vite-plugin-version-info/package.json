@@ -33,7 +33,7 @@
     "typedoc": "^0.24.7",
     "typescript": "^5.0.4",
     "vite": "^4.3.5",
-    "vitest": "^0.31.0"
+    "vitest": "^1.0.4"
   },
   "publishConfig": {
     "access": "public",

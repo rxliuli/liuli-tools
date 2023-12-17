@@ -1,5 +1,11 @@
 # create-liuli
 
+## 0.8.0
+
+### Minor Changes
+
+- chore: update deps
+
 ## 0.7.0
 
 ### Minor Changes

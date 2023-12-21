@@ -1,5 +1,11 @@
 # @liuli-util/test
 
+## 3.7.1
+
+### Patch Changes
+
+- fix(test): 修复 initTempPath 没有等待 hook 的错误
+
 ## 3.7.0
 
 ### Minor Changes

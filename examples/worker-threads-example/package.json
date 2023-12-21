@@ -13,7 +13,7 @@
     "preset": "ts-jest"
   },
   "devDependencies": {
-    "@liuli-util/test": "workspace:^3.7.0",
+    "@liuli-util/test": "workspace:^3.7.1",
     "@types/node": "20.1.4",
     "esno": "^0.16.3",
     "rimraf": "^5.0.0",

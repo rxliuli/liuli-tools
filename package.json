@@ -36,13 +36,8 @@
     "@liuli-util/eslint-config-ts": "workspace:*",
     "@liuli-util/prettier-standard-config": "workspace:*",
     "lint-staged": "^13.2.2",
-    "prettier": "^2.8.8",
+    "prettier": "^3.1.1",
     "simple-git-hooks": "^2.8.1",
     "typescript": "^5.0.4"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "class-variance-authority@0.6.0": "patches/class-variance-authority@0.6.0.patch"
-    }
   }
 }

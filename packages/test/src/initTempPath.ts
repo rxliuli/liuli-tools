@@ -14,7 +14,7 @@ export function initTempPath(__filename: string, hook?: () => Promisify<void>) {
   beforeEach(async () => {
     await rm(tempPath, { recursive: true, force: true })
     await mkdir(tempPath, { recursive: true })
-    hook?.()
+    await hook?.()
   })
   return tempPath
 }

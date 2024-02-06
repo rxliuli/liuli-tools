@@ -3,7 +3,10 @@ import { externals } from './plugins/externals'
 import { config } from './plugins/config'
 import { dts } from './plugins/dts'
 
-interface NodeBuildOptions {
+/**
+ * @public
+ */
+export interface NodeBuildOptions {
   entry?: string | string[] // default: 'src/index.ts'
   formats?: ('es' | 'cjs')[] // default: ['es']
   shims?: boolean // default: false

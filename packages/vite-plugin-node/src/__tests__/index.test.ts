@@ -66,7 +66,7 @@ describe('custom outDir', () => {
     await $`node ${pathe.resolve(tempPath, 'out/index.js')}`
   })
 
-  it.only('dts', async () => {
+  it('dts', async () => {
     const entry = pathe.resolve(tempPath, 'index.ts')
     await writeFile(pathe.resolve(tempPath, 'add.ts'), `export const add = (a: number, b: number) => a + b`)
     await writeFile(entry, `export * from './add'`)
@@ -87,7 +87,7 @@ describe('custom outDir', () => {
       plugins: [node({ entry: [entry], dts: { bundle: true }, outDir: 'out' })],
       build: { minify: false },
     })
-    expect(await fs.pathExists(pathe.resolve(tempPath, 'out/index.d.ts'))).true
+    expect(await fs.pathExists(pathe.resolve(tempPath, 'dist/index.d.ts'))).true
   })
 })
 

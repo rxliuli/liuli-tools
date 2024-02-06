@@ -13,8 +13,7 @@
   "scripts": {
     "build": "vite build",
     "setup": "pnpm build",
-    "dev": "pnpm build --watch",
-    "test": "vitest run"
+    "dev": "pnpm build --watch"
   },
   "sideEffects": false,
   "devDependencies": {

@@ -1,7 +1,7 @@
 {
   "name": "@liuli-util/markdown-util",
   "type": "module",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "sideEffects": false,
   "exports": {
     ".": {
@@ -21,7 +21,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@liuli-util/vite-plugin-node": "^0.3.0",
+    "@liuli-util/vite-plugin-node": "workspace:^",
     "@types/lodash-es": "^4.17.7",
     "@types/node": "^20.3.1",
     "lodash-es": "^4.17.21",

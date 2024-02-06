@@ -1,5 +1,11 @@
 # @liuli-util/test
 
+## 3.8.0
+
+### Minor Changes
+
+- feat(all): 裁剪 liuli-tools，所有没有文档或无力维护的库全部存档
+
 ## 3.7.1
 
 ### Patch Changes

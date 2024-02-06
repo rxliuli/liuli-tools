@@ -1,5 +1,11 @@
 # @liuli-util/vite-plugin-firefox-dist
 
+## 0.3.0
+
+### Minor Changes
+
+- feat(all): 裁剪 liuli-tools，所有没有文档或无力维护的库全部存档
+
 ## 0.2.1
 
 ### Patch Changes

@@ -188,7 +188,7 @@ export function breaksToMarkdown(): ToMarkdownExtension {
 }
 
 /**
- * 支持使用 shiki 高亮代码¬
+ * 支持使用 shiki 高亮代码
  * @param high
  * @returns
  */

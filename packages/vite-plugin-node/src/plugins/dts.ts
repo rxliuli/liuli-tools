@@ -46,7 +46,7 @@ export async function dts(options: { bundle?: boolean; entry: string[]; outDir?:
         },
       },
       (await import('vite-plugin-dts')).default({
-        outputDir: pathe.join(options.outDir ?? 'dist', 'types'),
+        outDir: pathe.join(options.outDir ?? 'dist', 'types'),
         async afterBuild() {
           const outDir = options.outDir
             ? pathe.isAbsolute(options.outDir)

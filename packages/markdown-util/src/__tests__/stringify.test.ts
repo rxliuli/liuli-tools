@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { hastToJsx, mdToHast, toHtml } from '../stringify'
+import { hastToHtml, hastToJsx, mdToHast } from '../stringify'
 import { shikiHandler } from '../utils'
 import { fromMarkdown } from '../parse'
 import { getHighlighter } from 'shiki'
@@ -19,13 +19,13 @@ console.log('hello world');
     themes: ['github-dark', 'github-light'],
   })
 
-  const r = toHtml(root, {
-    hast: {
+  const r = hastToHtml(
+    mdToHast(root, {
       handlers: {
         code: shikiHandler(high),
       },
-    },
-  })
+    })!,
+  )
   expect(r).include('shiki shiki-dark').include('shiki shiki-light')
 })
 

@@ -1,3 +1,5 @@
 # @liuli-util/vite-plugin-dist-firefox
 
-将构建的 chrome 扩展转换为 firefox 扩展，仅允许支持 manifest v3 的 firefox 版本。参考：<https://extensionworkshop.com/documentation/develop/manifest-v3-migration-guide/>
+Converts a built Chrome extension into a Firefox extension, only allowing Firefox versions that support manifest v3. Refer to the [Firefox Manifest v3 Migration Guide](https://extensionworkshop.com/documentation/develop/manifest-v3-migration-guide/).
+
+[Documentation](https://dev.rxliuli.com/en/dev/vite-plugin-dist-firefox)

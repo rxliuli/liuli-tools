@@ -5,8 +5,8 @@ import { fileURLToPath } from 'node:url'
 import { cp, readdir } from 'node:fs/promises'
 import { extract, pathExists, changeJson, changeFile } from './utils'
 
-type GenerateType = 'lib' | 'cli' | 'react-chrome-plugin' | 'react-webapp'
-const templates: GenerateType[] = ['lib', 'cli', 'react-chrome-plugin', 'react-webapp']
+type GenerateType = 'lib' | 'cli'
+const templates: GenerateType[] = ['lib', 'cli']
 
 export interface GenerateOptions {
   cwd: string

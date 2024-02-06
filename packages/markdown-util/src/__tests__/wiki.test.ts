@@ -63,7 +63,7 @@ function wikiLinkToMarkdown(): ToMarkdownExtension {
       wiki: (node: WikiLink) => {
         return node.value
       },
-    },
+    } as any,
   }
 }
 

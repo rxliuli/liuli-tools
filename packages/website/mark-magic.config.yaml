@@ -1,0 +1,19 @@
+tasks:
+  - name: translate
+    input:
+      name: '@mark-magic/plugin-local'
+      config:
+        path: './docs'
+        ignore:
+          - './docs/en/**'
+          - './docs/.vitepress/**'
+    transforms:
+      - name: '@mark-magic/plugin-doctran'
+        config:
+          engine: 'openai'
+          to: 'en'
+          key: ${ OPENAI_API_KEY }
+    output:
+      name: '@mark-magic/plugin-local'
+      config:
+        path: './docs/en'

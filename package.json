@@ -6,7 +6,6 @@
     "setup-all": "pnpm -r run setup",
     "build-all": "pnpm -r run build",
     "test-all": "pnpm test -r",
-    "lint-all": "pnpm -r --parallel run lint",
     "postinstall": "pnpm simple-git-hooks"
   },
   "simple-git-hooks": {
@@ -15,7 +14,7 @@
   },
   "commitlint": {
     "extends": [
-      "@liuli-util/commitlint-standard-config"
+      "@commitlint/config-conventional"
     ]
   },
   "lint-staged": {
@@ -23,21 +22,22 @@
       "prettier --write"
     ]
   },
-  "eslintConfig": {
-    "extends": [
-      "@liuli-util/eslint-config-ts"
-    ]
+  "prettier": {
+    "tabWidth": 2,
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "arrowParens": "always",
+    "endOfLine": "lf"
   },
-  "prettier": "@liuli-util/prettier-standard-config",
   "devDependencies": {
-    "@changesets/cli": "^2.26.1",
-    "@commitlint/cli": "^17.6.3",
-    "@liuli-util/commitlint-standard-config": "workspace:*",
-    "@liuli-util/eslint-config-ts": "workspace:*",
-    "@liuli-util/prettier-standard-config": "workspace:*",
-    "lint-staged": "^13.2.2",
-    "prettier": "^3.1.1",
-    "simple-git-hooks": "^2.8.1",
-    "typescript": "^5.0.4"
+    "@changesets/cli": "^2.27.1",
+    "@commitlint/cli": "^18.6.0",
+    "@commitlint/config-conventional": "^18.6.0",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "simple-git-hooks": "^2.9.0",
+    "typescript": "^5.3.3"
   }
 }

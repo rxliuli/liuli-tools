@@ -16,17 +16,22 @@
   },
   "types": "./src/index.ts",
   "devDependencies": {
-    "@types/node": "^20.1.4",
-    "rimraf": "^5.0.0",
-    "tsup": "^6.7.0",
-    "type-fest": "^3.10.0",
-    "typescript": "^5.0.4"
+    "@types/node": "^20.11.16",
+    "rimraf": "^5.0.5",
+    "tsup": "^8.0.1",
+    "type-fest": "^4.10.2",
+    "typescript": "^5.3.3"
   },
   "optionalDependencies": {
-    "vitest": "^1.0.4"
+    "vitest": "^1.2.2"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "homepage": "https://dev.rxliuli.com/en/dev/test",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rxliuli/liuli-tools/tree/master/packages/markdown-util"
   }
 }

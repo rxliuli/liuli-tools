@@ -19,10 +19,10 @@
   },
   "sideEffects": false,
   "devDependencies": {
-    "@liuli-util/vite-plugin-node": "workspace:^",
+    "@liuli-util/vite-plugin-node": "^0.7.0",
     "typescript": "^5.3.3",
-    "vite": "^5.0.10",
-    "vitest": "^1.0.4"
+    "vite": "^5.0.12",
+    "vitest": "^1.2.2"
   },
   "publishConfig": {
     "access": "public",

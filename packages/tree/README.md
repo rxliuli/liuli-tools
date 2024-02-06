@@ -1,3 +1,5 @@
 # @liuli-util/tree
 
-树结构相关功能的函数库，文档参考 <https://dev.rxliuli.com/lib/tree>
+Tree-related functions, including tree traversal, mapping, filtering, and reduction. All methods perform depth-first traversal.
+
+[Documentation](https://dev.rxliuli.com/en/dev/vite-plugin-dist-firefox)

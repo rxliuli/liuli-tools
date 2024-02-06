@@ -19,15 +19,15 @@
   "sideEffects": false,
   "devDependencies": {
     "@liuli-util/vite-plugin-node": "workspace:^",
-    "@types/lodash-es": "^4.17.7",
-    "@types/node": "^18.11.18",
-    "@types/webextension-polyfill": "^0.10.1",
-    "typescript": "^4.8.4",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^20.11.16",
+    "@types/webextension-polyfill": "^0.10.7",
+    "typescript": "^5.3.3",
     "vite": "^4.0.3",
-    "vitest": "^1.0.4"
+    "vitest": "^1.2.2"
   },
   "optionalDependencies": {
-    "vite": "^4.0.3"
+    "vite": "^5.0.12"
   },
   "publishConfig": {
     "access": "public",
@@ -35,6 +35,11 @@
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
-    "utility-types": "^3.10.0"
+    "utility-types": "^3.11.0"
+  },
+  "homepage": "https://dev.rxliuli.com/en/dev/vite-plugin-firefox-dist",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rxliuli/liuli-tools/tree/master/packages/vite-plugin-firefox-dist"
   }
 }

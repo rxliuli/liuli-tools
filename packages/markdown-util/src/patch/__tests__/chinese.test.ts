@@ -1,16 +1,10 @@
-import { assert, expect, it } from 'vitest'
+import { expect, it } from 'vitest'
 import { fromMarkdown } from '../../parse'
-import { toHtml } from '../../stringify'
+import { hastToHtml, mdToHast } from '../../stringify'
 import { chineseFix } from '../chinise'
-import { codes } from 'micromark-util-symbol/codes'
-import { types } from 'micromark-util-symbol/types'
-import { Code, Construct, Previous, State, Tokenizer } from 'micromark-util-types'
-import { markdownLineEnding, markdownSpace } from 'micromark-util-character'
-import { constants } from 'micromark-util-symbol/constants'
-import { factorySpace } from 'micromark-factory-space'
 
 it('strong', () => {
-  const render = (s: string) => toHtml(fromMarkdown(s, { mdastExtensions: [chineseFix()] }))
+  const render = (s: string) => hastToHtml(mdToHast(fromMarkdown(s, { mdastExtensions: [chineseFix()] }))!)
 
   const s1 = '&ZeroWidthSpace;**真，**她。'
   expect(render(s1)).eq('<p>​<strong>真，</strong>她。</p>')
@@ -45,7 +39,7 @@ it('strong', () => {
 })
 
 it('italic', () => {
-  const render = (s: string) => toHtml(fromMarkdown(s, { mdastExtensions: [chineseFix()] }))
+  const render = (s: string) => hastToHtml(mdToHast(fromMarkdown(s, { mdastExtensions: [chineseFix()] }))!)
   const s1 = '&ZeroWidthSpace;*真，*她。'
   expect(render(s1)).eq('<p>​<em>真，</em>她。</p>')
   const s2 = '*&ZeroWidthSpace;真，*她。'

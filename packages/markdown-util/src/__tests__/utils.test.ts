@@ -2,7 +2,6 @@ import { fromMarkdown } from 'mdast-util-from-markdown'
 import { toMarkdown } from 'mdast-util-to-markdown'
 import { inspect } from 'unist-util-inspect'
 import { describe, expect, it } from 'vitest'
-import { stringify, toHtml } from '../stringify'
 import {
   Heading,
   Paragraph,
@@ -18,6 +17,7 @@ import {
 } from '../utils'
 import { Extension } from 'mdast-util-from-markdown'
 import { Handle } from 'mdast-util-from-markdown'
+import { hastToHtml, mdToHast } from '..'
 
 it('visit', () => {
   const ast = fromMarkdown(`# hello
@@ -53,7 +53,7 @@ it('images', () => {
 
 it('remove space for strong after', () => {
   const root = fromMarkdown(`**真没想到我这么快就要死了，** 她有些自暴自弃地想着。`)
-  expect(stringify(root)).toBe('<p><strong>真没想到我这么快就要死了，</strong> 她有些自暴自弃地想着。</p>')
+  expect(hastToHtml(mdToHast(root)!)).toBe('<p><strong>真没想到我这么快就要死了，</strong> 她有些自暴自弃地想着。</p>')
   visit(root, (item) => {
     if (item.type === 'paragraph') {
       const children = (item as Paragraph).children
@@ -70,7 +70,7 @@ it('remove space for strong after', () => {
       })
     }
   })
-  expect(stringify(root)).toBe('<p><strong>真没想到我这么快就要死了，</strong>她有些自暴自弃地想着。</p>')
+  expect(hastToHtml(mdToHast(root)!)).toBe('<p><strong>真没想到我这么快就要死了，</strong>她有些自暴自弃地想着。</p>')
 })
 
 describe('selectAll', () => {
@@ -119,7 +119,7 @@ it('flatMap', () => {
 it('flatMap using parent', () => {
   const s = `**真没想到我这么快就要死了，** 她有些自暴自弃地想着。`
   const root = fromMarkdown(s)
-  expect(toHtml(root)).eq('<p><strong>真没想到我这么快就要死了，</strong> 她有些自暴自弃地想着。</p>')
+  expect(hastToHtml(mdToHast(root)!)).eq('<p><strong>真没想到我这么快就要死了，</strong> 她有些自暴自弃地想着。</p>')
   flatMap(root, (item, i, p) => {
     if (item.type === 'strong') {
       const v = item as Strong
@@ -139,7 +139,7 @@ it('flatMap using parent', () => {
     }
     return [item]
   })
-  expect(toHtml(root)).eq('<p><strong>真没想到我这么快就要死了，</strong>她有些自暴自弃地想着。</p>')
+  expect(hastToHtml(mdToHast(root)!)).eq('<p><strong>真没想到我这么快就要死了，</strong>她有些自暴自弃地想着。</p>')
 })
 
 it('breaks', () => {
@@ -147,69 +147,10 @@ it('breaks', () => {
   const root = fromMarkdown(s, {
     mdastExtensions: [breaksFromMarkdown()],
   })
-  expect(toHtml(root)).eq('<p>test1<br>\ntest2</p>')
+  expect(hastToHtml(mdToHast(root)!)).eq('<p>test1<br>\ntest2</p>')
   expect(
     toMarkdown(root, {
       extensions: [breaksToMarkdown()],
     }).trim(),
   ).eq(s)
-})
-
-describe('cjk', () => {
-  it('cjk include strong', () => {
-    const handleChineseCharactersAndPunctuation: Handle = function (token) {
-      // Log the token
-      console.log('Token:', token)
-
-      // Check if the token is the start or end of bold syntax
-      if (token.type === 'star' && token.oneStar) {
-        // Check if the next or previous token is a text token with Chinese characters and punctuation
-        const nextToken = this.peek()
-        const prevToken = this.previous()
-
-        // Log the next and previous tokens
-        console.log('Next token:', nextToken)
-        console.log('Previous token:', prevToken)
-
-        if (
-          (nextToken && nextToken.type === 'text' && isChineseCharactersAndPunctuation(nextToken.value)) ||
-          (prevToken && prevToken.type === 'text' && isChineseCharactersAndPunctuation(prevToken.value))
-        ) {
-          // If it is, create a 'strong' node
-          const node = {
-            type: 'strong',
-            children: [],
-          }
-
-          // Log the node
-          console.log('Node:', node)
-
-          // Enter the 'strong' node
-          this.enter(node, token)
-
-          // If the token is the end of bold syntax, exit the 'strong' node
-          if (token.closing) {
-            this.exit(token)
-          }
-
-          return node
-        }
-      }
-    }
-    // Helper function to check if a string contains Chinese characters and punctuation
-    function isChineseCharactersAndPunctuation(str: string) {
-      const regex = /[\u4e00-\u9fa5。，“”‘’！？]/ // This regex matches Chinese characters and punctuation
-      return regex.test(str)
-    }
-    const extension: Extension = {
-      canContainEols: ['textDirective'],
-      enter: {
-        chineseCharactersAndPunctuation: handleChineseCharactersAndPunctuation,
-      },
-    }
-    const r = fromMarkdown('**真没想到我这么快就要死了，**她有些自暴自弃地想着。', {
-      mdastExtensions: [extension],
-    })
-    // console.log(inspect(r))
-  })
 })

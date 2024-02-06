@@ -58,7 +58,7 @@ export function config(options: { entry: string[]; formats: Format[]; outDir?: s
           target: 'esnext',
         },
         resolve: {
-          browserField: false, // TODO 该选项已被标记为废弃，需要找到替代品
+          mainFields: ['module', 'jsnext:main', 'jsnext', 'browser'],
           conditions: ['node'],
         },
       }

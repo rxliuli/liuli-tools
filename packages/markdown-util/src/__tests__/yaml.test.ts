@@ -1,8 +1,8 @@
 import { describe } from 'node:test'
 import { expect, it } from 'vitest'
 import { fromMarkdown, toMarkdown } from '../parse'
-import { stringify, toHtml } from '../stringify'
 import { getYamlMeta, select, setYamlMeta, YAML } from '../utils'
+import { hastToHtml, mdToHast } from '..'
 
 it('yaml', () => {
   const str = `
@@ -15,7 +15,7 @@ content
 `.trim()
   const root = fromMarkdown(str)
   const meta = select('yaml', root) as YAML
-  expect(stringify(root)).toBe('<p>content</p>')
+  expect(hastToHtml(mdToHast(root)!)).toBe('<p>content</p>')
   expect(meta.value).toBe('title: hello world\ndate: 2022-08-11')
 })
 

@@ -18,15 +18,19 @@
   },
   "types": "./dist/index.d.ts",
   "devDependencies": {
-    "@liuli-util/test": "workspace:^3.3.0",
-    "rimraf": "^5.0.0",
-    "tsup": "^6.7.0",
-    "typescript": "^5.0.4",
-    "vitest": "^1.0.4"
+    "@liuli-util/test": "workspace:^",
+    "rimraf": "^5.0.5",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "homepage": "https://dev.rxliuli.com/lib/tree"
+  "homepage": "https://dev.rxliuli.com/en/lib/tree",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rxliuli/liuli-tools/tree/master/packages/tree"
+  }
 }

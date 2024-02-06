@@ -1,5 +1,11 @@
 # @liuli-util/vite-plugin-node
 
+## 0.8.1
+
+### Patch Changes
+
+- fix(vite-plugin-node): 修复默认没有按照 node 模式 resolve 依赖的问题
+
 ## 0.8.0
 
 ### Minor Changes

@@ -1,0 +1,1 @@
+import{_ as s,c as i,o as a,V as n}from"./chunks/framework.--NMbU3Q.js";const F=JSON.parse('{"title":"@liuli-util/tree","description":"","frontmatter":{},"headers":[],"relativePath":"lib/tree.md","filePath":"lib/tree.md"}'),h={name:"lib/tree.md"},l=n("",30),k=[l];function p(t,E,e,r,d,g){return a(),i("div",null,k)}const c=s(h,[["render",p]]);export{F as __pageData,c as default};

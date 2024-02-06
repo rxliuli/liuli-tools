@@ -113,7 +113,7 @@ importers:
         version: 4.17.21
     devDependencies:
       '@liuli-util/vite-plugin-node':
-        specifier: ^0.7.0
+        specifier: ^0.8.0
         version: link:../../../vite-plugin-node
       '@types/lodash-es':
         specifier: ^4.17.12
@@ -137,7 +137,7 @@ importers:
   packages/create-liuli/packages/lib:
     devDependencies:
       '@liuli-util/vite-plugin-node':
-        specifier: ^0.7.0
+        specifier: ^0.8.0
         version: link:../../../vite-plugin-node
       typescript:
         specifier: ^5.3.3

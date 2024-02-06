@@ -1,4 +1,4 @@
-import { Plugin } from 'vite'
+import { Plugin, UserConfig, mergeConfig } from 'vite'
 import pathe from 'pathe'
 import { access, readFile } from 'fs/promises'
 
@@ -42,7 +42,7 @@ export function config(options: { entry: string[]; formats: Format[]; outDir?: s
       if (!(await pathExists(jsonPath))) {
         throw new Error(`package.json not found in ${root}`)
       }
-      const r = JSON.parse(await readFile(jsonPath, 'utf-8'))
+      const packageJson = JSON.parse(await readFile(jsonPath, 'utf-8'))
       return {
         build: {
           outDir: options.outDir,
@@ -50,7 +50,7 @@ export function config(options: { entry: string[]; formats: Format[]; outDir?: s
             entry: options.entry,
             formats: options.formats,
             fileName(_format, entryName) {
-              const ext = defaultOutExtension({ format: _format as any, pkgType: r.type })
+              const ext = defaultOutExtension({ format: _format as any, pkgType: packageJson.type })
               // console.log(_format, entryName, ext)
               return `${pathe.basename(entryName, pathe.extname(entryName))}${ext.js}`
             },
@@ -58,7 +58,7 @@ export function config(options: { entry: string[]; formats: Format[]; outDir?: s
           target: 'esnext',
         },
         resolve: {
-          mainFields: ['module', 'jsnext:main', 'jsnext', 'browser'],
+          mainFields: ['module', 'jsnext:main', 'jsnext'],
           conditions: ['node'],
         },
       }

@@ -198,3 +198,40 @@ describe('dts', () => {
     expect(await fs.pathExists(pathe.resolve(tempPath, 'dist/entry2.d.ts'))).true
   })
 })
+
+it('default resolve node', async () => {
+  const entry = pathe.resolve(tempPath, 'index.ts')
+  await writeFile(entry, `export * from 'decode-named-character-reference'`)
+  await build({
+    root: tempPath,
+    plugins: [node({ entry: [entry] })],
+    build: { minify: false },
+  })
+  const r = await import(pathe.resolve(tempPath, 'dist/index.js'))
+  await $`node ${pathe.resolve(tempPath, 'dist/index.js')}`
+})
+
+it('override config', async () => {
+  const entry = pathe.resolve(tempPath, 'index.ts')
+  await writeFile(entry, `export * from 'decode-named-character-reference'`)
+  await build({
+    root: tempPath,
+    plugins: [node({ entry: [entry] })],
+    resolve: {
+      mainFields: ['browser'],
+      conditions: ['browser'],
+    },
+  })
+  await expect(() => $`node ${pathe.resolve(tempPath, 'dist/index.js')}`).rejects.toThrowError()
+})
+
+it('build express', async () => {
+  const entry = pathe.resolve(tempPath, 'index.ts')
+  writeFile(entry, `import express from 'express'`)
+  await build({
+    root: tempPath,
+    plugins: [node({ entry: [entry] })],
+    build: { minify: false },
+  })
+  await $`node ${pathe.resolve(tempPath, 'dist/index.js')}`
+})

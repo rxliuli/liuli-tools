@@ -601,7 +601,7 @@ importers:
         version: 4.17.21
     devDependencies:
       '@liuli-util/vite-plugin-node':
-        specifier: workspace:^
+        specifier: ^0.7.0
         version: link:../../../vite-plugin-node
       '@types/lodash-es':
         specifier: ^4.17.12
@@ -16215,7 +16215,7 @@ packages:
       '@types/node': 20.10.4
       esbuild: 0.17.19
       postcss: 8.4.32
-      rollup: 3.29.4
+      rollup: 3.26.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
@@ -16248,7 +16248,7 @@ packages:
       '@types/node': 20.3.1
       esbuild: 0.17.19
       postcss: 8.4.32
-      rollup: 3.29.4
+      rollup: 3.26.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
@@ -16281,7 +16281,7 @@ packages:
       '@types/node': 20.3.2
       esbuild: 0.17.19
       postcss: 8.4.32
-      rollup: 3.29.4
+      rollup: 3.26.0
     optionalDependencies:
       fsevents: 2.3.3
 

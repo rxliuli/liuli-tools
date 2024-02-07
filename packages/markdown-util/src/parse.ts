@@ -26,6 +26,8 @@ export function fromMarkdown(content: string, options?: FmOptions): Root {
  */
 export function toMarkdown(ast: Content | Root, options?: TmOptions): string {
   return tm(ast, {
+    listItemIndent: 'one',
+    bullet: '-',
     ...options,
     extensions: [frontmatterToMarkdown(['yaml']), gfmToMarkdown()].concat(options?.extensions ?? []),
   })

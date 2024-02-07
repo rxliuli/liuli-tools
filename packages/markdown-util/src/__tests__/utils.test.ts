@@ -1,6 +1,3 @@
-import { fromMarkdown } from 'mdast-util-from-markdown'
-import { toMarkdown } from 'mdast-util-to-markdown'
-import { inspect } from 'unist-util-inspect'
 import { describe, expect, it } from 'vitest'
 import {
   Heading,
@@ -14,10 +11,11 @@ import {
   Strong,
   breaksFromMarkdown,
   breaksToMarkdown,
+  shikiHandler,
 } from '../utils'
-import { Extension } from 'mdast-util-from-markdown'
-import { Handle } from 'mdast-util-from-markdown'
-import { hastToHtml, mdToHast } from '..'
+import { hastToHtml, mdToHast, fromMarkdown, toMarkdown } from '..'
+import { getHighlighter } from 'shiki'
+import { min } from 'lodash-es'
 
 it('visit', () => {
   const ast = fromMarkdown(`# hello
@@ -153,4 +151,55 @@ it('breaks', () => {
       extensions: [breaksToMarkdown()],
     }).trim(),
   ).eq(s)
+})
+
+it('code with language', async () => {
+  const root = fromMarkdown(
+    `
+# hello world
+
+\`\`\`js
+console.log('hello world');
+\`\`\`
+  `.trim(),
+  )
+  const high = await getHighlighter({
+    themes: ['github-dark', 'github-light'],
+  })
+
+  const r = hastToHtml(
+    mdToHast(root, {
+      handlers: {
+        code: shikiHandler(high),
+      },
+    })!,
+  )
+  expect(r).include('shiki shiki-dark').include('shiki shiki-light')
+})
+
+describe('output format', () => {
+  // 清理每一行的前的公共空格，例如 5 行中每一行的前 3 个空格都会被清理掉
+  function trimMarkdown(s: string) {
+    const l = s.split('\n').filter((it) => it.trim().length > 0)
+    const ident = min(l.map((v) => v.length - v.trimStart().length))
+    return l.map((v) => v.slice(ident)).join('\n')
+  }
+  it.skip('unordered lists', () => {
+    const root = fromMarkdown(
+      trimMarkdown(`
+      - item 1
+      - item 2
+      `),
+    )
+    expect(toMarkdown(root).trim()).eq('- item 1\n- item 2')
+  })
+  it('ordered lists', () => {
+    const root = fromMarkdown(
+      trimMarkdown(`
+      1. item 1
+      2. item 2
+      `),
+    )
+    expect(toMarkdown(root).trim()).eq('1. item 1\n2. item 2')
+  })
 })

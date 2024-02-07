@@ -1,5 +1,11 @@
 # @liuli-util/markdown-util
 
+## 0.9.1
+
+### Patch Changes
+
+- fix: 修复输出之后列表的格式错误
+
 ## 0.9.0
 
 ### Minor Changes

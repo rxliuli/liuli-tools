@@ -1,5 +1,11 @@
 # @liuli-util/markdown-util
 
+## 0.9.2
+
+### Patch Changes
+
+- feat: 支持实验性中文符号解析支持
+
 ## 0.9.1
 
 ### Patch Changes

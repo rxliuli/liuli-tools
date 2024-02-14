@@ -1,6 +1,6 @@
 import { fromMarkdown as fm, Options as FmOptions, Extension } from 'mdast-util-from-markdown'
 import { Options as TmOptions, toMarkdown as tm } from 'mdast-util-to-markdown'
-import type { Content, Root } from 'mdast'
+import type { Root, RootContent } from 'mdast'
 import { frontmatterFromMarkdown, frontmatterToMarkdown } from 'mdast-util-frontmatter'
 import { frontmatter } from 'micromark-extension-frontmatter'
 import { gfm } from 'micromark-extension-gfm'
@@ -24,7 +24,7 @@ export function fromMarkdown(content: string, options?: FmOptions): Root {
  * @param ast
  * @returns
  */
-export function toMarkdown(ast: Content | Root, options?: TmOptions): string {
+export function toMarkdown(ast: RootContent | Root, options?: TmOptions): string {
   return tm(ast, {
     listItemIndent: 'one',
     bullet: '-',

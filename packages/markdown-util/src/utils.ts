@@ -8,7 +8,7 @@ import { Extension } from 'mdast-util-from-markdown'
 import { Options as ToMarkdownExtension } from 'mdast-util-to-markdown'
 import { fromHtml } from 'hast-util-from-html'
 import { Handler } from 'mdast-util-to-hast'
-import { Highlighter, Lang } from 'shiki'
+import { BundledLanguage, Highlighter } from 'shiki'
 
 export type {
   AlignType,
@@ -22,12 +22,10 @@ export type {
   TableContent,
   RowContent,
   PhrasingContent,
-  StaticPhrasingContent,
   // interface
   BlockContentMap,
   FrontmatterContentMap,
   DefinitionContentMap,
-  StaticPhrasingContentMap,
   PhrasingContentMap,
   ListContentMap,
   TableContentMap,
@@ -59,7 +57,6 @@ export type {
   Image,
   LinkReference,
   ImageReference,
-  Footnote,
   FootnoteReference,
   Resource,
   Association,
@@ -199,7 +196,7 @@ export function shikiHandler(high: Highlighter): Handler {
         'element[tagName="pre"]',
         fromHtml(
           high
-            .codeToHtml(node.value, { lang: node.lang as Lang, theme: themeValue })
+            .codeToHtml(node.value, { lang: node.lang as BundledLanguage, theme: themeValue })
             .replace('<pre class="shiki ', `<pre class="shiki shiki-${theme} `),
         ),
       )

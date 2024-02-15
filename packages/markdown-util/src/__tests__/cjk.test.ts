@@ -41,6 +41,10 @@ describe('strong', () => {
   it('Render multiple strong', () => {
     expect(render('**真，**她**真**，她')).eq('<p><strong>真，</strong>她<strong>真</strong>，她</p>')
   })
+
+  it('Render with escaped asterisks', () => {
+    expect(render(`\*\*真，\*\*她`)).eq('<p><strong>真，</strong>她</p>').not.eq('<p>**真，**她</p>')
+  })
 })
 
 it('clearStrongAfterSpace', () => {

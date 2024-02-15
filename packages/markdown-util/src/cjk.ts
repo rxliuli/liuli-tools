@@ -60,7 +60,8 @@ export function parseStrong(): Transform {
             }),
           } as Paragraph,
         ]
-      } else if (it.type === 'text') {
+      }
+      if (it.type === 'text') {
         const list = parseAndTransform((it as Text).value, STRONG_REGEXP)
         return list.map((it) => {
           if (it.match) {

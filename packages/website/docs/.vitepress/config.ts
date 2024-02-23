@@ -11,23 +11,20 @@ export default defineConfig({
         sidebar: [
           {
             text: '开发工具',
-            link: '/dev/create-liuli',
             items: [
               { text: 'create-liuli', link: '/dev/create-liuli' },
               { text: 'vite-plugin-node', link: '/dev/vite-plugin-node' },
               { text: 'rollup-plugin-i18next-dts-gen', link: '/dev/rollup-plugin-i18next-dts-gen' },
-              { text: 'vite-plugin-dist-firefox', link: '/dev/vite-plugin-dist-firefox' },
+              { text: 'vite-plugin-firefox-dist', link: '/dev/vite-plugin-firefox-dist' },
               { text: 'test', link: '/dev/test' },
             ],
           },
           {
             text: '函数库',
-            link: '/lib/tree',
             items: [
-              { text: 'tree', link: '/lib/tree' },
               { text: 'async', link: '/lib/async' },
+              { text: 'tree', link: '/lib/tree' },
               { text: 'markdown-util', link: '/lib/markdown-util' },
-              { text: 'test', link: '/lib/test' },
             ],
           },
         ],
@@ -42,21 +39,19 @@ export default defineConfig({
         sidebar: [
           {
             text: 'Development Tools',
-            link: '/en/dev/create-liuli',
             items: [
               { text: 'create-liuli', link: '/en/dev/create-liuli' },
               { text: 'vite-plugin-node', link: '/en/dev/vite-plugin-node' },
               { text: 'rollup-plugin-i18next-dts-gen', link: '/en/dev/rollup-plugin-i18next-dts-gen' },
-              { text: 'vite-plugin-dist-firefox', link: '/en/dev/vite-plugin-dist-firefox' },
+              { text: 'vite-plugin-firefox-dist', link: '/en/dev/vite-plugin-firefox-dist' },
               { text: 'test', link: '/en/dev/test' },
             ],
           },
           {
             text: 'Library',
-            link: '/en/lib/tree',
             items: [
-              { text: 'tree', link: '/en/lib/tree' },
               { text: 'async', link: '/en/lib/async' },
+              { text: 'tree', link: '/en/lib/tree' },
               { text: 'markdown-util', link: '/en/lib/markdown-util' },
             ],
           },

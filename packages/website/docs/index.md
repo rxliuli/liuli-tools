@@ -14,6 +14,6 @@ hero:
       link: /dev/create-liuli
     - theme: alt
       text: lib
-      link: /lib/tree
+      link: /lib/async
 footer: MIT Licensed | Copyright © 2021-present rxliuli
 ---

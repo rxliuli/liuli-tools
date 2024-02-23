@@ -1,4 +1,4 @@
-# @liuli-util/vite-plugin-dist-firefox
+# @liuli-util/vite-plugin-firefox-dist
 
 Converts a built Chrome extension into a Firefox extension, only allowing Firefox versions that support manifest v3. Refer to the [Firefox Manifest v3 Migration Guide](https://extensionworkshop.com/documentation/develop/manifest-v3-migration-guide/).
 
@@ -10,7 +10,7 @@ Configure in vite.config.ts:
 import { defineConfig } from 'vite'
 import { crx } from '@crxjs/vite-plugin'
 import manifest from './manifest.json'
-import { firefox } from '@liuli-util/vite-plugin-dist-firefox'
+import { firefox } from '@liuli-util/vite-plugin-firefox-dist'
 
 export default defineConfig({
   plugins: [

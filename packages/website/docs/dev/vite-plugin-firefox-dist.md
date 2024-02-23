@@ -1,4 +1,4 @@
-# @liuli-util/vite-plugin-dist-firefox
+# @liuli-util/vite-plugin-firefox-dist
 
 将构建的 chrome 扩展转换为 firefox 扩展，仅允许支持 manifest v3 的 firefox 版本。参考：[firefox manifest v3 迁移指南](https://extensionworkshop.com/documentation/develop/manifest-v3-migration-guide/)
 
@@ -10,7 +10,7 @@
 import { defineConfig } from 'vite'
 import { crx } from '@crxjs/vite-plugin'
 import manifest from './manifest.json'
-import { firefox } from '@liuli-util/vite-plugin-dist-firefox'
+import { firefox } from '@liuli-util/vite-plugin-firefox-dist'
 
 export default defineConfig({
   plugins: [

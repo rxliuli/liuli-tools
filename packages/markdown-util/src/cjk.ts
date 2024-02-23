@@ -26,7 +26,7 @@ export function parseAndTransform(
       result.push({ match: false, value: inputString.slice(lastIndex, offset) })
     }
     // Add the matched text
-    result.push({ match: true, value: match.slice(2, match.length - 2) })
+    result.push({ match: true, value: match })
     lastIndex = offset + match.length
     return '' // Return an empty string
   })
@@ -38,6 +38,42 @@ export function parseAndTransform(
 }
 
 export const STRONG_REGEXP = /\*\*.*?[，。、；：？！“”‘’（）【】《》—～…·〃\-々]\*\*/
+
+export function parse(options: { type: 'strong' | 'emphasis' }): Transform {
+  const len = options.type === 'strong' ? 2 : 1
+  const f = (s: string) => s.slice(len, s.length - len)
+  const regexp = options.type === 'strong' ? STRONG_REGEXP : ITALIC_REGEXP
+  return (root) => {
+    flatMap(root, (it) => {
+      // if (it.type === 'paragraph') {
+      //   const text = toMarkdown(it as Paragraph).trimEnd()
+      //   const r = parseAndTransform(text, regexp)
+      //   return [
+      //     {
+      //       type: 'paragraph',
+      //       children: r.flatMap((it) => {
+      //         if (it.match) {
+      //           return [{ type: options.type, children: [{ type: 'text', value: f(it.value) }] }]
+      //         }
+      //         return (select('paragraph', fromMarkdown(it.value)) as Paragraph)?.children
+      //       }),
+      //     } as Paragraph,
+      //   ]
+      // }
+      if (it.type === 'text') {
+        const list = parseAndTransform((it as Text).value, regexp)
+        return list.map((it) => {
+          if (it.match) {
+            return { type: options.type, children: [{ type: 'text', value: f(it.value) }] }
+          }
+          return { type: 'text', value: it.value }
+        })
+      }
+      return [it]
+    })
+    return root
+  }
+}
 
 /**
  * 处理中文中的强调和加粗
@@ -54,7 +90,7 @@ export function parseStrong(): Transform {
             type: 'paragraph',
             children: r.flatMap((it) => {
               if (it.match) {
-                return [{ type: 'strong', children: [{ type: 'text', value: it.value }] }]
+                return [{ type: 'strong', children: [{ type: 'text', value: it.value.slice(2, it.value.length - 2) }] }]
               }
               return (select('paragraph', fromMarkdown(it.value)) as Paragraph)?.children
             }),
@@ -65,7 +101,7 @@ export function parseStrong(): Transform {
         const list = parseAndTransform((it as Text).value, STRONG_REGEXP)
         return list.map((it) => {
           if (it.match) {
-            return { type: 'strong', children: [{ type: 'text', value: it.value }] }
+            return { type: 'strong', children: [{ type: 'text', value: it.value.slice(2, it.value.length - 2) }] }
           }
           return { type: 'text', value: it.value }
         })
@@ -74,6 +110,13 @@ export function parseStrong(): Transform {
     })
     return root
   }
+}
+
+export const ITALIC_REGEXP =
+  /\*.*?[，。、；：？！“”‘’（）【】《》—～…·〃\-々]\*|\*.*?[，。、；：？！“”‘’（）【】《》—～…·〃\-々]\*/
+
+export function parseItalic(): Transform {
+  return parse({ type: 'emphasis' })
 }
 
 /**
@@ -150,6 +193,6 @@ function italic(): Transform {
  */
 export function cjk(): MdastExtension {
   return {
-    transforms: [parseStrong(), clearStrongAfterSpace()],
+    transforms: [parseStrong(), clearStrongAfterSpace(), parseItalic()],
   }
 }

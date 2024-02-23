@@ -12,6 +12,8 @@ import {
   breaksFromMarkdown,
   breaksToMarkdown,
   shikiHandler,
+  select,
+  Root,
 } from '../utils'
 import { hastToHtml, mdToHast, fromMarkdown, toMarkdown } from '..'
 import { getHighlighter } from 'shiki'
@@ -202,4 +204,23 @@ describe('output format', () => {
     )
     expect(toMarkdown(root).trim()).eq('1. item 1\n2. item 2')
   })
+})
+
+it('select', () => {
+  const root: Root = {
+    type: 'root',
+    children: [
+      {
+        type: 'heading',
+        depth: 1,
+        children: [
+          {
+            type: 'text',
+            value: 'test',
+          },
+        ],
+      },
+    ],
+  }
+  expect(((select('heading[depth="1"]', root) as Heading).children[0] as Text).value).eq('test')
 })

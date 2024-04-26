@@ -1,5 +1,11 @@
 # @liuli-util/vite-plugin-node
 
+## 0.9.0
+
+### Minor Changes
+
+- feat: support vite v4 and v5
+
 ## 0.8.1
 
 ### Patch Changes

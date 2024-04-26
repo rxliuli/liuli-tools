@@ -35,7 +35,7 @@
     "zx": "^7.2.3"
   },
   "peerDependencies": {
-    "vite": "^4"
+    "vite": "^4.x || ^5.x"
   },
   "publishConfig": {
     "access": "public",

@@ -102,7 +102,7 @@ it('zx', async () => {
   )
   await build({
     root: tempPath,
-    plugins: [node({ entry: [entry] })],
+    plugins: [node({ entry: [entry], shims: true })],
     build: { minify: false },
   })
   await $`node ${pathe.resolve(tempPath, 'dist/index.js')}`

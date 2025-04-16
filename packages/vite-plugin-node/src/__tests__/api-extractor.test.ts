@@ -23,6 +23,13 @@ it('basic', async () => {
         tsdocMetadata: { enabled: false },
         apiReport: { enabled: false },
         docModel: { enabled: false },
+        messages: {
+          extractorMessageReporting: {
+            'ae-missing-release-tag': {
+              logLevel: 'none',
+            },
+          },
+        },
       } as IConfigFile),
     ),
   ])

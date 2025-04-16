@@ -1,16 +1,15 @@
 {
   "name": "@liuli-util/vite-plugin-node",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
-      "default": "./dist/index.js",
+      "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
     "./*": "./*"
   },
-  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "vite build",
     "dev": "vite build --watch",
@@ -24,18 +23,18 @@
   "devDependencies": {
     "@liuli-util/test": "workspace:^",
     "@types/lodash-es": "^4.17.12",
-    "@types/node": "^20.11.16",
-    "decode-named-character-reference": "^1.0.2",
-    "express": "^4.18.2",
+    "@types/node": "^22.14.1",
+    "decode-named-character-reference": "^1.1.0",
+    "express": "^5.1.0",
     "fsevents": "^2.3.3",
     "lodash-es": "^4.17.21",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.12",
-    "vitest": "^1.2.2",
-    "zx": "^7.2.3"
+    "typescript": "^5.8.3",
+    "vite": "^6.2.6",
+    "vitest": "^3.1.1",
+    "zx": "^8.5.2"
   },
   "peerDependencies": {
-    "vite": "^4.x || ^5.x"
+    "vite": "^4.x || ^5.x || ^6.x"
   },
   "publishConfig": {
     "access": "public",
@@ -43,10 +42,10 @@
   },
   "dependencies": {
     "@microsoft/api-extractor": "^7.39.5",
-    "magic-string": "^0.30.7",
-    "pathe": "^1.1.2",
-    "rollup-plugin-node-externals": "^7.0.1",
-    "vite-plugin-dts": "^3.7.2"
+    "magic-string": "^0.30.17",
+    "pathe": "^2.0.3",
+    "rollup-plugin-node-externals": "^8.0.0",
+    "vite-plugin-dts": "^4.5.3"
   },
   "homepage": "https://dev.rxliuli.com/en/dev/vite-plugin-node",
   "repository": {

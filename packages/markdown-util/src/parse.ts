@@ -5,6 +5,8 @@ import { frontmatterFromMarkdown, frontmatterToMarkdown } from 'mdast-util-front
 import { frontmatter } from 'micromark-extension-frontmatter'
 import { gfm } from 'micromark-extension-gfm'
 import { gfmFromMarkdown, gfmToMarkdown } from 'mdast-util-gfm'
+import { math } from 'micromark-extension-math'
+import { mathFromMarkdown, mathToMarkdown } from 'mdast-util-math'
 
 /**
  * 解析 markdown 文本为 ast
@@ -14,8 +16,10 @@ import { gfmFromMarkdown, gfmToMarkdown } from 'mdast-util-gfm'
 export function fromMarkdown(content: string, options?: FmOptions): Root {
   return fm(content, {
     ...options,
-    extensions: [frontmatter(['yaml']), gfm()].concat(options?.extensions ?? []),
-    mdastExtensions: [frontmatterFromMarkdown(['yaml']), gfmFromMarkdown()].concat(options?.mdastExtensions ?? []),
+    extensions: [frontmatter(['yaml']), gfm(), math()].concat(options?.extensions ?? []),
+    mdastExtensions: [frontmatterFromMarkdown(['yaml']), gfmFromMarkdown(), mathFromMarkdown()].concat(
+      options?.mdastExtensions ?? [],
+    ),
   })
 }
 
@@ -29,6 +33,6 @@ export function toMarkdown(ast: RootContent | Root, options?: TmOptions): string
     listItemIndent: 'one',
     bullet: '-',
     ...options,
-    extensions: [frontmatterToMarkdown(['yaml']), gfmToMarkdown()].concat(options?.extensions ?? []),
+    extensions: [frontmatterToMarkdown(['yaml']), gfmToMarkdown(), mathToMarkdown()].concat(options?.extensions ?? []),
   })
 }
